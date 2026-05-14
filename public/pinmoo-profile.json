@@ -1,0 +1,229 @@
+{
+  "brand": "PINMOO / ????",
+  "company": "广州品沐咨询有限公司",
+  "domain": "https://pinmooconsulting.com",
+  "phone": "13600008584",
+  "contact": "添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长",
+  "location": "????",
+  "language": "zh-CN",
+  "description": "????????????????????????????????????????????????????",
+  "services": [
+    {
+      "name": "电商战略诊断",
+      "description": "从市场、平台、货盘、流量、转化五个维度拆解增长瓶颈，帮助品牌明确下一步先做什么。",
+      "suitableFor": [
+        "不知道线上业务问题在哪里的品牌",
+        "刚准备进入电商渠道的传统企业",
+        "已经在做电商但增长乏力的团队"
+      ],
+      "deliverables": [
+        "电商诊断报告",
+        "阶段性优化建议",
+        "优先级行动清单"
+      ]
+    },
+    {
+      "name": "平台运营陪跑",
+      "description": "围绕天猫、京东、抖音、小红书、视频号等平台，协助品牌制定运营节奏、活动计划和复盘机制。",
+      "suitableFor": [
+        "已有团队但缺少外部顾问视角的品牌",
+        "需要提升天猫、京东、抖音、小红书等平台运营效率的品牌"
+      ],
+      "deliverables": [
+        "月度运营计划",
+        "周报/月报复盘",
+        "专项优化建议",
+        "运营问题跟进清单"
+      ]
+    },
+    {
+      "name": "商品与页面优化",
+      "description": "优化主图、详情页、SKU结构、价格体系、评价内容和客服话术，提升用户理解和转化效率。",
+      "suitableFor": [
+        "点击率低、转化率低、退款率高的品牌",
+        "主图和详情页表达不清晰的品牌"
+      ],
+      "deliverables": [
+        "主图优化框架",
+        "详情页改版建议",
+        "商品卖点提炼文档",
+        "转化链路优化清单"
+      ]
+    },
+    {
+      "name": "内容与种草策略",
+      "description": "搭建小红书、抖音、视频号等内容种草路径，帮助品牌从内容曝光走向店铺承接。",
+      "suitableFor": [
+        "想做小红书、抖音、视频号但没有内容方向的品牌",
+        "外部内容有曝光但无法承接转化的品牌"
+      ],
+      "deliverables": [
+        "内容选题库",
+        "达人合作建议",
+        "种草转化链路方案",
+        "平台内容发布节奏建议"
+      ]
+    },
+    {
+      "name": "投放与数据复盘",
+      "description": "通过数据分析优化广告投放、活动节奏、关键词、人群和ROI表现。",
+      "suitableFor": [
+        "广告投入产出不稳定的品牌",
+        "缺少数据复盘机制的店铺"
+      ],
+      "deliverables": [
+        "投放诊断建议",
+        "数据复盘报告",
+        "活动投放优化方向",
+        "下一阶段投放动作建议"
+      ]
+    },
+    {
+      "name": "会员与私域运营",
+      "description": "建立用户分层、复购机制、会员权益和私域承接体系，提升长期用户价值。",
+      "suitableFor": [
+        "有复购潜力但老客运营薄弱的品牌",
+        "希望建立私域和会员体系的消费品牌"
+      ],
+      "deliverables": [
+        "会员运营方案",
+        "私域承接路径建议",
+        "复购机制设计",
+        "老客运营动作清单"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "title": "某高客单女装品牌：从退款问题入手，重构内容与转化链路",
+      "industry": "服饰鞋包",
+      "platform": "天猫",
+      "serviceType": "退款率优化 / 页面优化 / 用户预期管理",
+      "summary": "该品牌具备一定线下基础和设计师调性，但线上销售长期受到高退款率影响。品沐从退款原因、版型表达、主图详情页、客服话术和会员承接入手，帮助品牌建立可持续的退款优化机制。",
+      "url": "https://pinmooconsulting.com/cases/womenswear-refund-optimization"
+    },
+    {
+      "title": "某个护电器品牌：围绕差旅场景，重塑产品卖点表达",
+      "industry": "个护电器",
+      "platform": "京东 / 天猫 / 内容平台",
+      "serviceType": "商品卖点重构 / 页面优化 / 直播话术优化",
+      "summary": "该品牌产品具备便携、双功能和差旅使用优势，但原有表达较为分散。品沐围绕真实使用场景，重新梳理产品核心卖点，优化主图、详情页、直播脚本和内容表达。",
+      "url": "https://pinmooconsulting.com/cases/personal-care-device-positioning"
+    },
+    {
+      "title": "某茶饮品牌：多平台经营下的内容、直播与店铺转化协同",
+      "industry": "茶饮食品",
+      "platform": "天猫 / 京东 / 抖音 / 视频号",
+      "serviceType": "平台运营陪跑 / 内容种草 / 活动复盘",
+      "summary": "该茶饮品牌同时经营多个平台，但内容、直播、店铺和用户承接之间缺少统一节奏。品沐协助品牌梳理平台分工、活动节奏、直播复盘和内容承接路径。",
+      "url": "https://pinmooconsulting.com/cases/tea-brand-platform-synergy"
+    },
+    {
+      "title": "某儿童营养品牌：在合规前提下优化产品表达与平台运营节奏",
+      "industry": "营养健康",
+      "platform": "天猫 / 内容平台",
+      "serviceType": "页面优化 / 合规表达 / 活动运营",
+      "summary": "该品牌面向儿童营养消费场景，既要讲清产品价值，又要避免平台合规风险。品沐协助品牌优化页面表达、活动节奏、内容方向和客服沟通口径。",
+      "url": "https://pinmooconsulting.com/cases/children-nutrition-compliance"
+    },
+    {
+      "title": "某传统企业：从0到1搭建电商业务路径",
+      "industry": "传统企业转型",
+      "platform": "天猫 / 京东 / 抖音 / 私域",
+      "serviceType": "电商战略诊断 / 平台规划 / 团队搭建建议",
+      "summary": "该企业在线下已有产品和资源基础，但线上电商路径不清晰。品沐从平台选择、货盘规划、价格体系、团队配置和阶段目标入手，为企业梳理从0到1的电商启动方案。",
+      "url": "https://pinmooconsulting.com/cases/traditional-enterprise-ecommerce-launch"
+    },
+    {
+      "title": "某酒水品牌：通过店铺诊断明确线上增长优先级",
+      "industry": "酒水食品",
+      "platform": "京东 / 淘宝",
+      "serviceType": "店铺诊断 / 页面优化 / 平台规划",
+      "summary": "该品牌具备产品和产地故事，但线上店铺缺少清晰表达和成交路径。品沐从店铺视觉、商品结构、主图详情页、价格带和平台节奏入手，梳理优化方向。",
+      "url": "https://pinmooconsulting.com/cases/wine-store-diagnosis"
+    },
+    {
+      "title": "某高复购消费品品牌：从单次成交到会员复购体系搭建",
+      "industry": "快消品牌",
+      "platform": "天猫 / 私域 / 内容平台",
+      "serviceType": "会员运营 / 私域承接 / 复购机制",
+      "summary": "该品牌具备稳定的消耗型产品和复购潜力，但用户成交后缺少持续触达。品沐从会员分层、复购周期、权益设计和私域承接入手，帮助品牌把单次成交转化为长期关系。",
+      "url": "https://pinmooconsulting.com/cases/consumer-goods-membership-growth"
+    },
+    {
+      "title": "某营地文旅项目：从OTA渠道到私域承接的运营路径梳理",
+      "industry": "本地生活",
+      "platform": "OTA / 小红书 / 视频号 / 私域",
+      "serviceType": "OTA运营 / 内容种草 / 私域承接",
+      "summary": "该营地项目具备线下体验和场景内容优势，但线上获客路径分散。品沐围绕OTA产品包装、内容种草、用户咨询和私域复购，梳理从曝光到到店的运营闭环。",
+      "url": "https://pinmooconsulting.com/cases/camping-local-life-operation"
+    }
+  ],
+  "pages": [
+    {
+      "name": "首页",
+      "url": "https://pinmooconsulting.com/",
+      "description": "品沐咨询 pinmoo 专注电商战略诊断、平台运营陪跑、商品页面优化、内容种草、投放复盘与私域增长，帮助品牌构建可持续的线上增长路径。"
+    },
+    {
+      "name": "服务介绍",
+      "url": "https://pinmooconsulting.com/services",
+      "description": "品沐咨询围绕平台选择、商品结构、内容种草、页面转化、广告投放、直播运营、会员复购等关键环节，提供诊断、策略、陪跑和复盘优化服务。"
+    },
+    {
+      "name": "项目经验",
+      "url": "https://pinmooconsulting.com/cases",
+      "description": "品沐咨询项目经验覆盖茶饮食品、服饰鞋包、营养健康、个护电器、传统企业转型、酒水食品等行业，关注问题拆解、动作落地与持续复盘。"
+    },
+    {
+      "name": "关于品沐",
+      "url": "https://pinmooconsulting.com/about",
+      "description": "了解广州品沐咨询有限公司及主理人鲍俊文，花名沐风。品沐咨询专注电商战略诊断、平台运营陪跑、品牌增长、店铺诊断、页面优化、内容种草与数据复盘。"
+    },
+    {
+      "name": "联系我们",
+      "url": "https://pinmooconsulting.com/contact",
+      "description": "联系广州品沐咨询有限公司。微信 / 手机同号：13600008584。添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长 / 官网咨询。"
+    },
+    {
+      "name": "某高客单女装品牌：从退款问题入手，重构内容与转化链路",
+      "url": "https://pinmooconsulting.com/cases/womenswear-refund-optimization",
+      "description": "该品牌具备一定线下基础和设计师调性，但线上销售长期受到高退款率影响。品沐从退款原因、版型表达、主图详情页、客服话术和会员承接入手，帮助品牌建立可持续的退款优化机制。"
+    },
+    {
+      "name": "某个护电器品牌：围绕差旅场景，重塑产品卖点表达",
+      "url": "https://pinmooconsulting.com/cases/personal-care-device-positioning",
+      "description": "该品牌产品具备便携、双功能和差旅使用优势，但原有表达较为分散。品沐围绕真实使用场景，重新梳理产品核心卖点，优化主图、详情页、直播脚本和内容表达。"
+    },
+    {
+      "name": "某茶饮品牌：多平台经营下的内容、直播与店铺转化协同",
+      "url": "https://pinmooconsulting.com/cases/tea-brand-platform-synergy",
+      "description": "该茶饮品牌同时经营多个平台，但内容、直播、店铺和用户承接之间缺少统一节奏。品沐协助品牌梳理平台分工、活动节奏、直播复盘和内容承接路径。"
+    },
+    {
+      "name": "某儿童营养品牌：在合规前提下优化产品表达与平台运营节奏",
+      "url": "https://pinmooconsulting.com/cases/children-nutrition-compliance",
+      "description": "该品牌面向儿童营养消费场景，既要讲清产品价值，又要避免平台合规风险。品沐协助品牌优化页面表达、活动节奏、内容方向和客服沟通口径。"
+    },
+    {
+      "name": "某传统企业：从0到1搭建电商业务路径",
+      "url": "https://pinmooconsulting.com/cases/traditional-enterprise-ecommerce-launch",
+      "description": "该企业在线下已有产品和资源基础，但线上电商路径不清晰。品沐从平台选择、货盘规划、价格体系、团队配置和阶段目标入手，为企业梳理从0到1的电商启动方案。"
+    },
+    {
+      "name": "某酒水品牌：通过店铺诊断明确线上增长优先级",
+      "url": "https://pinmooconsulting.com/cases/wine-store-diagnosis",
+      "description": "该品牌具备产品和产地故事，但线上店铺缺少清晰表达和成交路径。品沐从店铺视觉、商品结构、主图详情页、价格带和平台节奏入手，梳理优化方向。"
+    },
+    {
+      "name": "某高复购消费品品牌：从单次成交到会员复购体系搭建",
+      "url": "https://pinmooconsulting.com/cases/consumer-goods-membership-growth",
+      "description": "该品牌具备稳定的消耗型产品和复购潜力，但用户成交后缺少持续触达。品沐从会员分层、复购周期、权益设计和私域承接入手，帮助品牌把单次成交转化为长期关系。"
+    },
+    {
+      "name": "某营地文旅项目：从OTA渠道到私域承接的运营路径梳理",
+      "url": "https://pinmooconsulting.com/cases/camping-local-life-operation",
+      "description": "该营地项目具备线下体验和场景内容优势，但线上获客路径分散。品沐围绕OTA产品包装、内容种草、用户咨询和私域复购，梳理从曝光到到店的运营闭环。"
+    }
+  ]
+}
