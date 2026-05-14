@@ -120,7 +120,7 @@ for (const meta of routeMeta) {
     await fs.mkdir(path.dirname(htmlPath), { recursive: true });
   }
   const rendered = await prerender(meta.path);
-  html = html.replace(/<div id="root">[\s\S]*?<\/div>/, () => '<div id="root">' + rendered + '</div>');
+  html = html.replace(/<div id="root">[\s\S]*?<\/div>\s*(<script type="module" src="\/src\/static-main\.js"><\/script>)/, () => '<div id="root">' + rendered + '</div>\n    <script type="module" src="/src/static-main.js"></script>');
   html = upsertHead(html, meta);
   await fs.writeFile(htmlPath, html, 'utf8');
 }
