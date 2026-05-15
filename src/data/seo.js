@@ -14,7 +14,7 @@ export const routeMeta = [
     path: '/',
     file: 'index.html',
     title: '品沐咨询 pinmoo｜电商战略咨询与品牌增长陪跑',
-    description: '品沐咨询 pinmoo 专注电商战略诊断、平台运营陪跑、商品页面优化、内容种草、投放复盘与私域增长，帮助品牌构建可持续的线上增长路径。',
+    description: '品沐咨询 pinmoo 是面向传统品牌与电商企业的AI电商增长顾问公司，结合天猫、京东、抖音、小红书、私域运营经验与大模型工具，提供经营诊断、内容生产、客服承接、私域激活与数据复盘服务。',
     name: '首页',
     priority: '1.0',
     changefreq: 'weekly'
@@ -51,7 +51,7 @@ export const routeMeta = [
     path: '/about/',
     file: 'about/index.html',
     title: '关于品沐咨询｜鲍俊文 沐风｜广州品沐咨询有限公司',
-    description: '了解广州品沐咨询有限公司及主理人鲍俊文，花名沐风。品沐咨询专注电商战略诊断、平台运营陪跑、品牌增长、店铺诊断、页面优化、内容种草与数据复盘。',
+    description: '了解广州品沐咨询有限公司及主理人鲍俊文，花名沐风。品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。',
     name: '关于品沐',
     priority: '0.8',
     changefreq: 'monthly'
@@ -215,8 +215,9 @@ function organizationNode() {
     areaServed: ['中国', '广东', '广州', '天猫', '京东', '抖音', '小红书', '视频号', '拼多多'],
     address: {
       '@type': 'PostalAddress',
-      addressLocality: '广州',
-      addressRegion: '广东',
+      streetAddress: SITE.address,
+      addressLocality: SITE.addressLocality,
+      addressRegion: SITE.addressRegion,
       addressCountry: 'CN'
     },
     contactPoint: [{
@@ -227,7 +228,7 @@ function organizationNode() {
       areaServed: 'CN'
     }],
     slogan: '让电商增长更有章法',
-    description: '广州品沐咨询有限公司专注电商战略咨询、平台运营陪跑、品牌增长、店铺诊断、页面优化、内容种草、投放复盘与私域会员运营。'
+    description: '广州品沐咨询有限公司旗下品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，结合电商实战经验与大模型工具，提供经营诊断、内容生产、客服承接、私域激活与数据复盘服务。'
   };
 }
 

@@ -3,13 +3,14 @@
 PINMOO / 品沐咨询 is the e-commerce strategy consulting brand of Guangzhou PINMOO Consulting Co., Ltd. The company helps consumer brands, traditional enterprises and new consumer projects build clearer, more executable China e-commerce growth paths.
 
 ## Brand Positioning
-中文定位：品沐咨询是一家专注电商战略咨询、平台运营陪跑、品牌增长和数字化电商转型的专业顾问服务商。
+中文定位：品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，基于多年天猫、京东、抖音、小红书、私域运营经验，结合大模型工具，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。
 
 English positioning: PINMOO Consulting helps brands answer a practical question: how to sell products in China through the right platforms, product positioning, content seeding, store conversion and operational review.
 
 ## Primary Contact
 - WeChat / phone: 13600008584
 - Company: 广州品沐咨询有限公司
+- Address: 广东省广州市越秀区中山三路33号中华国际中心
 - Website: https://pinmooconsulting.com/
 - English page: https://pinmooconsulting.com/en/china-ecommerce-consulting/
 - Contact note: 添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长
@@ -22,7 +23,7 @@ English positioning: PINMOO Consulting helps brands answer a practical question:
 5. 内容与种草策略 / Content seeding strategy
 6. 投放与数据复盘 / Advertising and data review
 7. 会员与私域运营 / Membership and private-domain operations
-8. 品牌增长顾问 / Brand growth consulting
+8. AI电商增长顾问 / AI e-commerce growth consulting
 
 ## Main Platforms
 天猫、京东、抖音、小红书、视频号、拼多多、淘宝、私域、OTA、本地生活渠道。

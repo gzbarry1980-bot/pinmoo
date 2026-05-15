@@ -90,8 +90,8 @@ export function Home() {
       <section className="section about-preview">
         <div className="container about-preview-grid">
           <Reveal>
-            <h2>更懂实战的电商咨询伙伴</h2>
-            <p>广州品沐咨询有限公司长期关注品牌在线上渠道的真实增长问题，从平台选择、货盘规划、内容表达、页面转化到数据复盘，帮助品牌把电商业务做得更清晰、更有章法。</p>
+            <h2>更懂实战，也懂 AI 工具的电商增长伙伴</h2>
+            <p>品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，基于多年天猫、京东、抖音、小红书、私域运营经验，结合大模型工具，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。</p>
             <ButtonLink href="/about/">了解品沐</ButtonLink>
           </Reveal>
           <Reveal className="office-visual" delay={120}>

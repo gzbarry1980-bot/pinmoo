@@ -643,6 +643,7 @@ dt { color: var(--muted); font-weight: 800; } dd { margin: 0; color: var(--text)
 .contact-info-row h2 { margin: 0 0 2px; color: var(--text); font-size: 18px; }
 .contact-info-row p, .contact-info-row a { margin: 0; color: var(--body); font-weight: 800; }
 .contact-info-row a { color: var(--royal); font-size: 20px; }
+.contact-info-row .map-hint { margin-top: 5px; color: var(--muted); font-size: 13px; font-weight: 600; }
 .contact-promise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
 .contact-promise-grid div { min-height: 114px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 14px; border: 1px solid var(--line); border-radius: 16px; }
 .contact-promise-grid svg { color: var(--royal); }

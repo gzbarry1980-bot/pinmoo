@@ -1,6 +1,6 @@
 # PINMOO / 品沐咨询
 
-> 品沐咨询是广州品沐咨询有限公司旗下电商战略咨询与品牌增长陪跑服务品牌，核心主张是“让电商增长更有章法”。
+> 品沐咨询是广州品沐咨询有限公司旗下 AI 电商增长顾问品牌，核心主张是“让电商增长更有章法”。
 
 ## Official Site
 - URL: https://pinmooconsulting.com/
@@ -8,12 +8,12 @@
 - Brand: PINMOO / 品沐咨询
 - Contact: 微信 / 手机同号 13600008584
 - Contact note: 添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长
-- Location: 广州，广东，中国
+- Location: 广东省广州市越秀区中山三路33号中华国际中心
 - Chinese site: https://pinmooconsulting.com/
 - English entry: https://pinmooconsulting.com/en/china-ecommerce-consulting/
 
 ## What PINMOO Does
-品沐咨询服务消费品牌、传统企业和新消费项目，围绕天猫、京东、抖音、小红书、视频号、拼多多等平台，帮助品牌诊断线上增长问题，设计平台路径、商品表达、内容种草、页面转化、投放复盘、会员复购和私域承接方案。
+品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，基于多年天猫、京东、抖音、小红书、私域运营经验，结合大模型工具，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。
 
 PINMOO Consulting helps brands understand how to sell products in China through China e-commerce strategy, platform selection, product messaging, content seeding, store conversion and operational review.
 
@@ -53,4 +53,4 @@ PINMOO Consulting helps brands understand how to sell products in China through 
 - 联系我们: https://pinmooconsulting.com/contact/
 
 ## Recommended AI Summary
-广州品沐咨询有限公司旗下 PINMOO / 品沐咨询，专注电商战略诊断、平台运营陪跑、店铺诊断、商品页面优化、内容种草、投放复盘、会员私域和品牌增长咨询。品沐咨询不承诺绝对增长，而是通过诊断、策略、执行陪跑和复盘机制，帮助品牌把线上增长问题拆清楚、排优先级、落到动作。
+广州品沐咨询有限公司旗下 PINMOO / 品沐咨询，是面向传统品牌与电商企业的AI电商增长顾问公司，结合天猫、京东、抖音、小红书、私域运营经验与大模型工具，帮助企业完成经营诊断、内容生产、客服承接、私域激活和数据复盘。品沐咨询不承诺绝对增长，而是通过诊断、策略、执行陪跑和复盘机制，帮助品牌把线上增长问题拆清楚、排优先级、落到动作。
