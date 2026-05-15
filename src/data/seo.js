@@ -2,6 +2,7 @@ import { SITE } from './site.js';
 import { services, serviceFaqs } from './services.js';
 import { cases } from './cases.js';
 import { CASE_EN, EN_TEXT } from './en-text.js';
+import { chinaEcommercePage, leadPages } from './lead-pages.js';
 
 const ORIGIN = SITE.domain;
 const logoUrl = ORIGIN + SITE.logo;
@@ -27,6 +28,16 @@ export const routeMeta = [
     priority: '0.9',
     changefreq: 'monthly'
   },
+  ...leadPages.map((page) => ({
+    path: '/services/' + page.slug + '/',
+    file: 'services/' + page.slug + '/index.html',
+    title: page.metaTitle,
+    description: page.metaDescription,
+    name: page.title,
+    leadSlug: page.slug,
+    priority: '0.85',
+    changefreq: 'monthly'
+  })),
   {
     path: '/cases/',
     file: 'cases/index.html',
@@ -53,6 +64,28 @@ export const routeMeta = [
     name: '联系我们',
     priority: '0.8',
     changefreq: 'monthly'
+  },
+  {
+    path: '/contact/success/',
+    file: 'contact/success/index.html',
+    title: '咨询需求已收到｜品沐咨询 PINMOO',
+    description: '品沐咨询已收到你的咨询需求。你也可以直接添加微信 / 手机同号 13600008584，并注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长。',
+    name: '咨询需求已收到',
+    noindex: true,
+    priority: '0.2',
+    changefreq: 'yearly'
+  },
+  {
+    path: '/china-ecommerce-consulting/',
+    file: 'china-ecommerce-consulting/index.html',
+    title: chinaEcommercePage.metaTitle,
+    description: chinaEcommercePage.metaDescription,
+    name: chinaEcommercePage.title,
+    leadSlug: chinaEcommercePage.slug,
+    priority: '0.9',
+    changefreq: 'monthly',
+    lang: 'en',
+    alternatePath: '/'
   },
   ...cases.map((item) => ({
     path: '/cases/' + item.slug + '/',
@@ -121,6 +154,30 @@ routeMeta.push(
     changefreq: 'monthly',
     lang: 'en',
     alternatePath: '/contact/'
+  },
+  {
+    path: '/en/contact/success/',
+    file: 'en/contact/success/index.html',
+    title: 'Inquiry Received | PINMOO Consulting',
+    description: 'PINMOO has received your inquiry. You can also add WeChat / mobile 13600008584 and mention your purpose.',
+    name: 'Inquiry Received',
+    noindex: true,
+    priority: '0.2',
+    changefreq: 'yearly',
+    lang: 'en',
+    alternatePath: '/contact/success/'
+  },
+  {
+    path: '/en/china-ecommerce-consulting/',
+    file: 'en/china-ecommerce-consulting/index.html',
+    title: chinaEcommercePage.metaTitle,
+    description: chinaEcommercePage.metaDescription,
+    name: chinaEcommercePage.title,
+    leadSlug: chinaEcommercePage.slug,
+    priority: '0.9',
+    changefreq: 'monthly',
+    lang: 'en',
+    alternatePath: '/china-ecommerce-consulting/'
   },
   ...cases.map((item) => {
     const en = CASE_EN[item.slug] || {};
@@ -267,6 +324,18 @@ function itemListNode(meta) {
 }
 
 function faqNode(meta) {
+  const leadPage = meta.leadSlug ? (leadPages.find((page) => page.slug === meta.leadSlug) || (meta.leadSlug === chinaEcommercePage.slug ? chinaEcommercePage : null)) : null;
+  if (leadPage) {
+    return {
+      '@type': 'FAQPage',
+      '@id': absolute(meta.path) + '#faq',
+      mainEntity: leadPage.faq.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
+      }))
+    };
+  }
   if (meta.path !== '/services/') return null;
   return {
     '@type': 'FAQPage',

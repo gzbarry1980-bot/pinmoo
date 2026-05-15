@@ -88,7 +88,7 @@ function upsertHead(html, meta) {
   const zhPath = meta.lang === 'en' ? meta.alternatePath : meta.path;
   const enPath = meta.lang === 'en' ? meta.path : (meta.path === '/' ? '/en/' : '/en' + meta.path);
   const extra = [
-    '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />',
+    '<meta name="robots" content="' + (meta.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1') + '" />',
     '<meta name="author" content="广州品沐咨询有限公司" />',
     '<meta name="theme-color" content="#1E3A5F" />',
     '<link rel="alternate" hreflang="zh-CN" href="' + escapeHtml(zhPath === '/' ? 'https://pinmooconsulting.com/' : 'https://pinmooconsulting.com' + zhPath.replace(/\/$/, '')) + '" />',
@@ -125,9 +125,9 @@ for (const meta of routeMeta) {
   await fs.writeFile(htmlPath, html, 'utf8');
 }
 
-const today = '2026-05-13';
+const today = '2026-05-15';
 const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-  routeMeta.map((meta) => '  <url>\n    <loc>' + metaTagsForRoute(meta).canonical + '</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>' + meta.changefreq + '</changefreq>\n    <priority>' + meta.priority + '</priority>\n  </url>').join('\n') +
+  routeMeta.filter((meta) => !meta.noindex).map((meta) => '  <url>\n    <loc>' + metaTagsForRoute(meta).canonical + '</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>' + meta.changefreq + '</changefreq>\n    <priority>' + meta.priority + '</priority>\n  </url>').join('\n') +
   '\n  <url>\n    <loc>https://pinmooconsulting.com/llms.txt</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.5</priority>\n  </url>\n  <url>\n    <loc>https://pinmooconsulting.com/pinmoo-profile.json</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.5</priority>\n  </url>\n</urlset>\n';
 await fs.writeFile(path.join(dist, 'sitemap.xml'), sitemap, 'utf8');
 await fs.writeFile(path.join(root, 'public', 'sitemap.xml'), sitemap, 'utf8');

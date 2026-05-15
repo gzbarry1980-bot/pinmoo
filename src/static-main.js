@@ -2,10 +2,11 @@ import { SITE, NAV_ITEMS, TRUST_STATS, METHODOLOGY, PLATFORM_LIST } from './data
 import { services, serviceFaqs, serviceModel, serviceModelIntro, serviceModelName, serviceProcess, pricingNote } from './data/services.js';
 import { cases, caseFilters, reservedCases, getCaseBySlug } from './data/cases.js';
 import { CASE_EN, EN_TEXT, FILTER_EN_TO_CN } from './data/en-text.js';
+import { chinaEcommercePage, getLeadPageBySlug, leadPages, leadPathSteps, proofAssets } from './data/lead-pages.js';
 
 const root = document.getElementById('root');
 let requestedPathname = normalizePath(window.location.pathname);
-let currentLang = requestedPathname === '/en' || requestedPathname.indexOf('/en/') === 0 ? 'en' : 'zh';
+let currentLang = requestedPathname === '/en' || requestedPathname.indexOf('/en/') === 0 || requestedPathname === '/china-ecommerce-consulting' ? 'en' : 'zh';
 let pathname = stripLangPath(requestedPathname);
 
 function normalizePath(value) {
@@ -31,6 +32,9 @@ function localizeHref(href) {
 }
 
 function currentPathForLang(lang) {
+  const isLeadLanding = pathname.indexOf('/services/') === 0 && getLeadPageBySlug(pathname.split('/')[2]);
+  if (lang === 'en' && isLeadLanding) return '/en/china-ecommerce-consulting/';
+  if (lang === 'zh' && pathname === '/china-ecommerce-consulting') return '/services/';
   if (lang === 'en') return pathname === '/' ? '/en/' : '/en' + pathname + '/';
   return pathname === '/' ? '/' : pathname + '/';
 }
@@ -147,10 +151,102 @@ function Services() {
   const details = services.map(function(service) { return '<div class="reveal service-detail-card"><div class="service-detail-head"><div class="card-icon">' + icon(service.icon, 30) + '</div><div><h2>' + service.title + '</h2><p>' + service.short + '</p></div></div><div class="service-detail-columns"><div><h3>适合谁</h3><ul>' + service.fit.map(li).join('') + '</ul></div><div><h3>解决什么问题</h3><ul>' + service.problems.map(li).join('') + '</ul></div><div><h3>主要服务内容</h3><ul>' + service.content.map(li).join('') + '</ul></div><div><h3>交付成果</h3><ul>' + service.deliverables.map(li).join('') + '</ul></div></div><div class="service-fee"><strong>费用参考</strong><p>' + service.fee + '</p><span>' + pricingNote + '</span></div><div class="detail-cta">' + ButtonLink('预约咨询', '/contact/', 'primary', true) + '</div></div>'; }).join('');
   const process = serviceProcess.map(function(item, index) { return '<div class="reveal process-card"><span>0' + (index + 1) + '</span>' + icon(item.icon, 30) + '<h3>' + item.title + '</h3><p>' + item.text + '</p></div>'; }).join('');
   const faqs = serviceFaqs.map(function(item, index) { return '<div class="faq-item ' + (index === 0 ? 'open' : '') + '"><button type="button"><span>' + item.q + '</span>' + icon('ChevronDown', 18) + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>'; }).join('');
-  return PageHero('从诊断到陪跑，帮品牌建立可持续增长路径', '品沐咨询围绕电商业务中的平台选择、商品结构、内容种草、页面转化、广告投放、直播运营、会员复购等关键环节，为品牌提供诊断、策略、执行陪跑和复盘优化服务。') + '<section class="section model-section"><div class="container">' + SectionIntro(serviceModelName, serviceModelIntro) + '<div class="model-grid">' + model + '</div></div></section><section class="section service-detail-section"><div class="container">' + SectionIntro('我们提供的核心服务') + '<div class="service-detail-list">' + details + '</div></div></section><section class="section process-section"><div class="container">' + SectionIntro('我们如何陪品牌一起解决问题？') + '<div class="process-grid">' + process + '</div></div></section><section class="section faq-section"><div class="container narrow-container">' + SectionIntro('常见问题') + '<div class="faq-list">' + faqs + '</div></div></section>' + CtaBand('想知道你的品牌下一步该先优化哪里？', '从专业诊断开始，帮你找到增长突破口。');
+  return PageHero('从诊断到陪跑，帮品牌建立可持续增长路径', '品沐咨询围绕电商业务中的平台选择、商品结构、内容种草、页面转化、广告投放、直播运营、会员复购等关键环节，为品牌提供诊断、策略、执行陪跑和复盘优化服务。') + LeadEntrySection() + '<section class="section model-section"><div class="container">' + SectionIntro(serviceModelName, serviceModelIntro) + '<div class="model-grid">' + model + '</div></div></section><section class="section service-detail-section"><div class="container">' + SectionIntro('我们提供的核心服务') + '<div class="service-detail-list">' + details + '</div></div></section>' + ProofSection() + '<section class="section process-section"><div class="container">' + SectionIntro('我们如何陪品牌一起解决问题？') + '<div class="process-grid">' + process + '</div></div></section><section class="section faq-section"><div class="container narrow-container">' + SectionIntro('常见问题') + '<div class="faq-list">' + faqs + '</div></div></section>' + CtaBand('想知道你的品牌下一步该先优化哪里？', '从专业诊断开始，帮你找到增长突破口。');
 }
 
 function li(item) { return '<li>' + item + '</li>'; }
+
+function LeadPageCard(page) {
+  return '<article class="lead-card reveal"><span>' + page.eyebrow + '</span><h3>' + page.title + '</h3><p>' + page.subtitle + '</p><a class="outline-link" href="' + localizeHref('/services/' + page.slug + '/') + '">查看诊断方案 ' + icon('ArrowRight', 16) + '</a></article>';
+}
+
+function LeadEntrySection() {
+  if (isEn()) {
+    return '<section class="section lead-entry-section"><div class="container">' + SectionIntro('Enter by Search Intent', 'For overseas or cross-border brands, the clearest entry point is to evaluate how your products should be sold in China.') + '<div class="lead-card-grid lead-card-grid-single"><article class="lead-card reveal"><span>China e-commerce entry</span><h3>How to Sell Products in China</h3><p>Clarify platform priority, product messaging, content seeding, store conversion and next-step actions for China e-commerce.</p><a class="outline-link" href="' + localizeHref('/china-ecommerce-consulting/') + '">View China Entry Page ' + icon('ArrowRight', 16) + '</a></article></div></div></section>';
+  }
+  const cards = leadPages.map(LeadPageCard).join('');
+  return '<section class="section lead-entry-section"><div class="container">' + SectionIntro('按问题进入，更快找到适合你的咨询方案', '不同品牌卡住的位置不一样。你可以直接从当前最像自己的问题进入，先看诊断重点、交付物和适合场景。') + '<div class="lead-card-grid">' + cards + '</div></div></section>';
+}
+
+function ProofSection() {
+  if (isEn()) {
+    const cards = [
+      ['Diagnosis Memo', 'ClipboardList', 'Clarify platform, product, traffic, conversion and team execution issues before scaling.', ['Current status', 'Core issues', 'Priority']],
+      ['Action Roadmap', 'CheckCircle2', 'Turn strategic advice into tasks, owners and review cycles.', ['Actions', 'Owners', 'Review rhythm']],
+      ['Page Messaging', 'Image', 'Improve product pages, hero images, SKU logic and conversion messaging.', ['Hero image', 'Detail page', 'Conversion']],
+      ['Review Mechanism', 'BarChart3', 'Use data review to improve campaigns, content, ads and store conversion.', ['Data review', 'Meeting rhythm', 'Iteration']]
+    ].map(function(item) {
+      return '<article class="proof-card reveal"><div class="card-icon">' + icon(item[1], 26) + '</div><h3>' + item[0] + '</h3><p>' + item[2] + '</p><div>' + item[3].map(function(point) { return '<span>' + point + '</span>'; }).join('') + '</div></article>';
+    }).join('');
+    return '<section class="section proof-section"><div class="container">' + SectionIntro('Practical Deliverables, Not Just Advice', 'PINMOO focuses on materials that can be discussed, assigned, executed and reviewed by your team.') + '<div class="proof-grid">' + cards + '</div></div></section>';
+  }
+  const cards = proofAssets.map(function(item) {
+    return '<article class="proof-card reveal"><div class="card-icon">' + icon(item.icon, 26) + '</div><h3>' + item.title + '</h3><p>' + item.text + '</p><div>' + item.points.map(function(point) { return '<span>' + point + '</span>'; }).join('') + '</div></article>';
+  }).join('');
+  return '<section class="section proof-section"><div class="container">' + SectionIntro('不是只给建议，而是给能推进执行的交付物', '客户需要的不只是“方向感”，还需要能被团队拿去开会、分工、复盘和迭代的材料。') + '<div class="proof-grid">' + cards + '</div></div></section>';
+}
+
+function LeadPathSection() {
+  if (isEn()) {
+    const steps = [
+      ['Find the Issue', 'Enter from a search page, service page or case study that matches your current challenge.'],
+      ['Check Fit', 'Review methods, deliverables, fee references and case experience.'],
+      ['Book Diagnosis', 'Submit your inquiry or add WeChat and mention your purpose.'],
+      ['Start Conversation', 'Clarify platform priority, product messaging and next-step actions.']
+    ].map(function(item, index) {
+      return '<div class="path-step reveal"><span>0' + (index + 1) + '</span><h3>' + item[0] + '</h3><p>' + item[1] + '</p></div>';
+    }).join('');
+    return '<section class="section lead-path-section"><div class="container">' + SectionIntro('A Clear Inquiry Path', 'From a matched problem to a practical diagnosis, every step is designed to reduce vague communication.') + '<div class="lead-path-grid">' + steps + '</div></div></section>';
+  }
+  const steps = leadPathSteps.map(function(item, index) {
+    return '<div class="path-step reveal"><span>0' + (index + 1) + '</span><h3>' + item.title + '</h3><p>' + item.text + '</p></div>';
+  }).join('');
+  return '<section class="section lead-path-section"><div class="container">' + SectionIntro('一条清晰的咨询路径，减少无效沟通', '从相似问题进入，到基础诊断，再到具体合作方案，每一步都尽量清楚、可判断。') + '<div class="lead-path-grid">' + steps + '</div></div></section>';
+}
+
+function LandingPage(page) {
+  const intent = page.searchIntent.map(function(item) { return '<span>' + item + '</span>'; }).join('');
+  const pain = page.painPoints.map(li).join('');
+  const diagnosis = page.diagnosis.map(li).join('');
+  const deliverables = page.deliverables.map(function(item) { return '<div>' + icon('CheckCircle2', 18) + '<span>' + item + '</span></div>'; }).join('');
+  const faqs = page.faq.map(function(item) { return '<div class="faq-item"><button type="button"><span>' + item.q + '</span>' + icon('ChevronDown', 18) + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>'; }).join('');
+  const related = cases.slice(0, 3).map(function(item) { return '<div class="reveal">' + CaseCard(item) + '</div>'; }).join('');
+  const serviceParam = encodeURIComponent(page.title);
+  return PageHero(page.title, page.subtitle, false, '<div class="lead-keywords">' + intent + '</div>') +
+    '<section class="section landing-section"><div class="container landing-layout"><div class="landing-main">' +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('Search', 24) + '<h2>你可能正遇到这些问题</h2></div><ul>' + pain + '</ul></div>' +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('Target', 24) + '<h2>品沐会重点诊断什么</h2></div><ul>' + diagnosis + '</ul></div>' +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('ClipboardList', 24) + '<h2>可能获得的交付物</h2></div><div class="deliverable-grid">' + deliverables + '</div></div>' +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('ShieldCheck', 24) + '<h2>合作边界说明</h2></div><p>品沐不做“保证增长”“百分百提升”这类绝对承诺。我们更重视诊断依据、行动优先级、执行节奏和复盘机制，帮助品牌提高增长决策的清晰度和确定性。</p></div>' +
+    '</div><aside class="landing-aside"><div class="aside-card reveal"><h2>适合先做什么？</h2><p>' + page.proof + '</p><a class="btn btn-primary" href="' + localizeHref('/contact/?service=' + serviceParam) + '"><span>预约基础诊断</span></a></div><div class="aside-card reveal"><h2>联系方式</h2><p>' + SITE.contactLabel + '</p><p>' + SITE.contactNote + '</p></div></aside></div></section>' +
+    ProofSection() +
+    '<section class="section cases-preview"><div class="container">' + SectionIntro('相关项目经验', '先看相似问题如何被拆解，再判断是否适合预约一次基础诊断。') + '<div class="home-case-grid">' + related + '</div></div></section>' +
+    '<section class="section faq-section"><div class="container narrow-container">' + SectionIntro('常见问题') + '<div class="faq-list">' + faqs + '</div></div></section>' +
+    CtaBand('想判断这个问题是否值得优先解决？', '预约一次基础诊断，我们会从平台、商品、流量、转化和团队执行五个维度先帮你看清楚。', '预约基础诊断');
+}
+
+function ChinaEcommercePage() {
+  const page = chinaEcommercePage;
+  const intent = page.searchIntent.map(function(item) { return '<span>' + item + '</span>'; }).join('');
+  const pain = page.painPoints.map(li).join('');
+  const diagnosis = page.diagnosis.map(li).join('');
+  const deliverables = page.deliverables.map(function(item) { return '<div>' + icon('CheckCircle2', 18) + '<span>' + item + '</span></div>'; }).join('');
+  const faqs = page.faq.map(function(item) { return '<div class="faq-item"><button type="button"><span>' + item.q + '</span>' + icon('ChevronDown', 18) + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>'; }).join('');
+  return PageHero(page.title, page.subtitle, false, '<div class="lead-keywords">' + intent + '</div>') +
+    '<section class="section landing-section"><div class="container landing-layout"><div class="landing-main">' +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('Search', 24) + '<h2>Common Entry Questions</h2></div><ul>' + pain + '</ul></div>' +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('Target', 24) + '<h2>What PINMOO Diagnoses</h2></div><ul>' + diagnosis + '</ul></div>' +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('ClipboardList', 24) + '<h2>What You Can Get</h2></div><div class="deliverable-grid">' + deliverables + '</div></div>' +
+    '</div><aside class="landing-aside"><div class="aside-card reveal"><h2>Talk to PINMOO</h2><p>Use this page if you are evaluating how to enter or grow in China e-commerce.</p><a class="btn btn-primary" href="' + localizeHref('/contact/?service=China%20e-commerce%20consulting') + '"><span>Book a Diagnosis</span></a></div><div class="aside-card reveal"><h2>Contact</h2><p>WeChat / Mobile: ' + SITE.phoneDisplay + '</p><p>Please mention: China e-commerce consulting.</p></div></aside></div></section>' +
+    '<section class="section faq-section"><div class="container narrow-container">' + SectionIntro('FAQ') + '<div class="faq-list">' + faqs + '</div></div></section>' +
+    CtaBand('How should your brand sell products in China?', 'Book a basic diagnosis and we will help clarify platform priority, product messaging and next-step actions.', 'Book a Diagnosis');
+}
+
+function ContactSuccess() {
+  return PageHero(isEn() ? 'Inquiry Received' : '已收到你的咨询需求', isEn() ? 'You can also add WeChat / mobile 13600008584 and mention your purpose. We will reply as soon as possible.' : '你也可以直接添加微信 / 手机同号 13600008584，并注明来意，我们会尽快回复。', true) +
+    '<section class="section success-section"><div class="container success-grid"><div class="reveal detail-block"><div class="detail-title">' + icon('CheckCircle2', 28) + '<h2>' + (isEn() ? 'Next Step' : '下一步') + '</h2></div><p>' + (isEn() ? 'If the request is urgent, add WeChat directly and mention China e-commerce consulting, store diagnosis, operation coaching or brand growth.' : '如果比较着急，可以直接扫码或添加微信，并注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长。') + '</p><div class="success-actions">' + ButtonLink(isEn() ? 'Back to Services' : '继续查看服务', '/services/', 'secondary', false) + ButtonLink(isEn() ? 'View Case Studies' : '查看项目经验', '/cases/', 'primary', false) + '</div></div><div class="reveal wechat-qr-card success-qr"><div class="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="沐风微信二维码" loading="lazy"></div><div><strong>' + (isEn() ? 'Scan to Add WeChat' : '扫码添加微信') + '</strong><p>' + SITE.phoneDisplay + '</p><span>' + SITE.contactNote + '</span></div></div></div></section>' +
+    LeadPathSection();
+}
 
 function renderCaseGrid(filter) {
   const normalizedFilter = isEn() ? (FILTER_EN_TO_CN[filter] || filter) : filter;
@@ -187,7 +283,7 @@ function About() {
 function ContactForm() {
   const checks = PLATFORM_LIST.concat(['其他']).map(function(p) { return '<button type="button" data-platform="' + p + '">' + p + '</button>'; }).join('');
   const serviceChecks = services.map(function(service) { return '<button type="button" data-service="' + service.title + '">' + service.title + '</button>'; }).join('');
-  return '<form class="contact-form" name="consultation" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate><input type="hidden" name="form-name" value="consultation"><p class="hidden-field"><label>请勿填写：<input name="bot-field"></label></p><div class="form-heading">' + icon('FilePenLine', 26) + '<h2>在线咨询</h2></div><label><span>姓名 <b>*</b></span><input name="name" placeholder="请输入您的姓名"><em data-error="name"></em></label><label><span>公司名称 <b>*</b></span><input name="company" placeholder="请输入公司名称"><em data-error="company"></em></label><label><span>联系电话 <b>*</b></span><input name="phone" placeholder="请输入手机号" inputmode="tel"><em data-error="phone"></em></label><label><span>微信号</span><input name="wechat" placeholder="请输入微信号（选填）"></label><input type="hidden" name="platforms" class="form-platforms" value=""><fieldset><legend>关注平台</legend><div class="platform-checks">' + checks + '</div></fieldset><input type="hidden" name="services" class="form-services" value=""><fieldset><legend>咨询服务</legend><div class="platform-checks service-checks">' + serviceChecks + '</div></fieldset><label><span>咨询需求</span><textarea name="message" maxlength="500" placeholder="请简要描述您的品牌/店铺情况及当前需要解决的问题"></textarea></label><button class="form-submit" type="submit">提交咨询需求</button><div class="success-message" hidden>' + icon('CheckCircle2', 20) + '已收到您的需求。你也可以直接添加微信 / 手机同号 ' + SITE.phoneDisplay + '，并注明来意，我们会尽快回复。</div><p class="form-note">' + icon('MessageCircle', 18) + '你也可以直接添加微信 / 手机同号 <a href="tel:' + SITE.phone + '">' + SITE.phoneDisplay + '</a>，并注明来意。</p></form>';
+  return '<form class="contact-form" name="consultation" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate><input type="hidden" name="form-name" value="consultation"><input type="hidden" name="sourcePage" value="' + requestedPathname + '"><p class="hidden-field"><label>请勿填写：<input name="bot-field"></label></p><div class="form-heading">' + icon('FilePenLine', 26) + '<h2>在线咨询</h2></div><label><span>姓名 <b>*</b></span><input name="name" placeholder="请输入您的姓名"><em data-error="name"></em></label><label><span>公司名称 <b>*</b></span><input name="company" placeholder="请输入公司名称"><em data-error="company"></em></label><label><span>联系电话 <b>*</b></span><input name="phone" placeholder="请输入手机号" inputmode="tel"><em data-error="phone"></em></label><label><span>微信号</span><input name="wechat" placeholder="请输入微信号（选填）"></label><input type="hidden" name="platforms" class="form-platforms" value=""><fieldset><legend>关注平台</legend><div class="platform-checks">' + checks + '</div></fieldset><input type="hidden" name="services" class="form-services" value=""><fieldset><legend>咨询服务</legend><div class="platform-checks service-checks">' + serviceChecks + '</div></fieldset><label><span>咨询需求</span><textarea name="message" maxlength="500" placeholder="请简要描述您的品牌/店铺情况及当前需要解决的问题"></textarea></label><button class="form-submit" type="submit">提交咨询需求</button><div class="success-message" hidden>' + icon('CheckCircle2', 20) + '已收到您的需求。你也可以直接添加微信 / 手机同号 ' + SITE.phoneDisplay + '，并注明来意，我们会尽快回复。</div><p class="form-note">' + icon('MessageCircle', 18) + '你也可以直接添加微信 / 手机同号 <a href="tel:' + SITE.phone + '">' + SITE.phoneDisplay + '</a>，并注明来意。</p></form>';
 }
 
 function Contact() {
@@ -201,7 +297,13 @@ function FloatingContact() {
 
 function renderPage() {
   if (pathname === '/') return Home();
+  if (pathname === '/contact/success') return ContactSuccess();
+  if (pathname === '/china-ecommerce-consulting') return ChinaEcommercePage();
   if (pathname === '/services') return Services();
+  if (pathname.indexOf('/services/') === 0) {
+    const page = getLeadPageBySlug(pathname.split('/')[2]);
+    if (page) return LandingPage(page);
+  }
   if (pathname === '/cases') return Cases();
   if (pathname === '/about') return About();
   if (pathname === '/contact') return Contact();
@@ -244,7 +346,7 @@ function translateEnglish(html) {
 
 export function renderSite(route) {
   requestedPathname = normalizePath(route || '/');
-  currentLang = requestedPathname === '/en' || requestedPathname.indexOf('/en/') === 0 ? 'en' : 'zh';
+  currentLang = requestedPathname === '/en' || requestedPathname.indexOf('/en/') === 0 || requestedPathname === '/china-ecommerce-consulting' ? 'en' : 'zh';
   pathname = stripLangPath(requestedPathname);
   const html = Header() + '<main id="main-content">' + renderPage() + '</main>' + Footer() + FloatingContact();
   return isEn() ? translateEnglish(html) : html;
@@ -350,6 +452,15 @@ function initContactForm() {
       if (servicesInput) servicesInput.value = Array.from(selectedServices).join(' / ');
     });
   });
+  const params = new URLSearchParams(window.location.search || '');
+  const requestedService = params.get('service');
+  if (requestedService) {
+    form.querySelectorAll('[data-service]').forEach(function(btn) {
+      if (btn.dataset.service === requestedService || btn.textContent.trim() === requestedService) btn.click();
+    });
+    const message = form.querySelector('textarea[name="message"]');
+    if (message && !message.value) message.value = (isEn() ? 'I would like to consult about: ' : '我想咨询：') + requestedService;
+  }
   form.addEventListener('submit', async function(event) {
     event.preventDefault();
     const fd = new FormData(form);
@@ -369,7 +480,7 @@ function initContactForm() {
 
     const payload = new URLSearchParams();
     payload.set('form-name', 'consultation');
-    ['name', 'company', 'phone', 'wechat', 'platforms', 'services', 'message'].forEach(function(key) {
+    ['name', 'company', 'phone', 'wechat', 'platforms', 'services', 'message', 'sourcePage'].forEach(function(key) {
       payload.set(key, String(fd.get(key) || ''));
     });
 
@@ -393,6 +504,7 @@ function initContactForm() {
       form.querySelectorAll('[data-platform]').forEach(function(btn) { btn.classList.remove('selected'); });
       form.querySelectorAll('[data-service]').forEach(function(btn) { btn.classList.remove('selected'); });
       success.hidden = false;
+      window.location.href = localizeHref('/contact/success/');
     } catch (error) {
       success.hidden = false;
       success.innerHTML = icon('MessageCircle', 20) + (isEn() ? 'Submission did not go through. You can also add WeChat / mobile ' + SITE.phoneDisplay + ' and mention your purpose. We will reply as soon as possible.' : '提交暂时没有成功。你也可以直接添加微信 / 手机同号 ' + SITE.phoneDisplay + '，并注明来意，我们会尽快回复。');
