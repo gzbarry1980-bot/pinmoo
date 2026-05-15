@@ -1,0 +1,18 @@
+[0515/214215.251:FATAL:platform_channel.cc(146)] Check failed: . : 拒绝访问。 (0x5)
+[0515/214215.269:ERROR:network_sandbox.cc(304)] Failed to grant sandbox access to cache directory E:\pinmoo\tmp\edge-old\Default\Cache\Cache_Data: 拒绝访问。 (0x5)
+[0515/214215.271:ERROR:network_sandbox.cc(319)] Failed to grant sandbox access to shared dictionary directory E:\pinmoo\tmp\edge-old\Default\Shared Dictionary: 拒绝访问。 (0x5)
+[0515/214215.272:ERROR:network_sandbox.cc(408)] Failed to grant sandbox access to network context data directory E:\pinmoo\tmp\edge-old\Default\Network: 拒绝访问。 (0x5)
+[0515/214215.273:ERROR:backend_impl.cc(1395)] Unable to map Index file
+[0515/214215.275:ERROR:backend_impl.cc(1395)] Unable to map Index file
+[0515/214215.278:ERROR:backend_impl.cc(1395)] Unable to map Index file
+[0515/214215.282:ERROR:network_service_instance_impl.cc(289)] Encountered error while migrating network context data or granting sandbox access for E:\pinmoo\tmp\edge-old\Default\Network. Result: 6: 操作成功完成。 (0x0)
+[0515/214215.283:ERROR:cache_util_win.cc(20)] Unable to move the cache: 拒绝访问。 (0x5)
+[0515/214215.283:ERROR:cache_util_win.cc(20)] Unable to move the cache: 拒绝访问。 (0x5)
+[0515/214215.283:ERROR:cache_util_win.cc(20)] Unable to move the cache: 拒绝访问。 (0x5)
+[0515/214215.287:ERROR:disk_cache.cc(208)] Unable to create cache
+[0515/214215.287:ERROR:gpu_disk_cache.cc(711)] Gpu Cache Creation failed: -2
+[0515/214215.287:ERROR:disk_cache.cc(208)] Unable to create cache
+[0515/214215.287:ERROR:gpu_disk_cache.cc(711)] Gpu Cache Creation failed: -2
+[0515/214215.287:ERROR:disk_cache.cc(208)] Unable to create cache
+[0515/214215.287:ERROR:gpu_disk_cache.cc(711)] Gpu Cache Creation failed: -2
+[0515/214216.302:WARNING:leveldb_database.cc(123)] Unable to open E:\pinmoo\tmp\edge-old\Default\shared_proto_db\metadata: IO error: E:\pinmoo\tmp\edge-old\Default\shared_proto_db\metadata/000001.dbtmp: Could not rename file: Access denied. (ChromeMethodBFE: 14::RenameFile::5)

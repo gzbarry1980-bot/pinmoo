@@ -104,7 +104,7 @@ function upsertHead(html, meta) {
   return next;
 }
 
-const topLevel = ['index.html', 'services', 'cases', 'about', 'contact', 'public'];
+const topLevel = ['index.html', 'services', 'cases', 'about', 'contact', 'ai-diagnosis', 'public'];
 for (const item of topLevel) await copy(path.join(root, item), path.join(dist, item === 'public' ? '' : item));
 await copy(path.join(root, 'src/static-main.js'), path.join(dist, 'src/static-main.js'));
 await copy(path.join(root, 'src/styles.css'), path.join(dist, 'src/styles.css'));
