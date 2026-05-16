@@ -105,6 +105,8 @@ let selectedPlatform = '天猫';
 let history = loadJson(storageKey, []);
 let latestDiagnosis = null;
 let importedDetails = null;
+let importedSummary = null;
+let importedAux = null;
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -158,6 +160,8 @@ function getFormData() {
   data.orderCount = data.aov ? Math.round(data.sales / data.aov) : 0;
   data.channelTotal = data.searchShare + data.recommendShare + data.contentShare + data.paidShare + data.privateShare;
   data.importedDetails = importedDetails;
+  data.importSummary = importedSummary;
+  data.importedAux = importedAux;
   return data;
 }
 
@@ -168,6 +172,8 @@ function getReportName(diagnosis) {
 
 function setFormData(data) {
   importedDetails = data.importedDetails || null;
+  importedSummary = data.importSummary || null;
+  importedAux = data.importedAux || null;
   fieldIds.forEach((id) => {
     if (data[id] !== undefined && $('#' + id)) $('#' + id).value = data[id];
   });
@@ -440,6 +446,7 @@ function analyze(data) {
   const totalScore = Math.round(metricScores.reduce((sum, item) => sum + item.score, 0) / metricScores.length);
   const summary = createSummary(totalScore, issues, salesTrend, visitorTrend, decomposition);
   const actions = createActions(issues, data);
+  const targetPlan = buildTargetPlan(data, issues, decomposition, bench);
   const now = new Date();
 
   return {
@@ -449,7 +456,9 @@ function analyze(data) {
     metrics: metricScores,
     issues,
     actions,
+    targetPlan,
     weeklySections: buildWeeklySections(data, issues),
+    dataQuality: buildDataQuality(data),
     salesTrend,
     visitorTrend,
     decomposition,
@@ -511,6 +520,52 @@ function createActions(issues, data) {
   ];
 }
 
+function buildTargetPlan(data, issues, decomposition, bench) {
+  const isMonth = data.reportType === '月报';
+  const periodName = isMonth ? '下月' : '下周';
+  const topIssue = issues[0];
+  const salesGap = Math.abs(Math.min(0, decomposition.salesGap || 0));
+  const recoveryMode = salesGap > 0 && data.prevSales > data.sales;
+  const baseVisitors = Math.max(data.visitors || 0, 1);
+  const baseConversion = Math.max(data.conversion || 0, 0.1);
+  const baseAov = Math.max(data.aov || 0, 1);
+  const settings = isMonth
+    ? [
+      { level: '保守', visitorLift: 3, conversionLift: 0.12, aovLift: 1.0, recover: 0.25 },
+      { level: '建议', visitorLift: 6, conversionLift: 0.28, aovLift: 2.0, recover: 0.50 },
+      { level: '冲刺', visitorLift: 10, conversionLift: 0.45, aovLift: 3.0, recover: 0.75 }
+    ]
+    : [
+      { level: '保守', visitorLift: 2, conversionLift: 0.08, aovLift: 0.5, recover: 0.20 },
+      { level: '建议', visitorLift: 4, conversionLift: 0.18, aovLift: 1.0, recover: 0.40 },
+      { level: '冲刺', visitorLift: 7, conversionLift: 0.30, aovLift: 1.8, recover: 0.60 }
+    ];
+
+  const rows = settings.map((item) => {
+    const visitors = Math.round(baseVisitors * (1 + item.visitorLift / 100));
+    const conversion = Math.min(bench.conversion * 1.18, baseConversion + item.conversionLift);
+    const aov = baseAov * (1 + item.aovLift / 100);
+    const formulaSales = visitors * conversion / 100 * aov;
+    const recoverySales = recoveryMode ? data.sales + salesGap * item.recover : 0;
+    const sales = Math.round(Math.max(formulaSales, recoverySales, data.sales * 1.01));
+    return {
+      level: item.level,
+      sales,
+      visitors,
+      conversion,
+      aov,
+      growth: data.sales ? (sales - data.sales) / data.sales * 100 : 0
+    };
+  });
+
+  return {
+    periodName,
+    baseline: `当前基准：销售额 ${yuan(data.sales)}，访客 ${Math.round(data.visitors).toLocaleString('zh-CN')}，转化率 ${percent(data.conversion)}，客单价 ${yuan(data.aov)}。`,
+    focus: topIssue ? `优先杠杆：${topIssue.lever}。${topIssue.action}` : '优先杠杆：商品、内容和复购路径的二级增长诊断。',
+    rows
+  };
+}
+
 function renderSummary(diagnosis) {
   const score = diagnosis.totalScore;
   $('#totalScore').textContent = score;
@@ -567,10 +622,280 @@ function renderActions(diagnosis) {
   `).join('');
 }
 
+function executiveSummary(diagnosis) {
+  const { data } = diagnosis;
+  const topIssue = diagnosis.issues[0];
+  const topAction = diagnosis.actions?.[0]?.tasks?.[1] || topIssue?.action || '先完成数据校准和核心链路排查。';
+  const suggestTarget = diagnosis.targetPlan?.rows?.find((item) => item.level === '建议');
+  const targetText = suggestTarget ? ` 建议目标销售额 ${yuan(suggestTarget.sales)}，较本期 ${suggestTarget.growth >= 0 ? '+' : ''}${suggestTarget.growth.toFixed(1)}%。` : '';
+  const salesDirection = diagnosis.salesTrend.value >= 0 ? '增长' : '下滑';
+  const trafficDirection = diagnosis.visitorTrend.value >= 0 ? '增长' : '下滑';
+  return {
+    result: `本期${data.reportType || '报告'}销售额 ${yuan(data.sales)}，较对比周期${salesDirection} ${diagnosis.salesTrend.label}；访客${trafficDirection} ${diagnosis.visitorTrend.label}，综合健康度 ${diagnosis.totalScore} 分。`,
+    reason: topIssue ? `核心原因优先看「${topIssue.title}」：${topIssue.evidence}` : '核心经营指标暂无明显短板，建议进入商品和内容二级诊断。',
+    action: `下周期先做一件事：${topAction}${targetText}`
+  };
+}
+
+function executiveSummaryText(diagnosis) {
+  const summary = executiveSummary(diagnosis);
+  return [
+    `${diagnosis.data.storeName}${getReportName(diagnosis)}老板摘要`,
+    `1. 结果：${summary.result}`,
+    `2. 原因：${summary.reason}`,
+    `3. 动作：${summary.action}`
+  ].join('\n');
+}
+
+function dataQualityLabel(score) {
+  if (score >= 84) return '可直接交付';
+  if (score >= 60) return '可初步交付，建议补齐明细';
+  return '仅适合内部初判，需补数据';
+}
+
+function metricChangeRows(diagnosis) {
+  const { data } = diagnosis;
+  return [
+    { name: '销售额', current: yuan(data.sales), previous: yuan(data.prevSales), change: diagnosis.salesTrend.label, judge: diagnosis.salesTrend.value >= 0 ? '增长' : '下滑' },
+    { name: '访客数', current: Math.round(data.visitors).toLocaleString('zh-CN'), previous: Math.round(data.prevVisitors).toLocaleString('zh-CN'), change: diagnosis.visitorTrend.label, judge: diagnosis.visitorTrend.value >= 0 ? '流量增长' : '流量减少' },
+    { name: '订单数', current: Math.round(data.orderCount).toLocaleString('zh-CN'), previous: '-', change: '-', judge: '看成交人数变化' },
+    { name: '转化率', current: percent(data.conversion), previous: percent(diagnosis.decomposition.prevConversion), change: `${(data.conversion - diagnosis.decomposition.prevConversion).toFixed(2)}pp`, judge: data.conversion >= diagnosis.decomposition.prevConversion ? '承接改善' : '承接变弱' },
+    { name: '客单价', current: yuan(data.aov), previous: yuan(diagnosis.decomposition.prevAov), change: `${data.aov >= diagnosis.decomposition.prevAov ? '+' : ''}${(data.aov - diagnosis.decomposition.prevAov).toFixed(2)}`, judge: data.aov >= diagnosis.decomposition.prevAov ? '价格带提升' : '高客单减少' },
+    { name: '退款率', current: percent(data.refundRate), previous: '-', change: '-', judge: data.refundRate > getBenchmark(data.industry).refund ? '需治理退款' : '退款可控' },
+    { name: '投放ROI', current: data.roi.toFixed(2), previous: '-', change: '-', judge: data.roi < getBenchmark(data.industry).roi ? '需优化投放效率' : '投放效率可观察' }
+  ];
+}
+
+function hasImportSummary(diagnosis) {
+  return Boolean(diagnosis.data.importSummary && diagnosis.data.importSummary.length);
+}
+
+function hasImportedModule(diagnosis, moduleName) {
+  if (!hasImportSummary(diagnosis)) return true;
+  return diagnosis.data.importSummary.some((item) => (item.modules || []).includes(moduleName));
+}
+
+function actualImportedDetails(diagnosis, key) {
+  const details = diagnosis.data.importedDetails || {};
+  return Array.isArray(details[key]) ? details[key] : [];
+}
+
+function reportModuleState(diagnosis) {
+  const imported = hasImportSummary(diagnosis);
+  const aux = diagnosis.data.importedAux || {};
+  return {
+    imported,
+    importSummary: imported,
+    aux: Boolean(aux.hasTrafficOverview || aux.hasMemberOverview),
+    overall: !imported || hasImportedModule(diagnosis, '店铺整体'),
+    product: !imported || (hasImportedModule(diagnosis, '宝贝排行') && actualImportedDetails(diagnosis, 'products').length > 0),
+    traffic: !imported || (hasImportedModule(diagnosis, '流量排行') && actualImportedDetails(diagnosis, 'traffic').length > 0),
+    promotion: !imported || (hasImportedModule(diagnosis, '推广情况') && actualImportedDetails(diagnosis, 'promotion').length > 0),
+    activity: !imported || (hasImportedModule(diagnosis, '活动情况') && actualImportedDetails(diagnosis, 'activity').length > 0),
+    leverage: diagnosis.data.sales > 0 && diagnosis.data.visitors > 0,
+    target: diagnosis.data.sales > 0 && diagnosis.data.visitors > 0,
+    score: true,
+    issues: true,
+    actions: true
+  };
+}
+
+function adaptiveReportOutline(diagnosis) {
+  const state = reportModuleState(diagnosis);
+  const included = ['老板先看', '数据完整度'];
+  if (state.importSummary) included.push('导入文件使用情况');
+  if (state.aux) included.push('流量与客户辅助诊断');
+  if (state.target) included.push('下周期目标建议');
+  if (state.overall) included.push('店铺整体情况');
+  if (state.product) included.push('宝贝排行');
+  if (state.traffic) included.push('流量排行');
+  if (state.promotion) included.push('推广情况');
+  if (state.activity) included.push('活动情况');
+  if (state.leverage) included.push('经营杠杆拆解');
+  included.push('经营数据评分', '关键问题与优先级', '下周期执行计划', '待确认问题', '待补充数据');
+
+  const skipped = [];
+  if (!state.overall) skipped.push('店铺整体：缺少销售额、访客、订单/转化率等大盘数据');
+  if (!state.product) skipped.push('宝贝排行：未识别到商品/宝贝明细');
+  if (!state.traffic) skipped.push('流量排行：未识别到渠道/来源明细');
+  if (!state.promotion) skipped.push('推广情况：未识别到计划、花费、点击、成交、ROI');
+  if (!state.activity) skipped.push('活动情况：未识别到活动名称或活动成交数据');
+  return { included, skipped };
+}
+
+function reportSection(title, body) {
+  return `<h4>${title}</h4>${body}`;
+}
+
+function reportOutlineHtml(diagnosis) {
+  const outline = adaptiveReportOutline(diagnosis);
+  return reportSection('三、本次报告结构', `
+    <div class="outline-box">
+      <div><strong>已生成模块</strong><p>${outline.included.join(' / ')}</p></div>
+      <div><strong>未生成模块</strong><p>${outline.skipped.length ? outline.skipped.join('；') : '本次上传数据已覆盖主要经营模块。'}</p></div>
+    </div>
+  `);
+}
+
+function importSummaryHtml(diagnosis) {
+  return reportSection('导入文件使用情况', `
+    <table class="report-table">
+      <thead><tr><th>文件</th><th>状态</th><th>使用行数</th><th>进入模块</th><th>说明</th></tr></thead>
+      <tbody>
+        ${tableRows(importSummaryRows(diagnosis), [
+          { render: (item) => escapeHtml(item.file || '-') },
+          { render: (item) => escapeHtml(item.status || '-') },
+          { render: (item) => escapeHtml(item.rows || '-') },
+          { render: (item) => escapeHtml(item.modules || '-') },
+          { render: (item) => escapeHtml(item.note || '-') }
+        ], '暂无导入文件明细')}
+      </tbody>
+    </table>
+  `);
+}
+
+function targetPlanHtml(targetPlan) {
+  return reportSection('下周期目标建议', `
+    <p>${targetPlan.baseline}</p>
+    <p>${targetPlan.focus}</p>
+    <table class="report-table">
+      <thead><tr><th>目标档位</th><th>目标销售额</th><th>较本期</th><th>目标访客</th><th>目标转化率</th><th>目标客单价</th></tr></thead>
+      <tbody>
+        ${targetPlan.rows.map((item) => `<tr><td>${targetPlan.periodName}${item.level}</td><td>${yuan(item.sales)}</td><td>${item.growth >= 0 ? '+' : ''}${item.growth.toFixed(1)}%</td><td>${item.visitors.toLocaleString('zh-CN')}</td><td>${percent(item.conversion)}</td><td>${yuan(item.aov)}</td></tr>`).join('')}
+      </tbody>
+    </table>
+  `);
+}
+
+function overallHtml(diagnosis) {
+  return reportSection('店铺整体情况', `
+    <ul>${operatingSummary(diagnosis).map((item) => `<li>${item}</li>`).join('')}</ul>
+    <table class="report-table">
+      <thead><tr><th>指标</th><th>本期</th><th>对比期</th><th>变化</th><th>判断</th></tr></thead>
+      <tbody>
+        ${metricChangeRows(diagnosis).map((item) => `<tr><td>${item.name}</td><td>${item.current}</td><td>${item.previous}</td><td>${item.change}</td><td>${item.judge}</td></tr>`).join('')}
+      </tbody>
+    </table>
+    <table class="report-table">
+      <thead><tr><th>模块</th><th>状态</th><th>诊断说明</th></tr></thead>
+      <tbody>
+        ${moduleDiagnosis(diagnosis).map((item) => `<tr><td>${item.module}</td><td>${item.status}</td><td>${item.detail}</td></tr>`).join('')}
+      </tbody>
+    </table>
+  `);
+}
+
+function productHtml(items) {
+  return reportSection('宝贝排行', `
+    <table class="report-table">
+      <thead><tr><th>宝贝/商品</th><th>销售额</th><th>访客</th><th>订单</th><th>转化率</th><th>判断</th></tr></thead>
+      <tbody>
+        ${tableRows(items, [
+          { render: (item) => escapeHtml(item.name || '-') },
+          { render: (item) => yuan(item.sales || 0) },
+          { render: (item) => Math.round(item.visitors || 0).toLocaleString('zh-CN') },
+          { render: (item) => Math.round(item.orders || 0).toLocaleString('zh-CN') },
+          { render: (item) => percent(item.conversion || 0) },
+          { render: (item) => escapeHtml(item.note || '-') }
+        ])}
+      </tbody>
+    </table>
+  `);
+}
+
+function trafficHtml(items) {
+  return reportSection('流量排行', `
+    <table class="report-table">
+      <thead><tr><th>流量来源</th><th>销售额</th><th>访客</th><th>转化率</th><th>判断</th></tr></thead>
+      <tbody>
+        ${tableRows(items, [
+          { render: (item) => escapeHtml(item.name || '-') },
+          { render: (item) => yuan(item.sales || 0) },
+          { render: (item) => Math.round(item.visitors || 0).toLocaleString('zh-CN') },
+          { render: (item) => percent(item.conversion || 0) },
+          { render: (item) => escapeHtml(item.note || '-') }
+        ])}
+      </tbody>
+    </table>
+  `);
+}
+
+function promotionHtml(items) {
+  return reportSection('推广情况', `
+    <table class="report-table">
+      <thead><tr><th>推广计划/渠道</th><th>花费</th><th>成交金额</th><th>ROI</th><th>点击</th><th>判断</th></tr></thead>
+      <tbody>
+        ${tableRows(items, [
+          { render: (item) => escapeHtml(item.name || '-') },
+          { render: (item) => yuan(item.spend || 0) },
+          { render: (item) => yuan(item.sales || 0) },
+          { render: (item) => item.roi ? Number(item.roi).toFixed(2) : '-' },
+          { render: (item) => item.clicks ? Math.round(item.clicks).toLocaleString('zh-CN') : '-' },
+          { render: (item) => escapeHtml(item.note || '-') }
+        ])}
+      </tbody>
+    </table>
+  `);
+}
+
+function activityHtml(items) {
+  return reportSection('活动情况', `
+    <table class="report-table">
+      <thead><tr><th>活动/动作</th><th>成交金额</th><th>访客</th><th>订单</th><th>判断/下步</th></tr></thead>
+      <tbody>
+        ${tableRows(items, [
+          { render: (item) => escapeHtml(item.name || '-') },
+          { render: (item) => item.sales ? yuan(item.sales) : '-' },
+          { render: (item) => item.visitors ? Math.round(item.visitors).toLocaleString('zh-CN') : '-' },
+          { render: (item) => item.orders ? Math.round(item.orders).toLocaleString('zh-CN') : '-' },
+          { render: (item) => escapeHtml(item.note || '-') }
+        ])}
+      </tbody>
+    </table>
+  `);
+}
+
+function leverageHtml(diagnosis) {
+  return reportSection('经营杠杆拆解', `
+    <table class="report-table">
+      <thead><tr><th>项目</th><th>测算结果</th><th>顾问判断</th></tr></thead>
+      <tbody>
+        <tr><td>销售缺口</td><td>${yuan(diagnosis.decomposition.salesGap)}</td><td>${diagnosis.decomposition.salesGap < 0 ? '需要先定位拖累项' : '销售较对比周期增长'}</td></tr>
+        <tr><td>流量影响</td><td>${yuan(diagnosis.decomposition.trafficImpact)}</td><td>按上期转化率和客单价测算</td></tr>
+        <tr><td>转化影响</td><td>${yuan(diagnosis.decomposition.conversionImpact)}</td><td>按本期访客和上期客单价测算</td></tr>
+        <tr><td>客单影响</td><td>${yuan(diagnosis.decomposition.aovImpact)}</td><td>用于判断商品结构和价格带变化</td></tr>
+      </tbody>
+    </table>
+  `);
+}
+
 function renderReport(diagnosis) {
   const { data } = diagnosis;
   const reportName = getReportName(diagnosis);
   const weekly = diagnosis.weeklySections;
+  const boss = executiveSummary(diagnosis);
+  const quality = diagnosis.dataQuality;
+  const targetPlan = diagnosis.targetPlan || buildTargetPlan(data, diagnosis.issues || [], diagnosis.decomposition || gapDecomposition(data), getBenchmark(data.industry));
+  const state = reportModuleState(diagnosis);
+  const details = data.importedDetails || {};
+  const dynamicSections = [reportOutlineHtml(diagnosis)];
+  if (state.importSummary) dynamicSections.push(importSummaryHtml(diagnosis));
+  if (state.aux) dynamicSections.push(reportSection('流量与客户辅助诊断', `<ul>${auxiliaryDiagnosis(diagnosis).map((item) => `<li>${item}</li>`).join('')}</ul>`));
+  if (state.target) dynamicSections.push(targetPlanHtml(targetPlan));
+  if (state.overall) dynamicSections.push(overallHtml(diagnosis));
+  if (state.product) dynamicSections.push(productHtml(state.imported ? details.products : weekly.products));
+  if (state.traffic) dynamicSections.push(trafficHtml(state.imported ? details.traffic : weekly.traffic));
+  if (state.promotion) dynamicSections.push(promotionHtml(state.imported ? details.promotion : weekly.promotion));
+  if (state.activity) dynamicSections.push(activityHtml(state.imported ? details.activity : weekly.activity));
+  if (state.leverage) dynamicSections.push(leverageHtml(diagnosis));
+  dynamicSections.push(reportSection('经营数据评分', `
+    <table class="report-table">
+      <thead><tr><th>指标</th><th>表现</th><th>判断</th><th>评分</th></tr></thead>
+      <tbody>
+        ${diagnosis.metrics.map((item) => `<tr><td>${item.name}</td><td>${item.value}</td><td>${item.detail}</td><td>${item.score}</td></tr>`).join('')}
+      </tbody>
+    </table>
+  `));
   $('#reportTime').textContent = '最近生成：' + diagnosis.createdAt;
   $('#reportPaper').innerHTML = `
     <div class="report-brand">Pinmoo AI 电商增长智能体</div>
@@ -581,8 +906,59 @@ function renderReport(diagnosis) {
       <p>${diagnosis.summary.text}</p>
     </div>
 
-    <h4>一、店铺整体情况</h4>
+    <h4>一、老板先看</h4>
+    <div class="boss-summary">
+      <section><span>结果</span><p>${boss.result}</p></section>
+      <section><span>原因</span><p>${boss.reason}</p></section>
+      <section><span>动作</span><p>${boss.action}</p></section>
+    </div>
+
+    <h4>二、数据完整度</h4>
+    <div class="quality-box">
+      <div>
+        <strong>${quality.score}分</strong>
+        <span>${dataQualityLabel(quality.score)}</span>
+      </div>
+      <ul>
+        ${quality.checks.map((item) => `<li class="${item.ok ? 'ok' : 'missing'}"><b>${item.ok ? '已具备' : '待补充'}</b>${item.name}：${item.ok ? '本报告已读取该模块数据。' : item.tip}</li>`).join('')}
+      </ul>
+    </div>
+
+    <h4>三、导入文件使用情况</h4>
+    <table class="report-table">
+      <thead><tr><th>文件</th><th>状态</th><th>使用行数</th><th>进入模块</th><th>说明</th></tr></thead>
+      <tbody>
+        ${tableRows(importSummaryRows(diagnosis), [
+          { render: (item) => escapeHtml(item.file || '-') },
+          { render: (item) => escapeHtml(item.status || '-') },
+          { render: (item) => escapeHtml(item.rows || '-') },
+          { render: (item) => escapeHtml(item.modules || '-') },
+          { render: (item) => escapeHtml(item.note || '-') }
+        ], '暂无导入文件明细')}
+      </tbody>
+    </table>
+
+    <h4>四、流量与客户辅助诊断</h4>
+    <ul>${auxiliaryDiagnosis(diagnosis).map((item) => `<li>${item}</li>`).join('')}</ul>
+
+    <h4>五、下周期目标建议</h4>
+    <p>${targetPlan.baseline}</p>
+    <p>${targetPlan.focus}</p>
+    <table class="report-table">
+      <thead><tr><th>目标档位</th><th>目标销售额</th><th>较本期</th><th>目标访客</th><th>目标转化率</th><th>目标客单价</th></tr></thead>
+      <tbody>
+        ${targetPlan.rows.map((item) => `<tr><td>${targetPlan.periodName}${item.level}</td><td>${yuan(item.sales)}</td><td>${item.growth >= 0 ? '+' : ''}${item.growth.toFixed(1)}%</td><td>${item.visitors.toLocaleString('zh-CN')}</td><td>${percent(item.conversion)}</td><td>${yuan(item.aov)}</td></tr>`).join('')}
+      </tbody>
+    </table>
+
+    <h4>六、店铺整体情况</h4>
     <ul>${operatingSummary(diagnosis).map((item) => `<li>${item}</li>`).join('')}</ul>
+    <table class="report-table">
+      <thead><tr><th>指标</th><th>本期</th><th>对比期</th><th>变化</th><th>判断</th></tr></thead>
+      <tbody>
+        ${metricChangeRows(diagnosis).map((item) => `<tr><td>${item.name}</td><td>${item.current}</td><td>${item.previous}</td><td>${item.change}</td><td>${item.judge}</td></tr>`).join('')}
+      </tbody>
+    </table>
     <table class="report-table">
       <thead><tr><th>模块</th><th>状态</th><th>诊断说明</th></tr></thead>
       <tbody>
@@ -590,7 +966,7 @@ function renderReport(diagnosis) {
       </tbody>
     </table>
 
-    <h4>二、宝贝排行</h4>
+    <h4>七、宝贝排行</h4>
     <table class="report-table">
       <thead><tr><th>宝贝/商品</th><th>销售额</th><th>访客</th><th>订单</th><th>转化率</th><th>判断</th></tr></thead>
       <tbody>
@@ -605,7 +981,7 @@ function renderReport(diagnosis) {
       </tbody>
     </table>
 
-    <h4>三、流量排行</h4>
+    <h4>八、流量排行</h4>
     <table class="report-table">
       <thead><tr><th>流量来源</th><th>销售额</th><th>访客</th><th>转化率</th><th>判断</th></tr></thead>
       <tbody>
@@ -619,7 +995,7 @@ function renderReport(diagnosis) {
       </tbody>
     </table>
 
-    <h4>四、推广情况</h4>
+    <h4>九、推广情况</h4>
     <table class="report-table">
       <thead><tr><th>推广计划/渠道</th><th>花费</th><th>成交金额</th><th>ROI</th><th>点击</th><th>判断</th></tr></thead>
       <tbody>
@@ -634,7 +1010,7 @@ function renderReport(diagnosis) {
       </tbody>
     </table>
 
-    <h4>五、活动情况</h4>
+    <h4>十、活动情况</h4>
     <table class="report-table">
       <thead><tr><th>活动/动作</th><th>成交金额</th><th>访客</th><th>订单</th><th>判断/下步</th></tr></thead>
       <tbody>
@@ -648,7 +1024,7 @@ function renderReport(diagnosis) {
       </tbody>
     </table>
 
-    <h4>六、经营杠杆拆解</h4>
+    <h4>十一、经营杠杆拆解</h4>
     <table class="report-table">
       <thead><tr><th>项目</th><th>测算结果</th><th>顾问判断</th></tr></thead>
       <tbody>
@@ -659,7 +1035,7 @@ function renderReport(diagnosis) {
       </tbody>
     </table>
 
-    <h4>七、经营数据评分</h4>
+    <h4>十二、经营数据评分</h4>
     <table class="report-table">
       <thead><tr><th>指标</th><th>表现</th><th>判断</th><th>评分</th></tr></thead>
       <tbody>
@@ -667,7 +1043,7 @@ function renderReport(diagnosis) {
       </tbody>
     </table>
 
-    <h4>八、关键问题与优先级</h4>
+    <h4>十三、关键问题与优先级</h4>
     <ol class="report-issue-list">
       ${diagnosis.issues.map((item) => `
         <li>
@@ -679,7 +1055,7 @@ function renderReport(diagnosis) {
       `).join('')}
     </ol>
 
-    <h4>九、下周期执行计划</h4>
+    <h4>十四、下周期执行计划</h4>
     <div class="report-actions-list">
       ${diagnosis.actions.map((group) => `
         <section>
@@ -689,13 +1065,73 @@ function renderReport(diagnosis) {
       `).join('')}
     </div>
 
-    <h4>十、需要品牌方/运营进一步确认的问题</h4>
+    <h4>十五、需要品牌方/运营进一步确认的问题</h4>
     <ol>${confirmationQuestions(diagnosis).map((item) => `<li>${item.replace(/^\d+\.\s*/, '')}</li>`).join('')}</ol>
 
-    <h4>十一、需要补充的数据</h4>
+    <h4>十六、需要补充的数据</h4>
     <ul>${missingDataTips(data).map((tip) => `<li>${tip}</li>`).join('')}</ul>
 
-    <h4>十二、顾问备注</h4>
+    <h4>十七、顾问备注</h4>
+    <p>${escapeHtml(data.notes || '暂无补充说明。')}</p>
+  `;
+  $('#reportPaper').innerHTML = `
+    <div class="report-brand">Pinmoo AI 电商增长智能体</div>
+    <h3>${reportName}</h3>
+    <div class="report-meta">${data.storeName} · ${data.platform} · ${data.industry} · ${data.period} · ${data.dataSource || '数据导入'}</div>
+    <div class="conclusion-box">
+      <strong>核心结论：${diagnosis.summary.title}，综合健康度 ${diagnosis.totalScore} 分</strong>
+      <p>${diagnosis.summary.text}</p>
+    </div>
+
+    <h4>一、老板先看</h4>
+    <div class="boss-summary">
+      <section><span>结果</span><p>${boss.result}</p></section>
+      <section><span>原因</span><p>${boss.reason}</p></section>
+      <section><span>动作</span><p>${boss.action}</p></section>
+    </div>
+
+    <h4>二、数据完整度</h4>
+    <div class="quality-box">
+      <div>
+        <strong>${quality.score}分</strong>
+        <span>${dataQualityLabel(quality.score)}</span>
+      </div>
+      <ul>
+        ${quality.checks.map((item) => `<li class="${item.ok ? 'ok' : 'missing'}"><b>${item.ok ? '已具备' : '待补充'}</b>${item.name}：${item.ok ? '本报告已读取该模块数据。' : item.tip}</li>`).join('')}
+      </ul>
+    </div>
+
+    ${dynamicSections.join('')}
+
+    <h4>关键问题与优先级</h4>
+    <ol class="report-issue-list">
+      ${diagnosis.issues.map((item) => `
+        <li>
+          <strong>[${item.rank}] ${item.title}</strong>
+          <p>证据：${item.evidence}</p>
+          <p>顾问判断：${item.diagnosis}</p>
+          <p>下一步：${item.action}</p>
+        </li>
+      `).join('')}
+    </ol>
+
+    <h4>下周期执行计划</h4>
+    <div class="report-actions-list">
+      ${diagnosis.actions.map((group) => `
+        <section>
+          <strong>${group.period}：${group.title}</strong>
+          <ul>${group.tasks.map((task) => `<li>${task}</li>`).join('')}</ul>
+        </section>
+      `).join('')}
+    </div>
+
+    <h4>需要品牌方/运营进一步确认的问题</h4>
+    <ol>${confirmationQuestions(diagnosis).map((item) => `<li>${item.replace(/^\d+\.\s*/, '')}</li>`).join('')}</ol>
+
+    <h4>需要补充的数据</h4>
+    <ul>${missingDataTips(data).map((tip) => `<li>${tip}</li>`).join('')}</ul>
+
+    <h4>顾问备注</h4>
     <p>${escapeHtml(data.notes || '暂无补充说明。')}</p>
   `;
 }
@@ -799,6 +1235,52 @@ function buildWeeklySections(data, issues) {
   };
 }
 
+function buildDataQuality(data) {
+  const details = data.importedDetails || {};
+  const aux = data.importedAux || {};
+  const checks = [
+    { key: 'overall', name: '店铺整体', ok: data.sales > 0 && data.visitors > 0, tip: '需要销售额、访客、订单/转化率等大盘数据' },
+    { key: 'product', name: '宝贝排行', ok: Boolean(details.products && details.products.length), tip: '建议导入宝贝名称、销售额、访客、订单、转化率' },
+    { key: 'traffic', name: '流量数据', ok: Boolean((details.traffic && details.traffic.length) || aux.hasTrafficOverview), tip: '建议导入流量来源、访客、成交、转化率，或流量看板总览' },
+    { key: 'promotion', name: '推广情况', ok: Boolean(details.promotion && details.promotion.length), tip: '建议导入推广计划、花费、点击、成交、ROI' },
+    { key: 'activity', name: '活动情况', ok: Boolean(details.activity && details.activity.length), tip: '建议导入活动名称、活动成交、活动访客、订单' },
+    { key: 'refund', name: '退款/售后', ok: data.refundRate > 0, tip: '建议导入退款率、退款金额、退款原因或售后明细' }
+  ];
+  const complete = checks.filter((item) => item.ok).length;
+  return {
+    score: Math.round(complete / checks.length * 100),
+    checks,
+    missing: checks.filter((item) => !item.ok)
+  };
+}
+
+function importSummaryRows(diagnosis) {
+  const rows = diagnosis.data.importSummary || [];
+  return rows.map((item) => ({
+    file: item.name,
+    status: item.status,
+    rows: item.rawRows ? `${item.usedRows}/${item.rawRows}` : '-',
+    modules: item.modules?.length ? item.modules.join('、') : '-',
+    note: item.note
+  }));
+}
+
+function auxiliaryDiagnosis(diagnosis) {
+  const aux = diagnosis.data.importedAux || {};
+  const rows = [];
+  if (aux.hasTrafficOverview) {
+    rows.push(`流量总览已读取：访客 ${Math.round(aux.newVisitors + aux.oldVisitors || diagnosis.data.visitors).toLocaleString('zh-CN')}，浏览量 ${Math.round(aux.pageViews || 0).toLocaleString('zh-CN')}，跳失率 ${aux.bounceRate ? percent(aux.bounceRate * (aux.bounceRate <= 1 ? 100 : 1)) : '-'}，平均停留 ${aux.avgStay ? aux.avgStay.toFixed(1) : '-'} 秒。`);
+    if (aux.shortVideoVisitors || aux.liveVisitors || aux.storePageVisitors) {
+      rows.push(`内容/承接入口：短视频访客 ${Math.round(aux.shortVideoVisitors || 0).toLocaleString('zh-CN')}，直播间访客 ${Math.round(aux.liveVisitors || 0).toLocaleString('zh-CN')}，店铺页访客 ${Math.round(aux.storePageVisitors || 0).toLocaleString('zh-CN')}。`);
+    }
+  }
+  if (aux.hasMemberOverview) {
+    rows.push(`客户概况已读取：店铺客户数 ${Math.round(aux.shopCustomers || 0).toLocaleString('zh-CN')}，新访客户 ${Math.round(aux.newVisitors || 0).toLocaleString('zh-CN')}，未购回访 ${Math.round(aux.unpurchasedReturning || 0).toLocaleString('zh-CN')}，已购回访 ${Math.round(aux.purchasedReturning || 0).toLocaleString('zh-CN')}。`);
+  }
+  if (!rows.length) rows.push('暂未读取到流量总览或客户概况辅助数据。');
+  return rows;
+}
+
 function tableRows(items, columns, emptyText = '暂无明细数据') {
   if (!items || !items.length) return `<tr><td colspan="${columns.length}">${emptyText}</td></tr>`;
   return items.map((item) => `<tr>${columns.map((column) => `<td>${column.render(item)}</td>`).join('')}</tr>`).join('');
@@ -848,40 +1330,65 @@ function reportText(diagnosis) {
   if (!diagnosis) return '';
   const reportName = getReportName(diagnosis);
   const weekly = diagnosis.weeklySections || {};
-  return [
+  const targetPlan = diagnosis.targetPlan || buildTargetPlan(diagnosis.data, diagnosis.issues || [], diagnosis.decomposition || gapDecomposition(diagnosis.data), getBenchmark(diagnosis.data.industry));
+  const state = reportModuleState(diagnosis);
+  const details = diagnosis.data.importedDetails || {};
+  const outline = adaptiveReportOutline(diagnosis);
+  const productItems = state.imported ? details.products || [] : weekly.products || [];
+  const trafficItems = state.imported ? details.traffic || [] : weekly.traffic || [];
+  const promotionItems = state.imported ? details.promotion || [] : weekly.promotion || [];
+  const activityItems = state.imported ? details.activity || [] : weekly.activity || [];
+  const lines = [
     `Pinmoo AI ${reportName}`,
     `${diagnosis.data.storeName} · ${diagnosis.data.platform} · ${diagnosis.data.industry} · ${diagnosis.data.period} · ${diagnosis.data.dataSource || '数据导入'}`,
     `综合健康度：${diagnosis.totalScore} 分`,
     `核心结论：${diagnosis.summary.title}`,
     diagnosis.summary.text,
     '',
-    '一、店铺整体情况',
-    ...operatingSummary(diagnosis).map((item) => `- ${item}`),
+    '一、老板先看',
+    ...executiveSummaryText(diagnosis).split('\n').map((item) => `- ${item}`),
     '',
-    ...moduleDiagnosis(diagnosis).map((item) => `- ${item.module}｜${item.status}：${item.detail}`),
+    '二、数据完整度',
+    `- 完整度：${diagnosis.dataQuality?.score || 0}分，${dataQualityLabel(diagnosis.dataQuality?.score || 0)}`,
+    ...(diagnosis.dataQuality?.checks || []).map((item) => `- ${item.ok ? '已具备' : '待补充'}：${item.name}，${item.ok ? '本报告已读取该模块数据。' : item.tip}`),
     '',
-    '二、宝贝排行',
-    ...(weekly.products || []).map((item, index) => `${index + 1}. ${item.name || '-'}：销售额 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，订单 ${Math.round(item.orders || 0)}，转化率 ${percent(item.conversion || 0)}，${item.note || ''}`),
+    '三、本次报告结构',
+    `- 已生成模块：${outline.included.join(' / ')}`,
+    `- 未生成模块：${outline.skipped.length ? outline.skipped.join('；') : '本次上传数据已覆盖主要经营模块。'}`
+  ];
+  if (state.importSummary) {
+    lines.push('', '四、导入文件使用情况', ...importSummaryRows(diagnosis).map((item) => `- ${item.file}：${item.status}，使用行数 ${item.rows}，进入模块 ${item.modules}，${item.note}`));
+  }
+  if (state.aux) {
+    lines.push('', '流量与客户辅助诊断', ...auxiliaryDiagnosis(diagnosis).map((item) => `- ${item}`));
+  }
+  if (state.target) {
+    lines.push('', '下周期目标建议', `- ${targetPlan.baseline}`, `- ${targetPlan.focus}`, ...targetPlan.rows.map((item) => `- ${targetPlan.periodName}${item.level}：目标销售额 ${yuan(item.sales)}，较本期 ${item.growth >= 0 ? '+' : ''}${item.growth.toFixed(1)}%，目标访客 ${item.visitors.toLocaleString('zh-CN')}，目标转化率 ${percent(item.conversion)}，目标客单价 ${yuan(item.aov)}`));
+  }
+  if (state.overall) {
+    lines.push('', '店铺整体情况', ...operatingSummary(diagnosis).map((item) => `- ${item}`), ...metricChangeRows(diagnosis).map((item) => `- ${item.name}：本期 ${item.current}，对比期 ${item.previous}，变化 ${item.change}，判断：${item.judge}`), '', ...moduleDiagnosis(diagnosis).map((item) => `- ${item.module}｜${item.status}：${item.detail}`));
+  }
+  if (state.product) {
+    lines.push('', '宝贝排行', ...productItems.map((item, index) => `${index + 1}. ${item.name || '-'}：销售额 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，订单 ${Math.round(item.orders || 0)}，转化率 ${percent(item.conversion || 0)}，${item.note || ''}`));
+  }
+  if (state.traffic) {
+    lines.push('', '流量排行', ...trafficItems.map((item, index) => `${index + 1}. ${item.name || '-'}：销售额 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，转化率 ${percent(item.conversion || 0)}，${item.note || ''}`));
+  }
+  if (state.promotion) {
+    lines.push('', '推广情况', ...promotionItems.map((item, index) => `${index + 1}. ${item.name || '-'}：花费 ${yuan(item.spend || 0)}，成交 ${yuan(item.sales || 0)}，ROI ${item.roi ? Number(item.roi).toFixed(2) : '-'}，点击 ${item.clicks ? Math.round(item.clicks) : '-'}，${item.note || ''}`));
+  }
+  if (state.activity) {
+    lines.push('', '活动情况', ...activityItems.map((item, index) => `${index + 1}. ${item.name || '-'}：成交 ${item.sales ? yuan(item.sales) : '-'}，访客 ${item.visitors ? Math.round(item.visitors) : '-'}，订单 ${item.orders ? Math.round(item.orders) : '-'}，${item.note || ''}`));
+  }
+  if (state.leverage) {
+    lines.push('', '经营杠杆拆解', `- 销售缺口：${yuan(diagnosis.decomposition.salesGap)}`, `- 流量影响：${yuan(diagnosis.decomposition.trafficImpact)}`, `- 转化影响：${yuan(diagnosis.decomposition.conversionImpact)}`, `- 客单影响：${yuan(diagnosis.decomposition.aovImpact)}`);
+  }
+  lines.push(
     '',
-    '三、流量排行',
-    ...(weekly.traffic || []).map((item, index) => `${index + 1}. ${item.name || '-'}：销售额 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，转化率 ${percent(item.conversion || 0)}，${item.note || ''}`),
-    '',
-    '四、推广情况',
-    ...(weekly.promotion || []).map((item, index) => `${index + 1}. ${item.name || '-'}：花费 ${yuan(item.spend || 0)}，成交 ${yuan(item.sales || 0)}，ROI ${item.roi ? Number(item.roi).toFixed(2) : '-'}，点击 ${item.clicks ? Math.round(item.clicks) : '-'}，${item.note || ''}`),
-    '',
-    '五、活动情况',
-    ...(weekly.activity || []).map((item, index) => `${index + 1}. ${item.name || '-'}：成交 ${item.sales ? yuan(item.sales) : '-'}，访客 ${item.visitors ? Math.round(item.visitors) : '-'}，订单 ${item.orders ? Math.round(item.orders) : '-'}，${item.note || ''}`),
-    '',
-    '六、经营杠杆拆解',
-    `- 销售缺口：${yuan(diagnosis.decomposition.salesGap)}`,
-    `- 流量影响：${yuan(diagnosis.decomposition.trafficImpact)}`,
-    `- 转化影响：${yuan(diagnosis.decomposition.conversionImpact)}`,
-    `- 客单影响：${yuan(diagnosis.decomposition.aovImpact)}`,
-    '',
-    '七、经营数据评分',
+    '经营数据评分',
     ...diagnosis.metrics.map((item) => `- ${item.name}：${item.value}；${item.detail}；评分 ${item.score}`),
     '',
-    '八、关键问题与优先级',
+    '关键问题与优先级',
     ...diagnosis.issues.map((item, index) => [
       `${index + 1}. [${item.rank}] ${item.title}（优先级 ${item.priority}，责任建议：${item.owner}）`,
       `   证据：${item.evidence}`,
@@ -891,16 +1398,90 @@ function reportText(diagnosis) {
       `   验证：${item.validation}`
     ].join('\n')),
     '',
-    '九、下周期执行计划',
+    '下周期执行计划',
     ...diagnosis.actions.flatMap((group) => [`${group.period}：${group.title}`, ...group.tasks.map((task) => `- ${task}`)]),
     '',
-    '十、需要品牌方/运营进一步确认的问题',
+    '需要品牌方/运营进一步确认的问题',
     ...confirmationQuestions(diagnosis).map((item) => `- ${item.replace(/^\d+\.\s*/, '')}`),
     '',
-    '十一、需要补充的数据',
+    '需要补充的数据',
     ...missingDataTips(diagnosis.data).map((tip) => `- ${tip}`),
     '',
     `顾问备注：${diagnosis.data.notes || '暂无'}`
+  );
+  return lines.join('\n');
+  return [
+    `Pinmoo AI ${reportName}`,
+    `${diagnosis.data.storeName} · ${diagnosis.data.platform} · ${diagnosis.data.industry} · ${diagnosis.data.period} · ${diagnosis.data.dataSource || '数据导入'}`,
+    `综合健康度：${diagnosis.totalScore} 分`,
+    `核心结论：${diagnosis.summary.title}`,
+    diagnosis.summary.text,
+    '',
+    '一、老板先看',
+    ...executiveSummaryText(diagnosis).split('\n').map((item) => `- ${item}`),
+    '',
+    '二、数据完整度',
+    `- 完整度：${diagnosis.dataQuality?.score || 0}分，${dataQualityLabel(diagnosis.dataQuality?.score || 0)}`,
+    ...(diagnosis.dataQuality?.checks || []).map((item) => `- ${item.ok ? '已具备' : '待补充'}：${item.name}，${item.ok ? '本报告已读取该模块数据。' : item.tip}`),
+    '',
+    '三、导入文件使用情况',
+    ...importSummaryRows(diagnosis).map((item) => `- ${item.file}：${item.status}，使用行数 ${item.rows}，进入模块 ${item.modules}，${item.note}`),
+    '',
+    '四、流量与客户辅助诊断',
+    ...auxiliaryDiagnosis(diagnosis).map((item) => `- ${item}`),
+    '',
+    '五、下周期目标建议',
+    `- ${targetPlan.baseline}`,
+    `- ${targetPlan.focus}`,
+    ...targetPlan.rows.map((item) => `- ${targetPlan.periodName}${item.level}：目标销售额 ${yuan(item.sales)}，较本期 ${item.growth >= 0 ? '+' : ''}${item.growth.toFixed(1)}%，目标访客 ${item.visitors.toLocaleString('zh-CN')}，目标转化率 ${percent(item.conversion)}，目标客单价 ${yuan(item.aov)}`),
+    '',
+    '六、店铺整体情况',
+    ...operatingSummary(diagnosis).map((item) => `- ${item}`),
+    ...metricChangeRows(diagnosis).map((item) => `- ${item.name}：本期 ${item.current}，对比期 ${item.previous}，变化 ${item.change}，判断：${item.judge}`),
+    '',
+    ...moduleDiagnosis(diagnosis).map((item) => `- ${item.module}｜${item.status}：${item.detail}`),
+    '',
+    '七、宝贝排行',
+    ...(weekly.products || []).map((item, index) => `${index + 1}. ${item.name || '-'}：销售额 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，订单 ${Math.round(item.orders || 0)}，转化率 ${percent(item.conversion || 0)}，${item.note || ''}`),
+    '',
+    '八、流量排行',
+    ...(weekly.traffic || []).map((item, index) => `${index + 1}. ${item.name || '-'}：销售额 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，转化率 ${percent(item.conversion || 0)}，${item.note || ''}`),
+    '',
+    '九、推广情况',
+    ...(weekly.promotion || []).map((item, index) => `${index + 1}. ${item.name || '-'}：花费 ${yuan(item.spend || 0)}，成交 ${yuan(item.sales || 0)}，ROI ${item.roi ? Number(item.roi).toFixed(2) : '-'}，点击 ${item.clicks ? Math.round(item.clicks) : '-'}，${item.note || ''}`),
+    '',
+    '十、活动情况',
+    ...(weekly.activity || []).map((item, index) => `${index + 1}. ${item.name || '-'}：成交 ${item.sales ? yuan(item.sales) : '-'}，访客 ${item.visitors ? Math.round(item.visitors) : '-'}，订单 ${item.orders ? Math.round(item.orders) : '-'}，${item.note || ''}`),
+    '',
+    '十一、经营杠杆拆解',
+    `- 销售缺口：${yuan(diagnosis.decomposition.salesGap)}`,
+    `- 流量影响：${yuan(diagnosis.decomposition.trafficImpact)}`,
+    `- 转化影响：${yuan(diagnosis.decomposition.conversionImpact)}`,
+    `- 客单影响：${yuan(diagnosis.decomposition.aovImpact)}`,
+    '',
+    '十二、经营数据评分',
+    ...diagnosis.metrics.map((item) => `- ${item.name}：${item.value}；${item.detail}；评分 ${item.score}`),
+    '',
+    '十三、关键问题与优先级',
+    ...diagnosis.issues.map((item, index) => [
+      `${index + 1}. [${item.rank}] ${item.title}（优先级 ${item.priority}，责任建议：${item.owner}）`,
+      `   证据：${item.evidence}`,
+      `   顾问判断：${item.diagnosis}`,
+      `   影响：${item.impactText}`,
+      `   下一步：${item.action}`,
+      `   验证：${item.validation}`
+    ].join('\n')),
+    '',
+    '十四、下周期执行计划',
+    ...diagnosis.actions.flatMap((group) => [`${group.period}：${group.title}`, ...group.tasks.map((task) => `- ${task}`)]),
+    '',
+    '十五、需要品牌方/运营进一步确认的问题',
+    ...confirmationQuestions(diagnosis).map((item) => `- ${item.replace(/^\d+\.\s*/, '')}`),
+    '',
+    '十六、需要补充的数据',
+    ...missingDataTips(diagnosis.data).map((tip) => `- ${tip}`),
+    '',
+    `十七、顾问备注：${diagnosis.data.notes || '暂无'}`
   ].join('\n');
 }
 
@@ -927,6 +1508,44 @@ function downloadText(text, filename) {
   URL.revokeObjectURL(url);
 }
 
+function exportWord() {
+  if (!latestDiagnosis) return toast('请先生成诊断报告');
+  const title = `${latestDiagnosis.data.storeName}-${getReportName(latestDiagnosis)}`;
+  const reportHtml = $('#reportPaper').innerHTML;
+  const wordHtml = `<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>${escapeHtml(title)}</title>
+  <style>
+    body { font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif; color: #111827; line-height: 1.65; }
+    h3 { text-align: center; font-size: 24px; margin: 18px 0 8px; }
+    h4 { font-size: 16px; margin: 20px 0 8px; }
+    p, li { font-size: 12px; color: #344054; }
+    table { width: 100%; border-collapse: collapse; margin: 8px 0 14px; font-size: 11px; }
+    th, td { border: 1px solid #d0d7e2; padding: 7px 8px; text-align: left; vertical-align: top; }
+    th { background: #eef4ff; color: #1f2937; font-weight: 700; }
+    .report-brand { color: #115df6; font-weight: 700; }
+    .report-meta { text-align: center; color: #667085; font-size: 11px; }
+    .conclusion-box { border: 1px solid #bfd3ff; background: #eef4ff; padding: 12px; margin: 14px 0; }
+    .report-actions-list section, .quality-box { border: 1px solid #d0d7e2; padding: 10px; margin: 8px 0; }
+    .boss-summary, .quality-box { background: #f8fbff; }
+  </style>
+</head>
+<body>${reportHtml}</body>
+</html>`;
+  const blob = new Blob(['\ufeff', wordHtml], { type: 'application/msword;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `${title}.doc`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+  toast('Word 报告已导出');
+}
+
 async function copyReport() {
   if (!latestDiagnosis) return toast('请先生成诊断报告');
   const text = reportText(latestDiagnosis);
@@ -941,6 +1560,23 @@ async function copyReport() {
     document.execCommand('copy');
     textarea.remove();
     toast('报告内容已复制');
+  }
+}
+
+async function copyExecutiveSummary() {
+  if (!latestDiagnosis) return toast('请先生成诊断报告');
+  const text = executiveSummaryText(latestDiagnosis);
+  try {
+    await navigator.clipboard.writeText(text);
+    toast('老板摘要已复制');
+  } catch {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
+    toast('老板摘要已复制');
   }
 }
 
@@ -1001,45 +1637,97 @@ function pick(row, aliases) {
 function parseMetric(value) {
   if (value === null || value === undefined || value === '') return 0;
   const text = String(value).replace(/,/g, '').replace(/%/g, '').replace(/￥/g, '').replace(/¥/g, '').trim();
+  if (!text || text === '-') return 0;
   const parsed = Number(text);
   return Number.isFinite(parsed) ? parsed : 0;
 }
 
+function detectReportKind(row) {
+  const source = String(row.来源文件 || row.sourceFile || '').toLowerCase();
+  const keys = Object.keys(row).join(' ');
+  if (/首页|数据概览|经营核心|交易概况|月报/.test(source) || (pick(row, ['类别']) && pick(row, ['支付金额', '支付买家数', '访客数']))) return 'overall';
+  if (/流量来源|场域来源/.test(source) || /流量来源|来源名称|来源明细|一级渠道|二级渠道/.test(keys)) return 'traffic';
+  if (/流量概况|流量看板|流量总览/.test(source)) return 'trafficOverview';
+  if (/退款|售后/.test(source) || /退款原因|成功退款/.test(keys)) return 'refund';
+  if (/客服|旺旺/.test(source) || /响应时长|满意度|咨询人数/.test(keys)) return 'service';
+  if (/会员|客户/.test(source) || /会员总数|复购率|客户新访/.test(keys)) return 'member';
+  if (/营销场景|计划报表|关键词报表|创意报表|单元报表|人群报表|地域报表|内容报表|商品报表/.test(source) || pick(row, ['花费', '投入产出比', '计划名字', '场景名字'])) return 'promotion';
+  if (/商品|宝贝|sku|spu/.test(source) || /商品名称|宝贝名称|SPU名称|商品概况|商品明细/.test(keys)) return 'product';
+  if (/活动/.test(source) || /活动名称/.test(keys)) return 'activity';
+  return 'unknown';
+}
+
+function inferPlatform(row, reportKind) {
+  const source = String(row.来源文件 || row.sourceFile || '');
+  const keys = Object.keys(row).join(' ');
+  if (/京东|jd|10292689|734249/.test(source.toLowerCase()) || /SPU名称|店铺成交转化率|一级渠道|二级渠道|引入商详访客数/.test(keys)) return '京东';
+  if (/淘宝|天猫|生意参谋|万相台|直通车|淘宝客/.test(source + keys)) return '天猫';
+  if (reportKind === 'promotion' && /主体ID|场景ID|计划ID/.test(keys)) return '天猫';
+  return '';
+}
+
 function toImportedRow(row) {
-  const sales = parseMetric(pick(row, ['销售额', 'GMV', '成交金额', '支付金额', 'sales']));
-  const visitors = parseMetric(pick(row, ['访客数', '访客', 'UV', 'visitors']));
-  const aov = parseMetric(pick(row, ['客单价', 'aov']));
-  const conversion = parseMetric(pick(row, ['转化率', '支付转化率', 'conversion']));
-  const orders = parseMetric(pick(row, ['订单数', '支付订单数', '成交订单数', 'orders'])) ||
+  const reportKind = detectReportKind(row);
+  const sourceCategory = pick(row, ['类别', '范围', '人群类型']);
+  const sourceText = String(row.来源文件 || '');
+  const sales = parseMetric(pick(row, ['销售额', 'GMV', '成交金额', '支付金额', '总支付金额', '净支付金额', '总成交金额', '直接成交金额', '间接成交金额', '引入成交金额', '会员成交金额', '老买家支付金额', '老客复购金额', 'sales']));
+  const prevSales = parseMetric(pick(row, ['销售额-对比日', '成交金额-对比日', '支付金额-对比日', '总成交金额-对比日', '引入成交金额-对比日', 'salesPrev', 'prevSales']));
+  const visitors = parseMetric(pick(row, ['访客数', '访客', 'UV', '店铺访客数', '商品访客数', '引入商详访客数', '引导访问人数', '引导访问量', '店铺客户数', '内容查看人数', 'visitors']));
+  const prevVisitors = parseMetric(pick(row, ['访客数-对比日', '店铺访客数-对比日', '商品访客数-对比日', '引入商详访客数-对比日', 'visitorsPrev', 'prevVisitors']));
+  const aov = parseMetric(pick(row, ['客单价', '人均成交金额', '会员客单价', 'aov']));
+  const conversion = parseMetric(pick(row, ['转化率', '支付转化率', '点击转化率', '询单转化率', '店铺成交转化率', '成交转化率', '访客-成交转化率', '浏览-成交转化率', 'conversion']));
+  const orders = parseMetric(pick(row, ['订单数', '支付订单数', '成交订单数', '支付子订单数', '总支付子订单数', '总成交笔数', '成交单量', '引入成交单量', '支付买家数', '成交人数', '成交客户数', '引入成交客户数', 'orders'])) ||
     (aov ? sales / aov : visitors * conversion / 100);
   const periodTag = pick(row, ['周期', '期间', '本期上期', '对比周期', 'period', 'compare']);
   const periodText = String(periodTag || '').toLowerCase();
-  const bucket = periodText.includes('上期') || periodText.includes('previous') || periodText.includes('prev') ? 'previous' : 'current';
+  const categoryText = String(sourceCategory || '');
+  const bucket = categoryText.includes('同行') ? 'benchmark' : periodText.includes('上期') || periodText.includes('previous') || periodText.includes('prev') ? 'previous' : 'current';
+  const rawItemName = pick(row, ['宝贝名称', '商品名称', '宝贝', '商品', 'SKU', 'sku', 'SPU名称', 'SPU', '商品ID', 'itemName', 'productName', '主体名称']);
+  const rawPromotionName = pick(row, ['推广计划', '计划名称', '计划名字', '推广渠道', '推广名称', '推广单元', '场景名字', '原二级场景名字', '创意名字', '词名字/词包名字', 'promotionName', 'campaign']);
   return {
     bucket,
+    reportKind,
+    sourceCategory,
+    sourceFile: sourceText,
     date: pick(row, ['日期', '时间', 'date']),
     storeName: pick(row, ['店铺名称', '店铺', 'storeName', 'store']),
     industry: pick(row, ['行业', '所属行业', 'industry']),
-    platform: pick(row, ['平台', '店铺平台', 'platform']),
-    itemName: pick(row, ['宝贝名称', '商品名称', '宝贝', '商品', 'SKU', 'sku', 'itemName', 'productName']),
-    trafficSource: pick(row, ['流量来源', '渠道来源', '渠道', '来源', 'trafficSource']),
-    promotionName: pick(row, ['推广计划', '计划名称', '推广渠道', '推广名称', '推广单元', 'promotionName', 'campaign']),
+    platform: pick(row, ['平台', '店铺平台', 'platform']) || inferPlatform(row, reportKind),
+    itemName: reportKind === 'promotion' && !/商品报表|创意报表|内容报表/.test(sourceText) ? '' : rawItemName,
+    trafficSource: pick(row, ['流量来源', '渠道来源', '渠道', '来源', '来源名称', '流量来源名称', '一级来源', '二级来源', '一级渠道', '二级渠道', 'trafficSource']),
+    promotionName: reportKind === 'promotion' ? rawPromotionName || rawItemName || '推广整体' : rawPromotionName,
     activityName: pick(row, ['活动名称', '平台活动', '活动', 'activityName']),
     sales,
+    prevSales,
     visitors,
+    prevVisitors,
     orders,
-    spend: parseMetric(pick(row, ['花费', '消耗', '推广花费', 'spend', 'cost'])),
+    spend: parseMetric(pick(row, ['花费', '消耗', '推广花费', '全站推广花费', '关键词推广花费', '精准人群推广花费', '智能场景花费', '淘宝客佣金', 'spend', 'cost'])),
     clicks: parseMetric(pick(row, ['点击量', '点击', 'clicks'])),
-    impressions: parseMetric(pick(row, ['展现量', '曝光量', 'impressions'])),
-    addCarts: parseMetric(pick(row, ['加购数', '加购', '购物车数', 'addCarts'])),
+    impressions: parseMetric(pick(row, ['展现量', '曝光量', '浏览量', '店铺浏览量', '商品浏览量', '引入商详浏览量', '搜索曝光次数', '详情曝光', '自然流量曝光量', 'impressions'])),
+    addCarts: parseMetric(pick(row, ['加购数', '加购', '购物车数', '总购物车数', '加购件数', '加购人数', '加购客户数', '加购商品件数', '详情加购', 'addCarts'])),
+    pageViews: parseMetric(pick(row, ['浏览量', '店铺浏览量', '商品浏览量', '引入商详浏览量', 'pageViews'])),
+    bounceRate: parseMetric(pick(row, ['跳失率', 'bounceRate'])),
+    avgStay: parseMetric(pick(row, ['平均停留时长', '店铺平均停留时长', '商品平均停留时长', '商详平均停留时长', '停留时长', 'avgStay'])),
+    oldVisitors: parseMetric(pick(row, ['老访客数', 'oldVisitors'])),
+    newVisitors: parseMetric(pick(row, ['新访客数', '客户新访', 'newVisitors'])),
+    followStoreUsers: parseMetric(pick(row, ['关注店铺人数', 'followStoreUsers'])),
+    liveVisitors: parseMetric(pick(row, ['直播间访客数', 'liveVisitors'])),
+    shortVideoVisitors: parseMetric(pick(row, ['短视频访客数', 'shortVideoVisitors'])),
+    contentVisitors: parseMetric(pick(row, ['图文访客数', '内容查看人数', 'contentVisitors'])),
+    storePageVisitors: parseMetric(pick(row, ['店铺页访客数', 'storePageVisitors'])),
+    shopCustomers: parseMetric(pick(row, ['店铺客户数', 'shopCustomers'])),
+    unpurchasedReturning: parseMetric(pick(row, ['未购客户回访', 'unpurchasedReturning'])),
+    purchasedReturning: parseMetric(pick(row, ['已购客户回访', 'purchasedReturning'])),
     conversion,
     aov,
-    refundRate: parseMetric(pick(row, ['退款率', '退货率', 'refundRate'])),
-    roi: parseMetric(pick(row, ['ROI', '投放ROI', '投产比', 'roi'])),
-    productCount: parseMetric(pick(row, ['商品总数', '商品数', 'productCount'])),
-    activeProductCount: parseMetric(pick(row, ['有成交商品数', '动销商品数', 'activeProductCount'])),
+    refundAmount: parseMetric(pick(row, ['退款金额', '取消及售后退款金额', '成功退款金额', 'refundAmount'])),
+    refundRate: parseMetric(pick(row, ['退款率', '退货率', '成功退款率', 'refundRate'])),
+    roi: parseMetric(pick(row, ['ROI', '投放ROI', '投产比', '投入产出比', '含预售投产比', 'roi'])),
+    productCount: parseMetric(pick(row, ['商品总数', '商品数', '上架spu数', '访问spu数', 'productCount'])),
+    activeProductCount: parseMetric(pick(row, ['有成交商品数', '动销商品数', '动销spu数', '加购spu数', 'activeProductCount'])),
     topSkuShare: parseMetric(pick(row, ['TOPSKU销售占比', 'TOP SKU销售占比', '爆款占比', 'topSkuShare'])),
-    serviceRate: parseMetric(pick(row, ['客服响应达标率', '客服响应率', 'serviceRate'])),
+    serviceRate: parseMetric(pick(row, ['客服响应达标率', '客服响应率', '旺旺满意度', '24小时揽收及时率', 'serviceRate'])),
     searchShare: parseMetric(pick(row, ['搜索占比', '搜索', 'searchShare'])),
     recommendShare: parseMetric(pick(row, ['推荐占比', '推荐', 'recommendShare'])),
     contentShare: parseMetric(pick(row, ['内容占比', '内容', 'contentShare'])),
@@ -1063,16 +1751,40 @@ function dateRangeLabel(rows) {
 
 function aggregateRows(rows) {
   const sales = rows.reduce((sum, row) => sum + row.sales, 0);
+  const prevSales = rows.reduce((sum, row) => sum + (row.prevSales || 0), 0);
   const visitors = rows.reduce((sum, row) => sum + row.visitors, 0);
+  const prevVisitors = rows.reduce((sum, row) => sum + (row.prevVisitors || 0), 0);
   const orders = rows.reduce((sum, row) => sum + row.orders, 0);
+  const refundAmount = rows.reduce((sum, row) => sum + (row.refundAmount || 0), 0);
+  const importedRefundRate = weightedAverage(rows, 'refundRate');
+  const trafficRows = rows.filter((row) => row.reportKind === 'trafficOverview');
+  const memberRows = rows.filter((row) => row.reportKind === 'member');
   return {
     sales,
+    prevSales,
     visitors,
+    prevVisitors,
     orders,
     conversion: visitors ? orders / visitors * 100 : weightedAverage(rows, 'conversion', 'visitors'),
     aov: orders ? sales / orders : weightedAverage(rows, 'aov'),
-    refundRate: weightedAverage(rows, 'refundRate'),
+    refundAmount,
+    refundRate: importedRefundRate || (sales ? refundAmount / sales * 100 : 0),
     roi: weightedAverage(rows, 'roi'),
+    pageViews: rows.reduce((sum, row) => sum + (row.pageViews || 0), 0),
+    bounceRate: weightedAverage(rows, 'bounceRate', 'visitors'),
+    avgStay: weightedAverage(rows, 'avgStay', 'visitors'),
+    oldVisitors: rows.reduce((sum, row) => sum + (row.oldVisitors || 0), 0),
+    newVisitors: rows.reduce((sum, row) => sum + (row.newVisitors || 0), 0),
+    followStoreUsers: rows.reduce((sum, row) => sum + (row.followStoreUsers || 0), 0),
+    liveVisitors: rows.reduce((sum, row) => sum + (row.liveVisitors || 0), 0),
+    shortVideoVisitors: rows.reduce((sum, row) => sum + (row.shortVideoVisitors || 0), 0),
+    contentVisitors: rows.reduce((sum, row) => sum + (row.contentVisitors || 0), 0),
+    storePageVisitors: rows.reduce((sum, row) => sum + (row.storePageVisitors || 0), 0),
+    shopCustomers: rows.reduce((sum, row) => sum + (row.shopCustomers || 0), 0),
+    unpurchasedReturning: rows.reduce((sum, row) => sum + (row.unpurchasedReturning || 0), 0),
+    purchasedReturning: rows.reduce((sum, row) => sum + (row.purchasedReturning || 0), 0),
+    hasTrafficOverview: trafficRows.length > 0,
+    hasMemberOverview: memberRows.length > 0,
     productCount: Math.max(...rows.map((row) => row.productCount || 0), 0),
     activeProductCount: Math.max(...rows.map((row) => row.activeProductCount || 0), 0),
     topSkuShare: weightedAverage(rows, 'topSkuShare'),
@@ -1131,25 +1843,142 @@ function rankingNote(item, key) {
 }
 
 function buildImportedDetails(rows) {
+  const productRows = rows.filter((row) => row.reportKind === 'product' || (row.itemName && row.reportKind !== 'promotion'));
+  const trafficRows = rows.filter((row) => row.reportKind === 'traffic' || row.trafficSource);
+  const promotionRows = rows.filter((row) => row.reportKind === 'promotion' || row.promotionName || row.spend);
+  const activityRows = rows.filter((row) => row.reportKind === 'activity' || row.activityName);
   return {
-    products: groupRows(rows, 'itemName'),
-    traffic: groupRows(rows, 'trafficSource'),
-    promotion: groupRows(rows, 'promotionName'),
-    activity: groupRows(rows, 'activityName')
+    products: groupRows(productRows.length ? productRows : rows, 'itemName'),
+    traffic: groupRows(trafficRows.length ? trafficRows : rows, 'trafficSource'),
+    promotion: groupRows(promotionRows.length ? promotionRows : rows, 'promotionName'),
+    activity: groupRows(activityRows.length ? activityRows : rows, 'activityName')
   };
 }
 
+function rowModuleNames(row) {
+  const modules = [];
+  if (row.reportKind === 'overall' && (row.sales || row.visitors || row.orders)) modules.push('店铺整体');
+  if (row.reportKind === 'trafficOverview' && row.visitors) modules.push('流量总览');
+  if ((row.reportKind === 'traffic' || row.trafficSource) && row.trafficSource) modules.push('流量排行');
+  if ((row.reportKind === 'product' || row.itemName) && row.itemName) modules.push('宝贝排行');
+  if (row.reportKind === 'promotion' || row.promotionName || row.spend) modules.push('推广情况');
+  if (row.reportKind === 'member') modules.push('客户/会员');
+  if (row.reportKind === 'service') modules.push('客服承接');
+  if (row.reportKind === 'refund' || row.refundAmount || row.refundRate) modules.push('退款售后');
+  if (row.reportKind === 'activity' || row.activityName) modules.push('活动情况');
+  return Array.from(new Set(modules));
+}
+
+function buildImportSummary(mapped, rawRows, skippedFiles = []) {
+  const fileMap = new Map();
+  rawRows.forEach((row) => {
+    const name = row.来源文件 || row.sourceFile || '未知文件';
+    if (!fileMap.has(name)) {
+      fileMap.set(name, { name, rawRows: 0, usedRows: 0, modules: new Set(), kinds: new Map(), status: '已读取', note: '' });
+    }
+    fileMap.get(name).rawRows += 1;
+  });
+  mapped.forEach((row) => {
+    const name = row.sourceFile || row.来源文件 || '未知文件';
+    if (!fileMap.has(name)) {
+      fileMap.set(name, { name, rawRows: 0, usedRows: 0, modules: new Set(), kinds: new Map(), status: '已读取', note: '' });
+    }
+    const item = fileMap.get(name);
+    const modules = rowModuleNames(row);
+    if (modules.length) item.usedRows += 1;
+    modules.forEach((moduleName) => item.modules.add(moduleName));
+    item.kinds.set(row.reportKind || 'unknown', (item.kinds.get(row.reportKind || 'unknown') || 0) + 1);
+  });
+  skippedFiles.forEach((name) => {
+    fileMap.set(name, { name, rawRows: 0, usedRows: 0, modules: new Set(), kinds: new Map(), status: '未读取', note: '旧版 XLS 或暂不支持格式，建议另存为 XLSX/CSV' });
+  });
+  return Array.from(fileMap.values()).map((item) => {
+    const modules = Array.from(item.modules);
+    const kinds = Array.from(item.kinds.entries()).map(([name, count]) => `${name}:${count}`).join('，');
+    return {
+      name: item.name,
+      rawRows: item.rawRows,
+      usedRows: item.usedRows,
+      status: item.status,
+      modules,
+      kinds,
+      note: item.note || (modules.length ? `已进入：${modules.join('、')}` : '已读取但没有匹配到可用于当前报告的关键字段')
+    };
+  });
+}
+
+function buildImportedAux(current, mapped) {
+  const trafficRows = mapped.filter((row) => row.reportKind === 'trafficOverview');
+  const memberRows = mapped.filter((row) => row.reportKind === 'member');
+  const latestTraffic = trafficRows.find((row) => String(row.sourceCategory || '').includes('我的')) || trafficRows[0] || {};
+  const latestMember = memberRows[0] || {};
+  return {
+    pageViews: current.pageViews || latestTraffic.pageViews || 0,
+    bounceRate: current.bounceRate || latestTraffic.bounceRate || 0,
+    avgStay: current.avgStay || latestTraffic.avgStay || 0,
+    oldVisitors: current.oldVisitors || latestTraffic.oldVisitors || 0,
+    newVisitors: current.newVisitors || latestTraffic.newVisitors || latestMember.newVisitors || 0,
+    followStoreUsers: current.followStoreUsers || latestTraffic.followStoreUsers || 0,
+    liveVisitors: current.liveVisitors || latestTraffic.liveVisitors || 0,
+    shortVideoVisitors: current.shortVideoVisitors || latestTraffic.shortVideoVisitors || 0,
+    contentVisitors: current.contentVisitors || latestTraffic.contentVisitors || 0,
+    storePageVisitors: current.storePageVisitors || latestTraffic.storePageVisitors || 0,
+    shopCustomers: current.shopCustomers || latestMember.shopCustomers || 0,
+    unpurchasedReturning: current.unpurchasedReturning || latestMember.unpurchasedReturning || 0,
+    purchasedReturning: current.purchasedReturning || latestMember.purchasedReturning || 0,
+    hasTrafficOverview: Boolean(trafficRows.length),
+    hasMemberOverview: Boolean(memberRows.length)
+  };
+}
+
+function pickCurrentOverallRows(rows) {
+  const overallRows = rows.filter((row) => row.reportKind === 'overall' && row.bucket !== 'benchmark');
+  if (!overallRows.length) return [];
+  const ownRows = overallRows.filter((row) => !row.sourceCategory || String(row.sourceCategory).includes('本店'));
+  const source = ownRows.length ? ownRows : overallRows;
+  const firstDate = source.find((row) => row.date)?.date;
+  if (firstDate && source.length > 1) return source.filter((row) => row.date === firstDate);
+  return source;
+}
+
+function pickPreviousOverallRows(rows, currentRows) {
+  const currentDate = currentRows.find((row) => row.date)?.date;
+  const currentCategory = currentRows.find((row) => row.sourceCategory)?.sourceCategory;
+  const source = rows.filter((row) => (
+    row.reportKind === 'overall' &&
+    row.bucket !== 'benchmark' &&
+    row.date &&
+    row.date !== currentDate &&
+    (!currentCategory || row.sourceCategory === currentCategory)
+  ));
+  const firstDate = source.find((row) => row.date)?.date;
+  return firstDate ? source.filter((row) => row.date === firstDate) : [];
+}
+
 function rowsToFormData(rows, filename) {
-  const mapped = rows.map(toImportedRow).filter((row) => row.sales || row.visitors || row.orders);
+  const mapped = rows.map(toImportedRow).filter((row) => (
+    row.sales || row.visitors || row.orders || row.spend || row.clicks || row.impressions ||
+    row.itemName || row.trafficSource || row.promotionName || row.activityName || row.refundRate || row.refundAmount ||
+    row.serviceRate || row.pageViews || row.shopCustomers || row.newVisitors || row.oldVisitors
+  ));
   if (!mapped.length) throw new Error('empty');
   const currentRows = mapped.filter((row) => row.bucket === 'current');
   const previousRows = mapped.filter((row) => row.bucket === 'previous');
-  const currentSource = currentRows.length ? currentRows : mapped;
-  const current = aggregateRows(currentSource);
-  const previous = previousRows.length ? aggregateRows(previousRows) : { sales: 0, visitors: 0 };
+  const currentSource = currentRows.length ? currentRows : mapped.filter((row) => row.bucket !== 'benchmark');
+  const currentOverallRows = pickCurrentOverallRows(currentSource);
+  const previousOverallRows = previousRows.length ? pickCurrentOverallRows(previousRows) : pickPreviousOverallRows(currentSource, currentOverallRows);
+  const current = aggregateRows(currentOverallRows.length ? currentOverallRows : currentSource);
+  const previous = previousOverallRows.length
+    ? aggregateRows(previousOverallRows)
+    : previousRows.length
+      ? aggregateRows(previousRows)
+      : { sales: current.prevSales || 0, visitors: current.prevVisitors || 0 };
   const first = mapped.find((row) => row.storeName || row.industry || row.platform) || {};
-  const period = dateRangeLabel(currentSource) || '导入周期';
+  const period = dateRangeLabel(currentOverallRows.length ? currentOverallRows : currentSource) || '导入周期';
   const reportType = currentSource.length > 10 ? '月报' : '周报';
+  const skippedText = rows.skippedFiles?.length ? `；暂未读取 ${rows.skippedFiles.length} 个旧版 xls 文件，请另存为 xlsx 或 csv 后再导入` : '';
+  const summary = buildImportSummary(mapped, rows, rows.skippedFiles || []);
+  const aux = buildImportedAux(current, mapped);
   return {
     storeName: first.storeName || $('#storeName').value || '未命名店铺',
     industry: first.industry || $('#industry').value || '美妆个护',
@@ -1176,24 +2005,184 @@ function rowsToFormData(rows, filename) {
     paidShare: Number(current.paidShare.toFixed(1)),
     privateShare: Number(current.privateShare.toFixed(1)),
     importedDetails: buildImportedDetails(currentSource),
-    notes: `已导入 ${mapped.length} 行经营数据，其中本期 ${currentSource.length} 行，上期 ${previousRows.length} 行。`
+    importSummary: summary,
+    importedAux: aux,
+    notes: `已导入 ${mapped.length} 行经营数据，其中本期 ${currentSource.length} 行，上期 ${previousRows.length} 行${skippedText}。`
   };
 }
 
-async function importDataFile(file) {
-  const text = await file.text();
+function decodeTextBuffer(buffer, preferred = '') {
+  const bytes = new Uint8Array(buffer);
+  const utf8 = new TextDecoder('utf-8', { fatal: false }).decode(bytes);
+  if (preferred || utf8.includes('�')) {
+    try {
+      return new TextDecoder(preferred || 'gb18030', { fatal: false }).decode(bytes);
+    } catch {
+      return utf8;
+    }
+  }
+  return utf8;
+}
+
+function columnIndex(ref) {
+  const letters = String(ref || '').replace(/[^A-Z]/gi, '').toUpperCase();
+  let index = 0;
+  for (let i = 0; i < letters.length; i += 1) {
+    index = index * 26 + letters.charCodeAt(i) - 64;
+  }
+  return Math.max(index - 1, 0);
+}
+
+function parseRowsFromArrays(arrays) {
+  const normalized = arrays
+    .map((row) => row.map((cell) => String(cell || '').trim()))
+    .filter((row) => row.some(Boolean));
+  const headerIndex = normalized.findIndex((row) => {
+    const text = row.join('|');
+    return row.filter(Boolean).length >= 2 && /日期|支付金额|访客|商品|宝贝|流量|计划|场景|退款|会员|客户|点击量|展现量/.test(text);
+  });
+  if (headerIndex < 0) return [];
+  const headers = normalized[headerIndex].map((value, index) => value || `字段${index + 1}`);
+  return normalized.slice(headerIndex + 1).map((values) => {
+    const item = {};
+    headers.forEach((header, index) => {
+      item[header] = values[index] || '';
+    });
+    return item;
+  }).filter((row) => Object.values(row).some(Boolean));
+}
+
+async function inflateZipEntry(bytes, method) {
+  if (method === 0) return bytes;
+  if (method !== 8) throw new Error('unsupported-zip-method');
+  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate-raw'));
+  return new Uint8Array(await new Response(stream).arrayBuffer());
+}
+
+function findEndOfCentralDirectory(view) {
+  for (let offset = view.byteLength - 22; offset >= Math.max(0, view.byteLength - 66000); offset -= 1) {
+    if (view.getUint32(offset, true) === 0x06054b50) return offset;
+  }
+  return -1;
+}
+
+async function unzipEntries(buffer) {
+  const view = new DataView(buffer);
+  const decoder = new TextDecoder('utf-8');
+  const eocd = findEndOfCentralDirectory(view);
+  if (eocd < 0) throw new Error('invalid-xlsx');
+  const totalEntries = view.getUint16(eocd + 10, true);
+  let offset = view.getUint32(eocd + 16, true);
+  const entries = {};
+  for (let i = 0; i < totalEntries; i += 1) {
+    if (view.getUint32(offset, true) !== 0x02014b50) break;
+    const method = view.getUint16(offset + 10, true);
+    const compressedSize = view.getUint32(offset + 20, true);
+    const nameLength = view.getUint16(offset + 28, true);
+    const extraLength = view.getUint16(offset + 30, true);
+    const commentLength = view.getUint16(offset + 32, true);
+    const localOffset = view.getUint32(offset + 42, true);
+    const name = decoder.decode(new Uint8Array(buffer, offset + 46, nameLength));
+    const localNameLength = view.getUint16(localOffset + 26, true);
+    const localExtraLength = view.getUint16(localOffset + 28, true);
+    const dataStart = localOffset + 30 + localNameLength + localExtraLength;
+    const compressed = new Uint8Array(buffer, dataStart, compressedSize);
+    entries[name] = await inflateZipEntry(compressed, method);
+    offset += 46 + nameLength + extraLength + commentLength;
+  }
+  return entries;
+}
+
+function xmlText(bytes) {
+  return new TextDecoder('utf-8').decode(bytes);
+}
+
+function nodeText(node, tagName) {
+  const child = node.getElementsByTagName(tagName)[0];
+  return child ? child.textContent || '' : '';
+}
+
+async function parseXlsxRows(buffer) {
+  const entries = await unzipEntries(buffer);
+  const parser = new DOMParser();
+  const shared = [];
+  if (entries['xl/sharedStrings.xml']) {
+    const sharedDoc = parser.parseFromString(xmlText(entries['xl/sharedStrings.xml']), 'application/xml');
+    Array.from(sharedDoc.getElementsByTagName('si')).forEach((node) => {
+      shared.push(Array.from(node.getElementsByTagName('t')).map((item) => item.textContent || '').join(''));
+    });
+  }
+  const sheetName = Object.keys(entries).find((name) => /^xl\/worksheets\/sheet\d+\.xml$/.test(name));
+  if (!sheetName) return [];
+  const sheetDoc = parser.parseFromString(xmlText(entries[sheetName]), 'application/xml');
+  const arrays = Array.from(sheetDoc.getElementsByTagName('row')).map((rowNode) => {
+    const row = [];
+    Array.from(rowNode.getElementsByTagName('c')).forEach((cell) => {
+      const ref = cell.getAttribute('r') || '';
+      const index = columnIndex(ref);
+      const type = cell.getAttribute('t');
+      let value = nodeText(cell, 'v');
+      if (type === 's' && value !== '') value = shared[Number(value)] || '';
+      if (type === 'inlineStr') value = Array.from(cell.getElementsByTagName('t')).map((item) => item.textContent || '').join('');
+      row[index] = value;
+    });
+    return row;
+  });
+  return parseRowsFromArrays(arrays);
+}
+
+function parseHtmlDocRows(text, filename) {
+  if (!text.trim().startsWith('<')) return [{ 来源文件: filename, 文档类型: 'Word/HTML', 备注: '非结构化文档，未识别到数据表' }];
+  const doc = new DOMParser().parseFromString(text, 'text/html');
+  const tables = Array.from(doc.querySelectorAll('table'));
+  for (const table of tables) {
+    const arrays = Array.from(table.querySelectorAll('tr')).map((tr) => (
+      Array.from(tr.querySelectorAll('th,td')).map((cell) => cell.textContent.trim())
+    ));
+    const rows = parseRowsFromArrays(arrays);
+    if (rows.length) return rows;
+  }
+  return [{ 来源文件: filename, 文档类型: 'Word/HTML', 备注: '已读取参考文档，但未识别到可汇总的数据表' }];
+}
+
+async function readRowsFromFile(file) {
+  const lowerName = file.name.toLowerCase();
+  const buffer = await file.arrayBuffer();
   let rows;
-  if (file.name.toLowerCase().endsWith('.json')) {
-    const parsed = JSON.parse(text);
+  if (lowerName.endsWith('.xlsx')) {
+    rows = await parseXlsxRows(buffer);
+  } else if (lowerName.endsWith('.xls')) {
+    throw new Error('legacy-xls');
+  } else if (lowerName.endsWith('.doc') || lowerName.endsWith('.html')) {
+    rows = parseHtmlDocRows(decodeTextBuffer(buffer), file.name);
+  } else if (lowerName.endsWith('.json')) {
+    const parsed = JSON.parse(decodeTextBuffer(buffer));
     rows = Array.isArray(parsed) ? parsed : (parsed.rows || parsed.data || []);
   } else {
+    const text = decodeTextBuffer(buffer, lowerName.endsWith('.csv') ? 'gb18030' : '');
     rows = parseCsv(text);
   }
-  const data = rowsToFormData(rows, file.name);
+  return rows.map((row) => ({ ...row, 来源文件: file.name }));
+}
+
+async function importDataFiles(files) {
+  const fileList = Array.from(files || []);
+  if (!fileList.length) return;
+  const results = await Promise.allSettled(fileList.map(readRowsFromFile));
+  const skippedFiles = [];
+  const allRowsNested = results.map((result, index) => {
+    if (result.status === 'fulfilled') return result.value;
+    skippedFiles.push(fileList[index].name);
+    return [];
+  });
+  const rows = allRowsNested.flat();
+  rows.skippedFiles = skippedFiles;
+  const data = rowsToFormData(rows, fileList.map((file) => file.name).join(' + '));
   setFormData(data);
   setLatest(analyze(getFormData()), true);
-  $('#importStatus').textContent = `已导入 ${file.name}，自动生成${data.reportType}并写入历史。`;
-  toast('数据已导入，报告已生成');
+  const skippedText = skippedFiles.length ? `；${skippedFiles.length} 个旧版 xls 暂未读取，请另存为 xlsx/csv` : '';
+  $('#importStatus').textContent = `已导入 ${fileList.length - skippedFiles.length} 个文件、${rows.length} 行数据，自动生成${data.reportType}并写入历史${skippedText}。`;
+  toast(skippedFiles.length ? '已导入可识别文件，旧版 xls 需转换' : '多文件数据已导入，报告已生成');
 }
 
 function downloadDataTemplate() {
@@ -1259,7 +2248,9 @@ function bindEvents() {
   });
 
   $('#historySearch').addEventListener('input', renderHistory);
+  $('#copyExecutive').addEventListener('click', copyExecutiveSummary);
   $('#copyReport').addEventListener('click', copyReport);
+  $('#exportWord').addEventListener('click', exportWord);
   $('#exportReport').addEventListener('click', exportReport);
   $('#printReport').addEventListener('click', () => window.print());
   $('#exportHistory').addEventListener('click', exportHistory);
@@ -1268,10 +2259,10 @@ function bindEvents() {
   $('#downloadTemplate').addEventListener('click', downloadDataTemplate);
 
   $('#dataFile').addEventListener('change', async (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
+    const files = event.target.files;
+    if (!files || !files.length) return;
     try {
-      await importDataFile(file);
+      await importDataFiles(files);
     } catch {
       toast('导入失败，请检查字段名或使用模板 CSV');
     } finally {

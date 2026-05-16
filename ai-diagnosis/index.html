@@ -70,7 +70,7 @@
               <button id="downloadTemplate" class="ghost-btn" type="button">下载模板</button>
               <button id="resetForm" class="ghost-btn" type="button">清空表单</button>
               <button id="saveDraft" class="ghost-btn" type="button">保存草稿</button>
-              <input id="dataFile" type="file" accept=".csv,application/json" hidden />
+              <input id="dataFile" type="file" accept=".csv,.json,.xlsx,.xls,.doc,.html,application/json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" multiple hidden />
             </div>
           </section>
 
@@ -86,7 +86,7 @@
 
               <div class="import-box">
                 <strong>推荐方式：导入 CSV 数据</strong>
-                <p>支持字段：日期、周期、本期/上期、销售额、访客数、订单数、转化率、客单价、退款率、ROI、商品数、动销商品数、渠道占比等。</p>
+                <p>支持一次选择多份 CSV/JSON/XLSX，例如店铺大盘、宝贝排行、流量来源、推广计划、活动数据，系统会自动识别并合并生成周报/月报。旧版 XLS 建议另存为 XLSX 或 CSV，Word 月报会作为参考文件记录使用情况。</p>
                 <small id="importStatus">尚未导入数据，可先使用示例数据体验。</small>
               </div>
 
@@ -234,7 +234,9 @@
                   <p id="reportTime">实时预览，点击生成后写入历史。</p>
                 </div>
                 <div class="report-actions">
+                  <button id="copyExecutive" type="button">复制老板摘要</button>
                   <button id="copyReport" type="button">复制</button>
+                  <button id="exportWord" type="button">导出 Word</button>
                   <button id="exportReport" type="button">导出 TXT</button>
                   <button id="printReport" type="button">打印</button>
                 </div>

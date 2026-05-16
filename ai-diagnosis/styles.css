@@ -820,6 +820,126 @@ legend,
   background: var(--blue-soft);
 }
 
+.boss-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 10px 0 14px;
+}
+
+.boss-summary section {
+  min-height: 132px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.boss-summary span {
+  display: inline-flex;
+  margin-bottom: 8px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.boss-summary p {
+  margin: 0;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.quality-box {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 12px;
+  align-items: start;
+  margin: 10px 0 14px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.quality-box > div {
+  min-height: 112px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 4px;
+  border-radius: var(--radius);
+  background: var(--blue-soft);
+  text-align: center;
+}
+
+.quality-box strong {
+  color: var(--blue);
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.quality-box span {
+  color: var(--body);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.quality-box ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.quality-box li {
+  margin: 0;
+  padding: 9px;
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+  font-size: 12px;
+}
+
+.quality-box li b {
+  display: inline-flex;
+  margin-right: 6px;
+}
+
+.quality-box li.ok b {
+  color: var(--green);
+}
+
+.quality-box li.missing b {
+  color: var(--amber);
+}
+
+.outline-box {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+
+.outline-box div {
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-soft);
+}
+
+.outline-box strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.outline-box p {
+  margin: 0;
+}
+
 .report-table {
   width: 100%;
   border-collapse: collapse;
@@ -1035,6 +1155,9 @@ legend,
   .metric-inputs,
   .channel-grid,
   .health-grid,
+  .boss-summary,
+  .quality-box,
+  .quality-box ul,
   .summary-panel,
   .summary-kpis {
     grid-template-columns: 1fr;
