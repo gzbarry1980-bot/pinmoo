@@ -266,12 +266,15 @@ function analyze(data) {
     service: Math.max(0, data.sales * ((bench.service - data.serviceRate) / 100) * 0.18),
     private: Math.max(0, data.sales * ((bench.privateShare - data.privateShare) / 100) * 0.22)
   };
+  const refundScore = clamp(100 - Math.max(0, data.refundRate - bench.refund) * 9);
+  const roiScore = data.roi > 0 ? clamp((data.roi / bench.roi) * 100) : null;
+  const profitScore = roiScore === null ? refundScore : refundScore * 0.58 + roiScore * 0.42;
 
   const metricScores = [
     { key: 'sales', name: '销售增长', value: yuan(data.sales), detail: salesTrend.label, score: clamp(70 + salesTrend.value * 1.35) },
     { key: 'traffic', name: '流量质量', value: Math.round(data.visitors).toLocaleString('zh-CN'), detail: visitorTrend.label, score: clamp(70 + visitorTrend.value * 1.2) },
     { key: 'conversion', name: '转化效率', value: percent(data.conversion), detail: `行业参考 ${bench.conversion}%`, score: clamp((data.conversion / bench.conversion) * 100) },
-    { key: 'profit', name: '利润风险', value: '退款 ' + percent(data.refundRate), detail: `ROI ${data.roi.toFixed(2)}`, score: clamp((100 - Math.max(0, data.refundRate - bench.refund) * 9) * 0.58 + clamp((data.roi / bench.roi) * 100) * 0.42) },
+    { key: 'profit', name: '利润风险', value: '退款 ' + percent(data.refundRate), detail: data.roi > 0 ? `ROI ${data.roi.toFixed(2)}` : 'ROI 未提供', score: clamp(profitScore) },
     { key: 'product', name: '货品动销', value: percent(data.activeProductRate), detail: `TOP SKU ${percent(data.topSkuShare, 1)}`, score: clamp((data.activeProductRate / bench.activeRate) * 74 + (100 - Math.max(0, data.topSkuShare - bench.topSkuMax) * 2) * 0.26) },
     { key: 'channel', name: '渠道结构', value: data.channelTotal.toFixed(1) + '%', detail: contentBase >= 35 ? '内容基础较好' : '内容基础偏弱', score: clamp(channelBalance * 0.52 + (paidPressure ? 48 : 78) * 0.2 + clamp(contentBase * 1.45) * 0.28) },
     { key: 'service', name: '客服承接', value: percent(data.serviceRate, 1), detail: `参考 ${bench.service}%`, score: clamp((data.serviceRate / bench.service) * 100) }
@@ -375,7 +378,7 @@ function analyze(data) {
       lever: '货品'
     });
   }
-  if (paidPressure && data.roi < bench.roi) {
+  if (paidPressure && data.roi > 0 && data.roi < bench.roi) {
     issue(issues, {
       title: '付费依赖偏高且效率不足，容易形成“花钱有单、停投下滑”',
       evidence: `付费渠道占比 ${percent(data.paidShare, 1)}，ROI ${data.roi.toFixed(2)}，内容+推荐占比 ${percent(contentBase, 1)}。`,
@@ -479,6 +482,12 @@ function createSummary(score, issues, salesTrend, visitorTrend, decomposition) {
     return {
       title: '存在明确优化空间，需要按经营杠杆排序',
       text: `销售变化 ${salesTrend.label}，访客变化 ${visitorTrend.label}。本次诊断优先处理 ${issues[0]?.lever || '经营'} 问题，预计比平均修修补补更快看到结果。`
+    };
+  }
+  if (decomposition.salesGap >= 0) {
+    return {
+      title: '销售增长但结构风险明显，需要先修复经营短板',
+      text: `销售变化 ${salesTrend.label}，访客变化 ${visitorTrend.label}，但退款、转化、动销或渠道结构存在高优先级问题。建议先处理 ${issues[0]?.lever || '经营'}，避免增长被售后和低效承接吃掉。`
     };
   }
   return {
@@ -655,6 +664,10 @@ function dataQualityLabel(score) {
 
 function metricChangeRows(diagnosis) {
   const { data } = diagnosis;
+  const roiLabel = data.roi > 0 ? data.roi.toFixed(2) : '未提供';
+  const roiJudge = data.roi > 0
+    ? data.roi < getBenchmark(data.industry).roi ? '需优化投放效率' : '投放效率可观察'
+    : '待补充计划明细';
   return [
     { name: '销售额', current: yuan(data.sales), previous: yuan(data.prevSales), change: diagnosis.salesTrend.label, judge: diagnosis.salesTrend.value >= 0 ? '增长' : '下滑' },
     { name: '访客数', current: Math.round(data.visitors).toLocaleString('zh-CN'), previous: Math.round(data.prevVisitors).toLocaleString('zh-CN'), change: diagnosis.visitorTrend.label, judge: diagnosis.visitorTrend.value >= 0 ? '流量增长' : '流量减少' },
@@ -662,7 +675,7 @@ function metricChangeRows(diagnosis) {
     { name: '转化率', current: percent(data.conversion), previous: percent(diagnosis.decomposition.prevConversion), change: `${(data.conversion - diagnosis.decomposition.prevConversion).toFixed(2)}pp`, judge: data.conversion >= diagnosis.decomposition.prevConversion ? '承接改善' : '承接变弱' },
     { name: '客单价', current: yuan(data.aov), previous: yuan(diagnosis.decomposition.prevAov), change: `${data.aov >= diagnosis.decomposition.prevAov ? '+' : ''}${(data.aov - diagnosis.decomposition.prevAov).toFixed(2)}`, judge: data.aov >= diagnosis.decomposition.prevAov ? '价格带提升' : '高客单减少' },
     { name: '退款率', current: percent(data.refundRate), previous: '-', change: '-', judge: data.refundRate > getBenchmark(data.industry).refund ? '需治理退款' : '退款可控' },
-    { name: '投放ROI', current: data.roi.toFixed(2), previous: '-', change: '-', judge: data.roi < getBenchmark(data.industry).roi ? '需优化投放效率' : '投放效率可观察' }
+    { name: '投放ROI', current: roiLabel, previous: '-', change: '-', judge: roiJudge }
   ];
 }
 
@@ -1148,10 +1161,11 @@ function operatingSummary(diagnosis) {
   const { data } = diagnosis;
   const salesWord = diagnosis.salesTrend.value >= 0 ? '增长' : '下滑';
   const trafficWord = diagnosis.visitorTrend.value >= 0 ? '增长' : '下滑';
+  const roiText = data.roi > 0 ? data.roi.toFixed(2) : '未提供';
   return [
     `本期${data.reportType || '报告'}销售额 ${yuan(data.sales)}，较对比周期${salesWord} ${diagnosis.salesTrend.label}。`,
     `访客数 ${Math.round(data.visitors).toLocaleString('zh-CN')}，较对比周期${trafficWord} ${diagnosis.visitorTrend.label}；转化率 ${percent(data.conversion)}，客单价 ${yuan(data.aov)}。`,
-    `退款率 ${percent(data.refundRate)}，投放 ROI ${data.roi.toFixed(2)}，商品动销率 ${percent(data.activeProductRate)}。`,
+    `退款率 ${percent(data.refundRate)}，投放 ROI ${roiText}，商品动销率 ${percent(data.activeProductRate)}。`,
     `本期最需要优先处理的问题是：${diagnosis.issues[0]?.title || '暂无明显短板'}。`
   ];
 }
@@ -1166,7 +1180,7 @@ function moduleDiagnosis(diagnosis) {
     },
     {
       module: '流量渠道',
-      status: data.paidShare >= 28 && data.roi < 3 ? '需控费' : data.contentShare + data.recommendShare >= 35 ? '内容基础较好' : '需补内容',
+      status: data.paidShare >= 28 && data.roi > 0 && data.roi < 3 ? '需控费' : data.contentShare + data.recommendShare >= 35 ? '内容基础较好' : '需补内容',
       detail: `搜索 ${percent(data.searchShare, 1)}、推荐 ${percent(data.recommendShare, 1)}、内容 ${percent(data.contentShare, 1)}、付费 ${percent(data.paidShare, 1)}、私域 ${percent(data.privateShare, 1)}。`
     },
     {
@@ -1244,7 +1258,7 @@ function buildDataQuality(data) {
     { key: 'traffic', name: '流量数据', ok: Boolean((details.traffic && details.traffic.length) || aux.hasTrafficOverview), tip: '建议导入流量来源、访客、成交、转化率，或流量看板总览' },
     { key: 'promotion', name: '推广情况', ok: Boolean(details.promotion && details.promotion.length), tip: '建议导入推广计划、花费、点击、成交、ROI' },
     { key: 'activity', name: '活动情况', ok: Boolean(details.activity && details.activity.length), tip: '建议导入活动名称、活动成交、活动访客、订单' },
-    { key: 'refund', name: '退款/售后', ok: data.refundRate > 0, tip: '建议导入退款率、退款金额、退款原因或售后明细' }
+    { key: 'refund', name: '退款/售后', ok: data.refundRate > 0 || Boolean(data.importSummary?.some((item) => (item.modules || []).includes('退款售后'))), tip: '建议导入退款率、退款金额、退款原因或售后明细' }
   ];
   const complete = checks.filter((item) => item.ok).length;
   return {
@@ -1642,6 +1656,14 @@ function parseMetric(value) {
   return Number.isFinite(parsed) ? parsed : 0;
 }
 
+function parseRateMetric(value) {
+  if (value === null || value === undefined || value === '') return 0;
+  const raw = String(value).trim();
+  const parsed = parseMetric(raw);
+  if (!Number.isFinite(parsed)) return 0;
+  return raw.includes('%') ? parsed : (Math.abs(parsed) > 1 ? parsed : parsed * 100);
+}
+
 function detectReportKind(row) {
   const source = String(row.来源文件 || row.sourceFile || '').toLowerCase();
   const keys = Object.keys(row).join(' ');
@@ -1666,17 +1688,36 @@ function inferPlatform(row, reportKind) {
   return '';
 }
 
+function cleanTrafficLevel(value) {
+  const text = String(value || '').trim();
+  return text && text !== '-' && text !== '汇总' ? text : '';
+}
+
+function pickTrafficInfo(row) {
+  const rawLevels = [
+    pick(row, ['一级来源', '一级渠道']),
+    pick(row, ['二级来源', '二级渠道']),
+    pick(row, ['三级来源', '三级渠道']),
+    pick(row, ['四级来源', '四级渠道'])
+  ].map(cleanTrafficLevel);
+  const levels = rawLevels.filter(Boolean);
+  if (levels.length) return { name: levels[levels.length - 1], depth: levels.length, path: levels.join(' / '), levels: rawLevels };
+  const fallback = pick(row, ['流量来源', '渠道来源', '渠道', '来源', '来源名称', '流量来源名称', 'trafficSource']);
+  return { name: fallback, depth: fallback ? 1 : 0, path: fallback, levels: rawLevels };
+}
+
 function toImportedRow(row) {
   const reportKind = detectReportKind(row);
   const sourceCategory = pick(row, ['类别', '范围', '人群类型']);
   const sourceText = String(row.来源文件 || '');
+  const trafficInfo = pickTrafficInfo(row);
   const sales = parseMetric(pick(row, ['销售额', 'GMV', '成交金额', '支付金额', '总支付金额', '净支付金额', '总成交金额', '直接成交金额', '间接成交金额', '引入成交金额', '会员成交金额', '老买家支付金额', '老客复购金额', 'sales']));
   const prevSales = parseMetric(pick(row, ['销售额-对比日', '成交金额-对比日', '支付金额-对比日', '总成交金额-对比日', '引入成交金额-对比日', 'salesPrev', 'prevSales']));
   const visitors = parseMetric(pick(row, ['访客数', '访客', 'UV', '店铺访客数', '商品访客数', '引入商详访客数', '引导访问人数', '引导访问量', '店铺客户数', '内容查看人数', 'visitors']));
   const prevVisitors = parseMetric(pick(row, ['访客数-对比日', '店铺访客数-对比日', '商品访客数-对比日', '引入商详访客数-对比日', 'visitorsPrev', 'prevVisitors']));
   const aov = parseMetric(pick(row, ['客单价', '人均成交金额', '会员客单价', 'aov']));
-  const conversion = parseMetric(pick(row, ['转化率', '支付转化率', '点击转化率', '询单转化率', '店铺成交转化率', '成交转化率', '访客-成交转化率', '浏览-成交转化率', 'conversion']));
-  const orders = parseMetric(pick(row, ['订单数', '支付订单数', '成交订单数', '支付子订单数', '总支付子订单数', '总成交笔数', '成交单量', '引入成交单量', '支付买家数', '成交人数', '成交客户数', '引入成交客户数', 'orders'])) ||
+  const conversion = parseRateMetric(pick(row, ['转化率', '支付转化率', '点击转化率', '询单转化率', '商品支付转化率', '店铺成交转化率', '成交转化率', '访客-成交转化率', '浏览-成交转化率', 'conversion']));
+  const orders = parseMetric(pick(row, ['支付买家数', '成交人数', '成交客户数', '引入成交客户数', '订单数', '支付订单数', '成交订单数', '成交单量', '引入成交单量', '支付子订单数', '总支付子订单数', '总成交笔数', 'orders'])) ||
     (aov ? sales / aov : visitors * conversion / 100);
   const periodTag = pick(row, ['周期', '期间', '本期上期', '对比周期', 'period', 'compare']);
   const periodText = String(periodTag || '').toLowerCase();
@@ -1694,7 +1735,13 @@ function toImportedRow(row) {
     industry: pick(row, ['行业', '所属行业', 'industry']),
     platform: pick(row, ['平台', '店铺平台', 'platform']) || inferPlatform(row, reportKind),
     itemName: reportKind === 'promotion' && !/商品报表|创意报表|内容报表/.test(sourceText) ? '' : rawItemName,
-    trafficSource: pick(row, ['流量来源', '渠道来源', '渠道', '来源', '来源名称', '流量来源名称', '一级来源', '二级来源', '一级渠道', '二级渠道', 'trafficSource']),
+    trafficSource: trafficInfo.name,
+    trafficDepth: trafficInfo.depth,
+    trafficPath: trafficInfo.path,
+    trafficLevel1: trafficInfo.levels?.[0] || '',
+    trafficLevel2: trafficInfo.levels?.[1] || '',
+    trafficLevel3: trafficInfo.levels?.[2] || '',
+    trafficLevel4: trafficInfo.levels?.[3] || '',
     promotionName: reportKind === 'promotion' ? rawPromotionName || rawItemName || '推广整体' : rawPromotionName,
     activityName: pick(row, ['活动名称', '平台活动', '活动', 'activityName']),
     sales,
@@ -1707,7 +1754,7 @@ function toImportedRow(row) {
     impressions: parseMetric(pick(row, ['展现量', '曝光量', '浏览量', '店铺浏览量', '商品浏览量', '引入商详浏览量', '搜索曝光次数', '详情曝光', '自然流量曝光量', 'impressions'])),
     addCarts: parseMetric(pick(row, ['加购数', '加购', '购物车数', '总购物车数', '加购件数', '加购人数', '加购客户数', '加购商品件数', '详情加购', 'addCarts'])),
     pageViews: parseMetric(pick(row, ['浏览量', '店铺浏览量', '商品浏览量', '引入商详浏览量', 'pageViews'])),
-    bounceRate: parseMetric(pick(row, ['跳失率', 'bounceRate'])),
+    bounceRate: parseRateMetric(pick(row, ['跳失率', 'bounceRate'])),
     avgStay: parseMetric(pick(row, ['平均停留时长', '店铺平均停留时长', '商品平均停留时长', '商详平均停留时长', '停留时长', 'avgStay'])),
     oldVisitors: parseMetric(pick(row, ['老访客数', 'oldVisitors'])),
     newVisitors: parseMetric(pick(row, ['新访客数', '客户新访', 'newVisitors'])),
@@ -1722,12 +1769,12 @@ function toImportedRow(row) {
     conversion,
     aov,
     refundAmount: parseMetric(pick(row, ['退款金额', '取消及售后退款金额', '成功退款金额', 'refundAmount'])),
-    refundRate: parseMetric(pick(row, ['退款率', '退货率', '成功退款率', 'refundRate'])),
+    refundRate: parseRateMetric(pick(row, ['退款率', '退货率', '成功退款率', '金额退款率', '订单退款率', 'refundRate'])),
     roi: parseMetric(pick(row, ['ROI', '投放ROI', '投产比', '投入产出比', '含预售投产比', 'roi'])),
     productCount: parseMetric(pick(row, ['商品总数', '商品数', '上架spu数', '访问spu数', 'productCount'])),
     activeProductCount: parseMetric(pick(row, ['有成交商品数', '动销商品数', '动销spu数', '加购spu数', 'activeProductCount'])),
     topSkuShare: parseMetric(pick(row, ['TOPSKU销售占比', 'TOP SKU销售占比', '爆款占比', 'topSkuShare'])),
-    serviceRate: parseMetric(pick(row, ['客服响应达标率', '客服响应率', '旺旺满意度', '24小时揽收及时率', 'serviceRate'])),
+    serviceRate: parseRateMetric(pick(row, ['客服响应达标率', '客服响应率', '旺旺满意度', '24小时揽收及时率', '48小时揽收及时率', 'serviceRate'])),
     searchShare: parseMetric(pick(row, ['搜索占比', '搜索', 'searchShare'])),
     recommendShare: parseMetric(pick(row, ['推荐占比', '推荐', 'recommendShare'])),
     contentShare: parseMetric(pick(row, ['内容占比', '内容', 'contentShare'])),
@@ -1757,6 +1804,8 @@ function aggregateRows(rows) {
   const orders = rows.reduce((sum, row) => sum + row.orders, 0);
   const refundAmount = rows.reduce((sum, row) => sum + (row.refundAmount || 0), 0);
   const importedRefundRate = weightedAverage(rows, 'refundRate');
+  const importedConversion = weightedAverage(rows, 'conversion', 'visitors');
+  const importedAov = weightedAverage(rows, 'aov', 'sales');
   const trafficRows = rows.filter((row) => row.reportKind === 'trafficOverview');
   const memberRows = rows.filter((row) => row.reportKind === 'member');
   return {
@@ -1765,8 +1814,8 @@ function aggregateRows(rows) {
     visitors,
     prevVisitors,
     orders,
-    conversion: visitors ? orders / visitors * 100 : weightedAverage(rows, 'conversion', 'visitors'),
-    aov: orders ? sales / orders : weightedAverage(rows, 'aov'),
+    conversion: importedConversion || (visitors ? orders / visitors * 100 : 0),
+    aov: importedAov || (orders ? sales / orders : 0),
     refundAmount,
     refundRate: importedRefundRate || (sales ? refundAmount / sales * 100 : 0),
     roi: weightedAverage(rows, 'roi'),
@@ -1817,7 +1866,7 @@ function groupRows(rows, key, limit = 8) {
   });
   return Array.from(map.values()).map((item) => ({
     ...item,
-    conversion: item.visitors ? item.orders / item.visitors * 100 : weightedAverage(item.rows, 'conversion', 'visitors'),
+    conversion: weightedAverage(item.rows, 'conversion', 'visitors') || (item.visitors ? item.orders / item.visitors * 100 : 0),
     roi: item.spend ? item.sales / item.spend : weightedAverage(item.rows, 'roi'),
     note: rankingNote(item, key)
   })).sort((a, b) => b.sales - a.sales).slice(0, limit);
@@ -1844,8 +1893,11 @@ function rankingNote(item, key) {
 
 function buildImportedDetails(rows) {
   const productRows = rows.filter((row) => row.reportKind === 'product' || (row.itemName && row.reportKind !== 'promotion'));
-  const trafficRows = rows.filter((row) => row.reportKind === 'traffic' || row.trafficSource);
-  const promotionRows = rows.filter((row) => row.reportKind === 'promotion' || row.promotionName || row.spend);
+  const allTrafficRows = rows.filter((row) => row.reportKind === 'traffic' || row.trafficSource);
+  const trafficRows = allTrafficRows.some((row) => row.trafficDepth >= 2)
+    ? allTrafficRows.filter((row) => row.trafficDepth >= 2)
+    : allTrafficRows;
+  const promotionRows = rows.filter((row) => row.reportKind === 'promotion' || row.promotionName);
   const activityRows = rows.filter((row) => row.reportKind === 'activity' || row.activityName);
   return {
     products: groupRows(productRows.length ? productRows : rows, 'itemName'),
@@ -1855,13 +1907,88 @@ function buildImportedDetails(rows) {
   };
 }
 
+function sanitizeTrafficDetails(items, totalSales, totalVisitors) {
+  if (!items || !items.length) return [];
+  const filtered = items.filter((item) => {
+    const salesOk = !totalSales || !item.sales || item.sales <= totalSales * 1.08;
+    const visitorsOk = !totalVisitors || !item.visitors || item.visitors <= totalVisitors * 1.2;
+    return salesOk && visitorsOk;
+  });
+  return filtered.length ? filtered : items;
+}
+
+function deriveProductStats(rows, totalSales) {
+  const productRows = rows.filter((row) => row.itemName);
+  const grouped = groupRows(productRows, 'itemName', 9999);
+  const active = grouped.filter((item) => item.sales > 0 || item.orders > 0);
+  const topSales = grouped.reduce((max, item) => Math.max(max, item.sales || 0), 0);
+  return {
+    productCount: grouped.length,
+    activeProductCount: active.length,
+    topSkuShare: totalSales && topSales ? topSales / totalSales * 100 : 0
+  };
+}
+
+function sumTrafficVisitors(rows, matcher) {
+  return rows.reduce((sum, row) => sum + (matcher(row) ? row.visitors || 0 : 0), 0);
+}
+
+function deriveStructuredChannelShares(rows) {
+  const trafficRows = rows.filter((row) => row.trafficLevel1 && row.visitors > 0);
+  if (!trafficRows.length) return null;
+  const rootRows = trafficRows.filter((row) => row.trafficDepth === 1);
+  const businessRoot = rootRows.find((row) => /经营优势/.test(row.trafficLevel1));
+  const paidRoot = rootRows.find((row) => /付费|推广/.test(row.trafficLevel1));
+  const privateRoot = rootRows.find((row) => /主动回访|私域|会员|老客/.test(row.trafficLevel1));
+  if (!businessRoot && !paidRoot && !privateRoot) return null;
+
+  const businessRows = trafficRows.filter((row) => row.trafficLevel1 === businessRoot?.trafficLevel1 && row.trafficDepth >= 2);
+  const searchShareBase = sumTrafficVisitors(businessRows, (row) => /搜索|关键词|搜/.test(row.trafficLevel2 || row.trafficSource));
+  const contentShareBase = sumTrafficVisitors(businessRows, (row) => /内容|短视频|直播|图文|逛逛|种草/.test(row.trafficLevel2 || row.trafficSource));
+  const businessTotal = businessRoot?.visitors || sumTrafficVisitors(businessRows, () => true);
+  const recommendShareBase = Math.max(0, businessTotal - searchShareBase - contentShareBase);
+
+  const paidShareBase = paidRoot?.visitors || sumTrafficVisitors(trafficRows, (row) => /付费|推广|直通车|万相台|引力魔方|无界|淘宝客|品销宝|钻展|千川|京准通/.test(row.trafficPath || row.trafficSource));
+  const privateShareBase = privateRoot?.visitors || sumTrafficVisitors(trafficRows, (row) => /主动回访|私域|会员|老客|老买家|购物车|收藏|我的淘宝|我的京东|关注|消息/.test(row.trafficPath || row.trafficSource));
+  const total = searchShareBase + recommendShareBase + contentShareBase + paidShareBase + privateShareBase;
+  if (!total) return null;
+  return {
+    searchShare: searchShareBase / total * 100,
+    recommendShare: recommendShareBase / total * 100,
+    contentShare: contentShareBase / total * 100,
+    paidShare: paidShareBase / total * 100,
+    privateShare: privateShareBase / total * 100
+  };
+}
+
+function deriveChannelShares(rows) {
+  const structured = deriveStructuredChannelShares(rows);
+  if (structured) return structured;
+  const buckets = { searchShare: 0, recommendShare: 0, contentShare: 0, paidShare: 0, privateShare: 0 };
+  const allTrafficRows = rows.filter((row) => row.trafficSource && row.visitors > 0);
+  const trafficRows = allTrafficRows.some((row) => row.trafficDepth >= 2)
+    ? allTrafficRows.filter((row) => row.trafficDepth >= 2)
+    : allTrafficRows;
+  trafficRows.forEach((row) => {
+    const name = row.trafficSource;
+    if (/搜索|关键词|搜/.test(name)) buckets.searchShare += row.visitors;
+    else if (/推荐|猜你喜欢|首页|频道|商品/.test(name)) buckets.recommendShare += row.visitors;
+    else if (/内容|短视频|直播|图文|逛逛|种草/.test(name)) buckets.contentShare += row.visitors;
+    else if (/付费|推广|直通车|万相台|引力魔方|品销宝|钻展|千川|京准通/.test(name)) buckets.paidShare += row.visitors;
+    else if (/私域|会员|老客|老买家|主动回访|购物车|收藏|我的淘宝|我的京东|店铺/.test(name)) buckets.privateShare += row.visitors;
+  });
+  const total = Object.values(buckets).reduce((sum, value) => sum + value, 0);
+  if (!total) return { searchShare: 0, recommendShare: 0, contentShare: 0, paidShare: 0, privateShare: 0 };
+  return Object.fromEntries(Object.entries(buckets).map(([key, value]) => [key, value / total * 100]));
+}
+
 function rowModuleNames(row) {
   const modules = [];
   if (row.reportKind === 'overall' && (row.sales || row.visitors || row.orders)) modules.push('店铺整体');
   if (row.reportKind === 'trafficOverview' && row.visitors) modules.push('流量总览');
   if ((row.reportKind === 'traffic' || row.trafficSource) && row.trafficSource) modules.push('流量排行');
   if ((row.reportKind === 'product' || row.itemName) && row.itemName) modules.push('宝贝排行');
-  if (row.reportKind === 'promotion' || row.promotionName || row.spend) modules.push('推广情况');
+  if (row.reportKind === 'promotion' || row.promotionName) modules.push('推广情况');
   if (row.reportKind === 'member') modules.push('客户/会员');
   if (row.reportKind === 'service') modules.push('客服承接');
   if (row.reportKind === 'refund' || row.refundAmount || row.refundRate) modules.push('退款售后');
@@ -1890,7 +2017,7 @@ function buildImportSummary(mapped, rawRows, skippedFiles = []) {
     item.kinds.set(row.reportKind || 'unknown', (item.kinds.get(row.reportKind || 'unknown') || 0) + 1);
   });
   skippedFiles.forEach((name) => {
-    fileMap.set(name, { name, rawRows: 0, usedRows: 0, modules: new Set(), kinds: new Map(), status: '未读取', note: '旧版 XLS 或暂不支持格式，建议另存为 XLSX/CSV' });
+    fileMap.set(name, { name, rawRows: 0, usedRows: 0, modules: new Set(), kinds: new Map(), status: '未读取', note: '文件可能加密、损坏，或格式暂未支持' });
   });
   return Array.from(fileMap.values()).map((item) => {
     const modules = Array.from(item.modules);
@@ -1976,16 +2103,20 @@ function rowsToFormData(rows, filename) {
   const first = mapped.find((row) => row.storeName || row.industry || row.platform) || {};
   const period = dateRangeLabel(currentOverallRows.length ? currentOverallRows : currentSource) || '导入周期';
   const reportType = currentSource.length > 10 ? '月报' : '周报';
-  const skippedText = rows.skippedFiles?.length ? `；暂未读取 ${rows.skippedFiles.length} 个旧版 xls 文件，请另存为 xlsx 或 csv 后再导入` : '';
+  const skippedText = rows.skippedFiles?.length ? `；暂未读取 ${rows.skippedFiles.length} 个文件，请检查是否加密、损坏或暂不支持` : '';
   const summary = buildImportSummary(mapped, rows, rows.skippedFiles || []);
   const aux = buildImportedAux(current, mapped);
+  const productStats = deriveProductStats(currentSource, current.sales);
+  const channelShares = deriveChannelShares(currentSource);
+  const details = buildImportedDetails(currentSource);
+  details.traffic = sanitizeTrafficDetails(details.traffic, current.sales, current.visitors);
   return {
     storeName: first.storeName || $('#storeName').value || '未命名店铺',
     industry: first.industry || $('#industry').value || '美妆个护',
     platform: first.platform || selectedPlatform || '天猫',
     reportType,
     period,
-    compareType: previousRows.length ? '上一个周期' : '不对比',
+    compareType: (previous.sales || previous.visitors) ? '上一个周期' : '不对比',
     dataSource: filename || '导入数据',
     sales: Math.round(current.sales),
     prevSales: Math.round(previous.sales || 0),
@@ -1995,16 +2126,16 @@ function rowsToFormData(rows, filename) {
     aov: Number(current.aov.toFixed(2)),
     refundRate: Number(current.refundRate.toFixed(2)),
     roi: Number(current.roi.toFixed(2)),
-    productCount: Math.round(current.productCount),
-    activeProductCount: Math.round(current.activeProductCount),
-    topSkuShare: Number(current.topSkuShare.toFixed(1)),
+    productCount: Math.round(current.productCount || productStats.productCount),
+    activeProductCount: Math.round(current.activeProductCount || productStats.activeProductCount),
+    topSkuShare: Number((current.topSkuShare || productStats.topSkuShare).toFixed(1)),
     serviceRate: Number(current.serviceRate.toFixed(1)),
-    searchShare: Number(current.searchShare.toFixed(1)),
-    recommendShare: Number(current.recommendShare.toFixed(1)),
-    contentShare: Number(current.contentShare.toFixed(1)),
-    paidShare: Number(current.paidShare.toFixed(1)),
-    privateShare: Number(current.privateShare.toFixed(1)),
-    importedDetails: buildImportedDetails(currentSource),
+    searchShare: Number((current.searchShare || channelShares.searchShare).toFixed(1)),
+    recommendShare: Number((current.recommendShare || channelShares.recommendShare).toFixed(1)),
+    contentShare: Number((current.contentShare || channelShares.contentShare).toFixed(1)),
+    paidShare: Number((current.paidShare || channelShares.paidShare).toFixed(1)),
+    privateShare: Number((current.privateShare || channelShares.privateShare).toFixed(1)),
+    importedDetails: details,
     importSummary: summary,
     importedAux: aux,
     notes: `已导入 ${mapped.length} 行经营数据，其中本期 ${currentSource.length} 行，上期 ${previousRows.length} 行${skippedText}。`
@@ -2097,6 +2228,243 @@ function xmlText(bytes) {
   return new TextDecoder('utf-8').decode(bytes);
 }
 
+function readOleSector(buffer, sectorSize, sectorId) {
+  return new Uint8Array(buffer, (sectorId + 1) * sectorSize, sectorSize);
+}
+
+function readOleChain(buffer, fat, sectorSize, startSector) {
+  const endOfChain = -2;
+  const parts = [];
+  const seen = new Set();
+  let sector = startSector;
+  while (sector >= 0 && sector < fat.length && !seen.has(sector)) {
+    seen.add(sector);
+    parts.push(readOleSector(buffer, sectorSize, sector));
+    sector = fat[sector];
+    if (sector === endOfChain) break;
+  }
+  const total = parts.reduce((sum, part) => sum + part.length, 0);
+  const out = new Uint8Array(total);
+  let offset = 0;
+  parts.forEach((part) => {
+    out.set(part, offset);
+    offset += part.length;
+  });
+  return out;
+}
+
+function parseOleWorkbookStream(buffer) {
+  const view = new DataView(buffer);
+  const signature = Array.from(new Uint8Array(buffer, 0, 8)).map((byte) => byte.toString(16).padStart(2, '0')).join('');
+  if (signature !== 'd0cf11e0a1b11ae1') throw new Error('not-ole-xls');
+  const sectorSize = 1 << view.getUint16(30, true);
+  const miniSectorSize = 1 << view.getUint16(32, true);
+  const miniCutoff = view.getUint32(56, true);
+  const firstDirectorySector = view.getInt32(48, true);
+  const firstMiniFatSector = view.getInt32(60, true);
+  const miniFatSectorCount = view.getUint32(64, true);
+  const firstDifatSector = view.getInt32(68, true);
+  const difatSectorCount = view.getUint32(72, true);
+  const difat = [];
+  for (let i = 0; i < 109; i += 1) {
+    const value = view.getInt32(76 + i * 4, true);
+    if (value >= 0) difat.push(value);
+  }
+  let difatSector = firstDifatSector;
+  for (let i = 0; i < difatSectorCount && difatSector >= 0; i += 1) {
+    const sectorOffset = (difatSector + 1) * sectorSize;
+    for (let pos = 0; pos < sectorSize - 4; pos += 4) {
+      const value = view.getInt32(sectorOffset + pos, true);
+      if (value >= 0) difat.push(value);
+    }
+    difatSector = view.getInt32(sectorOffset + sectorSize - 4, true);
+  }
+  const fat = [];
+  difat.forEach((sectorId) => {
+    const sectorOffset = (sectorId + 1) * sectorSize;
+    for (let pos = 0; pos < sectorSize; pos += 4) {
+      fat.push(view.getInt32(sectorOffset + pos, true));
+    }
+  });
+  const directoryBytes = readOleChain(buffer, fat, sectorSize, firstDirectorySector);
+  const nameDecoder = new TextDecoder('utf-16le');
+  const entries = [];
+  for (let offset = 0; offset + 128 <= directoryBytes.length; offset += 128) {
+    const entryView = new DataView(directoryBytes.buffer, directoryBytes.byteOffset + offset, 128);
+    const nameLength = entryView.getUint16(64, true);
+    if (!nameLength) continue;
+    const name = nameDecoder.decode(directoryBytes.slice(offset, offset + Math.max(0, nameLength - 2))).replace(/\0/g, '');
+    const type = entryView.getUint8(66);
+    entries.push({
+      name,
+      type,
+      startSector: entryView.getInt32(116, true),
+      size: entryView.getUint32(120, true)
+    });
+  }
+  const root = entries.find((entry) => entry.type === 5);
+  const workbook = entries.find((entry) => entry.type === 2 && /^(Workbook|Book)$/i.test(entry.name));
+  if (!workbook) throw new Error('missing-workbook-stream');
+  if (workbook.size < miniCutoff && root && root.startSector >= 0) {
+    const miniFatBytes = miniFatSectorCount ? readOleChain(buffer, fat, sectorSize, firstMiniFatSector) : new Uint8Array();
+    const miniFat = [];
+    const miniFatView = new DataView(miniFatBytes.buffer, miniFatBytes.byteOffset, miniFatBytes.byteLength);
+    for (let pos = 0; pos + 4 <= miniFatBytes.length; pos += 4) miniFat.push(miniFatView.getInt32(pos, true));
+    const miniStream = readOleChain(buffer, fat, sectorSize, root.startSector);
+    const parts = [];
+    const seen = new Set();
+    let sector = workbook.startSector;
+    while (sector >= 0 && sector < miniFat.length && !seen.has(sector)) {
+      seen.add(sector);
+      parts.push(miniStream.slice(sector * miniSectorSize, sector * miniSectorSize + miniSectorSize));
+      sector = miniFat[sector];
+      if (sector === -2) break;
+    }
+    const out = new Uint8Array(parts.length * miniSectorSize);
+    parts.forEach((part, index) => out.set(part, index * miniSectorSize));
+    return out.slice(0, workbook.size);
+  }
+  return readOleChain(buffer, fat, sectorSize, workbook.startSector).slice(0, workbook.size);
+}
+
+function readBiffUnicodeString(bytes, offset) {
+  if (offset + 3 > bytes.length) return { value: '', nextOffset: bytes.length };
+  const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const length = view.getUint16(offset, true);
+  let pos = offset + 2;
+  const flags = bytes[pos] || 0;
+  pos += 1;
+  const is16Bit = Boolean(flags & 1);
+  const hasRichText = Boolean(flags & 8);
+  const hasExt = Boolean(flags & 4);
+  const richRuns = hasRichText && pos + 2 <= bytes.length ? view.getUint16(pos, true) : 0;
+  if (hasRichText) pos += 2;
+  const extSize = hasExt && pos + 4 <= bytes.length ? view.getUint32(pos, true) : 0;
+  if (hasExt) pos += 4;
+  let value = '';
+  for (let i = 0; i < length && pos < bytes.length; i += 1) {
+    if (is16Bit) {
+      if (pos + 2 > bytes.length) break;
+      value += String.fromCharCode(view.getUint16(pos, true));
+      pos += 2;
+    } else {
+      value += String.fromCharCode(bytes[pos]);
+      pos += 1;
+    }
+  }
+  pos += richRuns * 4 + extSize;
+  return { value, nextOffset: pos };
+}
+
+function decodeRkNumber(raw) {
+  const multiplied = raw & 1;
+  let value;
+  if (raw & 2) {
+    value = raw >> 2;
+  } else {
+    const buffer = new ArrayBuffer(8);
+    const bytes = new Uint8Array(buffer);
+    bytes[4] = raw & 0xfc;
+    bytes[5] = (raw >> 8) & 0xff;
+    bytes[6] = (raw >> 16) & 0xff;
+    bytes[7] = (raw >> 24) & 0xff;
+    value = new DataView(buffer).getFloat64(0, true);
+  }
+  return multiplied ? value / 100 : value;
+}
+
+function setArrayCell(rows, row, col, value) {
+  if (!rows[row]) rows[row] = [];
+  rows[row][col] = value === undefined || value === null ? '' : String(value);
+}
+
+function parseLegacyXlsRows(buffer) {
+  const workbook = parseOleWorkbookStream(buffer);
+  const records = [];
+  const view = new DataView(workbook.buffer, workbook.byteOffset, workbook.byteLength);
+  for (let offset = 0; offset + 4 <= workbook.length;) {
+    const type = view.getUint16(offset, true);
+    const length = view.getUint16(offset + 2, true);
+    const dataStart = offset + 4;
+    const dataEnd = Math.min(dataStart + length, workbook.length);
+    records.push({ type, bytes: workbook.slice(dataStart, dataEnd) });
+    offset = dataStart + length;
+  }
+
+  const sst = [];
+  for (let i = 0; i < records.length; i += 1) {
+    if (records[i].type !== 0x00fc) continue;
+    const chunks = [records[i].bytes];
+    let next = i + 1;
+    while (records[next] && records[next].type === 0x003c) {
+      chunks.push(records[next].bytes);
+      next += 1;
+    }
+    const total = chunks.reduce((sum, chunk) => sum + chunk.length, 0);
+    const bytes = new Uint8Array(total);
+    let chunkOffset = 0;
+    chunks.forEach((chunk) => {
+      bytes.set(chunk, chunkOffset);
+      chunkOffset += chunk.length;
+    });
+    const sstView = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    const uniqueCount = bytes.length >= 8 ? sstView.getUint32(4, true) : 0;
+    let pos = 8;
+    for (let index = 0; index < uniqueCount && pos < bytes.length; index += 1) {
+      const parsed = readBiffUnicodeString(bytes, pos);
+      sst.push(parsed.value);
+      pos = parsed.nextOffset;
+    }
+    break;
+  }
+
+  const sheetRows = [];
+  let inWorksheet = false;
+  records.forEach((record) => {
+    const bytes = record.bytes;
+    if (record.type === 0x0809 && bytes.length >= 4) {
+      const substreamType = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength).getUint16(2, true);
+      inWorksheet = substreamType === 0x0010 || inWorksheet;
+      return;
+    }
+    if (record.type === 0x000a) {
+      if (inWorksheet && sheetRows.length) inWorksheet = false;
+      return;
+    }
+    if (!inWorksheet && sheetRows.length) return;
+    if (!inWorksheet && ![0x00fd, 0x0203, 0x027e, 0x00bd, 0x0204, 0x0006].includes(record.type)) return;
+    const cellView = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+    if (record.type === 0x00fd && bytes.length >= 10) {
+      const row = cellView.getUint16(0, true);
+      const col = cellView.getUint16(2, true);
+      const sstIndex = cellView.getUint32(6, true);
+      setArrayCell(sheetRows, row, col, sst[sstIndex] || '');
+    } else if (record.type === 0x0203 && bytes.length >= 14) {
+      setArrayCell(sheetRows, cellView.getUint16(0, true), cellView.getUint16(2, true), cellView.getFloat64(6, true));
+    } else if (record.type === 0x027e && bytes.length >= 10) {
+      setArrayCell(sheetRows, cellView.getUint16(0, true), cellView.getUint16(2, true), decodeRkNumber(cellView.getInt32(6, true)));
+    } else if (record.type === 0x00bd && bytes.length >= 6) {
+      const row = cellView.getUint16(0, true);
+      const firstCol = cellView.getUint16(2, true);
+      const lastCol = cellView.getUint16(bytes.length - 2, true);
+      for (let col = firstCol, pos = 4; col <= lastCol && pos + 6 <= bytes.length - 2; col += 1, pos += 6) {
+        setArrayCell(sheetRows, row, col, decodeRkNumber(cellView.getInt32(pos + 2, true)));
+      }
+    } else if (record.type === 0x0204 && bytes.length >= 8) {
+      const row = cellView.getUint16(0, true);
+      const col = cellView.getUint16(2, true);
+      const parsed = readBiffUnicodeString(bytes, 6);
+      setArrayCell(sheetRows, row, col, parsed.value);
+    } else if (record.type === 0x0006 && bytes.length >= 14) {
+      const row = cellView.getUint16(0, true);
+      const col = cellView.getUint16(2, true);
+      const value = cellView.getFloat64(6, true);
+      if (Number.isFinite(value)) setArrayCell(sheetRows, row, col, value);
+    }
+  });
+  return parseRowsFromArrays(sheetRows);
+}
+
 function nodeText(node, tagName) {
   const child = node.getElementsByTagName(tagName)[0];
   return child ? child.textContent || '' : '';
@@ -2152,7 +2520,7 @@ async function readRowsFromFile(file) {
   if (lowerName.endsWith('.xlsx')) {
     rows = await parseXlsxRows(buffer);
   } else if (lowerName.endsWith('.xls')) {
-    throw new Error('legacy-xls');
+    rows = parseLegacyXlsRows(buffer);
   } else if (lowerName.endsWith('.doc') || lowerName.endsWith('.html')) {
     rows = parseHtmlDocRows(decodeTextBuffer(buffer), file.name);
   } else if (lowerName.endsWith('.json')) {
@@ -2180,9 +2548,9 @@ async function importDataFiles(files) {
   const data = rowsToFormData(rows, fileList.map((file) => file.name).join(' + '));
   setFormData(data);
   setLatest(analyze(getFormData()), true);
-  const skippedText = skippedFiles.length ? `；${skippedFiles.length} 个旧版 xls 暂未读取，请另存为 xlsx/csv` : '';
+  const skippedText = skippedFiles.length ? `；${skippedFiles.length} 个文件暂未读取，请检查是否为加密、损坏或暂不支持格式` : '';
   $('#importStatus').textContent = `已导入 ${fileList.length - skippedFiles.length} 个文件、${rows.length} 行数据，自动生成${data.reportType}并写入历史${skippedText}。`;
-  toast(skippedFiles.length ? '已导入可识别文件，旧版 xls 需转换' : '多文件数据已导入，报告已生成');
+  toast(skippedFiles.length ? '已导入可识别文件，部分文件未读取' : '多文件数据已导入，报告已生成');
 }
 
 function downloadDataTemplate() {
