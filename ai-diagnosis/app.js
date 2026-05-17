@@ -14,7 +14,84 @@ const benchmarks = {
   '服装鞋包': { conversion: 2.6, refund: 10, roi: 2.6, activeRate: 62, service: 88, privateShare: 8, topSkuMax: 50 },
   '食品茶饮': { conversion: 3.8, refund: 4, roi: 3.4, activeRate: 72, service: 90, privateShare: 14, topSkuMax: 58 },
   '母婴营养': { conversion: 3.0, refund: 4.5, roi: 3.2, activeRate: 66, service: 94, privateShare: 12, topSkuMax: 52 },
-  '产业带工厂': { conversion: 2.8, refund: 6, roi: 2.8, activeRate: 58, service: 86, privateShare: 8, topSkuMax: 62 }
+  '家居百货': { conversion: 3.1, refund: 6.5, roi: 3.0, activeRate: 64, service: 88, privateShare: 10, topSkuMax: 60 },
+  '产业带工厂': { conversion: 2.8, refund: 6, roi: 2.8, activeRate: 58, service: 86, privateShare: 8, topSkuMax: 62 },
+  '本地生活': { conversion: 4.2, refund: 3.5, roi: 3.0, activeRate: 60, service: 92, privateShare: 16, topSkuMax: 65 }
+};
+
+const categoryStrategies = {
+  default: {
+    focus: '先看 GMV 拆解、商品承接、渠道效率和复购资产，避免只按平台后台提示做泛化优化。',
+    conversion: '重点检查首图/详情页前三屏、价格解释、评价证据和客服异议处理是否给足购买理由。',
+    refund: '把退款原因按 SKU、页面承诺、客服话术和履约体验做矩阵，先处理金额最高的 TOP3 原因。',
+    product: '用销售额、访客、转化、退款和毛利给 SKU 分层，确定主推款、潜力款、利润款和清仓款。',
+    channel: '按搜索、推荐、内容、付费、私域拆入口效率，判断增长来自自然势能还是预算拉动。',
+    action: '先完成核心 SKU 四象限，再决定是改页面、补内容、调投放还是做复购。',
+    priorityBoost: {}
+  },
+  '美妆个护': {
+    focus: '美妆个护优先看功效可信度、肤质/场景匹配、评价证据和客服异议，报告要判断“为什么用户敢不敢买”。',
+    conversion: '重点检查功效卖点是否有成分、适用人群、使用周期、前后对比和评价证据支撑。',
+    refund: '退款要按功效不符、肤感不适、规格预期、物流破损和使用方法误解拆分，避免单纯归因售后。',
+    product: '商品分层应区分引流单品、套组、复购装和利润装，关注套组承接与复购周期。',
+    channel: '内容渠道要看种草素材到搜索成交的联动，搜索词应围绕功效、人群和场景沉淀。',
+    action: '为 TOP SKU 补齐“成分/功效/人群/评价/用法”五段证据链，并同步客服异议话术。',
+    priorityBoost: { 转化: 8, 承接: 5, 复购: 4 }
+  },
+  '服装鞋包': {
+    focus: '服装鞋包优先看上新节奏、尺码/版型预期、主图穿搭表达、退款原因和单品动销，报告要判断“款式有没有被正确表达”。',
+    conversion: '重点检查主图是否讲清版型、面料、厚薄、弹力、适穿身材和搭配场景。',
+    refund: '退款要按尺码不合适、面料预期、色差、版型不符和物流体验拆分，并回写页面与客服推荐。',
+    product: '动销诊断要区分新品、爆款、长尾和滞销款，重点看上新后 7/14 天访客与加购承接。',
+    channel: '内容和推荐流量要看穿搭场景、上身效果和人群匹配，搜索流量要看品类词/风格词承接。',
+    action: '围绕 TOP 款建立尺码建议、模特信息、面料说明、买家秀和退款 TOP 原因修复清单。',
+    priorityBoost: { 利润: 10, 货品: 8, 转化: 4 }
+  },
+  '食品茶饮': {
+    focus: '食品茶饮优先看复购周期、礼盒/自饮分层、口味信任、内容种草和老客贡献，报告要判断“买一次后能不能持续买”。',
+    conversion: '重点检查产地、口味、规格、饮用场景、送礼理由和评价证据是否形成购买理由。',
+    refund: '退款要按口味预期、包装破损、规格误解、发货时效和保质期疑虑拆分。',
+    product: '商品分层应区分试饮/引流款、礼盒款、自饮复购款和高客单组合款。',
+    channel: '私域和会员贡献要重点看，内容渠道应承接到礼盒场景、节令场景和复购提醒。',
+    action: '建立“新客试饮-礼盒转化-老客复购”的 7/14/30 天触达 SOP。',
+    priorityBoost: { 复购: 10, 渠道: 5, 转化: 4 }
+  },
+  '母婴营养': {
+    focus: '母婴营养优先看安全信任、适龄/适用阶段、专业背书、客服解释和复购周期，报告要判断“信任门槛有没有被跨过”。',
+    conversion: '重点检查适用月龄/阶段、成分安全、资质背书、使用方法和常见顾虑是否讲清。',
+    refund: '退款要按适用阶段误解、过敏/不适担忧、规格预期、物流破损和客服解释不足拆分。',
+    product: '商品分层应区分试用装、阶段款、复购装和组合装，关注阶段迁移与会员沉淀。',
+    channel: '内容要更重信任和解释，私域要承接复购提醒、阶段升级和高频问答。',
+    action: '为核心 SKU 建立“适用人群-禁忌提醒-使用方法-妈妈问答-复购周期”诊断表。',
+    priorityBoost: { 转化: 8, 承接: 8, 复购: 6 }
+  },
+  '家居百货': {
+    focus: '家居百货优先看场景展示、规格参数、安装/使用门槛、履约体验和组合销售，报告要判断“用户是否看懂并买对”。',
+    conversion: '重点检查尺寸、材质、安装方式、适用空间、对比图和使用场景是否清楚。',
+    refund: '退款要按尺寸不符、材质预期、安装困难、破损和物流时效拆分。',
+    product: '商品分层应看主推规格、组合装、替换装和低动销长尾，减少无效 SKU 占用。',
+    channel: '搜索承接要覆盖规格词/场景词，推荐和内容要突出空间效果与解决问题。',
+    action: '补齐 TOP SKU 的尺寸示意、场景图、安装说明和售前问答，降低买错退货。',
+    priorityBoost: { 转化: 6, 利润: 6, 货品: 4 }
+  },
+  '产业带工厂': {
+    focus: '产业带工厂优先看商品标准化、价格带、供货稳定、内容包装和爆款复制，报告要判断“供应链优势有没有转成线上表达”。',
+    conversion: '重点检查价格优势、规格选择、品质证明、交付能力和差异化卖点是否表达出来。',
+    refund: '退款要按品质不符、规格误解、发货时效、包装问题和客服承诺拆分。',
+    product: '商品分层要先砍长尾、保主推、测潜力款，把供应链 SKU 转成线上可成交 SKU。',
+    channel: '付费和活动不能只冲低价，要看自然搜索词和内容素材是否沉淀可复用资产。',
+    action: '把核心 10-20 个 SKU 做成标准化卖点卡、价格带表和供应链交付承诺表。',
+    priorityBoost: { 货品: 10, 渠道: 5, 转化: 4 }
+  },
+  '本地生活': {
+    focus: '本地生活优先看到店/预约转化、区域流量、评价口碑、履约体验和私域复访，报告要判断“线上线下承接是否闭环”。',
+    conversion: '重点检查套餐权益、门店距离、预约规则、评价口碑、使用限制和客服承接。',
+    refund: '退款要按预约失败、权益理解偏差、到店体验、服务时效和核销限制拆分。',
+    product: '商品分层应区分引流套餐、利润套餐、复购套餐和节日活动套餐。',
+    channel: '区域推荐、搜索和私域复访要联动，重点看核销、复购和评价回流。',
+    action: '建立“下单-预约-到店-核销-评价-复访”的链路诊断和话术 SOP。',
+    priorityBoost: { 承接: 8, 复购: 10, 转化: 6 }
+  }
 };
 
 const samples = [
@@ -107,6 +184,7 @@ let latestDiagnosis = null;
 let importedDetails = null;
 let importedSummary = null;
 let importedAux = null;
+let pendingImportMeta = null;
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -141,6 +219,10 @@ function saveHistory() {
 
 function getBenchmark(industry) {
   return benchmarks[industry] || benchmarks.default;
+}
+
+function getCategoryStrategy(industry) {
+  return categoryStrategies[industry] || categoryStrategies.default;
 }
 
 function getFormData() {
@@ -253,12 +335,14 @@ function gapDecomposition(data) {
 
 function analyze(data) {
   const bench = getBenchmark(data.industry);
+  const category = getCategoryStrategy(data.industry);
   const salesTrend = trend(data.sales, data.prevSales);
   const visitorTrend = trend(data.visitors, data.prevVisitors);
   const decomposition = gapDecomposition(data);
   const channelBalance = Math.abs(100 - data.channelTotal) <= 5 ? 100 : clamp(100 - Math.abs(100 - data.channelTotal) * 3);
   const contentBase = data.contentShare + data.recommendShare;
   const paidPressure = data.paidShare >= 28;
+  const categoryBoost = (lever) => category.priorityBoost?.[lever] || 0;
   const opportunity = {
     conversion: Math.max(0, data.visitors * ((bench.conversion - data.conversion) / 100) * data.aov),
     refund: Math.max(0, data.sales * ((data.refundRate - bench.refund) / 100)),
@@ -273,7 +357,7 @@ function analyze(data) {
   const metricScores = [
     { key: 'sales', name: '销售增长', value: yuan(data.sales), detail: salesTrend.label, score: clamp(70 + salesTrend.value * 1.35) },
     { key: 'traffic', name: '流量质量', value: Math.round(data.visitors).toLocaleString('zh-CN'), detail: visitorTrend.label, score: clamp(70 + visitorTrend.value * 1.2) },
-    { key: 'conversion', name: '转化效率', value: percent(data.conversion), detail: `行业参考 ${bench.conversion}%`, score: clamp((data.conversion / bench.conversion) * 100) },
+    { key: 'conversion', name: '转化效率', value: percent(data.conversion), detail: `${data.industry}参考 ${bench.conversion}%`, score: clamp((data.conversion / bench.conversion) * 100) },
     { key: 'profit', name: '利润风险', value: '退款 ' + percent(data.refundRate), detail: data.roi > 0 ? `ROI ${data.roi.toFixed(2)}` : 'ROI 未提供', score: clamp(profitScore) },
     { key: 'product', name: '货品动销', value: percent(data.activeProductRate), detail: `TOP SKU ${percent(data.topSkuShare, 1)}`, score: clamp((data.activeProductRate / bench.activeRate) * 74 + (100 - Math.max(0, data.topSkuShare - bench.topSkuMax) * 2) * 0.26) },
     { key: 'channel', name: '渠道结构', value: data.channelTotal.toFixed(1) + '%', detail: contentBase >= 35 ? '内容基础较好' : '内容基础偏弱', score: clamp(channelBalance * 0.52 + (paidPressure ? 48 : 78) * 0.2 + clamp(contentBase * 1.45) * 0.28) },
@@ -317,11 +401,11 @@ function analyze(data) {
     issue(issues, {
       title: '转化率低于行业参考线，页面和客服承接是优先修复项',
       evidence: `当前转化率 ${percent(data.conversion)}，低于${data.industry}参考线 ${bench.conversion}%；按当前流量和客单，转化提升到参考线约增加 ${yuan(opportunity.conversion)}。`,
-      diagnosis: '这类问题不是“多做内容”能解决，核心是进店后的购买理由不足：首图、价格解释、评价证据、详情页前三屏和客服异议处理需要连起来看。',
+      diagnosis: category.conversion,
       impactText: `转化机会约 ${yuan(opportunity.conversion)}`,
-      action: '围绕核心 SKU 重做主图前3张、详情页前三屏、评价精选和客服异议话术，先跑一版 7 天对照。',
-      validation: '对比核心 SKU 的点击-加购-咨询-成交链路，查看流失最大节点。',
-      priority: clamp(74 + gap * 10 + opportunity.conversion / Math.max(data.sales, 1) * 20),
+      action: category.action,
+      validation: `对比核心 SKU 的点击-加购-咨询-成交链路，并按${data.industry}重点校验：${category.conversion}`,
+      priority: clamp(74 + gap * 10 + opportunity.conversion / Math.max(data.sales, 1) * 20 + categoryBoost('转化')),
       owner: '内容/客服',
       lever: '转化'
     });
@@ -330,11 +414,11 @@ function analyze(data) {
     issue(issues, {
       title: '退款率高于健康线，正在吞噬真实增长',
       evidence: `当前退款率 ${percent(data.refundRate)}，高于参考线 ${bench.refund}%；按销售额估算，超额退款风险约 ${yuan(opportunity.refund)}。`,
-      diagnosis: '退款不是售后单点问题，往往来自页面承诺、尺码/功效解释、物流体验和客服预期管理。继续放大流量会把损耗一起放大。',
+      diagnosis: category.refund,
       impactText: `利润风险约 ${yuan(opportunity.refund)}`,
-      action: '建立退款原因矩阵：SKU × 原因 × 页面表达 × 客服话术 × 供应链问题，先处理 TOP3 原因。',
-      validation: '拉取近30天退款原因和评价负反馈，按 SKU 聚合，看是否集中在爆款或新款。',
-      priority: clamp(68 + (data.refundRate - bench.refund) * 6 + opportunity.refund / Math.max(data.sales, 1) * 24),
+      action: '建立退款原因矩阵：SKU × 原因 × 页面表达 × 客服话术 × 履约/供应链问题，先处理 TOP3 原因。',
+      validation: `拉取近30天退款原因和评价负反馈，按 SKU 聚合，并按${data.industry}重点校验：${category.refund}`,
+      priority: clamp(68 + (data.refundRate - bench.refund) * 6 + opportunity.refund / Math.max(data.sales, 1) * 24 + categoryBoost('利润')),
       owner: '售后/商品',
       lever: '利润'
     });
@@ -356,11 +440,11 @@ function analyze(data) {
     issue(issues, {
       title: '货品动销不足，SKU 多但有效供给不够',
       evidence: `当前动销率 ${percent(data.activeProductRate)}，参考线 ${bench.activeRate}%；有成交商品 ${data.activeProductCount}/${data.productCount}。`,
-      diagnosis: '低动销会稀释店铺权重和运营注意力。不是所有商品都值得优化，先做商品分层，找出引流款、利润款、潜力款和清仓款。',
+      diagnosis: category.product,
       impactText: `动销改善机会约 ${yuan(opportunity.active)}`,
       action: '按销售额、访客、转化、毛利、退款率给 SKU 打标签，确定未来两周只优化核心 10-20 个 SKU。',
-      validation: '导出 SKU 明细，按访客高低和转化高低做四象限。',
-      priority: clamp(55 + (bench.activeRate - data.activeProductRate) * 1.1 + opportunity.active / Math.max(data.sales, 1) * 20),
+      validation: `导出 SKU 明细，按访客高低和转化高低做四象限，并补充${data.industry}商品分层字段。`,
+      priority: clamp(55 + (bench.activeRate - data.activeProductRate) * 1.1 + opportunity.active / Math.max(data.sales, 1) * 20 + categoryBoost('货品')),
       owner: '商品',
       lever: '货品'
     });
@@ -382,11 +466,11 @@ function analyze(data) {
     issue(issues, {
       title: '付费依赖偏高且效率不足，容易形成“花钱有单、停投下滑”',
       evidence: `付费渠道占比 ${percent(data.paidShare, 1)}，ROI ${data.roi.toFixed(2)}，内容+推荐占比 ${percent(contentBase, 1)}。`,
-      diagnosis: '这说明店铺可能缺少自然搜索、内容种草和私域复购的自循环。只靠加预算会提高经营波动。',
+      diagnosis: category.channel,
       impactText: '影响获客成本和利润稳定性',
       action: '降低低效付费消耗，把预算转向能沉淀搜索词、内容素材和复购人群的商品。',
-      validation: '比较付费访客与自然访客的转化率、客单价、退款率和复购率。',
-      priority: 70,
+      validation: `比较付费访客与自然访客的转化率、客单价、退款率和复购率，并按${data.industry}看渠道承接差异。`,
+      priority: clamp(70 + categoryBoost('渠道')),
       owner: '投放/内容',
       lever: '渠道'
     });
@@ -399,7 +483,7 @@ function analyze(data) {
       impactText: `承接机会约 ${yuan(opportunity.service)}`,
       action: '沉淀高频咨询、异议处理、退货挽留、尺码/功效解释话术，并设置每日抽检。',
       validation: '抽取咨询未成交样本，标注用户问题、客服回复、是否催单、是否流失。',
-      priority: clamp(56 + (bench.service - data.serviceRate) * 1.4),
+      priority: clamp(56 + (bench.service - data.serviceRate) * 1.4 + categoryBoost('承接')),
       owner: '客服',
       lever: '承接'
     });
@@ -408,11 +492,11 @@ function analyze(data) {
     issue(issues, {
       title: '私域和老客贡献偏弱，复购资产没有被经营起来',
       evidence: `私域占比 ${percent(data.privateShare, 1)}，参考线 ${bench.privateShare}%；按当前销售估算，复购提升机会约 ${yuan(opportunity.private)}。`,
-      diagnosis: '中小商家不能只依赖平台新客。私域占比低，意味着老客复购、沉默激活和会员权益还没有形成经营机制。',
+      diagnosis: `${category.channel} 私域占比低时，还要补看老客复购、沉默激活和会员权益是否形成经营机制。`,
       impactText: `复购机会约 ${yuan(opportunity.private)}`,
       action: '先选择高复购商品设计 7/14/30 天触达 SOP，再扩展会员权益和沉默客户激活。',
-      validation: '补充新客/老客成交占比、复购周期、会员人数和沉默客户数量。',
-      priority: clamp(46 + (bench.privateShare - data.privateShare) * 2.5),
+      validation: `补充新客/老客成交占比、复购周期、会员人数和沉默客户数量，并按${data.industry}拆复购场景。`,
+      priority: clamp(46 + (bench.privateShare - data.privateShare) * 2.5 + categoryBoost('复购')),
       owner: '私域',
       lever: '复购'
     });
@@ -434,10 +518,10 @@ function analyze(data) {
     issue(issues, {
       title: '核心经营指标暂无明显短板，建议进入二级增长诊断',
       evidence: '销售、转化、退款、动销、ROI 和客服承接均未触发高风险阈值。',
-      diagnosis: '当前不应继续做基础经营诊断，而应进入商品卖点、内容效率、人群结构和复购路径诊断。',
+      diagnosis: `当前不应继续做基础经营诊断，而应进入${data.industry}的二级增长诊断：${category.focus}`,
       impactText: '下一阶段增长空间',
-      action: '选 3 个核心 SKU 做卖点、页面、内容和复购路径诊断。',
-      validation: '补充用户评价、竞品页面、内容素材和复购数据。',
+      action: category.action,
+      validation: `补充用户评价、竞品页面、内容素材和复购数据，按${data.industry}诊断方向复核。`,
       priority: 35,
       owner: '顾问',
       lever: '增长'
@@ -447,8 +531,8 @@ function analyze(data) {
   issues.sort((a, b) => b.priority - a.priority);
 
   const totalScore = Math.round(metricScores.reduce((sum, item) => sum + item.score, 0) / metricScores.length);
-  const summary = createSummary(totalScore, issues, salesTrend, visitorTrend, decomposition);
-  const actions = createActions(issues, data);
+  const summary = createSummary(totalScore, issues, salesTrend, visitorTrend, decomposition, category);
+  const actions = createActions(issues, data, category);
   const targetPlan = buildTargetPlan(data, issues, decomposition, bench);
   const now = new Date();
 
@@ -460,6 +544,7 @@ function analyze(data) {
     issues,
     actions,
     targetPlan,
+    categoryStrategy: category,
     weeklySections: buildWeeklySections(data, issues),
     dataQuality: buildDataQuality(data),
     salesTrend,
@@ -470,33 +555,33 @@ function analyze(data) {
   };
 }
 
-function createSummary(score, issues, salesTrend, visitorTrend, decomposition) {
+function createSummary(score, issues, salesTrend, visitorTrend, decomposition, category) {
   const highCount = issues.filter((item) => item.level === 'high').length;
   if (score >= 80 && highCount === 0) {
     return {
       title: '经营状态健康，适合进入二级增长诊断',
-      text: '基础经营指标较稳定，下一步应从商品卖点、内容效率、人群结构和复购路径寻找增量。'
+      text: `基础经营指标较稳定，下一步应围绕类目方向寻找增量：${category.focus}`
     };
   }
   if (score >= 65) {
     return {
       title: '存在明确优化空间，需要按经营杠杆排序',
-      text: `销售变化 ${salesTrend.label}，访客变化 ${visitorTrend.label}。本次诊断优先处理 ${issues[0]?.lever || '经营'} 问题，预计比平均修修补补更快看到结果。`
+      text: `销售变化 ${salesTrend.label}，访客变化 ${visitorTrend.label}。本次诊断优先处理 ${issues[0]?.lever || '经营'} 问题；类目方向为：${category.focus}`
     };
   }
   if (decomposition.salesGap >= 0) {
     return {
       title: '销售增长但结构风险明显，需要先修复经营短板',
-      text: `销售变化 ${salesTrend.label}，访客变化 ${visitorTrend.label}，但退款、转化、动销或渠道结构存在高优先级问题。建议先处理 ${issues[0]?.lever || '经营'}，避免增长被售后和低效承接吃掉。`
+      text: `销售变化 ${salesTrend.label}，访客变化 ${visitorTrend.label}，但退款、转化、动销或渠道结构存在高优先级问题。建议先处理 ${issues[0]?.lever || '经营'}，并按类目重点复核：${category.focus}`
     };
   }
   return {
     title: '经营压力明显，需要先止损再增长',
-    text: `销售缺口约 ${yuan(Math.abs(Math.min(0, decomposition.salesGap)))}，存在多个高优先级问题。建议先完成数据归因和承接修复，再考虑放大投放。`
+    text: `销售缺口约 ${yuan(Math.abs(Math.min(0, decomposition.salesGap)))}，存在多个高优先级问题。建议先完成数据归因和承接修复，再按类目方向放大：${category.focus}`
   };
 }
 
-function createActions(issues, data) {
+function createActions(issues, data, category = getCategoryStrategy(data.industry)) {
   const topIssues = issues.slice(0, 3);
   return [
     {
@@ -514,7 +599,7 @@ function createActions(issues, data) {
       tasks: [
         topIssues[1]?.action || '修复主图、详情页、评价、客服和投放承接链路。',
         '选择 3-5 个核心 SKU 做前后对照，跟踪访客、加购、咨询、成交、退款。',
-        data.refundRate > 5 ? '把退款 TOP3 原因写入页面提醒和客服话术。' : '建立客服高频问答和异议处理模板。'
+        data.refundRate > 5 ? `把退款 TOP3 原因写入页面提醒和客服话术：${category.refund}` : `建立${data.industry}高频问答和异议处理模板。`
       ]
     },
     {
@@ -522,7 +607,7 @@ function createActions(issues, data) {
       title: '复盘与增长机制',
       tasks: [
         topIssues[2]?.action || '建立每周经营复盘机制。',
-        '固定周报指标：销售、访客、转化、客单、退款、ROI、动销、客服承接。',
+        `固定周报指标：销售、访客、转化、客单、退款、ROI、动销、客服承接，并加上${data.industry}专属复盘项。`,
         '把本次诊断沉淀为行业模板，下一步扩展到商品卖点和内容生产诊断。'
       ]
     }
@@ -716,6 +801,7 @@ function reportModuleState(diagnosis) {
 function adaptiveReportOutline(diagnosis) {
   const state = reportModuleState(diagnosis);
   const included = ['老板先看', '数据完整度'];
+  included.push('类目诊断方向');
   if (state.importSummary) included.push('导入文件使用情况');
   if (state.aux) included.push('流量与客户辅助诊断');
   if (state.target) included.push('下周期目标建议');
@@ -747,6 +833,31 @@ function reportOutlineHtml(diagnosis) {
       <div><strong>已生成模块</strong><p>${outline.included.join(' / ')}</p></div>
       <div><strong>未生成模块</strong><p>${outline.skipped.length ? outline.skipped.join('；') : '本次上传数据已覆盖主要经营模块。'}</p></div>
     </div>
+  `);
+}
+
+function categoryDirectionRows(diagnosis) {
+  const strategy = diagnosis.categoryStrategy || getCategoryStrategy(diagnosis.data.industry);
+  const boosts = Object.entries(strategy.priorityBoost || {}).map(([name, value]) => `${name}+${value}`).join('、') || '按通用经营权重排序';
+  return [
+    { name: '本类目优先判断', value: strategy.focus },
+    { name: '问题优先级加权', value: boosts },
+    { name: '转化诊断重点', value: strategy.conversion },
+    { name: '退款/售后诊断重点', value: strategy.refund },
+    { name: '商品结构诊断重点', value: strategy.product },
+    { name: '渠道与复购诊断重点', value: strategy.channel },
+    { name: '建议动作', value: strategy.action }
+  ];
+}
+
+function categoryDirectionHtml(diagnosis) {
+  return reportSection('类目诊断方向', `
+    <table class="report-table">
+      <thead><tr><th>维度</th><th>${escapeHtml(diagnosis.data.industry)}报告优化方向</th></tr></thead>
+      <tbody>
+        ${categoryDirectionRows(diagnosis).map((item) => `<tr><td>${item.name}</td><td>${escapeHtml(item.value)}</td></tr>`).join('')}
+      </tbody>
+    </table>
   `);
 }
 
@@ -892,6 +1003,7 @@ function renderReport(diagnosis) {
   const state = reportModuleState(diagnosis);
   const details = data.importedDetails || {};
   const dynamicSections = [reportOutlineHtml(diagnosis)];
+  dynamicSections.push(categoryDirectionHtml(diagnosis));
   if (state.importSummary) dynamicSections.push(importSummaryHtml(diagnosis));
   if (state.aux) dynamicSections.push(reportSection('流量与客户辅助诊断', `<ul>${auxiliaryDiagnosis(diagnosis).map((item) => `<li>${item}</li>`).join('')}</ul>`));
   if (state.target) dynamicSections.push(targetPlanHtml(targetPlan));
@@ -1150,7 +1262,9 @@ function renderReport(diagnosis) {
 }
 
 function missingDataTips(data) {
+  const category = getCategoryStrategy(data.industry);
   const tips = ['分 SKU 销售、访客、转化、退款原因表', '主要渠道入口明细，包括搜索、推荐、内容、活动、付费、私域', 'TOP 商品主图、详情页、评价和客服高频问答'];
+  tips.push(`${data.industry}专属校验资料：${category.action}`);
   if (data.roi <= 0) tips.push('投放消耗、成交金额、ROI 和计划维度表现');
   if (data.refundRate > 5) tips.push('售后退款明细，至少按 SKU 和退款原因归类');
   if (data.privateShare < 8) tips.push('会员、老客、沉默客户和复购周期数据');
@@ -1172,6 +1286,7 @@ function operatingSummary(diagnosis) {
 
 function moduleDiagnosis(diagnosis) {
   const { data } = diagnosis;
+  const category = diagnosis.categoryStrategy || getCategoryStrategy(data.industry);
   return [
     {
       module: '店铺经营',
@@ -1181,17 +1296,17 @@ function moduleDiagnosis(diagnosis) {
     {
       module: '流量渠道',
       status: data.paidShare >= 28 && data.roi > 0 && data.roi < 3 ? '需控费' : data.contentShare + data.recommendShare >= 35 ? '内容基础较好' : '需补内容',
-      detail: `搜索 ${percent(data.searchShare, 1)}、推荐 ${percent(data.recommendShare, 1)}、内容 ${percent(data.contentShare, 1)}、付费 ${percent(data.paidShare, 1)}、私域 ${percent(data.privateShare, 1)}。`
+      detail: `搜索 ${percent(data.searchShare, 1)}、推荐 ${percent(data.recommendShare, 1)}、内容 ${percent(data.contentShare, 1)}、付费 ${percent(data.paidShare, 1)}、私域 ${percent(data.privateShare, 1)}。${category.channel}`
     },
     {
       module: '商品结构',
       status: data.activeProductRate >= 68 ? '动销良好' : '动销不足',
-      detail: `有成交商品 ${data.activeProductCount}/${data.productCount}，TOP SKU 销售占比 ${percent(data.topSkuShare, 1)}。`
+      detail: `有成交商品 ${data.activeProductCount}/${data.productCount}，TOP SKU 销售占比 ${percent(data.topSkuShare, 1)}。${category.product}`
     },
     {
       module: '客服/售后',
       status: data.refundRate > getBenchmark(data.industry).refund ? '退款风险' : data.serviceRate < getBenchmark(data.industry).service ? '承接待加强' : '基本稳定',
-      detail: `客服响应达标率 ${percent(data.serviceRate, 1)}，退款率 ${percent(data.refundRate)}。`
+      detail: `客服响应达标率 ${percent(data.serviceRate, 1)}，退款率 ${percent(data.refundRate)}。${category.refund}`
     }
   ];
 }
@@ -1370,6 +1485,7 @@ function reportText(diagnosis) {
     `- 已生成模块：${outline.included.join(' / ')}`,
     `- 未生成模块：${outline.skipped.length ? outline.skipped.join('；') : '本次上传数据已覆盖主要经营模块。'}`
   ];
+  lines.push('', '类目诊断方向', ...categoryDirectionRows(diagnosis).map((item) => `- ${item.name}：${item.value}`));
   if (state.importSummary) {
     lines.push('', '四、导入文件使用情况', ...importSummaryRows(diagnosis).map((item) => `- ${item.file}：${item.status}，使用行数 ${item.rows}，进入模块 ${item.modules}，${item.note}`));
   }
@@ -2111,7 +2227,7 @@ function rowsToFormData(rows, filename) {
   const details = buildImportedDetails(currentSource);
   details.traffic = sanitizeTrafficDetails(details.traffic, current.sales, current.visitors);
   return {
-    storeName: first.storeName || $('#storeName').value || '未命名店铺',
+    storeName: first.storeName || '',
     industry: first.industry || $('#industry').value || '美妆个护',
     platform: first.platform || selectedPlatform || '天猫',
     reportType,
@@ -2547,10 +2663,51 @@ async function importDataFiles(files) {
   rows.skippedFiles = skippedFiles;
   const data = rowsToFormData(rows, fileList.map((file) => file.name).join(' + '));
   setFormData(data);
-  setLatest(analyze(getFormData()), true);
+  setLatest(analyze(getFormData()), false);
   const skippedText = skippedFiles.length ? `；${skippedFiles.length} 个文件暂未读取，请检查是否为加密、损坏或暂不支持格式` : '';
-  $('#importStatus').textContent = `已导入 ${fileList.length - skippedFiles.length} 个文件、${rows.length} 行数据，自动生成${data.reportType}并写入历史${skippedText}。`;
-  toast(skippedFiles.length ? '已导入可识别文件，部分文件未读取' : '多文件数据已导入，报告已生成');
+  pendingImportMeta = {
+    fileCount: fileList.length - skippedFiles.length,
+    rowCount: rows.length,
+    reportType: data.reportType,
+    skippedText
+  };
+  $('#importStatus').textContent = `已导入 ${pendingImportMeta.fileCount} 个文件、${pendingImportMeta.rowCount} 行数据。请确认店铺名称和类目后生成${data.reportType}${skippedText}。`;
+  openImportConfirmModal(pendingImportMeta);
+  toast(skippedFiles.length ? '已导入可识别文件，请确认店铺信息' : '数据已导入，请确认店铺信息');
+}
+
+function openImportConfirmModal(meta) {
+  const modal = $('#importConfirmModal');
+  if (!modal) return;
+  $('#importConfirmText').textContent = `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据。请输入店铺名称和类目，然后生成${meta.reportType}。`;
+  $('#modalStoreName').value = $('#storeName').value || '';
+  $('#modalIndustry').value = $('#industry').value || '美妆个护';
+  modal.hidden = false;
+  setTimeout(() => $('#modalStoreName').focus(), 0);
+}
+
+function closeImportConfirmModal() {
+  const modal = $('#importConfirmModal');
+  if (modal) modal.hidden = true;
+}
+
+function confirmImportedReport() {
+  const storeName = $('#modalStoreName').value.trim();
+  const industry = $('#modalIndustry').value;
+  if (!storeName) {
+    toast('请先输入店铺名称');
+    $('#modalStoreName').focus();
+    return;
+  }
+  $('#storeName').value = storeName;
+  $('#industry').value = industry;
+  const diagnosis = analyze(getFormData());
+  setLatest(diagnosis, true);
+  closeImportConfirmModal();
+  const meta = pendingImportMeta || { fileCount: 0, rowCount: 0, reportType: diagnosis.data.reportType, skippedText: '' };
+  $('#importStatus').textContent = `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据，自动生成${diagnosis.data.reportType}并写入历史${meta.skippedText || ''}。`;
+  pendingImportMeta = null;
+  toast('已生成报告并写入历史');
 }
 
 function downloadDataTemplate() {
@@ -2590,6 +2747,7 @@ function bindEvents() {
 
   fieldIds.forEach((id) => {
     $('#' + id).addEventListener('input', () => setLatest(analyze(getFormData())));
+    $('#' + id).addEventListener('change', () => setLatest(analyze(getFormData())));
   });
 
   $('#diagnosisForm').addEventListener('submit', (event) => {
@@ -2625,6 +2783,13 @@ function bindEvents() {
   $('#importHistory').addEventListener('click', () => $('#historyFile').click());
   $('#importData').addEventListener('click', () => $('#dataFile').click());
   $('#downloadTemplate').addEventListener('click', downloadDataTemplate);
+  $('#confirmImportedReport').addEventListener('click', confirmImportedReport);
+  document.querySelectorAll('[data-close-import-modal]').forEach((button) => {
+    button.addEventListener('click', closeImportConfirmModal);
+  });
+  $('#modalStoreName').addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') confirmImportedReport();
+  });
 
   $('#dataFile').addEventListener('change', async (event) => {
     const files = event.target.files;

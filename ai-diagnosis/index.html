@@ -286,7 +286,38 @@
       </div>
     </div>
 
+    <div class="import-modal" id="importConfirmModal" hidden>
+      <div class="modal-backdrop" data-close-import-modal></div>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="importConfirmTitle">
+        <div class="modal-head">
+          <div>
+            <h2 id="importConfirmTitle">确认店铺信息</h2>
+            <p id="importConfirmText">数据已导入，请补充店铺名称和类目后生成报告。</p>
+          </div>
+          <button class="modal-close" type="button" data-close-import-modal aria-label="关闭">×</button>
+        </div>
+        <div class="modal-form">
+          <label>店铺名称<input id="modalStoreName" type="text" placeholder="请输入店铺名称" /></label>
+          <label>店铺类目
+            <select id="modalIndustry">
+              <option>美妆个护</option>
+              <option>服装鞋包</option>
+              <option>食品茶饮</option>
+              <option>母婴营养</option>
+              <option>家居百货</option>
+              <option>产业带工厂</option>
+              <option>本地生活</option>
+            </select>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button class="ghost-btn" type="button" data-close-import-modal>先看草稿</button>
+          <button class="primary-btn" id="confirmImportedReport" type="button">生成报告并写入历史</button>
+        </div>
+      </section>
+    </div>
+
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js?v=20260517-channel-fix"></script>
+    <script src="./app.js?v=20260517-import-confirm"></script>
   </body>
 </html>
