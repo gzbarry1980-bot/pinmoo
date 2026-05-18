@@ -246,6 +246,11 @@ function getFormData() {
   data.importSummary = importedSummary;
   data.importedAux = importedAux;
   data.importedLineage = importedLineage;
+  data.refundAmount = readNumber(importedAux?.refundAmount || 0);
+  data.prevRefundAmount = readNumber(importedAux?.prevRefundAmount || 0);
+  data.netSales = readNumber(importedAux?.netSales || Math.max(0, data.sales - data.refundAmount));
+  data.prevNetSales = readNumber(importedAux?.prevNetSales || Math.max(0, data.prevSales - data.prevRefundAmount));
+  data.oldBuyerSales = readNumber(importedAux?.oldBuyerSales || 0);
   return data;
 }
 
@@ -334,6 +339,87 @@ function gapDecomposition(data) {
     prevConversion,
     prevAov
   };
+}
+
+function addImportedDetailIssues(data, issues, category, bench) {
+  const details = data.importedDetails || {};
+  const products = (details.productsAll?.length ? details.productsAll : details.products || [])
+    .filter((item) => item && item.name && (item.sales || item.visitors || item.orders));
+  if (products.length) {
+    const medianVisitors = median(products.map((item) => item.visitors || 0));
+    const medianSales = median(products.map((item) => item.sales || 0));
+    const conversionBase = data.conversion || median(products.map((item) => item.conversion || 0)) || bench.conversion;
+    const highVisitorLowConvert = products
+      .filter((item) => (item.visitors || 0) >= Math.max(medianVisitors * 1.35, data.visitors * 0.02) && (item.conversion || 0) > 0 && (item.conversion || 0) <= Math.max(conversionBase * 0.75, 0.8))
+      .sort((a, b) => (b.visitors || 0) - (a.visitors || 0));
+    const lowTrafficHighConvert = products
+      .filter((item) => (item.sales || 0) < Math.max(medianSales * 1.35, data.sales * 0.04) && (item.conversion || 0) >= Math.max(conversionBase * 1.15, 1) && (item.visitors || 0) <= Math.max(medianVisitors * 1.8, 1))
+      .sort((a, b) => (b.conversion || 0) - (a.conversion || 0));
+    const refundRiskProducts = products
+      .filter((item) => (item.refundRate || 0) >= bench.refund * 1.2 || (item.refundAmount || 0) >= Math.max((item.sales || 0) * 0.06, 1))
+      .sort((a, b) => (b.refundAmount || 0) - (a.refundAmount || 0));
+
+    if (highVisitorLowConvert.length) {
+      const top = highVisitorLowConvert[0];
+      issue(issues, {
+        title: '存在高访低转商品，当前流量没有被有效承接',
+        evidence: `${top.name} 访客 ${Math.round(top.visitors || 0).toLocaleString('zh-CN')}，转化率 ${percent(top.conversion || 0)}，低于店铺/类目承接参考。`,
+        diagnosis: '这类商品不是缺曝光，而是页面、价格理由、评价信任、规格选择或客服异议处理没有把流量接住。',
+        impactText: `优先影响商品转化，当前成交 ${yuan(top.sales || 0)}`,
+        action: '先针对高访低转 TOP3 商品做主图五连、详情首屏、价格锚点、评价证据和客服话术修复。',
+        validation: '下周期按 SKU 对比访客、加购、咨询、成交和退款，转化率至少提升 0.2-0.5 个点再放量。',
+        priority: 86,
+        owner: '内容/运营',
+        lever: 'SKU承接'
+      });
+    }
+
+    if (refundRiskProducts.length) {
+      const top = refundRiskProducts[0];
+      issue(issues, {
+        title: '部分商品售后风险偏高，继续放量会吞噬利润',
+        evidence: `${top.name} 退款金额 ${yuan(top.refundAmount || 0)}，退款率 ${percent(top.refundRate || 0)}。`,
+        diagnosis: category.refund,
+        impactText: `商品退款风险 ${yuan(top.refundAmount || 0)}`,
+        action: '先暂停对高退款商品的新增放量，拆退款原因后回写页面承诺、规格说明和客服确认话术。',
+        validation: '核查该 SKU 近30天退款原因、差评关键词、客服聊天记录和发货批次。',
+        priority: 84,
+        owner: '售后/商品',
+        lever: '利润'
+      });
+    }
+
+    if (lowTrafficHighConvert.length) {
+      const top = lowTrafficHighConvert[0];
+      issue(issues, {
+        title: '存在低访高转潜力款，值得小预算验证放量',
+        evidence: `${top.name} 转化率 ${percent(top.conversion || 0)}，但访客 ${Math.round(top.visitors || 0).toLocaleString('zh-CN')} 未进入头部。`,
+        diagnosis: '这类商品已经证明有承接能力，下一步不是大改页面，而是用小预算和内容素材验证可放量边界。',
+        impactText: '潜在新增成交来源',
+        action: '给潜力款配置小额搜索词、人群和内容曝光测试，观察加购、收藏、成交和退款是否同步健康。',
+        validation: '连续 7 天跟踪曝光、点击率、转化率、ROI、退款率，达标后进入第二梯队主推。',
+        priority: 66,
+        owner: '运营/投放',
+        lever: '货品'
+      });
+    }
+  }
+
+  const refundReasons = details.refundReasons || [];
+  if (refundReasons.length) {
+    const topReason = refundReasons[0];
+    issue(issues, {
+      title: '退款原因已经可定位，应进入原因矩阵治理',
+      evidence: `${topReason.reason || '未标明原因'} 退款金额 ${topReason.refundAmount ? yuan(topReason.refundAmount) : '待补充'}，关联商品 ${topReason.topProduct || '待补充'}。`,
+      diagnosis: '平台自带报告通常停留在退款率，本报告需要把原因、商品、页面承诺、客服话术和履约动作连起来。',
+      impactText: topReason.refundAmount ? `已识别退款金额 ${yuan(topReason.refundAmount)}` : '影响利润与复购信任',
+      action: '按退款原因 TOP3 建立治理表：原因、SKU、页面问题、客服话术、履约责任、完成时间。',
+      validation: '下周期比较同原因退款金额和退款笔数是否下降，并复核差评关键词是否减少。',
+      priority: 82,
+      owner: '售后/商品',
+      lever: '利润'
+    });
+  }
 }
 
 function analyze(data) {
@@ -517,6 +603,7 @@ function analyze(data) {
       lever: '数据'
     });
   }
+  addImportedDetailIssues(data, issues, category, bench);
   if (!issues.length) {
     issue(issues, {
       title: '核心经营指标暂无明显短板，建议进入二级增长诊断',
@@ -767,6 +854,90 @@ function metricChangeRows(diagnosis) {
   ];
 }
 
+function signedTrendLabel(current, previous, digits = 1) {
+  if (!previous) return '无对比';
+  const value = (current - previous) / previous * 100;
+  return `${value >= 0 ? '+' : ''}${value.toFixed(digits)}%`;
+}
+
+function netSalesValue(data) {
+  const refundAmount = data.refundAmount || data.importedAux?.refundAmount || 0;
+  if (data.sales && refundAmount) return Math.max(0, data.sales - refundAmount);
+  return data.netSales || data.importedAux?.netSales || Math.max(0, (data.sales || 0) - refundAmount);
+}
+
+function previousNetSalesValue(data) {
+  const prevRefundAmount = data.prevRefundAmount || data.importedAux?.prevRefundAmount || 0;
+  if (data.prevSales && prevRefundAmount) return Math.max(0, data.prevSales - prevRefundAmount);
+  return data.prevNetSales || data.importedAux?.prevNetSales || Math.max(0, (data.prevSales || 0) - prevRefundAmount);
+}
+
+function refundAmountValue(data) {
+  return data.refundAmount || data.importedAux?.refundAmount || 0;
+}
+
+function previousRefundAmountValue(data) {
+  return data.prevRefundAmount || data.importedAux?.prevRefundAmount || 0;
+}
+
+function activeReturnSignal(data) {
+  const aux = data.importedAux || {};
+  return {
+    sales: aux.activeReturnSales || 0,
+    visitors: aux.activeReturnVisitors || 0,
+    orders: aux.activeReturnOrders || 0,
+    conversion: aux.activeReturnConversion || 0,
+    uvValue: aux.activeReturnUvValue || 0
+  };
+}
+
+function brandOneSentence(diagnosis) {
+  const { data } = diagnosis;
+  const netSales = netSalesValue(data);
+  const refundAmount = refundAmountValue(data);
+  const oldBuyerSales = data.oldBuyerSales || data.importedAux?.oldBuyerSales || 0;
+  const activeReturn = activeReturnSignal(data);
+  const salesWord = diagnosis.salesTrend.value >= 0 ? '支付金额环比增长' : '支付金额环比下降';
+  const visitorWord = diagnosis.visitorTrend.value >= 0 ? '访客规模提升' : '访客规模下降';
+  const drivers = [];
+  if (data.aov >= diagnosis.decomposition.prevAov && diagnosis.decomposition.prevAov > 0) drivers.push('客单价提升');
+  if (oldBuyerSales > data.sales * 0.25) drivers.push('老客复购');
+  if (activeReturn.sales > data.sales * 0.15) drivers.push('主动回访承接');
+  if (data.conversion >= diagnosis.decomposition.prevConversion && diagnosis.decomposition.prevConversion > 0) drivers.push('承接效率改善');
+  const risk = refundAmount > data.sales * 0.18 ? '退款金额抬升' : data.roi > 0 && data.roi < getBenchmark(data.industry).roi ? '付费效率偏弱' : visitorWord;
+  return `本期${salesWord}，${drivers.length ? `核心来自${drivers.slice(0, 3).join('、')}` : '需要继续拆解流量、转化和客单贡献'}；但${risk}，净销售额约 ${yuan(netSales)}，下周期应围绕“净销售额提升、退款治理、有效流量承接”推进。`;
+}
+
+function brandKpiRows(diagnosis) {
+  const { data } = diagnosis;
+  const refundAmount = refundAmountValue(data);
+  const prevRefundAmount = previousRefundAmountValue(data);
+  const netSales = netSalesValue(data);
+  const prevNetSales = previousNetSalesValue(data);
+  const oldBuyerSales = data.oldBuyerSales || data.importedAux?.oldBuyerSales || 0;
+  const activeReturn = activeReturnSignal(data);
+  return [
+    { name: '支付金额', current: yuan(data.sales), previous: data.prevSales ? yuan(data.prevSales) : '-', change: signedTrendLabel(data.sales, data.prevSales), judge: diagnosis.salesTrend.value >= 0 ? '成交规模增长，看是否由客单/老客驱动' : '成交规模承压，先拆流量、转化、客单' },
+    { name: '净销售额', current: yuan(netSales), previous: prevNetSales ? yuan(prevNetSales) : '-', change: signedTrendLabel(netSales, prevNetSales), judge: '品牌方周会建议作为第一经营指标' },
+    { name: '成功退款金额', current: refundAmount ? yuan(refundAmount) : '-', previous: prevRefundAmount ? yuan(prevRefundAmount) : '-', change: signedTrendLabel(refundAmount, prevRefundAmount), judge: refundAmount > data.sales * 0.18 ? '正在侵蚀真实增长，需优先治理' : '关注退款商品结构' },
+    { name: '访客数', current: Math.round(data.visitors).toLocaleString('zh-CN'), previous: data.prevVisitors ? Math.round(data.prevVisitors).toLocaleString('zh-CN') : '-', change: diagnosis.visitorTrend.label, judge: diagnosis.visitorTrend.value >= 0 ? '流量规模增加，继续看转化质量' : '流量收缩，增长不能只靠拉新' },
+    { name: '支付买家数', current: Math.round(data.orderCount).toLocaleString('zh-CN'), previous: '-', change: '-', judge: '用于判断增长来自人数还是客单' },
+    { name: '支付转化率', current: percent(data.conversion), previous: percent(diagnosis.decomposition.prevConversion), change: `${(data.conversion - diagnosis.decomposition.prevConversion).toFixed(2)}pp`, judge: data.conversion >= diagnosis.decomposition.prevConversion ? '承接效率改善' : '承接链路偏弱' },
+    { name: '客单价', current: yuan(data.aov), previous: yuan(diagnosis.decomposition.prevAov), change: `${data.aov >= diagnosis.decomposition.prevAov ? '+' : ''}${(data.aov - diagnosis.decomposition.prevAov).toFixed(2)}`, judge: data.aov >= diagnosis.decomposition.prevAov ? '商品结构/组合成交改善' : '高客单商品贡献下降' },
+    ...(oldBuyerSales ? [{ name: '老买家支付金额', current: yuan(oldBuyerSales), previous: '-', change: '-', judge: `老客贡献占支付金额 ${percent(oldBuyerSales / Math.max(data.sales, 1) * 100, 1)}，适合做复购SOP` }] : []),
+    ...(activeReturn.sales ? [{ name: '主动回访支付金额', current: yuan(activeReturn.sales), previous: '-', change: '-', judge: `转化率 ${percent(activeReturn.conversion)}，UV价值 ${activeReturn.uvValue.toFixed(2)}，优先放大` }] : [])
+  ];
+}
+
+function brandLeadHtml(diagnosis) {
+  return `
+    <h4>本周一句话结论</h4>
+    <div class="conclusion-box brand-conclusion">
+      <p>${brandOneSentence(diagnosis)}</p>
+    </div>
+  `;
+}
+
 function hasImportSummary(diagnosis) {
   return Boolean(diagnosis.data.importSummary && diagnosis.data.importSummary.length);
 }
@@ -784,13 +955,30 @@ function actualImportedDetails(diagnosis, key) {
 function reportModuleState(diagnosis) {
   const imported = hasImportSummary(diagnosis);
   const aux = diagnosis.data.importedAux || {};
+  const productItems = imported
+    ? actualImportedDetails(diagnosis, 'productsAll').length || actualImportedDetails(diagnosis, 'products').length
+    : diagnosis.weeklySections?.products?.length;
+  const refundItems = actualImportedDetails(diagnosis, 'refundReasons').length;
+  const categoryItems = actualImportedDetails(diagnosis, 'categories').length;
+  const dailyItems = actualImportedDetails(diagnosis, 'daily').length;
+  const liveItems = actualImportedDetails(diagnosis, 'live').length;
+  const contentItems = actualImportedDetails(diagnosis, 'content').length;
+  const serviceItems = actualImportedDetails(diagnosis, 'service').length;
   return {
     imported,
     importSummary: imported,
     lineage: imported && Boolean(diagnosis.data.importedLineage && diagnosis.data.importedLineage.length),
+    confidence: imported && Boolean(diagnosis.data.importSummary && diagnosis.data.importSummary.length),
     aux: Boolean(aux.hasTrafficOverview || aux.hasMemberOverview),
     overall: !imported || hasImportedModule(diagnosis, '店铺整体'),
+    daily: imported && Boolean(dailyItems),
     product: !imported || (hasImportedModule(diagnosis, '宝贝排行') && actualImportedDetails(diagnosis, 'products').length > 0),
+    category: imported && Boolean(categoryItems),
+    skuQuadrant: Boolean(productItems),
+    refundMatrix: imported && Boolean(refundItems),
+    live: imported && Boolean(liveItems),
+    content: imported && Boolean(contentItems),
+    serviceDetail: imported && Boolean(serviceItems),
     traffic: !imported || (hasImportedModule(diagnosis, '流量排行') && actualImportedDetails(diagnosis, 'traffic').length > 0),
     promotion: !imported || (hasImportedModule(diagnosis, '推广情况') && actualImportedDetails(diagnosis, 'promotion').length > 0),
     activity: !imported || (hasImportedModule(diagnosis, '活动情况') && actualImportedDetails(diagnosis, 'activity').length > 0),
@@ -808,10 +996,18 @@ function adaptiveReportOutline(diagnosis) {
   included.push('类目诊断方向');
   if (state.importSummary) included.push('导入文件使用情况');
   if (state.lineage) included.push('数据口径确认');
+  if (state.confidence) included.push('指标可信度与文件使用率');
   if (state.aux) included.push('流量与客户辅助诊断');
   if (state.target) included.push('下周期目标建议');
   if (state.overall) included.push('店铺整体情况');
+  if (state.daily) included.push('每日销售与退款表现');
   if (state.product) included.push('宝贝排行');
+  if (state.category) included.push('品类/类目排行');
+  if (state.skuQuadrant) included.push('SKU四象限诊断');
+  if (state.refundMatrix) included.push('退款原因治理矩阵');
+  if (state.live) included.push('直播业绩诊断');
+  if (state.content) included.push('内容资产诊断');
+  if (state.serviceDetail) included.push('客服绩效诊断');
   if (state.traffic) included.push('流量排行');
   if (state.promotion) included.push('推广情况');
   if (state.activity) included.push('活动情况');
@@ -820,7 +1016,14 @@ function adaptiveReportOutline(diagnosis) {
 
   const skipped = [];
   if (!state.overall) skipped.push('店铺整体：缺少销售额、访客、订单/转化率等大盘数据');
+  if (!state.daily && hasImportSummary(diagnosis)) skipped.push('每日销售与退款：未识别到按日期拆分的店铺绩效/交易数据');
   if (!state.product) skipped.push('宝贝排行：未识别到商品/宝贝明细');
+  if (!state.category && hasImportSummary(diagnosis)) skipped.push('品类/类目排行：未识别到标准类目或品类明细');
+  if (!state.skuQuadrant) skipped.push('SKU四象限诊断：缺少可用于商品分层的宝贝明细');
+  if (!state.refundMatrix && hasImportSummary(diagnosis)) skipped.push('退款原因治理矩阵：未识别到退款原因或售后明细');
+  if (!state.live && hasImportSummary(diagnosis)) skipped.push('直播业绩诊断：未识别到直播观看、点击、成交或开播时长');
+  if (!state.content && hasImportSummary(diagnosis)) skipped.push('内容资产诊断：未识别到光合/内容资产数据');
+  if (!state.serviceDetail && hasImportSummary(diagnosis)) skipped.push('客服绩效诊断：未识别到客服绩效或团队概览数据');
   if (!state.traffic) skipped.push('流量排行：未识别到渠道/来源明细');
   if (!state.promotion) skipped.push('推广情况：未识别到计划、花费、点击、成交、ROI');
   if (!state.activity) skipped.push('活动情况：未识别到活动名称或活动成交数据');
@@ -869,12 +1072,13 @@ function categoryDirectionHtml(diagnosis) {
 function importSummaryHtml(diagnosis) {
   return reportSection('导入文件使用情况', `
     <table class="report-table">
-      <thead><tr><th>文件</th><th>状态</th><th>使用行数</th><th>进入模块</th><th>说明</th></tr></thead>
+      <thead><tr><th>文件</th><th>状态</th><th>使用行数</th><th>使用率</th><th>进入模块</th><th>说明</th></tr></thead>
       <tbody>
         ${tableRows(importSummaryRows(diagnosis), [
           { render: (item) => escapeHtml(item.file || '-') },
           { render: (item) => escapeHtml(item.status || '-') },
           { render: (item) => escapeHtml(item.rows || '-') },
+          { render: (item) => escapeHtml(item.usage || '-') },
           { render: (item) => escapeHtml(item.modules || '-') },
           { render: (item) => escapeHtml(item.note || '-') }
         ], '暂无导入文件明细')}
@@ -885,16 +1089,19 @@ function importSummaryHtml(diagnosis) {
 
 function metricLineageSpecs() {
   return [
-    { key: 'sales', name: '销售额', aliases: ['销售额', 'GMV', '成交金额', '支付金额', '总支付金额', '净支付金额', '总成交金额', '直接成交金额', '间接成交金额', '引入成交金额', 'sales'], format: (data) => yuan(data.sales), method: '优先读取平台支付金额/成交金额；若存在本店大盘行，优先采用大盘行。' },
+    { key: 'sales', name: '销售额', aliases: ['销售额', 'GMV', '成交金额', '支付金额', '总支付金额', '净支付金额', '总成交金额', '直接成交金额', '间接成交金额', '引入成交金额', '直播成交金额', '店播成交金额', '客服支付金额', '内容成交金额', 'sales'], format: (data) => yuan(data.sales), method: '优先读取平台支付金额/成交金额；若存在本店大盘行，优先采用大盘行。' },
     { key: 'prevSales', name: '对比期销售额', aliases: ['销售额-对比日', '成交金额-对比日', '支付金额-对比日', 'salesPrev', 'prevSales'], format: (data) => yuan(data.prevSales), method: '优先读取对比字段；没有对比字段时，尝试按相邻日期/月度大盘自动识别。' },
-    { key: 'visitors', name: '访客数', aliases: ['访客数', '访客', 'UV', '店铺访客数', '商品访客数', '引入商详访客数', 'visitors'], format: (data) => Math.round(data.visitors).toLocaleString('zh-CN'), method: '优先读取店铺大盘访客；商品/流量明细只用于排行和结构，不直接覆盖大盘。' },
-    { key: 'conversion', name: '转化率', aliases: ['转化率', '支付转化率', '点击转化率', '询单转化率', '商品支付转化率', '店铺成交转化率', '成交转化率', 'conversion'], format: (data) => percent(data.conversion), method: '优先使用平台原始转化率字段；没有时才用成交人数/访客数推算。' },
+    { key: 'visitors', name: '访客数', aliases: ['访客数', '访客', 'UV', '店铺访客数', '商品访客数', '引入商详访客数', '观看人数', '内容浏览量', '咨询人数', '接待人数', 'visitors'], format: (data) => Math.round(data.visitors).toLocaleString('zh-CN'), method: '优先读取店铺大盘访客；商品/流量明细只用于排行和结构，不直接覆盖大盘。' },
+    { key: 'conversion', name: '转化率', aliases: ['转化率', '支付转化率', '点击转化率', '询单转化率', '商品支付转化率', '店铺成交转化率', '成交转化率', '点击-成交转化率', '内容成交转化率', 'conversion'], format: (data) => percent(data.conversion), method: '优先使用平台原始转化率字段；没有时才用成交人数/访客数推算。' },
     { key: 'aov', name: '客单价', aliases: ['客单价', '人均成交金额', '会员客单价', 'aov'], format: (data) => yuan(data.aov), method: '优先使用平台客单价字段；没有时才用销售额/成交人数推算。' },
     { key: 'refundRate', name: '退款率', aliases: ['退款率', '退货率', '成功退款率', '金额退款率', '订单退款率', 'refundRate'], format: (data) => percent(data.refundRate), method: '百分数字段按百分比识别，小于 1 的平台小数会自动换算为百分比。' },
-    { key: 'refundAmount', name: '退款金额', aliases: ['退款金额', '取消及售后退款金额', '成功退款金额', 'refundAmount'], format: (data) => data.importedAux?.refundAmount ? yuan(data.importedAux.refundAmount) : '-', method: '用于校验退款率和售后风险，若无大盘退款金额则只做退款原因参考。' },
+    { key: 'refundAmount', name: '退款金额', aliases: ['退款金额', '取消及售后退款金额', '成功退款金额', 'refundAmount'], format: (data) => (data.refundAmount || data.importedAux?.refundAmount) ? yuan(data.refundAmount || data.importedAux.refundAmount) : '-', method: '用于校验退款率和售后风险，若无大盘退款金额则只做退款原因参考。' },
     { key: 'roi', name: '投放 ROI', aliases: ['ROI', '投放ROI', '投产比', '投入产出比', '含预售投产比', 'roi'], format: (data) => data.roi > 0 ? data.roi.toFixed(2) : '未提供', method: '优先读取计划/推广报表 ROI；缺失时不按 0 判断低效。' },
     { key: 'product', name: '商品动销', aliases: ['商品名称', '宝贝名称', '商品ID', 'SPU名称', '商品总数', '商品数', '有成交商品数', '动销商品数', 'activeProductCount'], format: (data) => `${data.activeProductCount}/${data.productCount}`, method: '优先根据商品明细聚合成交商品数；有大盘商品数时用大盘值校准。' },
     { key: 'traffic', name: '渠道结构', aliases: ['一级来源', '二级来源', '三级来源', '四级来源', '流量来源', '渠道来源', '搜索占比', '推荐占比', '内容占比', '付费占比', '私域占比'], format: (data) => `${percent(data.searchShare, 1)} / ${percent(data.recommendShare, 1)} / ${percent(data.contentShare, 1)} / ${percent(data.paidShare, 1)} / ${percent(data.privateShare, 1)}`, method: '生意参谋来源表按经营优势/付费推广/主动回访等层级归类，避免父子来源重复累加。' },
+    { key: 'category', name: '品类/类目', aliases: ['一级类目名称', '二级类目名称', '类目名称', '支付金额占比', '有支付商品数'], format: (data) => data.importedDetails?.categories?.length ? `${data.importedDetails.categories.length} 个类目` : '-', method: '用于判断类目成交结构、类目加购承接和类目退款金额。' },
+    { key: 'live', name: '直播业绩', aliases: ['观看人数', '商品点击人数', '观看-商品点击率', '直播成交金额', '开播时长', '播后成交金额'], format: (data) => data.importedDetails?.live?.length ? `${data.importedDetails.live.length} 条直播记录` : '-', method: '用于判断直播看点、商品点击、播中成交和播后成交贡献。' },
+    { key: 'content', name: '内容资产', aliases: ['内容曝光量', '内容浏览量', '内容成交金额', '内容成交转化率', '短视频发布数', '直播场次'], format: (data) => data.importedDetails?.content?.length ? `${data.importedDetails.content.length} 条内容记录` : '-', method: '用于判断光合内容资产是否带来曝光、互动和成交。' },
     { key: 'serviceRate', name: '客服/服务承接', aliases: ['客服响应达标率', '客服响应率', '旺旺满意度', '24小时揽收及时率', '48小时揽收及时率', 'serviceRate'], format: (data) => data.serviceRate ? percent(data.serviceRate, 1) : '未提供', method: '根据客服或服务体验字段读取；缺失时只提示补充，不默认判差。' }
   ];
 }
@@ -909,6 +1116,7 @@ function lineageRows(diagnosis) {
     const hasValue = !['-', '¥ 0', '0', '0.00%', '未提供', '0/0'].includes(String(spec.format(diagnosis.data)));
     const status = item.status || (hasValue ? '已计算，待确认来源' : '待补充');
     return {
+      key: spec.key,
       metric: spec.name,
       value: spec.format(diagnosis.data),
       status,
@@ -937,6 +1145,134 @@ function lineageHtml(diagnosis) {
   `);
 }
 
+function hasMetricValue(key, data) {
+  if (key === 'roi') return data.roi > 0;
+  if (key === 'product') return data.productCount > 0 || data.activeProductCount > 0;
+  if (key === 'traffic') return data.searchShare || data.recommendShare || data.contentShare || data.paidShare || data.privateShare;
+  if (key === 'category') return Boolean(data.importedDetails?.categories?.length);
+  if (key === 'live') return Boolean(data.importedDetails?.live?.length);
+  if (key === 'content') return Boolean(data.importedDetails?.content?.length);
+  if (key === 'serviceRate') return data.serviceRate > 0;
+  if (key === 'refundAmount') return Boolean(data.refundAmount || data.importedAux?.refundAmount);
+  return Number(data[key] || 0) > 0;
+}
+
+function metricConfidenceRows(diagnosis) {
+  const data = diagnosis.data;
+  const sourceRows = lineageRows(diagnosis);
+  const sourceMap = new Map(sourceRows.map((item) => [item.key, item]));
+  const derivedKeys = new Set(['conversion', 'aov', 'refundRate', 'product', 'traffic']);
+  return metricLineageSpecs().map((spec) => {
+    const source = sourceMap.get(spec.key) || {};
+    const hasValue = hasMetricValue(spec.key, data);
+    const hasSource = source.files && source.files !== '-';
+    const direct = hasSource && hasValue;
+    const derived = hasValue && (!hasSource || derivedKeys.has(spec.key));
+    let level = 'missing';
+    let levelText = '待补充';
+    let score = 0;
+    let advice = '补充平台导出表或模板字段后再用于正式交付。';
+    if (direct && !derivedKeys.has(spec.key)) {
+      level = 'strong';
+      levelText = '已直接取数';
+      score = 96;
+      advice = '可作为报告主指标使用，交付前仅需抽样核对。';
+    } else if (direct && derivedKeys.has(spec.key)) {
+      level = 'good';
+      levelText = '已匹配并计算';
+      score = 86;
+      advice = '已找到来源字段，建议核对平台口径是否与报告口径一致。';
+    } else if (derived) {
+      level = 'weak';
+      levelText = '已推算';
+      score = 62;
+      advice = '可用于初判，正式交付建议补充原始字段。';
+    }
+    if (!hasValue && hasSource) {
+      level = 'weak';
+      levelText = '有字段但未形成指标';
+      score = 48;
+      advice = '字段可能为空、格式异常或未进入当前周期聚合，需要复核文件。';
+    }
+    return {
+      key: spec.key,
+      metric: spec.name,
+      value: spec.format(data),
+      level,
+      levelText,
+      score,
+      files: source.files || '-',
+      fields: source.fields || '-',
+      advice
+    };
+  });
+}
+
+function confidenceSummary(rows) {
+  const score = rows.length ? Math.round(rows.reduce((sum, item) => sum + item.score, 0) / rows.length) : 0;
+  return {
+    score,
+    strong: rows.filter((item) => item.level === 'strong' || item.level === 'good').length,
+    weak: rows.filter((item) => item.level === 'weak').length,
+    missing: rows.filter((item) => item.level === 'missing').length
+  };
+}
+
+function dataUsageRows(diagnosis) {
+  return (diagnosis.data.importSummary || []).map((item) => {
+    const usageRate = item.rawRows ? item.usedRows / item.rawRows * 100 : 0;
+    return {
+      file: item.name,
+      status: item.status,
+      rawRows: item.rawRows || 0,
+      usedRows: item.usedRows || 0,
+      usageRate,
+      modules: item.modules?.length ? item.modules.join('、') : '-',
+      note: item.note || ''
+    };
+  }).sort((a, b) => b.usageRate - a.usageRate || b.usedRows - a.usedRows);
+}
+
+function dataConfidenceHtml(diagnosis) {
+  const rows = metricConfidenceRows(diagnosis);
+  const summary = confidenceSummary(rows);
+  const usage = dataUsageRows(diagnosis);
+  const unused = usage.filter((item) => item.rawRows > 0 && item.usedRows === 0);
+  return reportSection('指标可信度与文件使用率', `
+    <div class="confidence-grid">
+      <section><span>可信度</span><strong>${summary.score}分</strong><p>${summary.score >= 82 ? '可交付' : summary.score >= 62 ? '需复核关键指标' : '需补齐口径'}</p></section>
+      <section><span>可直接/已计算</span><strong>${summary.strong}</strong><p>能支撑报告主结论的指标数</p></section>
+      <section><span>需复核/待补充</span><strong>${summary.weak + summary.missing}</strong><p>${unused.length ? `${unused.length} 个文件暂未贡献关键字段` : '导入文件已进入主要模块'}</p></section>
+    </div>
+    <table class="report-table confidence-table">
+      <thead><tr><th>指标</th><th>本期值</th><th>可信度</th><th>来源文件</th><th>字段</th><th>交付建议</th></tr></thead>
+      <tbody>
+        ${tableRows(rows, [
+          { render: (item) => escapeHtml(item.metric) },
+          { render: (item) => escapeHtml(item.value) },
+          { render: (item) => `<span class="confidence-pill ${item.level}">${escapeHtml(item.levelText)}</span>` },
+          { render: (item) => escapeHtml(item.files) },
+          { render: (item) => escapeHtml(item.fields) },
+          { render: (item) => escapeHtml(item.advice) }
+        ], '暂无可信度记录')}
+      </tbody>
+    </table>
+    <table class="report-table usage-table">
+      <thead><tr><th>文件</th><th>状态</th><th>已用/总行</th><th>使用率</th><th>进入模块</th><th>提示</th></tr></thead>
+      <tbody>
+        ${tableRows(usage, [
+          { render: (item) => escapeHtml(item.file) },
+          { render: (item) => escapeHtml(item.status) },
+          { render: (item) => `${Math.round(item.usedRows).toLocaleString('zh-CN')}/${Math.round(item.rawRows).toLocaleString('zh-CN')}` },
+          { render: (item) => `${percent(item.usageRate, 1)}` },
+          { render: (item) => escapeHtml(item.modules) },
+          { render: (item) => escapeHtml(item.usedRows ? item.note : '已读取但未匹配到报告关键字段，可作为后续模板扩展样本') }
+        ], '暂无文件使用记录')}
+      </tbody>
+    </table>
+  `);
+}
+
 function targetPlanHtml(targetPlan) {
   return reportSection('下周期目标建议', `
     <p>${targetPlan.baseline}</p>
@@ -951,14 +1287,15 @@ function targetPlanHtml(targetPlan) {
 }
 
 function overallHtml(diagnosis) {
-  return reportSection('店铺整体情况', `
+  return reportSection('本周经营总览：净销售额视角', `
     <ul>${operatingSummary(diagnosis).map((item) => `<li>${item}</li>`).join('')}</ul>
     <table class="report-table">
-      <thead><tr><th>指标</th><th>本期</th><th>对比期</th><th>变化</th><th>判断</th></tr></thead>
+      <thead><tr><th>核心指标</th><th>本期数据</th><th>对比期</th><th>环比/说明</th><th>经营解读</th></tr></thead>
       <tbody>
-        ${metricChangeRows(diagnosis).map((item) => `<tr><td>${item.name}</td><td>${item.current}</td><td>${item.previous}</td><td>${item.change}</td><td>${item.judge}</td></tr>`).join('')}
+        ${brandKpiRows(diagnosis).map((item) => `<tr><td>${item.name}</td><td>${item.current}</td><td>${item.previous}</td><td>${item.change}</td><td>${item.judge}</td></tr>`).join('')}
       </tbody>
     </table>
+    <p class="report-note">口径说明：支付金额用于观察成交规模，净销售额用于判断真实经营质量；若导入了退款/店铺绩效数据，系统会优先把退款对经营结果的影响单独拆出。</p>
     <table class="report-table">
       <thead><tr><th>模块</th><th>状态</th><th>诊断说明</th></tr></thead>
       <tbody>
@@ -968,10 +1305,32 @@ function overallHtml(diagnosis) {
   `);
 }
 
+function dailyHtml(items) {
+  const topSales = [...(items || [])].sort((a, b) => (b.sales || 0) - (a.sales || 0))[0];
+  const topRefund = [...(items || [])].sort((a, b) => (b.refundAmount || 0) - (a.refundAmount || 0))[0];
+  return reportSection('每日销售与退款表现', `
+    <table class="report-table">
+      <thead><tr><th>日期</th><th>访客数</th><th>销售额</th><th>订单数</th><th>转化率</th><th>退款金额</th><th>净销售额</th></tr></thead>
+      <tbody>
+        ${tableRows(items, [
+          { render: (item) => escapeHtml(item.date || item.name || '-') },
+          { render: (item) => Math.round(item.visitors || 0).toLocaleString('zh-CN') },
+          { render: (item) => yuan(item.sales || 0) },
+          { render: (item) => Math.round(item.orders || 0).toLocaleString('zh-CN') },
+          { render: (item) => percent(item.conversion || 0) },
+          { render: (item) => item.refundAmount ? yuan(item.refundAmount) : '-' },
+          { render: (item) => yuan(item.netSales || Math.max(0, (item.sales || 0) - (item.refundAmount || 0))) }
+        ], '暂无按日期拆分的店铺绩效数据')}
+      </tbody>
+    </table>
+    <p class="report-note">经营观察：${topSales ? `${escapeHtml(topSales.date || topSales.name)}销售额最高，达到 ${yuan(topSales.sales || 0)}。` : ''}${topRefund && topRefund.refundAmount ? `${escapeHtml(topRefund.date || topRefund.name)}退款金额最高，达到 ${yuan(topRefund.refundAmount)}，下周需要把“高销售日是否伴随高退款”作为复盘重点。` : '建议后续补充按日期拆分的退款金额，用于判断单日爆发是否被售后抵消。'}</p>
+  `);
+}
+
 function productHtml(items) {
   return reportSection('宝贝排行', `
     <table class="report-table">
-      <thead><tr><th>宝贝/商品</th><th>销售额</th><th>访客</th><th>订单</th><th>转化率</th><th>判断</th></tr></thead>
+      <thead><tr><th>宝贝/商品</th><th>支付金额</th><th>访客</th><th>支付买家</th><th>转化率</th><th>退款金额</th><th>退款率</th><th>经营判断</th></tr></thead>
       <tbody>
         ${tableRows(items, [
           { render: (item) => escapeHtml(item.name || '-') },
@@ -979,8 +1338,256 @@ function productHtml(items) {
           { render: (item) => Math.round(item.visitors || 0).toLocaleString('zh-CN') },
           { render: (item) => Math.round(item.orders || 0).toLocaleString('zh-CN') },
           { render: (item) => percent(item.conversion || 0) },
+          { render: (item) => item.refundAmount ? yuan(item.refundAmount) : '-' },
+          { render: (item) => item.refundRate ? percent(item.refundRate) : '-' },
           { render: (item) => escapeHtml(item.note || '-') }
         ])}
+      </tbody>
+    </table>
+  `);
+}
+
+function median(values) {
+  const usable = values.filter((value) => Number.isFinite(value) && value > 0).sort((a, b) => a - b);
+  if (!usable.length) return 0;
+  const mid = Math.floor(usable.length / 2);
+  return usable.length % 2 ? usable[mid] : (usable[mid - 1] + usable[mid]) / 2;
+}
+
+function shortProductNames(items) {
+  if (!items.length) return '暂无明确商品';
+  return items.slice(0, 3).map((item) => item.name || '-').join('、');
+}
+
+function skuQuadrantRows(diagnosis) {
+  const data = diagnosis.data;
+  const benchmark = getBenchmark(data.industry);
+  const importedItems = actualImportedDetails(diagnosis, 'productsAll');
+  const fallbackItems = actualImportedDetails(diagnosis, 'products');
+  const sourceItems = importedItems.length ? importedItems : fallbackItems.length ? fallbackItems : diagnosis.weeklySections?.products || [];
+  const products = sourceItems
+    .filter((item) => item && item.name && (item.sales || item.visitors || item.orders || item.refundAmount || item.addCarts))
+    .map((item) => ({
+      ...item,
+      sales: Number(item.sales || 0),
+      visitors: Number(item.visitors || 0),
+      orders: Number(item.orders || 0),
+      conversion: Number(item.conversion || 0),
+      refundRate: Number(item.refundRate || 0),
+      refundAmount: Number(item.refundAmount || 0),
+      addCarts: Number(item.addCarts || 0)
+    }));
+  if (!products.length) return [];
+
+  const medianSales = median(products.map((item) => item.sales));
+  const medianVisitors = median(products.map((item) => item.visitors));
+  const medianConversion = median(products.map((item) => item.conversion));
+  const conversionBase = data.conversion || medianConversion || benchmark.conversion;
+  const refundBase = benchmark.refund || data.refundRate || 8;
+  const topSalesFloor = Math.max(medianSales * 1.35, data.sales ? data.sales * 0.04 : 0);
+  const highVisitorFloor = Math.max(medianVisitors * 1.35, data.visitors ? data.visitors * 0.02 : 0);
+  const highConversionFloor = Math.max(conversionBase * 1.15, medianConversion * 1.15, 1);
+  const lowConversionCeil = Math.max(conversionBase * 0.75, 0.8);
+
+  const bySales = [...products].sort((a, b) => b.sales - a.sales);
+  const byRefund = [...products].sort((a, b) => (b.refundAmount || 0) - (a.refundAmount || 0));
+  const main = bySales.filter((item) => item.sales >= topSalesFloor || item.sales === bySales[0]?.sales);
+  const lowConvert = products
+    .filter((item) => item.visitors >= highVisitorFloor && item.conversion > 0 && item.conversion <= lowConversionCeil)
+    .sort((a, b) => b.visitors - a.visitors);
+  const scaleCandidate = products
+    .filter((item) => item.sales < topSalesFloor && item.conversion >= highConversionFloor && item.visitors > 0 && item.visitors <= Math.max(highVisitorFloor, medianVisitors * 1.8))
+    .sort((a, b) => b.conversion - a.conversion || b.sales - a.sales);
+  const refundRisk = products
+    .filter((item) => item.refundAmount > 0 || item.refundRate > 0)
+    .filter((item) => item.refundRate >= refundBase * 1.2 || item.refundAmount >= Math.max(median(products.map((sku) => sku.refundAmount)) * 1.5, item.sales * 0.06))
+    .sort((a, b) => (b.refundAmount || 0) - (a.refundAmount || 0));
+  const longTail = products
+    .filter((item) => item.sales <= Math.max(medianSales * 0.45, 1) && item.visitors <= Math.max(medianVisitors * 0.7, 1) && item.orders <= Math.max(median(products.map((sku) => sku.orders)) * 0.7, 1))
+    .sort((a, b) => a.sales - b.sales || a.visitors - b.visitors);
+
+  return [
+    {
+      type: '主力款',
+      count: main.length,
+      items: main.slice(0, 3),
+      criteria: `销售额高于中位数 ${yuan(medianSales)}，或贡献接近头部成交`,
+      diagnosis: `${shortProductNames(main)} 是当前成交基本盘，重点看库存、价格带和评价稳定性。`,
+      action: '保持流量供给和页面稳定，围绕评价、赠品、套装做轻优化，避免大幅改动影响成交。'
+    },
+    {
+      type: '高访低转',
+      count: lowConvert.length,
+      items: lowConvert.slice(0, 3),
+      criteria: `访客高于 ${Math.round(highVisitorFloor).toLocaleString('zh-CN')}，转化低于 ${percent(lowConversionCeil)}`,
+      diagnosis: `${shortProductNames(lowConvert)} 有流量但承接偏弱，通常问题在首图卖点、价格理由、评价信任或规格选择。`,
+      action: '优先做主图五连、详情首屏、价格锚点和客服异议话术；下周期验证转化率是否提升。'
+    },
+    {
+      type: '低访高转',
+      count: scaleCandidate.length,
+      items: scaleCandidate.slice(0, 3),
+      criteria: `转化高于 ${percent(highConversionFloor)}，但流量未进入头部`,
+      diagnosis: `${shortProductNames(scaleCandidate)} 具备放量潜力，适合小预算测试搜索词、人群和内容种草。`,
+      action: '给小额预算和内容曝光测试，不先大幅降价；看加购、收藏、询单和退款是否同步健康。'
+    },
+    {
+      type: '售后风险',
+      count: refundRisk.length,
+      items: refundRisk.slice(0, 3),
+      criteria: `退款率高于类目警戒线 ${percent(refundBase * 1.2)}，或退款金额显著偏高`,
+      diagnosis: `${shortProductNames(refundRisk)} 需要先拆退款原因，避免继续放大有售后缺口的流量。`,
+      action: '核查尺码/功效/口味/破损/发货等原因，调整页面承诺和客服确认话术，再决定是否继续推广。'
+    },
+    {
+      type: '长尾清理',
+      count: longTail.length,
+      items: longTail.slice(0, 3),
+      criteria: '销售、访客、订单均低于商品中位水平',
+      diagnosis: `${shortProductNames(longTail)} 对经营贡献偏弱，容易占用视觉、库存和投放注意力。`,
+      action: '合并为组合装、清仓款或内容测试款；连续两周期无改善则降低资源位。'
+    }
+  ].filter((row) => row.count > 0);
+}
+
+function skuQuadrantHtml(diagnosis) {
+  const rows = skuQuadrantRows(diagnosis);
+  return reportSection('SKU四象限诊断', `
+    <div class="quadrant-grid">
+      ${rows.length ? rows.map((row) => `
+        <section>
+          <div><strong>${escapeHtml(row.type)}</strong><span>${row.count} 个</span></div>
+          <p>${escapeHtml(row.diagnosis)}</p>
+          <small>${escapeHtml(row.criteria)}</small>
+          <ul>
+            ${row.items.map((item) => `<li>${escapeHtml(item.name || '-')}：${yuan(item.sales || 0)}，${Math.round(item.visitors || 0).toLocaleString('zh-CN')}访客，转化${percent(item.conversion || 0)}${item.refundRate ? `，退款${percent(item.refundRate)}` : ''}</li>`).join('')}
+          </ul>
+          <em>${escapeHtml(row.action)}</em>
+        </section>
+      `).join('') : '<p>暂无足够商品明细生成四象限。</p>'}
+    </div>
+  `);
+}
+
+function refundMatrixRows(diagnosis) {
+  const rows = actualImportedDetails(diagnosis, 'refundReasons');
+  if (!rows.length) return [];
+  const totalAmount = rows.reduce((sum, item) => sum + (item.refundAmount || 0), 0);
+  const category = getCategoryStrategy(diagnosis.data.industry);
+  return rows.slice(0, 8).map((item) => {
+    const share = totalAmount ? item.refundAmount / totalAmount * 100 : 0;
+    const reason = item.reason || '未标明原因';
+    const product = item.topProduct || '需补充商品';
+    let action = '补充售后备注和客服记录，确认真实退款触发点。';
+    if (/尺码|大小|规格|尺寸|型号/.test(reason)) action = '把规格/尺码/尺寸前置到主图和详情首屏，客服下单前二次确认。';
+    else if (/质量|破损|瑕疵|坏|漏|碎/.test(reason)) action = '核查供应链、包装和质检批次，先暂停放大高风险 SKU。';
+    else if (/效果|功效|口味|不好吃|不符|描述/.test(reason)) action = '修正页面承诺和卖点证据，降低过度承诺带来的预期落差。';
+    else if (/发货|物流|慢|未收到/.test(reason)) action = '检查发货时效、仓配承诺和客服安抚话术，活动期单独设预警。';
+    else if (/拍错|不想要|无理由/.test(reason)) action = '优化规格默认项、优惠表达和下单确认，减少误拍与冲动退款。';
+    return {
+      reason,
+      refundAmount: item.refundAmount || 0,
+      refundOrders: item.refundOrders || item.rows || 0,
+      share,
+      topProduct: product,
+      diagnosis: `${reason}集中在 ${product}，${share ? `占已识别退款金额 ${percent(share, 1)}` : '需要继续补充金额口径'}。${category.refund}`,
+      action
+    };
+  });
+}
+
+function refundMatrixHtml(diagnosis) {
+  const rows = refundMatrixRows(diagnosis);
+  return reportSection('退款原因治理矩阵', `
+    <table class="report-table">
+      <thead><tr><th>退款原因</th><th>退款金额</th><th>退款笔数</th><th>金额占比</th><th>关联商品</th><th>顾问判断</th><th>优先动作</th></tr></thead>
+      <tbody>
+        ${tableRows(rows, [
+          { render: (item) => escapeHtml(item.reason) },
+          { render: (item) => item.refundAmount ? yuan(item.refundAmount) : '-' },
+          { render: (item) => item.refundOrders ? Math.round(item.refundOrders).toLocaleString('zh-CN') : '-' },
+          { render: (item) => item.share ? percent(item.share, 1) : '-' },
+          { render: (item) => escapeHtml(item.topProduct) },
+          { render: (item) => escapeHtml(item.diagnosis) },
+          { render: (item) => escapeHtml(item.action) }
+        ], '暂无退款原因明细')}
+      </tbody>
+    </table>
+  `);
+}
+
+function categoryHtml(items) {
+  return reportSection('品类/类目排行', `
+    <table class="report-table">
+      <thead><tr><th>类目</th><th>支付金额</th><th>访客</th><th>支付买家</th><th>转化率</th><th>退款金额</th><th>判断</th></tr></thead>
+      <tbody>
+        ${tableRows(items, [
+          { render: (item) => escapeHtml(item.name || '-') },
+          { render: (item) => yuan(item.sales || 0) },
+          { render: (item) => Math.round(item.visitors || 0).toLocaleString('zh-CN') },
+          { render: (item) => Math.round(item.orders || 0).toLocaleString('zh-CN') },
+          { render: (item) => percent(item.conversion || 0) },
+          { render: (item) => item.refundAmount ? yuan(item.refundAmount) : '-' },
+          { render: (item) => escapeHtml(item.note || '看类目成交、加购和退款结构') }
+        ], '暂无类目明细')}
+      </tbody>
+    </table>
+  `);
+}
+
+function liveHtml(items) {
+  return reportSection('直播业绩诊断', `
+    <table class="report-table">
+      <thead><tr><th>直播/日期</th><th>成交金额</th><th>观看人数</th><th>商品点击</th><th>观看点击率</th><th>成交人数/笔数</th><th>开播时长</th><th>判断</th></tr></thead>
+      <tbody>
+        ${tableRows(items, [
+          { render: (item) => escapeHtml(item.name || '-') },
+          { render: (item) => yuan(item.sales || 0) },
+          { render: (item) => Math.round(item.liveVisitors || item.visitors || 0).toLocaleString('zh-CN') },
+          { render: (item) => item.liveClickUsers ? Math.round(item.liveClickUsers).toLocaleString('zh-CN') : '-' },
+          { render: (item) => item.liveClickRate ? percent(item.liveClickRate) : '-' },
+          { render: (item) => Math.round(item.orders || 0).toLocaleString('zh-CN') },
+          { render: (item) => item.liveHours ? Number(item.liveHours).toFixed(1) : '-' },
+          { render: (item) => item.liveVisitors && item.liveClickRate < 3 ? '直播看点到商品点击偏弱，需优化讲解和货盘' : item.sales ? '已有直播成交，建议复盘货盘与讲解节奏' : '需继续补充直播成交数据' }
+        ], '暂无直播明细')}
+      </tbody>
+    </table>
+  `);
+}
+
+function contentHtml(items) {
+  return reportSection('内容资产诊断', `
+    <table class="report-table">
+      <thead><tr><th>内容资产</th><th>成交金额</th><th>曝光/浏览</th><th>点击/互动</th><th>成交</th><th>转化率</th><th>判断</th></tr></thead>
+      <tbody>
+        ${tableRows(items, [
+          { render: (item) => escapeHtml(item.name || '-') },
+          { render: (item) => item.sales ? yuan(item.sales) : '-' },
+          { render: (item) => Math.round(item.visitors || item.contentVisitors || item.shortVideoVisitors || 0).toLocaleString('zh-CN') },
+          { render: (item) => Math.round(item.clicks || item.liveClickUsers || item.addCarts || 0).toLocaleString('zh-CN') },
+          { render: (item) => Math.round(item.orders || 0).toLocaleString('zh-CN') },
+          { render: (item) => item.conversion ? percent(item.conversion) : '-' },
+          { render: (item) => item.sales ? '内容已有成交贡献，建议沉淀可复用素材方向' : '内容偏曝光/互动，需看引导进店和成交链路' }
+        ], '暂无内容资产明细')}
+      </tbody>
+    </table>
+  `);
+}
+
+function serviceDetailHtml(items) {
+  return reportSection('客服绩效诊断', `
+    <table class="report-table">
+      <thead><tr><th>客服/日期</th><th>咨询/接待</th><th>成交金额</th><th>成交人数/笔数</th><th>转化/响应</th><th>退款金额</th><th>判断</th></tr></thead>
+      <tbody>
+        ${tableRows(items, [
+          { render: (item) => escapeHtml(item.name || '-') },
+          { render: (item) => Math.round(item.visitors || 0).toLocaleString('zh-CN') },
+          { render: (item) => item.sales ? yuan(item.sales) : '-' },
+          { render: (item) => Math.round(item.orders || 0).toLocaleString('zh-CN') },
+          { render: (item) => item.conversion ? percent(item.conversion) : '-' },
+          { render: (item) => item.refundAmount ? yuan(item.refundAmount) : '-' },
+          { render: (item) => item.conversion && item.conversion < 1 ? '询单承接偏弱，需复盘话术与响应' : '用于辅助判断客服承接与售后风险' }
+        ], '暂无客服绩效明细')}
       </tbody>
     </table>
   `);
@@ -989,13 +1596,14 @@ function productHtml(items) {
 function trafficHtml(items) {
   return reportSection('流量排行', `
     <table class="report-table">
-      <thead><tr><th>流量来源</th><th>销售额</th><th>访客</th><th>转化率</th><th>判断</th></tr></thead>
+      <thead><tr><th>流量来源</th><th>支付金额</th><th>访客</th><th>转化率</th><th>UV价值</th><th>经营判断</th></tr></thead>
       <tbody>
         ${tableRows(items, [
           { render: (item) => escapeHtml(item.name || '-') },
           { render: (item) => yuan(item.sales || 0) },
           { render: (item) => Math.round(item.visitors || 0).toLocaleString('zh-CN') },
           { render: (item) => percent(item.conversion || 0) },
+          { render: (item) => item.uvValue ? item.uvValue.toFixed(2) : item.visitors ? (item.sales / item.visitors).toFixed(2) : '-' },
           { render: (item) => escapeHtml(item.note || '-') }
         ])}
       </tbody>
@@ -1004,16 +1612,37 @@ function trafficHtml(items) {
 }
 
 function promotionHtml(items) {
-  return reportSection('推广情况', `
+  const totalSpend = (items || []).reduce((sum, item) => sum + (item.spend || 0), 0);
+  const totalSales = (items || []).reduce((sum, item) => sum + (item.sales || 0), 0);
+  const totalImpressions = (items || []).reduce((sum, item) => sum + (item.impressions || 0), 0);
+  const totalClicks = (items || []).reduce((sum, item) => sum + (item.clicks || 0), 0);
+  const totalOrders = (items || []).reduce((sum, item) => sum + (item.orders || 0), 0);
+  const overallRoi = totalSpend ? totalSales / totalSpend : 0;
+  const overallCtr = totalImpressions ? totalClicks / totalImpressions * 100 : 0;
+  const overallCpc = totalClicks ? totalSpend / totalClicks : 0;
+  const overallClickConversion = totalClicks ? totalOrders / totalClicks * 100 : 0;
+  const best = [...(items || [])].filter((item) => item.spend && item.sales).sort((a, b) => (b.sales / b.spend) - (a.sales / a.spend))[0];
+  const worst = [...(items || [])].filter((item) => item.spend).sort((a, b) => (a.roi || (a.spend ? a.sales / a.spend : 0)) - (b.roi || (b.spend ? b.sales / b.spend : 0)))[0];
+  return reportSection('推广投放表现（含计划报表专项分析）', `
+    <div class="summary-grid compact">
+      <section><span>总花费</span><strong>${totalSpend ? yuan(totalSpend) : '-'}</strong><p>计划报表合计</p></section>
+      <section><span>总成交金额</span><strong>${totalSales ? yuan(totalSales) : '-'}</strong><p>推广带来支付金额</p></section>
+      <section><span>整体ROI</span><strong>${overallRoi ? overallRoi.toFixed(2) : '-'}</strong><p>按成交/花费测算</p></section>
+      <section><span>点击 / CTR</span><strong>${totalClicks ? Math.round(totalClicks).toLocaleString('zh-CN') : '-'} / ${overallCtr ? percent(overallCtr) : '-'}</strong><p>CPC ${overallCpc ? yuan(overallCpc) : '-'}</p></section>
+    </div>
+    <p class="report-note">投放建议：先看净销售和退款，再决定是否放量。${totalSpend ? `本期识别推广花费 ${yuan(totalSpend)}，带来成交 ${yuan(totalSales)}，整体ROI ${overallRoi.toFixed(2)}，点击转化率 ${overallClickConversion ? percent(overallClickConversion) : '待补充'}。` : ''}${best ? `效率较好的计划是 ${escapeHtml(best.name || '高效计划')}，可优先保留并小幅倾斜预算。` : ''}${worst && worst !== best ? `低效计划是 ${escapeHtml(worst.name || '低效计划')}，建议先收窄人群/关键词/出价，再考虑放量。` : ''}</p>
     <table class="report-table">
-      <thead><tr><th>推广计划/渠道</th><th>花费</th><th>成交金额</th><th>ROI</th><th>点击</th><th>判断</th></tr></thead>
+      <thead><tr><th>推广计划/渠道</th><th>花费</th><th>带来支付金额</th><th>ROI</th><th>展现/点击</th><th>点击率</th><th>点击转化率</th><th>加购</th><th>经营判断</th></tr></thead>
       <tbody>
         ${tableRows(items, [
           { render: (item) => escapeHtml(item.name || '-') },
           { render: (item) => yuan(item.spend || 0) },
           { render: (item) => yuan(item.sales || 0) },
           { render: (item) => item.roi ? Number(item.roi).toFixed(2) : '-' },
-          { render: (item) => item.clicks ? Math.round(item.clicks).toLocaleString('zh-CN') : '-' },
+          { render: (item) => `${item.impressions ? Math.round(item.impressions).toLocaleString('zh-CN') : '-'} / ${item.clicks ? Math.round(item.clicks).toLocaleString('zh-CN') : '-'}` },
+          { render: (item) => item.impressions && item.clicks ? percent(item.clicks / item.impressions * 100) : '-' },
+          { render: (item) => item.clicks && item.orders ? percent(item.orders / item.clicks * 100) : item.conversion ? percent(item.conversion) : '-' },
+          { render: (item) => item.addCarts ? Math.round(item.addCarts).toLocaleString('zh-CN') : '-' },
           { render: (item) => escapeHtml(item.note || '-') }
         ])}
       </tbody>
@@ -1065,10 +1694,17 @@ function renderReport(diagnosis) {
   dynamicSections.push(categoryDirectionHtml(diagnosis));
   if (state.importSummary) dynamicSections.push(importSummaryHtml(diagnosis));
   if (state.lineage) dynamicSections.push(lineageHtml(diagnosis));
+  if (state.confidence) dynamicSections.push(dataConfidenceHtml(diagnosis));
   if (state.aux) dynamicSections.push(reportSection('流量与客户辅助诊断', `<ul>${auxiliaryDiagnosis(diagnosis).map((item) => `<li>${item}</li>`).join('')}</ul>`));
   if (state.target) dynamicSections.push(targetPlanHtml(targetPlan));
   if (state.overall) dynamicSections.push(overallHtml(diagnosis));
   if (state.product) dynamicSections.push(productHtml(state.imported ? details.products : weekly.products));
+  if (state.category) dynamicSections.push(categoryHtml(details.categories));
+  if (state.skuQuadrant) dynamicSections.push(skuQuadrantHtml(diagnosis));
+  if (state.refundMatrix) dynamicSections.push(refundMatrixHtml(diagnosis));
+  if (state.live) dynamicSections.push(liveHtml(details.live));
+  if (state.content) dynamicSections.push(contentHtml(details.content));
+  if (state.serviceDetail) dynamicSections.push(serviceDetailHtml(details.service));
   if (state.traffic) dynamicSections.push(trafficHtml(state.imported ? details.traffic : weekly.traffic));
   if (state.promotion) dynamicSections.push(promotionHtml(state.imported ? details.promotion : weekly.promotion));
   if (state.activity) dynamicSections.push(activityHtml(state.imported ? details.activity : weekly.activity));
@@ -1091,6 +1727,8 @@ function renderReport(diagnosis) {
       <p>${diagnosis.summary.text}</p>
     </div>
 
+    ${brandLeadHtml(diagnosis)}
+
     <h4>一、老板先看</h4>
     <div class="boss-summary">
       <section><span>结果</span><p>${boss.result}</p></section>
@@ -1111,12 +1749,13 @@ function renderReport(diagnosis) {
 
     <h4>三、导入文件使用情况</h4>
     <table class="report-table">
-      <thead><tr><th>文件</th><th>状态</th><th>使用行数</th><th>进入模块</th><th>说明</th></tr></thead>
+      <thead><tr><th>文件</th><th>状态</th><th>使用行数</th><th>使用率</th><th>进入模块</th><th>说明</th></tr></thead>
       <tbody>
         ${tableRows(importSummaryRows(diagnosis), [
           { render: (item) => escapeHtml(item.file || '-') },
           { render: (item) => escapeHtml(item.status || '-') },
           { render: (item) => escapeHtml(item.rows || '-') },
+          { render: (item) => escapeHtml(item.usage || '-') },
           { render: (item) => escapeHtml(item.modules || '-') },
           { render: (item) => escapeHtml(item.note || '-') }
         ], '暂无导入文件明细')}
@@ -1429,14 +2068,20 @@ function buildDataQuality(data) {
   const aux = data.importedAux || {};
   const lineage = data.importedLineage || [];
   const confirmedLineage = lineage.filter((item) => item.status === '已匹配来源字段').length;
+  const matchedCoreLineage = lineage.filter((item) => ['sales', 'visitors', 'conversion', 'aov', 'refundRate', 'product', 'traffic'].includes(item.key) && item.status === '已匹配来源字段').length;
   const checks = [
     { key: 'overall', name: '店铺整体', ok: data.sales > 0 && data.visitors > 0, tip: '需要销售额、访客、订单/转化率等大盘数据' },
     { key: 'product', name: '宝贝排行', ok: Boolean(details.products && details.products.length), tip: '建议导入宝贝名称、销售额、访客、订单、转化率' },
+    { key: 'category', name: '品类/类目', ok: Boolean(details.categories && details.categories.length), tip: '建议导入品类标准类目，识别类目成交、访客、支付转化和退款金额' },
     { key: 'traffic', name: '流量数据', ok: Boolean((details.traffic && details.traffic.length) || aux.hasTrafficOverview), tip: '建议导入流量来源、访客、成交、转化率，或流量看板总览' },
     { key: 'promotion', name: '推广情况', ok: Boolean(details.promotion && details.promotion.length), tip: '建议导入推广计划、花费、点击、成交、ROI' },
+    { key: 'live', name: '直播业绩', ok: Boolean(details.live && details.live.length), tip: '建议导入直播观看、商品点击、成交金额、开播时长和播后成交' },
+    { key: 'content', name: '内容资产', ok: Boolean(details.content && details.content.length), tip: '建议导入光合/内容资产曝光、浏览、点击、成交和互动数据' },
+    { key: 'serviceDetail', name: '客服绩效', ok: Boolean(details.service && details.service.length), tip: '建议导入客服团队概览、客服绩效或店铺绩效数据' },
     { key: 'activity', name: '活动情况', ok: Boolean(details.activity && details.activity.length), tip: '建议导入活动名称、活动成交、活动访客、订单' },
     { key: 'refund', name: '退款/售后', ok: data.refundRate > 0 || Boolean(data.importSummary?.some((item) => (item.modules || []).includes('退款售后'))), tip: '建议导入退款率、退款金额、退款原因或售后明细' },
-    { key: 'lineage', name: '指标口径', ok: !lineage.length || confirmedLineage >= 6, tip: '需要确认销售、访客、转化、客单、退款、渠道等核心指标的来源字段' }
+    { key: 'lineage', name: '指标口径', ok: !lineage.length || confirmedLineage >= 6, tip: '需要确认销售、访客、转化、客单、退款、渠道等核心指标的来源字段' },
+    { key: 'confidence', name: '核心可信度', ok: !lineage.length || matchedCoreLineage >= 5, tip: '销售、访客、转化、客单、退款、商品、渠道至少应有 5 项能追溯来源' }
   ];
   const complete = checks.filter((item) => item.ok).length;
   return {
@@ -1448,13 +2093,17 @@ function buildDataQuality(data) {
 
 function importSummaryRows(diagnosis) {
   const rows = diagnosis.data.importSummary || [];
-  return rows.map((item) => ({
-    file: item.name,
-    status: item.status,
-    rows: item.rawRows ? `${item.usedRows}/${item.rawRows}` : '-',
-    modules: item.modules?.length ? item.modules.join('、') : '-',
-    note: item.note
-  }));
+  return rows.map((item) => {
+    const usageRate = item.rawRows ? item.usedRows / item.rawRows * 100 : 0;
+    return {
+      file: item.name,
+      status: item.status,
+      rows: item.rawRows ? `${item.usedRows}/${item.rawRows}` : '-',
+      usage: item.rawRows ? percent(usageRate, 1) : '-',
+      modules: item.modules?.length ? item.modules.join('、') : '-',
+      note: item.note
+    };
+  });
 }
 
 function auxiliaryDiagnosis(diagnosis) {
@@ -1468,6 +2117,17 @@ function auxiliaryDiagnosis(diagnosis) {
   }
   if (aux.hasMemberOverview) {
     rows.push(`客户概况已读取：店铺客户数 ${Math.round(aux.shopCustomers || 0).toLocaleString('zh-CN')}，新访客户 ${Math.round(aux.newVisitors || 0).toLocaleString('zh-CN')}，未购回访 ${Math.round(aux.unpurchasedReturning || 0).toLocaleString('zh-CN')}，已购回访 ${Math.round(aux.purchasedReturning || 0).toLocaleString('zh-CN')}。`);
+  }
+  if (diagnosis.data.importedDetails?.live?.length) {
+    const liveSales = diagnosis.data.importedDetails.live.reduce((sum, item) => sum + (item.sales || 0), 0);
+    const liveWatch = diagnosis.data.importedDetails.live.reduce((sum, item) => sum + (item.liveVisitors || item.visitors || 0), 0);
+    rows.push(`直播业绩已读取：直播成交 ${yuan(liveSales)}，观看人数 ${Math.round(liveWatch).toLocaleString('zh-CN')}，可继续拆播中/播后成交。`);
+  }
+  if (diagnosis.data.importedDetails?.content?.length) {
+    rows.push(`内容资产已读取：共 ${diagnosis.data.importedDetails.content.length} 条光合/内容记录，可辅助判断内容曝光、互动和成交贡献。`);
+  }
+  if (diagnosis.data.importedDetails?.service?.length) {
+    rows.push(`客服/店铺绩效已读取：共 ${diagnosis.data.importedDetails.service.length} 条绩效记录，可辅助判断询单承接、成交和退款。`);
   }
   if (!rows.length) rows.push('暂未读取到流量总览或客户概况辅助数据。');
   return rows;
@@ -1527,15 +2187,22 @@ function reportText(diagnosis) {
   const details = diagnosis.data.importedDetails || {};
   const outline = adaptiveReportOutline(diagnosis);
   const productItems = state.imported ? details.products || [] : weekly.products || [];
+  const categoryItems = details.categories || [];
   const trafficItems = state.imported ? details.traffic || [] : weekly.traffic || [];
   const promotionItems = state.imported ? details.promotion || [] : weekly.promotion || [];
   const activityItems = state.imported ? details.activity || [] : weekly.activity || [];
+  const liveItems = details.live || [];
+  const contentItems = details.content || [];
+  const serviceItems = details.service || [];
+  const refundItems = refundMatrixRows(diagnosis);
   const lines = [
     `Pinmoo AI ${reportName}`,
     `${diagnosis.data.storeName} · ${diagnosis.data.platform} · ${diagnosis.data.industry} · ${diagnosis.data.period} · ${diagnosis.data.dataSource || '数据导入'}`,
     `综合健康度：${diagnosis.totalScore} 分`,
     `核心结论：${diagnosis.summary.title}`,
     diagnosis.summary.text,
+    '',
+    `本周一句话结论：${brandOneSentence(diagnosis)}`,
     '',
     '一、老板先看',
     ...executiveSummaryText(diagnosis).split('\n').map((item) => `- ${item}`),
@@ -1550,10 +2217,15 @@ function reportText(diagnosis) {
   ];
   lines.push('', '类目诊断方向', ...categoryDirectionRows(diagnosis).map((item) => `- ${item.name}：${item.value}`));
   if (state.importSummary) {
-    lines.push('', '四、导入文件使用情况', ...importSummaryRows(diagnosis).map((item) => `- ${item.file}：${item.status}，使用行数 ${item.rows}，进入模块 ${item.modules}，${item.note}`));
+    lines.push('', '四、导入文件使用情况', ...importSummaryRows(diagnosis).map((item) => `- ${item.file}：${item.status}，使用行数 ${item.rows}，使用率 ${item.usage}，进入模块 ${item.modules}，${item.note}`));
   }
   if (state.lineage) {
     lines.push('', '数据口径确认', ...lineageRows(diagnosis).map((item) => `- ${item.metric}：${item.value}；${item.status}；来源 ${item.files}；字段 ${item.fields}；${item.method}`));
+  }
+  if (state.confidence) {
+    const confidenceRows = metricConfidenceRows(diagnosis);
+    const confidence = confidenceSummary(confidenceRows);
+    lines.push('', '指标可信度与文件使用率', `- 可信度：${confidence.score}分；可直接/已计算 ${confidence.strong} 项；需复核/待补充 ${confidence.weak + confidence.missing} 项。`, ...confidenceRows.map((item) => `- ${item.metric}：${item.value}；${item.levelText}；来源 ${item.files}；建议：${item.advice}`), ...dataUsageRows(diagnosis).map((item) => `- 文件使用：${item.file}，${item.usedRows}/${item.rawRows} 行，使用率 ${percent(item.usageRate, 1)}，进入 ${item.modules}`));
   }
   if (state.aux) {
     lines.push('', '流量与客户辅助诊断', ...auxiliaryDiagnosis(diagnosis).map((item) => `- ${item}`));
@@ -1562,13 +2234,31 @@ function reportText(diagnosis) {
     lines.push('', '下周期目标建议', `- ${targetPlan.baseline}`, `- ${targetPlan.focus}`, ...targetPlan.rows.map((item) => `- ${targetPlan.periodName}${item.level}：目标销售额 ${yuan(item.sales)}，较本期 ${item.growth >= 0 ? '+' : ''}${item.growth.toFixed(1)}%，目标访客 ${item.visitors.toLocaleString('zh-CN')}，目标转化率 ${percent(item.conversion)}，目标客单价 ${yuan(item.aov)}`));
   }
   if (state.overall) {
-    lines.push('', '店铺整体情况', ...operatingSummary(diagnosis).map((item) => `- ${item}`), ...metricChangeRows(diagnosis).map((item) => `- ${item.name}：本期 ${item.current}，对比期 ${item.previous}，变化 ${item.change}，判断：${item.judge}`), '', ...moduleDiagnosis(diagnosis).map((item) => `- ${item.module}｜${item.status}：${item.detail}`));
+    lines.push('', '本周经营总览：净销售额视角', ...operatingSummary(diagnosis).map((item) => `- ${item}`), ...brandKpiRows(diagnosis).map((item) => `- ${item.name}：本期 ${item.current}，对比期 ${item.previous}，变化 ${item.change}，经营解读：${item.judge}`), '', ...moduleDiagnosis(diagnosis).map((item) => `- ${item.module}｜${item.status}：${item.detail}`));
   }
   if (state.product) {
-    lines.push('', '宝贝排行', ...productItems.map((item, index) => `${index + 1}. ${item.name || '-'}：销售额 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，订单 ${Math.round(item.orders || 0)}，转化率 ${percent(item.conversion || 0)}，${item.note || ''}`));
+    lines.push('', '宝贝排行', ...productItems.map((item, index) => `${index + 1}. ${item.name || '-'}：支付金额 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，支付买家 ${Math.round(item.orders || 0)}，转化率 ${percent(item.conversion || 0)}，退款 ${item.refundAmount ? yuan(item.refundAmount) : '-'}，退款率 ${item.refundRate ? percent(item.refundRate) : '-'}，${item.note || ''}`));
+  }
+  if (state.category) {
+    lines.push('', '品类/类目排行', ...categoryItems.map((item, index) => `${index + 1}. ${item.name || '-'}：支付金额 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，支付买家 ${Math.round(item.orders || 0)}，转化率 ${percent(item.conversion || 0)}，退款 ${item.refundAmount ? yuan(item.refundAmount) : '-'}`));
+  }
+  if (state.skuQuadrant) {
+    lines.push('', 'SKU四象限诊断', ...skuQuadrantRows(diagnosis).map((item) => `- ${item.type}（${item.count}个）：${item.diagnosis} 动作：${item.action}`));
+  }
+  if (state.refundMatrix) {
+    lines.push('', '退款原因治理矩阵', ...refundItems.map((item, index) => `${index + 1}. ${item.reason}：退款金额 ${item.refundAmount ? yuan(item.refundAmount) : '-'}，笔数 ${item.refundOrders || '-'}，关联商品 ${item.topProduct}。动作：${item.action}`));
+  }
+  if (state.live) {
+    lines.push('', '直播业绩诊断', ...liveItems.map((item, index) => `${index + 1}. ${item.name || '-'}：成交 ${yuan(item.sales || 0)}，观看 ${Math.round(item.liveVisitors || item.visitors || 0)}，商品点击 ${Math.round(item.liveClickUsers || 0)}，观看点击率 ${item.liveClickRate ? percent(item.liveClickRate) : '-'}`));
+  }
+  if (state.content) {
+    lines.push('', '内容资产诊断', ...contentItems.map((item, index) => `${index + 1}. ${item.name || '-'}：成交 ${item.sales ? yuan(item.sales) : '-'}，曝光/浏览 ${Math.round(item.visitors || item.contentVisitors || item.shortVideoVisitors || 0)}，转化 ${item.conversion ? percent(item.conversion) : '-'}`));
+  }
+  if (state.serviceDetail) {
+    lines.push('', '客服绩效诊断', ...serviceItems.map((item, index) => `${index + 1}. ${item.name || '-'}：咨询/接待 ${Math.round(item.visitors || 0)}，成交 ${item.sales ? yuan(item.sales) : '-'}，转化/响应 ${item.conversion ? percent(item.conversion) : '-'}`));
   }
   if (state.traffic) {
-    lines.push('', '流量排行', ...trafficItems.map((item, index) => `${index + 1}. ${item.name || '-'}：销售额 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，转化率 ${percent(item.conversion || 0)}，${item.note || ''}`));
+    lines.push('', '流量排行', ...trafficItems.map((item, index) => `${index + 1}. ${item.name || '-'}：支付金额 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，转化率 ${percent(item.conversion || 0)}，UV价值 ${item.uvValue ? item.uvValue.toFixed(2) : item.visitors ? (item.sales / item.visitors).toFixed(2) : '-'}，${item.note || ''}`));
   }
   if (state.promotion) {
     lines.push('', '推广情况', ...promotionItems.map((item, index) => `${index + 1}. ${item.name || '-'}：花费 ${yuan(item.spend || 0)}，成交 ${yuan(item.sales || 0)}，ROI ${item.roi ? Number(item.roi).toFixed(2) : '-'}，点击 ${item.clicks ? Math.round(item.clicks) : '-'}，${item.note || ''}`));
@@ -1621,7 +2311,7 @@ function reportText(diagnosis) {
     ...(diagnosis.dataQuality?.checks || []).map((item) => `- ${item.ok ? '已具备' : '待补充'}：${item.name}，${item.ok ? '本报告已读取该模块数据。' : item.tip}`),
     '',
     '三、导入文件使用情况',
-    ...importSummaryRows(diagnosis).map((item) => `- ${item.file}：${item.status}，使用行数 ${item.rows}，进入模块 ${item.modules}，${item.note}`),
+    ...importSummaryRows(diagnosis).map((item) => `- ${item.file}：${item.status}，使用行数 ${item.rows}，使用率 ${item.usage}，进入模块 ${item.modules}，${item.note}`),
     '',
     '四、流量与客户辅助诊断',
     ...auxiliaryDiagnosis(diagnosis).map((item) => `- ${item}`),
@@ -1850,6 +2540,11 @@ function detectReportKind(row) {
   const source = String(row.来源文件 || row.sourceFile || '').toLowerCase();
   const keys = Object.keys(row).join(' ');
   if (/首页|数据概览|经营核心|交易概况|月报/.test(source) || (pick(row, ['类别']) && pick(row, ['支付金额', '支付买家数', '访客数']))) return 'overall';
+  if (/品类|标准类目/.test(source) || /一级类目名称|二级类目名称|类目名称/.test(keys)) return 'category';
+  if (/直播业绩|店播|直播/.test(source) || /观看人数|直播成交金额|开播时长|播后成交金额|点击-成交转化率/.test(keys)) return 'live';
+  if (/光合|资产总览|内容资产/.test(source) || /内容曝光量|内容浏览量|内容成交金额|短视频发布数|直播场次/.test(keys)) return 'content';
+  if (/客服绩效|客服团队|客服/.test(source) || /客服支付金额|平均响应时长|客服响应率|接待人数|咨询人数/.test(keys)) return 'service';
+  if (/店铺绩效|业绩分析/.test(source) || /净支付金额|询单转化率/.test(keys)) return 'shopPerformance';
   if (/流量来源|场域来源/.test(source) || /流量来源|来源名称|来源明细|一级渠道|二级渠道/.test(keys)) return 'traffic';
   if (/流量概况|流量看板|流量总览/.test(source)) return 'trafficOverview';
   if (/退款|售后/.test(source) || /退款原因|成功退款/.test(keys)) return 'refund';
@@ -1888,7 +2583,31 @@ function pickTrafficInfo(row) {
   return { name: fallback, depth: fallback ? 1 : 0, path: fallback, levels: rawLevels };
 }
 
+function normalizeSpecialRow(row) {
+  const source = String(row.来源文件 || '');
+  if (/无线店铺流量来源/.test(source) && row.字段1 && row.访客数 && Number.isNaN(Number(String(row.访客数).replace(/,/g, '')))) {
+    return {
+      ...row,
+      一级来源: row.访客数,
+      二级来源: row.访客数环比,
+      三级来源: row.加购人数,
+      四级来源: row.加购人数环比,
+      访客数: row.商品收藏人数,
+      访客数环比: row.商品收藏人数环比,
+      加购人数: row.支付买家数,
+      加购人数环比: row.支付买家数环比,
+      商品收藏人数: row.支付转化率,
+      支付买家数: row.支付金额,
+      支付转化率: row.客单价,
+      支付金额: row.UV价值,
+      客单价: row.加购件数
+    };
+  }
+  return row;
+}
+
 function toImportedRow(row) {
+  row = normalizeSpecialRow(row);
   const reportKind = detectReportKind(row);
   const sourceCategory = pick(row, ['类别', '范围', '人群类型']);
   const sourceText = String(row.来源文件 || '');
@@ -1906,17 +2625,28 @@ function toImportedRow(row) {
   const categoryText = String(sourceCategory || '');
   const bucket = categoryText.includes('同行') ? 'benchmark' : periodText.includes('上期') || periodText.includes('previous') || periodText.includes('prev') ? 'previous' : 'current';
   const rawItemName = pick(row, ['宝贝名称', '商品名称', '宝贝', '商品', 'SKU', 'sku', 'SPU名称', 'SPU', '商品ID', 'itemName', 'productName', '主体名称']);
-  const rawPromotionName = pick(row, ['推广计划', '计划名称', '计划名字', '推广渠道', '推广名称', '推广单元', '场景名字', '原二级场景名字', '创意名字', '词名字/词包名字', 'promotionName', 'campaign']);
+  const rawPromotionName = pick(row, ['推广计划', '计划名称', '计划名字', '推广渠道', '推广名称', '推广单元', '推广场景', '场景名称', '场景名字', '原二级场景名字', '创意名字', '词名字/词包名字', 'promotionName', 'campaign']);
+  const categoryName = pick(row, ['类目名称', '一级类目名称', '二级类目名称', '品类', '标准类目', 'categoryName']);
+  const liveName = reportKind === 'live' ? pick(row, ['直播间名称', '主播名称', '场次名称', '统计日期', '日期']) || '直播整体' : '';
+  const contentName = reportKind === 'content' ? pick(row, ['内容名称', '资产名称', '账号名称', '统计日期', '日期']) || '内容资产整体' : '';
+  const serviceName = ['service', 'shopPerformance'].includes(reportKind) ? pick(row, ['客服名称', '客服', '店铺名称', '日期', '统计日期']) || (reportKind === 'service' ? '客服整体' : '店铺绩效') : '';
   return {
     bucket,
     reportKind,
     sourceCategory,
     sourceFile: sourceText,
-    date: pick(row, ['日期', '时间', 'date']),
+    rowIndex: Number.parseInt(row.__rowIndex ?? row.rowIndex ?? 0, 10) || 0,
+    date: pick(row, ['日期', '时间', '统计日期', 'date']),
     storeName: pick(row, ['店铺名称', '店铺', 'storeName', 'store']),
     industry: pick(row, ['行业', '所属行业', 'industry']),
     platform: pick(row, ['平台', '店铺平台', 'platform']) || inferPlatform(row, reportKind),
     itemName: reportKind === 'promotion' && !/商品报表|创意报表|内容报表/.test(sourceText) ? '' : rawItemName,
+    categoryName,
+    liveName,
+    contentName,
+    serviceName,
+    refundReason: pick(row, ['退款原因', '退货原因', '售后原因', '原因', '退款类型', '退货类型', 'reason']),
+    refundOrders: parseMetric(pick(row, ['退款订单数', '退款笔数', '退款人数', '成功退款笔数', '成功退款订单数', '退货退款订单数', 'refundOrders', 'refundCount'])),
     trafficSource: trafficInfo.name,
     trafficDepth: trafficInfo.depth,
     trafficPath: trafficInfo.path,
@@ -1926,30 +2656,37 @@ function toImportedRow(row) {
     trafficLevel4: trafficInfo.levels?.[3] || '',
     promotionName: reportKind === 'promotion' ? rawPromotionName || rawItemName || '推广整体' : rawPromotionName,
     activityName: pick(row, ['活动名称', '平台活动', '活动', 'activityName']),
-    sales,
+    sales: sales || parseMetric(pick(row, ['成交金额', '直播成交金额', '店播成交金额', '播中成交金额', '播后成交金额', '客服支付金额', '净支付金额', '内容成交金额'])),
     prevSales,
-    visitors,
+    visitors: visitors || parseMetric(pick(row, ['商品访客数', '观看人数', '内容曝光量', '内容浏览量', '咨询人数', '接待人数'])),
     prevVisitors,
-    orders,
+    orders: orders || parseMetric(pick(row, ['成交笔数', '成交件数', '支付件数', '内容成交件数'])),
     spend: parseMetric(pick(row, ['花费', '消耗', '推广花费', '全站推广花费', '关键词推广花费', '精准人群推广花费', '智能场景花费', '淘宝客佣金', 'spend', 'cost'])),
     clicks: parseMetric(pick(row, ['点击量', '点击', 'clicks'])),
     impressions: parseMetric(pick(row, ['展现量', '曝光量', '浏览量', '店铺浏览量', '商品浏览量', '引入商详浏览量', '搜索曝光次数', '详情曝光', '自然流量曝光量', 'impressions'])),
-    addCarts: parseMetric(pick(row, ['加购数', '加购', '购物车数', '总购物车数', '加购件数', '加购人数', '加购客户数', '加购商品件数', '详情加购', 'addCarts'])),
+    addCarts: parseMetric(pick(row, ['加购数', '加购', '购物车', '购物车数', '总购物车数', '加购件数', '加购人数', '加购客户数', '加购商品件数', '详情加购', 'addCarts'])),
+    favorites: parseMetric(pick(row, ['商品收藏人数', '收藏人数', '内容收藏人数', 'favorites'])),
     pageViews: parseMetric(pick(row, ['浏览量', '店铺浏览量', '商品浏览量', '引入商详浏览量', 'pageViews'])),
     bounceRate: parseRateMetric(pick(row, ['跳失率', 'bounceRate'])),
     avgStay: parseMetric(pick(row, ['平均停留时长', '店铺平均停留时长', '商品平均停留时长', '商详平均停留时长', '停留时长', 'avgStay'])),
     oldVisitors: parseMetric(pick(row, ['老访客数', 'oldVisitors'])),
     newVisitors: parseMetric(pick(row, ['新访客数', '客户新访', 'newVisitors'])),
     followStoreUsers: parseMetric(pick(row, ['关注店铺人数', 'followStoreUsers'])),
-    liveVisitors: parseMetric(pick(row, ['直播间访客数', 'liveVisitors'])),
-    shortVideoVisitors: parseMetric(pick(row, ['短视频访客数', 'shortVideoVisitors'])),
-    contentVisitors: parseMetric(pick(row, ['图文访客数', '内容查看人数', 'contentVisitors'])),
+    liveVisitors: parseMetric(pick(row, ['直播间访客数', '观看人数', 'liveVisitors'])),
+    liveClickUsers: parseMetric(pick(row, ['商品点击人数', '直播点击人数', 'liveClickUsers'])),
+    liveClickRate: parseRateMetric(pick(row, ['观看-商品点击率', 'liveClickRate'])),
+    liveHours: parseMetric(pick(row, ['开播时长', 'liveHours'])),
+    shortVideoVisitors: parseMetric(pick(row, ['短视频访客数', '内容曝光量', 'shortVideoVisitors'])),
+    contentVisitors: parseMetric(pick(row, ['图文访客数', '内容查看人数', '内容浏览量', 'contentVisitors'])),
     storePageVisitors: parseMetric(pick(row, ['店铺页访客数', 'storePageVisitors'])),
     shopCustomers: parseMetric(pick(row, ['店铺客户数', 'shopCustomers'])),
     unpurchasedReturning: parseMetric(pick(row, ['未购客户回访', 'unpurchasedReturning'])),
     purchasedReturning: parseMetric(pick(row, ['已购客户回访', 'purchasedReturning'])),
-    conversion,
+    conversion: conversion || parseRateMetric(pick(row, ['点击-成交转化率', '观看-商品点击率', '内容成交转化率', '询单转化率', '客服响应率'])),
     aov,
+    netSales: parseMetric(pick(row, ['净销售额', '净支付金额', '净成交金额', 'netSales'])),
+    oldBuyerSales: parseMetric(pick(row, ['老买家支付金额', '老客复购金额', '老客成交金额', 'oldBuyerSales'])),
+    uvValue: parseMetric(pick(row, ['UV价值', '访客平均价值', 'uvValue'])),
     refundAmount: parseMetric(pick(row, ['退款金额', '取消及售后退款金额', '成功退款金额', 'refundAmount'])),
     refundRate: parseRateMetric(pick(row, ['退款率', '退货率', '成功退款率', '金额退款率', '订单退款率', 'refundRate'])),
     roi: parseMetric(pick(row, ['ROI', '投放ROI', '投产比', '投入产出比', '含预售投产比', 'roi'])),
@@ -1978,6 +2715,85 @@ function dateRangeLabel(rows) {
   return dates[0] === dates[dates.length - 1] ? dates[0] : `${dates[0]} 至 ${dates[dates.length - 1]}`;
 }
 
+function toDateStamp(year, month, day) {
+  const date = new Date(Number(year), Number(month) - 1, Number(day));
+  if (date.getFullYear() !== Number(year) || date.getMonth() !== Number(month) - 1 || date.getDate() !== Number(day)) return null;
+  return date.getTime();
+}
+
+function formatDateStamp(stamp) {
+  const date = new Date(stamp);
+  const pad = (value) => String(value).padStart(2, '0');
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+}
+
+function parseDateToken(value) {
+  if (value === null || value === undefined || value === '') return null;
+  const text = String(value).trim();
+  const compactNumber = Number(text);
+  const normalizedText = Number.isFinite(compactNumber) && compactNumber >= 20000101 && compactNumber <= 20991231
+    ? String(Math.round(compactNumber))
+    : text;
+  const match = normalizedText.match(/(20\d{2})[-年_/.]?(1[0-2]|0?[1-9])[-月_/.]?([12]\d|3[01]|0?[1-9])日?/);
+  if (!match) return null;
+  return toDateStamp(match[1], match[2], match[3]);
+}
+
+function buildDateRange(start, end) {
+  if (!Number.isFinite(start) || !Number.isFinite(end)) return null;
+  const rangeStart = Math.min(start, end);
+  const rangeEnd = Math.max(start, end);
+  const days = Math.round((rangeEnd - rangeStart) / 86400000) + 1;
+  return {
+    start: rangeStart,
+    end: rangeEnd,
+    days,
+    label: `${formatDateStamp(rangeStart)} 至 ${formatDateStamp(rangeEnd)}`
+  };
+}
+
+function parseRangeFromText(text) {
+  const source = String(text || '');
+  const dateTokenSource = '20\\d{2}[-年_/.]?(?:1[0-2]|0?[1-9])[-月_/.]?(?:[12]\\d|3[01]|0?[1-9])日?';
+  const datePattern = new RegExp(dateTokenSource, 'g');
+  const pair = source.match(new RegExp(`(${dateTokenSource})[^+\\n]{0,30}(${dateTokenSource})`));
+  if (pair) {
+    const first = parseDateToken(pair[1]);
+    const second = parseDateToken(pair[2]);
+    const range = buildDateRange(first, second);
+    if (range) return range;
+  }
+  const tokens = Array.from(source.matchAll(datePattern))
+    .map((match) => parseDateToken(match[1]))
+    .filter((stamp) => Number.isFinite(stamp));
+  const unique = Array.from(new Set(tokens)).sort((a, b) => a - b);
+  if (unique.length < 2) return null;
+  const compactRange = buildDateRange(unique[0], unique[unique.length - 1]);
+  if (compactRange && compactRange.days <= 45) return compactRange;
+  return buildDateRange(tokens[0], tokens[1]);
+}
+
+function rowInDateRange(row, range) {
+  if (!range) return true;
+  const stamp = parseDateToken(row.date);
+  if (!stamp) return true;
+  return stamp >= range.start && stamp <= range.end;
+}
+
+function overallSourcePriority(row) {
+  const source = String(row.sourceFile || '');
+  if (/首页-数据概览/.test(source)) return 100;
+  if (/店铺经营核心|经营核心|交易概况/.test(source)) return 90;
+  if (/店铺绩效|业绩分析/.test(source)) return 70;
+  if (/流量概况|流量看板|流量总览/.test(source)) return 30;
+  return 10;
+}
+
+function coreValueScore(row) {
+  return ['sales', 'visitors', 'orders', 'conversion', 'aov', 'refundAmount', 'refundRate']
+    .reduce((score, key) => score + ((row[key] || 0) > 0 ? 1 : 0), 0);
+}
+
 function aggregateRows(rows) {
   const sales = rows.reduce((sum, row) => sum + row.sales, 0);
   const prevSales = rows.reduce((sum, row) => sum + (row.prevSales || 0), 0);
@@ -1985,6 +2801,8 @@ function aggregateRows(rows) {
   const prevVisitors = rows.reduce((sum, row) => sum + (row.prevVisitors || 0), 0);
   const orders = rows.reduce((sum, row) => sum + row.orders, 0);
   const refundAmount = rows.reduce((sum, row) => sum + (row.refundAmount || 0), 0);
+  const netSales = rows.reduce((sum, row) => sum + (row.netSales || 0), 0);
+  const oldBuyerSales = rows.reduce((sum, row) => sum + (row.oldBuyerSales || 0), 0);
   const importedRefundRate = weightedAverage(rows, 'refundRate');
   const importedConversion = weightedAverage(rows, 'conversion', 'visitors');
   const importedAov = weightedAverage(rows, 'aov', 'sales');
@@ -1999,6 +2817,8 @@ function aggregateRows(rows) {
     conversion: importedConversion || (visitors ? orders / visitors * 100 : 0),
     aov: importedAov || (orders ? sales / orders : 0),
     refundAmount,
+    netSales,
+    oldBuyerSales,
     refundRate: importedRefundRate || (sales ? refundAmount / sales * 100 : 0),
     roi: weightedAverage(rows, 'roi'),
     pageViews: rows.reduce((sum, row) => sum + (row.pageViews || 0), 0),
@@ -2008,6 +2828,9 @@ function aggregateRows(rows) {
     newVisitors: rows.reduce((sum, row) => sum + (row.newVisitors || 0), 0),
     followStoreUsers: rows.reduce((sum, row) => sum + (row.followStoreUsers || 0), 0),
     liveVisitors: rows.reduce((sum, row) => sum + (row.liveVisitors || 0), 0),
+    liveClickUsers: rows.reduce((sum, row) => sum + (row.liveClickUsers || 0), 0),
+    liveClickRate: weightedAverage(rows, 'liveClickRate', 'liveVisitors'),
+    liveHours: rows.reduce((sum, row) => sum + (row.liveHours || 0), 0),
     shortVideoVisitors: rows.reduce((sum, row) => sum + (row.shortVideoVisitors || 0), 0),
     contentVisitors: rows.reduce((sum, row) => sum + (row.contentVisitors || 0), 0),
     storePageVisitors: rows.reduce((sum, row) => sum + (row.storePageVisitors || 0), 0),
@@ -2034,7 +2857,7 @@ function groupRows(rows, key, limit = 8) {
     const name = row[key];
     if (!name) return;
     if (!map.has(name)) {
-      map.set(name, { name, sales: 0, visitors: 0, orders: 0, spend: 0, clicks: 0, impressions: 0, addCarts: 0, rows: [] });
+      map.set(name, { name, sales: 0, visitors: 0, orders: 0, spend: 0, clicks: 0, impressions: 0, addCarts: 0, favorites: 0, refundAmount: 0, netSales: 0, oldBuyerSales: 0, liveVisitors: 0, liveClickUsers: 0, liveHours: 0, rows: [] });
     }
     const item = map.get(name);
     item.sales += row.sales || 0;
@@ -2044,14 +2867,53 @@ function groupRows(rows, key, limit = 8) {
     item.clicks += row.clicks || 0;
     item.impressions += row.impressions || 0;
     item.addCarts += row.addCarts || 0;
+    item.favorites += row.favorites || 0;
+    item.refundAmount += row.refundAmount || 0;
+    item.netSales += row.netSales || 0;
+    item.oldBuyerSales += row.oldBuyerSales || 0;
+    item.liveVisitors += row.liveVisitors || 0;
+    item.liveClickUsers += row.liveClickUsers || 0;
+    item.liveHours += row.liveHours || 0;
     item.rows.push(row);
   });
   return Array.from(map.values()).map((item) => ({
     ...item,
     conversion: weightedAverage(item.rows, 'conversion', 'visitors') || (item.visitors ? item.orders / item.visitors * 100 : 0),
+    liveClickRate: weightedAverage(item.rows, 'liveClickRate', 'liveVisitors') || (item.liveVisitors ? item.liveClickUsers / item.liveVisitors * 100 : 0),
+    refundRate: weightedAverage(item.rows, 'refundRate', 'sales') || (item.sales ? item.refundAmount / item.sales * 100 : 0),
+    uvValue: weightedAverage(item.rows, 'uvValue', 'visitors') || (item.visitors ? item.sales / item.visitors : 0),
     roi: item.spend ? item.sales / item.spend : weightedAverage(item.rows, 'roi'),
     note: rankingNote(item, key)
   })).sort((a, b) => b.sales - a.sales).slice(0, limit);
+}
+
+function buildDailyRows(rows, limit = 10) {
+  const source = rows.filter((row) => (
+    row.date &&
+    ['overall', 'shopPerformance'].includes(row.reportKind) &&
+    (row.sales || row.visitors || row.orders || row.refundAmount || row.conversion)
+  ));
+  const map = new Map();
+  source.forEach((row) => {
+    const name = String(row.date || '').trim();
+    if (!name) return;
+    if (!map.has(name)) {
+      map.set(name, { name, date: name, sales: 0, visitors: 0, orders: 0, refundAmount: 0, netSales: 0, rows: [] });
+    }
+    const item = map.get(name);
+    item.sales += row.sales || 0;
+    item.visitors += row.visitors || 0;
+    item.orders += row.orders || 0;
+    item.refundAmount += row.refundAmount || 0;
+    item.netSales += row.netSales || 0;
+    item.rows.push(row);
+  });
+  return Array.from(map.values()).map((item) => ({
+    ...item,
+    conversion: weightedAverage(item.rows, 'conversion', 'visitors') || (item.visitors ? item.orders / item.visitors * 100 : 0),
+    netSales: item.netSales || Math.max(0, item.sales - item.refundAmount),
+    dateStamp: parseDateToken(item.date) || 0
+  })).sort((a, b) => b.dateStamp - a.dateStamp || String(b.date).localeCompare(String(a.date))).slice(0, limit);
 }
 
 function rankingNote(item, key) {
@@ -2068,21 +2930,70 @@ function rankingNote(item, key) {
   if (key === 'activityName') {
     return item.sales ? '记录活动成交，复盘活动承接' : '需补充活动成交数据';
   }
+  if (item.refundRate > 0 && item.refundRate > 10) return '退款偏高，需先拆售后原因';
   if (item.conversion < 1) return '访客有但成交弱，需看页面承接';
   if (item.sales > 0 && item.conversion >= 3) return '成交表现较好，可重点维护';
   return '继续观察动销和退款表现';
 }
 
+function groupRefundReasons(rows, limit = 8) {
+  const map = new Map();
+  rows.forEach((row) => {
+    const reason = row.refundReason || '未标明原因';
+    if (!map.has(reason)) {
+      map.set(reason, { reason, refundAmount: 0, refundOrders: 0, rows: 0, products: new Map() });
+    }
+    const item = map.get(reason);
+    item.refundAmount += row.refundAmount || 0;
+    item.refundOrders += row.refundOrders || (row.refundAmount || row.refundRate ? 1 : 0);
+    item.rows += 1;
+    if (row.itemName) {
+      const product = item.products.get(row.itemName) || { name: row.itemName, refundAmount: 0, refundOrders: 0 };
+      product.refundAmount += row.refundAmount || 0;
+      product.refundOrders += row.refundOrders || (row.refundAmount || row.refundRate ? 1 : 0);
+      item.products.set(row.itemName, product);
+    }
+  });
+  return Array.from(map.values()).map((item) => {
+    const topProduct = Array.from(item.products.values()).sort((a, b) => b.refundAmount - a.refundAmount || b.refundOrders - a.refundOrders)[0];
+    return {
+      reason: item.reason,
+      refundAmount: item.refundAmount,
+      refundOrders: item.refundOrders,
+      rows: item.rows,
+      topProduct: topProduct?.name || ''
+    };
+  }).sort((a, b) => b.refundAmount - a.refundAmount || b.refundOrders - a.refundOrders).slice(0, limit);
+}
+
 function buildImportedDetails(rows) {
   const productRows = rows.filter((row) => row.reportKind === 'product' || (row.itemName && row.reportKind !== 'promotion'));
+  const categoryRows = rows.filter((row) => row.reportKind === 'category' || row.categoryName);
   const allTrafficRows = rows.filter((row) => row.reportKind === 'traffic' || row.trafficSource);
   const trafficRows = allTrafficRows.some((row) => row.trafficDepth >= 2)
     ? allTrafficRows.filter((row) => row.trafficDepth >= 2)
     : allTrafficRows;
   const promotionRows = rows.filter((row) => row.reportKind === 'promotion' || row.promotionName);
   const activityRows = rows.filter((row) => row.reportKind === 'activity' || row.activityName);
+  const liveRows = rows.filter((row) => row.reportKind === 'live' || row.liveName);
+  const contentRows = rows.filter((row) => row.reportKind === 'content' || row.contentName);
+  const serviceRows = rows.filter((row) => ['service', 'shopPerformance'].includes(row.reportKind) || row.serviceName);
+  const refundRows = rows.filter((row) => (
+    row.reportKind === 'refund' ||
+    row.refundReason ||
+    (row.itemName && (row.refundAmount || row.refundRate))
+  ));
+  const productDetails = groupRows(productRows.length ? productRows : rows, 'itemName', 8);
+  const productDetailsAll = groupRows(productRows.length ? productRows : rows, 'itemName', 9999);
   return {
-    products: groupRows(productRows.length ? productRows : rows, 'itemName'),
+    products: productDetails,
+    productsAll: productDetailsAll,
+    categories: groupRows(categoryRows, 'categoryName'),
+    daily: buildDailyRows(rows),
+    refundReasons: groupRefundReasons(refundRows),
+    live: groupRows(liveRows, 'liveName'),
+    content: groupRows(contentRows, 'contentName'),
+    service: groupRows(serviceRows, 'serviceName'),
     traffic: groupRows(trafficRows.length ? trafficRows : rows, 'trafficSource'),
     promotion: groupRows(promotionRows.length ? promotionRows : rows, 'promotionName'),
     activity: groupRows(activityRows.length ? activityRows : rows, 'activityName')
@@ -2170,9 +3081,12 @@ function rowModuleNames(row) {
   if (row.reportKind === 'trafficOverview' && row.visitors) modules.push('流量总览');
   if ((row.reportKind === 'traffic' || row.trafficSource) && row.trafficSource) modules.push('流量排行');
   if ((row.reportKind === 'product' || row.itemName) && row.itemName) modules.push('宝贝排行');
+  if (row.reportKind === 'category' || row.categoryName) modules.push('品类/类目');
   if (row.reportKind === 'promotion' || row.promotionName) modules.push('推广情况');
+  if (row.reportKind === 'live' || row.liveName) modules.push('直播业绩');
+  if (row.reportKind === 'content' || row.contentName) modules.push('内容资产');
   if (row.reportKind === 'member') modules.push('客户/会员');
-  if (row.reportKind === 'service') modules.push('客服承接');
+  if (row.reportKind === 'service' || row.reportKind === 'shopPerformance' || row.serviceName) modules.push('客服/店铺绩效');
   if (row.reportKind === 'refund' || row.refundAmount || row.refundRate) modules.push('退款售后');
   if (row.reportKind === 'activity' || row.activityName) modules.push('活动情况');
   return Array.from(new Set(modules));
@@ -2250,11 +3164,18 @@ function buildDataLineage(rawRows) {
   });
 }
 
-function buildImportedAux(current, mapped) {
+function buildImportedAux(current, mapped, previous = {}) {
   const trafficRows = mapped.filter((row) => row.reportKind === 'trafficOverview');
   const memberRows = mapped.filter((row) => row.reportKind === 'member');
   const latestTraffic = trafficRows.find((row) => String(row.sourceCategory || '').includes('我的')) || trafficRows[0] || {};
   const latestMember = memberRows[0] || {};
+  const activeReturnRows = mapped.filter((row) => (
+    row.reportKind === 'traffic' &&
+    /主动回访|老客|老买家|我的淘宝|购物车|消息|收藏/.test(row.trafficPath || row.trafficSource || '')
+  ));
+  const activeReturnSales = activeReturnRows.reduce((sum, row) => sum + (row.sales || 0), 0);
+  const activeReturnVisitors = activeReturnRows.reduce((sum, row) => sum + (row.visitors || 0), 0);
+  const activeReturnOrders = activeReturnRows.reduce((sum, row) => sum + (row.orders || 0), 0);
   return {
     pageViews: current.pageViews || latestTraffic.pageViews || 0,
     bounceRate: current.bounceRate || latestTraffic.bounceRate || 0,
@@ -2269,6 +3190,16 @@ function buildImportedAux(current, mapped) {
     shopCustomers: current.shopCustomers || latestMember.shopCustomers || 0,
     unpurchasedReturning: current.unpurchasedReturning || latestMember.unpurchasedReturning || 0,
     purchasedReturning: current.purchasedReturning || latestMember.purchasedReturning || 0,
+    refundAmount: current.refundAmount || 0,
+    prevRefundAmount: previous.refundAmount || 0,
+    netSales: current.netSales || Math.max(0, (current.sales || 0) - (current.refundAmount || 0)),
+    prevNetSales: previous.netSales || Math.max(0, (previous.sales || 0) - (previous.refundAmount || 0)),
+    oldBuyerSales: current.oldBuyerSales || 0,
+    activeReturnSales,
+    activeReturnVisitors,
+    activeReturnOrders,
+    activeReturnConversion: activeReturnVisitors ? activeReturnOrders / activeReturnVisitors * 100 : 0,
+    activeReturnUvValue: activeReturnVisitors ? activeReturnSales / activeReturnVisitors : 0,
     hasTrafficOverview: Boolean(trafficRows.length),
     hasMemberOverview: Boolean(memberRows.length)
   };
@@ -2279,12 +3210,35 @@ function pickCurrentOverallRows(rows) {
   if (!overallRows.length) return [];
   const ownRows = overallRows.filter((row) => !row.sourceCategory || String(row.sourceCategory).includes('本店'));
   const source = ownRows.length ? ownRows : overallRows;
-  const firstDate = source.find((row) => row.date)?.date;
-  if (firstDate && source.length > 1) return source.filter((row) => row.date === firstDate);
-  return source;
+  const homepageRows = source
+    .filter((row) => /首页-数据概览/.test(row.sourceFile || '') && coreValueScore(row) >= 3)
+    .sort((a, b) => a.rowIndex - b.rowIndex);
+  if (homepageRows.length) return [homepageRows[0]];
+  const ranked = source
+    .filter((row) => coreValueScore(row) > 0)
+    .sort((a, b) => (
+      overallSourcePriority(b) - overallSourcePriority(a) ||
+      coreValueScore(b) - coreValueScore(a) ||
+      a.rowIndex - b.rowIndex
+    ));
+  const best = ranked[0];
+  if (!best) return [];
+  if (!best.date) return [best];
+  const sameDate = ranked.filter((row) => (
+    row.date === best.date &&
+    overallSourcePriority(row) === overallSourcePriority(best)
+  ));
+  return sameDate.length ? sameDate : [best];
 }
 
 function pickPreviousOverallRows(rows, currentRows) {
+  const current = currentRows[0] || {};
+  if (/首页-数据概览/.test(current.sourceFile || '')) {
+    const homepageRows = rows
+      .filter((row) => row.reportKind === 'overall' && row.bucket !== 'benchmark' && row.sourceFile === current.sourceFile && row.rowIndex > current.rowIndex)
+      .sort((a, b) => a.rowIndex - b.rowIndex);
+    if (homepageRows.length) return [homepageRows[0]];
+  }
   const currentDate = currentRows.find((row) => row.date)?.date;
   const currentCategory = currentRows.find((row) => row.sourceCategory)?.sourceCategory;
   const source = rows.filter((row) => (
@@ -2294,20 +3248,29 @@ function pickPreviousOverallRows(rows, currentRows) {
     row.date !== currentDate &&
     (!currentCategory || row.sourceCategory === currentCategory)
   ));
-  const firstDate = source.find((row) => row.date)?.date;
-  return firstDate ? source.filter((row) => row.date === firstDate) : [];
+  const ranked = source.sort((a, b) => (
+    overallSourcePriority(b) - overallSourcePriority(a) ||
+    coreValueScore(b) - coreValueScore(a) ||
+    a.rowIndex - b.rowIndex
+  ));
+  const firstDate = ranked.find((row) => row.date)?.date;
+  return firstDate ? ranked.filter((row) => row.date === firstDate && overallSourcePriority(row) === overallSourcePriority(ranked[0])) : ranked.slice(0, 1);
 }
 
 function rowsToFormData(rows, filename) {
   const mapped = rows.map(toImportedRow).filter((row) => (
     row.sales || row.visitors || row.orders || row.spend || row.clicks || row.impressions ||
-    row.itemName || row.trafficSource || row.promotionName || row.activityName || row.refundRate || row.refundAmount ||
+    row.itemName || row.categoryName || row.trafficSource || row.promotionName || row.activityName || row.liveName || row.contentName || row.serviceName ||
+    row.refundRate || row.refundAmount || row.liveVisitors || row.liveClickUsers || row.contentVisitors ||
     row.serviceRate || row.pageViews || row.shopCustomers || row.newVisitors || row.oldVisitors
   ));
   if (!mapped.length) throw new Error('empty');
-  const currentRows = mapped.filter((row) => row.bucket === 'current');
+  const range = parseRangeFromText(filename || mapped.map((row) => row.sourceFile).join(' '));
+  const scopedRows = range ? mapped.filter((row) => rowInDateRange(row, range)) : mapped;
+  const sourceRows = scopedRows.length ? scopedRows : mapped;
+  const currentRows = sourceRows.filter((row) => row.bucket === 'current');
   const previousRows = mapped.filter((row) => row.bucket === 'previous');
-  const currentSource = currentRows.length ? currentRows : mapped.filter((row) => row.bucket !== 'benchmark');
+  const currentSource = currentRows.length ? currentRows : sourceRows.filter((row) => row.bucket !== 'benchmark');
   const currentOverallRows = pickCurrentOverallRows(currentSource);
   const previousOverallRows = previousRows.length ? pickCurrentOverallRows(previousRows) : pickPreviousOverallRows(currentSource, currentOverallRows);
   const current = aggregateRows(currentOverallRows.length ? currentOverallRows : currentSource);
@@ -2317,12 +3280,12 @@ function rowsToFormData(rows, filename) {
       ? aggregateRows(previousRows)
       : { sales: current.prevSales || 0, visitors: current.prevVisitors || 0 };
   const first = mapped.find((row) => row.storeName || row.industry || row.platform) || {};
-  const period = dateRangeLabel(currentOverallRows.length ? currentOverallRows : currentSource) || '导入周期';
-  const reportType = currentSource.length > 10 ? '月报' : '周报';
+  const period = range?.label || dateRangeLabel(currentOverallRows.length ? currentOverallRows : currentSource) || '导入周期';
+  const reportType = range ? (range.days > 10 ? '月报' : '周报') : (currentSource.length > 10 ? '月报' : '周报');
   const skippedText = rows.skippedFiles?.length ? `；暂未读取 ${rows.skippedFiles.length} 个文件，请检查是否加密、损坏或暂不支持` : '';
   const summary = buildImportSummary(mapped, rows, rows.skippedFiles || []);
   const lineage = buildDataLineage(rows);
-  const aux = buildImportedAux(current, mapped);
+  const aux = buildImportedAux(current, mapped, previous);
   const productStats = deriveProductStats(currentSource, current.sales);
   const channelShares = deriveChannelShares(currentSource);
   const details = buildImportedDetails(currentSource);
@@ -2341,6 +3304,7 @@ function rowsToFormData(rows, filename) {
     prevVisitors: Math.round(previous.visitors || 0),
     conversion: Number(current.conversion.toFixed(2)),
     aov: Number(current.aov.toFixed(2)),
+    refundAmount: Math.round(current.refundAmount || 0),
     refundRate: Number(current.refundRate.toFixed(2)),
     roi: Number(current.roi.toFixed(2)),
     productCount: Math.round(current.productCount || productStats.productCount),
@@ -2388,11 +3352,55 @@ function parseRowsFromArrays(arrays) {
     .filter((row) => row.some(Boolean));
   const headerIndex = normalized.findIndex((row) => {
     const text = row.join('|');
-    return row.filter(Boolean).length >= 2 && /日期|支付金额|访客|商品|宝贝|流量|计划|场景|退款|会员|客户|点击量|展现量/.test(text);
+    return row.filter(Boolean).length >= 2 && /日期|支付金额|成交金额|访客|商品|宝贝|流量|计划|场景|退款|会员|客户|点击量|展现量|类目|直播|观看|开播|客服|咨询|响应|光合|资产|内容/.test(text);
   });
   if (headerIndex < 0) return [];
   const headers = normalized[headerIndex].map((value, index) => value || `字段${index + 1}`);
   return normalized.slice(headerIndex + 1).map((values) => {
+    const item = {};
+    headers.forEach((header, index) => {
+      item[header] = values[index] || '';
+    });
+    return item;
+  }).filter((row) => Object.values(row).some(Boolean));
+}
+
+function headerlessHeaders(filename, width) {
+  const name = String(filename || '');
+  const fill = (headers) => Array.from({ length: Math.max(width, headers.length) }, (_, index) => headers[index] || `字段${index + 1}`);
+  if (/首页-数据概览/.test(name)) {
+    return fill(['字段1', '字段2', '支付金额', '店铺客户数', '访客平均价值', '支付买家数', '支付转化率', '客单价', '成功退款率', '老买家支付人数', '老买家支付金额', '支付件数', '支付订单数', '访客数', '浏览量', '成功退款金额', '净支付金额', '商品加购件数', '商品加购人数', '商品收藏人数', '访问收藏转化率', '访问加购转化率', '搜索引导支付金额', '内容引导支付金额', '直播成交金额', '客服支付金额', '淘宝客佣金', '成交人数']);
+  }
+  if (/流量_流量看板|流量总览/.test(name)) {
+    return fill(['访客数', '浏览量', '跳失率', '平均停留时长', '人均浏览量', '新访客数', '老访客数', '关注店铺人数', '商品访客数', '商品浏览量', '店铺页访客数', '直播间访客数', '短视频访客数', '内容查看人数']);
+  }
+  if (/客户-客户概况/.test(name)) {
+    return fill(['店铺客户数', '新访客数', '老访客数', '已购客户回访', '未购客户回访']);
+  }
+  if (/店铺绩效/.test(name)) {
+    return fill(['日期', '访客数', '咨询人数', '成交人数', '支付金额', '支付买家数', '成交笔数', '询单转化率', '支付转化率', '退款金额', '净支付金额']);
+  }
+  if (/客服绩效/.test(name)) {
+    return fill(['客服名称', '咨询人数', '接待人数', '询单转化率', '成交人数', '客服支付金额', '成交笔数', '成交金额', '支付买家数', '支付件数', '客服成交占比', '退款金额', '净支付金额', '客服响应率']);
+  }
+  if (/客服团队概览/.test(name)) {
+    return fill(['日期', '接待客服数', '平均响应时长', '满意度评价数', '客服支付金额', '支付买家数', '客服成交占比', '成交金额', '退款金额', '询单转化率', '接待人数', '客服响应率']);
+  }
+  if (/光合|资产总览/.test(name)) {
+    return fill(['内容曝光量', '内容成交人数', '内容点击人数', '内容支付买家数', '内容成交金额', '内容互动人数', '内容发布数', '内容浏览量', '直播成交人数', '内容加购人数', '直播成交金额', '内容收藏人数', '内容关注人数', '内容转化率', '短视频访客数', '内容成交件数', '内容成交转化率', '图文发布数', '短视频发布数', '直播场次']);
+  }
+  return null;
+}
+
+function parseHeaderlessRows(arrays, filename) {
+  const normalized = arrays
+    .map((row) => row.map((cell) => String(cell || '').trim()))
+    .filter((row) => row.some(Boolean));
+  if (!normalized.length) return [];
+  const width = Math.max(...normalized.map((row) => row.length));
+  const headers = headerlessHeaders(filename, width);
+  if (!headers) return [];
+  return normalized.map((values) => {
     const item = {};
     headers.forEach((header, index) => {
       item[header] = values[index] || '';
@@ -2688,7 +3696,7 @@ function nodeText(node, tagName) {
   return child ? child.textContent || '' : '';
 }
 
-async function parseXlsxRows(buffer) {
+async function parseXlsxRows(buffer, filename = '') {
   const entries = await unzipEntries(buffer);
   const parser = new DOMParser();
   const shared = [];
@@ -2714,7 +3722,8 @@ async function parseXlsxRows(buffer) {
     });
     return row;
   });
-  return parseRowsFromArrays(arrays);
+  const parsed = parseRowsFromArrays(arrays);
+  return parsed.length ? parsed : parseHeaderlessRows(arrays, filename);
 }
 
 function parseHtmlDocRows(text, filename) {
@@ -2736,7 +3745,7 @@ async function readRowsFromFile(file) {
   const buffer = await file.arrayBuffer();
   let rows;
   if (lowerName.endsWith('.xlsx')) {
-    rows = await parseXlsxRows(buffer);
+    rows = await parseXlsxRows(buffer, file.name);
   } else if (lowerName.endsWith('.xls')) {
     rows = parseLegacyXlsRows(buffer);
   } else if (lowerName.endsWith('.doc') || lowerName.endsWith('.html')) {
@@ -2748,7 +3757,7 @@ async function readRowsFromFile(file) {
     const text = decodeTextBuffer(buffer, lowerName.endsWith('.csv') ? 'gb18030' : '');
     rows = parseCsv(text);
   }
-  return rows.map((row) => ({ ...row, 来源文件: file.name }));
+  return rows.map((row, index) => ({ ...row, 来源文件: file.name, __rowIndex: index }));
 }
 
 async function importDataFiles(files) {
@@ -2911,10 +3920,10 @@ function confirmImportedReport() {
 
 function downloadDataTemplate() {
   const template = [
-    '周期,日期,店铺名称,平台,行业,宝贝名称,流量来源,推广计划,活动名称,销售额,访客数,订单数,转化率,客单价,退款率,ROI,花费,点击量,商品总数,有成交商品数,TOP SKU销售占比,客服响应达标率,搜索占比,推荐占比,内容占比,付费占比,私域占比',
-    '上期,2026-05-01,某美妆旗舰店,天猫,美妆个护,5年陈皮100g,搜索流量,关键词推广,日常销售,42000,31000,690,2.23,60.87,4.8,2.6,1200,3600,86,50,42,84,35,19,18,20,8',
-    '本期,2026-05-08,某美妆旗舰店,天猫,美妆个护,5年陈皮100g,搜索流量,关键词推广,618预热,45800,32800,770,2.35,59.48,4.2,2.9,1350,3900,86,54,41,87,34,18,21,19,8',
-    '本期,2026-05-09,某美妆旗舰店,天猫,美妆个护,礼盒组合装,付费流量,万相台推广,618预热,31800,18600,390,2.10,81.54,3.8,2.4,1325,2400,86,54,41,87,34,18,21,19,8'
+    '周期,日期,店铺名称,平台,行业,宝贝名称,流量来源,推广计划,活动名称,销售额,访客数,订单数,转化率,客单价,退款金额,退款率,退款原因,退款笔数,ROI,花费,点击量,加购数,商品总数,有成交商品数,TOP SKU销售占比,客服响应达标率,搜索占比,推荐占比,内容占比,付费占比,私域占比',
+    '上期,2026-05-01,某美妆旗舰店,天猫,美妆个护,5年陈皮100g,搜索流量,关键词推广,日常销售,42000,31000,690,2.23,60.87,1800,4.8,规格误解,18,2.6,1200,3600,520,86,50,42,84,35,19,18,20,8',
+    '本期,2026-05-08,某美妆旗舰店,天猫,美妆个护,5年陈皮100g,搜索流量,关键词推广,618预热,45800,32800,770,2.35,59.48,1600,4.2,物流破损,14,2.9,1350,3900,610,86,54,41,87,34,18,21,19,8',
+    '本期,2026-05-09,某美妆旗舰店,天猫,美妆个护,礼盒组合装,付费流量,万相台推广,618预热,31800,18600,390,2.10,81.54,1200,3.8,描述不符,9,2.4,1325,2400,320,86,54,41,87,34,18,21,19,8'
   ].join('\n');
   downloadText(template, 'pinmoo-week-month-report-template.csv');
 }
