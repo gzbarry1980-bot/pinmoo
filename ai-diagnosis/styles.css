@@ -1084,7 +1084,7 @@ legend,
 .modal-card {
   position: relative;
   z-index: 1;
-  width: min(560px, 100%);
+  width: min(680px, 100%);
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
@@ -1124,7 +1124,47 @@ legend,
 
 .modal-form {
   display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
+}
+
+.modal-summary {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f8fbff;
+  padding: 12px;
+}
+
+.modal-summary strong {
+  color: var(--title);
+}
+
+.modal-summary p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.modal-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modal-chip {
+  display: inline-flex;
+  min-height: 26px;
+  align-items: center;
+  border: 1px solid #bfd3ff;
+  border-radius: 99px;
+  background: #eef4ff;
+  color: var(--blue);
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 800;
 }
 
 .modal-form label {
@@ -1151,6 +1191,12 @@ legend,
   justify-content: flex-end;
   gap: 10px;
   margin-top: 20px;
+}
+
+@media (max-width: 720px) {
+  .modal-form {
+    grid-template-columns: 1fr;
+  }
 }
 
 .toast {

@@ -184,6 +184,7 @@ let latestDiagnosis = null;
 let importedDetails = null;
 let importedSummary = null;
 let importedAux = null;
+let importedLineage = null;
 let pendingImportMeta = null;
 
 const $ = (selector) => document.querySelector(selector);
@@ -244,6 +245,7 @@ function getFormData() {
   data.importedDetails = importedDetails;
   data.importSummary = importedSummary;
   data.importedAux = importedAux;
+  data.importedLineage = importedLineage;
   return data;
 }
 
@@ -256,6 +258,7 @@ function setFormData(data) {
   importedDetails = data.importedDetails || null;
   importedSummary = data.importSummary || null;
   importedAux = data.importedAux || null;
+  importedLineage = data.importedLineage || null;
   fieldIds.forEach((id) => {
     if (data[id] !== undefined && $('#' + id)) $('#' + id).value = data[id];
   });
@@ -784,6 +787,7 @@ function reportModuleState(diagnosis) {
   return {
     imported,
     importSummary: imported,
+    lineage: imported && Boolean(diagnosis.data.importedLineage && diagnosis.data.importedLineage.length),
     aux: Boolean(aux.hasTrafficOverview || aux.hasMemberOverview),
     overall: !imported || hasImportedModule(diagnosis, '店铺整体'),
     product: !imported || (hasImportedModule(diagnosis, '宝贝排行') && actualImportedDetails(diagnosis, 'products').length > 0),
@@ -803,6 +807,7 @@ function adaptiveReportOutline(diagnosis) {
   const included = ['老板先看', '数据完整度'];
   included.push('类目诊断方向');
   if (state.importSummary) included.push('导入文件使用情况');
+  if (state.lineage) included.push('数据口径确认');
   if (state.aux) included.push('流量与客户辅助诊断');
   if (state.target) included.push('下周期目标建议');
   if (state.overall) included.push('店铺整体情况');
@@ -873,6 +878,60 @@ function importSummaryHtml(diagnosis) {
           { render: (item) => escapeHtml(item.modules || '-') },
           { render: (item) => escapeHtml(item.note || '-') }
         ], '暂无导入文件明细')}
+      </tbody>
+    </table>
+  `);
+}
+
+function metricLineageSpecs() {
+  return [
+    { key: 'sales', name: '销售额', aliases: ['销售额', 'GMV', '成交金额', '支付金额', '总支付金额', '净支付金额', '总成交金额', '直接成交金额', '间接成交金额', '引入成交金额', 'sales'], format: (data) => yuan(data.sales), method: '优先读取平台支付金额/成交金额；若存在本店大盘行，优先采用大盘行。' },
+    { key: 'prevSales', name: '对比期销售额', aliases: ['销售额-对比日', '成交金额-对比日', '支付金额-对比日', 'salesPrev', 'prevSales'], format: (data) => yuan(data.prevSales), method: '优先读取对比字段；没有对比字段时，尝试按相邻日期/月度大盘自动识别。' },
+    { key: 'visitors', name: '访客数', aliases: ['访客数', '访客', 'UV', '店铺访客数', '商品访客数', '引入商详访客数', 'visitors'], format: (data) => Math.round(data.visitors).toLocaleString('zh-CN'), method: '优先读取店铺大盘访客；商品/流量明细只用于排行和结构，不直接覆盖大盘。' },
+    { key: 'conversion', name: '转化率', aliases: ['转化率', '支付转化率', '点击转化率', '询单转化率', '商品支付转化率', '店铺成交转化率', '成交转化率', 'conversion'], format: (data) => percent(data.conversion), method: '优先使用平台原始转化率字段；没有时才用成交人数/访客数推算。' },
+    { key: 'aov', name: '客单价', aliases: ['客单价', '人均成交金额', '会员客单价', 'aov'], format: (data) => yuan(data.aov), method: '优先使用平台客单价字段；没有时才用销售额/成交人数推算。' },
+    { key: 'refundRate', name: '退款率', aliases: ['退款率', '退货率', '成功退款率', '金额退款率', '订单退款率', 'refundRate'], format: (data) => percent(data.refundRate), method: '百分数字段按百分比识别，小于 1 的平台小数会自动换算为百分比。' },
+    { key: 'refundAmount', name: '退款金额', aliases: ['退款金额', '取消及售后退款金额', '成功退款金额', 'refundAmount'], format: (data) => data.importedAux?.refundAmount ? yuan(data.importedAux.refundAmount) : '-', method: '用于校验退款率和售后风险，若无大盘退款金额则只做退款原因参考。' },
+    { key: 'roi', name: '投放 ROI', aliases: ['ROI', '投放ROI', '投产比', '投入产出比', '含预售投产比', 'roi'], format: (data) => data.roi > 0 ? data.roi.toFixed(2) : '未提供', method: '优先读取计划/推广报表 ROI；缺失时不按 0 判断低效。' },
+    { key: 'product', name: '商品动销', aliases: ['商品名称', '宝贝名称', '商品ID', 'SPU名称', '商品总数', '商品数', '有成交商品数', '动销商品数', 'activeProductCount'], format: (data) => `${data.activeProductCount}/${data.productCount}`, method: '优先根据商品明细聚合成交商品数；有大盘商品数时用大盘值校准。' },
+    { key: 'traffic', name: '渠道结构', aliases: ['一级来源', '二级来源', '三级来源', '四级来源', '流量来源', '渠道来源', '搜索占比', '推荐占比', '内容占比', '付费占比', '私域占比'], format: (data) => `${percent(data.searchShare, 1)} / ${percent(data.recommendShare, 1)} / ${percent(data.contentShare, 1)} / ${percent(data.paidShare, 1)} / ${percent(data.privateShare, 1)}`, method: '生意参谋来源表按经营优势/付费推广/主动回访等层级归类，避免父子来源重复累加。' },
+    { key: 'serviceRate', name: '客服/服务承接', aliases: ['客服响应达标率', '客服响应率', '旺旺满意度', '24小时揽收及时率', '48小时揽收及时率', 'serviceRate'], format: (data) => data.serviceRate ? percent(data.serviceRate, 1) : '未提供', method: '根据客服或服务体验字段读取；缺失时只提示补充，不默认判差。' }
+  ];
+}
+
+function lineageRows(diagnosis) {
+  const source = diagnosis.data.importedLineage || [];
+  const sourceMap = new Map(source.map((item) => [item.key, item]));
+  return metricLineageSpecs().map((spec) => {
+    const item = sourceMap.get(spec.key) || {};
+    const files = item.files && item.files.length ? item.files.join('、') : '-';
+    const fields = item.fields && item.fields.length ? item.fields.join('、') : '-';
+    const hasValue = !['-', '¥ 0', '0', '0.00%', '未提供', '0/0'].includes(String(spec.format(diagnosis.data)));
+    const status = item.status || (hasValue ? '已计算，待确认来源' : '待补充');
+    return {
+      metric: spec.name,
+      value: spec.format(diagnosis.data),
+      status,
+      files,
+      fields,
+      method: spec.method
+    };
+  });
+}
+
+function lineageHtml(diagnosis) {
+  return reportSection('数据口径确认', `
+    <table class="report-table">
+      <thead><tr><th>指标</th><th>本期值</th><th>口径状态</th><th>来源文件</th><th>匹配字段</th><th>计算/取数说明</th></tr></thead>
+      <tbody>
+        ${tableRows(lineageRows(diagnosis), [
+          { render: (item) => escapeHtml(item.metric) },
+          { render: (item) => escapeHtml(item.value) },
+          { render: (item) => escapeHtml(item.status) },
+          { render: (item) => escapeHtml(item.files) },
+          { render: (item) => escapeHtml(item.fields) },
+          { render: (item) => escapeHtml(item.method) }
+        ], '暂无数据口径记录')}
       </tbody>
     </table>
   `);
@@ -1005,6 +1064,7 @@ function renderReport(diagnosis) {
   const dynamicSections = [reportOutlineHtml(diagnosis)];
   dynamicSections.push(categoryDirectionHtml(diagnosis));
   if (state.importSummary) dynamicSections.push(importSummaryHtml(diagnosis));
+  if (state.lineage) dynamicSections.push(lineageHtml(diagnosis));
   if (state.aux) dynamicSections.push(reportSection('流量与客户辅助诊断', `<ul>${auxiliaryDiagnosis(diagnosis).map((item) => `<li>${item}</li>`).join('')}</ul>`));
   if (state.target) dynamicSections.push(targetPlanHtml(targetPlan));
   if (state.overall) dynamicSections.push(overallHtml(diagnosis));
@@ -1367,13 +1427,16 @@ function buildWeeklySections(data, issues) {
 function buildDataQuality(data) {
   const details = data.importedDetails || {};
   const aux = data.importedAux || {};
+  const lineage = data.importedLineage || [];
+  const confirmedLineage = lineage.filter((item) => item.status === '已匹配来源字段').length;
   const checks = [
     { key: 'overall', name: '店铺整体', ok: data.sales > 0 && data.visitors > 0, tip: '需要销售额、访客、订单/转化率等大盘数据' },
     { key: 'product', name: '宝贝排行', ok: Boolean(details.products && details.products.length), tip: '建议导入宝贝名称、销售额、访客、订单、转化率' },
     { key: 'traffic', name: '流量数据', ok: Boolean((details.traffic && details.traffic.length) || aux.hasTrafficOverview), tip: '建议导入流量来源、访客、成交、转化率，或流量看板总览' },
     { key: 'promotion', name: '推广情况', ok: Boolean(details.promotion && details.promotion.length), tip: '建议导入推广计划、花费、点击、成交、ROI' },
     { key: 'activity', name: '活动情况', ok: Boolean(details.activity && details.activity.length), tip: '建议导入活动名称、活动成交、活动访客、订单' },
-    { key: 'refund', name: '退款/售后', ok: data.refundRate > 0 || Boolean(data.importSummary?.some((item) => (item.modules || []).includes('退款售后'))), tip: '建议导入退款率、退款金额、退款原因或售后明细' }
+    { key: 'refund', name: '退款/售后', ok: data.refundRate > 0 || Boolean(data.importSummary?.some((item) => (item.modules || []).includes('退款售后'))), tip: '建议导入退款率、退款金额、退款原因或售后明细' },
+    { key: 'lineage', name: '指标口径', ok: !lineage.length || confirmedLineage >= 6, tip: '需要确认销售、访客、转化、客单、退款、渠道等核心指标的来源字段' }
   ];
   const complete = checks.filter((item) => item.ok).length;
   return {
@@ -1488,6 +1551,9 @@ function reportText(diagnosis) {
   lines.push('', '类目诊断方向', ...categoryDirectionRows(diagnosis).map((item) => `- ${item.name}：${item.value}`));
   if (state.importSummary) {
     lines.push('', '四、导入文件使用情况', ...importSummaryRows(diagnosis).map((item) => `- ${item.file}：${item.status}，使用行数 ${item.rows}，进入模块 ${item.modules}，${item.note}`));
+  }
+  if (state.lineage) {
+    lines.push('', '数据口径确认', ...lineageRows(diagnosis).map((item) => `- ${item.metric}：${item.value}；${item.status}；来源 ${item.files}；字段 ${item.fields}；${item.method}`));
   }
   if (state.aux) {
     lines.push('', '流量与客户辅助诊断', ...auxiliaryDiagnosis(diagnosis).map((item) => `- ${item}`));
@@ -2150,6 +2216,40 @@ function buildImportSummary(mapped, rawRows, skippedFiles = []) {
   });
 }
 
+function matchedFields(row, aliases) {
+  const keys = Object.keys(row);
+  return aliases.flatMap((alias) => {
+    const target = normalizeKey(alias);
+    const key = keys.find((item) => normalizeKey(item) === target);
+    return key !== undefined && row[key] !== '' ? [key] : [];
+  });
+}
+
+function buildDataLineage(rawRows) {
+  return metricLineageSpecs().map((spec) => {
+    const fileMap = new Map();
+    const fieldSet = new Set();
+    rawRows.forEach((row) => {
+      const fields = matchedFields(row, spec.aliases);
+      if (!fields.length) return;
+      const file = row.来源文件 || row.sourceFile || '未知文件';
+      fileMap.set(file, (fileMap.get(file) || 0) + 1);
+      fields.forEach((field) => fieldSet.add(field));
+    });
+    const files = Array.from(fileMap.entries())
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 4)
+      .map(([file, count]) => `${file}（${count}行）`);
+    const fields = Array.from(fieldSet).slice(0, 8);
+    return {
+      key: spec.key,
+      files,
+      fields,
+      status: files.length ? '已匹配来源字段' : '待补充来源字段'
+    };
+  });
+}
+
 function buildImportedAux(current, mapped) {
   const trafficRows = mapped.filter((row) => row.reportKind === 'trafficOverview');
   const memberRows = mapped.filter((row) => row.reportKind === 'member');
@@ -2221,6 +2321,7 @@ function rowsToFormData(rows, filename) {
   const reportType = currentSource.length > 10 ? '月报' : '周报';
   const skippedText = rows.skippedFiles?.length ? `；暂未读取 ${rows.skippedFiles.length} 个文件，请检查是否加密、损坏或暂不支持` : '';
   const summary = buildImportSummary(mapped, rows, rows.skippedFiles || []);
+  const lineage = buildDataLineage(rows);
   const aux = buildImportedAux(current, mapped);
   const productStats = deriveProductStats(currentSource, current.sales);
   const channelShares = deriveChannelShares(currentSource);
@@ -2254,6 +2355,7 @@ function rowsToFormData(rows, filename) {
     importedDetails: details,
     importSummary: summary,
     importedAux: aux,
+    importedLineage: lineage,
     notes: `已导入 ${mapped.length} 行经营数据，其中本期 ${currentSource.length} 行，上期 ${previousRows.length} 行${skippedText}。`
   };
 }
@@ -2662,6 +2764,10 @@ async function importDataFiles(files) {
   const rows = allRowsNested.flat();
   rows.skippedFiles = skippedFiles;
   const data = rowsToFormData(rows, fileList.map((file) => file.name).join(' + '));
+  const suggestions = inferImportSuggestions(fileList, rows, data);
+  data.storeName = data.storeName || suggestions.storeName;
+  data.industry = suggestions.industry || data.industry;
+  data.platform = suggestions.platform || data.platform;
   setFormData(data);
   setLatest(analyze(getFormData()), false);
   const skippedText = skippedFiles.length ? `；${skippedFiles.length} 个文件暂未读取，请检查是否为加密、损坏或暂不支持格式` : '';
@@ -2669,19 +2775,105 @@ async function importDataFiles(files) {
     fileCount: fileList.length - skippedFiles.length,
     rowCount: rows.length,
     reportType: data.reportType,
-    skippedText
+    skippedText,
+    suggestions,
+    modules: summarizeImportModules(data.importSummary || []),
+    skippedFiles
   };
   $('#importStatus').textContent = `已导入 ${pendingImportMeta.fileCount} 个文件、${pendingImportMeta.rowCount} 行数据。请确认店铺名称和类目后生成${data.reportType}${skippedText}。`;
   openImportConfirmModal(pendingImportMeta);
   toast(skippedFiles.length ? '已导入可识别文件，请确认店铺信息' : '数据已导入，请确认店铺信息');
 }
 
+function inferImportSuggestions(fileList, rows, data) {
+  const filenames = fileList.map((file) => file.name);
+  const text = [
+    filenames.join(' '),
+    rows.slice(0, 120).map((row) => Object.values(row).join(' ')).join(' ')
+  ].join(' ');
+  return {
+    storeName: data.storeName || inferStoreName(filenames, rows),
+    industry: data.industry && data.industry !== '美妆个护' ? data.industry : inferIndustry(text, data.industry),
+    platform: data.platform || inferImportPlatform(text),
+    reportType: data.reportType
+  };
+}
+
+function inferStoreName(filenames, rows) {
+  const fromRows = rows.map((row) => pick(row, ['店铺名称', '店铺', 'storeName', 'store'])).find(Boolean);
+  if (fromRows) return String(fromRows).trim();
+  const firstStrongName = filenames
+    .map((name) => name.replace(/\.[^.]+$/, '').split(/[_\-—]/)[0])
+    .map(cleanStoreNameCandidate)
+    .find((name) => /旗舰店|专营店|专卖店|店$/.test(name) && name.length >= 2);
+  if (firstStrongName) return firstStrongName;
+  const cleaned = filenames
+    .map((name) => name.replace(/\.[^.]+$/, ''))
+    .map((name) => name.replace(/\(.*?\)|（.*?）/g, ''))
+    .map((name) => name.replace(/^\d+[_-]?/, ''))
+    .map(cleanStoreNameCandidate)
+    .filter((name) => name.length >= 2 && name.length <= 20);
+  const best = cleaned.find((name) => /旗舰店|专营店|店|TALASA|世纪茗家|茗家/.test(name)) || cleaned[0];
+  return best || '';
+}
+
+function cleanStoreNameCandidate(name) {
+  return String(name || '')
+    .replace(/(店铺经营|经营月报|经营周报|首页|数据概览|生意参谋平台|生意参谋|无线店铺流量来源|商品_全部|商品报表|流量来源|退款分析|客户|客服|营销场景|计划报表|创意报表|单元报表|关键词报表|人群报表|地域报表|内容报表|月报|周报|报告|数据下载|汇总下载|离线|全部|天猫|京东|抖音|小红书|拼多多|视频号|最近\d+天|第\d+周|20\d{2}[-_~年]\d{1,2}.*$|\d{2,4}年\d{1,2}月.*$|\d{8}.*$)/g, '')
+    .replace(/[_\-—+\s]+/g, '')
+    .trim();
+}
+
+function inferIndustry(text, fallback) {
+  if (/连衣裙|女装|男装|T恤|衬衫|裤|裙|鞋|包|尺码|版型|面料|穿搭/.test(text)) return '服装鞋包';
+  if (/茶|咖啡|食品|饮|酒|陈皮|礼盒|口味|保质期|自饮/.test(text)) return '食品茶饮';
+  if (/面膜|护肤|精华|口红|美妆|个护|洗护|功效|成分|肤质/.test(text)) return '美妆个护';
+  if (/母婴|奶粉|营养|宝宝|孕|儿童|适龄|月龄/.test(text)) return '母婴营养';
+  if (/家居|百货|家具|收纳|厨房|床品|尺寸|安装|材质/.test(text)) return '家居百货';
+  if (/工厂|产业带|源头|批发|供应链|厂家/.test(text)) return '产业带工厂';
+  if (/到店|预约|核销|门店|套餐|本地生活/.test(text)) return '本地生活';
+  return fallback || '美妆个护';
+}
+
+function inferImportPlatform(text) {
+  if (/京东|JD|京准通|我的京东|10292689|734249/.test(text)) return '京东';
+  if (/抖音|千川|巨量|直播间/.test(text)) return '抖音';
+  if (/小红书|薯条|笔记|种草/.test(text)) return '小红书';
+  if (/视频号|微信/.test(text)) return '视频号';
+  if (/拼多多|多多/.test(text)) return '拼多多';
+  return '天猫';
+}
+
+function summarizeImportModules(importSummary) {
+  const counts = new Map();
+  importSummary.forEach((item) => {
+    (item.modules || []).forEach((moduleName) => {
+      counts.set(moduleName, (counts.get(moduleName) || 0) + (item.usedRows || 0));
+    });
+  });
+  return Array.from(counts.entries()).map(([name, rows]) => ({ name, rows }));
+}
+
+function importModuleChips(modules) {
+  if (!modules || !modules.length) return '<span class="modal-chip">暂未识别模块</span>';
+  return modules.map((item) => `<span class="modal-chip">${escapeHtml(item.name)} ${Math.round(item.rows || 0)}行</span>`).join('');
+}
+
 function openImportConfirmModal(meta) {
   const modal = $('#importConfirmModal');
   if (!modal) return;
-  $('#importConfirmText').textContent = `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据。请输入店铺名称和类目，然后生成${meta.reportType}。`;
-  $('#modalStoreName').value = $('#storeName').value || '';
-  $('#modalIndustry').value = $('#industry').value || '美妆个护';
+  const suggestion = meta.suggestions || {};
+  const skipped = meta.skippedFiles?.length ? `，${meta.skippedFiles.length} 个文件未读取` : '';
+  $('#importConfirmText').textContent = `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据${skipped}。请确认店铺信息后生成${meta.reportType}。`;
+  $('#modalImportSummary').innerHTML = `
+    <strong>系统识别建议</strong>
+    <p>店铺：${escapeHtml(suggestion.storeName || '待填写')}；类目：${escapeHtml(suggestion.industry || '待选择')}；平台：${escapeHtml(suggestion.platform || selectedPlatform)}；报告：${escapeHtml(suggestion.reportType || meta.reportType)}。</p>
+    <div class="modal-chips">${importModuleChips(meta.modules)}</div>
+  `;
+  $('#modalStoreName').value = suggestion.storeName || $('#storeName').value || '';
+  $('#modalIndustry').value = suggestion.industry || $('#industry').value || '美妆个护';
+  $('#modalPlatform').value = suggestion.platform || selectedPlatform || '天猫';
+  $('#modalReportType').value = suggestion.reportType || meta.reportType || $('#reportType').value || '月报';
   modal.hidden = false;
   setTimeout(() => $('#modalStoreName').focus(), 0);
 }
@@ -2694,6 +2886,8 @@ function closeImportConfirmModal() {
 function confirmImportedReport() {
   const storeName = $('#modalStoreName').value.trim();
   const industry = $('#modalIndustry').value;
+  const platform = $('#modalPlatform').value;
+  const reportType = $('#modalReportType').value;
   if (!storeName) {
     toast('请先输入店铺名称');
     $('#modalStoreName').focus();
@@ -2701,6 +2895,11 @@ function confirmImportedReport() {
   }
   $('#storeName').value = storeName;
   $('#industry').value = industry;
+  $('#reportType').value = reportType;
+  selectedPlatform = platform;
+  document.querySelectorAll('#platformTabs button').forEach((button) => {
+    button.classList.toggle('selected', button.dataset.platform === selectedPlatform);
+  });
   const diagnosis = analyze(getFormData());
   setLatest(diagnosis, true);
   closeImportConfirmModal();

@@ -6,7 +6,7 @@
     <title>Pinmoo AI 店铺经营诊断工作台</title>
     <meta name="description" content="Pinmoo AI 电商增长智能体店铺经营诊断初版，用于多店铺经营诊断、问题归因、行动计划和报告交付。" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=20260518-import-deep" />
   </head>
   <body>
     <div class="app-shell">
@@ -296,6 +296,7 @@
           </div>
           <button class="modal-close" type="button" data-close-import-modal aria-label="关闭">×</button>
         </div>
+        <div class="modal-summary" id="modalImportSummary"></div>
         <div class="modal-form">
           <label>店铺名称<input id="modalStoreName" type="text" placeholder="请输入店铺名称" /></label>
           <label>店铺类目
@@ -309,6 +310,22 @@
               <option>本地生活</option>
             </select>
           </label>
+          <label>店铺平台
+            <select id="modalPlatform">
+              <option>天猫</option>
+              <option>京东</option>
+              <option>抖音</option>
+              <option>小红书</option>
+              <option>视频号</option>
+              <option>拼多多</option>
+            </select>
+          </label>
+          <label>报告类型
+            <select id="modalReportType">
+              <option>周报</option>
+              <option>月报</option>
+            </select>
+          </label>
         </div>
         <div class="modal-actions">
           <button class="ghost-btn" type="button" data-close-import-modal>先看草稿</button>
@@ -318,6 +335,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js?v=20260517-import-confirm"></script>
+    <script src="./app.js?v=20260518-lineage"></script>
   </body>
 </html>
