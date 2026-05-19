@@ -139,7 +139,7 @@ function DashboardVisual() {
 }
 
 function Home() {
-  const stats = TRUST_STATS.map(function(item, index) { const names = ['BadgeCheck', 'Layers', 'BriefcaseBusiness', 'Users']; return '<div class="reveal stat-card"><span class="stat-icon">' + icon(names[index], 30) + '</span><strong><span class="stat-number" data-count="' + item.value + '" data-suffix="' + item.suffix + '">0' + item.suffix + '</span></strong><span>' + item.label + '</span></div>'; }).join('');
+  const stats = TRUST_STATS.map(function(item, index) { const names = ['BadgeCheck', 'Layers', 'BriefcaseBusiness', 'Users']; return '<div class="reveal stat-card"><span class="stat-icon">' + icon(names[index], 30) + '</span><div class="stat-copy"><strong><span class="stat-number" data-count="' + item.value + '" data-suffix="' + item.suffix + '">0' + item.suffix + '</span></strong><span>' + item.label + '</span></div></div>'; }).join('');
   const serviceGrid = services.map(function(service, index) { return '<div class="reveal ' + (index === 0 || index === 1 ? 'bento-large' : '') + '">' + ServiceCard(service) + '</div>'; }).join('');
   const methods = METHODOLOGY.map(function(step, index) { return '<div class="reveal method-step"><span class="step-index">0' + (index + 1) + '</span><div class="method-icon">' + icon(step.icon, 32) + '</div><h3>' + step.title + '</h3><strong>' + step.text + '</strong><p>' + step.detail + '</p></div>'; }).join('');
   const previewCases = cases.slice(0, 4).map(function(item) { return '<div class="reveal">' + CaseCard(item) + '</div>'; }).join('');
