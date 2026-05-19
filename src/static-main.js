@@ -434,9 +434,41 @@ function initFilters() {
   });
 }
 
+function isNetlifyFormsHost() {
+  const hostname = window.location.hostname;
+  return hostname === 'pinmooconsulting.com' ||
+    hostname === 'www.pinmooconsulting.com' ||
+    hostname.endsWith('.netlify.app');
+}
+
+function isLocalHost() {
+  return ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+}
+
+function contactSubmitLabel() {
+  if (!isNetlifyFormsHost() && !isLocalHost()) return isEn() ? 'Show WeChat Contact' : '提交后查看微信咨询方式';
+  return isEn() ? 'Submit Inquiry' : '提交咨询需求';
+}
+
+function showWechatConsultGuide(success) {
+  const heading = isEn() ? 'Please add WeChat to continue the consultation.' : '请添加微信继续咨询。';
+  const hint = isEn()
+    ? 'This Alibaba Cloud site is a static Nginx deployment and does not collect form submissions directly. Please add WeChat / mobile '
+    : '当前阿里云站点为静态 Nginx 部署，不直接收集表单。请添加微信 / 手机同号 ';
+  const note = isEn()
+    ? ' and mention your purpose, such as e-commerce consulting, store diagnosis, operation coaching or brand growth.'
+    : '，并注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长。';
+  success.innerHTML = icon('MessageCircle', 20) + '<div><strong>' + heading + '</strong><p>' + hint + '<a href="tel:' + SITE.phone + '">' + SITE.phoneDisplay + '</a>' + note + '</p></div>';
+  success.hidden = false;
+  const qr = document.querySelector('.wechat-qr-card');
+  if (qr) qr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
 function initContactForm() {
   const form = document.querySelector('.contact-form');
   if (!form) return;
+  const submitButton = form.querySelector('.form-submit');
+  if (submitButton) submitButton.textContent = contactSubmitLabel();
   const selected = new Set();
   const selectedServices = new Set();
   const platformInput = form.querySelector('.form-platforms');
@@ -487,15 +519,20 @@ function initContactForm() {
       payload.set(key, String(fd.get(key) || ''));
     });
 
-    const isLocal = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+    const isLocal = isLocalHost();
+    const shouldUseNetlifyForms = isNetlifyFormsHost();
     try {
-      if (!isLocal) {
+      if (shouldUseNetlifyForms) {
         const response = await fetch('/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: payload.toString()
         });
         if (!response.ok) throw new Error('submit failed');
+      } else if (!isLocal) {
+        await new Promise(function(resolve) { window.setTimeout(resolve, 400); });
+        showWechatConsultGuide(success);
+        return;
       } else {
         await new Promise(function(resolve) { window.setTimeout(resolve, 1000); });
       }
@@ -513,7 +550,7 @@ function initContactForm() {
       success.innerHTML = icon('MessageCircle', 20) + (isEn() ? 'Submission did not go through. You can also add WeChat / mobile ' + SITE.phoneDisplay + ' and mention your purpose. We will reply as soon as possible.' : '提交暂时没有成功。你也可以直接添加微信 / 手机同号 ' + SITE.phoneDisplay + '，并注明来意，我们会尽快回复。');
     } finally {
       submit.disabled = false;
-      submit.textContent = isEn() ? 'Submit Inquiry' : '提交咨询需求';
+      submit.textContent = contactSubmitLabel();
     }
   });
 }
