@@ -104,7 +104,7 @@ function Header() {
 
 function Footer() {
   const links = NAV_ITEMS.map(function(item) { return '<a href="' + localizeHref(item.href) + '">' + item.label + '</a>'; }).join('');
-  return '<footer class="site-footer"><div class="container footer-grid"><div class="footer-brand">' + logo('logo-frame-footer') + '<p>' + SITE.company + '</p><p>专注电商战略咨询与品牌增长陪跑</p></div><div><h2>导航链接</h2><div class="footer-links">' + links + '</div></div><div><h2>联系方式</h2><p>' + SITE.contactLabel + '</p><p>' + SITE.address + '</p><p>' + SITE.contactNote + '</p><p>ICP备案号：待补充</p></div></div><div class="footer-bottom">© 2026 ' + SITE.company + '. All rights reserved.</div></footer>';
+  return '<footer class="site-footer"><div class="container footer-grid"><div class="footer-brand">' + logo('logo-frame-footer') + '<p>' + SITE.company + '</p><p>专注电商战略咨询与品牌增长陪跑</p></div><div><h2>导航链接</h2><div class="footer-links">' + links + '</div></div><div><h2>联系方式</h2><p>' + SITE.contactLabel + '</p><p>' + SITE.address + '</p><p>' + SITE.contactNote + '</p></div></div><div class="footer-bottom">© 2026 ' + SITE.company + '. All rights reserved.</div></footer>';
 }
 
 function ButtonLink(label, href, variant, withIcon) {
@@ -281,9 +281,9 @@ function About() {
 }
 
 function ContactForm() {
-  const checks = PLATFORM_LIST.concat(['其他']).map(function(p) { return '<button type="button" data-platform="' + p + '">' + p + '</button>'; }).join('');
-  const serviceChecks = services.map(function(service) { return '<button type="button" data-service="' + service.title + '">' + service.title + '</button>'; }).join('');
-  return '<form class="contact-form" name="consultation" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate><input type="hidden" name="form-name" value="consultation"><input type="hidden" name="sourcePage" value="' + requestedPathname + '"><p class="hidden-field"><label>请勿填写：<input name="bot-field"></label></p><div class="form-heading">' + icon('FilePenLine', 26) + '<h2>在线咨询</h2></div><label><span>姓名 <b>*</b></span><input name="name" placeholder="请输入您的姓名"><em data-error="name"></em></label><label><span>公司名称 <b>*</b></span><input name="company" placeholder="请输入公司名称"><em data-error="company"></em></label><label><span>联系电话 <b>*</b></span><input name="phone" placeholder="请输入手机号" inputmode="tel"><em data-error="phone"></em></label><label><span>微信号</span><input name="wechat" placeholder="请输入微信号（选填）"></label><input type="hidden" name="platforms" class="form-platforms" value=""><fieldset><legend>关注平台</legend><div class="platform-checks">' + checks + '</div></fieldset><input type="hidden" name="services" class="form-services" value=""><fieldset><legend>咨询服务</legend><div class="platform-checks service-checks">' + serviceChecks + '</div></fieldset><label><span>咨询需求</span><textarea name="message" maxlength="500" placeholder="请简要描述您的品牌/店铺情况及当前需要解决的问题"></textarea></label><button class="form-submit" type="submit">提交咨询需求</button><div class="success-message" hidden>' + icon('CheckCircle2', 20) + '已收到您的需求。你也可以直接添加微信 / 手机同号 ' + SITE.phoneDisplay + '，并注明来意，我们会尽快回复。</div><p class="form-note">' + icon('MessageCircle', 18) + '你也可以直接添加微信 / 手机同号 <a href="tel:' + SITE.phone + '">' + SITE.phoneDisplay + '</a>，并注明来意。</p></form>';
+  const intents = ['电商咨询', '店铺诊断', '运营陪跑', '品牌增长', '官网咨询'].map(function(item) { return '<span>' + item + '</span>'; }).join('');
+  const servicesList = services.map(function(service) { return '<li>' + icon(service.icon, 20) + '<span>' + service.title + '</span></li>'; }).join('');
+  return '<section class="contact-direct-panel" aria-labelledby="wechatConsultTitle"><div class="form-heading">' + icon('MessageCircle', 26) + '<h2 id="wechatConsultTitle">扫码添加微信，直接预约咨询</h2></div><div class="direct-qr-block"><div class="wechat-qr-crop direct-qr"><img src="/assets/wechat-qr-mufeng.jpg" alt="沐风微信二维码" loading="lazy"></div><div><strong>微信 / 手机同号：' + SITE.phoneDisplay + '</strong><p>添加微信或拨打电话时，请注明来意，我们会更快判断你的需求并安排沟通。</p><div class="direct-intents">' + intents + '</div><a class="direct-phone-link" href="tel:' + SITE.phone + '">' + icon('Phone', 18) + '拨打电话</a></div></div><div class="direct-service-box"><h3>可以直接咨询这些问题</h3><ul>' + servicesList + '</ul></div><p class="direct-note">建议添加微信后，简单发送：品牌/店铺名称、所在平台、当前最想解决的问题。</p></section>';
 }
 
 function Contact() {
@@ -291,7 +291,7 @@ function Contact() {
     const content = item[0].indexOf('手机') >= 0 ? '<a href="tel:' + SITE.phone + '">' + item[1] + '</a>' : item[0] === '公司地址' ? '<a href="' + SITE.mapUrl + '" target="_blank" rel="noopener">' + item[1] + '</a><p class="map-hint">点击查看地图定位</p>' : '<p>' + item[1] + '</p>';
     return '<div class="contact-info-row"><span>' + icon(item[2], 26) + '</span><div><h2>' + item[0] + '</h2>' + content + '</div></div>';
   }).join('');
-  return PageHero('联系我们', '如果你正在思考品牌电商下一步怎么做，可以先和品沐聊一聊。', true) + '<section class="section contact-section"><div class="container contact-grid"><div class="reveal contact-info-panel">' + contactItems + '<div class="wechat-qr-card"><div class="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="沐风微信二维码" loading="lazy"></div><div><strong>扫码添加微信</strong><p>微信 / 手机同号：' + SITE.phoneDisplay + '</p><span>添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长</span></div></div><div class="contact-promise-grid"><div>' + icon('Zap', 24) + '<strong>快速沟通</strong><span>直连顾问高效响应</span></div><div>' + icon('Target', 24) + '<strong>明确需求</strong><span>精准匹配解决方案</span></div><div>' + icon('ShieldCheck', 24) + '<strong>24小时内回复</strong><span>工作日内快速跟进</span></div></div></div><div class="reveal">' + ContactForm() + '</div></div></section><section class="section contact-bottom-section"><div class="container two-question-grid"><div class="reveal question-card">' + icon('CircleUserRound', 32) + '<h2>适合什么品牌咨询？</h2><p>适合有电商增长需求的品牌方，包括：初创品牌、成熟品牌、电商品牌、传统品牌电商化等，无论处于哪个阶段，品沐都提供匹配的解决方案。</p></div><div class="reveal question-card">' + icon('FilePenLine', 32) + '<h2>是否可以先做基础诊断？</h2><p>可以。我们提供免费基础诊断服务，帮助你快速了解店铺现状与增长机会，再决定是否深入合作。</p></div></div></section>' + CtaBand('你的品牌，下一步该先优化哪里？', '留下需求，或直接添加微信联系。我们会从平台、商品、流量、转化和团队执行五个维度，帮你判断最值得优先解决的问题。', '提交咨询需求');
+  return PageHero('联系我们', '如果你正在思考品牌电商下一步怎么做，可以先和品沐聊一聊。', true) + '<section class="section contact-section"><div class="container contact-grid"><div class="reveal contact-info-panel">' + contactItems + '<div class="wechat-qr-card"><div class="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="沐风微信二维码" loading="lazy"></div><div><strong>扫码添加微信</strong><p>微信 / 手机同号：' + SITE.phoneDisplay + '</p><span>添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长</span></div></div><div class="contact-promise-grid"><div>' + icon('Zap', 24) + '<strong>快速沟通</strong><span>直连顾问高效响应</span></div><div>' + icon('Target', 24) + '<strong>明确需求</strong><span>精准匹配解决方案</span></div><div>' + icon('ShieldCheck', 24) + '<strong>24小时内回复</strong><span>工作日内快速跟进</span></div></div></div><div class="reveal">' + ContactForm() + '</div></div></section><section class="section contact-bottom-section"><div class="container two-question-grid"><div class="reveal question-card">' + icon('CircleUserRound', 32) + '<h2>适合什么品牌咨询？</h2><p>适合有电商增长需求的品牌方，包括：初创品牌、成熟品牌、电商品牌、传统品牌电商化等，无论处于哪个阶段，品沐都提供匹配的解决方案。</p></div><div class="reveal question-card">' + icon('FilePenLine', 32) + '<h2>是否可以先做基础诊断？</h2><p>可以。我们提供免费基础诊断服务，帮助你快速了解店铺现状与增长机会，再决定是否深入合作。</p></div></div></section>' + CtaBand('你的品牌，下一步该先优化哪里？', '直接扫码或添加微信联系。我们会从平台、商品、流量、转化和团队执行五个维度，帮你判断最值得优先解决的问题。', '扫码咨询');
 }
 
 function FloatingContact() {
@@ -377,7 +377,6 @@ function initInteractions() {
   initCounters();
   initFaq();
   initFilters();
-  initContactForm();
   initFloating();
 }
 

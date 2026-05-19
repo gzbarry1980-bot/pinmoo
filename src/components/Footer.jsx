@@ -21,7 +21,6 @@ export function Footer() {
           <h2>联系方式</h2>
           <p>{SITE.contactLabel}</p>
           <p>{SITE.contactNote}</p>
-          <p>ICP备案号：待补充</p>
         </div>
       </div>
       <div className="footer-bottom">© 2026 {SITE.company}. All rights reserved.</div>
