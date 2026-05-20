@@ -1,5 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
+const appVersion = 'v0.7.4 · 2026-05-20 · 图表流程版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -1847,6 +1848,46 @@ function chartCard(title, body, note = '') {
   `;
 }
 
+function visualKpiCard(label, value, note, color, ratio) {
+  const width = Math.max(4, Math.min(100, Number.isFinite(ratio) ? ratio : 0));
+  return `
+    <section class="visual-kpi-card" style="--accent:${color}">
+      <span>${escapeHtml(label)}</span>
+      <strong>${escapeHtml(value)}</strong>
+      <i><b style="width:${width.toFixed(1)}%"></b></i>
+      <p>${escapeHtml(note)}</p>
+    </section>
+  `;
+}
+
+function reportVisualSummaryHtml(diagnosis) {
+  const data = diagnosis.data;
+  const refundAmount = refundAmountValue(data);
+  const netSales = netSalesValue(data);
+  const activeReturn = activeReturnSignal(data);
+  const maxAmount = Math.max(data.sales || 0, refundAmount || 0, netSales || 0, activeReturn.sales || 0, 1);
+  const salesChange = data.prevSales ? ((data.sales - data.prevSales) / data.prevSales * 100) : 0;
+  const visitorChange = data.prevVisitors ? ((data.visitors - data.prevVisitors) / data.prevVisitors * 100) : 0;
+  return `
+    <section class="visual-summary">
+      <div class="visual-score">
+        <div class="visual-score-ring" style="--score:${Math.max(0, Math.min(100, diagnosis.totalScore || 0))}">
+          <strong>${diagnosis.totalScore}</strong>
+          <span>健康度</span>
+        </div>
+        <p>${escapeHtml(brandOneSentence(diagnosis))}</p>
+      </div>
+      <div class="visual-kpis">
+        ${visualKpiCard('支付金额', yuan(data.sales || 0), data.prevSales ? `较对比期 ${salesChange >= 0 ? '+' : ''}${salesChange.toFixed(1)}%` : '对比期待补充', '#2563eb', (data.sales || 0) / maxAmount * 100)}
+        ${visualKpiCard('净销售额', yuan(netSales || 0), refundAmount ? `已扣减退款 ${yuan(refundAmount)}` : '退款金额待补充', '#16a34a', (netSales || 0) / maxAmount * 100)}
+        ${visualKpiCard('成功退款金额', refundAmount ? yuan(refundAmount) : '待补充', refundAmount ? '需结合历史订单退款判断' : '建议补充退款明细', '#dc2626', (refundAmount || 0) / maxAmount * 100)}
+        ${visualKpiCard('访客 / 转化', `${Math.round(data.visitors || 0).toLocaleString('zh-CN')} / ${percent(data.conversion || 0)}`, data.prevVisitors ? `访客变化 ${visitorChange >= 0 ? '+' : ''}${visitorChange.toFixed(1)}%` : '流量对比待补充', '#7c3aed', Math.min(100, (data.conversion || 0) / 5 * 100))}
+        ${visualKpiCard('主动回访', activeReturn.sales ? yuan(activeReturn.sales) : '待补充', activeReturn.sales ? `转化率 ${percent(activeReturn.conversion || 0)}` : '可补充老客/回访数据', '#0f766e', (activeReturn.sales || 0) / maxAmount * 100)}
+      </div>
+    </section>
+  `;
+}
+
 function chartSnapshotHtml(diagnosis) {
   const data = diagnosis.data;
   const details = data.importedDetails || {};
@@ -1957,6 +1998,7 @@ function renderReport(diagnosis) {
       <p>${diagnosis.summary.text}</p>
     </div>
 
+    ${reportVisualSummaryHtml(diagnosis)}
     ${brandLeadHtml(diagnosis)}
 
     <h4>一、老板先看</h4>
@@ -2136,6 +2178,8 @@ function renderReport(diagnosis) {
       <strong>核心结论：${diagnosis.summary.title}，综合健康度 ${diagnosis.totalScore} 分</strong>
       <p>${diagnosis.summary.text}</p>
     </div>
+
+    ${reportVisualSummaryHtml(diagnosis)}
 
     <div class="report-layout">
       <main class="report-main">
@@ -2669,6 +2713,19 @@ function exportWord() {
     .report-brand { color: #115df6; font-weight: 700; }
     .report-meta { text-align: center; color: #667085; font-size: 11px; }
     .conclusion-box { border: 1px solid #bfd3ff; background: #eef4ff; padding: 12px; margin: 14px 0; }
+    .visual-summary { display: table; width: 100%; margin: 14px 0; border-spacing: 8px; }
+    .visual-score, .visual-kpis { display: table-cell; vertical-align: top; }
+    .visual-score { width: 24%; border: 1px solid #d0d7e2; background: #f8fbff; padding: 12px; text-align: center; }
+    .visual-score-ring { width: 92px; height: 92px; margin: 0 auto 8px; border: 8px solid #115df6; border-radius: 50%; display: grid; place-items: center; }
+    .visual-score-ring strong { font-size: 24px; display: block; }
+    .visual-score-ring span { display: block; color: #667085; font-size: 11px; }
+    .visual-kpis { width: 76%; }
+    .visual-kpi-card { display: inline-block; width: 18%; min-height: 102px; margin: 0 4px 8px 0; border: 1px solid #d0d7e2; border-top: 4px solid #115df6; padding: 9px; vertical-align: top; }
+    .visual-kpi-card span { display: block; color: #667085; font-size: 10px; font-weight: 700; }
+    .visual-kpi-card strong { display: block; font-size: 13px; margin: 4px 0; }
+    .visual-kpi-card i { display: block; height: 6px; border-radius: 8px; background: #edf2f7; overflow: hidden; }
+    .visual-kpi-card i b { display: block; height: 100%; background: #115df6; }
+    .visual-kpi-card p { font-size: 10px; margin-top: 6px; }
     .report-actions-list section, .quality-box { border: 1px solid #d0d7e2; padding: 10px; margin: 8px 0; }
     .boss-summary, .quality-box { background: #f8fbff; }
     .report-layout { display: block; }
@@ -4588,6 +4645,7 @@ function bindEvents() {
 }
 
 function init() {
+  if ($('#appVersion')) $('#appVersion').textContent = appVersion;
   const draft = loadJson(draftKey, null);
   setFormData(draft || samples[0]);
   setLatest(analyze(getFormData()));

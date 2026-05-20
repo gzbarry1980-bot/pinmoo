@@ -206,6 +206,21 @@ button { cursor: pointer; }
   margin-top: 1px;
 }
 
+.version-badge {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 7px;
+  padding: 3px 8px;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: var(--blue);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
 .search-box {
   min-height: 42px;
   display: grid;
@@ -1034,6 +1049,115 @@ legend,
   border: 1px solid #cfe0ff;
   border-radius: var(--radius);
   background: var(--blue-soft);
+}
+
+.visual-summary {
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) minmax(0, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.visual-score,
+.visual-kpi-card {
+  border: 1px solid #dce4ef;
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.visual-score {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 12px;
+  padding: 18px;
+  background: linear-gradient(180deg, #fff 0%, #f5f9ff 100%);
+}
+
+.visual-score-ring {
+  --score: 0;
+  width: 122px;
+  height: 122px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at center, #fff 0 55%, transparent 56%),
+    conic-gradient(var(--blue) calc(var(--score) * 1%), #e8eef7 0);
+}
+
+.visual-score-ring strong,
+.visual-score-ring span {
+  grid-area: 1 / 1;
+}
+
+.visual-score-ring strong {
+  margin-top: -12px;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.visual-score-ring span {
+  margin-top: 36px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.visual-score p {
+  margin: 0;
+  color: var(--body);
+  font-size: 12px;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.visual-kpis {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.visual-kpi-card {
+  min-height: 132px;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 13px;
+  border-top: 4px solid var(--accent);
+}
+
+.visual-kpi-card span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.visual-kpi-card strong {
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.visual-kpi-card i {
+  height: 7px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #edf2f8;
+}
+
+.visual-kpi-card i b {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+
+.visual-kpi-card p {
+  margin: 0;
+  color: var(--body);
+  font-size: 12px;
+  line-height: 1.45;
 }
 
 .boss-summary {
@@ -1919,6 +2043,8 @@ legend,
   .metric-inputs,
   .channel-grid,
   .health-grid,
+  .visual-summary,
+  .visual-kpis,
   .boss-summary,
   .quality-box,
   .quality-box ul,
