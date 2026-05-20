@@ -821,6 +821,43 @@ legend,
   grid-template-columns: 1fr;
 }
 
+.audit-priority,
+.audit-confirm {
+  margin: 0;
+  padding: 13px;
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius);
+  background: #f8fbff;
+}
+
+.audit-priority {
+  border-color: #fed7aa;
+  background: #fffaf0;
+}
+
+.audit-priority h4,
+.audit-confirm h4 {
+  margin-top: 0;
+}
+
+.audit-priority p {
+  margin: 0 0 10px;
+  color: var(--body);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.audit-priority ul,
+.audit-confirm ol {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.audit-priority li,
+.audit-confirm li {
+  margin: 6px 0;
+}
+
 .report-audit .report-table {
   table-layout: fixed;
   font-size: 10px;

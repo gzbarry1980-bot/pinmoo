@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.7.4 · 2026-05-20 · 图表流程版';
+const appVersion = 'v0.7.5 · 2026-05-20 · 补数优先版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -2224,6 +2224,17 @@ function renderReport(diagnosis) {
       </main>
       <aside class="report-audit">
         <div class="audit-sticky">
+          <section class="audit-priority">
+            <h4>需要优先补充的数据</h4>
+            <p>如果要让本次报告更接近正式交付，请优先补齐以下数据后重新生成。</p>
+            <ul>${missingDataTips(data).map((tip) => `<li>${tip}</li>`).join('')}</ul>
+          </section>
+
+          <section class="audit-confirm">
+            <h4>需要确认的问题</h4>
+            <ol>${confirmationQuestions(diagnosis).map((item) => `<li>${item.replace(/^\d+\.\s*/, '')}</li>`).join('')}</ol>
+          </section>
+
           <h4>交付审计</h4>
           <div class="quality-box audit-quality">
             <div>
@@ -2236,12 +2247,6 @@ function renderReport(diagnosis) {
           </div>
 
           ${auditSections.join('')}
-
-          <h4>需要确认的问题</h4>
-          <ol>${confirmationQuestions(diagnosis).map((item) => `<li>${item.replace(/^\d+\.\s*/, '')}</li>`).join('')}</ol>
-
-          <h4>需要补充的数据</h4>
-          <ul>${missingDataTips(data).map((tip) => `<li>${tip}</li>`).join('')}</ul>
 
           <h4>顾问备注</h4>
           <p>${escapeHtml(data.notes || '暂无补充说明。')}</p>
