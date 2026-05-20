@@ -6,7 +6,7 @@
     <title>Pinmoo AI 店铺经营诊断工作台</title>
     <meta name="description" content="Pinmoo AI 电商增长智能体店铺经营诊断初版，用于多店铺经营诊断、问题归因、行动计划和报告交付。" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260518-new-week-files" />
+    <link rel="stylesheet" href="./styles.css?v=20260520-workflow-confirm" />
   </head>
   <body>
     <div class="app-shell">
@@ -26,7 +26,7 @@
         </a>
 
         <nav class="nav-list">
-          <a class="active" href="#diagnosis"><span>01</span>店铺诊断</a>
+          <a class="active" href="#diagnosis"><span>01</span>电商经营报告</a>
           <a href="#score"><span>02</span>指标评分</a>
           <a href="#report"><span>03</span>诊断报告</a>
           <a href="#history"><span>04</span>历史记录</a>
@@ -61,8 +61,8 @@
         <main class="diagnosis-page" id="diagnosis">
           <section class="page-title">
             <div>
-              <h1>店铺经营诊断</h1>
-              <p>输入经营数据，形成问题优先级、归因判断和可交付行动计划。</p>
+              <h1>电商经营报告</h1>
+              <p>第一阶段优先支持天猫/生意参谋周报：多文件上传、自动识别、报告预览和 Word 导出。</p>
             </div>
             <div class="title-actions">
               <button id="loadSample" class="ghost-btn" type="button">导入示例</button>
@@ -70,8 +70,37 @@
               <button id="downloadTemplate" class="ghost-btn" type="button">下载模板</button>
               <button id="resetForm" class="ghost-btn" type="button">清空表单</button>
               <button id="saveDraft" class="ghost-btn" type="button">保存草稿</button>
-              <input id="dataFile" type="file" accept=".csv,.json,.xlsx,.xls,.doc,.html,application/json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" multiple hidden />
+              <input id="dataFile" type="file" accept=".csv,.json,.xlsx,.xls,.doc,.docx,.html,application/json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" multiple hidden />
             </div>
+          </section>
+
+          <section class="panel workflow-panel" id="workflowPanel" aria-label="报告生成流程">
+            <div class="workflow-head">
+              <strong>报告生成流程</strong>
+              <span id="workflowHint">先导入数据，系统会逐步提示确认信息、生成报告和导出文件。</span>
+            </div>
+            <ol class="workflow-steps" id="workflowSteps">
+              <li data-flow-step="upload" class="active">
+                <b>1</b>
+                <div><strong>导入数据</strong><span>等待上传经营报表</span></div>
+              </li>
+              <li data-flow-step="parse">
+                <b>2</b>
+                <div><strong>识别报表</strong><span>自动判断文件类型和字段</span></div>
+              </li>
+              <li data-flow-step="confirm">
+                <b>3</b>
+                <div><strong>确认任务</strong><span>核实店铺、类目、平台、报告类型</span></div>
+              </li>
+              <li data-flow-step="preview">
+                <b>4</b>
+                <div><strong>核实报告</strong><span>查看预览和口径说明</span></div>
+              </li>
+              <li data-flow-step="export">
+                <b>5</b>
+                <div><strong>交付导出</strong><span>导出 Word 或复制话术</span></div>
+              </li>
+            </ol>
           </section>
 
           <section class="main-grid">
@@ -88,6 +117,22 @@
                 <strong>推荐方式：导入 CSV 数据</strong>
                 <p>支持一次选择多份 CSV/JSON/XLSX/XLS，例如店铺大盘、宝贝排行、流量来源、推广计划、活动数据，系统会自动识别并合并生成周报/月报。Word 月报会作为参考文件记录使用情况。</p>
                 <small id="importStatus">尚未导入数据，可先使用示例数据体验。</small>
+              </div>
+
+              <div class="section-label">报告任务信息</div>
+              <div class="form-row">
+                <label>品牌名称<input id="brandName" type="text" placeholder="例如：世纪茗家" /></label>
+                <label>报告用途
+                  <select id="reportPurpose">
+                    <option>品牌方正式版</option>
+                    <option>内部诊断版</option>
+                    <option>会议汇报版</option>
+                  </select>
+                </label>
+              </div>
+              <div class="form-row">
+                <label>统计周期开始日期<input id="periodStart" type="date" /></label>
+                <label>统计周期结束日期<input id="periodEnd" type="date" /></label>
               </div>
 
               <div class="form-row">
@@ -235,6 +280,7 @@
                 </div>
                 <div class="report-actions">
                   <button id="copyExecutive" type="button">复制老板摘要</button>
+                  <button id="copyWechat" type="button">复制微信群话术</button>
                   <button id="copyReport" type="button">复制</button>
                   <button id="exportWord" type="button">导出 Word</button>
                   <button id="exportReport" type="button">导出 TXT</button>
@@ -336,6 +382,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js?v=20260518-brand-weekly-report"></script>
+    <script src="./app.js?v=20260520-workflow-confirm"></script>
   </body>
 </html>

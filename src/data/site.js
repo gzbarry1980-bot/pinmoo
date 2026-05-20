@@ -21,6 +21,7 @@ export const SITE = {
 
 export const NAV_ITEMS = [
   { label: '首页', href: '/', match: '/' },
+  { label: '电商经营报告', href: '/ai-diagnosis/', match: '/ai-diagnosis' },
   { label: '服务介绍', href: '/services/', match: '/services' },
   { label: '案例展示', href: '/cases/', match: '/cases' },
   { label: '关于品沐', href: '/about/', match: '/about' },

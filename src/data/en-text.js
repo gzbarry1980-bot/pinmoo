@@ -1,5 +1,6 @@
 export const EN_TEXT = {
   '首页': 'Home',
+  '电商经营报告': 'E-commerce Report',
   '服务介绍': 'Services',
   '案例展示': 'Case Studies',
   '关于品沐': 'About',

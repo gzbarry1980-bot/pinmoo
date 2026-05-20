@@ -2,7 +2,7 @@ const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
 
 const fieldIds = [
-  'storeName', 'industry', 'reportType', 'period', 'compareType', 'dataSource',
+  'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
   'sales', 'prevSales', 'visitors', 'prevVisitors', 'conversion', 'aov', 'refundRate', 'roi',
   'productCount', 'activeProductCount', 'topSkuShare', 'serviceRate',
   'searchShare', 'recommendShare', 'contentShare', 'paidShare', 'privateShare', 'notes'
@@ -229,8 +229,12 @@ function getCategoryStrategy(industry) {
 function getFormData() {
   const data = {};
   fieldIds.forEach((id) => {
-    data[id] = $('#' + id).value;
+    const element = $('#' + id);
+    data[id] = element ? element.value : '';
   });
+  if (!data.period && (data.periodStart || data.periodEnd)) {
+    data.period = [data.periodStart, data.periodEnd].filter(Boolean).join(' 至 ');
+  }
   data.platform = selectedPlatform;
   [
     'sales', 'prevSales', 'visitors', 'prevVisitors', 'conversion', 'aov', 'refundRate', 'roi',
@@ -256,7 +260,23 @@ function getFormData() {
 
 function getReportName(diagnosis) {
   const type = diagnosis?.data?.reportType || '诊断';
-  return `店铺经营${type}`;
+  return `${type === '月报' ? '月经营复盘报告' : type === '周报' ? '周经营复盘报告' : `店铺经营${type}`}`;
+}
+
+function compactDateText(value) {
+  const stamp = parseDateToken(value);
+  if (stamp) return formatDateStamp(stamp).replace(/-/g, '');
+  return String(value || '').replace(/[^\d]/g, '').slice(0, 8);
+}
+
+function exportFileBaseName(data) {
+  const brandOrStore = data.brandName || data.storeName || '电商店铺';
+  const typeName = data.reportType === '月报' ? '月经营复盘报告' : '周经营复盘报告';
+  const purpose = /正式/.test(data.reportPurpose || '') ? '品沐咨询正式版' : '品沐咨询经营诊断版';
+  const start = compactDateText(data.periodStart) || compactDateText(data.period?.split('至')?.[0]);
+  const end = compactDateText(data.periodEnd) || compactDateText(data.period?.split('至')?.[1]);
+  const range = start && end ? `_${start}-${end}` : '';
+  return `${brandOrStore}_${data.platform || ''}_${typeName}_${purpose}${range}`.replace(/[\\/:*?"<>|]/g, '').replace(/_+/g, '_');
 }
 
 function setFormData(data) {
@@ -265,7 +285,8 @@ function setFormData(data) {
   importedAux = data.importedAux || null;
   importedLineage = data.importedLineage || null;
   fieldIds.forEach((id) => {
-    if (data[id] !== undefined && $('#' + id)) $('#' + id).value = data[id];
+    const element = $('#' + id);
+    if (data[id] !== undefined && element) element.value = data[id];
   });
   selectedPlatform = data.platform || '天猫';
   document.querySelectorAll('#platformTabs button').forEach((button) => {
@@ -1305,10 +1326,69 @@ function overallHtml(diagnosis) {
   `);
 }
 
+function dailyTrendChart(items) {
+  const rows = [...(items || [])]
+    .filter((item) => Number.isFinite(item.dateStamp) && item.dateStamp > 0)
+    .sort((a, b) => a.dateStamp - b.dateStamp)
+    .slice(-14);
+  if (!rows.length) return '<p class="empty-text">暂无可绘制的单日趋势图。</p>';
+  const width = 760;
+  const height = 260;
+  const pad = { top: 24, right: 34, bottom: 42, left: 62 };
+  const chartWidth = width - pad.left - pad.right;
+  const chartHeight = height - pad.top - pad.bottom;
+  const series = [
+    { key: 'sales', label: '支付金额', color: '#2563eb' },
+    { key: 'refundAmount', label: '退款金额', color: '#dc2626' },
+    { key: 'netSales', label: '净销售额', color: '#16a34a' }
+  ];
+  const values = rows.flatMap((row) => series.map((item) => Number(row[item.key]) || 0));
+  const max = Math.max(...values, 1);
+  const xAt = (index) => pad.left + (rows.length === 1 ? chartWidth / 2 : index * chartWidth / (rows.length - 1));
+  const yAt = (value) => pad.top + chartHeight - ((Number(value) || 0) / max * chartHeight);
+  const gridValues = [max, max / 2, 0];
+  const grid = gridValues.map((value) => {
+    const y = yAt(value);
+    return `<g><line x1="${pad.left}" y1="${y.toFixed(1)}" x2="${width - pad.right}" y2="${y.toFixed(1)}" class="trend-grid-line"></line><text x="12" y="${(y + 4).toFixed(1)}" class="trend-axis">${escapeHtml(yuan(value))}</text></g>`;
+  }).join('');
+  const lines = series.map((item) => {
+    const points = rows.map((row, index) => `${xAt(index).toFixed(1)},${yAt(row[item.key]).toFixed(1)}`).join(' ');
+    const circles = rows.map((row, index) => {
+      const x = xAt(index).toFixed(1);
+      const y = yAt(row[item.key]).toFixed(1);
+      return `<g><circle cx="${x}" cy="${y}" r="3.5" fill="${item.color}"><title>${escapeHtml(`${row.date || row.name} ${item.label} ${yuan(row[item.key] || 0)}`)}</title></circle></g>`;
+    }).join('');
+    return `<polyline points="${points}" fill="none" stroke="${item.color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>${circles}`;
+  }).join('');
+  const labels = rows.map((row, index) => {
+    const show = rows.length <= 8 || index === 0 || index === rows.length - 1 || index % 2 === 0;
+    if (!show) return '';
+    return `<text x="${xAt(index).toFixed(1)}" y="${height - 14}" text-anchor="middle" class="trend-axis">${escapeHtml(String(row.date || row.name).slice(5))}</text>`;
+  }).join('');
+  return `
+    <div class="daily-trend-card">
+      <div class="daily-trend-head">
+        <strong>单日支付 / 退款 / 净销售趋势</strong>
+        <div class="daily-trend-legend">
+          ${series.map((item) => `<span><b style="background:${item.color}"></b>${item.label}</span>`).join('')}
+        </div>
+      </div>
+      <svg class="daily-trend-svg" viewBox="0 0 ${width} ${height}" role="img" aria-label="单日支付退款净销售趋势图">
+        ${grid}
+        <line x1="${pad.left}" y1="${height - pad.bottom}" x2="${width - pad.right}" y2="${height - pad.bottom}" class="trend-axis-line"></line>
+        ${lines}
+        ${labels}
+      </svg>
+    </div>
+  `;
+}
+
 function dailyHtml(items) {
   const topSales = [...(items || [])].sort((a, b) => (b.sales || 0) - (a.sales || 0))[0];
   const topRefund = [...(items || [])].sort((a, b) => (b.refundAmount || 0) - (a.refundAmount || 0))[0];
   return reportSection('每日销售与退款表现', `
+    <p class="report-note">口径说明：本模块仅展示统计周期内按“日期”拆分的单日经营数据；“同行同层优秀 / 同行同层均值 / 全店平均值”等平台参考值不作为某一天展示，避免与单日趋势混淆。</p>
+    ${dailyTrendChart(items)}
     <table class="report-table">
       <thead><tr><th>日期</th><th>访客数</th><th>销售额</th><th>订单数</th><th>转化率</th><th>退款金额</th><th>净销售额</th></tr></thead>
       <tbody>
@@ -1323,7 +1403,7 @@ function dailyHtml(items) {
         ], '暂无按日期拆分的店铺绩效数据')}
       </tbody>
     </table>
-    <p class="report-note">经营观察：${topSales ? `${escapeHtml(topSales.date || topSales.name)}销售额最高，达到 ${yuan(topSales.sales || 0)}。` : ''}${topRefund && topRefund.refundAmount ? `${escapeHtml(topRefund.date || topRefund.name)}退款金额最高，达到 ${yuan(topRefund.refundAmount)}，下周需要把“高销售日是否伴随高退款”作为复盘重点。` : '建议后续补充按日期拆分的退款金额，用于判断单日爆发是否被售后抵消。'}</p>
+    <p class="report-note">经营观察：${topSales ? `${escapeHtml(topSales.date || topSales.name)}为本周期内单日销售额最高，达到 ${yuan(topSales.sales || 0)}。` : ''}${topRefund && topRefund.refundAmount ? `${escapeHtml(topRefund.date || topRefund.name)}单日退款金额最高，达到 ${yuan(topRefund.refundAmount)}，下周需要把“高销售日是否伴随高退款”作为复盘重点。` : '建议后续补充按日期拆分的退款金额，用于判断单日爆发是否被售后抵消。'}</p>
   `);
 }
 
@@ -1459,9 +1539,17 @@ function skuQuadrantHtml(diagnosis) {
           <div><strong>${escapeHtml(row.type)}</strong><span>${row.count} 个</span></div>
           <p>${escapeHtml(row.diagnosis)}</p>
           <small>${escapeHtml(row.criteria)}</small>
-          <ul>
-            ${row.items.map((item) => `<li>${escapeHtml(item.name || '-')}：${yuan(item.sales || 0)}，${Math.round(item.visitors || 0).toLocaleString('zh-CN')}访客，转化${percent(item.conversion || 0)}${item.refundRate ? `，退款${percent(item.refundRate)}` : ''}</li>`).join('')}
-          </ul>
+          <ol class="sku-ranked-list">
+            ${row.items.map((item, index) => `
+              <li>
+                <b>${index + 1}</b>
+                <div>
+                  <strong>${escapeHtml(item.name || '-')}</strong>
+                  <span>${yuan(item.sales || 0)} · ${Math.round(item.visitors || 0).toLocaleString('zh-CN')}访客 · 转化${percent(item.conversion || 0)}${item.refundRate ? ` · 退款${percent(item.refundRate)}` : ''}</span>
+                </div>
+              </li>
+            `).join('')}
+          </ol>
           <em>${escapeHtml(row.action)}</em>
         </section>
       `).join('') : '<p>暂无足够商品明细生成四象限。</p>'}
@@ -1580,17 +1668,37 @@ function serviceDetailHtml(items) {
       <thead><tr><th>客服/日期</th><th>咨询/接待</th><th>成交金额</th><th>成交人数/笔数</th><th>转化/响应</th><th>退款金额</th><th>判断</th></tr></thead>
       <tbody>
         ${tableRows(items, [
-          { render: (item) => escapeHtml(item.name || '-') },
+          { render: (item) => escapeHtml(formatGroupLabel(item.name)) },
           { render: (item) => Math.round(item.visitors || 0).toLocaleString('zh-CN') },
           { render: (item) => item.sales ? yuan(item.sales) : '-' },
           { render: (item) => Math.round(item.orders || 0).toLocaleString('zh-CN') },
           { render: (item) => item.conversion ? percent(item.conversion) : '-' },
           { render: (item) => item.refundAmount ? yuan(item.refundAmount) : '-' },
-          { render: (item) => item.conversion && item.conversion < 1 ? '询单承接偏弱，需复盘话术与响应' : '用于辅助判断客服承接与售后风险' }
+          { render: (item) => escapeHtml(serviceDiagnosis(item)) }
         ], '暂无客服绩效明细')}
       </tbody>
     </table>
   `);
+}
+
+function serviceDiagnosis(item) {
+  const name = String(item.name || '');
+  const conversion = item.conversion || 0;
+  const refundAmount = item.refundAmount || 0;
+  const sales = item.sales || 0;
+  const visitors = item.visitors || 0;
+  const orders = item.orders || 0;
+  if (/平均/.test(name)) return '仅作均值参考，不作为单日客服表现判断';
+  if (/汇总/.test(name) && refundAmount > Math.max(sales * 0.2, 1000)) return '整体退款侵蚀偏高，需按客服/日期拆退款原因';
+  if (sales > 0 && orders <= 0) return '成交金额有记录但成交人数为0，需核对客服绩效字段口径';
+  if (refundAmount > sales && sales > 0) return '退款高于成交，疑似历史订单退款，先核查售后归属';
+  if (refundAmount > Math.max(sales * 0.25, 1000)) return '退款侵蚀明显，优先复盘售前承诺和售后安抚话术';
+  if (visitors >= 1000 && conversion < 0.8) return '接待量较大但询单转化偏弱，需抽查响应时长和异议处理';
+  if (conversion > 0 && conversion < 1) return '询单承接偏弱，需复盘高频问题、报价和催付话术';
+  if (conversion >= 1.2 && refundAmount <= Math.max(sales * 0.12, 500)) return '承接效率相对健康，可沉淀为客服话术样板';
+  if (orders >= 10 && refundAmount > 0) return '有成交也有退款，需把退款原因回写到售前提醒';
+  if (visitors > 0 && !orders) return '有接待无成交，需核查咨询问题是否集中在价格/规格/发货';
+  return '数据不足，建议补响应时长、询单人数和客服维度退款原因';
 }
 
 function trafficHtml(items) {
@@ -1604,11 +1712,41 @@ function trafficHtml(items) {
           { render: (item) => Math.round(item.visitors || 0).toLocaleString('zh-CN') },
           { render: (item) => percent(item.conversion || 0) },
           { render: (item) => item.uvValue ? item.uvValue.toFixed(2) : item.visitors ? (item.sales / item.visitors).toFixed(2) : '-' },
-          { render: (item) => escapeHtml(item.note || '-') }
+          { render: (item) => escapeHtml(trafficDiagnosis(item)) }
         ])}
       </tbody>
     </table>
   `);
+}
+
+function trafficDiagnosis(item) {
+  const name = String(item.name || '');
+  const visitors = item.visitors || 0;
+  const sales = item.sales || 0;
+  const conversion = item.conversion || 0;
+  const uvValue = item.uvValue || (visitors ? sales / visitors : 0);
+  if (/购物车|我的淘宝|收藏|站内沟通|消息|主动回访|老客/.test(name)) {
+    if (conversion >= 5 || uvValue >= 20) return '高意向/私域入口，优先做催付、回访和复购承接';
+    return '私域入口有价值但成交弱，需优化触达话术和利益点';
+  }
+  if (/无界|万相台|直通车|引力魔方|付费|推广/.test(name)) {
+    if (visitors >= 1000 && conversion < 1) return '付费流量大但转化弱，先控预算并排查落地页';
+    if (conversion >= 3 && uvValue >= 5) return '付费质量可用，可保留预算并小幅测试扩量';
+    return '付费入口需结合花费和ROI判断，不建议只按访客放量';
+  }
+  if (/推荐|猜你喜欢|手淘推荐/.test(name)) {
+    if (conversion < 1) return '推荐流量承接偏弱，优先优化首图点击后的详情页';
+    return '推荐流量可保留，需持续测试内容素材和主推款';
+  }
+  if (/搜索|关键词/.test(name)) {
+    if (conversion >= 3) return '搜索成交意图较强，优先保核心词排名和主推款库存';
+    return '搜索有流量但成交弱，需核查标题词与页面卖点是否匹配';
+  }
+  if (visitors >= 1000 && conversion < 1) return '流量规模大但成交弱，先查来源质量和承接页';
+  if (sales >= 5000 && conversion >= 2) return '成交贡献较好，可作为重点流量入口维护';
+  if (uvValue >= 20) return 'UV价值较高，适合优先承接高客单商品或老客链路';
+  if (sales > 0 && visitors < 200) return '小流量有成交，可补内容或搜索入口做验证';
+  return item.note || '需补来源层级、加购和跳失数据后判断';
 }
 
 function promotionHtml(items) {
@@ -1667,6 +1805,93 @@ function activityHtml(items) {
   `);
 }
 
+function chartRows(items, options = {}) {
+  const rows = (items || []).filter((item) => item && item.name && Number.isFinite(Number(item.value)));
+  const max = Math.max(...rows.map((item) => Math.abs(Number(item.value) || 0)), 1);
+  const format = options.format || ((value) => value.toLocaleString('zh-CN'));
+  return rows.map((item) => {
+    const value = Number(item.value) || 0;
+    const width = Math.max(3, Math.min(100, Math.abs(value) / max * 100));
+    const color = item.color || options.color || '#2563eb';
+    return `
+      <div class="chart-row">
+        <div class="chart-row-head"><span>${escapeHtml(item.name)}</span><strong>${escapeHtml(format(value, item))}</strong></div>
+        <div class="chart-bar"><i style="width:${width.toFixed(1)}%;background:${color}"></i></div>
+        ${item.note ? `<p>${escapeHtml(item.note)}</p>` : ''}
+      </div>
+    `;
+  }).join('') || '<p class="empty-text">暂无可绘制数据</p>';
+}
+
+function stackedTrafficChart(data) {
+  const items = [
+    { name: '搜索', value: data.searchShare || 0, color: '#2563eb' },
+    { name: '推荐', value: data.recommendShare || 0, color: '#16a34a' },
+    { name: '内容', value: data.contentShare || 0, color: '#7c3aed' },
+    { name: '付费', value: data.paidShare || 0, color: '#f97316' },
+    { name: '私域', value: data.privateShare || 0, color: '#0f766e' }
+  ].filter((item) => item.value > 0);
+  const total = items.reduce((sum, item) => sum + item.value, 0) || 1;
+  const stack = items.map((item) => `<i title="${escapeHtml(item.name)} ${percent(item.value, 1)}" style="width:${Math.max(2, item.value / total * 100).toFixed(1)}%;background:${item.color}"></i>`).join('');
+  const legend = items.map((item) => `<span><b style="background:${item.color}"></b>${escapeHtml(item.name)} ${percent(item.value, 1)}</span>`).join('');
+  return `<div class="stacked-chart">${stack}</div><div class="chart-legend">${legend || '<span>暂无渠道结构数据</span>'}</div>`;
+}
+
+function chartCard(title, body, note = '') {
+  return `
+    <section class="chart-card">
+      <h5>${escapeHtml(title)}</h5>
+      ${body}
+      ${note ? `<p class="chart-note">${escapeHtml(note)}</p>` : ''}
+    </section>
+  `;
+}
+
+function chartSnapshotHtml(diagnosis) {
+  const data = diagnosis.data;
+  const details = data.importedDetails || {};
+  const weekly = diagnosis.weeklySections || {};
+  const refundAmount = refundAmountValue(data);
+  const netSales = netSalesValue(data);
+  const productRows = (details.products?.length ? details.products : weekly.products || [])
+    .slice(0, 8)
+    .map((item) => ({
+      name: item.name || '-',
+      value: item.sales || 0,
+      color: (item.refundAmount || 0) > Math.max((item.sales || 0) * 0.08, 0) ? '#dc2626' : '#2563eb',
+      note: item.refundAmount ? `退款 ${yuan(item.refundAmount)}${item.refundRate ? `，退款率 ${percent(item.refundRate)}` : ''}` : ''
+    }));
+  const promotionRows = (details.promotion?.length ? details.promotion : weekly.promotion || [])
+    .slice(0, 8)
+    .map((item) => ({
+      name: item.name || '-',
+      value: item.roi || 0,
+      color: (item.roi || 0) >= 3 ? '#16a34a' : (item.roi || 0) > 0 ? '#f97316' : '#94a3b8',
+      note: `${item.spend ? `花费 ${yuan(item.spend)}，` : ''}${item.sales ? `成交 ${yuan(item.sales)}` : '成交待补充'}`
+    }));
+  const dailyRows = (details.daily || [])
+    .slice(0, 10)
+    .map((item) => ({
+      name: item.date || item.name || '-',
+      value: item.sales || 0,
+      color: item.refundAmount > Math.max((item.sales || 0) * 0.18, 0) ? '#dc2626' : '#2563eb',
+      note: item.refundAmount ? `退款 ${yuan(item.refundAmount)}，净销售额 ${yuan(item.netSales || Math.max(0, (item.sales || 0) - item.refundAmount))}` : ''
+    }));
+  return reportSection('图表快照', `
+    <div class="chart-grid">
+      ${chartCard('支付 / 退款 / 净销售额', chartRows([
+        { name: '支付金额', value: data.sales || 0, color: '#2563eb' },
+        { name: '成功退款金额', value: refundAmount || 0, color: '#dc2626' },
+        { name: '净销售额', value: netSales || 0, color: '#16a34a' }
+      ], { format: (value) => yuan(value) }), '用于区分成交规模与真实经营质量，避免只看支付增长。')}
+      ${chartCard('流量来源结构', stackedTrafficChart(data), '按搜索、推荐、内容、付费、私域归类，后续可接入更细来源层级。')}
+      ${chartCard('单日销售趋势', chartRows(dailyRows, { format: (value) => yuan(value), color: '#2563eb' }), '每个柱子代表统计周期内某一天的支付金额；同行同层、全店平均等平台参考值不计入单日趋势。')}
+      ${chartCard('商品 TOP 销售与退款风险', chartRows(productRows, { format: (value) => yuan(value), color: '#2563eb' }), '红色条目表示销售贡献同时存在退款风险，需要优先核查页面与客服预期管理。')}
+      ${chartCard('推广计划 ROI', chartRows(promotionRows, { format: (value) => value ? Number(value).toFixed(2) : '-', color: '#16a34a' }), '不按 ROI 直接加预算，需结合点击率、点击转化率、加购和退款承接判断。')}
+    </div>
+  `);
+}
+
 function leverageHtml(diagnosis) {
   return reportSection('经营杠杆拆解', `
     <table class="report-table">
@@ -1690,14 +1915,19 @@ function renderReport(diagnosis) {
   const targetPlan = diagnosis.targetPlan || buildTargetPlan(data, diagnosis.issues || [], diagnosis.decomposition || gapDecomposition(data), getBenchmark(data.industry));
   const state = reportModuleState(diagnosis);
   const details = data.importedDetails || {};
-  const dynamicSections = [reportOutlineHtml(diagnosis)];
-  dynamicSections.push(categoryDirectionHtml(diagnosis));
-  if (state.importSummary) dynamicSections.push(importSummaryHtml(diagnosis));
-  if (state.lineage) dynamicSections.push(lineageHtml(diagnosis));
-  if (state.confidence) dynamicSections.push(dataConfidenceHtml(diagnosis));
-  if (state.aux) dynamicSections.push(reportSection('流量与客户辅助诊断', `<ul>${auxiliaryDiagnosis(diagnosis).map((item) => `<li>${item}</li>`).join('')}</ul>`));
-  if (state.target) dynamicSections.push(targetPlanHtml(targetPlan));
+  const dynamicSections = [];
+  const auditSections = [
+    reportOutlineHtml(diagnosis),
+    categoryDirectionHtml(diagnosis),
+    state.importSummary ? importSummaryHtml(diagnosis) : '',
+    state.lineage ? lineageHtml(diagnosis) : '',
+    state.confidence ? dataConfidenceHtml(diagnosis) : '',
+    state.aux ? reportSection('流量与客户辅助诊断', `<ul>${auxiliaryDiagnosis(diagnosis).map((item) => `<li>${item}</li>`).join('')}</ul>`) : '',
+    state.target ? targetPlanHtml(targetPlan) : ''
+  ].filter(Boolean);
   if (state.overall) dynamicSections.push(overallHtml(diagnosis));
+  dynamicSections.push(chartSnapshotHtml(diagnosis));
+  if (state.daily) dynamicSections.push(dailyHtml(details.daily));
   if (state.product) dynamicSections.push(productHtml(state.imported ? details.products : weekly.products));
   if (state.category) dynamicSections.push(categoryHtml(details.categories));
   if (state.skuQuadrant) dynamicSections.push(skuQuadrantHtml(diagnosis));
@@ -1721,7 +1951,7 @@ function renderReport(diagnosis) {
   $('#reportPaper').innerHTML = `
     <div class="report-brand">Pinmoo AI 电商增长智能体</div>
     <h3>${reportName}</h3>
-    <div class="report-meta">${data.storeName} · ${data.platform} · ${data.industry} · ${data.period} · ${data.dataSource || '数据导入'}</div>
+    <div class="report-meta">${data.brandName || data.storeName} · ${data.storeName} · ${data.platform} · ${data.industry} · ${data.period} · ${data.reportPurpose || '品牌方正式版'} · ${data.dataSource || '数据导入'}</div>
     <div class="conclusion-box">
       <strong>核心结论：${diagnosis.summary.title}，综合健康度 ${diagnosis.totalScore} 分</strong>
       <p>${diagnosis.summary.text}</p>
@@ -1907,25 +2137,18 @@ function renderReport(diagnosis) {
       <p>${diagnosis.summary.text}</p>
     </div>
 
-    <h4>一、老板先看</h4>
-    <div class="boss-summary">
-      <section><span>结果</span><p>${boss.result}</p></section>
-      <section><span>原因</span><p>${boss.reason}</p></section>
-      <section><span>动作</span><p>${boss.action}</p></section>
-    </div>
+    <div class="report-layout">
+      <main class="report-main">
+        ${brandLeadHtml(diagnosis)}
 
-    <h4>二、数据完整度</h4>
-    <div class="quality-box">
-      <div>
-        <strong>${quality.score}分</strong>
-        <span>${dataQualityLabel(quality.score)}</span>
-      </div>
-      <ul>
-        ${quality.checks.map((item) => `<li class="${item.ok ? 'ok' : 'missing'}"><b>${item.ok ? '已具备' : '待补充'}</b>${item.name}：${item.ok ? '本报告已读取该模块数据。' : item.tip}</li>`).join('')}
-      </ul>
-    </div>
+        <h4>一、老板先看</h4>
+        <div class="boss-summary">
+          <section><span>结果</span><p>${boss.result}</p></section>
+          <section><span>原因</span><p>${boss.reason}</p></section>
+          <section><span>动作</span><p>${boss.action}</p></section>
+        </div>
 
-    ${dynamicSections.join('')}
+        ${dynamicSections.join('')}
 
     <h4>关键问题与优先级</h4>
     <ol class="report-issue-list">
@@ -1949,14 +2172,38 @@ function renderReport(diagnosis) {
       `).join('')}
     </div>
 
-    <h4>需要品牌方/运营进一步确认的问题</h4>
-    <ol>${confirmationQuestions(diagnosis).map((item) => `<li>${item.replace(/^\d+\.\s*/, '')}</li>`).join('')}</ol>
+    <h4>微信群发送话术</h4>
+    <div class="conclusion-box">
+      <p>${wechatShareText(diagnosis).replace(/\n/g, '<br>')}</p>
+    </div>
 
-    <h4>需要补充的数据</h4>
-    <ul>${missingDataTips(data).map((tip) => `<li>${tip}</li>`).join('')}</ul>
+      </main>
+      <aside class="report-audit">
+        <div class="audit-sticky">
+          <h4>交付审计</h4>
+          <div class="quality-box audit-quality">
+            <div>
+              <strong>${quality.score}分</strong>
+              <span>${dataQualityLabel(quality.score)}</span>
+            </div>
+            <ul>
+              ${quality.checks.map((item) => `<li class="${item.ok ? 'ok' : 'missing'}"><b>${item.ok ? '已具备' : '待补充'}</b>${item.name}：${item.ok ? '本报告已读取该模块数据。' : item.tip}</li>`).join('')}
+            </ul>
+          </div>
 
-    <h4>顾问备注</h4>
-    <p>${escapeHtml(data.notes || '暂无补充说明。')}</p>
+          ${auditSections.join('')}
+
+          <h4>需要确认的问题</h4>
+          <ol>${confirmationQuestions(diagnosis).map((item) => `<li>${item.replace(/^\d+\.\s*/, '')}</li>`).join('')}</ol>
+
+          <h4>需要补充的数据</h4>
+          <ul>${missingDataTips(data).map((tip) => `<li>${tip}</li>`).join('')}</ul>
+
+          <h4>顾问备注</h4>
+          <p>${escapeHtml(data.notes || '暂无补充说明。')}</p>
+        </div>
+      </aside>
+    </div>
   `;
 }
 
@@ -2187,6 +2434,7 @@ function reportText(diagnosis) {
   const details = diagnosis.data.importedDetails || {};
   const outline = adaptiveReportOutline(diagnosis);
   const productItems = state.imported ? details.products || [] : weekly.products || [];
+  const dailyItems = details.daily || [];
   const categoryItems = details.categories || [];
   const trafficItems = state.imported ? details.traffic || [] : weekly.traffic || [];
   const promotionItems = state.imported ? details.promotion || [] : weekly.promotion || [];
@@ -2197,7 +2445,7 @@ function reportText(diagnosis) {
   const refundItems = refundMatrixRows(diagnosis);
   const lines = [
     `Pinmoo AI ${reportName}`,
-    `${diagnosis.data.storeName} · ${diagnosis.data.platform} · ${diagnosis.data.industry} · ${diagnosis.data.period} · ${diagnosis.data.dataSource || '数据导入'}`,
+    `${diagnosis.data.brandName || diagnosis.data.storeName} · ${diagnosis.data.storeName} · ${diagnosis.data.platform} · ${diagnosis.data.industry} · ${diagnosis.data.period} · ${diagnosis.data.reportPurpose || '品牌方正式版'} · ${diagnosis.data.dataSource || '数据导入'}`,
     `综合健康度：${diagnosis.totalScore} 分`,
     `核心结论：${diagnosis.summary.title}`,
     diagnosis.summary.text,
@@ -2235,6 +2483,9 @@ function reportText(diagnosis) {
   }
   if (state.overall) {
     lines.push('', '本周经营总览：净销售额视角', ...operatingSummary(diagnosis).map((item) => `- ${item}`), ...brandKpiRows(diagnosis).map((item) => `- ${item.name}：本期 ${item.current}，对比期 ${item.previous}，变化 ${item.change}，经营解读：${item.judge}`), '', ...moduleDiagnosis(diagnosis).map((item) => `- ${item.module}｜${item.status}：${item.detail}`));
+  }
+  if (state.daily) {
+    lines.push('', '每日销售与退款表现（单日口径）', '说明：以下仅为按真实日期拆分的单日数据，同行同层/全店平均值不作为某一天展示。', ...dailyItems.map((item, index) => `${index + 1}. ${item.date || item.name}：销售额 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，订单 ${Math.round(item.orders || 0)}，转化率 ${percent(item.conversion || 0)}，退款 ${item.refundAmount ? yuan(item.refundAmount) : '-'}，净销售额 ${yuan(item.netSales || Math.max(0, (item.sales || 0) - (item.refundAmount || 0)))}`));
   }
   if (state.product) {
     lines.push('', '宝贝排行', ...productItems.map((item, index) => `${index + 1}. ${item.name || '-'}：支付金额 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，支付买家 ${Math.round(item.orders || 0)}，转化率 ${percent(item.conversion || 0)}，退款 ${item.refundAmount ? yuan(item.refundAmount) : '-'}，退款率 ${item.refundRate ? percent(item.refundRate) : '-'}，${item.note || ''}`));
@@ -2292,6 +2543,9 @@ function reportText(diagnosis) {
     '',
     '需要补充的数据',
     ...missingDataTips(diagnosis.data).map((tip) => `- ${tip}`),
+    '',
+    '微信群发送话术',
+    wechatShareText(diagnosis),
     '',
     `顾问备注：${diagnosis.data.notes || '暂无'}`
   );
@@ -2374,6 +2628,7 @@ function reportText(diagnosis) {
 function exportReport() {
   if (!latestDiagnosis) return toast('请先生成诊断报告');
   downloadText(reportText(latestDiagnosis), `${latestDiagnosis.data.storeName}-${getReportName(latestDiagnosis)}.txt`);
+  updateWorkflowStatus('exported', 'TXT 报告已导出。正式交付建议优先使用 Word，并核实数据口径。');
   toast('报告文本已导出');
 }
 
@@ -2396,7 +2651,7 @@ function downloadText(text, filename) {
 
 function exportWord() {
   if (!latestDiagnosis) return toast('请先生成诊断报告');
-  const title = `${latestDiagnosis.data.storeName}-${getReportName(latestDiagnosis)}`;
+  const title = exportFileBaseName(latestDiagnosis.data);
   const reportHtml = $('#reportPaper').innerHTML;
   const wordHtml = `<!doctype html>
 <html>
@@ -2416,6 +2671,8 @@ function exportWord() {
     .conclusion-box { border: 1px solid #bfd3ff; background: #eef4ff; padding: 12px; margin: 14px 0; }
     .report-actions-list section, .quality-box { border: 1px solid #d0d7e2; padding: 10px; margin: 8px 0; }
     .boss-summary, .quality-box { background: #f8fbff; }
+    .report-layout { display: block; }
+    .report-audit { border-top: 1px solid #d0d7e2; margin-top: 18px; padding-top: 12px; }
   </style>
 </head>
 <body>${reportHtml}</body>
@@ -2429,6 +2686,7 @@ function exportWord() {
   link.click();
   link.remove();
   URL.revokeObjectURL(url);
+  updateWorkflowStatus('exported', 'Word 正式版已导出。发送前建议再核实标题、周期、净销售额和退款口径。');
   toast('Word 报告已导出');
 }
 
@@ -2437,6 +2695,7 @@ async function copyReport() {
   const text = reportText(latestDiagnosis);
   try {
     await navigator.clipboard.writeText(text);
+    updateWorkflowStatus('exported', '报告正文已复制。若用于正式发送，建议优先导出 Word 留档。');
     toast('报告内容已复制');
   } catch {
     const textarea = document.createElement('textarea');
@@ -2445,6 +2704,7 @@ async function copyReport() {
     textarea.select();
     document.execCommand('copy');
     textarea.remove();
+    updateWorkflowStatus('exported', '报告正文已复制。若用于正式发送，建议优先导出 Word 留档。');
     toast('报告内容已复制');
   }
 }
@@ -2454,6 +2714,7 @@ async function copyExecutiveSummary() {
   const text = executiveSummaryText(latestDiagnosis);
   try {
     await navigator.clipboard.writeText(text);
+    updateWorkflowStatus('exported', '老板摘要已复制，可用于快速同步核心结论。');
     toast('老板摘要已复制');
   } catch {
     const textarea = document.createElement('textarea');
@@ -2462,7 +2723,48 @@ async function copyExecutiveSummary() {
     textarea.select();
     document.execCommand('copy');
     textarea.remove();
+    updateWorkflowStatus('exported', '老板摘要已复制，可用于快速同步核心结论。');
     toast('老板摘要已复制');
+  }
+}
+
+function wechatShareText(diagnosis) {
+  const data = diagnosis.data;
+  const activeReturn = activeReturnSignal(data);
+  const refundAmount = refundAmountValue(data);
+  const netSales = netSalesValue(data);
+  const topIssues = (diagnosis.issues || []).slice(0, 3).map((item, index) => `${index + 1}. ${item.title}`).join('\n');
+  return [
+    `各位好，${data.brandName || data.storeName || '店铺'}${data.reportType || '周报'}已生成，周期：${data.period || '-' }。`,
+    '',
+    `本期支付金额 ${yuan(data.sales)}，访客 ${Math.round(data.visitors || 0).toLocaleString('zh-CN')}，转化率 ${percent(data.conversion || 0)}，客单价 ${yuan(data.aov || 0)}。`,
+    `按当前口径测算，成功退款金额 ${refundAmount ? yuan(refundAmount) : '待补充'}，净销售额 ${yuan(netSales)}。`,
+    activeReturn.sales ? `主动回访支付金额 ${yuan(activeReturn.sales)}，转化率 ${percent(activeReturn.conversion)}，建议作为下周期重点放大来源。` : '',
+    '',
+    `本期核心判断：${brandOneSentence(diagnosis)}`,
+    '',
+    topIssues ? `下周期优先关注：\n${topIssues}` : '',
+    '',
+    '详细报告已导出，建议会议中重点看净销售额、退款商品、付费计划效率和下周期动作。'
+  ].filter(Boolean).join('\n');
+}
+
+async function copyWechatText() {
+  if (!latestDiagnosis) return toast('请先生成诊断报告');
+  const text = wechatShareText(latestDiagnosis);
+  try {
+    await navigator.clipboard.writeText(text);
+    updateWorkflowStatus('exported', '微信群发送话术已复制。建议发送前核实周期、金额和下周重点。');
+    toast('微信群发送话术已复制');
+  } catch {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    textarea.remove();
+    updateWorkflowStatus('exported', '微信群发送话术已复制。建议发送前核实周期、金额和下周重点。');
+    toast('微信群发送话术已复制');
   }
 }
 
@@ -2710,7 +3012,16 @@ function weightedAverage(rows, key, weightKey = 'sales') {
 }
 
 function dateRangeLabel(rows) {
-  const dates = rows.map((row) => row.date).filter(Boolean).sort();
+  const stamps = rows
+    .map((row) => parseDateToken(row.date))
+    .filter((stamp) => Number.isFinite(stamp))
+    .sort((a, b) => a - b);
+  if (stamps.length) {
+    const first = formatDateStamp(stamps[0]);
+    const last = formatDateStamp(stamps[stamps.length - 1]);
+    return first === last ? first : `${first} 至 ${last}`;
+  }
+  const dates = rows.map((row) => formatReportDateLabel(row.date)).filter(Boolean).sort();
   if (!dates.length) return '';
   return dates[0] === dates[dates.length - 1] ? dates[0] : `${dates[0]} 至 ${dates[dates.length - 1]}`;
 }
@@ -2737,6 +3048,19 @@ function parseDateToken(value) {
   const match = normalizedText.match(/(20\d{2})[-年_/.]?(1[0-2]|0?[1-9])[-月_/.]?([12]\d|3[01]|0?[1-9])日?/);
   if (!match) return null;
   return toDateStamp(match[1], match[2], match[3]);
+}
+
+function formatReportDateLabel(value) {
+  if (value === null || value === undefined || value === '') return '';
+  const stamp = parseDateToken(value);
+  if (Number.isFinite(stamp)) return formatDateStamp(stamp);
+  const text = String(value).trim();
+  return text;
+}
+
+function formatGroupLabel(value) {
+  const text = String(value || '').trim();
+  return formatReportDateLabel(text) || text || '-';
 }
 
 function buildDateRange(start, end) {
@@ -2890,17 +3214,19 @@ function groupRows(rows, key, limit = 8) {
 function buildDailyRows(rows, limit = 10) {
   const source = rows.filter((row) => (
     row.date &&
+    parseDateToken(row.date) &&
     ['overall', 'shopPerformance'].includes(row.reportKind) &&
     (row.sales || row.visitors || row.orders || row.refundAmount || row.conversion)
   ));
   const map = new Map();
   source.forEach((row) => {
-    const name = String(row.date || '').trim();
-    if (!name) return;
-    if (!map.has(name)) {
-      map.set(name, { name, date: name, sales: 0, visitors: 0, orders: 0, refundAmount: 0, netSales: 0, rows: [] });
+    const rawDate = String(row.date || '').trim();
+    const name = formatReportDateLabel(rawDate);
+    if (!rawDate || !name) return;
+    if (!map.has(rawDate)) {
+      map.set(rawDate, { name, date: name, rawDate, sales: 0, visitors: 0, orders: 0, refundAmount: 0, netSales: 0, rows: [] });
     }
-    const item = map.get(name);
+    const item = map.get(rawDate);
     item.sales += row.sales || 0;
     item.visitors += row.visitors || 0;
     item.orders += row.orders || 0;
@@ -2912,15 +3238,15 @@ function buildDailyRows(rows, limit = 10) {
     ...item,
     conversion: weightedAverage(item.rows, 'conversion', 'visitors') || (item.visitors ? item.orders / item.visitors * 100 : 0),
     netSales: item.netSales || Math.max(0, item.sales - item.refundAmount),
-    dateStamp: parseDateToken(item.date) || 0
+    dateStamp: parseDateToken(item.rawDate || item.date) || 0
   })).sort((a, b) => b.dateStamp - a.dateStamp || String(b.date).localeCompare(String(a.date))).slice(0, limit);
 }
 
 function rankingNote(item, key) {
   if (key === 'promotionName') {
     if (item.spend && item.roi < 2) return 'ROI偏低，需控预算或查承接';
-    if (item.spend && item.roi >= 3) return '推广效率较好，可保留观察';
-    return '需结合点击和成交继续观察';
+    if (item.spend && item.roi >= 3) return '效率较好，可保留预算并小幅测试扩量';
+    return '需补点击/加购/成交数据后再决定预算';
   }
   if (key === 'trafficSource') {
     if (item.conversion < 1) return '流量成交效率偏低';
@@ -2930,10 +3256,26 @@ function rankingNote(item, key) {
   if (key === 'activityName') {
     return item.sales ? '记录活动成交，复盘活动承接' : '需补充活动成交数据';
   }
-  if (item.refundRate > 0 && item.refundRate > 10) return '退款偏高，需先拆售后原因';
-  if (item.conversion < 1) return '访客有但成交弱，需看页面承接';
-  if (item.sales > 0 && item.conversion >= 3) return '成交表现较好，可重点维护';
-  return '继续观察动销和退款表现';
+  if (key === 'categoryName') {
+    if (!item.sales && item.visitors) return '有访客无成交，暂不扩充该类目 SKU，先核查入口词和主推款';
+    if (item.refundAmount > Math.max(item.sales * 0.12, 500)) return '类目退款侵蚀明显，先定位高退款 SKU 后再做放量';
+    if (item.visitors >= 1000 && item.conversion < 1) return '类目高访低转，优先重排主推款和类目承接页';
+    if (item.sales >= 10000 && item.conversion >= 1) return '核心成交类目，优先保库存、保搜索词和内容曝光';
+    if (item.sales > 0 && item.visitors < 200 && item.conversion >= 2) return '小流量有成交，可补内容/搜索入口做二次测试';
+    return '类目贡献偏中腰部，建议按销售占比和毛利决定是否保留资源';
+  }
+  if (item.sales > 0 && item.refundAmount > item.sales) return '退款高于本期支付，疑似历史订单退款，先核查退款归属';
+  if (item.refundRate >= 50) return '退款严重侵蚀成交，暂停放量，优先核查规格/口感/页面承诺';
+  if (item.refundRate >= 15 || item.refundAmount > Math.max(item.sales * 0.12, 500)) return '退款偏高，先改详情页预期、客服话术和售后原因';
+  if (item.visitors >= 1000 && item.conversion < 0.5) return '高访低转，不建议加流量，先修主图首屏和价格理由';
+  if (item.visitors >= 500 && item.conversion < 1) return '有流量但承接弱，优先检查主图、规格选择和评价证据';
+  if (!item.sales && item.visitors) return '有访客无成交，先排查标题关键词、首图和价格带';
+  if (item.sales >= 5000 && item.conversion >= 2 && item.refundRate < 10) return '成交与退款相对健康，可作为主推款继续维护';
+  if (item.sales >= 2000 && item.orders <= 2) return '高客单低单量，核查是否依赖少数订单，谨慎判断主推价值';
+  if (item.conversion >= 5 && item.visitors < 120) return '小流量高转化，可补搜索/内容流量做放量测试';
+  if (item.sales > 0 && item.conversion >= 3) return '成交效率较好，补充流量后观察是否稳定放大';
+  if (item.sales > 0) return '有成交但证据不足，需补加购/咨询/退款原因后定主推级别';
+  return '数据不足，需补访客、支付买家和退款原因后判断';
 }
 
 function groupRefundReasons(rows, limit = 8) {
@@ -3292,9 +3634,13 @@ function rowsToFormData(rows, filename) {
   details.traffic = sanitizeTrafficDetails(details.traffic, current.sales, current.visitors);
   return {
     storeName: first.storeName || '',
+    brandName: '',
     industry: first.industry || $('#industry').value || '美妆个护',
     platform: first.platform || selectedPlatform || '天猫',
     reportType,
+    reportPurpose: $('#reportPurpose')?.value || '品牌方正式版',
+    periodStart: range ? formatDateStamp(range.start) : '',
+    periodEnd: range ? formatDateStamp(range.end) : '',
     period,
     compareType: (previous.sales || previous.visitors) ? '上一个周期' : '不对比',
     dataSource: filename || '导入数据',
@@ -3740,6 +4086,29 @@ function parseHtmlDocRows(text, filename) {
   return [{ 来源文件: filename, 文档类型: 'Word/HTML', 备注: '已读取参考文档，但未识别到可汇总的数据表' }];
 }
 
+async function parseDocxRows(buffer, filename) {
+  try {
+    const entries = await unzipEntries(buffer);
+    const documentXml = entries['word/document.xml'];
+    if (!documentXml) return [{ 来源文件: filename, 文档类型: 'Word/DOCX', 备注: '已读取 Word 参考文档，但未识别到正文数据' }];
+    const doc = new DOMParser().parseFromString(xmlText(documentXml), 'application/xml');
+    const tables = Array.from(doc.getElementsByTagName('w:tbl'));
+    for (const table of tables) {
+      const arrays = Array.from(table.getElementsByTagName('w:tr')).map((tr) => (
+        Array.from(tr.getElementsByTagName('w:tc')).map((cell) => (
+          Array.from(cell.getElementsByTagName('w:t')).map((textNode) => textNode.textContent || '').join('').trim()
+        ))
+      ));
+      const rows = parseRowsFromArrays(arrays);
+      if (rows.length) return rows;
+    }
+    const text = Array.from(doc.getElementsByTagName('w:t')).map((node) => node.textContent || '').join(' ').trim();
+    return [{ 来源文件: filename, 文档类型: 'Word/DOCX', 备注: text ? '已读取 Word 参考文档，暂作为报告口径参考，不作为结构化经营数据汇总' : '已读取 Word 参考文档，但未识别到可汇总的数据表' }];
+  } catch {
+    return [{ 来源文件: filename, 文档类型: 'Word/DOCX', 备注: 'Word 文档读取失败，可能为加密、损坏或非标准格式' }];
+  }
+}
+
 async function readRowsFromFile(file) {
   const lowerName = file.name.toLowerCase();
   const buffer = await file.arrayBuffer();
@@ -3748,6 +4117,8 @@ async function readRowsFromFile(file) {
     rows = await parseXlsxRows(buffer, file.name);
   } else if (lowerName.endsWith('.xls')) {
     rows = parseLegacyXlsRows(buffer);
+  } else if (lowerName.endsWith('.docx')) {
+    rows = await parseDocxRows(buffer, file.name);
   } else if (lowerName.endsWith('.doc') || lowerName.endsWith('.html')) {
     rows = parseHtmlDocRows(decodeTextBuffer(buffer), file.name);
   } else if (lowerName.endsWith('.json')) {
@@ -3763,6 +4134,7 @@ async function readRowsFromFile(file) {
 async function importDataFiles(files) {
   const fileList = Array.from(files || []);
   if (!fileList.length) return;
+  updateWorkflowStatus('parsing', `正在读取 ${fileList.length} 个文件，并识别首页、商品、流量、客服、直播、推广等报表类型。`);
   const results = await Promise.allSettled(fileList.map(readRowsFromFile));
   const skippedFiles = [];
   const allRowsNested = results.map((result, index) => {
@@ -3790,6 +4162,7 @@ async function importDataFiles(files) {
     skippedFiles
   };
   $('#importStatus').textContent = `已导入 ${pendingImportMeta.fileCount} 个文件、${pendingImportMeta.rowCount} 行数据。请确认店铺名称和类目后生成${data.reportType}${skippedText}。`;
+  updateWorkflowStatus('confirm', `已导入 ${pendingImportMeta.fileCount} 个文件、${pendingImportMeta.rowCount} 行数据。请确认店铺信息后生成${data.reportType}。`);
   openImportConfirmModal(pendingImportMeta);
   toast(skippedFiles.length ? '已导入可识别文件，请确认店铺信息' : '数据已导入，请确认店铺信息');
 }
@@ -3871,6 +4244,7 @@ function importModuleChips(modules) {
 function openImportConfirmModal(meta) {
   const modal = $('#importConfirmModal');
   if (!modal) return;
+  clearImportConfirmErrors();
   const suggestion = meta.suggestions || {};
   const skipped = meta.skippedFiles?.length ? `，${meta.skippedFiles.length} 个文件未读取` : '';
   $('#importConfirmText').textContent = `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据${skipped}。请确认店铺信息后生成${meta.reportType}。`;
@@ -3890,6 +4264,49 @@ function openImportConfirmModal(meta) {
 function closeImportConfirmModal() {
   const modal = $('#importConfirmModal');
   if (modal) modal.hidden = true;
+  if (pendingImportMeta) updateWorkflowStatus('draft');
+}
+
+function clearImportConfirmErrors() {
+  ['modalStoreName', 'modalIndustry', 'modalPlatform', 'modalReportType'].forEach((id) => {
+    const element = $('#' + id);
+    element?.closest('label')?.classList.remove('field-error');
+    element?.removeAttribute('aria-invalid');
+  });
+}
+
+function markImportFieldError(id) {
+  const element = $('#' + id);
+  element?.closest('label')?.classList.add('field-error');
+  element?.setAttribute('aria-invalid', 'true');
+}
+
+function validateImportConfirmForm() {
+  clearImportConfirmErrors();
+  const required = [
+    ['modalStoreName', '店铺名称'],
+    ['modalIndustry', '店铺类目'],
+    ['modalPlatform', '店铺平台'],
+    ['modalReportType', '报告类型']
+  ];
+  const missing = required.filter(([id]) => !String($('#' + id)?.value || '').trim());
+  missing.forEach(([id]) => markImportFieldError(id));
+  if (missing.length) {
+    $('#' + missing[0][0])?.focus();
+    updateWorkflowStatus('confirmError', `请补充${missing.map((item) => item[1]).join('、')}，补齐后再生成报告。`);
+    toast(`请补充${missing.map((item) => item[1]).join('、')}`);
+    return false;
+  }
+  return true;
+}
+
+function jumpToReportPreview() {
+  const report = $('#report');
+  if (!report) return;
+  report.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  report.classList.add('report-focus');
+  clearTimeout(jumpToReportPreview.timer);
+  jumpToReportPreview.timer = setTimeout(() => report.classList.remove('report-focus'), 1800);
 }
 
 function confirmImportedReport() {
@@ -3897,11 +4314,8 @@ function confirmImportedReport() {
   const industry = $('#modalIndustry').value;
   const platform = $('#modalPlatform').value;
   const reportType = $('#modalReportType').value;
-  if (!storeName) {
-    toast('请先输入店铺名称');
-    $('#modalStoreName').focus();
-    return;
-  }
+  if (!validateImportConfirmForm()) return;
+  updateWorkflowStatus('generating', `任务信息已确认：${storeName} · ${platform} · ${industry} · ${reportType}，正在生成报告。`);
   $('#storeName').value = storeName;
   $('#industry').value = industry;
   $('#reportType').value = reportType;
@@ -3915,7 +4329,9 @@ function confirmImportedReport() {
   const meta = pendingImportMeta || { fileCount: 0, rowCount: 0, reportType: diagnosis.data.reportType, skippedText: '' };
   $('#importStatus').textContent = `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据，自动生成${diagnosis.data.reportType}并写入历史${meta.skippedText || ''}。`;
   pendingImportMeta = null;
-  toast('已生成报告并写入历史');
+  updateWorkflowStatus('generated', `已生成${diagnosis.data.reportType}并写入历史。请先核实报告标题、周期、数据口径和关键结论。`);
+  jumpToReportPreview();
+  toast('已生成并写入历史，已跳转到报告预览，请先核实任务信息');
 }
 
 function downloadDataTemplate() {
@@ -3944,6 +4360,97 @@ function toast(message) {
   toast.timer = setTimeout(() => el.classList.remove('show'), 2200);
 }
 
+const workflowStates = {
+  idle: {
+    active: 'upload',
+    hint: '先导入数据，系统会逐步提示确认信息、生成报告和导出文件。',
+    labels: {
+      upload: '等待上传经营报表',
+      parse: '自动判断文件类型和字段',
+      confirm: '核实店铺、类目、平台、报告类型',
+      preview: '查看预览和口径说明',
+      export: '导出 Word 或复制话术'
+    }
+  },
+  selecting: {
+    active: 'upload',
+    hint: '请选择本周期需要分析的经营报表，可一次选择多份文件。',
+    labels: { upload: '正在选择文件' }
+  },
+  parsing: {
+    active: 'parse',
+    done: ['upload'],
+    hint: '系统正在读取文件、识别报表类型和汇总字段。',
+    labels: { upload: '已选择文件', parse: '正在识别报表' }
+  },
+  confirm: {
+    active: 'confirm',
+    done: ['upload', 'parse'],
+    hint: '请先确认店铺名称、类目、平台和报告类型，确认后再写入历史。',
+    labels: { upload: '文件已导入', parse: '报表已识别', confirm: '等待人工确认' }
+  },
+  draft: {
+    active: 'confirm',
+    done: ['upload', 'parse'],
+    hint: '已生成草稿预览，但尚未写入历史；请回到确认弹窗或重新导入后生成正式报告。',
+    labels: { upload: '数据已导入', parse: '报表已识别', confirm: '尚未最终确认', preview: '草稿可查看' }
+  },
+  confirmError: {
+    active: 'confirm',
+    error: ['confirm'],
+    done: ['upload', 'parse'],
+    hint: '有必填信息缺失，已在弹窗中标红，请补齐后再生成报告。',
+    labels: { confirm: '需要补充信息' }
+  },
+  generating: {
+    active: 'preview',
+    done: ['upload', 'parse', 'confirm'],
+    hint: '系统正在根据已确认的任务信息生成正式报告。',
+    labels: { confirm: '任务已确认', preview: '正在生成报告' }
+  },
+  generated: {
+    active: 'preview',
+    done: ['upload', 'parse', 'confirm'],
+    hint: '报告已生成，请先核实标题、周期、数据口径和核心结论，再导出交付。',
+    labels: { upload: '数据已就绪', parse: '报表已汇总', confirm: '任务已确认', preview: '等待核实报告', export: '可导出 Word' }
+  },
+  exported: {
+    active: 'export',
+    done: ['upload', 'parse', 'confirm', 'preview', 'export'],
+    hint: '交付动作已完成，如数据有调整，可重新导入或重新生成报告。',
+    labels: { upload: '数据已就绪', parse: '报表已汇总', confirm: '任务已确认', preview: '报告已核实', export: '交付已完成' }
+  },
+  error: {
+    active: 'upload',
+    error: ['upload'],
+    hint: '导入失败，请检查文件是否加密、损坏，或改用 xls/xlsx/csv/docx 常见格式。',
+    labels: { upload: '导入失败' }
+  }
+};
+
+function updateWorkflowStatus(stateName = 'idle', detail = '') {
+  const panel = $('#workflowPanel');
+  const steps = $('#workflowSteps');
+  if (!panel || !steps) return;
+  const state = workflowStates[stateName] || workflowStates.idle;
+  const order = ['upload', 'parse', 'confirm', 'preview', 'export'];
+  const done = new Set(state.done || []);
+  const errors = new Set(state.error || []);
+  const activeIndex = order.indexOf(state.active);
+  $('#workflowHint').textContent = detail || state.hint || workflowStates.idle.hint;
+  order.forEach((key, index) => {
+    const item = steps.querySelector(`[data-flow-step="${key}"]`);
+    if (!item) return;
+    item.classList.remove('active', 'done', 'error');
+    if (errors.has(key)) item.classList.add('error');
+    else if (done.has(key) || (stateName === 'exported' && index <= activeIndex)) item.classList.add('done');
+    else if (key === state.active) item.classList.add('active');
+    const label = item.querySelector('span');
+    const text = state.labels?.[key] || workflowStates.idle.labels[key];
+    if (label && text) label.textContent = text;
+  });
+}
+
 function bindEvents() {
   document.querySelectorAll('#platformTabs button').forEach((button) => {
     button.addEventListener('click', () => {
@@ -3954,13 +4461,18 @@ function bindEvents() {
   });
 
   fieldIds.forEach((id) => {
-    $('#' + id).addEventListener('input', () => setLatest(analyze(getFormData())));
-    $('#' + id).addEventListener('change', () => setLatest(analyze(getFormData())));
+    const element = $('#' + id);
+    if (!element) return;
+    element.addEventListener('input', () => setLatest(analyze(getFormData())));
+    element.addEventListener('change', () => setLatest(analyze(getFormData())));
   });
 
   $('#diagnosisForm').addEventListener('submit', (event) => {
     event.preventDefault();
+    updateWorkflowStatus('generating', '正在根据当前表单内容生成报告，并写入历史记录。');
     setLatest(analyze(getFormData()), true);
+    updateWorkflowStatus('generated', '已生成并保存诊断报告。请先核实报告预览，再导出 Word 或复制话术。');
+    jumpToReportPreview();
     toast('已生成并保存诊断报告');
   });
 
@@ -3968,28 +4480,35 @@ function bindEvents() {
     const sample = samples[Math.floor(Math.random() * samples.length)];
     setFormData(sample);
     setLatest(analyze(getFormData()));
+    updateWorkflowStatus('generated', '示例数据已导入并生成预览，可用于体验完整报告结构。');
     toast('已导入示例数据');
   });
 
   $('#resetForm').addEventListener('click', () => {
     setFormData({ ...samples[0], storeName: '', sales: 0, prevSales: 0, visitors: 0, prevVisitors: 0, notes: '' });
     setLatest(analyze(getFormData()));
+    updateWorkflowStatus('idle');
   });
 
   $('#saveDraft').addEventListener('click', () => {
     localStorage.setItem(draftKey, JSON.stringify(getFormData()));
+    updateWorkflowStatus('draft', '草稿已保存，但尚未写入正式历史；确认无误后请点击生成并保存。');
     toast('草稿已保存');
   });
 
   $('#historySearch').addEventListener('input', renderHistory);
   $('#copyExecutive').addEventListener('click', copyExecutiveSummary);
+  $('#copyWechat')?.addEventListener('click', copyWechatText);
   $('#copyReport').addEventListener('click', copyReport);
   $('#exportWord').addEventListener('click', exportWord);
   $('#exportReport').addEventListener('click', exportReport);
   $('#printReport').addEventListener('click', () => window.print());
   $('#exportHistory').addEventListener('click', exportHistory);
   $('#importHistory').addEventListener('click', () => $('#historyFile').click());
-  $('#importData').addEventListener('click', () => $('#dataFile').click());
+  $('#importData').addEventListener('click', () => {
+    updateWorkflowStatus('selecting');
+    $('#dataFile').click();
+  });
   $('#downloadTemplate').addEventListener('click', downloadDataTemplate);
   $('#confirmImportedReport').addEventListener('click', confirmImportedReport);
   document.querySelectorAll('[data-close-import-modal]').forEach((button) => {
@@ -3998,6 +4517,17 @@ function bindEvents() {
   $('#modalStoreName').addEventListener('keydown', (event) => {
     if (event.key === 'Enter') confirmImportedReport();
   });
+  ['modalStoreName', 'modalIndustry', 'modalPlatform', 'modalReportType'].forEach((id) => {
+    const element = $('#' + id);
+    element?.addEventListener('input', () => {
+      element.closest('label')?.classList.remove('field-error');
+      element.removeAttribute('aria-invalid');
+    });
+    element?.addEventListener('change', () => {
+      element.closest('label')?.classList.remove('field-error');
+      element.removeAttribute('aria-invalid');
+    });
+  });
 
   $('#dataFile').addEventListener('change', async (event) => {
     const files = event.target.files;
@@ -4005,6 +4535,7 @@ function bindEvents() {
     try {
       await importDataFiles(files);
     } catch {
+      updateWorkflowStatus('error');
       toast('导入失败，请检查字段名或使用模板 CSV');
     } finally {
       event.target.value = '';
@@ -4036,6 +4567,7 @@ function bindEvents() {
       if (!item) return;
       setFormData(item.data);
       setLatest(item);
+      updateWorkflowStatus('generated', '已载入历史报告，请核实报告内容或继续导出交付。');
       document.getElementById('report').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     if (deleteButton) {
@@ -4061,6 +4593,7 @@ function init() {
   setLatest(analyze(getFormData()));
   renderHistory();
   bindEvents();
+  updateWorkflowStatus(draft ? 'draft' : 'idle', draft ? '已载入上次保存的草稿，请核实后生成正式报告。' : '');
 }
 
 init();
