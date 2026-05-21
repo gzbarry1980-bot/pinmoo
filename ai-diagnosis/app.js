@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.7.5 · 2026-05-20 · 补数优先版';
+const appVersion = 'v0.7.6 · 2026-05-21 · 文件识别确认版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -1094,10 +1094,11 @@ function categoryDirectionHtml(diagnosis) {
 function importSummaryHtml(diagnosis) {
   return reportSection('导入文件使用情况', `
     <table class="report-table">
-      <thead><tr><th>文件</th><th>状态</th><th>使用行数</th><th>使用率</th><th>进入模块</th><th>说明</th></tr></thead>
+      <thead><tr><th>文件</th><th>识别类型</th><th>状态</th><th>使用行数</th><th>使用率</th><th>进入模块</th><th>说明</th></tr></thead>
       <tbody>
         ${tableRows(importSummaryRows(diagnosis), [
           { render: (item) => escapeHtml(item.file || '-') },
+          { render: (item) => escapeHtml(item.kindLabel || '-') },
           { render: (item) => escapeHtml(item.status || '-') },
           { render: (item) => escapeHtml(item.rows || '-') },
           { render: (item) => escapeHtml(item.usage || '-') },
@@ -2021,10 +2022,11 @@ function renderReport(diagnosis) {
 
     <h4>三、导入文件使用情况</h4>
     <table class="report-table">
-      <thead><tr><th>文件</th><th>状态</th><th>使用行数</th><th>使用率</th><th>进入模块</th><th>说明</th></tr></thead>
+      <thead><tr><th>文件</th><th>识别类型</th><th>状态</th><th>使用行数</th><th>使用率</th><th>进入模块</th><th>说明</th></tr></thead>
       <tbody>
         ${tableRows(importSummaryRows(diagnosis), [
           { render: (item) => escapeHtml(item.file || '-') },
+          { render: (item) => escapeHtml(item.kindLabel || '-') },
           { render: (item) => escapeHtml(item.status || '-') },
           { render: (item) => escapeHtml(item.rows || '-') },
           { render: (item) => escapeHtml(item.usage || '-') },
@@ -2397,7 +2399,9 @@ function importSummaryRows(diagnosis) {
       rows: item.rawRows ? `${item.usedRows}/${item.rawRows}` : '-',
       usage: item.rawRows ? percent(usageRate, 1) : '-',
       modules: item.modules?.length ? item.modules.join('、') : '-',
-      note: item.note
+      note: item.note,
+      dominantKind: item.dominantKind || 'unknown',
+      kindLabel: reportKindLabel(item.dominantKind || 'unknown')
     };
   });
 }
@@ -2920,6 +2924,29 @@ function detectReportKind(row) {
   return 'unknown';
 }
 
+const reportKindOptions = [
+  ['auto', '自动识别'],
+  ['overall', '首页/经营概览'],
+  ['shopPerformance', '店铺绩效'],
+  ['product', '商品/宝贝'],
+  ['category', '品类/类目'],
+  ['traffic', '流量来源'],
+  ['trafficOverview', '流量总览'],
+  ['promotion', '推广计划'],
+  ['refund', '退款售后'],
+  ['service', '客服绩效'],
+  ['member', '客户/会员'],
+  ['live', '直播业绩'],
+  ['content', '光合/内容'],
+  ['activity', '活动情况'],
+  ['unknown', '未识别'],
+  ['ignored', '不参与报告']
+];
+
+function reportKindLabel(kind) {
+  return (reportKindOptions.find(([value]) => value === kind) || reportKindOptions[0])[1];
+}
+
 function inferPlatform(row, reportKind) {
   const source = String(row.来源文件 || row.sourceFile || '');
   const keys = Object.keys(row).join(' ');
@@ -2972,7 +2999,14 @@ function normalizeSpecialRow(row) {
 
 function toImportedRow(row) {
   row = normalizeSpecialRow(row);
-  const reportKind = detectReportKind(row);
+  const reportKind = row.__reportKindOverride || detectReportKind(row);
+  if (reportKind === 'ignored') {
+    return {
+      reportKind,
+      sourceFile: String(row.来源文件 || row.sourceFile || ''),
+      rowIndex: Number.parseInt(row.__rowIndex ?? row.rowIndex ?? 0, 10) || 0
+    };
+  }
   const sourceCategory = pick(row, ['类别', '范围', '人群类型']);
   const sourceText = String(row.来源文件 || '');
   const trafficInfo = pickTrafficInfo(row);
@@ -2997,6 +3031,7 @@ function toImportedRow(row) {
   return {
     bucket,
     reportKind,
+    forcedReportKind: Boolean(row.__reportKindOverride),
     sourceCategory,
     sourceFile: sourceText,
     rowIndex: Number.parseInt(row.__rowIndex ?? row.rowIndex ?? 0, 10) || 0,
@@ -3371,21 +3406,21 @@ function groupRefundReasons(rows, limit = 8) {
 }
 
 function buildImportedDetails(rows) {
-  const productRows = rows.filter((row) => row.reportKind === 'product' || (row.itemName && row.reportKind !== 'promotion'));
-  const categoryRows = rows.filter((row) => row.reportKind === 'category' || row.categoryName);
-  const allTrafficRows = rows.filter((row) => row.reportKind === 'traffic' || row.trafficSource);
+  const productRows = rows.filter((row) => row.reportKind === 'product' || (!row.forcedReportKind && row.itemName && row.reportKind !== 'promotion'));
+  const categoryRows = rows.filter((row) => row.reportKind === 'category' || (!row.forcedReportKind && row.categoryName));
+  const allTrafficRows = rows.filter((row) => row.reportKind === 'traffic' || (!row.forcedReportKind && row.trafficSource));
   const trafficRows = allTrafficRows.some((row) => row.trafficDepth >= 2)
     ? allTrafficRows.filter((row) => row.trafficDepth >= 2)
     : allTrafficRows;
-  const promotionRows = rows.filter((row) => row.reportKind === 'promotion' || row.promotionName);
-  const activityRows = rows.filter((row) => row.reportKind === 'activity' || row.activityName);
-  const liveRows = rows.filter((row) => row.reportKind === 'live' || row.liveName);
-  const contentRows = rows.filter((row) => row.reportKind === 'content' || row.contentName);
-  const serviceRows = rows.filter((row) => ['service', 'shopPerformance'].includes(row.reportKind) || row.serviceName);
+  const promotionRows = rows.filter((row) => row.reportKind === 'promotion' || (!row.forcedReportKind && row.promotionName));
+  const activityRows = rows.filter((row) => row.reportKind === 'activity' || (!row.forcedReportKind && row.activityName));
+  const liveRows = rows.filter((row) => row.reportKind === 'live' || (!row.forcedReportKind && row.liveName));
+  const contentRows = rows.filter((row) => row.reportKind === 'content' || (!row.forcedReportKind && row.contentName));
+  const serviceRows = rows.filter((row) => ['service', 'shopPerformance'].includes(row.reportKind) || (!row.forcedReportKind && row.serviceName));
   const refundRows = rows.filter((row) => (
     row.reportKind === 'refund' ||
-    row.refundReason ||
-    (row.itemName && (row.refundAmount || row.refundRate))
+    (!row.forcedReportKind && row.refundReason) ||
+    (!row.forcedReportKind && row.itemName && (row.refundAmount || row.refundRate))
   ));
   const productDetails = groupRows(productRows.length ? productRows : rows, 'itemName', 8);
   const productDetailsAll = groupRows(productRows.length ? productRows : rows, 'itemName', 9999);
@@ -3415,7 +3450,7 @@ function sanitizeTrafficDetails(items, totalSales, totalVisitors) {
 }
 
 function deriveProductStats(rows, totalSales) {
-  const productRows = rows.filter((row) => row.itemName);
+  const productRows = rows.filter((row) => row.reportKind === 'product' || (!row.forcedReportKind && row.itemName));
   const grouped = groupRows(productRows, 'itemName', 9999);
   const active = grouped.filter((item) => item.sales > 0 || item.orders > 0);
   const topSales = grouped.reduce((max, item) => Math.max(max, item.sales || 0), 0);
@@ -3431,7 +3466,7 @@ function sumTrafficVisitors(rows, matcher) {
 }
 
 function deriveStructuredChannelShares(rows) {
-  const trafficRows = rows.filter((row) => row.trafficLevel1 && row.visitors > 0);
+  const trafficRows = rows.filter((row) => (row.reportKind === 'traffic' || !row.forcedReportKind) && row.trafficLevel1 && row.visitors > 0);
   if (!trafficRows.length) return null;
   const rootRows = trafficRows.filter((row) => row.trafficDepth === 1);
   const businessRoot = rootRows.find((row) => /经营优势/.test(row.trafficLevel1));
@@ -3462,7 +3497,7 @@ function deriveChannelShares(rows) {
   const structured = deriveStructuredChannelShares(rows);
   if (structured) return structured;
   const buckets = { searchShare: 0, recommendShare: 0, contentShare: 0, paidShare: 0, privateShare: 0 };
-  const allTrafficRows = rows.filter((row) => row.trafficSource && row.visitors > 0);
+  const allTrafficRows = rows.filter((row) => (row.reportKind === 'traffic' || !row.forcedReportKind) && row.trafficSource && row.visitors > 0);
   const trafficRows = allTrafficRows.some((row) => row.trafficDepth >= 2)
     ? allTrafficRows.filter((row) => row.trafficDepth >= 2)
     : allTrafficRows;
@@ -3481,18 +3516,19 @@ function deriveChannelShares(rows) {
 
 function rowModuleNames(row) {
   const modules = [];
+  const allowFallback = !row.forcedReportKind;
   if (row.reportKind === 'overall' && (row.sales || row.visitors || row.orders)) modules.push('店铺整体');
   if (row.reportKind === 'trafficOverview' && row.visitors) modules.push('流量总览');
-  if ((row.reportKind === 'traffic' || row.trafficSource) && row.trafficSource) modules.push('流量排行');
-  if ((row.reportKind === 'product' || row.itemName) && row.itemName) modules.push('宝贝排行');
-  if (row.reportKind === 'category' || row.categoryName) modules.push('品类/类目');
-  if (row.reportKind === 'promotion' || row.promotionName) modules.push('推广情况');
-  if (row.reportKind === 'live' || row.liveName) modules.push('直播业绩');
-  if (row.reportKind === 'content' || row.contentName) modules.push('内容资产');
+  if ((row.reportKind === 'traffic' || (allowFallback && row.trafficSource)) && row.trafficSource) modules.push('流量排行');
+  if ((row.reportKind === 'product' || (allowFallback && row.itemName)) && row.itemName) modules.push('宝贝排行');
+  if (row.reportKind === 'category' || (allowFallback && row.categoryName)) modules.push('品类/类目');
+  if (row.reportKind === 'promotion' || (allowFallback && row.promotionName)) modules.push('推广情况');
+  if (row.reportKind === 'live' || (allowFallback && row.liveName)) modules.push('直播业绩');
+  if (row.reportKind === 'content' || (allowFallback && row.contentName)) modules.push('内容资产');
   if (row.reportKind === 'member') modules.push('客户/会员');
-  if (row.reportKind === 'service' || row.reportKind === 'shopPerformance' || row.serviceName) modules.push('客服/店铺绩效');
-  if (row.reportKind === 'refund' || row.refundAmount || row.refundRate) modules.push('退款售后');
-  if (row.reportKind === 'activity' || row.activityName) modules.push('活动情况');
+  if (row.reportKind === 'service' || row.reportKind === 'shopPerformance' || (allowFallback && row.serviceName)) modules.push('客服/店铺绩效');
+  if (row.reportKind === 'refund' || (allowFallback && row.refundAmount) || (allowFallback && row.refundRate)) modules.push('退款售后');
+  if (row.reportKind === 'activity' || (allowFallback && row.activityName)) modules.push('活动情况');
   return Array.from(new Set(modules));
 }
 
@@ -3521,13 +3557,16 @@ function buildImportSummary(mapped, rawRows, skippedFiles = []) {
   });
   return Array.from(fileMap.values()).map((item) => {
     const modules = Array.from(item.modules);
-    const kinds = Array.from(item.kinds.entries()).map(([name, count]) => `${name}:${count}`).join('，');
+    const kindEntries = Array.from(item.kinds.entries()).sort((a, b) => b[1] - a[1]);
+    const dominantKind = kindEntries[0]?.[0] || 'unknown';
+    const kinds = kindEntries.map(([name, count]) => `${reportKindLabel(name)}:${count}`).join('，');
     return {
       name: item.name,
       rawRows: item.rawRows,
       usedRows: item.usedRows,
       status: item.status,
       modules,
+      dominantKind,
       kinds,
       note: item.note || (modules.length ? `已进入：${modules.join('、')}` : '已读取但没有匹配到可用于当前报告的关键字段')
     };
@@ -3574,7 +3613,7 @@ function buildImportedAux(current, mapped, previous = {}) {
   const latestTraffic = trafficRows.find((row) => String(row.sourceCategory || '').includes('我的')) || trafficRows[0] || {};
   const latestMember = memberRows[0] || {};
   const activeReturnRows = mapped.filter((row) => (
-    row.reportKind === 'traffic' &&
+    (row.reportKind === 'traffic' || !row.forcedReportKind) &&
     /主动回访|老客|老买家|我的淘宝|购物车|消息|收藏/.test(row.trafficPath || row.trafficSource || '')
   ));
   const activeReturnSales = activeReturnRows.reduce((sum, row) => sum + (row.sales || 0), 0);
@@ -4221,10 +4260,13 @@ async function importDataFiles(files) {
     skippedText,
     suggestions,
     modules: summarizeImportModules(data.importSummary || []),
-    skippedFiles
+    fileSummaries: data.importSummary || [],
+    skippedFiles,
+    rawRows: rows,
+    fileNames: fileList.map((file) => file.name).join(' + ')
   };
-  $('#importStatus').textContent = `已导入 ${pendingImportMeta.fileCount} 个文件、${pendingImportMeta.rowCount} 行数据。请确认店铺名称和类目后生成${data.reportType}${skippedText}。`;
-  updateWorkflowStatus('confirm', `已导入 ${pendingImportMeta.fileCount} 个文件、${pendingImportMeta.rowCount} 行数据。请确认店铺信息后生成${data.reportType}。`);
+  $('#importStatus').textContent = `已导入 ${pendingImportMeta.fileCount} 个文件、${pendingImportMeta.rowCount} 行数据。请确认文件识别结果、店铺名称和类目后生成${data.reportType}${skippedText}。`;
+  updateWorkflowStatus('confirm', `已导入 ${pendingImportMeta.fileCount} 个文件、${pendingImportMeta.rowCount} 行数据。请确认文件识别结果和店铺信息后生成${data.reportType}。`);
   openImportConfirmModal(pendingImportMeta);
   toast(skippedFiles.length ? '已导入可识别文件，请确认店铺信息' : '数据已导入，请确认店铺信息');
 }
@@ -4298,6 +4340,43 @@ function summarizeImportModules(importSummary) {
   return Array.from(counts.entries()).map(([name, rows]) => ({ name, rows }));
 }
 
+function importRecognitionHtml(importSummary = []) {
+  if (!importSummary.length) return '';
+  const options = reportKindOptions.map(([value, label]) => `<option value="${value}">${label}</option>`).join('');
+  const rows = importSummary.map((item, index) => {
+    const usageRate = item.rawRows ? item.usedRows / item.rawRows * 100 : 0;
+    const statusClass = item.status === '未读取' || ['unknown', 'ignored'].includes(item.dominantKind) || !item.usedRows ? 'warn' : 'ok';
+    return `
+      <tr>
+        <td><strong>${index + 1}. ${escapeHtml(item.name)}</strong><span>${escapeHtml(item.note || '-')}</span></td>
+        <td><b class="recognition-badge ${statusClass}">${escapeHtml(reportKindLabel(item.dominantKind || 'unknown'))}</b></td>
+        <td>${item.rawRows ? `${item.usedRows}/${item.rawRows}` : '-'}</td>
+        <td>${item.rawRows ? percent(usageRate, 1) : '-'}</td>
+        <td>${escapeHtml(item.modules?.length ? item.modules.join('、') : '未进入正文模块')}</td>
+        <td>
+          <select data-import-kind="${escapeHtml(item.name)}" aria-label="修正 ${escapeHtml(item.name)} 的报表类型">
+            ${options}
+          </select>
+        </td>
+      </tr>
+    `;
+  }).join('');
+  return `
+    <div class="modal-recognition">
+      <div class="recognition-head">
+        <strong>文件识别结果确认</strong>
+        <span>如系统识别不准，可先在这里修正类型，再生成报告。</span>
+      </div>
+      <div class="recognition-table-wrap">
+        <table class="recognition-table">
+          <thead><tr><th>文件</th><th>识别为</th><th>使用行</th><th>使用率</th><th>进入模块</th><th>人工修正</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
 function importModuleChips(modules) {
   if (!modules || !modules.length) return '<span class="modal-chip">暂未识别模块</span>';
   return modules.map((item) => `<span class="modal-chip">${escapeHtml(item.name)} ${Math.round(item.rows || 0)}行</span>`).join('');
@@ -4314,7 +4393,13 @@ function openImportConfirmModal(meta) {
     <strong>系统识别建议</strong>
     <p>店铺：${escapeHtml(suggestion.storeName || '待填写')}；类目：${escapeHtml(suggestion.industry || '待选择')}；平台：${escapeHtml(suggestion.platform || selectedPlatform)}；报告：${escapeHtml(suggestion.reportType || meta.reportType)}。</p>
     <div class="modal-chips">${importModuleChips(meta.modules)}</div>
+    ${importRecognitionHtml(meta.fileSummaries || [])}
   `;
+  document.querySelectorAll('[data-import-kind]').forEach((select) => {
+    const file = select.getAttribute('data-import-kind');
+    const summary = (meta.fileSummaries || []).find((item) => item.name === file);
+    select.value = summary?.dominantKind || 'auto';
+  });
   $('#modalStoreName').value = suggestion.storeName || $('#storeName').value || '';
   $('#modalIndustry').value = suggestion.industry || $('#industry').value || '美妆个护';
   $('#modalPlatform').value = suggestion.platform || selectedPlatform || '天猫';
@@ -4362,6 +4447,27 @@ function validateImportConfirmForm() {
   return true;
 }
 
+function getImportKindOverrides() {
+  const overrides = new Map();
+  document.querySelectorAll('[data-import-kind]').forEach((select) => {
+    const file = select.getAttribute('data-import-kind');
+    const value = select.value;
+    if (file && value && value !== 'auto') overrides.set(file, value);
+  });
+  return overrides;
+}
+
+function applyImportKindOverrides(rows, overrides) {
+  if (!rows || !overrides || !overrides.size) return rows;
+  const nextRows = rows.map((row) => {
+    const file = row.来源文件 || row.sourceFile || '';
+    const override = overrides.get(file);
+    return override ? { ...row, __reportKindOverride: override } : row;
+  });
+  nextRows.skippedFiles = rows.skippedFiles || [];
+  return nextRows;
+}
+
 function jumpToReportPreview() {
   const report = $('#report');
   if (!report) return;
@@ -4378,13 +4484,29 @@ function confirmImportedReport() {
   const reportType = $('#modalReportType').value;
   if (!validateImportConfirmForm()) return;
   updateWorkflowStatus('generating', `任务信息已确认：${storeName} · ${platform} · ${industry} · ${reportType}，正在生成报告。`);
-  $('#storeName').value = storeName;
-  $('#industry').value = industry;
-  $('#reportType').value = reportType;
-  selectedPlatform = platform;
-  document.querySelectorAll('#platformTabs button').forEach((button) => {
-    button.classList.toggle('selected', button.dataset.platform === selectedPlatform);
-  });
+  if (pendingImportMeta?.rawRows) {
+    const current = getFormData();
+    const overrides = getImportKindOverrides();
+    const rows = applyImportKindOverrides(pendingImportMeta.rawRows, overrides);
+    const refreshed = rowsToFormData(rows, pendingImportMeta.fileNames || current.dataSource || '');
+    refreshed.brandName = current.brandName || refreshed.brandName || '';
+    refreshed.reportPurpose = current.reportPurpose || refreshed.reportPurpose || '品牌方正式版';
+    refreshed.periodStart = current.periodStart || refreshed.periodStart || '';
+    refreshed.periodEnd = current.periodEnd || refreshed.periodEnd || '';
+    refreshed.storeName = storeName;
+    refreshed.industry = industry;
+    refreshed.platform = platform;
+    refreshed.reportType = reportType;
+    setFormData(refreshed);
+  } else {
+    $('#storeName').value = storeName;
+    $('#industry').value = industry;
+    $('#reportType').value = reportType;
+    selectedPlatform = platform;
+    document.querySelectorAll('#platformTabs button').forEach((button) => {
+      button.classList.toggle('selected', button.dataset.platform === selectedPlatform);
+    });
+  }
   const diagnosis = analyze(getFormData());
   setLatest(diagnosis, true);
   closeImportConfirmModal();
@@ -4448,8 +4570,8 @@ const workflowStates = {
   confirm: {
     active: 'confirm',
     done: ['upload', 'parse'],
-    hint: '请先确认店铺名称、类目、平台和报告类型，确认后再写入历史。',
-    labels: { upload: '文件已导入', parse: '报表已识别', confirm: '等待人工确认' }
+    hint: '请先确认文件识别结果、店铺名称、类目、平台和报告类型，确认后再写入历史。',
+    labels: { upload: '文件已导入', parse: '报表已识别', confirm: '等待确认识别结果' }
   },
   draft: {
     active: 'confirm',

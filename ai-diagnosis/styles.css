@@ -1848,7 +1848,9 @@ legend,
 .modal-card {
   position: relative;
   z-index: 1;
-  width: min(680px, 100%);
+  width: min(980px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #fff;
@@ -1929,6 +1931,102 @@ legend,
   padding: 0 10px;
   font-size: 12px;
   font-weight: 800;
+}
+
+.modal-recognition {
+  display: grid;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.recognition-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.recognition-head strong {
+  color: var(--text);
+}
+
+.recognition-head span {
+  color: var(--muted);
+  font-size: 12px;
+  text-align: right;
+}
+
+.recognition-table-wrap {
+  max-height: 260px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.recognition-table {
+  width: 100%;
+  min-width: 820px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.recognition-table th,
+.recognition-table td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.recognition-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f1f5fb;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.recognition-table td:first-child {
+  max-width: 260px;
+}
+
+.recognition-table td strong,
+.recognition-table td span {
+  display: block;
+}
+
+.recognition-table td span {
+  margin-top: 3px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.recognition-table select {
+  min-height: 34px;
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+.recognition-badge {
+  display: inline-flex;
+  min-height: 24px;
+  align-items: center;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.recognition-badge.ok {
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+.recognition-badge.warn {
+  background: var(--amber-soft);
+  color: var(--amber);
 }
 
 .modal-form label {
