@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.8.0 · 2026-05-21 · 交付增强版';
+const appVersion = 'v0.8.3 · 2026-05-22 · 后台解析版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -187,6 +187,10 @@ let importedSummary = null;
 let importedAux = null;
 let importedLineage = null;
 let pendingImportMeta = null;
+let importSessionRows = [];
+let importSessionFileNames = [];
+let importSessionSkippedFiles = [];
+let isImportingFiles = false;
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -1119,6 +1123,49 @@ function brandLeadHtml(diagnosis) {
   `;
 }
 
+function reportCoverHtml(diagnosis) {
+  const data = diagnosis.data;
+  const reportName = getReportName(diagnosis);
+  const refundAmount = refundAmountValue(data);
+  const netSales = netSalesValue(data);
+  const grade = buildDeliveryGrade(diagnosis);
+  const periodLabel = `${data.periodStart || ''}${data.periodEnd ? ` 至 ${data.periodEnd}` : ''}` || data.period || '统计周期待确认';
+  return `
+    <section class="report-cover">
+      <div class="cover-brand">
+        <span>Pinmoo AI</span>
+        <strong>品沐咨询 · 电商增长智能体</strong>
+      </div>
+      <h2>${escapeHtml(data.storeName || data.brandName || '店铺')} ${escapeHtml(reportName)}</h2>
+      <p>${escapeHtml(data.reportPurpose || '品牌方正式版')} · ${escapeHtml(data.platform || '平台待确认')} · ${escapeHtml(data.industry || '类目待确认')} · ${escapeHtml(periodLabel)}</p>
+      <div class="cover-kpis">
+        <section><span>支付金额</span><strong>${yuan(data.sales || 0)}</strong></section>
+        <section><span>净销售额</span><strong>${yuan(netSales || 0)}</strong></section>
+        <section><span>退款金额</span><strong>${refundAmount ? yuan(refundAmount) : '待补充'}</strong></section>
+        <section><span>交付等级</span><strong>${escapeHtml(grade.level)}级</strong></section>
+      </div>
+      <div class="cover-conclusion">
+        <b>${escapeHtml(grade.title)}</b>
+        <span>${escapeHtml(brandOneSentence(diagnosis))}</span>
+      </div>
+    </section>
+  `;
+}
+
+function reportModuleInsight(result, evidence, action) {
+  return `
+    <div class="module-insight">
+      <section><span>本段结论</span><strong>${escapeHtml(result || '本模块数据已读取，建议结合表格明细复盘。')}</strong></section>
+      <section><span>关键证据</span><strong>${escapeHtml(evidence || '需继续补充明细字段，用于增强判断依据。')}</strong></section>
+      <section><span>下步动作</span><strong>${escapeHtml(action || '把本段结论纳入下周期复盘清单，跟踪是否改善。')}</strong></section>
+    </div>
+  `;
+}
+
+function weakTableNote(note) {
+  return !note || /继续观察|看来源质量|看类目成交|看成交|需补|暂无|待补|辅助判断/.test(String(note));
+}
+
 function hasImportSummary(diagnosis) {
   return Boolean(diagnosis.data.importSummary && diagnosis.data.importSummary.length);
 }
@@ -1547,8 +1594,12 @@ function dailyTrendChart(items) {
 function dailyHtml(items) {
   const topSales = [...(items || [])].sort((a, b) => (b.sales || 0) - (a.sales || 0))[0];
   const topRefund = [...(items || [])].sort((a, b) => (b.refundAmount || 0) - (a.refundAmount || 0))[0];
+  const result = topSales ? `${topSales.date || topSales.name} 是本周期销售峰值日，需判断峰值是否来自活动、直播、老客回访或付费拉动。` : '本周期暂未识别到按日期拆分的数据。';
+  const evidence = topSales ? `峰值销售 ${yuan(topSales.sales || 0)}${topRefund?.refundAmount ? `；最高退款日 ${topRefund.date || topRefund.name}，退款 ${yuan(topRefund.refundAmount)}` : ''}` : '建议补充店铺绩效/交易概览的分日数据。';
+  const action = topRefund?.refundAmount ? '把高销售日和高退款日交叉复盘，确认是否存在活动承诺、发货或页面预期问题。' : '下周期继续补齐分日退款金额，用于判断销售峰值质量。';
   return reportSection('每日销售与退款表现', `
     <p class="report-note">口径说明：本模块仅展示统计周期内按“日期”拆分的单日经营数据；“同行同层优秀 / 同行同层均值 / 全店平均值”等平台参考值不作为某一天展示，避免与单日趋势混淆。</p>
+    ${reportModuleInsight(result, evidence, action)}
     ${dailyTrendChart(items)}
     <table class="report-table">
       <thead><tr><th>日期</th><th>访客数</th><th>销售额</th><th>订单数</th><th>转化率</th><th>退款金额</th><th>净销售额</th></tr></thead>
@@ -1569,7 +1620,16 @@ function dailyHtml(items) {
 }
 
 function productHtml(items) {
+  const rows = items || [];
+  const topSales = [...rows].sort((a, b) => (b.sales || 0) - (a.sales || 0))[0];
+  const topRefund = [...rows].sort((a, b) => (b.refundAmount || 0) - (a.refundAmount || 0))[0];
+  const highRisk = rows.filter((item) => (item.refundAmount || 0) > 0 || (item.refundRate || 0) >= 15).length;
   return reportSection('宝贝排行', `
+    ${reportModuleInsight(
+      topSales ? `成交核心集中在 ${topSales.name || '头部商品'}，商品复盘需同时看成交贡献和退款风险。` : '暂未识别到有效商品明细。',
+      topSales ? `TOP商品支付金额 ${yuan(topSales.sales || 0)}${topRefund?.refundAmount ? `；退款最高商品 ${topRefund.name || '-'}，退款 ${yuan(topRefund.refundAmount)}` : ''}` : '建议补充商品_全部或宝贝明细。',
+      highRisk ? `先处理 ${highRisk} 个存在退款风险的商品，再决定是否放大流量。` : '优先稳定主推款页面、价格理由、评价证据和客服异议话术。'
+    )}
     <table class="report-table">
       <thead><tr><th>宝贝/商品</th><th>支付金额</th><th>访客</th><th>支付买家</th><th>转化率</th><th>退款金额</th><th>退款率</th><th>经营判断</th></tr></thead>
       <tbody>
@@ -1581,11 +1641,31 @@ function productHtml(items) {
           { render: (item) => percent(item.conversion || 0) },
           { render: (item) => item.refundAmount ? yuan(item.refundAmount) : '-' },
           { render: (item) => item.refundRate ? percent(item.refundRate) : '-' },
-          { render: (item) => escapeHtml(item.note || '-') }
+          { render: (item) => escapeHtml(productDiagnosis(item, rows)) }
         ])}
       </tbody>
     </table>
   `);
+}
+
+function productDiagnosis(item, peers = []) {
+  if (!item) return '-';
+  const sales = Number(item.sales || 0);
+  const visitors = Number(item.visitors || 0);
+  const orders = Number(item.orders || 0);
+  const conversion = Number(item.conversion || 0);
+  const refundAmount = Number(item.refundAmount || 0);
+  const refundRate = Number(item.refundRate || 0);
+  const medianSales = median((peers || []).map((sku) => Number(sku.sales || 0)));
+  const medianVisitors = median((peers || []).map((sku) => Number(sku.visitors || 0)));
+  if (refundAmount > sales && sales > 0) return '退款金额高于当期成交，可能包含历史订单退款，需按订单和退款原因复核。';
+  if (refundRate >= 30 || refundAmount >= Math.max(sales * 0.2, 1000)) return '成交贡献同时伴随售后风险，短期不建议单纯加量，先核查页面承诺和客服确认。';
+  if (sales >= Math.max(medianSales * 1.4, 1000) && conversion >= 3 && refundAmount <= Math.max(sales * 0.08, 500)) return '主力成交款，建议稳定资源位，并围绕评价、赠品和套装做轻优化。';
+  if (visitors >= Math.max(medianVisitors * 1.4, 500) && conversion > 0 && conversion < 1) return '高访低转，优先检查首图、价格理由、规格选择和评价信任。';
+  if (visitors < Math.max(medianVisitors * 0.7, 80) && conversion >= 3 && sales > 0) return '小流量高转化，可小预算测试搜索词、内容种草或老客回访。';
+  if (orders <= 1 && visitors >= 200) return '有曝光但成交弱，需判断流量是否精准，并补充加购/收藏数据。';
+  if (!weakTableNote(item.note)) return item.note;
+  return '按销售、访客、转化和退款综合观察，下周期重点验证页面承接和售后反馈。';
 }
 
 function median(values) {
@@ -1766,7 +1846,15 @@ function refundMatrixHtml(diagnosis) {
 }
 
 function categoryHtml(items) {
+  const rows = items || [];
+  const top = [...rows].sort((a, b) => (b.sales || 0) - (a.sales || 0))[0];
+  const emptyTraffic = rows.filter((item) => (item.visitors || 0) > 0 && !(item.sales || 0)).length;
   return reportSection('品类/类目排行', `
+    ${reportModuleInsight(
+      top ? `${top.name || '头部类目'} 是当前主要成交类目，需要判断是否与主推货盘一致。` : '暂未识别到有效品类/类目数据。',
+      top ? `头部类目支付金额 ${yuan(top.sales || 0)}，访客 ${Math.round(top.visitors || 0).toLocaleString('zh-CN')}，转化 ${percent(top.conversion || 0)}` : '建议补充标准类目或品类明细。',
+      emptyTraffic ? `${emptyTraffic} 个类目存在访客但无成交，优先检查货盘匹配和入口承接。` : '围绕头部类目继续拆主推 SKU、价格带、内容素材和退款原因。'
+    )}
     <table class="report-table">
       <thead><tr><th>类目</th><th>支付金额</th><th>访客</th><th>支付买家</th><th>转化率</th><th>退款金额</th><th>判断</th></tr></thead>
       <tbody>
@@ -1777,15 +1865,38 @@ function categoryHtml(items) {
           { render: (item) => Math.round(item.orders || 0).toLocaleString('zh-CN') },
           { render: (item) => percent(item.conversion || 0) },
           { render: (item) => item.refundAmount ? yuan(item.refundAmount) : '-' },
-          { render: (item) => escapeHtml(item.note || '看类目成交、加购和退款结构') }
+          { render: (item) => escapeHtml(categoryDiagnosis(item, rows)) }
         ], '暂无类目明细')}
       </tbody>
     </table>
   `);
 }
 
+function categoryDiagnosis(item, peers = []) {
+  const sales = Number(item.sales || 0);
+  const visitors = Number(item.visitors || 0);
+  const conversion = Number(item.conversion || 0);
+  const refundAmount = Number(item.refundAmount || 0);
+  const medianSales = median((peers || []).map((row) => Number(row.sales || 0)));
+  if (refundAmount > sales && sales > 0) return '退款高于本期成交，需核查是否为历史订单退款。';
+  if (refundAmount >= Math.max(sales * 0.12, 1000)) return '类目成交有贡献但退款偏高，先拆退款原因和关联 SKU。';
+  if (sales >= Math.max(medianSales * 1.4, 1000) && conversion >= 1) return '当前核心成交类目，建议继续围绕主推 SKU 和价格带做资源聚焦。';
+  if (visitors > 0 && !sales) return '有流量无成交，需检查入口商品、价格带和首屏卖点匹配。';
+  if (visitors >= 300 && conversion < 0.8) return '类目承接偏弱，建议补主图、详情页和客服高频异议。';
+  if (!weakTableNote(item.note)) return item.note;
+  return '需结合类目内 SKU、加购、退款和复购数据进一步判断。';
+}
+
 function liveHtml(items) {
+  const rows = items || [];
+  const top = [...rows].sort((a, b) => (b.sales || 0) - (a.sales || 0))[0];
+  const weakClick = rows.filter((item) => (item.liveVisitors || item.visitors || 0) > 0 && (item.liveClickRate || 0) > 0 && (item.liveClickRate || 0) < 3).length;
   return reportSection('直播业绩诊断', `
+    ${reportModuleInsight(
+      top ? `直播成交集中在 ${top.name || '头部场次'}，需判断是观看不足还是点击/成交承接不足。` : '暂未识别到直播明细。',
+      top ? `最高成交 ${yuan(top.sales || 0)}，观看 ${Math.round(top.liveVisitors || top.visitors || 0).toLocaleString('zh-CN')}，商品点击率 ${top.liveClickRate ? percent(top.liveClickRate) : '待补充'}` : '建议补充直播观看、商品点击、播中成交和播后成交。',
+      weakClick ? '优先优化讲解顺序、购物车引导和利益点表达。' : '把成交较好的场次沉淀为直播脚本和货盘排序模板。'
+    )}
     <table class="report-table">
       <thead><tr><th>直播/日期</th><th>成交金额</th><th>观看人数</th><th>商品点击</th><th>观看点击率</th><th>成交人数/笔数</th><th>开播时长</th><th>判断</th></tr></thead>
       <tbody>
@@ -1805,7 +1916,15 @@ function liveHtml(items) {
 }
 
 function contentHtml(items) {
+  const rows = items || [];
+  const top = [...rows].sort((a, b) => (b.sales || 0) - (a.sales || 0))[0];
+  const exposureOnly = rows.filter((item) => (item.visitors || item.contentVisitors || item.shortVideoVisitors || 0) > 0 && !(item.sales || 0)).length;
   return reportSection('内容资产诊断', `
+    ${reportModuleInsight(
+      top ? `${top.name || '头部内容'} 已形成成交贡献，适合提炼素材方向。` : '内容数据暂未形成明确成交贡献。',
+      top ? `内容成交 ${yuan(top.sales || 0)}，浏览/曝光 ${Math.round(top.visitors || top.contentVisitors || top.shortVideoVisitors || 0).toLocaleString('zh-CN')}` : `${exposureOnly} 条内容偏曝光/互动，成交链路仍需验证。`,
+      '把高互动内容与高转化 SKU、主动回访和客服话术串联，形成种草到成交闭环。'
+    )}
     <table class="report-table">
       <thead><tr><th>内容资产</th><th>成交金额</th><th>曝光/浏览</th><th>点击/互动</th><th>成交</th><th>转化率</th><th>判断</th></tr></thead>
       <tbody>
@@ -1824,7 +1943,15 @@ function contentHtml(items) {
 }
 
 function serviceDetailHtml(items) {
+  const rows = items || [];
+  const refundTop = [...rows].sort((a, b) => (b.refundAmount || 0) - (a.refundAmount || 0))[0];
+  const lowConversion = rows.filter((item) => (item.visitors || 0) >= 500 && (item.conversion || 0) > 0 && (item.conversion || 0) < 1).length;
   return reportSection('客服绩效诊断', `
+    ${reportModuleInsight(
+      lowConversion ? '客服承接偏弱，不能只看接待量，需要复盘咨询到成交的关键断点。' : '客服数据已可用于辅助判断售前承接和售后风险。',
+      refundTop?.refundAmount ? `退款最高项 ${formatGroupLabel(refundTop.name)}，退款金额 ${yuan(refundTop.refundAmount)}` : '建议补充响应时长、询单人数、催付成交和客服维度退款。',
+      '把高频咨询问题、退款原因和页面承诺打通，形成售前预期管理话术。'
+    )}
     <table class="report-table">
       <thead><tr><th>客服/日期</th><th>咨询/接待</th><th>成交金额</th><th>成交人数/笔数</th><th>转化/响应</th><th>退款金额</th><th>判断</th></tr></thead>
       <tbody>
@@ -1863,7 +1990,15 @@ function serviceDiagnosis(item) {
 }
 
 function trafficHtml(items) {
+  const rows = items || [];
+  const top = [...rows].sort((a, b) => (b.sales || 0) - (a.sales || 0))[0];
+  const weak = rows.filter((item) => (item.visitors || 0) >= 1000 && (item.conversion || 0) < 1).length;
   return reportSection('流量排行', `
+    ${reportModuleInsight(
+      top ? `${top.name || '头部来源'} 是本周期主要成交入口，需判断是否可复制到其他入口。` : '暂未识别到有效流量来源明细。',
+      top ? `支付金额 ${yuan(top.sales || 0)}，访客 ${Math.round(top.visitors || 0).toLocaleString('zh-CN')}，转化 ${percent(top.conversion || 0)}` : '建议补充无线店铺流量来源或流量总览。',
+      weak ? `${weak} 个入口存在大流量低转化，先优化承接页和商品匹配，不建议直接扩量。` : '保留高意向入口，低效率入口补加购、跳失和承接页面数据再判断。'
+    )}
     <table class="report-table">
       <thead><tr><th>流量来源</th><th>支付金额</th><th>访客</th><th>转化率</th><th>UV价值</th><th>经营判断</th></tr></thead>
       <tbody>
@@ -1923,6 +2058,11 @@ function promotionHtml(items) {
   const best = [...(items || [])].filter((item) => item.spend && item.sales).sort((a, b) => (b.sales / b.spend) - (a.sales / a.spend))[0];
   const worst = [...(items || [])].filter((item) => item.spend).sort((a, b) => (a.roi || (a.spend ? a.sales / a.spend : 0)) - (b.roi || (b.spend ? b.sales / b.spend : 0)))[0];
   return reportSection('推广投放表现（含计划报表专项分析）', `
+    ${reportModuleInsight(
+      totalSpend ? `本期推广需先判断投放质量，再决定预算调整。整体ROI为 ${overallRoi ? overallRoi.toFixed(2) : '待补充'}。` : '暂未识别到推广计划级花费和成交。',
+      totalSpend ? `花费 ${yuan(totalSpend)}，成交 ${yuan(totalSales)}，点击 ${totalClicks ? Math.round(totalClicks).toLocaleString('zh-CN') : '待补充'}，点击转化 ${overallClickConversion ? percent(overallClickConversion) : '待补充'}` : '建议补充计划报表、关键词/创意/单元报表。',
+      worst ? `先处理 ${worst.name || '低效计划'} 的人群、关键词、出价或落地页，再考虑放大预算。` : '有ROI但缺点击和加购时，不建议只按ROI加预算。'
+    )}
     <div class="summary-grid compact">
       <section><span>总花费</span><strong>${totalSpend ? yuan(totalSpend) : '-'}</strong><p>计划报表合计</p></section>
       <section><span>总成交金额</span><strong>${totalSales ? yuan(totalSales) : '-'}</strong><p>推广带来支付金额</p></section>
@@ -1942,11 +2082,29 @@ function promotionHtml(items) {
           { render: (item) => item.impressions && item.clicks ? percent(item.clicks / item.impressions * 100) : '-' },
           { render: (item) => item.clicks && item.orders ? percent(item.orders / item.clicks * 100) : item.conversion ? percent(item.conversion) : '-' },
           { render: (item) => item.addCarts ? Math.round(item.addCarts).toLocaleString('zh-CN') : '-' },
-          { render: (item) => escapeHtml(item.note || '-') }
+          { render: (item) => escapeHtml(promotionPlanDiagnosis(item)) }
         ])}
       </tbody>
     </table>
   `);
+}
+
+function promotionPlanDiagnosis(item) {
+  const spend = Number(item.spend || 0);
+  const sales = Number(item.sales || 0);
+  const roi = Number(item.roi || (spend ? sales / spend : 0));
+  const impressions = Number(item.impressions || 0);
+  const clicks = Number(item.clicks || 0);
+  const orders = Number(item.orders || 0);
+  const ctr = impressions ? clicks / impressions * 100 : 0;
+  const clickCvr = clicks ? orders / clicks * 100 : 0;
+  if (spend && !sales) return '有花费无成交，建议暂停或降低预算，先排查关键词、人群和承接页。';
+  if (roi >= 4 && ctr > 0 && ctr < 0.5) return 'ROI较高但点击率偏低，可能依赖高意向人群，适合稳投不宜盲目扩量。';
+  if (roi >= 3 && clickCvr >= 2) return '成交效率较好，可保留预算并小幅测试扩量，需同步观察退款和加购。';
+  if (roi > 0 && roi < 1.5 && spend >= 200) return '低ROI计划，优先收窄关键词/人群、降低出价或暂停低效词包。';
+  if (clicks >= 300 && clickCvr > 0 && clickCvr < 1) return '点击较多但成交承接弱，优先优化落地页、主推款和价格理由。';
+  if (!weakTableNote(item.note)) return item.note;
+  return '需结合点击率、点击成交转化率、加购和退款后再判断预算方向。';
 }
 
 function activityHtml(items) {
@@ -2150,6 +2308,7 @@ function renderReport(diagnosis) {
   `));
   $('#reportTime').textContent = '最近生成：' + diagnosis.createdAt;
   $('#reportPaper').innerHTML = `
+    ${reportCoverHtml(diagnosis)}
     <div class="report-brand">Pinmoo AI 电商增长智能体</div>
     <h3>${reportName}</h3>
     <div class="report-meta">${data.brandName || data.storeName} · ${data.storeName} · ${data.platform} · ${data.industry} · ${data.period} · ${data.reportPurpose || '品牌方正式版'} · ${data.dataSource || '数据导入'}</div>
@@ -2333,14 +2492,7 @@ function renderReport(diagnosis) {
     <p>${escapeHtml(data.notes || '暂无补充说明。')}</p>
   `;
   $('#reportPaper').innerHTML = `
-    <div class="report-brand">Pinmoo AI 电商增长智能体</div>
-    <h3>${reportName}</h3>
-    <div class="report-meta">${data.storeName} · ${data.platform} · ${data.industry} · ${data.period} · ${data.dataSource || '数据导入'}</div>
-    <div class="conclusion-box">
-      <strong>核心结论：${diagnosis.summary.title}，综合健康度 ${diagnosis.totalScore} 分</strong>
-      <p>${diagnosis.summary.text}</p>
-    </div>
-
+    ${reportCoverHtml(diagnosis)}
     ${reportVisualSummaryHtml(diagnosis)}
     ${deliveryGradeHtml(diagnosis)}
 
@@ -2890,6 +3042,20 @@ function exportWord() {
     .report-brand { color: #115df6; font-weight: 700; }
     .report-meta { text-align: center; color: #667085; font-size: 11px; }
     .conclusion-box { border: 1px solid #bfd3ff; background: #eef4ff; padding: 12px; margin: 14px 0; }
+    .report-cover { border: 1px solid #bfd3ff; background: #f8fbff; padding: 20px; margin: 0 0 18px; }
+    .cover-brand { color: #115df6; font-weight: 700; margin-bottom: 16px; }
+    .report-cover h2 { text-align: center; font-size: 26px; margin: 8px 0; color: #111827; }
+    .report-cover > p { text-align: center; color: #667085; }
+    .cover-kpis { display: table; width: 100%; border-spacing: 6px; margin: 12px 0; }
+    .cover-kpis section { display: table-cell; width: 25%; border: 1px solid #d0d7e2; background: #fff; padding: 9px; }
+    .cover-kpis span { display: block; color: #667085; font-size: 10px; }
+    .cover-kpis strong { display: block; font-size: 15px; color: #111827; }
+    .cover-conclusion { border-left: 4px solid #115df6; background: #fff; padding: 10px; }
+    .cover-conclusion b, .cover-conclusion span { display: block; }
+    .module-insight { display: table; width: 100%; border-spacing: 6px; margin: 10px 0; }
+    .module-insight section { display: table-cell; width: 33%; border: 1px solid #d0d7e2; background: #f8fbff; padding: 8px; }
+    .module-insight span { display: block; color: #667085; font-size: 10px; font-weight: 700; }
+    .module-insight strong { display: block; color: #111827; font-size: 11px; line-height: 1.5; }
     .visual-summary { display: table; width: 100%; margin: 14px 0; border-spacing: 8px; }
     .visual-score, .visual-kpis { display: table-cell; vertical-align: top; }
     .visual-score { width: 24%; border: 1px solid #d0d7e2; background: #f8fbff; padding: 12px; text-align: center; }
@@ -3530,7 +3696,7 @@ function rankingNote(item, key) {
   if (key === 'trafficSource') {
     if (item.conversion < 1) return '流量成交效率偏低';
     if (item.conversion >= 3) return '转化表现较好';
-    return '需看来源质量和承接页面';
+    return '需补来源层级、加购和跳失数据，判断入口质量与页面承接';
   }
   if (key === 'activityName') {
     return item.sales ? '记录活动成交，复盘活动承接' : '需补充活动成交数据';
@@ -3544,7 +3710,7 @@ function rankingNote(item, key) {
     return '类目贡献偏中腰部，建议按销售占比和毛利决定是否保留资源';
   }
   if (item.sales > 0 && item.refundAmount > item.sales) return '退款高于本期支付，疑似历史订单退款，先核查退款归属';
-  if (item.refundRate >= 50) return '退款严重侵蚀成交，暂停放量，优先核查规格/口感/页面承诺';
+  if (item.refundRate >= 50) return '退款对成交质量影响较大，暂停放量，优先核查规格/口感/页面承诺';
   if (item.refundRate >= 15 || item.refundAmount > Math.max(item.sales * 0.12, 500)) return '退款偏高，先改详情页预期、客服话术和售后原因';
   if (item.visitors >= 1000 && item.conversion < 0.5) return '高访低转，不建议加流量，先修主图首屏和价格理由';
   if (item.visitors >= 500 && item.conversion < 1) return '有流量但承接弱，优先检查主图、规格选择和评价证据';
@@ -4414,21 +4580,152 @@ async function readRowsFromFile(file) {
   return rows.map((row, index) => ({ ...row, 来源文件: file.name, __rowIndex: index }));
 }
 
+function createImportParserWorker() {
+  const functions = [
+    parseCsv,
+    decodeTextBuffer,
+    columnIndex,
+    parseRowsFromArrays,
+    headerlessHeaders,
+    parseHeaderlessRows,
+    inflateZipEntry,
+    findEndOfCentralDirectory,
+    unzipEntries,
+    xmlText,
+    readOleSector,
+    readOleChain,
+    parseOleWorkbookStream,
+    readBiffUnicodeString,
+    decodeRkNumber,
+    setArrayCell,
+    parseLegacyXlsRows,
+    nodeText,
+    parseXlsxRows,
+    parseHtmlDocRows,
+    parseDocxRows,
+    readRowsFromFile
+  ].map((fn) => fn.toString()).join('\n\n');
+  const source = `
+    ${functions}
+    self.onmessage = async (event) => {
+      const file = event.data && event.data.file;
+      try {
+        if (!file) throw new Error('missing-file');
+        const rows = await readRowsFromFile(file);
+        self.postMessage({ ok: true, rows });
+      } catch (error) {
+        self.postMessage({ ok: false, error: error && error.message ? error.message : 'parse-failed' });
+      }
+    };
+  `;
+  return new Worker(URL.createObjectURL(new Blob([source], { type: 'text/javascript' })));
+}
+
+function readRowsFromFileOffThread(file) {
+  if (!window.Worker) return readRowsFromFile(file);
+  return new Promise((resolve, reject) => {
+    let worker;
+    try {
+      worker = createImportParserWorker();
+    } catch (error) {
+      readRowsFromFile(file).then(resolve).catch(reject);
+      return;
+    }
+    const timer = setTimeout(() => {
+      worker.terminate();
+      reject(new Error('parse-timeout'));
+    }, Math.max(45000, Math.ceil((file.size || 0) / 1024 / 1024) * 15000));
+    worker.onmessage = (event) => {
+      clearTimeout(timer);
+      worker.terminate();
+      if (event.data?.ok) resolve(event.data.rows || []);
+      else reject(new Error(event.data?.error || 'parse-failed'));
+    };
+    worker.onerror = (event) => {
+      clearTimeout(timer);
+      worker.terminate();
+      reject(new Error(event.message || 'worker-error'));
+    };
+    worker.postMessage({ file });
+  });
+}
+
+function setImportProgress({ current = 0, total = 0, filename = '', rowCount = 0, mode = 'running', message = '' } = {}) {
+  const box = $('#importProgress');
+  if (!box) return;
+  const percent = total ? Math.round(current / total * 100) : 0;
+  box.hidden = false;
+  $('#importProgressText').textContent = message || (filename ? `正在读取 ${current}/${total}：${filename}` : '正在准备导入');
+  $('#importProgressPercent').textContent = `${Math.max(0, Math.min(100, percent))}%`;
+  $('#importProgressBar').style.width = `${Math.max(0, Math.min(100, percent))}%`;
+  $('#importProgressDetail').textContent = mode === 'done'
+    ? `本轮导入完成，当前任务累计 ${importSessionFileNames.length} 个文件、${rowCount.toLocaleString('zh-CN')} 行数据。`
+    : `已累计 ${importSessionFileNames.length} 个文件、${rowCount.toLocaleString('zh-CN')} 行数据；可继续分批追加上传。`;
+}
+
+function clearImportProgress() {
+  const box = $('#importProgress');
+  if (!box) return;
+  box.hidden = true;
+  $('#importProgressText').textContent = '等待导入';
+  $('#importProgressPercent').textContent = '0%';
+  $('#importProgressBar').style.width = '0%';
+  $('#importProgressDetail').textContent = '可分批上传，后续批次会追加到当前报告任务。';
+}
+
+function resetImportSession() {
+  importSessionRows = [];
+  importSessionFileNames = [];
+  importSessionSkippedFiles = [];
+  pendingImportMeta = null;
+  clearImportProgress();
+  $('#importStatus').textContent = '尚未导入数据，可先使用示例数据体验。';
+}
+
 async function importDataFiles(files) {
   const fileList = Array.from(files || []);
   if (!fileList.length) return;
-  updateWorkflowStatus('parsing', `正在读取 ${fileList.length} 个文件，并识别首页、商品、流量、客服、直播、推广等报表类型。`);
-  const results = await Promise.allSettled(fileList.map(readRowsFromFile));
-  const skippedFiles = [];
-  const allRowsNested = results.map((result, index) => {
-    if (result.status === 'fulfilled') return result.value;
-    skippedFiles.push(fileList[index].name);
-    return [];
-  });
-  const rows = allRowsNested.flat();
+  if (isImportingFiles) {
+    toast('当前仍在导入，请等待本轮完成后再追加文件');
+    return;
+  }
+  isImportingFiles = true;
+  try {
+  if (pendingImportMeta?.rawRows?.length && !importSessionRows.length) {
+    importSessionRows = [...pendingImportMeta.rawRows];
+    importSessionFileNames = pendingImportMeta.fileNameList || String(pendingImportMeta.fileNames || '').split(' + ').filter(Boolean);
+    importSessionSkippedFiles = pendingImportMeta.skippedFiles || [];
+  }
+  const existing = new Set(importSessionFileNames);
+  const incoming = fileList.filter((file) => !existing.has(file.name));
+  const duplicateCount = fileList.length - incoming.length;
+  if (!incoming.length) {
+    toast('这些文件已经在当前任务中，不再重复导入');
+    return;
+  }
+  const appended = importSessionRows.length > 0;
+  updateWorkflowStatus('parsing', `${appended ? '正在追加' : '正在读取'} ${incoming.length} 个文件。文件较多时会逐个解析并显示进度，可分批上传。`);
+  setImportProgress({ current: 0, total: incoming.length, rowCount: importSessionRows.length, message: appended ? '准备追加本批文件' : '准备读取本批文件' });
+  const batchSkipped = [];
+  for (let index = 0; index < incoming.length; index += 1) {
+    const file = incoming[index];
+    setImportProgress({ current: index, total: incoming.length, filename: file.name, rowCount: importSessionRows.length });
+    try {
+      const rows = await readRowsFromFileOffThread(file);
+      importSessionRows.push(...rows);
+      importSessionFileNames.push(file.name);
+    } catch {
+      batchSkipped.push(file.name);
+      importSessionSkippedFiles.push(file.name);
+    }
+    setImportProgress({ current: index + 1, total: incoming.length, filename: file.name, rowCount: importSessionRows.length });
+    await new Promise((resolve) => setTimeout(resolve, 0));
+  }
+  const rows = [...importSessionRows];
+  const skippedFiles = [...importSessionSkippedFiles];
   rows.skippedFiles = skippedFiles;
-  const data = rowsToFormData(rows, fileList.map((file) => file.name).join(' + '));
-  const suggestions = inferImportSuggestions(fileList, rows, data);
+  const data = rowsToFormData(rows, importSessionFileNames.join(' + '));
+  const suggestions = inferImportSuggestions(importSessionFileNames.map((name) => ({ name })), rows, data);
   data.storeName = data.storeName || suggestions.storeName;
   data.industry = suggestions.industry || data.industry;
   data.platform = suggestions.platform || data.platform;
@@ -4436,7 +4733,7 @@ async function importDataFiles(files) {
   setLatest(analyze(getFormData()), false);
   const skippedText = skippedFiles.length ? `；${skippedFiles.length} 个文件暂未读取，请检查是否为加密、损坏或暂不支持格式` : '';
   pendingImportMeta = {
-    fileCount: fileList.length - skippedFiles.length,
+    fileCount: importSessionFileNames.length,
     rowCount: rows.length,
     reportType: data.reportType,
     skippedText,
@@ -4445,12 +4742,22 @@ async function importDataFiles(files) {
     fileSummaries: data.importSummary || [],
     skippedFiles,
     rawRows: rows,
-    fileNames: fileList.map((file) => file.name).join(' + ')
+    fileNames: importSessionFileNames.join(' + '),
+    fileNameList: [...importSessionFileNames],
+    batchFileCount: incoming.length,
+    duplicateCount,
+    appended
   };
-  $('#importStatus').textContent = `已导入 ${pendingImportMeta.fileCount} 个文件、${pendingImportMeta.rowCount} 行数据。请确认文件识别结果、店铺名称和类目后生成${data.reportType}${skippedText}。`;
-  updateWorkflowStatus('confirm', `已导入 ${pendingImportMeta.fileCount} 个文件、${pendingImportMeta.rowCount} 行数据。请确认文件识别结果和店铺信息后生成${data.reportType}。`);
+  setImportProgress({ current: incoming.length, total: incoming.length, rowCount: rows.length, mode: 'done', message: duplicateCount ? `本轮完成，已跳过 ${duplicateCount} 个重复文件` : '本轮导入完成' });
+  const batchText = appended ? `本批追加 ${incoming.length} 个文件，当前累计` : '已导入';
+  const duplicateText = duplicateCount ? `；跳过 ${duplicateCount} 个重复文件` : '';
+  $('#importStatus').textContent = `${batchText} ${pendingImportMeta.fileCount} 个文件、${pendingImportMeta.rowCount} 行数据${duplicateText}。请确认文件识别结果、店铺名称和类目后生成${data.reportType}${skippedText}。`;
+  updateWorkflowStatus('confirm', `${batchText} ${pendingImportMeta.fileCount} 个文件、${pendingImportMeta.rowCount} 行数据。可继续分批追加，或确认后生成${data.reportType}。`);
   openImportConfirmModal(pendingImportMeta);
-  toast(skippedFiles.length ? '已导入可识别文件，请确认店铺信息' : '数据已导入，请确认店铺信息');
+  toast(batchSkipped.length ? '已导入可识别文件，部分文件未读取' : appended ? '本批文件已追加，请确认识别结果' : '数据已导入，请确认店铺信息');
+  } finally {
+  isImportingFiles = false;
+  }
 }
 
 function inferImportSuggestions(fileList, rows, data) {
@@ -4570,7 +4877,7 @@ function openImportConfirmModal(meta) {
   clearImportConfirmErrors();
   const suggestion = meta.suggestions || {};
   const skipped = meta.skippedFiles?.length ? `，${meta.skippedFiles.length} 个文件未读取` : '';
-  $('#importConfirmText').textContent = `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据${skipped}。请确认店铺信息后生成${meta.reportType}。`;
+  $('#importConfirmText').textContent = `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据${skipped}。可继续追加下一批文件，或确认店铺信息后生成${meta.reportType}。`;
   $('#modalImportSummary').innerHTML = `
     <strong>系统识别建议</strong>
     <p>店铺：${escapeHtml(suggestion.storeName || '待填写')}；类目：${escapeHtml(suggestion.industry || '待选择')}；平台：${escapeHtml(suggestion.platform || selectedPlatform)}；报告：${escapeHtml(suggestion.reportType || meta.reportType)}。</p>
@@ -4695,6 +5002,9 @@ function confirmImportedReport() {
   const meta = pendingImportMeta || { fileCount: 0, rowCount: 0, reportType: diagnosis.data.reportType, skippedText: '' };
   $('#importStatus').textContent = `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据，自动生成${diagnosis.data.reportType}并写入历史${meta.skippedText || ''}。`;
   pendingImportMeta = null;
+  importSessionRows = [];
+  importSessionFileNames = [];
+  importSessionSkippedFiles = [];
   updateWorkflowStatus('generated', `已生成${diagnosis.data.reportType}并写入历史。请先核实报告标题、周期、数据口径和关键结论。`);
   jumpToReportPreview();
   toast('已生成并写入历史，已跳转到报告预览，请先核实任务信息');
@@ -4843,6 +5153,7 @@ function bindEvents() {
   });
 
   $('#loadSample').addEventListener('click', () => {
+    resetImportSession();
     const sample = samples[Math.floor(Math.random() * samples.length)];
     setFormData(sample);
     setLatest(analyze(getFormData()));
@@ -4851,6 +5162,7 @@ function bindEvents() {
   });
 
   $('#resetForm').addEventListener('click', () => {
+    resetImportSession();
     setFormData({ ...samples[0], storeName: '', sales: 0, prevSales: 0, visitors: 0, prevVisitors: 0, notes: '' });
     setLatest(analyze(getFormData()));
     updateWorkflowStatus('idle');
@@ -4873,6 +5185,10 @@ function bindEvents() {
   $('#importHistory').addEventListener('click', () => $('#historyFile').click());
   $('#importData').addEventListener('click', () => {
     updateWorkflowStatus('selecting');
+    $('#dataFile').click();
+  });
+  $('#appendImportFiles')?.addEventListener('click', () => {
+    updateWorkflowStatus('selecting', '请选择下一批报表文件，系统会追加到当前报告任务中。');
     $('#dataFile').click();
   });
   $('#downloadTemplate').addEventListener('click', downloadDataTemplate);

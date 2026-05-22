@@ -6,7 +6,7 @@
     <title>Pinmoo AI 店铺经营诊断工作台</title>
     <meta name="description" content="Pinmoo AI 电商增长智能体店铺经营诊断初版，用于多店铺经营诊断、问题归因、行动计划和报告交付。" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260521-delivery-grade" />
+    <link rel="stylesheet" href="./styles.css?v=20260522-worker-import" />
   </head>
   <body>
     <div class="app-shell">
@@ -46,7 +46,7 @@
           <div>
             <span>当前工作空间</span>
             <strong>品沐咨询团队</strong>
-            <em class="version-badge" id="appVersion">v0.8.0 · 2026-05-21 · 交付增强版</em>
+            <em class="version-badge" id="appVersion">v0.8.3 · 2026-05-22 · 后台解析版</em>
           </div>
           <label class="search-box">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
@@ -115,8 +115,16 @@
               </div>
 
               <div class="import-box">
-                <strong>推荐方式：导入 CSV 数据</strong>
-                <p>支持一次选择多份 CSV/JSON/XLSX/XLS，例如店铺大盘、宝贝排行、流量来源、推广计划、活动数据，系统会自动识别并合并生成周报/月报。Word 月报会作为参考文件记录使用情况。</p>
+                <strong>推荐方式：分批导入经营报表</strong>
+                <p>支持 CSV/JSON/XLSX/XLS/DOCX/DOC。文件多时可一次性选择，系统会在后台逐个解析并更新进度；也可以先导入核心经营、商品、流量，再继续追加其他批次。</p>
+                <div class="import-progress" id="importProgress" hidden>
+                  <div>
+                    <span id="importProgressText">等待导入</span>
+                    <b id="importProgressPercent">0%</b>
+                  </div>
+                  <i><em id="importProgressBar"></em></i>
+                  <small id="importProgressDetail">可分批上传，后续批次会追加到当前报告任务。</small>
+                </div>
                 <small id="importStatus">尚未导入数据，可先使用示例数据体验。</small>
               </div>
 
@@ -376,6 +384,7 @@
           </label>
         </div>
         <div class="modal-actions">
+          <button class="ghost-btn" id="appendImportFiles" type="button">继续追加文件</button>
           <button class="ghost-btn" type="button" data-close-import-modal>先看草稿</button>
           <button class="primary-btn" id="confirmImportedReport" type="button">生成报告并写入历史</button>
         </div>
@@ -383,6 +392,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js?v=20260521-delivery-grade"></script>
+    <script src="./app.js?v=20260522-worker-import"></script>
   </body>
 </html>
