@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.8.5 · 2026-05-22 · 生成进度版';
+const appVersion = 'v0.8.6 · 2026-05-22 · 轻量导入版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -3789,7 +3789,7 @@ function buildImportedDetails(rows) {
     (!row.forcedReportKind && row.itemName && (row.refundAmount || row.refundRate))
   ));
   const productDetails = groupRows(productRows.length ? productRows : rows, 'itemName', 8);
-  const productDetailsAll = groupRows(productRows.length ? productRows : rows, 'itemName', 9999);
+  const productDetailsAll = groupRows(productRows.length ? productRows : rows, 'itemName', 500);
   return {
     products: productDetails,
     productsAll: productDetailsAll,
@@ -4066,7 +4066,8 @@ function pickPreviousOverallRows(rows, currentRows) {
   return firstDate ? ranked.filter((row) => row.date === firstDate && overallSourcePriority(row) === overallSourcePriority(ranked[0])) : ranked.slice(0, 1);
 }
 
-function rowsToFormData(rows, filename) {
+function rowsToFormData(rows, filename, options = {}) {
+  const light = Boolean(options.light);
   const mapped = rows.map(toImportedRow).filter((row) => (
     row.sales || row.visitors || row.orders || row.spend || row.clicks || row.impressions ||
     row.itemName || row.categoryName || row.trafficSource || row.promotionName || row.activityName || row.liveName || row.contentName || row.serviceName ||
@@ -4093,11 +4094,11 @@ function rowsToFormData(rows, filename) {
   const reportType = range ? (range.days > 10 ? '月报' : '周报') : (currentSource.length > 10 ? '月报' : '周报');
   const skippedText = rows.skippedFiles?.length ? `；暂未读取 ${rows.skippedFiles.length} 个文件，请检查是否加密、损坏或暂不支持` : '';
   const summary = buildImportSummary(mapped, rows, rows.skippedFiles || []);
-  const lineage = buildDataLineage(rows);
+  const lineage = light ? [] : buildDataLineage(rows);
   const aux = buildImportedAux(current, mapped, previous);
   const productStats = deriveProductStats(currentSource, current.sales);
   const channelShares = deriveChannelShares(currentSource);
-  const details = buildImportedDetails(currentSource);
+  const details = light ? {} : buildImportedDetails(currentSource);
   details.traffic = sanitizeTrafficDetails(details.traffic, current.sales, current.visitors);
   return {
     storeName: first.storeName || '',
@@ -4836,13 +4837,15 @@ async function importDataFiles(files) {
   const rows = [...importSessionRows];
   const skippedFiles = [...importSessionSkippedFiles];
   rows.skippedFiles = skippedFiles;
-  const data = rowsToFormData(rows, importSessionFileNames.join(' + '));
+  setImportProgress({ current: incoming.length, total: incoming.length, rowCount: rows.length, message: '正在轻量汇总文件识别结果' });
+  await nextUiFrame();
+  const data = rowsToFormData(rows, importSessionFileNames.join(' + '), { light: true });
   const suggestions = inferImportSuggestions(importSessionFileNames.map((name) => ({ name })), rows, data);
   data.storeName = data.storeName || suggestions.storeName;
   data.industry = suggestions.industry || data.industry;
   data.platform = suggestions.platform || data.platform;
   setFormData(data);
-  setLatest(analyze(getFormData()), false);
+  clearReportProgress();
   const skippedText = skippedFiles.length ? `；${skippedFiles.length} 个文件暂未读取，请检查是否为加密、损坏或暂不支持格式` : '';
   pendingImportMeta = {
     fileCount: importSessionFileNames.length,
