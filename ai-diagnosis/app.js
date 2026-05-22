@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.8.3 · 2026-05-22 · 后台解析版';
+const appVersion = 'v0.8.5 · 2026-05-22 · 生成进度版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -191,6 +191,7 @@ let importSessionRows = [];
 let importSessionFileNames = [];
 let importSessionSkippedFiles = [];
 let isImportingFiles = false;
+let isGeneratingReport = false;
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -3222,6 +3223,23 @@ function parseCsv(text) {
   });
 }
 
+function parseDelimitedRows(text) {
+  const clean = String(text || '').replace(/^\uFEFF/, '');
+  const lines = clean.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+  if (lines.length < 2) return [];
+  const delimiter = lines[0].includes('\t') ? '\t' : lines[0].includes(';') ? ';' : ',';
+  if (delimiter === ',') return parseCsv(clean);
+  const rows = lines.map((line) => line.split(delimiter).map((cell) => cell.trim()));
+  const headers = rows[0];
+  return rows.slice(1).map((values) => {
+    const item = {};
+    headers.forEach((header, index) => {
+      item[header || `字段${index + 1}`] = values[index] || '';
+    });
+    return item;
+  }).filter((row) => Object.values(row).some(Boolean));
+}
+
 function normalizeKey(value) {
   return String(value || '').replace(/\s+/g, '').replace(/[()（）%％]/g, '').toLowerCase();
 }
@@ -4486,33 +4504,67 @@ function parseLegacyXlsRows(buffer) {
   return parseRowsFromArrays(sheetRows);
 }
 
-function nodeText(node, tagName) {
-  const child = node.getElementsByTagName(tagName)[0];
-  return child ? child.textContent || '' : '';
+function decodeXmlEntities(value) {
+  return String(value || '')
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, code) => String.fromCharCode(parseInt(code, 16)));
+}
+
+function xmlAttr(node, name) {
+  const match = String(node || '').match(new RegExp(`\\s${name}="([^"]*)"`, 'i'));
+  return match ? decodeXmlEntities(match[1]) : '';
+}
+
+function xmlInner(node, tagName) {
+  const match = String(node || '').match(new RegExp(`<${tagName}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${tagName}>`, 'i'));
+  return match ? decodeXmlEntities(match[1].replace(/<[^>]+>/g, '')) : '';
+}
+
+function xmlTagBlocks(xml, tagName) {
+  const blocks = [];
+  const pattern = new RegExp(`<${tagName}(?:\\s[^>]*)?>[\\s\\S]*?<\\/${tagName}>`, 'gi');
+  let match;
+  while ((match = pattern.exec(String(xml || '')))) blocks.push(match[0]);
+  return blocks;
 }
 
 async function parseXlsxRows(buffer, filename = '') {
   const entries = await unzipEntries(buffer);
-  const parser = new DOMParser();
   const shared = [];
   if (entries['xl/sharedStrings.xml']) {
-    const sharedDoc = parser.parseFromString(xmlText(entries['xl/sharedStrings.xml']), 'application/xml');
-    Array.from(sharedDoc.getElementsByTagName('si')).forEach((node) => {
-      shared.push(Array.from(node.getElementsByTagName('t')).map((item) => item.textContent || '').join(''));
+    const sharedXml = xmlText(entries['xl/sharedStrings.xml']);
+    xmlTagBlocks(sharedXml, 'si').forEach((node) => {
+      const parts = [];
+      const textPattern = /<t(?:\s[^>]*)?>([\s\S]*?)<\/t>/gi;
+      let match;
+      while ((match = textPattern.exec(node))) parts.push(decodeXmlEntities(match[1]));
+      shared.push(parts.join(''));
     });
   }
   const sheetName = Object.keys(entries).find((name) => /^xl\/worksheets\/sheet\d+\.xml$/.test(name));
   if (!sheetName) return [];
-  const sheetDoc = parser.parseFromString(xmlText(entries[sheetName]), 'application/xml');
-  const arrays = Array.from(sheetDoc.getElementsByTagName('row')).map((rowNode) => {
+  const sheetXml = xmlText(entries[sheetName]);
+  const arrays = xmlTagBlocks(sheetXml, 'row').map((rowNode) => {
     const row = [];
-    Array.from(rowNode.getElementsByTagName('c')).forEach((cell) => {
-      const ref = cell.getAttribute('r') || '';
+    xmlTagBlocks(rowNode, 'c').forEach((cell) => {
+      const ref = xmlAttr(cell, 'r');
       const index = columnIndex(ref);
-      const type = cell.getAttribute('t');
-      let value = nodeText(cell, 'v');
+      const type = xmlAttr(cell, 't');
+      let value = xmlInner(cell, 'v');
       if (type === 's' && value !== '') value = shared[Number(value)] || '';
-      if (type === 'inlineStr') value = Array.from(cell.getElementsByTagName('t')).map((item) => item.textContent || '').join('');
+      if (type === 'inlineStr') {
+        const parts = [];
+        const textPattern = /<t(?:\s[^>]*)?>([\s\S]*?)<\/t>/gi;
+        let match;
+        while ((match = textPattern.exec(cell))) parts.push(decodeXmlEntities(match[1]));
+        value = parts.join('');
+      }
       row[index] = value;
     });
     return row;
@@ -4523,11 +4575,10 @@ async function parseXlsxRows(buffer, filename = '') {
 
 function parseHtmlDocRows(text, filename) {
   if (!text.trim().startsWith('<')) return [{ 来源文件: filename, 文档类型: 'Word/HTML', 备注: '非结构化文档，未识别到数据表' }];
-  const doc = new DOMParser().parseFromString(text, 'text/html');
-  const tables = Array.from(doc.querySelectorAll('table'));
+  const tables = String(text || '').match(/<table[\s\S]*?<\/table>/gi) || [];
   for (const table of tables) {
-    const arrays = Array.from(table.querySelectorAll('tr')).map((tr) => (
-      Array.from(tr.querySelectorAll('th,td')).map((cell) => cell.textContent.trim())
+    const arrays = (table.match(/<tr[\s\S]*?<\/tr>/gi) || []).map((tr) => (
+      (tr.match(/<t[hd][\s\S]*?<\/t[hd]>/gi) || []).map((cell) => decodeXmlEntities(cell.replace(/<[^>]+>/g, '').trim()))
     ));
     const rows = parseRowsFromArrays(arrays);
     if (rows.length) return rows;
@@ -4540,18 +4591,26 @@ async function parseDocxRows(buffer, filename) {
     const entries = await unzipEntries(buffer);
     const documentXml = entries['word/document.xml'];
     if (!documentXml) return [{ 来源文件: filename, 文档类型: 'Word/DOCX', 备注: '已读取 Word 参考文档，但未识别到正文数据' }];
-    const doc = new DOMParser().parseFromString(xmlText(documentXml), 'application/xml');
-    const tables = Array.from(doc.getElementsByTagName('w:tbl'));
+    const docXml = xmlText(documentXml);
+    const tables = docXml.match(/<w:tbl[\s\S]*?<\/w:tbl>/gi) || [];
     for (const table of tables) {
-      const arrays = Array.from(table.getElementsByTagName('w:tr')).map((tr) => (
-        Array.from(tr.getElementsByTagName('w:tc')).map((cell) => (
-          Array.from(cell.getElementsByTagName('w:t')).map((textNode) => textNode.textContent || '').join('').trim()
-        ))
+      const arrays = (table.match(/<w:tr[\s\S]*?<\/w:tr>/gi) || []).map((tr) => (
+        (tr.match(/<w:tc[\s\S]*?<\/w:tc>/gi) || []).map((cell) => {
+          const parts = [];
+          const textPattern = /<w:t(?:\s[^>]*)?>([\s\S]*?)<\/w:t>/gi;
+          let match;
+          while ((match = textPattern.exec(cell))) parts.push(decodeXmlEntities(match[1]));
+          return parts.join('').trim();
+        })
       ));
       const rows = parseRowsFromArrays(arrays);
       if (rows.length) return rows;
     }
-    const text = Array.from(doc.getElementsByTagName('w:t')).map((node) => node.textContent || '').join(' ').trim();
+    const parts = [];
+    const textPattern = /<w:t(?:\s[^>]*)?>([\s\S]*?)<\/w:t>/gi;
+    let match;
+    while ((match = textPattern.exec(docXml))) parts.push(decodeXmlEntities(match[1]));
+    const text = parts.join(' ').trim();
     return [{ 来源文件: filename, 文档类型: 'Word/DOCX', 备注: text ? '已读取 Word 参考文档，暂作为报告口径参考，不作为结构化经营数据汇总' : '已读取 Word 参考文档，但未识别到可汇总的数据表' }];
   } catch {
     return [{ 来源文件: filename, 文档类型: 'Word/DOCX', 备注: 'Word 文档读取失败，可能为加密、损坏或非标准格式' }];
@@ -4565,7 +4624,12 @@ async function readRowsFromFile(file) {
   if (lowerName.endsWith('.xlsx')) {
     rows = await parseXlsxRows(buffer, file.name);
   } else if (lowerName.endsWith('.xls')) {
-    rows = parseLegacyXlsRows(buffer);
+    try {
+      rows = parseLegacyXlsRows(buffer);
+    } catch {
+      const text = decodeTextBuffer(buffer, 'gb18030');
+      rows = text.trim().startsWith('<') ? parseHtmlDocRows(text, file.name) : parseDelimitedRows(text);
+    }
   } else if (lowerName.endsWith('.docx')) {
     rows = await parseDocxRows(buffer, file.name);
   } else if (lowerName.endsWith('.doc') || lowerName.endsWith('.html')) {
@@ -4575,7 +4639,7 @@ async function readRowsFromFile(file) {
     rows = Array.isArray(parsed) ? parsed : (parsed.rows || parsed.data || []);
   } else {
     const text = decodeTextBuffer(buffer, lowerName.endsWith('.csv') ? 'gb18030' : '');
-    rows = parseCsv(text);
+    rows = parseDelimitedRows(text);
   }
   return rows.map((row, index) => ({ ...row, 来源文件: file.name, __rowIndex: index }));
 }
@@ -4583,6 +4647,7 @@ async function readRowsFromFile(file) {
 function createImportParserWorker() {
   const functions = [
     parseCsv,
+    parseDelimitedRows,
     decodeTextBuffer,
     columnIndex,
     parseRowsFromArrays,
@@ -4599,7 +4664,10 @@ function createImportParserWorker() {
     decodeRkNumber,
     setArrayCell,
     parseLegacyXlsRows,
-    nodeText,
+    decodeXmlEntities,
+    xmlAttr,
+    xmlInner,
+    xmlTagBlocks,
     parseXlsxRows,
     parseHtmlDocRows,
     parseDocxRows,
@@ -4618,7 +4686,10 @@ function createImportParserWorker() {
       }
     };
   `;
-  return new Worker(URL.createObjectURL(new Blob([source], { type: 'text/javascript' })));
+  const url = URL.createObjectURL(new Blob([source], { type: 'text/javascript' }));
+  const worker = new Worker(url);
+  URL.revokeObjectURL(url);
+  return worker;
 }
 
 function readRowsFromFileOffThread(file) {
@@ -4673,12 +4744,53 @@ function clearImportProgress() {
   $('#importProgressDetail').textContent = '可分批上传，后续批次会追加到当前报告任务。';
 }
 
+function nextUiFrame() {
+  return new Promise((resolve) => {
+    requestAnimationFrame(() => setTimeout(resolve, 0));
+  });
+}
+
+function setReportProgress(percent, text, detail = '') {
+  const box = $('#reportProgress');
+  if (!box) return;
+  const value = Math.max(0, Math.min(100, Math.round(percent || 0)));
+  box.hidden = false;
+  $('#reportProgressText').textContent = text || '正在生成报告';
+  $('#reportProgressPercent').textContent = `${value}%`;
+  $('#reportProgressBar').style.width = `${value}%`;
+  $('#reportProgressDetail').textContent = detail || '正在分步生成报告，请不要关闭页面。';
+}
+
+function clearReportProgress() {
+  const box = $('#reportProgress');
+  if (!box) return;
+  box.hidden = true;
+  $('#reportProgressText').textContent = '等待生成报告';
+  $('#reportProgressPercent').textContent = '0%';
+  $('#reportProgressBar').style.width = '0%';
+  $('#reportProgressDetail').textContent = '确认后会分步完成数据重算、诊断生成、报告渲染和历史写入。';
+}
+
+function setReportGeneratingState(isGenerating) {
+  const confirmButton = $('#confirmImportedReport');
+  const appendButton = $('#appendImportFiles');
+  document.querySelectorAll('[data-close-import-modal]').forEach((button) => {
+    button.disabled = Boolean(isGenerating);
+  });
+  if (confirmButton) {
+    confirmButton.disabled = Boolean(isGenerating);
+    confirmButton.textContent = isGenerating ? '正在生成...' : '生成报告并写入历史';
+  }
+  if (appendButton) appendButton.disabled = Boolean(isGenerating);
+}
+
 function resetImportSession() {
   importSessionRows = [];
   importSessionFileNames = [];
   importSessionSkippedFiles = [];
   pendingImportMeta = null;
   clearImportProgress();
+  clearReportProgress();
   $('#importStatus').textContent = '尚未导入数据，可先使用示例数据体验。';
 }
 
@@ -4898,6 +5010,7 @@ function openImportConfirmModal(meta) {
 }
 
 function closeImportConfirmModal() {
+  if (isGeneratingReport) return;
   const modal = $('#importConfirmModal');
   if (modal) modal.hidden = true;
   if (pendingImportMeta) updateWorkflowStatus('draft');
@@ -4966,48 +5079,91 @@ function jumpToReportPreview() {
   jumpToReportPreview.timer = setTimeout(() => report.classList.remove('report-focus'), 1800);
 }
 
-function confirmImportedReport() {
+async function confirmImportedReport() {
+  if (isGeneratingReport) return;
   const storeName = $('#modalStoreName').value.trim();
   const industry = $('#modalIndustry').value;
   const platform = $('#modalPlatform').value;
   const reportType = $('#modalReportType').value;
   if (!validateImportConfirmForm()) return;
-  updateWorkflowStatus('generating', `任务信息已确认：${storeName} · ${platform} · ${industry} · ${reportType}，正在生成报告。`);
-  if (pendingImportMeta?.rawRows) {
-    const current = getFormData();
-    const overrides = getImportKindOverrides();
-    const rows = applyImportKindOverrides(pendingImportMeta.rawRows, overrides);
-    const refreshed = rowsToFormData(rows, pendingImportMeta.fileNames || current.dataSource || '');
-    refreshed.brandName = current.brandName || refreshed.brandName || '';
-    refreshed.reportPurpose = current.reportPurpose || refreshed.reportPurpose || '品牌方正式版';
-    refreshed.periodStart = current.periodStart || refreshed.periodStart || '';
-    refreshed.periodEnd = current.periodEnd || refreshed.periodEnd || '';
-    refreshed.storeName = storeName;
-    refreshed.industry = industry;
-    refreshed.platform = platform;
-    refreshed.reportType = reportType;
-    setFormData(refreshed);
-  } else {
-    $('#storeName').value = storeName;
-    $('#industry').value = industry;
-    $('#reportType').value = reportType;
-    selectedPlatform = platform;
-    document.querySelectorAll('#platformTabs button').forEach((button) => {
-      button.classList.toggle('selected', button.dataset.platform === selectedPlatform);
-    });
+  isGeneratingReport = true;
+  setReportGeneratingState(true);
+  try {
+    updateWorkflowStatus('generating', `任务信息已确认：${storeName} · ${platform} · ${industry} · ${reportType}，正在生成报告。`);
+    setReportProgress(5, '正在确认任务信息', `${storeName} · ${platform} · ${industry} · ${reportType}`);
+    await nextUiFrame();
+
+    if (pendingImportMeta?.rawRows) {
+      const current = getFormData();
+      const overrides = getImportKindOverrides();
+      setReportProgress(18, '正在应用文件识别修正', `共 ${pendingImportMeta.fileCount || 0} 个文件、${pendingImportMeta.rowCount || 0} 行数据。`);
+      await nextUiFrame();
+      const rows = applyImportKindOverrides(pendingImportMeta.rawRows, overrides);
+
+      setReportProgress(34, '正在重新汇总经营数据', '系统正在重算销售、访客、退款、商品、流量、推广等模块。');
+      await nextUiFrame();
+      const refreshed = rowsToFormData(rows, pendingImportMeta.fileNames || current.dataSource || '');
+      refreshed.brandName = current.brandName || refreshed.brandName || '';
+      refreshed.reportPurpose = current.reportPurpose || refreshed.reportPurpose || '品牌方正式版';
+      refreshed.periodStart = current.periodStart || refreshed.periodStart || '';
+      refreshed.periodEnd = current.periodEnd || refreshed.periodEnd || '';
+      refreshed.storeName = storeName;
+      refreshed.industry = industry;
+      refreshed.platform = platform;
+      refreshed.reportType = reportType;
+      setFormData(refreshed);
+    } else {
+      $('#storeName').value = storeName;
+      $('#industry').value = industry;
+      $('#reportType').value = reportType;
+      selectedPlatform = platform;
+      document.querySelectorAll('#platformTabs button').forEach((button) => {
+        button.classList.toggle('selected', button.dataset.platform === selectedPlatform);
+      });
+    }
+
+    setReportProgress(52, '正在生成经营诊断', '系统正在计算健康度、问题优先级、交付等级和下周期动作。');
+    await nextUiFrame();
+    const diagnosis = analyze(getFormData());
+
+    setReportProgress(68, '正在渲染报告预览', '正在生成封面、图表、模块洞察、右侧补数建议和微信群话术。');
+    await nextUiFrame();
+    latestDiagnosis = diagnosis;
+    renderSummary(diagnosis);
+    renderHealth(diagnosis);
+    await nextUiFrame();
+    renderIssues(diagnosis);
+    renderActions(diagnosis);
+    await nextUiFrame();
+    renderReport(diagnosis);
+
+    setReportProgress(88, '正在写入历史记录', '报告即将完成，请稍候。');
+    await nextUiFrame();
+    history = [diagnosis, ...history.filter((item) => item.id !== diagnosis.id)].slice(0, 200);
+    saveHistory();
+    renderHistory();
+
+    const meta = pendingImportMeta || { fileCount: 0, rowCount: 0, reportType: diagnosis.data.reportType, skippedText: '' };
+    setReportProgress(100, '报告生成完成', `已生成${diagnosis.data.reportType}并写入历史。`);
+    await nextUiFrame();
+    $('#importStatus').textContent = `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据，自动生成${diagnosis.data.reportType}并写入历史${meta.skippedText || ''}。`;
+    pendingImportMeta = null;
+    importSessionRows = [];
+    importSessionFileNames = [];
+    importSessionSkippedFiles = [];
+    updateWorkflowStatus('generated', `已生成${diagnosis.data.reportType}并写入历史。请先核实报告标题、周期、数据口径和关键结论。`);
+    isGeneratingReport = false;
+    setReportGeneratingState(false);
+    closeImportConfirmModal();
+    jumpToReportPreview();
+    toast('已生成并写入历史，已跳转到报告预览，请先核实任务信息');
+  } catch (error) {
+    isGeneratingReport = false;
+    setReportGeneratingState(false);
+    setReportProgress(100, '报告生成失败', '请检查文件识别类型、店铺信息或是否存在异常空表。');
+    updateWorkflowStatus('confirmError', '报告生成失败，请检查文件识别结果和必填信息后重试。');
+    toast('报告生成失败，请检查文件识别结果后重试');
   }
-  const diagnosis = analyze(getFormData());
-  setLatest(diagnosis, true);
-  closeImportConfirmModal();
-  const meta = pendingImportMeta || { fileCount: 0, rowCount: 0, reportType: diagnosis.data.reportType, skippedText: '' };
-  $('#importStatus').textContent = `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据，自动生成${diagnosis.data.reportType}并写入历史${meta.skippedText || ''}。`;
-  pendingImportMeta = null;
-  importSessionRows = [];
-  importSessionFileNames = [];
-  importSessionSkippedFiles = [];
-  updateWorkflowStatus('generated', `已生成${diagnosis.data.reportType}并写入历史。请先核实报告标题、周期、数据口径和关键结论。`);
-  jumpToReportPreview();
-  toast('已生成并写入历史，已跳转到报告预览，请先核实任务信息');
 }
 
 function downloadDataTemplate() {

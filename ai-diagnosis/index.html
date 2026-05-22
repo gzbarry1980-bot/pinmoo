@@ -6,7 +6,7 @@
     <title>Pinmoo AI 店铺经营诊断工作台</title>
     <meta name="description" content="Pinmoo AI 电商增长智能体店铺经营诊断初版，用于多店铺经营诊断、问题归因、行动计划和报告交付。" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260522-worker-import" />
+    <link rel="stylesheet" href="./styles.css?v=20260522-report-progress" />
   </head>
   <body>
     <div class="app-shell">
@@ -46,7 +46,7 @@
           <div>
             <span>当前工作空间</span>
             <strong>品沐咨询团队</strong>
-            <em class="version-badge" id="appVersion">v0.8.3 · 2026-05-22 · 后台解析版</em>
+            <em class="version-badge" id="appVersion">v0.8.5 · 2026-05-22 · 生成进度版</em>
           </div>
           <label class="search-box">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
@@ -383,6 +383,14 @@
             </select>
           </label>
         </div>
+        <div class="import-progress report-progress" id="reportProgress" hidden>
+          <div>
+            <span id="reportProgressText">等待生成报告</span>
+            <b id="reportProgressPercent">0%</b>
+          </div>
+          <i><em id="reportProgressBar"></em></i>
+          <small id="reportProgressDetail">确认后会分步完成数据重算、诊断生成、报告渲染和历史写入。</small>
+        </div>
         <div class="modal-actions">
           <button class="ghost-btn" id="appendImportFiles" type="button">继续追加文件</button>
           <button class="ghost-btn" type="button" data-close-import-modal>先看草稿</button>
@@ -392,6 +400,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js?v=20260522-worker-import"></script>
+    <script src="./app.js?v=20260522-report-progress"></script>
   </body>
 </html>

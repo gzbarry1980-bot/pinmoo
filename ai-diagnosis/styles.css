@@ -667,6 +667,19 @@ legend,
   box-shadow: 0 14px 24px rgba(17, 93, 246, .22);
 }
 
+button:disabled,
+.primary-btn:disabled,
+.ghost-btn:disabled {
+  cursor: not-allowed;
+  opacity: .62;
+  box-shadow: none;
+}
+
+.report-progress {
+  margin: 16px 0 0;
+  background: #f8fbff;
+}
+
 .summary-panel {
   display: grid;
   grid-template-columns: 142px minmax(0, 1fr) minmax(220px, .7fr);
