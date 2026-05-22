@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.7.6 · 2026-05-21 · 文件识别确认版';
+const appVersion = 'v0.8.0 · 2026-05-21 · 交付增强版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -857,6 +857,165 @@ function dataQualityLabel(score) {
   if (score >= 84) return '可直接交付';
   if (score >= 60) return '可初步交付，建议补齐明细';
   return '仅适合内部初判，需补数据';
+}
+
+const missingDataGuideCatalog = {
+  overall: {
+    file: '首页-数据概览 / 店铺经营核心报表',
+    path: '生意参谋 > 首页 > 数据概览，或店铺经营核心月报/周报',
+    improves: '校准支付金额、访客、转化率、客单价和经营总览',
+    reason: '缺少大盘口径时，报告只能依赖明细表推算，正式交付可信度会下降。'
+  },
+  product: {
+    file: '商品_全部 / 商品明细 / 宝贝排行',
+    path: '生意参谋 > 商品 > 商品效果，按统计周期导出全部商品',
+    improves: '增强宝贝排行、SKU四象限、动销判断和主推款优化建议',
+    reason: '商品明细决定报告能否从“店铺整体”落到具体商品动作。'
+  },
+  category: {
+    file: '品类-标准类目报表',
+    path: '生意参谋 > 品类 > 标准类目，选择同一统计周期导出',
+    improves: '增强类目结构、价格带/品类贡献和类目方向判断',
+    reason: '类目数据能帮助判断增长来自哪个品类，而不是只看单品。'
+  },
+  traffic: {
+    file: '无线店铺流量来源 / 流量看板总览',
+    path: '生意参谋 > 流量 > 来源分析 / 流量看板，导出所有终端或无线端',
+    improves: '增强搜索、推荐、内容、付费、私域结构和转化质量判断',
+    reason: '流量来源决定问题是缺曝光、缺承接，还是渠道结构不健康。'
+  },
+  promotion: {
+    file: '计划报表 / 关键词报表 / 单元报表 / 创意报表',
+    path: '万相台/直通车/引力魔方 > 报表 > 计划/单元/关键词维度导出',
+    improves: '增强推广计划级拆解、ROI四象限、预算调整和控质建议',
+    reason: '没有计划级数据时，只能判断投放整体，无法给到具体预算动作。'
+  },
+  live: {
+    file: '直播业绩-成交拆解 / 点击转化分析',
+    path: '直播中控台 / 生意参谋直播模块 > 直播业绩，导出观看、点击、成交数据',
+    improves: '增强直播曝光、商品点击、点击成交和播后回访判断',
+    reason: '直播不能只看观看人数，需要看商品点击和成交承接。'
+  },
+  content: {
+    file: '光合内容资产 / 内容种草报表',
+    path: '光合平台 / 内容资产 > 数据总览，导出曝光、浏览、互动、点击、成交',
+    improves: '增强内容种草漏斗、内容贡献和主动回访结合建议',
+    reason: '内容数据能判断种草是否真的带来商品点击和后续成交。'
+  },
+  serviceDetail: {
+    file: '客服团队概览 / 客服绩效 / 店铺绩效',
+    path: '千牛/客户服务平台 > 客服绩效，导出咨询、响应、成交、询单转化数据',
+    improves: '增强客服承接、询单转化、售前预期管理和退款治理建议',
+    reason: '客服数据能解释转化和退款背后的承接问题。'
+  },
+  activity: {
+    file: '活动效果 / 营销场景报表',
+    path: '生意参谋/营销中心 > 活动/营销场景，导出活动成交、访客、订单',
+    improves: '增强活动复盘、活动流量质量和下周期活动节奏建议',
+    reason: '活动数据能区分日销增长和活动拉动，避免误判常态经营能力。'
+  },
+  refund: {
+    file: '退款分析-退款商品 / 退款原因 / 已完结退款',
+    path: '生意参谋/交易/退款分析 > 按商品和原因导出成功退款明细',
+    improves: '增强退款金额TOP、退款原因矩阵、历史订单退款口径说明',
+    reason: '退款明细决定报告能否从“退款偏高”落到SKU和原因治理。'
+  },
+  lineage: {
+    file: '带原始字段的核心经营报表',
+    path: '优先导出平台原始Excel，不要截图或二次汇总复制表',
+    improves: '增强支付金额、净销售额、退款、转化等指标口径说明',
+    reason: '口径可追溯后，正式报告更适合给品牌方归档。'
+  },
+  confidence: {
+    file: '核心经营 + 商品 + 流量 + 退款组合包',
+    path: '至少补齐首页数据概览、商品_全部、无线流量来源、退款分析四类文件',
+    improves: '提升报告交付等级，减少“待核实”判断',
+    reason: '核心数据越完整，系统越能给出具体动作，而不是泛化建议。'
+  }
+};
+
+function buildDeliveryGrade(diagnosis) {
+  const quality = diagnosis.dataQuality || { score: 0, checks: [], missing: [] };
+  const checks = quality.checks || [];
+  const has = (key) => Boolean(checks.find((item) => item.key === key)?.ok);
+  const coreReady = has('overall') && has('product') && has('traffic');
+  const riskReady = has('refund') || diagnosis.data.refundRate > 0;
+  const actionReady = has('promotion') || has('serviceDetail') || has('live') || has('content');
+  const missingCore = ['overall', 'product', 'traffic', 'refund'].filter((key) => !has(key)).length;
+  if (quality.score >= 82 && coreReady && riskReady && actionReady && missingCore <= 1) {
+    return {
+      level: 'A',
+      className: 'grade-a',
+      title: 'A级：品牌方正式版，可直接交付',
+      summary: '核心经营、商品、流量和风险数据较完整，可作为品牌方正式周/月报基础。',
+      action: '建议导出 Word 后，再人工核对标题、周期、金额口径和下周期重点动作。'
+    };
+  }
+  if (quality.score >= 58 && has('overall') && (has('product') || has('traffic'))) {
+    return {
+      level: 'B',
+      className: 'grade-b',
+      title: 'B级：内部诊断版，建议补数后再正式发送',
+      summary: '本报告已能形成经营判断，但部分明细不足，适合内部会议或给运营先看。',
+      action: '建议优先补齐右侧橙色清单中的前3项，再重新生成正式版。'
+    };
+  }
+  return {
+    level: 'C',
+    className: 'grade-c',
+    title: 'C级：数据不足，仅适合作为草稿参考',
+    summary: '当前数据不足以支撑完整经营判断，正文结论需要谨慎使用。',
+    action: '建议先补齐首页经营、商品明细、流量来源和退款明细，再生成报告。'
+  };
+}
+
+function missingDataGuides(diagnosis) {
+  const missing = diagnosis.dataQuality?.missing || [];
+  const guides = missing
+    .map((item) => ({ ...item, ...(missingDataGuideCatalog[item.key] || {}) }))
+    .filter((item) => item.file || item.tip);
+  if (guides.length) return guides.slice(0, 8);
+  return [{
+    key: 'next-check',
+    name: '下次复盘增强包',
+    file: '商品、流量、退款、推广、客服/直播/内容补充报表',
+    path: '按本次报告右侧导入文件使用情况，补充未覆盖模块',
+    improves: '让报告从可交付提升到可复盘、可追踪、可沉淀模板',
+    reason: '本次核心数据较完整，下一步重点是增加动作验证维度。'
+  }];
+}
+
+function deliveryGradeHtml(diagnosis) {
+  const grade = buildDeliveryGrade(diagnosis);
+  return `
+    <section class="delivery-grade ${grade.className}">
+      <div class="delivery-mark">${grade.level}</div>
+      <div>
+        <strong>${escapeHtml(grade.title)}</strong>
+        <p>${escapeHtml(grade.summary)}</p>
+        <span>${escapeHtml(grade.action)}</span>
+      </div>
+    </section>
+  `;
+}
+
+function missingDataGuideHtml(diagnosis) {
+  const guides = missingDataGuides(diagnosis);
+  return `
+    <div class="missing-guide-list">
+      ${guides.map((item, index) => `
+        <section>
+          <b>${index + 1}</b>
+          <div>
+            <strong>${escapeHtml(item.file || item.name || '待补充数据')}</strong>
+            <p><span>下载位置</span>${escapeHtml(item.path || item.tip || '按平台后台对应模块导出')}</p>
+            <p><span>增强报告</span>${escapeHtml(item.improves || item.tip || '增强对应模块判断')}</p>
+            <em>${escapeHtml(item.reason || '补充后可减少待核实判断。')}</em>
+          </div>
+        </section>
+      `).join('')}
+    </div>
+  `;
 }
 
 function metricChangeRows(diagnosis) {
@@ -2000,6 +2159,7 @@ function renderReport(diagnosis) {
     </div>
 
     ${reportVisualSummaryHtml(diagnosis)}
+    ${deliveryGradeHtml(diagnosis)}
     ${brandLeadHtml(diagnosis)}
 
     <h4>一、老板先看</h4>
@@ -2167,7 +2327,7 @@ function renderReport(diagnosis) {
     <ol>${confirmationQuestions(diagnosis).map((item) => `<li>${item.replace(/^\d+\.\s*/, '')}</li>`).join('')}</ol>
 
     <h4>十六、需要补充的数据</h4>
-    <ul>${missingDataTips(data).map((tip) => `<li>${tip}</li>`).join('')}</ul>
+    ${missingDataGuideHtml(diagnosis)}
 
     <h4>十七、顾问备注</h4>
     <p>${escapeHtml(data.notes || '暂无补充说明。')}</p>
@@ -2182,6 +2342,7 @@ function renderReport(diagnosis) {
     </div>
 
     ${reportVisualSummaryHtml(diagnosis)}
+    ${deliveryGradeHtml(diagnosis)}
 
     <div class="report-layout">
       <main class="report-main">
@@ -2229,7 +2390,7 @@ function renderReport(diagnosis) {
           <section class="audit-priority">
             <h4>需要优先补充的数据</h4>
             <p>如果要让本次报告更接近正式交付，请优先补齐以下数据后重新生成。</p>
-            <ul>${missingDataTips(data).map((tip) => `<li>${tip}</li>`).join('')}</ul>
+            ${missingDataGuideHtml(diagnosis)}
           </section>
 
           <section class="audit-confirm">
@@ -2496,6 +2657,8 @@ function reportText(diagnosis) {
   const contentItems = details.content || [];
   const serviceItems = details.service || [];
   const refundItems = refundMatrixRows(diagnosis);
+  const deliveryGrade = buildDeliveryGrade(diagnosis);
+  const guideRows = missingDataGuides(diagnosis);
   const lines = [
     `Pinmoo AI ${reportName}`,
     `${diagnosis.data.brandName || diagnosis.data.storeName} · ${diagnosis.data.storeName} · ${diagnosis.data.platform} · ${diagnosis.data.industry} · ${diagnosis.data.period} · ${diagnosis.data.reportPurpose || '品牌方正式版'} · ${diagnosis.data.dataSource || '数据导入'}`,
@@ -2512,7 +2675,12 @@ function reportText(diagnosis) {
     `- 完整度：${diagnosis.dataQuality?.score || 0}分，${dataQualityLabel(diagnosis.dataQuality?.score || 0)}`,
     ...(diagnosis.dataQuality?.checks || []).map((item) => `- ${item.ok ? '已具备' : '待补充'}：${item.name}，${item.ok ? '本报告已读取该模块数据。' : item.tip}`),
     '',
-    '三、本次报告结构',
+    '三、报告交付等级',
+    `- ${deliveryGrade.title}`,
+    `- ${deliveryGrade.summary}`,
+    `- 建议：${deliveryGrade.action}`,
+    '',
+    '四、本次报告结构',
     `- 已生成模块：${outline.included.join(' / ')}`,
     `- 未生成模块：${outline.skipped.length ? outline.skipped.join('；') : '本次上传数据已覆盖主要经营模块。'}`
   ];
@@ -2595,7 +2763,7 @@ function reportText(diagnosis) {
     ...confirmationQuestions(diagnosis).map((item) => `- ${item.replace(/^\d+\.\s*/, '')}`),
     '',
     '需要补充的数据',
-    ...missingDataTips(diagnosis.data).map((tip) => `- ${tip}`),
+    ...guideRows.map((item, index) => `${index + 1}. ${item.file || item.name || '待补充数据'}\n   下载位置：${item.path || item.tip || '按平台后台对应模块导出'}\n   增强报告：${item.improves || item.tip || '增强对应模块判断'}\n   补充原因：${item.reason || '补充后可减少待核实判断。'}`),
     '',
     '微信群发送话术',
     wechatShareText(diagnosis),
@@ -2737,6 +2905,20 @@ function exportWord() {
     .visual-kpi-card p { font-size: 10px; margin-top: 6px; }
     .report-actions-list section, .quality-box { border: 1px solid #d0d7e2; padding: 10px; margin: 8px 0; }
     .boss-summary, .quality-box { background: #f8fbff; }
+    .delivery-grade { display: table; width: 100%; border: 1px solid #d0d7e2; background: #f8fbff; padding: 12px; margin: 14px 0; }
+    .delivery-grade.grade-a { border-color: #86efac; background: #f0fdf4; }
+    .delivery-grade.grade-b { border-color: #fdba74; background: #fffaf0; }
+    .delivery-grade.grade-c { border-color: #fca5a5; background: #fff5f5; }
+    .delivery-mark { display: inline-block; width: 38px; height: 38px; border-radius: 50%; background: #115df6; color: #ffffff; text-align: center; line-height: 38px; font-size: 20px; font-weight: 800; margin-right: 10px; }
+    .delivery-grade strong { font-size: 14px; color: #111827; }
+    .delivery-grade p { margin: 4px 0; }
+    .delivery-grade span { color: #667085; font-size: 11px; }
+    .missing-guide-list section { border: 1px solid #fdba74; background: #fffaf0; padding: 9px; margin: 8px 0; }
+    .missing-guide-list b { display: inline-block; min-width: 20px; height: 20px; line-height: 20px; border-radius: 50%; background: #ffedd5; color: #92400e; text-align: center; margin-right: 6px; }
+    .missing-guide-list strong { color: #111827; }
+    .missing-guide-list p { margin: 3px 0; }
+    .missing-guide-list p span { color: #92400e; font-weight: 700; margin-right: 4px; }
+    .missing-guide-list em { display: block; color: #667085; font-size: 10px; font-style: normal; margin-top: 3px; }
     .report-layout { display: block; }
     .report-audit { border-top: 1px solid #d0d7e2; margin-top: 18px; padding-top: 12px; }
   </style>

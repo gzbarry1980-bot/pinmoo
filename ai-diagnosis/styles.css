@@ -858,6 +858,131 @@ legend,
   margin: 6px 0;
 }
 
+.delivery-grade {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 14px;
+  align-items: center;
+  margin: 16px 0 18px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #f8fbff;
+}
+
+.delivery-grade strong {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--ink);
+  font-size: 16px;
+}
+
+.delivery-grade p {
+  margin: 0 0 6px;
+  color: var(--body);
+}
+
+.delivery-grade span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.delivery-mark {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 900;
+  background: var(--blue);
+}
+
+.delivery-grade.grade-a {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+
+.delivery-grade.grade-a .delivery-mark {
+  background: #16a34a;
+}
+
+.delivery-grade.grade-b {
+  border-color: #fed7aa;
+  background: #fffaf0;
+}
+
+.delivery-grade.grade-b .delivery-mark {
+  background: #f59e0b;
+}
+
+.delivery-grade.grade-c {
+  border-color: #fecaca;
+  background: #fff5f5;
+}
+
+.delivery-grade.grade-c .delivery-mark {
+  background: #ef4444;
+}
+
+.missing-guide-list {
+  display: grid;
+  gap: 10px;
+}
+
+.missing-guide-list section {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 10px;
+  padding: 11px;
+  border: 1px solid #fed7aa;
+  border-radius: 12px;
+  background: #fffaf0;
+}
+
+.missing-guide-list b {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  color: #b45309;
+  background: #ffedd5;
+  font-size: 12px;
+}
+
+.missing-guide-list strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.missing-guide-list p {
+  margin: 4px 0;
+  color: var(--body);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.missing-guide-list p span {
+  display: inline-block;
+  min-width: 58px;
+  margin-right: 5px;
+  color: #92400e;
+  font-weight: 800;
+}
+
+.missing-guide-list em {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  line-height: 1.45;
+}
+
 .report-audit .report-table {
   table-layout: fixed;
   font-size: 10px;
