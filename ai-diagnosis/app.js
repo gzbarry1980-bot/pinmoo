@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.8.6 · 2026-05-22 · 轻量导入版';
+const appVersion = 'v0.8.7 · 2026-05-25 · 分段计算版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -192,6 +192,7 @@ let importSessionFileNames = [];
 let importSessionSkippedFiles = [];
 let isImportingFiles = false;
 let isGeneratingReport = false;
+let formRecomputeTimer = null;
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -2792,6 +2793,14 @@ function setLatest(diagnosis, persist = false) {
   renderHistory();
 }
 
+function scheduleFormRecompute(delay = 220) {
+  clearTimeout(formRecomputeTimer);
+  formRecomputeTimer = setTimeout(() => {
+    if (isImportingFiles || isGeneratingReport) return;
+    setLatest(analyze(getFormData()));
+  }, delay);
+}
+
 function reportText(diagnosis) {
   if (!diagnosis) return '';
   const reportName = getReportName(diagnosis);
@@ -4066,14 +4075,17 @@ function pickPreviousOverallRows(rows, currentRows) {
   return firstDate ? ranked.filter((row) => row.date === firstDate && overallSourcePriority(row) === overallSourcePriority(ranked[0])) : ranked.slice(0, 1);
 }
 
-function rowsToFormData(rows, filename, options = {}) {
-  const light = Boolean(options.light);
-  const mapped = rows.map(toImportedRow).filter((row) => (
+function isUsefulImportedRow(row) {
+  return Boolean(
     row.sales || row.visitors || row.orders || row.spend || row.clicks || row.impressions ||
     row.itemName || row.categoryName || row.trafficSource || row.promotionName || row.activityName || row.liveName || row.contentName || row.serviceName ||
     row.refundRate || row.refundAmount || row.liveVisitors || row.liveClickUsers || row.contentVisitors ||
     row.serviceRate || row.pageViews || row.shopCustomers || row.newVisitors || row.oldVisitors
-  ));
+  );
+}
+
+function rowsToFormDataFromMapped(mapped, rows, filename, options = {}) {
+  const light = Boolean(options.light);
   if (!mapped.length) throw new Error('empty');
   const range = parseRangeFromText(filename || mapped.map((row) => row.sourceFile).join(' '));
   const scopedRows = range ? mapped.filter((row) => rowInDateRange(row, range)) : mapped;
@@ -4136,6 +4148,30 @@ function rowsToFormData(rows, filename, options = {}) {
     importedLineage: lineage,
     notes: `已导入 ${mapped.length} 行经营数据，其中本期 ${currentSource.length} 行，上期 ${previousRows.length} 行${skippedText}。`
   };
+}
+
+function rowsToFormData(rows, filename, options = {}) {
+  const mapped = rows.map(toImportedRow).filter(isUsefulImportedRow);
+  return rowsToFormDataFromMapped(mapped, rows, filename, options);
+}
+
+async function rowsToFormDataAsync(rows, filename, options = {}) {
+  const mapped = [];
+  const chunkSize = Math.max(100, Number(options.chunkSize) || 500);
+  const total = rows.length || 0;
+  for (let index = 0; index < rows.length; index += chunkSize) {
+    const part = rows.slice(index, index + chunkSize)
+      .map(toImportedRow)
+      .filter(isUsefulImportedRow);
+    mapped.push(...part);
+    options.onProgress?.({
+      current: Math.min(index + chunkSize, total),
+      total,
+      mapped: mapped.length
+    });
+    await nextUiFrame();
+  }
+  return rowsToFormDataFromMapped(mapped, rows, filename, options);
 }
 
 function decodeTextBuffer(buffer, preferred = '') {
@@ -4839,7 +4875,20 @@ async function importDataFiles(files) {
   rows.skippedFiles = skippedFiles;
   setImportProgress({ current: incoming.length, total: incoming.length, rowCount: rows.length, message: '正在轻量汇总文件识别结果' });
   await nextUiFrame();
-  const data = rowsToFormData(rows, importSessionFileNames.join(' + '), { light: true });
+  const data = await rowsToFormDataAsync(rows, importSessionFileNames.join(' + '), {
+    light: true,
+    chunkSize: 400,
+    onProgress: ({ current, total, mapped }) => {
+      const percentDone = total ? Math.round(current / total * 100) : 100;
+      setImportProgress({
+        current: incoming.length,
+        total: incoming.length,
+        rowCount: rows.length,
+        message: `正在标准化导入数据 ${percentDone}%`
+      });
+      $('#importProgressDetail').textContent = `已识别 ${mapped.toLocaleString('zh-CN')} 行有效经营数据，正在生成确认信息。`;
+    }
+  });
   const suggestions = inferImportSuggestions(importSessionFileNames.map((name) => ({ name })), rows, data);
   data.storeName = data.storeName || suggestions.storeName;
   data.industry = suggestions.industry || data.industry;
@@ -5105,7 +5154,18 @@ async function confirmImportedReport() {
 
       setReportProgress(34, '正在重新汇总经营数据', '系统正在重算销售、访客、退款、商品、流量、推广等模块。');
       await nextUiFrame();
-      const refreshed = rowsToFormData(rows, pendingImportMeta.fileNames || current.dataSource || '');
+      const refreshed = await rowsToFormDataAsync(rows, pendingImportMeta.fileNames || current.dataSource || '', {
+        chunkSize: 500,
+        onProgress: ({ current: doneRows, total }) => {
+          const ratio = total ? doneRows / total : 1;
+          const percentDone = Math.round(ratio * 100);
+          setReportProgress(
+            34 + (ratio * 16),
+            `正在标准化经营数据 ${percentDone}%`,
+            `已处理 ${doneRows.toLocaleString('zh-CN')} / ${total.toLocaleString('zh-CN')} 行，正在汇总销售、流量、退款、商品和推广模块。`
+          );
+        }
+      });
       refreshed.brandName = current.brandName || refreshed.brandName || '';
       refreshed.reportPurpose = current.reportPurpose || refreshed.reportPurpose || '品牌方正式版';
       refreshed.periodStart = current.periodStart || refreshed.periodStart || '';
@@ -5291,15 +5351,15 @@ function bindEvents() {
     button.addEventListener('click', () => {
       selectedPlatform = button.dataset.platform;
       document.querySelectorAll('#platformTabs button').forEach((item) => item.classList.toggle('selected', item === button));
-      setLatest(analyze(getFormData()));
+      scheduleFormRecompute(80);
     });
   });
 
   fieldIds.forEach((id) => {
     const element = $('#' + id);
     if (!element) return;
-    element.addEventListener('input', () => setLatest(analyze(getFormData())));
-    element.addEventListener('change', () => setLatest(analyze(getFormData())));
+    element.addEventListener('input', () => scheduleFormRecompute());
+    element.addEventListener('change', () => scheduleFormRecompute(80));
   });
 
   $('#diagnosisForm').addEventListener('submit', (event) => {
