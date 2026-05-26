@@ -93,7 +93,22 @@ function isActive(item) {
 }
 
 function logo(cls) {
-  return '<span class="logo-frame ' + cls + '"><img src="' + SITE.logo + '" alt="PINMOO 品沐咨询 Logo" onerror="this.src=\'' + SITE.logoFallback + '\'"></span>';
+  const webp = assetWebp(SITE.logo);
+  return '<span class="logo-frame ' + cls + '"><picture>' + (webp ? '<source srcset="' + webp + '" type="image/webp">' : '') + '<img src="' + SITE.logo + '" alt="PINMOO 品沐咨询 Logo" decoding="async" fetchpriority="high" onerror="this.onerror=null;this.src=\'' + SITE.logoFallback + '\'"></picture></span>';
+}
+
+function assetWebp(src) {
+  if (!src || !/\.(png|jpe?g)$/i.test(src)) return '';
+  return src.replace(/\.(png|jpe?g)$/i, '.webp');
+}
+
+function ResponsiveImage(src, alt, loading, attrs) {
+  const webp = assetWebp(src);
+  const loadingAttr = loading ? ' loading="' + loading + '"' : '';
+  const extraAttrs = attrs ? ' ' + attrs : '';
+  const img = '<img src="' + src + '" alt="' + alt + '"' + loadingAttr + extraAttrs + '>';
+  if (!webp) return img;
+  return '<picture><source srcset="' + webp + '" type="image/webp">' + img + '</picture>';
 }
 
 function Header() {
@@ -131,7 +146,7 @@ function ServiceCard(service) {
 
 function CaseCard(item) {
   const href = localizeHref('/cases/' + item.slug + '/');
-  return '<article class="case-card"><a class="case-image" href="' + href + '" aria-label="查看' + item.title + '"><img src="' + item.image + '" alt="' + item.industry + '项目经验示意图" loading="lazy"></a><div class="case-card-body"><div class="tag-row"><span>' + item.industry + '</span><span>' + item.platform + '</span></div><h3><a href="' + href + '">' + item.title + '</a></h3><p>' + item.summary + '</p><a class="outline-link" href="' + href + '">查看详情 ' + icon('ArrowRight', 16) + '</a></div></article>';
+  return '<article class="case-card"><a class="case-image" href="' + href + '" aria-label="查看' + item.title + '">' + ResponsiveImage(item.image, item.industry + '项目经验示意图', 'lazy', 'decoding="async"') + '</a><div class="case-card-body"><div class="tag-row"><span>' + item.industry + '</span><span>' + item.platform + '</span></div><h3><a href="' + href + '">' + item.title + '</a></h3><p>' + item.summary + '</p><a class="outline-link" href="' + href + '">查看详情 ' + icon('ArrowRight', 16) + '</a></div></article>';
 }
 
 function DashboardVisual() {
@@ -269,7 +284,7 @@ function CaseDetail(item) {
   const chips = '<div class="case-meta-chips"><span>' + item.industry + '</span><span>' + item.platform + '</span><span>' + item.serviceType + '</span></div>';
   const main = DetailBlock('BookOpen', '项目背景', '<p>' + item.background + '</p>') + DetailBlock('ShieldCheck', '核心问题', '<ul>' + item.problems.map(li).join('') + '</ul>') + DetailBlock('Search', '诊断发现', '<p>' + item.diagnosis + '</p>') + DetailBlock('Target', '解决方向', '<ul>' + item.solutions.map(li).join('') + '</ul>') + DetailBlock('TrendingUp', '阶段成果', '<p>' + item.result + '</p>') + DetailBlock('Lightbulb', '项目启发', '<p>' + item.insight + '</p>');
   const highlights = item.highlights.map(function(h, index) { return '<div class="highlight-row"><span>' + (index + 1) + '</span><p>' + h + '</p></div>'; }).join('');
-  return '<section class="case-detail-hero"><div class="hero-grid-bg"></div><div class="container case-detail-hero-inner"><div class="reveal"><a class="back-link" href="' + localizeHref('/cases/') + '">返回项目经验</a><h1>' + item.title + '</h1><p>' + item.summary + '</p>' + chips + '</div><div class="reveal case-detail-image"><img src="' + item.image + '" alt="' + item.industry + '项目经验示意图"></div></div></section><section class="section case-detail-section"><div class="container case-detail-layout"><div class="case-detail-main">' + main + '</div><aside class="case-detail-aside"><div class="reveal aside-card"><h2>项目概览</h2><dl><div><dt>行业</dt><dd>' + item.industry + '</dd></div><div><dt>平台</dt><dd>' + item.platform + '</dd></div><div><dt>核心问题</dt><dd>' + item.serviceType + '</dd></div></dl></div><div class="reveal aside-card highlight-card"><h2>服务亮点</h2>' + highlights + '</div><div class="reveal aside-card"><p>' + item.cta + '</p>' + ButtonLink('预约咨询', '/contact/', 'primary', false) + '</div></aside></div></section>' + CtaBand('如果你的品牌也面临类似问题，可以预约一次基础诊断。', item.cta);
+  return '<section class="case-detail-hero"><div class="hero-grid-bg"></div><div class="container case-detail-hero-inner"><div class="reveal"><a class="back-link" href="' + localizeHref('/cases/') + '">返回项目经验</a><h1>' + item.title + '</h1><p>' + item.summary + '</p>' + chips + '</div><div class="reveal case-detail-image">' + ResponsiveImage(item.image, item.industry + '项目经验示意图', '', 'decoding="async" fetchpriority="high"') + '</div></div></section><section class="section case-detail-section"><div class="container case-detail-layout"><div class="case-detail-main">' + main + '</div><aside class="case-detail-aside"><div class="reveal aside-card"><h2>项目概览</h2><dl><div><dt>行业</dt><dd>' + item.industry + '</dd></div><div><dt>平台</dt><dd>' + item.platform + '</dd></div><div><dt>核心问题</dt><dd>' + item.serviceType + '</dd></div></dl></div><div class="reveal aside-card highlight-card"><h2>服务亮点</h2>' + highlights + '</div><div class="reveal aside-card"><p>' + item.cta + '</p>' + ButtonLink('预约咨询', '/contact/', 'primary', false) + '</div></aside></div></section>' + CtaBand('如果你的品牌也面临类似问题，可以预约一次基础诊断。', item.cta);
 }
 
 function About() {

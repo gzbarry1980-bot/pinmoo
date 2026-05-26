@@ -827,6 +827,48 @@ button:disabled,
   align-items: stretch;
 }
 
+.report-render-loading {
+  display: grid;
+  gap: 12px;
+  padding: 28px;
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, #eff6ff 0%, #ffffff 100%);
+  color: var(--ink);
+}
+
+.report-render-loading strong {
+  font-size: 18px;
+}
+
+.report-render-loading p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.report-render-loading i {
+  display: block;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dbeafe;
+}
+
+.report-render-loading em {
+  display: block;
+  width: 45%;
+  height: 100%;
+  border-radius: inherit;
+  background: #2563eb;
+  animation: reportLoading 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes reportLoading {
+  from { transform: translateX(0); }
+  to { transform: translateX(120%); }
+}
+
 .method-panel {
   display: none;
 }

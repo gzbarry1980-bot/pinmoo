@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.8.7 · 2026-05-25 · 分段计算版';
+const appVersion = 'v0.8.9 · 2026-05-26 · XLS兼容版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -190,6 +190,7 @@ let pendingImportMeta = null;
 let importSessionRows = [];
 let importSessionFileNames = [];
 let importSessionSkippedFiles = [];
+let queuedImportFiles = [];
 let isImportingFiles = false;
 let isGeneratingReport = false;
 let formRecomputeTimer = null;
@@ -2267,6 +2268,19 @@ function leverageHtml(diagnosis) {
   `);
 }
 
+function showReportRenderPlaceholder(diagnosis) {
+  const paper = $('#reportPaper');
+  if (!paper) return;
+  $('#reportTime').textContent = '正在生成：' + diagnosis.createdAt;
+  paper.innerHTML = `
+    <div class="report-render-loading">
+      <strong>正在生成${getReportName(diagnosis)}</strong>
+      <p>系统正在组装图表、经营结论、补数建议和微信群话术。数据量较大时请稍候，页面仍会持续更新进度。</p>
+      <i><em></em></i>
+    </div>
+  `;
+}
+
 function renderReport(diagnosis) {
   const { data } = diagnosis;
   const reportName = getReportName(diagnosis);
@@ -2309,7 +2323,8 @@ function renderReport(diagnosis) {
     </table>
   `));
   $('#reportTime').textContent = '最近生成：' + diagnosis.createdAt;
-  $('#reportPaper').innerHTML = `
+  // Legacy flat preview is intentionally skipped; the visual two-column report below is the active report.
+  if (false) $('#reportPaper').innerHTML = `
     ${reportCoverHtml(diagnosis)}
     <div class="report-brand">Pinmoo AI 电商增长智能体</div>
     <h3>${reportName}</h3>
@@ -4825,6 +4840,7 @@ function resetImportSession() {
   importSessionRows = [];
   importSessionFileNames = [];
   importSessionSkippedFiles = [];
+  queuedImportFiles = [];
   pendingImportMeta = null;
   clearImportProgress();
   clearReportProgress();
@@ -4835,7 +4851,11 @@ async function importDataFiles(files) {
   const fileList = Array.from(files || []);
   if (!fileList.length) return;
   if (isImportingFiles) {
-    toast('当前仍在导入，请等待本轮完成后再追加文件');
+    const queuedNames = new Set(queuedImportFiles.map((file) => file.name));
+    const nextFiles = fileList.filter((file) => !queuedNames.has(file.name));
+    queuedImportFiles.push(...nextFiles);
+    updateWorkflowStatus('parsing', `当前批次仍在处理，已将 ${nextFiles.length} 个文件加入下一批队列。系统会自动继续导入。`);
+    toast(nextFiles.length ? `已加入下一批队列：${nextFiles.length} 个文件` : '这些文件已在队列中');
     return;
   }
   isImportingFiles = true;
@@ -4921,6 +4941,10 @@ async function importDataFiles(files) {
   toast(batchSkipped.length ? '已导入可识别文件，部分文件未读取' : appended ? '本批文件已追加，请确认识别结果' : '数据已导入，请确认店铺信息');
   } finally {
   isImportingFiles = false;
+  if (queuedImportFiles.length) {
+    const nextBatch = queuedImportFiles.splice(0);
+    setTimeout(() => importDataFiles(nextBatch), 0);
+  }
   }
 }
 
@@ -5189,18 +5213,22 @@ async function confirmImportedReport() {
     await nextUiFrame();
     const diagnosis = analyze(getFormData());
 
-    setReportProgress(68, '正在渲染报告预览', '正在生成封面、图表、模块洞察、右侧补数建议和微信群话术。');
+    setReportProgress(68, '正在准备报告预览', '正在生成封面、图表、模块洞察、右侧补数建议和微信群话术。');
+    showReportRenderPlaceholder(diagnosis);
     await nextUiFrame();
     latestDiagnosis = diagnosis;
+    setReportProgress(72, '正在渲染核心指标', '正在刷新健康度、指标评分、问题优先级和行动建议。');
     renderSummary(diagnosis);
     renderHealth(diagnosis);
     await nextUiFrame();
+    setReportProgress(78, '正在渲染问题与动作', '正在生成关键问题、执行计划和右侧补数建议。');
     renderIssues(diagnosis);
     renderActions(diagnosis);
     await nextUiFrame();
+    setReportProgress(84, '正在渲染正式报告', '正在组装图表、表格、口径说明和微信群话术。');
     renderReport(diagnosis);
 
-    setReportProgress(88, '正在写入历史记录', '报告即将完成，请稍候。');
+    setReportProgress(90, '正在写入历史记录', '报告即将完成，请稍候。');
     await nextUiFrame();
     history = [diagnosis, ...history.filter((item) => item.id !== diagnosis.id)].slice(0, 200);
     saveHistory();
@@ -5485,6 +5513,12 @@ function bindEvents() {
     saveHistory();
     renderHistory();
     toast('诊断历史已清空');
+  });
+
+  window.addEventListener('beforeunload', (event) => {
+    if (!isImportingFiles && !isGeneratingReport && !queuedImportFiles.length) return;
+    event.preventDefault();
+    event.returnValue = '';
   });
 }
 
