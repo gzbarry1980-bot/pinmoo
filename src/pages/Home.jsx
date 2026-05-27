@@ -7,7 +7,7 @@ import { Reveal } from '../components/Reveal.jsx';
 import { SectionIntro } from '../components/SectionIntro.jsx';
 import { ServiceCard } from '../components/ServiceCard.jsx';
 import { StatCounter } from '../components/StatCounter.jsx';
-import { METHODOLOGY, SITE, TRUST_STATS } from '../data/site.js';
+import { METHODOLOGY, TRUST_STATS } from '../data/site.js';
 import { cases } from '../data/cases.js';
 import { services } from '../data/services.js';
 
@@ -18,12 +18,13 @@ export function Home() {
         <div className="hero-grid-bg" />
         <div className="container home-hero-inner">
           <Reveal className="hero-copy">
+            <p className="hero-kicker">AI 电商经营周报 / 运营陪跑</p>
             <h1>让电商增长更有章法</h1>
-            <p className="hero-subtitle">品沐咨询专注电商战略诊断与运营陪跑，帮助品牌从平台、商品、内容、投放到转化，搭建可持续增长路径。</p>
-            <p className="hero-support">不只给建议，更陪品牌把增长路径拆清楚、跑起来、复盘出结果。</p>
+            <p className="hero-subtitle">品沐咨询专注电商战略诊断、经营周报自动生成与运营陪跑，帮助品牌从平台、商品、内容、投放到转化，搭建可持续增长路径。</p>
+            <p className="hero-support">先用数据看清净销售额、退款、流量和投放效率，再把下周期动作拆到商品、页面、客服、推广、直播和老客运营。</p>
             <div className="hero-actions">
-              <ButtonLink href="/contact/" icon={false}>免费诊断</ButtonLink>
-              <ButtonLink href="/cases/" variant="secondary" icon={false}>查看案例</ButtonLink>
+              <ButtonLink href="/ai-diagnosis/" icon={false}>体验经营报告</ButtonLink>
+              <ButtonLink href="/contact/" variant="secondary" icon={false}>预约诊断</ButtonLink>
             </div>
           </Reveal>
           <Reveal className="hero-visual-wrap" delay={120}>
@@ -39,8 +40,10 @@ export function Home() {
             {TRUST_STATS.map((item, index) => (
               <Reveal className="stat-card" key={item.label} delay={index * 80}>
                 <Icon name={index === 0 ? 'BadgeCheck' : index === 1 ? 'Layers' : index === 2 ? 'BriefcaseBusiness' : 'Users'} size={30} />
-                <strong><StatCounter value={item.value} suffix={item.suffix} /></strong>
-                <span>{item.label}</span>
+                <div className="stat-copy">
+                  <strong><StatCounter value={item.value} suffix={item.suffix} /></strong>
+                  <span>{item.label}</span>
+                </div>
               </Reveal>
             ))}
           </div>

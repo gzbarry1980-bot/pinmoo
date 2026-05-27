@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pinmoo AI 店铺经营诊断工作台</title>
+    <meta name="description" content="Pinmoo AI 电商增长智能体店铺经营诊断初版，用于多店铺经营诊断、问题归因、行动计划和报告交付。" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css?v=20260527-report-polish" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="功能导航">
+        <a class="brand" href="./index.html" aria-label="Pinmoo AI 店铺经营诊断首页">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 28 28">
+              <rect x="4" y="14" width="4" height="8" rx="1.4"></rect>
+              <rect x="11" y="9" width="4" height="13" rx="1.4"></rect>
+              <rect x="18" y="5" width="4" height="17" rx="1.4"></rect>
+            </svg>
+          </span>
+          <span>
+            <strong>Pinmoo AI</strong>
+            <em>电商增长智能体</em>
+          </span>
+        </a>
+
+        <nav class="nav-list">
+          <a class="active" href="#diagnosis"><span>01</span>电商经营报告</a>
+          <a href="#score"><span>02</span>指标评分</a>
+          <a href="#report"><span>03</span>诊断报告</a>
+          <a href="#history"><span>04</span>历史记录</a>
+          <a href="#playbook"><span>05</span>诊断方法</a>
+        </nav>
+
+        <div class="quota-card">
+          <small>本月诊断记录</small>
+          <strong><b id="quotaUsed">0</b> / 200</strong>
+          <div class="quota-track"><i id="quotaBar"></i></div>
+          <p>历史保存在当前浏览器，本机可连续沉淀客户诊断。</p>
+        </div>
+      </aside>
+
+      <div class="workspace">
+        <header class="topbar">
+          <div>
+            <span>当前工作空间</span>
+            <strong>品沐咨询团队</strong>
+            <em class="version-badge" id="appVersion">v0.9.0 · 2026-05-27 · 周报交付优化版</em>
+          </div>
+          <label class="search-box">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+            <input id="historySearch" type="search" placeholder="搜索店铺、平台、行业或结论" />
+          </label>
+          <div class="topbar-actions">
+            <button id="importHistory" class="tool-btn" type="button">导入历史</button>
+            <button id="exportHistory" class="tool-btn" type="button">导出历史</button>
+            <input id="historyFile" type="file" accept="application/json" hidden />
+          </div>
+        </header>
+
+        <main class="diagnosis-page" id="diagnosis">
+          <section class="page-title">
+            <div>
+              <h1>电商经营报告</h1>
+              <p>第一阶段优先支持天猫/生意参谋周报：多文件上传、自动识别、报告预览和 Word 导出。</p>
+            </div>
+            <div class="title-actions">
+              <button id="loadSample" class="ghost-btn" type="button">导入示例</button>
+              <button id="importData" class="ghost-btn" type="button">导入数据</button>
+              <button id="downloadTemplate" class="ghost-btn" type="button">下载模板</button>
+              <button id="resetForm" class="ghost-btn" type="button">清空表单</button>
+              <button id="saveDraft" class="ghost-btn" type="button">保存草稿</button>
+              <input id="dataFile" type="file" accept=".csv,.json,.xlsx,.xls,.doc,.docx,.html,application/json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" multiple hidden />
+            </div>
+          </section>
+
+          <section class="panel workflow-panel" id="workflowPanel" aria-label="报告生成流程">
+            <div class="workflow-head">
+              <strong>报告生成流程</strong>
+              <span id="workflowHint">先导入数据，系统会逐步提示确认信息、生成报告和导出文件。</span>
+            </div>
+            <ol class="workflow-steps" id="workflowSteps">
+              <li data-flow-step="upload" class="active">
+                <b>1</b>
+                <div><strong>导入数据</strong><span>等待上传经营报表</span></div>
+              </li>
+              <li data-flow-step="parse">
+                <b>2</b>
+                <div><strong>识别报表</strong><span>自动判断文件类型和字段</span></div>
+              </li>
+              <li data-flow-step="confirm">
+                <b>3</b>
+                <div><strong>确认任务</strong><span>核实店铺、类目、平台、报告类型</span></div>
+              </li>
+              <li data-flow-step="preview">
+                <b>4</b>
+                <div><strong>核实报告</strong><span>查看预览和口径说明</span></div>
+              </li>
+              <li data-flow-step="export">
+                <b>5</b>
+                <div><strong>交付导出</strong><span>导出 Word 或复制话术</span></div>
+              </li>
+            </ol>
+          </section>
+
+          <section class="main-grid">
+            <form class="panel input-panel" id="diagnosisForm">
+              <div class="panel-head">
+                <span class="step-dot">1</span>
+                <div>
+                  <h2>基础信息</h2>
+                  <p>导入周/月经营数据后，会自动汇总本期和上期并生成报告。</p>
+                </div>
+              </div>
+
+              <div class="import-box">
+                <strong>推荐方式：分批导入经营报表</strong>
+                <p>支持 CSV/JSON/XLSX/XLS/DOCX/DOC。文件多时可一次性选择，系统会在后台逐个解析并更新进度；也可以先导入核心经营、商品、流量，再继续追加其他批次。</p>
+                <div class="import-progress" id="importProgress" hidden>
+                  <div>
+                    <span id="importProgressText">等待导入</span>
+                    <b id="importProgressPercent">0%</b>
+                  </div>
+                  <i><em id="importProgressBar"></em></i>
+                  <small id="importProgressDetail">可分批上传，后续批次会追加到当前报告任务。</small>
+                </div>
+                <small id="importStatus">尚未导入数据，可先使用示例数据体验。</small>
+              </div>
+
+              <div class="section-label">报告任务信息</div>
+              <div class="form-row">
+                <label>品牌名称<input id="brandName" type="text" placeholder="例如：世纪茗家" /></label>
+                <label>报告用途
+                  <select id="reportPurpose">
+                    <option>品牌方正式版</option>
+                    <option>内部诊断版</option>
+                    <option>会议汇报版</option>
+                  </select>
+                </label>
+              </div>
+              <div class="form-row">
+                <label>统计周期开始日期<input id="periodStart" type="date" /></label>
+                <label>统计周期结束日期<input id="periodEnd" type="date" /></label>
+              </div>
+
+              <div class="form-row">
+                <label>店铺名称<input id="storeName" type="text" value="某美妆旗舰店" required /></label>
+                <label>所属行业
+                  <select id="industry">
+                    <option>美妆个护</option>
+                    <option>服装鞋包</option>
+                    <option>食品茶饮</option>
+                    <option>母婴营养</option>
+                    <option>家居百货</option>
+                    <option>产业带工厂</option>
+                    <option>本地生活</option>
+                  </select>
+                </label>
+              </div>
+
+              <fieldset>
+                <legend>店铺平台</legend>
+                <div class="platform-tabs" id="platformTabs">
+                  <button class="selected" type="button" data-platform="天猫">天猫</button>
+                  <button type="button" data-platform="京东">京东</button>
+                  <button type="button" data-platform="抖音">抖音</button>
+                  <button type="button" data-platform="小红书">小红书</button>
+                  <button type="button" data-platform="视频号">视频号</button>
+                  <button type="button" data-platform="拼多多">拼多多</button>
+                </div>
+              </fieldset>
+
+              <div class="form-row">
+                <label>报告类型
+                  <select id="reportType">
+                    <option>周报</option>
+                    <option>月报</option>
+                  </select>
+                </label>
+                <label>诊断时间范围<input id="period" type="text" value="2026-04-15 至 2026-05-14" /></label>
+              </div>
+              <div class="form-row">
+                <label>对比周期
+                  <select id="compareType">
+                    <option>上一个周期</option>
+                    <option>去年同期</option>
+                    <option>活动前一周</option>
+                    <option>不对比</option>
+                  </select>
+                </label>
+                <label>数据来源<input id="dataSource" type="text" value="手动录入 / 示例数据" /></label>
+              </div>
+
+              <div class="section-label">经营指标</div>
+              <div class="metric-inputs">
+                <label>销售额（元）<input id="sales" type="number" min="0" value="285670" /></label>
+                <label>上期销售额（元）<input id="prevSales" type="number" min="0" value="312456" /></label>
+                <label>访客数<input id="visitors" type="number" min="0" value="186543" /></label>
+                <label>上期访客数<input id="prevVisitors" type="number" min="0" value="210234" /></label>
+                <label>转化率（%）<input id="conversion" type="number" min="0" step="0.01" value="2.35" /></label>
+                <label>客单价（元）<input id="aov" type="number" min="0" step="0.01" value="156.8" /></label>
+                <label>退款率（%）<input id="refundRate" type="number" min="0" step="0.01" value="4.21" /></label>
+                <label>投放 ROI<input id="roi" type="number" min="0" step="0.01" value="2.85" /></label>
+              </div>
+
+              <div class="section-label">商品与承接</div>
+              <div class="metric-inputs">
+                <label>商品总数<input id="productCount" type="number" min="0" value="86" /></label>
+                <label>有成交商品数<input id="activeProductCount" type="number" min="0" value="54" /></label>
+                <label>TOP SKU 销售占比（%）<input id="topSkuShare" type="number" min="0" max="100" step="0.1" value="41.8" /></label>
+                <label>客服响应达标率（%）<input id="serviceRate" type="number" min="0" max="100" step="0.1" value="86.5" /></label>
+              </div>
+
+              <div class="section-label">渠道结构占比</div>
+              <div class="channel-grid">
+                <label>搜索<input id="searchShare" type="number" min="0" max="100" step="0.1" value="34" /></label>
+                <label>推荐<input id="recommendShare" type="number" min="0" max="100" step="0.1" value="18" /></label>
+                <label>内容<input id="contentShare" type="number" min="0" max="100" step="0.1" value="21" /></label>
+                <label>付费<input id="paidShare" type="number" min="0" max="100" step="0.1" value="19" /></label>
+                <label>私域<input id="privateShare" type="number" min="0" max="100" step="0.1" value="8" /></label>
+              </div>
+
+              <label class="notes-field">补充说明
+                <textarea id="notes" maxlength="360" placeholder="例如：搜索流量下滑、爆款退款集中、活动后复盘、客服问题、渠道结构异常等。">近30天投放预算缩减，访客下滑明显；爆款 SKU 评价里多次提到色差和发货慢。</textarea>
+              </label>
+
+              <button class="primary-btn" type="submit">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4"></path><path d="M12 17v4"></path><path d="M4.9 4.9l2.8 2.8"></path><path d="M16.3 16.3l2.8 2.8"></path><path d="M3 12h4"></path><path d="M17 12h4"></path><path d="M4.9 19.1l2.8-2.8"></path><path d="M16.3 7.7l2.8-2.8"></path></svg>
+                生成并保存诊断报告
+              </button>
+            </form>
+
+            <div class="right-stack">
+              <section class="panel summary-panel">
+                <div class="score-ring" id="scoreRing">
+                  <span id="totalScore">0</span>
+                  <small>经营健康度</small>
+                </div>
+                <div>
+                  <h2 id="summaryTitle">等待诊断</h2>
+                  <p id="summaryText">录入数据后会自动生成经营判断。</p>
+                </div>
+                <div class="summary-kpis" id="summaryKpis"></div>
+              </section>
+
+              <section class="panel health-panel" id="score">
+                <div class="panel-head compact">
+                  <span class="step-dot">2</span>
+                  <div>
+                    <h2>指标评分</h2>
+                    <p>从销售、流量、转化、利润风险、商品和渠道六个方向判断。</p>
+                  </div>
+                </div>
+                <div class="health-grid" id="healthGrid"></div>
+              </section>
+
+              <section class="panel issue-panel" id="playbook">
+                <div class="panel-head compact">
+                  <span class="step-dot">3</span>
+                  <div>
+                    <h2>问题优先级</h2>
+                    <p id="issueCount">共识别 0 个问题</p>
+                  </div>
+                </div>
+                <div class="issue-list" id="issueList"></div>
+              </section>
+
+              <section class="panel action-panel">
+                <div class="panel-head compact">
+                  <span class="step-dot">4</span>
+                  <div>
+                    <h2>行动计划</h2>
+                    <p>按 7 / 14 / 30 天拆解交付动作。</p>
+                  </div>
+                </div>
+                <div class="action-list" id="actionList"></div>
+              </section>
+            </div>
+          </section>
+
+          <section class="report-grid">
+            <article class="panel report-panel" id="report">
+              <div class="panel-head compact report-toolbar">
+                <span class="step-dot">5</span>
+                <div>
+                  <h2>诊断报告预览</h2>
+                  <p id="reportTime">实时预览，点击生成后写入历史。</p>
+                </div>
+                <div class="report-actions">
+                  <button id="copyExecutive" type="button">复制老板摘要</button>
+                  <button id="copyWechat" type="button">复制微信群话术</button>
+                  <button id="copyReport" type="button">复制</button>
+                  <button id="exportWord" type="button">导出 Word</button>
+                  <button id="exportReport" type="button">导出 TXT</button>
+                  <button id="printReport" type="button">打印</button>
+                </div>
+              </div>
+              <div class="report-paper" id="reportPaper"></div>
+            </article>
+
+            <aside class="panel method-panel">
+              <h2>周报结构</h2>
+              <div class="method-list">
+                <div><strong>01 店铺整体</strong><span>销售额、访客、转化、客单、退款、健康度</span></div>
+                <div><strong>02 宝贝排行</strong><span>核心宝贝销售、访客、订单、转化和商品判断</span></div>
+                <div><strong>03 SKU分层</strong><span>主力款、高访低转、低访高转、售后风险和长尾清理</span></div>
+                <div><strong>04 退款治理</strong><span>退款原因、退款金额、关联商品和优先修复动作</span></div>
+                <div><strong>05 流量排行</strong><span>搜索、推荐、内容、付费、私域来源贡献</span></div>
+                <div><strong>06 推广活动</strong><span>推广计划、活动成交、ROI、点击和下周期安排</span></div>
+              </div>
+            </aside>
+          </section>
+
+          <section class="panel history-panel" id="history">
+            <div class="panel-head compact">
+              <span class="step-dot">6</span>
+              <div>
+                <h2>诊断历史</h2>
+                <p>支持搜索、回看、删除、导出和导入。</p>
+              </div>
+              <button id="clearHistory" class="danger-btn" type="button">清空历史</button>
+            </div>
+            <div class="history-table-wrap">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>店铺</th>
+                    <th>平台</th>
+                    <th>销售额</th>
+                    <th>健康度</th>
+                    <th>问题数</th>
+                    <th>生成时间</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="historyBody"></tbody>
+              </table>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div class="import-modal" id="importConfirmModal" hidden>
+      <div class="modal-backdrop" data-close-import-modal></div>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="importConfirmTitle">
+        <div class="modal-head">
+          <div>
+            <h2 id="importConfirmTitle">确认店铺信息</h2>
+            <p id="importConfirmText">数据已导入，请补充店铺名称和类目后生成报告。</p>
+          </div>
+          <button class="modal-close" type="button" data-close-import-modal aria-label="关闭">×</button>
+        </div>
+        <div class="modal-summary" id="modalImportSummary"></div>
+        <div class="modal-form">
+          <label>店铺名称<input id="modalStoreName" type="text" placeholder="请输入店铺名称" /></label>
+          <label>店铺类目
+            <select id="modalIndustry">
+              <option>美妆个护</option>
+              <option>服装鞋包</option>
+              <option>食品茶饮</option>
+              <option>母婴营养</option>
+              <option>家居百货</option>
+              <option>产业带工厂</option>
+              <option>本地生活</option>
+            </select>
+          </label>
+          <label>店铺平台
+            <select id="modalPlatform">
+              <option>天猫</option>
+              <option>京东</option>
+              <option>抖音</option>
+              <option>小红书</option>
+              <option>视频号</option>
+              <option>拼多多</option>
+            </select>
+          </label>
+          <label>报告类型
+            <select id="modalReportType">
+              <option>周报</option>
+              <option>月报</option>
+            </select>
+          </label>
+        </div>
+        <div class="import-progress report-progress" id="reportProgress" hidden>
+          <div>
+            <span id="reportProgressText">等待生成报告</span>
+            <b id="reportProgressPercent">0%</b>
+          </div>
+          <i><em id="reportProgressBar"></em></i>
+          <small id="reportProgressDetail">确认后会分步完成数据重算、诊断生成、报告渲染和历史写入。</small>
+        </div>
+        <div class="modal-actions">
+          <button class="ghost-btn" id="appendImportFiles" type="button">继续追加文件</button>
+          <button class="ghost-btn" type="button" data-close-import-modal>先看草稿</button>
+          <button class="primary-btn" id="confirmImportedReport" type="button">生成报告并写入历史</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js?v=20260526-stable-generate"></script>
+  </body>
+</html>

@@ -1,0 +1,1092 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinmoo AI 店铺经营诊断工作台</title>
+    <meta name="description" content="Pinmoo AI 电商增长智能体店铺经营诊断初版，用于多店铺经营诊断、问题归因、行动计划和报告交付。">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css?v=20260527-report-polish">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="功能导航">
+        <a class="brand" href="./index.html" aria-label="Pinmoo AI 店铺经营诊断首页">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 28 28">
+              <rect x="4" y="14" width="4" height="8" rx="1.4"></rect>
+              <rect x="11" y="9" width="4" height="13" rx="1.4"></rect>
+              <rect x="18" y="5" width="4" height="17" rx="1.4"></rect>
+            </svg>
+          </span>
+          <span>
+            <strong>Pinmoo AI</strong>
+            <em>电商增长智能体</em>
+          </span>
+        </a>
+
+        <nav class="nav-list">
+          <a class="active" href="#diagnosis"><span>01</span>电商经营报告</a>
+          <a href="#score"><span>02</span>指标评分</a>
+          <a href="#report"><span>03</span>诊断报告</a>
+          <a href="#history"><span>04</span>历史记录</a>
+          <a href="#playbook"><span>05</span>诊断方法</a>
+        </nav>
+
+        <div class="quota-card">
+          <small>本月诊断记录</small>
+          <strong><b id="quotaUsed">0</b> / 200</strong>
+          <div class="quota-track"><i id="quotaBar" style="width: 0%;"></i></div>
+          <p>历史保存在当前浏览器，本机可连续沉淀客户诊断。</p>
+        </div>
+      </aside>
+
+      <div class="workspace">
+        <header class="topbar">
+          <div>
+            <span>当前工作空间</span>
+            <strong>品沐咨询团队</strong>
+            <em class="version-badge" id="appVersion">v0.9.0 · 2026-05-27 · 周报交付优化版</em>
+          </div>
+          <label class="search-box">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+            <input id="historySearch" type="search" placeholder="搜索店铺、平台、行业或结论">
+          </label>
+          <div class="topbar-actions">
+            <button id="importHistory" class="tool-btn" type="button">导入历史</button>
+            <button id="exportHistory" class="tool-btn" type="button">导出历史</button>
+            <input id="historyFile" type="file" accept="application/json" hidden="">
+          </div>
+        </header>
+
+        <main class="diagnosis-page" id="diagnosis">
+          <section class="page-title">
+            <div>
+              <h1>电商经营报告</h1>
+              <p>第一阶段优先支持天猫/生意参谋周报：多文件上传、自动识别、报告预览和 Word 导出。</p>
+            </div>
+            <div class="title-actions">
+              <button id="loadSample" class="ghost-btn" type="button">导入示例</button>
+              <button id="importData" class="ghost-btn" type="button">导入数据</button>
+              <button id="downloadTemplate" class="ghost-btn" type="button">下载模板</button>
+              <button id="resetForm" class="ghost-btn" type="button">清空表单</button>
+              <button id="saveDraft" class="ghost-btn" type="button">保存草稿</button>
+              <input id="dataFile" type="file" accept=".csv,.json,.xlsx,.xls,.doc,.docx,.html,application/json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" multiple="" hidden="">
+            </div>
+          </section>
+
+          <section class="panel workflow-panel" id="workflowPanel" aria-label="报告生成流程">
+            <div class="workflow-head">
+              <strong>报告生成流程</strong>
+              <span id="workflowHint">先导入数据，系统会逐步提示确认信息、生成报告和导出文件。</span>
+            </div>
+            <ol class="workflow-steps" id="workflowSteps">
+              <li data-flow-step="upload" class="active">
+                <b>1</b>
+                <div><strong>导入数据</strong><span>等待上传经营报表</span></div>
+              </li>
+              <li data-flow-step="parse">
+                <b>2</b>
+                <div><strong>识别报表</strong><span>自动判断文件类型和字段</span></div>
+              </li>
+              <li data-flow-step="confirm">
+                <b>3</b>
+                <div><strong>确认任务</strong><span>核实店铺、类目、平台、报告类型</span></div>
+              </li>
+              <li data-flow-step="preview">
+                <b>4</b>
+                <div><strong>核实报告</strong><span>查看预览和口径说明</span></div>
+              </li>
+              <li data-flow-step="export">
+                <b>5</b>
+                <div><strong>交付导出</strong><span>导出 Word 或复制话术</span></div>
+              </li>
+            </ol>
+          </section>
+
+          <section class="main-grid">
+            <form class="panel input-panel" id="diagnosisForm">
+              <div class="panel-head">
+                <span class="step-dot">1</span>
+                <div>
+                  <h2>基础信息</h2>
+                  <p>导入周/月经营数据后，会自动汇总本期和上期并生成报告。</p>
+                </div>
+              </div>
+
+              <div class="import-box">
+                <strong>推荐方式：分批导入经营报表</strong>
+                <p>支持 CSV/JSON/XLSX/XLS/DOCX/DOC。文件多时可一次性选择，系统会在后台逐个解析并更新进度；也可以先导入核心经营、商品、流量，再继续追加其他批次。</p>
+                <div class="import-progress" id="importProgress" hidden="">
+                  <div>
+                    <span id="importProgressText">等待导入</span>
+                    <b id="importProgressPercent">0%</b>
+                  </div>
+                  <i><em id="importProgressBar"></em></i>
+                  <small id="importProgressDetail">可分批上传，后续批次会追加到当前报告任务。</small>
+                </div>
+                <small id="importStatus">尚未导入数据，可先使用示例数据体验。</small>
+              </div>
+
+              <div class="section-label">报告任务信息</div>
+              <div class="form-row">
+                <label>品牌名称<input id="brandName" type="text" placeholder="例如：世纪茗家"></label>
+                <label>报告用途
+                  <select id="reportPurpose">
+                    <option>品牌方正式版</option>
+                    <option>内部诊断版</option>
+                    <option>会议汇报版</option>
+                  </select>
+                </label>
+              </div>
+              <div class="form-row">
+                <label>统计周期开始日期<input id="periodStart" type="date"></label>
+                <label>统计周期结束日期<input id="periodEnd" type="date"></label>
+              </div>
+
+              <div class="form-row">
+                <label>店铺名称<input id="storeName" type="text" value="某美妆旗舰店" required=""></label>
+                <label>所属行业
+                  <select id="industry">
+                    <option>美妆个护</option>
+                    <option>服装鞋包</option>
+                    <option>食品茶饮</option>
+                    <option>母婴营养</option>
+                    <option>家居百货</option>
+                    <option>产业带工厂</option>
+                    <option>本地生活</option>
+                  </select>
+                </label>
+              </div>
+
+              <fieldset>
+                <legend>店铺平台</legend>
+                <div class="platform-tabs" id="platformTabs">
+                  <button class="selected" type="button" data-platform="天猫">天猫</button>
+                  <button type="button" data-platform="京东">京东</button>
+                  <button type="button" data-platform="抖音">抖音</button>
+                  <button type="button" data-platform="小红书">小红书</button>
+                  <button type="button" data-platform="视频号">视频号</button>
+                  <button type="button" data-platform="拼多多">拼多多</button>
+                </div>
+              </fieldset>
+
+              <div class="form-row">
+                <label>报告类型
+                  <select id="reportType">
+                    <option>周报</option>
+                    <option>月报</option>
+                  </select>
+                </label>
+                <label>诊断时间范围<input id="period" type="text" value="2026-04-15 至 2026-05-14"></label>
+              </div>
+              <div class="form-row">
+                <label>对比周期
+                  <select id="compareType">
+                    <option>上一个周期</option>
+                    <option>去年同期</option>
+                    <option>活动前一周</option>
+                    <option>不对比</option>
+                  </select>
+                </label>
+                <label>数据来源<input id="dataSource" type="text" value="手动录入 / 示例数据"></label>
+              </div>
+
+              <div class="section-label">经营指标</div>
+              <div class="metric-inputs">
+                <label>销售额（元）<input id="sales" type="number" min="0" value="285670"></label>
+                <label>上期销售额（元）<input id="prevSales" type="number" min="0" value="312456"></label>
+                <label>访客数<input id="visitors" type="number" min="0" value="186543"></label>
+                <label>上期访客数<input id="prevVisitors" type="number" min="0" value="210234"></label>
+                <label>转化率（%）<input id="conversion" type="number" min="0" step="0.01" value="2.35"></label>
+                <label>客单价（元）<input id="aov" type="number" min="0" step="0.01" value="156.8"></label>
+                <label>退款率（%）<input id="refundRate" type="number" min="0" step="0.01" value="4.21"></label>
+                <label>投放 ROI<input id="roi" type="number" min="0" step="0.01" value="2.85"></label>
+              </div>
+
+              <div class="section-label">商品与承接</div>
+              <div class="metric-inputs">
+                <label>商品总数<input id="productCount" type="number" min="0" value="86"></label>
+                <label>有成交商品数<input id="activeProductCount" type="number" min="0" value="54"></label>
+                <label>TOP SKU 销售占比（%）<input id="topSkuShare" type="number" min="0" max="100" step="0.1" value="41.8"></label>
+                <label>客服响应达标率（%）<input id="serviceRate" type="number" min="0" max="100" step="0.1" value="86.5"></label>
+              </div>
+
+              <div class="section-label">渠道结构占比</div>
+              <div class="channel-grid">
+                <label>搜索<input id="searchShare" type="number" min="0" max="100" step="0.1" value="34"></label>
+                <label>推荐<input id="recommendShare" type="number" min="0" max="100" step="0.1" value="18"></label>
+                <label>内容<input id="contentShare" type="number" min="0" max="100" step="0.1" value="21"></label>
+                <label>付费<input id="paidShare" type="number" min="0" max="100" step="0.1" value="19"></label>
+                <label>私域<input id="privateShare" type="number" min="0" max="100" step="0.1" value="8"></label>
+              </div>
+
+              <label class="notes-field">补充说明
+                <textarea id="notes" maxlength="360" placeholder="例如：搜索流量下滑、爆款退款集中、活动后复盘、客服问题、渠道结构异常等。">近30天投放预算缩减，访客下滑明显；爆款 SKU 评价里多次提到色差和发货慢。</textarea>
+              </label>
+
+              <button class="primary-btn" type="submit">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4"></path><path d="M12 17v4"></path><path d="M4.9 4.9l2.8 2.8"></path><path d="M16.3 16.3l2.8 2.8"></path><path d="M3 12h4"></path><path d="M17 12h4"></path><path d="M4.9 19.1l2.8-2.8"></path><path d="M16.3 7.7l2.8-2.8"></path></svg>
+                生成并保存诊断报告
+              </button>
+            </form>
+
+            <div class="right-stack">
+              <section class="panel summary-panel">
+                <div class="score-ring" id="scoreRing" style="--score-deg: 280.8deg; --score-color: var(--green);">
+                  <span id="totalScore">78</span>
+                  <small>经营健康度</small>
+                </div>
+                <div>
+                  <h2 id="summaryTitle">存在明确优化空间，需要按经营杠杆排序</h2>
+                  <p id="summaryText">销售变化 -8.57%，访客变化 -11.27%。本次诊断优先处理 转化 问题；类目方向为：美妆个护优先看功效可信度、肤质/场景匹配、评价证据和客服异议，报告要判断“为什么用户敢不敢买”。</p>
+                </div>
+                <div class="summary-kpis" id="summaryKpis"><div><span>订单数</span><strong>1,822</strong></div><div><span>销售变化</span><strong>-8.57%</strong></div><div><span>访客变化</span><strong>-11.27%</strong></div><div><span>TOP问题</span><strong>转化</strong></div></div>
+              </section>
+
+              <section class="panel health-panel" id="score">
+                <div class="panel-head compact">
+                  <span class="step-dot">2</span>
+                  <div>
+                    <h2>指标评分</h2>
+                    <p>从销售、流量、转化、利润风险、商品和渠道六个方向判断。</p>
+                  </div>
+                </div>
+                <div class="health-grid" id="healthGrid">
+    <article class="health-card risk">
+      <span>销售增长</span>
+      <strong>¥ 285,670</strong>
+      <em>-8.57%</em>
+      <div class="score-line">
+        <b>58</b>
+        <span class="score-track"><i style="--score:58%;--score-color:var(--red)"></i></span>
+      </div>
+    </article>
+  
+    <article class="health-card risk">
+      <span>流量质量</span>
+      <strong>186,543</strong>
+      <em>-11.27%</em>
+      <div class="score-line">
+        <b>56</b>
+        <span class="score-track"><i style="--score:56%;--score-color:var(--red)"></i></span>
+      </div>
+    </article>
+  
+    <article class="health-card warn">
+      <span>转化效率</span>
+      <strong>2.35%</strong>
+      <em>美妆个护参考 3.5%</em>
+      <div class="score-line">
+        <b>67</b>
+        <span class="score-track"><i style="--score:67%;--score-color:var(--amber)"></i></span>
+      </div>
+    </article>
+  
+    <article class="health-card good">
+      <span>利润风险</span>
+      <strong>退款 4.21%</strong>
+      <em>ROI 2.85</em>
+      <div class="score-line">
+        <b>95</b>
+        <span class="score-track"><i style="--score:95%;--score-color:var(--green)"></i></span>
+      </div>
+    </article>
+  
+    <article class="health-card good">
+      <span>货品动销</span>
+      <strong>62.79%</strong>
+      <em>TOP SKU 41.8%</em>
+      <div class="score-line">
+        <b>92</b>
+        <span class="score-track"><i style="--score:92%;--score-color:var(--green)"></i></span>
+      </div>
+    </article>
+  
+    <article class="health-card good">
+      <span>渠道结构</span>
+      <strong>100.0%</strong>
+      <em>内容基础较好</em>
+      <div class="score-line">
+        <b>83</b>
+        <span class="score-track"><i style="--score:83%;--score-color:var(--green)"></i></span>
+      </div>
+    </article>
+  
+    <article class="health-card good">
+      <span>客服承接</span>
+      <strong>86.5%</strong>
+      <em>参考 92%</em>
+      <div class="score-line">
+        <b>94</b>
+        <span class="score-track"><i style="--score:94%;--score-color:var(--green)"></i></span>
+      </div>
+    </article>
+  </div>
+              </section>
+
+              <section class="panel issue-panel" id="playbook">
+                <div class="panel-head compact">
+                  <span class="step-dot">3</span>
+                  <div>
+                    <h2>问题优先级</h2>
+                    <p id="issueCount">共识别 7 个问题，已按影响度排序</p>
+                  </div>
+                </div>
+                <div class="issue-list" id="issueList">
+    <article class="issue-item issue-item-rich">
+      <span class="issue-rank high">高</span>
+      <div class="issue-copy">
+        <strong>1. 转化率低于行业参考线，页面和客服承接是优先修复项</strong>
+        <span class="issue-meta">转化 · 优先级 100 · 内容/客服</span>
+        <p><b>证据</b>当前转化率 2.35%，低于美妆个护参考线 3.5%；按当前流量和客单，转化提升到参考线约增加 ¥ 336,374。</p>
+        <p><b>判断</b>重点检查功效卖点是否有成分、适用人群、使用周期、前后对比和评价证据支撑。</p>
+        <p><b>动作</b>为 TOP SKU 补齐“成分/功效/人群/评价/用法”五段证据链，并同步客服异议话术。</p>
+      </div>
+      <small>转化机会约 ¥ 336,374</small>
+    </article>
+  
+    <article class="issue-item issue-item-rich">
+      <span class="issue-rank high">高</span>
+      <div class="issue-copy">
+        <strong>2. GMV 下滑需要先做杠杆拆解，不应直接归因到流量</strong>
+        <span class="issue-meta">GMV · 优先级 92 · 运营</span>
+        <p><b>证据</b>本期销售较对比周期少 ¥ 26,786；测算中客单项对缺口贡献最大。</p>
+        <p><b>判断</b>平台后台通常只提示销售下降，但顾问诊断要先拆 GMV = 访客 × 转化率 × 客单价，避免把预算投到错误环节。</p>
+        <p><b>动作</b>先按渠道和 SKU 拆访客、转化率、客单价，再决定是补流量、改页面还是调商品结构。</p>
+      </div>
+      <small>短期缺口 ¥ 26,786</small>
+    </article>
+  
+    <article class="issue-item issue-item-rich">
+      <span class="issue-rank high">高</span>
+      <div class="issue-copy">
+        <strong>3. 流量入口衰退，需要判断是自然流量掉线还是付费缩量</strong>
+        <span class="issue-meta">流量 · 优先级 88 · 运营/投放</span>
+        <p><b>证据</b>访客环比 -11.27%，按上期转化和客单测算，流量因素约影响 ¥ 35,210。</p>
+        <p><b>判断</b>如果自然搜索和推荐同时下降，说明商品权重或内容效率在掉；如果只因付费缩量，不能简单用加预算解决。</p>
+        <p><b>动作</b>分搜索、推荐、活动、内容、付费五类入口做流量差异表，先找最大下滑入口。</p>
+      </div>
+      <small>流量缺口约 ¥ 35,210</small>
+    </article>
+  
+    <article class="issue-item issue-item-rich">
+      <span class="issue-rank medium">中</span>
+      <div class="issue-copy">
+        <strong>4. 客服承接未达标，咨询流量可能没有被充分转化</strong>
+        <span class="issue-meta">承接 · 优先级 69 · 客服</span>
+        <p><b>证据</b>客服响应达标率 86.5%，参考线 92%；按销售额估算，承接改善机会约 ¥ 2,828。</p>
+        <p><b>判断</b>客服不是成本岗位，而是转化节点。响应慢、异议处理不统一、售后安抚不足，会同时影响成交和退款。</p>
+        <p><b>动作</b>沉淀高频咨询、异议处理、退货挽留、尺码/功效解释话术，并设置每日抽检。</p>
+      </div>
+      <small>承接机会约 ¥ 2,828</small>
+    </article>
+  
+    <article class="issue-item issue-item-rich">
+      <span class="issue-rank medium">中</span>
+      <div class="issue-copy">
+        <strong>5. 投放 ROI 低于参考线，预算可能在放大低效承接</strong>
+        <span class="issue-meta">投放 · 优先级 67 · 投放</span>
+        <p><b>证据</b>当前 ROI 2.85，低于参考线 3.20；付费占比 19.0%。</p>
+        <p><b>判断</b>ROI 低不一定是投手问题，要同时检查人群、素材、关键词、落地 SKU 和页面转化。若转化也低，优先修承接再放预算。</p>
+        <p><b>动作</b>把计划按 ROI、点击率、转化率、成交 SKU 分层，暂停低效消耗，保留能成交的人群和词包。</p>
+      </div>
+      <small>影响投放放量确定性</small>
+    </article>
+  
+    <article class="issue-item issue-item-rich">
+      <span class="issue-rank medium">中</span>
+      <div class="issue-copy">
+        <strong>6. 货品动销不足，SKU 多但有效供给不够</strong>
+        <span class="issue-meta">货品 · 优先级 63 · 商品</span>
+        <p><b>证据</b>当前动销率 62.79%，参考线 70%；有成交商品 54/86。</p>
+        <p><b>判断</b>商品分层应区分引流单品、套组、复购装和利润装，关注套组承接与复购周期。</p>
+        <p><b>动作</b>按销售额、访客、转化、毛利、退款率给 SKU 打标签，确定未来两周只优化核心 10-20 个 SKU。</p>
+      </div>
+      <small>动销改善机会约 ¥ 7,208</small>
+    </article>
+  
+    <article class="issue-item issue-item-rich">
+      <span class="issue-rank medium">中</span>
+      <div class="issue-copy">
+        <strong>7. 私域和老客贡献偏弱，复购资产没有被经营起来</strong>
+        <span class="issue-meta">复购 · 优先级 60 · 私域</span>
+        <p><b>证据</b>私域占比 8.0%，参考线 12%；按当前销售估算，复购提升机会约 ¥ 2,514。</p>
+        <p><b>判断</b>内容渠道要看种草素材到搜索成交的联动，搜索词应围绕功效、人群和场景沉淀。 私域占比低时，还要补看老客复购、沉默激活和会员权益是否形成经营机制。</p>
+        <p><b>动作</b>先选择高复购商品设计 7/14/30 天触达 SOP，再扩展会员权益和沉默客户激活。</p>
+      </div>
+      <small>复购机会约 ¥ 2,514</small>
+    </article>
+  </div>
+              </section>
+
+              <section class="panel action-panel">
+                <div class="panel-head compact">
+                  <span class="step-dot">4</span>
+                  <div>
+                    <h2>行动计划</h2>
+                    <p>按 7 / 14 / 30 天拆解交付动作。</p>
+                  </div>
+                </div>
+                <div class="action-list" id="actionList">
+    <article class="action-card">
+      <span>7天</span>
+      <strong>诊断校准与止损</strong>
+      <ul><li>对比核心 SKU 的点击-加购-咨询-成交链路，并按美妆个护重点校验：重点检查功效卖点是否有成分、适用人群、使用周期、前后对比和评价证据支撑。</li><li>为 TOP SKU 补齐“成分/功效/人群/评价/用法”五段证据链，并同步客服异议话术。</li><li>输出一张“问题-证据-影响金额-责任人”表，避免只凭感觉开会。</li></ul>
+    </article>
+  
+    <article class="action-card">
+      <span>14天</span>
+      <strong>核心链路修复</strong>
+      <ul><li>先按渠道和 SKU 拆访客、转化率、客单价，再决定是补流量、改页面还是调商品结构。</li><li>选择 3-5 个核心 SKU 做前后对照，跟踪访客、加购、咨询、成交、退款。</li><li>建立美妆个护高频问答和异议处理模板。</li></ul>
+    </article>
+  
+    <article class="action-card">
+      <span>30天</span>
+      <strong>复盘与增长机制</strong>
+      <ul><li>分搜索、推荐、活动、内容、付费五类入口做流量差异表，先找最大下滑入口。</li><li>固定周报指标：销售、访客、转化、客单、退款、ROI、动销、客服承接，并加上美妆个护专属复盘项。</li><li>把本次诊断沉淀为行业模板，下一步扩展到商品卖点和内容生产诊断。</li></ul>
+    </article>
+  </div>
+              </section>
+            </div>
+          </section>
+
+          <section class="report-grid">
+            <article class="panel report-panel" id="report">
+              <div class="panel-head compact report-toolbar">
+                <span class="step-dot">5</span>
+                <div>
+                  <h2>诊断报告预览</h2>
+                  <p id="reportTime">最近生成：2026/5/27 19:44:32</p>
+                </div>
+                <div class="report-actions">
+                  <button id="copyExecutive" type="button">复制老板摘要</button>
+                  <button id="copyWechat" type="button">复制微信群话术</button>
+                  <button id="copyReport" type="button">复制</button>
+                  <button id="exportWord" type="button">导出 Word</button>
+                  <button id="exportReport" type="button">导出 TXT</button>
+                  <button id="printReport" type="button">打印</button>
+                </div>
+              </div>
+              <div class="report-paper" id="reportPaper">
+    
+    <section class="report-cover">
+      <div class="cover-brand">
+        <span>Pinmoo AI</span>
+        <strong>品沐咨询 · 电商增长智能体</strong>
+      </div>
+      <h2>某美妆旗舰店 月经营复盘报告</h2>
+      <p>品牌方正式版 · 天猫 · 美妆个护 · 2026-04-15 至 2026-05-14</p>
+      <div class="cover-kpis">
+        <section><span>支付金额</span><strong>¥ 285,670</strong></section>
+        <section><span>净销售额</span><strong>¥ 285,670</strong></section>
+        <section><span>退款金额</span><strong>待补充</strong></section>
+        <section><span>交付等级</span><strong>C级</strong></section>
+      </div>
+      <div class="cover-conclusion">
+        <b>C级：数据不足，仅适合作为草稿参考</b>
+        <span>本期支付金额环比下降，核心来自客单价提升、承接效率改善；但付费效率偏弱，净销售额约 ¥ 285,670，下周期应围绕“净销售额提升、退款治理、有效流量承接”推进。</span>
+      </div>
+    </section>
+  
+    
+    <section class="visual-summary">
+      <div class="visual-score">
+        <div class="visual-score-ring" style="--score:78">
+          <strong>78</strong>
+          <span>健康度</span>
+        </div>
+        <p>本期支付金额环比下降，核心来自客单价提升、承接效率改善；但付费效率偏弱，净销售额约 ¥ 285,670，下周期应围绕“净销售额提升、退款治理、有效流量承接”推进。</p>
+      </div>
+      <div class="visual-kpis">
+        
+    <section class="visual-kpi-card" style="--accent:#2563eb">
+      <span>支付金额</span>
+      <strong>¥ 285,670</strong>
+      <i><b style="width:100.0%"></b></i>
+      <p>较对比期 -8.6%</p>
+    </section>
+  
+        
+    <section class="visual-kpi-card" style="--accent:#16a34a">
+      <span>净销售额</span>
+      <strong>¥ 285,670</strong>
+      <i><b style="width:100.0%"></b></i>
+      <p>退款金额待补充</p>
+    </section>
+  
+        
+    <section class="visual-kpi-card" style="--accent:#dc2626">
+      <span>成功退款金额</span>
+      <strong>待补充</strong>
+      <i><b style="width:4.0%"></b></i>
+      <p>建议补充退款明细</p>
+    </section>
+  
+        
+    <section class="visual-kpi-card" style="--accent:#7c3aed">
+      <span>访客 / 转化</span>
+      <strong>186,543 / 2.35%</strong>
+      <i><b style="width:47.0%"></b></i>
+      <p>访客变化 -11.3%</p>
+    </section>
+  
+        
+    <section class="visual-kpi-card" style="--accent:#0f766e">
+      <span>主动回访</span>
+      <strong>待补充</strong>
+      <i><b style="width:4.0%"></b></i>
+      <p>可补充老客/回访数据</p>
+    </section>
+  
+      </div>
+    </section>
+  
+    
+    <section class="delivery-grade grade-c">
+      <div class="delivery-mark">C</div>
+      <div>
+        <strong>C级：数据不足，仅适合作为草稿参考</strong>
+        <p>当前数据不足以支撑完整经营判断，正文结论需要谨慎使用。</p>
+        <span>建议先补齐首页经营、商品明细、流量来源和退款明细，再生成报告。</span>
+      </div>
+    </section>
+  
+
+    <div class="report-layout">
+      <main class="report-main">
+        
+    <h4>本周一句话结论</h4>
+    <div class="conclusion-box brand-conclusion">
+      <p>本期支付金额环比下降，核心来自客单价提升、承接效率改善；但付费效率偏弱，净销售额约 ¥ 285,670，下周期应围绕“净销售额提升、退款治理、有效流量承接”推进。</p>
+    </div>
+  
+
+        <h4>一、老板先看</h4>
+        <div class="boss-summary">
+          <section><span>结果</span><p>本期月报销售额 ¥ 285,670，较对比周期下滑 -8.57%；访客下滑 -11.27%，综合健康度 78 分。</p></section>
+          <section><span>原因</span><p>核心原因优先看「转化率低于行业参考线，页面和客服承接是优先修复项」：当前转化率 2.35%，低于美妆个护参考线 3.5%；按当前流量和客单，转化提升到参考线约增加 ¥ 336,374。</p></section>
+          <section><span>动作</span><p>下周期先做一件事：为 TOP SKU 补齐“成分/功效/人群/评价/用法”五段证据链，并同步客服异议话术。 建议目标销售额 ¥ 831,740，较本期 +191.2%。</p></section>
+        </div>
+
+        <h4>本周经营总览：净销售额视角</h4>
+    <ul><li>本期月报销售额 ¥ 285,670，较对比周期下滑 -8.57%。</li><li>访客数 186,543，较对比周期下滑 -11.27%；转化率 2.35%，客单价 ¥ 157。</li><li>退款率 4.21%，投放 ROI 2.85，商品动销率 62.79%。</li><li>本期最需要优先处理的问题是：转化率低于行业参考线，页面和客服承接是优先修复项。</li></ul>
+    <table class="report-table">
+      <thead><tr><th>核心指标</th><th>本期数据</th><th>对比期</th><th>环比/说明</th><th>经营解读</th></tr></thead>
+      <tbody>
+        <tr><td>支付金额</td><td>¥ 285,670</td><td>¥ 312,456</td><td>-8.6%</td><td>成交规模承压，先拆流量、转化、客单</td></tr><tr><td>净销售额</td><td>¥ 285,670</td><td>¥ 312,456</td><td>-8.6%</td><td>品牌方周会建议作为第一经营指标</td></tr><tr><td>成功退款金额</td><td>-</td><td>-</td><td>无对比</td><td>关注退款商品结构</td></tr><tr><td>访客数</td><td>186,543</td><td>210,234</td><td>-11.27%</td><td>流量收缩，增长不能只靠拉新</td></tr><tr><td>支付买家数</td><td>1,822</td><td>-</td><td>-</td><td>用于判断增长来自人数还是客单</td></tr><tr><td>支付转化率</td><td>2.35%</td><td>0.95%</td><td>1.40pp</td><td>承接效率改善</td></tr><tr><td>客单价</td><td>¥ 157</td><td>¥ 157</td><td>+0.00</td><td>商品结构/组合成交改善</td></tr>
+      </tbody>
+    </table>
+    <p class="report-note">口径说明：支付金额用于观察成交规模，净销售额用于判断真实经营质量；若导入了退款/店铺绩效数据，系统会优先把退款对经营结果的影响单独拆出。</p>
+    <table class="report-table">
+      <thead><tr><th>模块</th><th>状态</th><th>诊断说明</th></tr></thead>
+      <tbody>
+        <tr><td>店铺经营</td><td>稳定</td><td>销售变化 -8.57%，访客变化 -11.27%。本次诊断优先处理 转化 问题；类目方向为：美妆个护优先看功效可信度、肤质/场景匹配、评价证据和客服异议，报告要判断“为什么用户敢不敢买”。</td></tr><tr><td>流量渠道</td><td>内容基础较好</td><td>搜索 34.0%、推荐 18.0%、内容 21.0%、付费 19.0%、私域 8.0%。内容渠道要看种草素材到搜索成交的联动，搜索词应围绕功效、人群和场景沉淀。</td></tr><tr><td>商品结构</td><td>动销不足</td><td>有成交商品 54/86，TOP SKU 销售占比 41.8%。商品分层应区分引流单品、套组、复购装和利润装，关注套组承接与复购周期。</td></tr><tr><td>客服/售后</td><td>承接待加强</td><td>客服响应达标率 86.5%，退款率 4.21%。退款要按功效不符、肤感不适、规格预期、物流破损和使用方法误解拆分，避免单纯归因售后。</td></tr>
+      </tbody>
+    </table>
+  <h4>图表快照</h4>
+    <div class="chart-grid">
+      
+    <section class="chart-card">
+      <h5>支付 / 退款 / 净销售额</h5>
+      
+      <div class="chart-row">
+        <div class="chart-row-head"><span>支付金额</span><strong>¥ 285,670</strong></div>
+        <div class="chart-bar"><i style="width:100.0%;background:#2563eb"></i></div>
+        
+      </div>
+    
+      <div class="chart-row">
+        <div class="chart-row-head"><span>成功退款金额</span><strong>¥ 0</strong></div>
+        <div class="chart-bar"><i style="width:3.0%;background:#dc2626"></i></div>
+        
+      </div>
+    
+      <div class="chart-row">
+        <div class="chart-row-head"><span>净销售额</span><strong>¥ 285,670</strong></div>
+        <div class="chart-bar"><i style="width:100.0%;background:#16a34a"></i></div>
+        
+      </div>
+    
+      <p class="chart-note">用于区分成交规模与真实经营质量，避免只看支付增长。</p>
+    </section>
+  
+      
+    <section class="chart-card">
+      <h5>流量来源结构</h5>
+      <div class="stacked-chart"><i title="搜索 34.0%" style="width:34.0%;background:#2563eb"></i><i title="推荐 18.0%" style="width:18.0%;background:#16a34a"></i><i title="内容 21.0%" style="width:21.0%;background:#7c3aed"></i><i title="付费 19.0%" style="width:19.0%;background:#f97316"></i><i title="私域 8.0%" style="width:8.0%;background:#0f766e"></i></div><div class="chart-legend"><span><b style="background:#2563eb"></b>搜索 34.0%</span><span><b style="background:#16a34a"></b>推荐 18.0%</span><span><b style="background:#7c3aed"></b>内容 21.0%</span><span><b style="background:#f97316"></b>付费 19.0%</span><span><b style="background:#0f766e"></b>私域 8.0%</span></div>
+      <p class="chart-note">按搜索、推荐、内容、付费、私域归类，后续可接入更细来源层级。</p>
+    </section>
+  
+      
+    <section class="chart-card">
+      <h5>单日销售趋势</h5>
+      <p class="empty-text">暂无可绘制数据</p>
+      <p class="chart-note">每个柱子代表统计周期内某一天的支付金额；同行同层、全店平均等平台参考值不计入单日趋势。</p>
+    </section>
+  
+      
+    <section class="chart-card">
+      <h5>商品 TOP 销售与退款风险</h5>
+      
+      <div class="chart-row">
+        <div class="chart-row-head"><span>TOP 主推宝贝</span><strong>¥ 119,410</strong></div>
+        <div class="chart-bar"><i style="width:100.0%;background:#2563eb"></i></div>
+        
+      </div>
+    
+      <div class="chart-row">
+        <div class="chart-row-head"><span>第二梯队宝贝</span><strong>¥ 91,443</strong></div>
+        <div class="chart-bar"><i style="width:76.6%;background:#2563eb"></i></div>
+        
+      </div>
+    
+      <div class="chart-row">
+        <div class="chart-row-head"><span>长尾宝贝</span><strong>¥ 74,817</strong></div>
+        <div class="chart-bar"><i style="width:62.7%;background:#2563eb"></i></div>
+        
+      </div>
+    
+      <p class="chart-note">红色条目表示销售贡献同时存在退款风险，需要优先核查页面与客服预期管理。</p>
+    </section>
+  
+      
+    <section class="chart-card">
+      <h5>推广计划 ROI</h5>
+      
+      <div class="chart-row">
+        <div class="chart-row-head"><span>付费推广整体</span><strong>2.85</strong></div>
+        <div class="chart-bar"><i style="width:100.0%;background:#f97316"></i></div>
+        <p>花费 ¥ 19,045，成交 ¥ 54,277</p>
+      </div>
+    
+      <div class="chart-row">
+        <div class="chart-row-head"><span>内容/短视频承接</span><strong>-</strong></div>
+        <div class="chart-bar"><i style="width:3.0%;background:#94a3b8"></i></div>
+        <p>成交 ¥ 59,991</p>
+      </div>
+    
+      <p class="chart-note">不按 ROI 直接加预算，需结合点击率、点击转化率、加购和退款承接判断。</p>
+    </section>
+  
+    </div>
+  <h4>宝贝排行</h4>
+    
+    <div class="module-insight">
+      <section><span>本段结论</span><strong>成交核心集中在 TOP 主推宝贝，商品复盘需同时看成交贡献和退款风险。</strong></section>
+      <section><span>关键证据</span><strong>TOP商品支付金额 ¥ 119,410</strong></section>
+      <section><span>下步动作</span><strong>优先稳定主推款页面、价格理由、评价证据和客服异议话术。</strong></section>
+    </div>
+  
+    <table class="report-table">
+      <thead><tr><th>宝贝/商品</th><th>支付金额</th><th>访客</th><th>支付买家</th><th>转化率</th><th>退款金额</th><th>退款率</th><th>经营判断</th></tr></thead>
+      <tbody>
+        <tr><td>TOP 主推宝贝</td><td>¥ 119,410</td><td>59,694</td><td>762</td><td>2.63%</td><td>-</td><td>-</td><td>主推贡献稳定</td></tr><tr><td>第二梯队宝贝</td><td>¥ 91,443</td><td>52,232</td><td>583</td><td>2.16%</td><td>-</td><td>-</td><td>建议筛选可放量款</td></tr><tr><td>长尾宝贝</td><td>¥ 74,817</td><td>74,617</td><td>477</td><td>1.69%</td><td>-</td><td>-</td><td>动销偏弱，需做货品分层</td></tr>
+      </tbody>
+    </table>
+  <h4>SKU四象限诊断</h4>
+    <div class="quadrant-grid">
+      
+        <section>
+          <div><strong>主力款</strong><span>1 个</span></div>
+          <p>TOP 主推宝贝 是当前成交基本盘，重点看库存、价格带和评价稳定性。</p>
+          <small>销售额高于中位数 ¥ 91,443，或贡献接近头部成交</small>
+          <ol class="sku-ranked-list">
+            
+              <li>
+                <b>1</b>
+                <div>
+                  <strong>TOP 主推宝贝</strong>
+                  <span>¥ 119,410 · 59,694访客 · 转化2.63%</span>
+                </div>
+              </li>
+            
+          </ol>
+          <em>保持流量供给和页面稳定，围绕评价、赠品、套装做轻优化，避免大幅改动影响成交。</em>
+        </section>
+      
+    </div>
+  <h4>流量排行</h4>
+    
+    <div class="module-insight">
+      <section><span>本段结论</span><strong>搜索流量 是本周期主要成交入口，需判断是否可复制到其他入口。</strong></section>
+      <section><span>关键证据</span><strong>支付金额 ¥ 97,128，访客 63,425，转化 2.35%</strong></section>
+      <section><span>下步动作</span><strong>保留高意向入口，低效率入口补加购、跳失和承接页面数据再判断。</strong></section>
+    </div>
+  
+    <table class="report-table">
+      <thead><tr><th>流量来源</th><th>支付金额</th><th>访客</th><th>转化率</th><th>UV价值</th><th>经营判断</th></tr></thead>
+      <tbody>
+        <tr><td>搜索流量</td><td>¥ 97,128</td><td>63,425</td><td>2.35%</td><td>1.53</td><td>搜索有流量但成交弱，需核查标题词与页面卖点是否匹配</td></tr><tr><td>内容流量</td><td>¥ 59,991</td><td>39,174</td><td>1.83%</td><td>1.53</td><td>关注种草到成交链路</td></tr><tr><td>付费流量</td><td>¥ 54,277</td><td>35,443</td><td>2.21%</td><td>1.53</td><td>付费入口需结合花费和ROI判断，不建议只按访客放量</td></tr><tr><td>推荐流量</td><td>¥ 51,421</td><td>33,578</td><td>2.02%</td><td>1.53</td><td>推荐流量可保留，需持续测试内容素材和主推款</td></tr><tr><td>私域/老客</td><td>¥ 22,854</td><td>14,923</td><td>3.29%</td><td>1.53</td><td>私域入口有价值但成交弱，需优化触达话术和利益点</td></tr>
+      </tbody>
+    </table>
+  <h4>推广投放表现（含计划报表专项分析）</h4>
+    
+    <div class="module-insight">
+      <section><span>本段结论</span><strong>本期推广需先判断投放质量，再决定预算调整。整体ROI为 6.00。</strong></section>
+      <section><span>关键证据</span><strong>花费 ¥ 19,045，成交 ¥ 114,268，点击 待补充，点击转化 待补充</strong></section>
+      <section><span>下步动作</span><strong>先处理 付费推广整体 的人群、关键词、出价或落地页，再考虑放大预算。</strong></section>
+    </div>
+  
+    <div class="summary-grid compact">
+      <section><span>总花费</span><strong>¥ 19,045</strong><p>计划报表合计</p></section>
+      <section><span>总成交金额</span><strong>¥ 114,268</strong><p>推广带来支付金额</p></section>
+      <section><span>整体ROI</span><strong>6.00</strong><p>按成交/花费测算</p></section>
+      <section><span>点击 / CTR</span><strong>- / -</strong><p>CPC -</p></section>
+    </div>
+    <p class="report-note">投放建议：先看净销售和退款，再决定是否放量。本期识别推广花费 ¥ 19,045，带来成交 ¥ 114,268，整体ROI 6.00，点击转化率 待补充。效率较好的计划是 付费推广整体，可优先保留并小幅倾斜预算。</p>
+    <table class="report-table">
+      <thead><tr><th>推广计划/渠道</th><th>花费</th><th>带来支付金额</th><th>ROI</th><th>展现/点击</th><th>点击率</th><th>点击转化率</th><th>加购</th><th>经营判断</th></tr></thead>
+      <tbody>
+        <tr><td>付费推广整体</td><td>¥ 19,045</td><td>¥ 54,277</td><td>2.85</td><td>- / -</td><td>-</td><td>-</td><td>-</td><td>需拆计划控费</td></tr><tr><td>内容/短视频承接</td><td>¥ 0</td><td>¥ 59,991</td><td>-</td><td>- / -</td><td>-</td><td>-</td><td>-</td><td>需看内容播放、点击、成交明细</td></tr>
+      </tbody>
+    </table>
+  <h4>活动情况</h4>
+    <table class="report-table">
+      <thead><tr><th>活动/动作</th><th>成交金额</th><th>访客</th><th>订单</th><th>判断/下步</th></tr></thead>
+      <tbody>
+        <tr><td>平台活动/店铺活动</td><td>-</td><td>-</td><td>-</td><td>导入活动名称和活动成交后可自动排行</td></tr><tr><td>下周期活动准备</td><td>-</td><td>-</td><td>-</td><td>建议记录报名活动、优惠券、满减、直播/内容节奏</td></tr>
+      </tbody>
+    </table>
+  <h4>经营杠杆拆解</h4>
+    <table class="report-table">
+      <thead><tr><th>项目</th><th>测算结果</th><th>顾问判断</th></tr></thead>
+      <tbody>
+        <tr><td>销售缺口</td><td>¥ -26,786</td><td>需要先定位拖累项</td></tr>
+        <tr><td>流量影响</td><td>¥ -35,210</td><td>按上期转化率和客单价测算</td></tr>
+        <tr><td>转化影响</td><td>¥ 410,128</td><td>按本期访客和上期客单价测算</td></tr>
+        <tr><td>客单影响</td><td>¥ -401,704</td><td>用于判断商品结构和价格带变化</td></tr>
+      </tbody>
+    </table>
+  <h4>经营数据评分</h4>
+    <table class="report-table">
+      <thead><tr><th>指标</th><th>表现</th><th>判断</th><th>评分</th></tr></thead>
+      <tbody>
+        <tr><td>销售增长</td><td>¥ 285,670</td><td>-8.57%</td><td>58</td></tr><tr><td>流量质量</td><td>186,543</td><td>-11.27%</td><td>56</td></tr><tr><td>转化效率</td><td>2.35%</td><td>美妆个护参考 3.5%</td><td>67</td></tr><tr><td>利润风险</td><td>退款 4.21%</td><td>ROI 2.85</td><td>95</td></tr><tr><td>货品动销</td><td>62.79%</td><td>TOP SKU 41.8%</td><td>92</td></tr><tr><td>渠道结构</td><td>100.0%</td><td>内容基础较好</td><td>83</td></tr><tr><td>客服承接</td><td>86.5%</td><td>参考 92%</td><td>94</td></tr>
+      </tbody>
+    </table>
+  
+
+    <h4>关键问题与优先级</h4>
+    <ol class="report-issue-list">
+      
+        <li>
+          <strong>[高] 转化率低于行业参考线，页面和客服承接是优先修复项</strong>
+          <p>证据：当前转化率 2.35%，低于美妆个护参考线 3.5%；按当前流量和客单，转化提升到参考线约增加 ¥ 336,374。</p>
+          <p>顾问判断：重点检查功效卖点是否有成分、适用人群、使用周期、前后对比和评价证据支撑。</p>
+          <p>下一步：为 TOP SKU 补齐“成分/功效/人群/评价/用法”五段证据链，并同步客服异议话术。</p>
+        </li>
+      
+        <li>
+          <strong>[高] GMV 下滑需要先做杠杆拆解，不应直接归因到流量</strong>
+          <p>证据：本期销售较对比周期少 ¥ 26,786；测算中客单项对缺口贡献最大。</p>
+          <p>顾问判断：平台后台通常只提示销售下降，但顾问诊断要先拆 GMV = 访客 × 转化率 × 客单价，避免把预算投到错误环节。</p>
+          <p>下一步：先按渠道和 SKU 拆访客、转化率、客单价，再决定是补流量、改页面还是调商品结构。</p>
+        </li>
+      
+        <li>
+          <strong>[高] 流量入口衰退，需要判断是自然流量掉线还是付费缩量</strong>
+          <p>证据：访客环比 -11.27%，按上期转化和客单测算，流量因素约影响 ¥ 35,210。</p>
+          <p>顾问判断：如果自然搜索和推荐同时下降，说明商品权重或内容效率在掉；如果只因付费缩量，不能简单用加预算解决。</p>
+          <p>下一步：分搜索、推荐、活动、内容、付费五类入口做流量差异表，先找最大下滑入口。</p>
+        </li>
+      
+        <li>
+          <strong>[中] 客服承接未达标，咨询流量可能没有被充分转化</strong>
+          <p>证据：客服响应达标率 86.5%，参考线 92%；按销售额估算，承接改善机会约 ¥ 2,828。</p>
+          <p>顾问判断：客服不是成本岗位，而是转化节点。响应慢、异议处理不统一、售后安抚不足，会同时影响成交和退款。</p>
+          <p>下一步：沉淀高频咨询、异议处理、退货挽留、尺码/功效解释话术，并设置每日抽检。</p>
+        </li>
+      
+        <li>
+          <strong>[中] 投放 ROI 低于参考线，预算可能在放大低效承接</strong>
+          <p>证据：当前 ROI 2.85，低于参考线 3.20；付费占比 19.0%。</p>
+          <p>顾问判断：ROI 低不一定是投手问题，要同时检查人群、素材、关键词、落地 SKU 和页面转化。若转化也低，优先修承接再放预算。</p>
+          <p>下一步：把计划按 ROI、点击率、转化率、成交 SKU 分层，暂停低效消耗，保留能成交的人群和词包。</p>
+        </li>
+      
+        <li>
+          <strong>[中] 货品动销不足，SKU 多但有效供给不够</strong>
+          <p>证据：当前动销率 62.79%，参考线 70%；有成交商品 54/86。</p>
+          <p>顾问判断：商品分层应区分引流单品、套组、复购装和利润装，关注套组承接与复购周期。</p>
+          <p>下一步：按销售额、访客、转化、毛利、退款率给 SKU 打标签，确定未来两周只优化核心 10-20 个 SKU。</p>
+        </li>
+      
+        <li>
+          <strong>[中] 私域和老客贡献偏弱，复购资产没有被经营起来</strong>
+          <p>证据：私域占比 8.0%，参考线 12%；按当前销售估算，复购提升机会约 ¥ 2,514。</p>
+          <p>顾问判断：内容渠道要看种草素材到搜索成交的联动，搜索词应围绕功效、人群和场景沉淀。 私域占比低时，还要补看老客复购、沉默激活和会员权益是否形成经营机制。</p>
+          <p>下一步：先选择高复购商品设计 7/14/30 天触达 SOP，再扩展会员权益和沉默客户激活。</p>
+        </li>
+      
+    </ol>
+
+    <h4>下周期执行计划</h4>
+    <div class="report-actions-list">
+      
+        <section>
+          <strong>7天：诊断校准与止损</strong>
+          <ul><li>对比核心 SKU 的点击-加购-咨询-成交链路，并按美妆个护重点校验：重点检查功效卖点是否有成分、适用人群、使用周期、前后对比和评价证据支撑。</li><li>为 TOP SKU 补齐“成分/功效/人群/评价/用法”五段证据链，并同步客服异议话术。</li><li>输出一张“问题-证据-影响金额-责任人”表，避免只凭感觉开会。</li></ul>
+        </section>
+      
+        <section>
+          <strong>14天：核心链路修复</strong>
+          <ul><li>先按渠道和 SKU 拆访客、转化率、客单价，再决定是补流量、改页面还是调商品结构。</li><li>选择 3-5 个核心 SKU 做前后对照，跟踪访客、加购、咨询、成交、退款。</li><li>建立美妆个护高频问答和异议处理模板。</li></ul>
+        </section>
+      
+        <section>
+          <strong>30天：复盘与增长机制</strong>
+          <ul><li>分搜索、推荐、活动、内容、付费五类入口做流量差异表，先找最大下滑入口。</li><li>固定周报指标：销售、访客、转化、客单、退款、ROI、动销、客服承接，并加上美妆个护专属复盘项。</li><li>把本次诊断沉淀为行业模板，下一步扩展到商品卖点和内容生产诊断。</li></ul>
+        </section>
+      
+    </div>
+
+    <h4>微信群发送话术</h4>
+    <div class="conclusion-box">
+      <p>各位好，某美妆旗舰店月报已生成，周期：2026-04-15 至 2026-05-14。<br>本期支付金额 ¥ 285,670，访客 186,543，转化率 2.35%，客单价 ¥ 157。<br>按当前口径测算，成功退款金额 待补充，净销售额 ¥ 285,670。<br>本期核心判断：本期支付金额环比下降，核心来自客单价提升、承接效率改善；但付费效率偏弱，净销售额约 ¥ 285,670，下周期应围绕“净销售额提升、退款治理、有效流量承接”推进。<br>下周期优先关注：<br>1. 转化率低于行业参考线，页面和客服承接是优先修复项<br>2. GMV 下滑需要先做杠杆拆解，不应直接归因到流量<br>3. 流量入口衰退，需要判断是自然流量掉线还是付费缩量<br>详细报告已导出，建议会议中重点看净销售额、退款商品、付费计划效率和下周期动作。</p>
+    </div>
+
+      </main>
+      <aside class="report-audit">
+        <div class="audit-sticky">
+          <section class="audit-priority">
+            <h4>需要优先补充的数据</h4>
+            <p>如果要让本次报告更接近正式交付，请优先补齐以下数据后重新生成。</p>
+            
+    <div class="missing-guide-list">
+      
+        <section>
+          <b>1</b>
+          <div>
+            <strong>商品_全部 / 商品明细 / 宝贝排行</strong>
+            <p><span>下载位置</span>生意参谋 &gt; 商品 &gt; 商品效果，按统计周期导出全部商品</p>
+            <p><span>增强报告</span>增强宝贝排行、SKU四象限、动销判断和主推款优化建议</p>
+            <em>商品明细决定报告能否从“店铺整体”落到具体商品动作。</em>
+          </div>
+        </section>
+      
+        <section>
+          <b>2</b>
+          <div>
+            <strong>品类-标准类目报表</strong>
+            <p><span>下载位置</span>生意参谋 &gt; 品类 &gt; 标准类目，选择同一统计周期导出</p>
+            <p><span>增强报告</span>增强类目结构、价格带/品类贡献和类目方向判断</p>
+            <em>类目数据能帮助判断增长来自哪个品类，而不是只看单品。</em>
+          </div>
+        </section>
+      
+        <section>
+          <b>3</b>
+          <div>
+            <strong>无线店铺流量来源 / 流量看板总览</strong>
+            <p><span>下载位置</span>生意参谋 &gt; 流量 &gt; 来源分析 / 流量看板，导出所有终端或无线端</p>
+            <p><span>增强报告</span>增强搜索、推荐、内容、付费、私域结构和转化质量判断</p>
+            <em>流量来源决定问题是缺曝光、缺承接，还是渠道结构不健康。</em>
+          </div>
+        </section>
+      
+        <section>
+          <b>4</b>
+          <div>
+            <strong>计划报表 / 关键词报表 / 单元报表 / 创意报表</strong>
+            <p><span>下载位置</span>万相台/直通车/引力魔方 &gt; 报表 &gt; 计划/单元/关键词维度导出</p>
+            <p><span>增强报告</span>增强推广计划级拆解、ROI四象限、预算调整和控质建议</p>
+            <em>没有计划级数据时，只能判断投放整体，无法给到具体预算动作。</em>
+          </div>
+        </section>
+      
+        <section>
+          <b>5</b>
+          <div>
+            <strong>直播业绩-成交拆解 / 点击转化分析</strong>
+            <p><span>下载位置</span>直播中控台 / 生意参谋直播模块 &gt; 直播业绩，导出观看、点击、成交数据</p>
+            <p><span>增强报告</span>增强直播曝光、商品点击、点击成交和播后回访判断</p>
+            <em>直播不能只看观看人数，需要看商品点击和成交承接。</em>
+          </div>
+        </section>
+      
+        <section>
+          <b>6</b>
+          <div>
+            <strong>光合内容资产 / 内容种草报表</strong>
+            <p><span>下载位置</span>光合平台 / 内容资产 &gt; 数据总览，导出曝光、浏览、互动、点击、成交</p>
+            <p><span>增强报告</span>增强内容种草漏斗、内容贡献和主动回访结合建议</p>
+            <em>内容数据能判断种草是否真的带来商品点击和后续成交。</em>
+          </div>
+        </section>
+      
+        <section>
+          <b>7</b>
+          <div>
+            <strong>客服团队概览 / 客服绩效 / 店铺绩效</strong>
+            <p><span>下载位置</span>千牛/客户服务平台 &gt; 客服绩效，导出咨询、响应、成交、询单转化数据</p>
+            <p><span>增强报告</span>增强客服承接、询单转化、售前预期管理和退款治理建议</p>
+            <em>客服数据能解释转化和退款背后的承接问题。</em>
+          </div>
+        </section>
+      
+        <section>
+          <b>8</b>
+          <div>
+            <strong>活动效果 / 营销场景报表</strong>
+            <p><span>下载位置</span>生意参谋/营销中心 &gt; 活动/营销场景，导出活动成交、访客、订单</p>
+            <p><span>增强报告</span>增强活动复盘、活动流量质量和下周期活动节奏建议</p>
+            <em>活动数据能区分日销增长和活动拉动，避免误判常态经营能力。</em>
+          </div>
+        </section>
+      
+    </div>
+  
+          </section>
+
+          <section class="audit-confirm">
+            <h4>需要确认的问题</h4>
+            <ol><li>对比核心 SKU 的点击-加购-咨询-成交链路，并按美妆个护重点校验：重点检查功效卖点是否有成分、适用人群、使用周期、前后对比和评价证据支撑。</li><li>导出近30天渠道/SKU明细，计算每个渠道的访客变化、成交变化和客单变化。</li><li>看搜索词排名、推荐曝光、内容点击率、活动入口和付费消耗是否同步变化。</li></ol>
+          </section>
+
+          <h4>交付审计</h4>
+          <div class="quality-box audit-quality">
+            <div>
+              <strong>33分</strong>
+              <span>仅适合内部初判，需补数据</span>
+            </div>
+            <ul>
+              <li class="ok"><b>已具备</b>店铺整体：本报告已读取该模块数据。</li><li class="missing"><b>待补充</b>宝贝排行：建议导入宝贝名称、销售额、访客、订单、转化率</li><li class="missing"><b>待补充</b>品类/类目：建议导入品类标准类目，识别类目成交、访客、支付转化和退款金额</li><li class="missing"><b>待补充</b>流量数据：建议导入流量来源、访客、成交、转化率，或流量看板总览</li><li class="missing"><b>待补充</b>推广情况：建议导入推广计划、花费、点击、成交、ROI</li><li class="missing"><b>待补充</b>直播业绩：建议导入直播观看、商品点击、成交金额、开播时长和播后成交</li><li class="missing"><b>待补充</b>内容资产：建议导入光合/内容资产曝光、浏览、点击、成交和互动数据</li><li class="missing"><b>待补充</b>客服绩效：建议导入客服团队概览、客服绩效或店铺绩效数据</li><li class="missing"><b>待补充</b>活动情况：建议导入活动名称、活动成交、活动访客、订单</li><li class="ok"><b>已具备</b>退款/售后：本报告已读取该模块数据。</li><li class="ok"><b>已具备</b>指标口径：本报告已读取该模块数据。</li><li class="ok"><b>已具备</b>核心可信度：本报告已读取该模块数据。</li>
+            </ul>
+          </div>
+
+          <h4>三、本次报告结构</h4>
+    <div class="outline-box">
+      <div><strong>已生成模块</strong><p>老板先看 / 数据完整度 / 类目诊断方向 / 下周期目标建议 / 店铺整体情况 / 宝贝排行 / SKU四象限诊断 / 流量排行 / 推广情况 / 活动情况 / 经营杠杆拆解 / 经营数据评分 / 关键问题与优先级 / 下周期执行计划 / 待确认问题 / 待补充数据</p></div>
+      <div><strong>未生成模块</strong><p>本次上传数据已覆盖主要经营模块。</p></div>
+    </div>
+  <h4>类目诊断方向</h4>
+    <table class="report-table">
+      <thead><tr><th>维度</th><th>美妆个护报告优化方向</th></tr></thead>
+      <tbody>
+        <tr><td>本类目优先判断</td><td>美妆个护优先看功效可信度、肤质/场景匹配、评价证据和客服异议，报告要判断“为什么用户敢不敢买”。</td></tr><tr><td>问题优先级加权</td><td>转化+8、承接+5、复购+4</td></tr><tr><td>转化诊断重点</td><td>重点检查功效卖点是否有成分、适用人群、使用周期、前后对比和评价证据支撑。</td></tr><tr><td>退款/售后诊断重点</td><td>退款要按功效不符、肤感不适、规格预期、物流破损和使用方法误解拆分，避免单纯归因售后。</td></tr><tr><td>商品结构诊断重点</td><td>商品分层应区分引流单品、套组、复购装和利润装，关注套组承接与复购周期。</td></tr><tr><td>渠道与复购诊断重点</td><td>内容渠道要看种草素材到搜索成交的联动，搜索词应围绕功效、人群和场景沉淀。</td></tr><tr><td>建议动作</td><td>为 TOP SKU 补齐“成分/功效/人群/评价/用法”五段证据链，并同步客服异议话术。</td></tr>
+      </tbody>
+    </table>
+  <h4>下周期目标建议</h4>
+    <p>当前基准：销售额 ¥ 285,670，访客 186,543，转化率 2.35%，客单价 ¥ 157。</p>
+    <p>优先杠杆：转化。为 TOP SKU 补齐“成分/功效/人群/评价/用法”五段证据链，并同步客服异议话术。</p>
+    <table class="report-table">
+      <thead><tr><th>目标档位</th><th>目标销售额</th><th>较本期</th><th>目标访客</th><th>目标转化率</th><th>目标客单价</th></tr></thead>
+      <tbody>
+        <tr><td>下月保守</td><td>¥ 751,588</td><td>+163.1%</td><td>192,139</td><td>2.47%</td><td>¥ 158</td></tr><tr><td>下月建议</td><td>¥ 831,740</td><td>+191.2%</td><td>197,736</td><td>2.63%</td><td>¥ 160</td></tr><tr><td>下月冲刺</td><td>¥ 927,924</td><td>+224.8%</td><td>205,197</td><td>2.80%</td><td>¥ 162</td></tr>
+      </tbody>
+    </table>
+  
+
+          <h4>顾问备注</h4>
+          <p>近30天投放预算缩减，访客下滑明显；爆款 SKU 评价里多次提到色差和发货慢。</p>
+        </div>
+      </aside>
+    </div>
+  </div>
+            </article>
+
+            <aside class="panel method-panel">
+              <h2>周报结构</h2>
+              <div class="method-list">
+                <div><strong>01 店铺整体</strong><span>销售额、访客、转化、客单、退款、健康度</span></div>
+                <div><strong>02 宝贝排行</strong><span>核心宝贝销售、访客、订单、转化和商品判断</span></div>
+                <div><strong>03 SKU分层</strong><span>主力款、高访低转、低访高转、售后风险和长尾清理</span></div>
+                <div><strong>04 退款治理</strong><span>退款原因、退款金额、关联商品和优先修复动作</span></div>
+                <div><strong>05 流量排行</strong><span>搜索、推荐、内容、付费、私域来源贡献</span></div>
+                <div><strong>06 推广活动</strong><span>推广计划、活动成交、ROI、点击和下周期安排</span></div>
+              </div>
+            </aside>
+          </section>
+
+          <section class="panel history-panel" id="history">
+            <div class="panel-head compact">
+              <span class="step-dot">6</span>
+              <div>
+                <h2>诊断历史</h2>
+                <p>支持搜索、回看、删除、导出和导入。</p>
+              </div>
+              <button id="clearHistory" class="danger-btn" type="button">清空历史</button>
+            </div>
+            <div class="history-table-wrap">
+              <table class="history-table">
+                <thead>
+                  <tr>
+                    <th>店铺</th>
+                    <th>平台</th>
+                    <th>销售额</th>
+                    <th>健康度</th>
+                    <th>问题数</th>
+                    <th>生成时间</th>
+                    <th>操作</th>
+                  </tr>
+                </thead>
+                <tbody id="historyBody"><tr><td colspan="7">暂无诊断历史。生成第一份报告后会自动保存在这里。</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <div class="import-modal" id="importConfirmModal" hidden="">
+      <div class="modal-backdrop" data-close-import-modal=""></div>
+      <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="importConfirmTitle">
+        <div class="modal-head">
+          <div>
+            <h2 id="importConfirmTitle">确认店铺信息</h2>
+            <p id="importConfirmText">数据已导入，请补充店铺名称和类目后生成报告。</p>
+          </div>
+          <button class="modal-close" type="button" data-close-import-modal="" aria-label="关闭">×</button>
+        </div>
+        <div class="modal-summary" id="modalImportSummary"></div>
+        <div class="modal-form">
+          <label>店铺名称<input id="modalStoreName" type="text" placeholder="请输入店铺名称"></label>
+          <label>店铺类目
+            <select id="modalIndustry">
+              <option>美妆个护</option>
+              <option>服装鞋包</option>
+              <option>食品茶饮</option>
+              <option>母婴营养</option>
+              <option>家居百货</option>
+              <option>产业带工厂</option>
+              <option>本地生活</option>
+            </select>
+          </label>
+          <label>店铺平台
+            <select id="modalPlatform">
+              <option>天猫</option>
+              <option>京东</option>
+              <option>抖音</option>
+              <option>小红书</option>
+              <option>视频号</option>
+              <option>拼多多</option>
+            </select>
+          </label>
+          <label>报告类型
+            <select id="modalReportType">
+              <option>周报</option>
+              <option>月报</option>
+            </select>
+          </label>
+        </div>
+        <div class="import-progress report-progress" id="reportProgress" hidden="">
+          <div>
+            <span id="reportProgressText">等待生成报告</span>
+            <b id="reportProgressPercent">0%</b>
+          </div>
+          <i><em id="reportProgressBar"></em></i>
+          <small id="reportProgressDetail">确认后会分步完成数据重算、诊断生成、报告渲染和历史写入。</small>
+        </div>
+        <div class="modal-actions">
+          <button class="ghost-btn" id="appendImportFiles" type="button">继续追加文件</button>
+          <button class="ghost-btn" type="button" data-close-import-modal="">先看草稿</button>
+          <button class="primary-btn" id="confirmImportedReport" type="button">生成报告并写入历史</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js?v=20260526-stable-generate"></script>
+  
+
+</body></html>

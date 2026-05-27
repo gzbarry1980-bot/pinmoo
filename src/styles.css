@@ -1226,7 +1226,7 @@ dt { color: var(--muted); font-weight: 800; } dd { margin: 0; color: var(--text)
   margin-top: 22px;
 }
 .success-actions .btn-secondary {
-  color: var(--primary);
+  color: var(--deep-blue);
   border-color: rgba(30, 58, 95, 0.25);
   background: #ffffff;
 }
