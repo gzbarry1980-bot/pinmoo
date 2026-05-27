@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { routeMeta, jsonLdForRoute, metaTagsForRoute } from '../src/data/seo.js';
+import { SITE } from '../src/data/site.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -23,7 +24,7 @@ globalThis.document = {
   querySelectorAll() { return []; }
 };
 globalThis.window = {
-  location: { pathname: '/', hostname: 'pinmooconsulting.com' },
+  location: { pathname: '/', hostname: 'pinmoo.top' },
   addEventListener(){},
   scrollY: 0,
   setTimeout,
@@ -75,6 +76,7 @@ async function prerender(pathname) {
 
 function upsertHead(html, meta) {
   const tags = metaTagsForRoute(meta);
+  const origin = SITE.domain;
   let next = html;
   next = next.replace(/<html lang="[^"]*">/, '<html lang="' + (meta.lang === 'en' ? 'en' : 'zh-CN') + '">');
   next = next.replace(/<title>[\s\S]*?<\/title>/, '<title>' + escapeHtml(tags.title) + '</title>');
@@ -84,23 +86,27 @@ function upsertHead(html, meta) {
   next = next.replace(/<meta property="og:description" content="[^"]*"\s*\/>/, '<meta property="og:description" content="' + escapeHtml(tags.ogDescription) + '" />');
   next = next.replace(/<meta property="og:url" content="[^"]*"\s*\/>/, '<meta property="og:url" content="' + escapeHtml(tags.ogUrl) + '" />');
   next = next.replace(/<meta property="og:image" content="[^"]*"\s*\/>/, '<meta property="og:image" content="' + escapeHtml(tags.ogImage) + '" />');
+  next = next.replace(/\n\s*<meta name="robots" content="[^"]*"\s*\/>/g, '');
+  next = next.replace(/\n\s*<meta name="author" content="[^"]*"\s*\/>/g, '');
+  next = next.replace(/\n\s*<meta name="theme-color" content="[^"]*"\s*\/>/g, '');
+  next = next.replace(/\n\s*<link rel="alternate" hreflang="[^"]*" href="[^"]*"\s*\/>/g, '');
+  next = next.replace(/\n\s*<link rel="alternate" type="text\/plain" href="[^"]*" title="[^"]*"\s*\/>/g, '');
+  next = next.replace(/\n\s*<link rel="alternate" type="application\/json" href="[^"]*" title="[^"]*"\s*\/>/g, '');
   next = next.replace(/\n\s*<script type="application\/ld\+json" data-seo-jsonld>[\s\S]*?<\/script>/g, '');
   const zhPath = meta.lang === 'en' ? meta.alternatePath : meta.path;
   const enPath = meta.lang === 'en' ? meta.path : (meta.path === '/' ? '/en/' : '/en' + meta.path);
   const extra = [
-    '<meta name="robots" content="' + (meta.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1') + '" />',
+    '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />',
     '<meta name="author" content="广州品沐咨询有限公司" />',
     '<meta name="theme-color" content="#1E3A5F" />',
-    '<link rel="alternate" hreflang="zh-CN" href="' + escapeHtml(zhPath === '/' ? 'https://pinmooconsulting.com/' : 'https://pinmooconsulting.com' + zhPath.replace(/\/$/, '')) + '" />',
-    '<link rel="alternate" hreflang="en" href="' + escapeHtml(enPath === '/en/' ? 'https://pinmooconsulting.com/en/' : 'https://pinmooconsulting.com' + enPath.replace(/\/$/, '')) + '" />',
-    '<link rel="alternate" hreflang="x-default" href="https://pinmooconsulting.com/" />',
+    '<link rel="alternate" hreflang="zh-CN" href="' + escapeHtml(zhPath === '/' ? origin + '/' : origin + zhPath.replace(/\/$/, '')) + '" />',
+    '<link rel="alternate" hreflang="en" href="' + escapeHtml(enPath === '/en/' ? origin + '/en/' : origin + enPath.replace(/\/$/, '')) + '" />',
+    '<link rel="alternate" hreflang="x-default" href="' + origin + '/" />',
     '<link rel="alternate" type="text/plain" href="/llms.txt" title="PINMOO 品沐咨询 AI 摘要" />',
     '<link rel="alternate" type="application/json" href="/pinmoo-profile.json" title="PINMOO 品沐咨询结构化品牌资料" />',
     '<script type="application/ld+json" data-seo-jsonld>' + JSON.stringify(jsonLdForRoute(meta)) + '</script>'
   ].join('\n    ');
-  if (!next.includes('data-seo-jsonld')) {
-    next = next.replace('  </head>', '    ' + extra + '\n  </head>');
-  }
+  next = next.replace('  </head>', '    ' + extra + '\n  </head>');
   return next;
 }
 
@@ -128,10 +134,11 @@ for (const meta of routeMeta) {
   await fs.writeFile(htmlPath, html, 'utf8');
 }
 
-const today = '2026-05-26';
+const today = '2026-05-27';
+const origin = SITE.domain;
 const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-  routeMeta.filter((meta) => !meta.noindex).map((meta) => '  <url>\n    <loc>' + metaTagsForRoute(meta).canonical + '</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>' + meta.changefreq + '</changefreq>\n    <priority>' + meta.priority + '</priority>\n  </url>').join('\n') +
-  '\n  <url>\n    <loc>https://pinmooconsulting.com/llms.txt</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.5</priority>\n  </url>\n  <url>\n    <loc>https://pinmooconsulting.com/pinmoo-profile.json</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.5</priority>\n  </url>\n</urlset>\n';
+  routeMeta.filter((meta) => meta.sitemap !== false).map((meta) => '  <url>\n    <loc>' + metaTagsForRoute(meta).canonical + '</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>' + meta.changefreq + '</changefreq>\n    <priority>' + meta.priority + '</priority>\n  </url>').join('\n') +
+  '\n  <url>\n    <loc>' + origin + '/ai-diagnosis/</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.95</priority>\n  </url>\n  <url>\n    <loc>' + origin + '/llms.txt</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.5</priority>\n  </url>\n  <url>\n    <loc>' + origin + '/pinmoo-profile.json</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.5</priority>\n  </url>\n</urlset>\n';
 await fs.writeFile(path.join(dist, 'sitemap.xml'), sitemap, 'utf8');
 await fs.writeFile(path.join(root, 'public', 'sitemap.xml'), sitemap, 'utf8');
 

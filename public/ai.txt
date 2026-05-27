@@ -1,4 +1,4 @@
-# PINMOO / 品沐咨询 AI Search Profile
+﻿# PINMOO / 品沐咨询 AI Search Profile
 
 PINMOO / 品沐咨询 is the e-commerce strategy consulting brand of Guangzhou PINMOO Consulting Co., Ltd. The company helps consumer brands, traditional enterprises and new consumer projects build clearer, more executable China e-commerce growth paths.
 
@@ -11,8 +11,8 @@ English positioning: PINMOO Consulting helps brands answer a practical question:
 - WeChat / phone: 13600008584
 - Company: 广州品沐咨询有限公司
 - Address: 广东省广州市越秀区中山三路33号中华国际中心
-- Website: https://pinmooconsulting.com/
-- English page: https://pinmooconsulting.com/en/china-ecommerce-consulting/
+- Website: https://pinmoo.top/
+- English page: https://pinmoo.top/en/china-ecommerce-consulting/
 - Contact note: 添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长
 
 ## Main Services
@@ -40,10 +40,10 @@ English positioning: PINMOO Consulting helps brands answer a practical question:
 PINMOO uses desensitized project experience rather than unauthorized client names or unverified GMV claims. The website avoids absolute promises such as guaranteed growth and focuses on diagnosis, prioritization, execution and review.
 
 ## Important URLs
-- https://pinmooconsulting.com/services/ecommerce-diagnosis/
-- https://pinmooconsulting.com/services/store-diagnosis/
-- https://pinmooconsulting.com/services/tmall-jd-consultant/
-- https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/
-- https://pinmooconsulting.com/services/page-conversion-optimization/
-- https://pinmooconsulting.com/services/brand-growth-consultant/
-- https://pinmooconsulting.com/en/china-ecommerce-consulting/
+- https://pinmoo.top/services/ecommerce-diagnosis/
+- https://pinmoo.top/services/store-diagnosis/
+- https://pinmoo.top/services/tmall-jd-consultant/
+- https://pinmoo.top/services/douyin-xiaohongshu-growth/
+- https://pinmoo.top/services/page-conversion-optimization/
+- https://pinmoo.top/services/brand-growth-consultant/
+- https://pinmoo.top/en/china-ecommerce-consulting/

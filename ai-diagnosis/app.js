@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.9.1 · 2026-05-27 · XLS流量修正版';
+const appVersion = 'v0.9.2 · 2026-05-27 · 大批量生成修正版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -222,8 +222,115 @@ function loadJson(key, fallback) {
   }
 }
 
+function limitArray(items, limit = 20) {
+  return Array.isArray(items) ? items.slice(0, limit) : items;
+}
+
+function compactImportedDetails(details = {}) {
+  if (!details || typeof details !== 'object') return details;
+  return {
+    ...details,
+    products: limitArray(details.products, 12),
+    productsAll: limitArray(details.productsAll, 30),
+    categories: limitArray(details.categories, 16),
+    daily: limitArray(details.daily, 40),
+    refundReasons: limitArray(details.refundReasons, 12),
+    live: limitArray(details.live, 16),
+    content: limitArray(details.content, 16),
+    service: limitArray(details.service, 16),
+    traffic: limitArray(details.traffic, 20),
+    promotion: limitArray(details.promotion, 24),
+    activity: limitArray(details.activity, 16)
+  };
+}
+
+function compactDataForHistory(data = {}) {
+  const sourceNames = String(data.dataSource || '').split(' + ');
+  return {
+    ...data,
+    dataSource: sourceNames.length > 6
+      ? `${sourceNames.slice(0, 6).join(' + ')} 等${sourceNames.length}个文件`
+      : data.dataSource,
+    importedDetails: compactImportedDetails(data.importedDetails),
+    importSummary: limitArray(data.importSummary, 80),
+    importedLineage: limitArray(data.importedLineage, 36)
+  };
+}
+
+function compactDiagnosisForHistory(diagnosis) {
+  if (!diagnosis || typeof diagnosis !== 'object') return diagnosis;
+  return {
+    ...diagnosis,
+    data: compactDataForHistory(diagnosis.data),
+    issues: limitArray(diagnosis.issues, 12),
+    actions: limitArray(diagnosis.actions, 6),
+    metrics: limitArray(diagnosis.metrics, 12)
+  };
+}
+
+function minimalDiagnosisForHistory(diagnosis) {
+  return {
+    id: diagnosis.id,
+    createdAt: diagnosis.createdAt,
+    totalScore: diagnosis.totalScore,
+    summary: diagnosis.summary,
+    issues: limitArray(diagnosis.issues, 6),
+    actions: limitArray(diagnosis.actions, 3),
+    metrics: limitArray(diagnosis.metrics, 8),
+    data: {
+      storeName: diagnosis.data?.storeName || '',
+      brandName: diagnosis.data?.brandName || '',
+      industry: diagnosis.data?.industry || '',
+      platform: diagnosis.data?.platform || '',
+      reportType: diagnosis.data?.reportType || '',
+      reportPurpose: diagnosis.data?.reportPurpose || '',
+      period: diagnosis.data?.period || '',
+      periodStart: diagnosis.data?.periodStart || '',
+      periodEnd: diagnosis.data?.periodEnd || '',
+      sales: diagnosis.data?.sales || 0,
+      prevSales: diagnosis.data?.prevSales || 0,
+      visitors: diagnosis.data?.visitors || 0,
+      prevVisitors: diagnosis.data?.prevVisitors || 0,
+      conversion: diagnosis.data?.conversion || 0,
+      aov: diagnosis.data?.aov || 0,
+      refundRate: diagnosis.data?.refundRate || 0,
+      roi: diagnosis.data?.roi || 0,
+      productCount: diagnosis.data?.productCount || 0,
+      activeProductCount: diagnosis.data?.activeProductCount || 0,
+      topSkuShare: diagnosis.data?.topSkuShare || 0,
+      serviceRate: diagnosis.data?.serviceRate || 0,
+      searchShare: diagnosis.data?.searchShare || 0,
+      recommendShare: diagnosis.data?.recommendShare || 0,
+      contentShare: diagnosis.data?.contentShare || 0,
+      paidShare: diagnosis.data?.paidShare || 0,
+      privateShare: diagnosis.data?.privateShare || 0,
+      importedDetails: compactImportedDetails(diagnosis.data?.importedDetails),
+      importedAux: diagnosis.data?.importedAux || null,
+      importSummary: limitArray(diagnosis.data?.importSummary, 30),
+      importedLineage: limitArray(diagnosis.data?.importedLineage, 20),
+      notes: diagnosis.data?.notes || ''
+    }
+  };
+}
+
 function saveHistory() {
-  localStorage.setItem(storageKey, JSON.stringify(history.slice(0, 200)));
+  const attempts = [
+    history.slice(0, 200).map(compactDiagnosisForHistory),
+    history.slice(0, 80).map(compactDiagnosisForHistory),
+    history.slice(0, 30).map(minimalDiagnosisForHistory),
+    history.slice(0, 10).map(minimalDiagnosisForHistory)
+  ];
+  for (const payload of attempts) {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(payload));
+      return true;
+    } catch (error) {
+      try {
+        localStorage.removeItem(storageKey);
+      } catch {}
+    }
+  }
+  return false;
 }
 
 function getBenchmark(industry) {
@@ -2770,19 +2877,21 @@ function tableRows(items, columns, emptyText = '暂无明细数据') {
 
 function renderHistory() {
   const keyword = $('#historySearch').value.trim().toLowerCase();
+  history = Array.isArray(history) ? history.filter((item) => item && item.data) : [];
   const rows = history.filter((item) => {
-    const text = `${item.data.storeName} ${item.data.platform} ${item.data.industry} ${item.summary?.title || ''} ${item.summary?.text || ''}`.toLowerCase();
+    const data = item.data || {};
+    const text = `${data.storeName || ''} ${data.platform || ''} ${data.industry || ''} ${item.summary?.title || ''} ${item.summary?.text || ''}`.toLowerCase();
     return !keyword || text.includes(keyword);
   });
 
   $('#historyBody').innerHTML = rows.length ? rows.map((item) => `
     <tr>
-      <td class="store-cell"><strong>${item.data.storeName}</strong><span>${item.data.industry}</span></td>
-      <td>${item.data.platform}</td>
-      <td>${yuan(item.data.sales)}</td>
-      <td><span class="score-pill ${scoreClass(item.totalScore)}">${item.totalScore}</span></td>
-      <td>${item.issues.length}</td>
-      <td>${item.createdAt}</td>
+      <td class="store-cell"><strong>${item.data.storeName || '-'}</strong><span>${item.data.industry || '-'}</span></td>
+      <td>${item.data.platform || '-'}</td>
+      <td>${yuan(item.data.sales || 0)}</td>
+      <td><span class="score-pill ${scoreClass(item.totalScore || 0)}">${item.totalScore || '-'}</span></td>
+      <td>${Array.isArray(item.issues) ? item.issues.length : 0}</td>
+      <td>${item.createdAt || '-'}</td>
       <td class="row-actions">
         <button type="button" data-load="${item.id}">查看</button>
         <button type="button" data-delete="${item.id}">删除</button>
@@ -2803,7 +2912,8 @@ function setLatest(diagnosis, persist = false) {
   renderReport(diagnosis);
   if (persist) {
     history = [diagnosis, ...history.filter((item) => item.id !== diagnosis.id)].slice(0, 200);
-    saveHistory();
+    const saved = saveHistory();
+    if (!saved) toast('报告已生成，但浏览器历史空间不足，建议先导出 Word 留档');
   }
   renderHistory();
 }
@@ -5007,25 +5117,34 @@ function inferImportSuggestions(fileList, rows, data) {
 
 function inferStoreName(filenames, rows) {
   const fromRows = rows.map((row) => pick(row, ['店铺名称', '店铺', 'storeName', 'store'])).find(Boolean);
-  if (fromRows) return String(fromRows).trim();
+  const rowName = cleanStoreNameCandidate(fromRows);
+  if (rowName && !isWeakStoreNameCandidate(rowName)) return rowName;
   const firstStrongName = filenames
     .map((name) => name.replace(/\.[^.]+$/, '').split(/[_\-—]/)[0])
     .map(cleanStoreNameCandidate)
-    .find((name) => /旗舰店|专营店|专卖店|店$/.test(name) && name.length >= 2);
+    .find((name) => !isWeakStoreNameCandidate(name) && /旗舰店|专营店|专卖店|店$/.test(name) && name.length >= 2);
   if (firstStrongName) return firstStrongName;
   const cleaned = filenames
     .map((name) => name.replace(/\.[^.]+$/, ''))
     .map((name) => name.replace(/\(.*?\)|（.*?）/g, ''))
     .map((name) => name.replace(/^\d+[_-]?/, ''))
     .map(cleanStoreNameCandidate)
-    .filter((name) => name.length >= 2 && name.length <= 20);
+    .filter((name) => name.length >= 2 && name.length <= 24 && !isWeakStoreNameCandidate(name));
   const best = cleaned.find((name) => /旗舰店|专营店|店|TALASA|世纪茗家|茗家/.test(name)) || cleaned[0];
   return best || '';
 }
 
+function isWeakStoreNameCandidate(name) {
+  const text = String(name || '').trim();
+  if (!text) return true;
+  if (/^(直播|店播|客户|粉丝|流量|商品|客服|内容|推广|品类|退款|首页|光合|营销|计划|创意|单元|关键词|人群|地域|数据|报表|概览|分析|标准类目)/.test(text)) return true;
+  if (/直播业绩|店播|播中|点击转化|成交拆解|客户概况|粉丝|流量来源|流量总览|数据概览|资产总览|标准类目|退款|售后|报表|下载|汇总|概览|明细|分析/.test(text) && !/旗舰店|专营店|专卖店|TALASA|世纪茗家|茗家/.test(text)) return true;
+  return false;
+}
+
 function cleanStoreNameCandidate(name) {
   return String(name || '')
-    .replace(/(店铺经营|经营月报|经营周报|首页|数据概览|生意参谋平台|生意参谋|无线店铺流量来源|商品_全部|商品报表|流量来源|退款分析|客户|客服|营销场景|计划报表|创意报表|单元报表|关键词报表|人群报表|地域报表|内容报表|月报|周报|报告|数据下载|汇总下载|离线|全部|天猫|京东|抖音|小红书|拼多多|视频号|最近\d+天|第\d+周|20\d{2}[-_~年]\d{1,2}.*$|\d{2,4}年\d{1,2}月.*$|\d{8}.*$)/g, '')
+    .replace(/(店铺经营|经营月报|经营周报|首页|数据概览|生意参谋平台|生意参谋|无线店铺流量来源|商品_全部|商品报表|流量来源|流量看板|流量总览|退款分析|客户-粉丝分析|客户概况|客户|粉丝运营|粉丝增长|粉丝激活|粉丝唤醒|粉丝类型|客服|直播业绩|店播|播中|点击转化分析|点击转化|成交拆解|内容资产|资产总览|光合|标准类目|营销场景|计划报表|推广计划|创意报表|单元报表|关键词报表|人群报表|地域报表|内容报表|月报|周报|报告|数据下载|汇总下载|离线|全部|天猫|京东|抖音|小红书|拼多多|视频号|最近\d+天|第\d+周|20\d{2}[-_~年]\d{1,2}.*$|\d{2,4}年\d{1,2}月.*$|\d{8}.*$)/g, '')
     .replace(/[_\-—+\s]+/g, '')
     .trim();
 }
@@ -5274,28 +5393,34 @@ async function confirmImportedReport() {
     setReportProgress(90, '正在写入历史记录', '报告即将完成，请稍候。');
     await nextUiFrame();
     history = [diagnosis, ...history.filter((item) => item.id !== diagnosis.id)].slice(0, 200);
-    saveHistory();
+    const historySaved = saveHistory();
     renderHistory();
 
     const meta = pendingImportMeta || { fileCount: 0, rowCount: 0, reportType: diagnosis.data.reportType, skippedText: '' };
-    setReportProgress(100, '报告生成完成', `已生成${diagnosis.data.reportType}并写入历史。`);
+    setReportProgress(100, '报告生成完成', historySaved ? `已生成${diagnosis.data.reportType}并写入历史。` : `已生成${diagnosis.data.reportType}，浏览器历史空间不足，建议先导出 Word 留档。`);
     await nextUiFrame();
-    $('#importStatus').textContent = `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据，自动生成${diagnosis.data.reportType}并写入历史${meta.skippedText || ''}。`;
+    $('#importStatus').textContent = historySaved
+      ? `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据，自动生成${diagnosis.data.reportType}并写入历史${meta.skippedText || ''}。`
+      : `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据，已生成${diagnosis.data.reportType}；浏览器历史空间不足，建议立即导出 Word/TXT 留档${meta.skippedText || ''}。`;
     pendingImportMeta = null;
     importSessionRows = [];
     importSessionFileNames = [];
     importSessionSkippedFiles = [];
-    updateWorkflowStatus('generated', `已生成${diagnosis.data.reportType}并写入历史。请先核实报告标题、周期、数据口径和关键结论。`);
+    updateWorkflowStatus('generated', historySaved
+      ? `已生成${diagnosis.data.reportType}并写入历史。请先核实报告标题、周期、数据口径和关键结论。`
+      : `已生成${diagnosis.data.reportType}，但历史空间不足未完整保存。请先导出 Word/TXT，再清理历史记录。`);
     isGeneratingReport = false;
     setReportGeneratingState(false);
     closeImportConfirmModal();
     jumpToReportPreview();
-    toast('已生成并写入历史，已跳转到报告预览，请先核实任务信息');
+    toast(historySaved ? '已生成并写入历史，已跳转到报告预览，请先核实任务信息' : '报告已生成，历史空间不足，请先导出 Word 留档');
   } catch (error) {
+    console.error('[Pinmoo] report generation failed', error);
     isGeneratingReport = false;
     setReportGeneratingState(false);
-    setReportProgress(100, '报告生成失败', '请检查文件识别类型、店铺信息或是否存在异常空表。');
-    updateWorkflowStatus('confirmError', '报告生成失败，请检查文件识别结果和必填信息后重试。');
+    const errorMessage = error?.message ? `失败原因：${error.message}` : '请检查文件识别类型、店铺信息或是否存在异常空表。';
+    setReportProgress(100, '报告生成失败', errorMessage);
+    updateWorkflowStatus('confirmError', `报告生成失败。${errorMessage}`);
     toast('报告生成失败，请检查文件识别结果后重试');
   }
 }

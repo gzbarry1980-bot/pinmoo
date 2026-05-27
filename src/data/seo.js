@@ -71,7 +71,7 @@ export const routeMeta = [
     title: '咨询需求已收到｜品沐咨询 PINMOO',
     description: '品沐咨询已收到你的咨询需求。你也可以直接添加微信 / 手机同号 13600008584，并注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长。',
     name: '咨询需求已收到',
-    noindex: true,
+    sitemap: false,
     priority: '0.2',
     changefreq: 'yearly'
   },
@@ -161,7 +161,7 @@ routeMeta.push(
     title: 'Inquiry Received | PINMOO Consulting',
     description: 'PINMOO has received your inquiry. You can also add WeChat / mobile 13600008584 and mention your purpose.',
     name: 'Inquiry Received',
-    noindex: true,
+    sitemap: false,
     priority: '0.2',
     changefreq: 'yearly',
     lang: 'en',

@@ -1,4 +1,4 @@
-import path from 'node:path';
+﻿import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname.replace(/^\/(.:\/)/, '$1')), '..');
@@ -19,7 +19,7 @@ globalThis.document = {
   querySelectorAll() { return []; }
 };
 globalThis.window = {
-  location: { pathname: route, hostname: 'pinmooconsulting.com' },
+  location: { pathname: route, hostname: 'pinmoo.top' },
   addEventListener(){},
   scrollY: 0,
   setTimeout,

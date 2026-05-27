@@ -22,6 +22,6 @@ Allow: /
 User-agent: Claude-SearchBot
 Allow: /
 
-Sitemap: https://pinmooconsulting.com/sitemap.xml
+Sitemap: https://pinmoo.top/sitemap.xml
 
-# AI-readable brand summary: https://pinmooconsulting.com/llms.txt
+# AI-readable brand summary: https://pinmoo.top/llms.txt

@@ -1,7 +1,7 @@
-{
+﻿{
   "brand": "PINMOO / 品沐咨询",
   "company": "广州品沐咨询有限公司",
-  "domain": "https://pinmooconsulting.com",
+  "domain": "https://pinmoo.top",
   "phone": "13600008584",
   "contact": "微信 / 手机同号 13600008584。添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长",
   "location": "广东省广州市越秀区中山三路33号中华国际中心",
@@ -12,39 +12,39 @@
   "services": [
     {
       "name": "电商战略诊断",
-      "url": "https://pinmooconsulting.com/services/ecommerce-diagnosis/",
+      "url": "https://pinmoo.top/services/ecommerce-diagnosis/",
       "description": "从市场、平台、货盘、流量、转化和团队执行维度判断增长瓶颈与优先级。"
     },
     {
       "name": "店铺诊断",
-      "url": "https://pinmooconsulting.com/services/store-diagnosis/",
+      "url": "https://pinmoo.top/services/store-diagnosis/",
       "description": "诊断首页、主图、详情页、SKU、价格、评价、客服和成交路径。"
     },
     {
       "name": "天猫京东运营顾问",
-      "url": "https://pinmooconsulting.com/services/tmall-jd-consultant/",
+      "url": "https://pinmoo.top/services/tmall-jd-consultant/",
       "description": "围绕天猫、京东等货架平台建立运营节奏、活动计划和数据复盘机制。"
     },
     {
       "name": "抖音小红书内容种草",
-      "url": "https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/",
+      "url": "https://pinmoo.top/services/douyin-xiaohongshu-growth/",
       "description": "设计内容选题、达人合作、短视频/笔记方向和从种草到店铺承接的路径。"
     },
     {
       "name": "主图详情页转化优化",
-      "url": "https://pinmooconsulting.com/services/page-conversion-optimization/",
+      "url": "https://pinmoo.top/services/page-conversion-optimization/",
       "description": "优化商品卖点、主图结构、详情页逐屏信息、SKU 和客服话术。"
     },
     {
       "name": "品牌增长顾问",
-      "url": "https://pinmooconsulting.com/services/brand-growth-consultant/",
+      "url": "https://pinmoo.top/services/brand-growth-consultant/",
       "description": "协助品牌把平台经营、商品表达、内容投放、复购和团队执行形成增长闭环。"
     }
   ],
   "englishPages": [
     {
       "name": "How to Sell Products in China",
-      "url": "https://pinmooconsulting.com/en/china-ecommerce-consulting/",
+      "url": "https://pinmoo.top/en/china-ecommerce-consulting/",
       "description": "A practical entry page for overseas and cross-border brands evaluating China e-commerce."
     }
   ],
