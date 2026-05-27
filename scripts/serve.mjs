@@ -10,6 +10,7 @@ const types = new Map([
   ['.css', 'text/css; charset=utf-8'],
   ['.svg', 'image/svg+xml'],
   ['.png', 'image/png'],
+  ['.webp', 'image/webp'],
   ['.jpg', 'image/jpeg'],
   ['.jpeg', 'image/jpeg'],
   ['.txt', 'text/plain; charset=utf-8'],

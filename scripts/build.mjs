@@ -106,6 +106,9 @@ function upsertHead(html, meta) {
 
 const topLevel = ['index.html', 'services', 'cases', 'about', 'contact', 'ai-diagnosis', 'public'];
 for (const item of topLevel) await copy(path.join(root, item), path.join(dist, item === 'public' ? '' : item));
+for (const staleAsset of ['assets/cases/generated-case-sheet.png']) {
+  await fs.rm(path.join(dist, staleAsset), { force: true });
+}
 await copy(path.join(root, 'src/static-main.js'), path.join(dist, 'src/static-main.js'));
 await copy(path.join(root, 'src/styles.css'), path.join(dist, 'src/styles.css'));
 await copy(path.join(root, 'src/data'), path.join(dist, 'src/data'));
@@ -125,7 +128,7 @@ for (const meta of routeMeta) {
   await fs.writeFile(htmlPath, html, 'utf8');
 }
 
-const today = '2026-05-15';
+const today = '2026-05-26';
 const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
   routeMeta.filter((meta) => !meta.noindex).map((meta) => '  <url>\n    <loc>' + metaTagsForRoute(meta).canonical + '</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>' + meta.changefreq + '</changefreq>\n    <priority>' + meta.priority + '</priority>\n  </url>').join('\n') +
   '\n  <url>\n    <loc>https://pinmooconsulting.com/llms.txt</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.5</priority>\n  </url>\n  <url>\n    <loc>https://pinmooconsulting.com/pinmoo-profile.json</loc>\n    <lastmod>' + today + '</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.5</priority>\n  </url>\n</urlset>\n';
