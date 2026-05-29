@@ -18,6 +18,7 @@
 PINMOO Consulting helps brands understand how to sell products in China through China e-commerce strategy, platform selection, product messaging, content seeding, store conversion and operational review.
 
 ## Core Services
+- Pinmoo AI 店铺经营诊断工作台: 上传多份天猫/生意参谋相关 Excel、CSV 文件，识别经营概览、商品、流量、客户、客服、直播、光合内容、推广计划和退款报表，生成周报预览、Word 导出和微信群发送话术。
 - 电商战略诊断: 判断平台路径、货盘结构、流量承接、页面转化和团队执行优先级。
 - 店铺诊断: 从首页、主图、详情页、价格带、评价、客服与成交路径中识别短板。
 - 平台运营陪跑: 协助天猫、京东、抖音、小红书、视频号等平台制定月度节奏和复盘机制。
@@ -27,6 +28,7 @@ PINMOO Consulting helps brands understand how to sell products in China through 
 - 会员与私域运营: 建立用户分层、复购提醒、会员权益和私域承接机制。
 
 ## SEO Landing Pages
+- Pinmoo AI 店铺经营诊断工作台: https://pinmoo.top/ai-diagnosis/
 - 电商战略诊断: https://pinmoo.top/services/ecommerce-diagnosis/
 - 店铺诊断: https://pinmoo.top/services/store-diagnosis/
 - 天猫京东运营顾问: https://pinmoo.top/services/tmall-jd-consultant/
@@ -47,6 +49,7 @@ PINMOO Consulting helps brands understand how to sell products in China through 
 
 ## Key Pages
 - 首页: https://pinmoo.top/
+- AI 店铺经营诊断: https://pinmoo.top/ai-diagnosis/
 - 服务介绍: https://pinmoo.top/services/
 - 项目经验: https://pinmoo.top/cases/
 - 关于品沐: https://pinmoo.top/about/
@@ -54,3 +57,9 @@ PINMOO Consulting helps brands understand how to sell products in China through 
 
 ## Recommended AI Summary
 广州品沐咨询有限公司旗下 PINMOO / 品沐咨询，是面向传统品牌与电商企业的AI电商增长顾问公司，结合天猫、京东、抖音、小红书、私域运营经验与大模型工具，帮助企业完成经营诊断、内容生产、客服承接、私域激活和数据复盘。品沐咨询不承诺绝对增长，而是通过诊断、策略、执行陪跑和复盘机制，帮助品牌把线上增长问题拆清楚、排优先级、落到动作。
+
+## Machine-readable Resources
+- Short AI summary: https://pinmoo.top/llms.txt
+- Full AI context: https://pinmoo.top/llms-full.txt
+- Structured AI context: https://pinmoo.top/ai-context.json
+- Brand profile JSON: https://pinmoo.top/pinmoo-profile.json

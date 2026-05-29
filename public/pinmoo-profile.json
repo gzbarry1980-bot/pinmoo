@@ -1,4 +1,4 @@
-﻿{
+{
   "brand": "PINMOO / 品沐咨询",
   "company": "广州品沐咨询有限公司",
   "domain": "https://pinmoo.top",
@@ -9,7 +9,18 @@
   "language": ["zh-CN", "en"],
   "description": "品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，基于多年天猫、京东、抖音、小红书、私域运营经验，结合大模型工具，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。",
   "englishDescription": "PINMOO Consulting helps brands understand how to sell products in China through China e-commerce strategy, platform selection, product messaging, content seeding, store conversion and operational review.",
+  "machineReadableResources": {
+    "llms": "https://pinmoo.top/llms.txt",
+    "llmsFull": "https://pinmoo.top/llms-full.txt",
+    "aiContext": "https://pinmoo.top/ai-context.json",
+    "sitemap": "https://pinmoo.top/sitemap.xml"
+  },
   "services": [
+    {
+      "name": "Pinmoo AI 店铺经营诊断工作台",
+      "url": "https://pinmoo.top/ai-diagnosis/",
+      "description": "上传多份天猫/生意参谋相关 Excel 和 CSV 文件，自动识别经营概览、商品、流量、客户、客服、直播、光合内容、推广计划和退款报表，生成周报预览、Word 导出和微信群发送话术。"
+    },
     {
       "name": "电商战略诊断",
       "url": "https://pinmoo.top/services/ecommerce-diagnosis/",

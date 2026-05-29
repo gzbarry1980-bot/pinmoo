@@ -8,6 +8,7 @@ const ORIGIN = SITE.domain;
 const logoUrl = ORIGIN + SITE.logo;
 const ogUrl = ORIGIN + SITE.ogImage;
 const phone = '+86-13600008584';
+const contentDate = '2026-05-30';
 
 export const routeMeta = [
   {
@@ -17,6 +18,17 @@ export const routeMeta = [
     description: '品沐咨询 pinmoo 是面向传统品牌与电商企业的AI电商增长顾问公司，结合天猫、京东、抖音、小红书、私域运营经验与大模型工具，提供经营诊断、内容生产、客服承接、私域激活与数据复盘服务。',
     name: '首页',
     priority: '1.0',
+    changefreq: 'weekly'
+  },
+  {
+    path: '/ai-diagnosis/',
+    file: 'ai-diagnosis/index.html',
+    title: 'Pinmoo AI 店铺经营诊断工作台｜天猫生意参谋周报自动生成',
+    description: 'Pinmoo AI 店铺经营诊断工作台支持上传多份天猫、生意参谋相关 Excel 和 CSV 文件，自动识别经营概览、商品、流量、客户、客服、直播、光合内容、推广计划和退款报表，生成周报预览、Word 导出和微信群发送话术。',
+    name: 'Pinmoo AI 店铺经营诊断',
+    keywords: ['天猫经营周报', '生意参谋周报', '电商经营诊断', 'AI电商增长', '店铺诊断工具'],
+    aiTool: true,
+    priority: '0.95',
     changefreq: 'weekly'
   },
   {
@@ -198,7 +210,30 @@ routeMeta.push(
 
 export function absolute(pathname) {
   if (pathname === '/') return ORIGIN + '/';
-  return ORIGIN + pathname.replace(/\/$/, '');
+  return ORIGIN + pathname;
+}
+
+function routeImage(meta) {
+  if (meta.caseSlug) {
+    const item = cases.find((entry) => entry.slug === meta.caseSlug);
+    if (item?.image) return ORIGIN + item.image;
+  }
+  return ogUrl;
+}
+
+function routeKeywords(meta) {
+  if (meta.keywords?.length) return meta.keywords.join(', ');
+  if (meta.leadSlug) {
+    const leadPage = leadPages.find((page) => page.slug === meta.leadSlug) || (meta.leadSlug === chinaEcommercePage.slug ? chinaEcommercePage : null);
+    if (leadPage?.searchIntent?.length) return leadPage.searchIntent.join(', ');
+  }
+  if (meta.caseSlug) {
+    const item = cases.find((entry) => entry.slug === meta.caseSlug);
+    if (item) return [item.industry, item.serviceType, item.platform, '电商咨询', '项目经验', 'PINMOO'].join(', ');
+  }
+  return meta.lang === 'en'
+    ? 'PINMOO Consulting, China e-commerce consulting, Tmall consultant, JD consultant, Douyin, Xiaohongshu'
+    : '品沐咨询, PINMOO, 电商咨询, 电商诊断, 天猫运营顾问, 京东运营顾问, 抖音电商, 小红书种草';
 }
 
 function organizationNode() {
@@ -239,7 +274,30 @@ function websiteNode() {
     url: ORIGIN + '/',
     name: 'PINMOO 品沐咨询',
     inLanguage: 'zh-CN',
-    publisher: { '@id': ORIGIN + '/#organization' }
+    publisher: { '@id': ORIGIN + '/#organization' },
+    hasPart: [
+      {
+        '@type': 'CreativeWork',
+        '@id': ORIGIN + '/llms.txt#summary',
+        name: 'PINMOO AI-readable summary',
+        url: ORIGIN + '/llms.txt',
+        encodingFormat: 'text/plain'
+      },
+      {
+        '@type': 'CreativeWork',
+        '@id': ORIGIN + '/llms-full.txt#context',
+        name: 'PINMOO full AI context',
+        url: ORIGIN + '/llms-full.txt',
+        encodingFormat: 'text/markdown'
+      },
+      {
+        '@type': 'DataFeed',
+        '@id': ORIGIN + '/ai-context.json#data',
+        name: 'PINMOO structured AI context',
+        url: ORIGIN + '/ai-context.json',
+        encodingFormat: 'application/json'
+      }
+    ]
   };
 }
 
@@ -276,7 +334,7 @@ function serviceNodes() {
     provider: { '@id': ORIGIN + '/#organization' },
     areaServed: '中国',
     audience: service.fit.map((name) => ({ '@type': 'Audience', name })),
-    url: ORIGIN + '/services'
+    url: ORIGIN + '/services/'
   }));
 }
 
@@ -390,13 +448,40 @@ function contactNode(meta) {
     '@type': 'ContactPage',
     '@id': ORIGIN + '/contact/#contact-page',
     name: '联系品沐咨询',
-    url: ORIGIN + '/contact',
+    url: ORIGIN + '/contact/',
     mainEntity: { '@id': ORIGIN + '/#organization' }
   };
 }
 
-function webPageNode(meta) {
+function softwareApplicationNode(meta) {
+  if (!meta.aiTool) return null;
   return {
+    '@type': 'SoftwareApplication',
+    '@id': absolute(meta.path) + '#software',
+    name: 'Pinmoo AI 店铺经营诊断工作台',
+    alternateName: ['Pinmoo AI', '电商经营周报自动生成工具', '天猫生意参谋周报工具'],
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Web',
+    url: absolute(meta.path),
+    creator: { '@id': ORIGIN + '/#organization' },
+    description: meta.description,
+    featureList: [
+      '上传多份天猫、生意参谋相关 Excel 和 CSV 文件',
+      '自动识别经营概览、商品、流量来源、客户、客服、直播、光合内容、推广计划和退款等报表',
+      '标准化核心指标并生成经营周报预览',
+      '支持导出 Word 和复制微信群发送话术',
+      '保留支付、退款、净销售额、流量结构、每日销售、商品风险和推广 ROI 的基础图表快照'
+    ],
+    audience: {
+      '@type': 'Audience',
+      audienceType: '品牌方、电商运营服务商、电商运营负责人'
+    },
+    keywords: routeKeywords(meta)
+  };
+}
+
+function webPageNode(meta) {
+  const node = {
     '@type': meta.caseSlug ? 'Article' : meta.path === '/contact/' ? 'ContactPage' : meta.path === '/about/' ? 'AboutPage' : meta.path === '/cases/' ? 'CollectionPage' : 'WebPage',
     '@id': absolute(meta.path) + '#webpage',
     url: absolute(meta.path),
@@ -405,14 +490,23 @@ function webPageNode(meta) {
     inLanguage: meta.lang === 'en' ? 'en' : 'zh-CN',
     isPartOf: { '@id': ORIGIN + '/#website' },
     about: { '@id': ORIGIN + '/#organization' },
-    breadcrumb: { '@id': absolute(meta.path) + '#breadcrumb' }
+    breadcrumb: { '@id': absolute(meta.path) + '#breadcrumb' },
+    primaryImageOfPage: {
+      '@type': 'ImageObject',
+      url: routeImage(meta)
+    },
+    dateModified: contentDate,
+    keywords: routeKeywords(meta)
   };
+  if (meta.aiTool) node.mainEntity = { '@id': absolute(meta.path) + '#software' };
+  if (meta.caseSlug) node.mainEntity = { '@id': absolute(meta.path) + '#article' };
+  return node;
 }
 
 export function jsonLdForRoute(meta) {
   const graph = [organizationNode(), websiteNode(), webPageNode(meta), breadcrumbNode(meta)];
   if (meta.path === '/' || meta.path === '/services/') graph.push(...serviceNodes());
-  const optional = [itemListNode(meta), faqNode(meta), personNode(meta), caseArticleNode(meta), contactNode(meta)].filter(Boolean);
+  const optional = [itemListNode(meta), faqNode(meta), personNode(meta), caseArticleNode(meta), contactNode(meta), softwareApplicationNode(meta)].filter(Boolean);
   graph.push(...optional);
   return { '@context': 'https://schema.org', '@graph': graph };
 }
@@ -425,6 +519,11 @@ export function metaTagsForRoute(meta) {
     ogTitle: meta.title,
     ogDescription: meta.description,
     ogUrl: absolute(meta.path),
-    ogImage: meta.caseSlug ? ORIGIN + cases.find((entry) => entry.slug === meta.caseSlug)?.image : ogUrl
+    ogImage: routeImage(meta),
+    keywords: routeKeywords(meta)
   };
+}
+
+export function imageForRoute(meta) {
+  return routeImage(meta);
 }

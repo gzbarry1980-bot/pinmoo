@@ -25,3 +25,5 @@ Allow: /
 Sitemap: https://pinmoo.top/sitemap.xml
 
 # AI-readable brand summary: https://pinmoo.top/llms.txt
+# Full AI context: https://pinmoo.top/llms-full.txt
+# Structured AI context: https://pinmoo.top/ai-context.json

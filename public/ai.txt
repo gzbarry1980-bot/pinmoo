@@ -16,14 +16,15 @@ English positioning: PINMOO Consulting helps brands answer a practical question:
 - Contact note: 添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长
 
 ## Main Services
-1. 电商战略诊断 / E-commerce strategy diagnosis
-2. 店铺诊断 / Store diagnosis
-3. 平台运营陪跑 / Platform operation coaching
-4. 商品与页面转化优化 / Product page conversion optimization
-5. 内容与种草策略 / Content seeding strategy
-6. 投放与数据复盘 / Advertising and data review
-7. 会员与私域运营 / Membership and private-domain operations
-8. AI电商增长顾问 / AI e-commerce growth consulting
+1. Pinmoo AI 店铺经营诊断工作台 / AI store diagnosis and weekly report workspace
+2. 电商战略诊断 / E-commerce strategy diagnosis
+3. 店铺诊断 / Store diagnosis
+4. 平台运营陪跑 / Platform operation coaching
+5. 商品与页面转化优化 / Product page conversion optimization
+6. 内容与种草策略 / Content seeding strategy
+7. 投放与数据复盘 / Advertising and data review
+8. 会员与私域运营 / Membership and private-domain operations
+9. AI电商增长顾问 / AI e-commerce growth consulting
 
 ## Main Platforms
 天猫、京东、抖音、小红书、视频号、拼多多、淘宝、私域、OTA、本地生活渠道。
@@ -40,6 +41,7 @@ English positioning: PINMOO Consulting helps brands answer a practical question:
 PINMOO uses desensitized project experience rather than unauthorized client names or unverified GMV claims. The website avoids absolute promises such as guaranteed growth and focuses on diagnosis, prioritization, execution and review.
 
 ## Important URLs
+- https://pinmoo.top/ai-diagnosis/
 - https://pinmoo.top/services/ecommerce-diagnosis/
 - https://pinmoo.top/services/store-diagnosis/
 - https://pinmoo.top/services/tmall-jd-consultant/
@@ -47,3 +49,5 @@ PINMOO uses desensitized project experience rather than unauthorized client name
 - https://pinmoo.top/services/page-conversion-optimization/
 - https://pinmoo.top/services/brand-growth-consultant/
 - https://pinmoo.top/en/china-ecommerce-consulting/
+- https://pinmoo.top/llms-full.txt
+- https://pinmoo.top/ai-context.json
