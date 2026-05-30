@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://pinmoo.top/ai-diagnosis/" />
     <meta property="og:image" content="https://pinmoo.top/assets/og-pinmoo.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260527-bulk-generate-fix" />
+    <link rel="stylesheet" href="./styles.css?v=20260528-equal-modal-columns" />
   </head>
   <body>
     <div class="app-shell">
@@ -53,7 +53,7 @@
           <div>
             <span>当前工作空间</span>
             <strong>品沐咨询团队</strong>
-            <em class="version-badge" id="appVersion">v0.9.2 · 2026-05-27 · 大批量生成修正版</em>
+            <em class="version-badge" id="appVersion">v0.9.4 · 2026-05-28 · 左右栏等高版</em>
           </div>
           <label class="search-box">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
@@ -359,54 +359,59 @@
           </div>
           <button class="modal-close" type="button" data-close-import-modal aria-label="关闭">×</button>
         </div>
-        <div class="modal-summary" id="modalImportSummary"></div>
-        <div class="modal-form">
-          <label>店铺名称<input id="modalStoreName" type="text" placeholder="请输入店铺名称" /></label>
-          <label>店铺类目
-            <select id="modalIndustry">
-              <option>美妆个护</option>
-              <option>服装鞋包</option>
-              <option>食品茶饮</option>
-              <option>母婴营养</option>
-              <option>家居百货</option>
-              <option>产业带工厂</option>
-              <option>本地生活</option>
-            </select>
-          </label>
-          <label>店铺平台
-            <select id="modalPlatform">
-              <option>天猫</option>
-              <option>京东</option>
-              <option>抖音</option>
-              <option>小红书</option>
-              <option>视频号</option>
-              <option>拼多多</option>
-            </select>
-          </label>
-          <label>报告类型
-            <select id="modalReportType">
-              <option>周报</option>
-              <option>月报</option>
-            </select>
-          </label>
-        </div>
-        <div class="import-progress report-progress" id="reportProgress" hidden>
-          <div>
-            <span id="reportProgressText">等待生成报告</span>
-            <b id="reportProgressPercent">0%</b>
+        <div class="modal-main">
+          <div class="modal-left">
+            <div class="modal-summary" id="modalImportSummary"></div>
+            <div class="modal-form">
+              <label>店铺名称<input id="modalStoreName" type="text" placeholder="请输入店铺名称" /></label>
+              <label>店铺类目
+                <select id="modalIndustry">
+                  <option>美妆个护</option>
+                  <option>服装鞋包</option>
+                  <option>食品茶饮</option>
+                  <option>母婴营养</option>
+                  <option>家居百货</option>
+                  <option>产业带工厂</option>
+                  <option>本地生活</option>
+                </select>
+              </label>
+              <label>店铺平台
+                <select id="modalPlatform">
+                  <option>天猫</option>
+                  <option>京东</option>
+                  <option>抖音</option>
+                  <option>小红书</option>
+                  <option>视频号</option>
+                  <option>拼多多</option>
+                </select>
+              </label>
+              <label>报告类型
+                <select id="modalReportType">
+                  <option>周报</option>
+                  <option>月报</option>
+                </select>
+              </label>
+            </div>
+            <div class="import-progress report-progress" id="reportProgress" hidden>
+              <div>
+                <span id="reportProgressText">等待生成报告</span>
+                <b id="reportProgressPercent">0%</b>
+              </div>
+              <i><em id="reportProgressBar"></em></i>
+              <small id="reportProgressDetail">确认后会分步完成数据重算、诊断生成、报告渲染和历史写入。</small>
+            </div>
+            <div class="modal-actions">
+              <button class="ghost-btn" id="appendImportFiles" type="button">继续追加文件</button>
+              <button class="ghost-btn" type="button" data-close-import-modal>先看草稿</button>
+              <button class="primary-btn" id="confirmImportedReport" type="button">生成报告并写入历史</button>
+            </div>
           </div>
-          <i><em id="reportProgressBar"></em></i>
-          <small id="reportProgressDetail">确认后会分步完成数据重算、诊断生成、报告渲染和历史写入。</small>
-        </div>
-        <div class="modal-actions">
-          <button class="ghost-btn" id="appendImportFiles" type="button">继续追加文件</button>
-          <button class="ghost-btn" type="button" data-close-import-modal>先看草稿</button>
-          <button class="primary-btn" id="confirmImportedReport" type="button">生成报告并写入历史</button>
+          <aside class="modal-right" id="modalRecognitionPanel"></aside>
         </div>
       </section>
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js?v=20260527-bulk-generate-fix"></script>
+    <script src="./app.js?v=20260528-equal-modal-columns"></script>
   </body>
 </html>

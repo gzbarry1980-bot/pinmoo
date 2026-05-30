@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.9.2 · 2026-05-27 · 大批量生成修正版';
+const appVersion = 'v0.9.4 · 2026-05-28 · 左右栏等高版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -5180,13 +5180,25 @@ function summarizeImportModules(importSummary) {
 }
 
 function importRecognitionHtml(importSummary = []) {
-  if (!importSummary.length) return '';
+  if (!importSummary.length) {
+    return `
+      <div class="modal-recognition empty">
+        <div class="recognition-head">
+          <strong>文件识别结果确认</strong>
+          <span>暂无可展示的文件识别结果。</span>
+        </div>
+        <div class="recognition-empty">继续导入报表后，这里会显示每个文件的识别类型、使用行数和人工修正入口。</div>
+      </div>
+    `;
+  }
+  const pageSize = 8;
+  const pageCount = Math.ceil(importSummary.length / pageSize);
   const options = reportKindOptions.map(([value, label]) => `<option value="${value}">${label}</option>`).join('');
   const rows = importSummary.map((item, index) => {
     const usageRate = item.rawRows ? item.usedRows / item.rawRows * 100 : 0;
     const statusClass = item.status === '未读取' || ['unknown', 'ignored'].includes(item.dominantKind) || !item.usedRows ? 'warn' : 'ok';
     return `
-      <tr>
+      <tr data-recognition-row="${index}">
         <td><strong>${index + 1}. ${escapeHtml(item.name)}</strong><span>${escapeHtml(item.note || '-')}</span></td>
         <td><b class="recognition-badge ${statusClass}">${escapeHtml(reportKindLabel(item.dominantKind || 'unknown'))}</b></td>
         <td>${item.rawRows ? `${item.usedRows}/${item.rawRows}` : '-'}</td>
@@ -5200,11 +5212,18 @@ function importRecognitionHtml(importSummary = []) {
       </tr>
     `;
   }).join('');
+  const pager = pageCount > 1 ? `
+    <div class="recognition-pager" data-recognition-pager>
+      <button type="button" data-recognition-prev>上一页</button>
+      <span data-recognition-page-text>第 1 / ${pageCount} 页</span>
+      <button type="button" data-recognition-next>下一页</button>
+    </div>
+  ` : '';
   return `
-    <div class="modal-recognition">
+    <div class="modal-recognition" data-page-size="${pageSize}">
       <div class="recognition-head">
         <strong>文件识别结果确认</strong>
-        <span>如系统识别不准，可先在这里修正类型，再生成报告。</span>
+        <span>${importSummary.length} 个文件${pageCount > 1 ? `，每页 ${pageSize} 个` : ''}。如识别不准，可先修正类型再生成报告。</span>
       </div>
       <div class="recognition-table-wrap">
         <table class="recognition-table">
@@ -5212,8 +5231,43 @@ function importRecognitionHtml(importSummary = []) {
           <tbody>${rows}</tbody>
         </table>
       </div>
+      ${pager}
     </div>
   `;
+}
+
+function setupRecognitionPager(root = document) {
+  root.querySelectorAll('.modal-recognition').forEach((panel) => {
+    const rows = Array.from(panel.querySelectorAll('[data-recognition-row]'));
+    const pageSize = Number(panel.dataset.pageSize) || 8;
+    const pager = panel.querySelector('[data-recognition-pager]');
+    const pageText = panel.querySelector('[data-recognition-page-text]');
+    const prevButton = panel.querySelector('[data-recognition-prev]');
+    const nextButton = panel.querySelector('[data-recognition-next]');
+    let page = 0;
+
+    const renderPage = () => {
+      const pageCount = Math.max(1, Math.ceil(rows.length / pageSize));
+      page = Math.max(0, Math.min(page, pageCount - 1));
+      rows.forEach((row, index) => {
+        row.hidden = index < page * pageSize || index >= (page + 1) * pageSize;
+      });
+      if (!pager) return;
+      if (pageText) pageText.textContent = `第 ${page + 1} / ${pageCount} 页`;
+      if (prevButton) prevButton.disabled = page <= 0;
+      if (nextButton) nextButton.disabled = page >= pageCount - 1;
+    };
+
+    if (prevButton) prevButton.onclick = () => {
+      page -= 1;
+      renderPage();
+    };
+    if (nextButton) nextButton.onclick = () => {
+      page += 1;
+      renderPage();
+    };
+    renderPage();
+  });
 }
 
 function importModuleChips(modules) {
@@ -5232,13 +5286,14 @@ function openImportConfirmModal(meta) {
     <strong>系统识别建议</strong>
     <p>店铺：${escapeHtml(suggestion.storeName || '待填写')}；类目：${escapeHtml(suggestion.industry || '待选择')}；平台：${escapeHtml(suggestion.platform || selectedPlatform)}；报告：${escapeHtml(suggestion.reportType || meta.reportType)}。</p>
     <div class="modal-chips">${importModuleChips(meta.modules)}</div>
-    ${importRecognitionHtml(meta.fileSummaries || [])}
   `;
+  $('#modalRecognitionPanel').innerHTML = importRecognitionHtml(meta.fileSummaries || []);
   document.querySelectorAll('[data-import-kind]').forEach((select) => {
     const file = select.getAttribute('data-import-kind');
     const summary = (meta.fileSummaries || []).find((item) => item.name === file);
     select.value = summary?.dominantKind || 'auto';
   });
+  setupRecognitionPager(modal);
   $('#modalStoreName').value = suggestion.storeName || $('#storeName').value || '';
   $('#modalIndustry').value = suggestion.industry || $('#industry').value || '美妆个护';
   $('#modalPlatform').value = suggestion.platform || selectedPlatform || '天猫';
