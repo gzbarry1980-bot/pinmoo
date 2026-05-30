@@ -52,6 +52,48 @@
       "description": "协助品牌把平台经营、商品表达、内容投放、复购和团队执行形成增长闭环。"
     }
   ],
+  "listingPages": [
+    {
+      "name": "天猫生意参谋经营周报",
+      "url": "https://pinmoo.top/services/tmall-business-weekly-report/",
+      "description": "围绕支付、退款、净销售额、流量结构、商品风险、推广 ROI 和直播承接生成品牌方可读经营周报。"
+    },
+    {
+      "name": "天猫店铺退款率分析",
+      "url": "https://pinmoo.top/services/tmall-refund-rate-analysis/",
+      "description": "拆解商品退款金额、退款率、历史订单退款、页面表达、客服话术和售后原因。"
+    },
+    {
+      "name": "电商投放 ROI 复盘",
+      "url": "https://pinmoo.top/services/ecommerce-roi-review/",
+      "description": "按推广计划、关键词、人群、创意、页面承接、花费和净销售额拆解投放质量。"
+    },
+    {
+      "name": "直播成交承接诊断",
+      "url": "https://pinmoo.top/services/livestream-conversion-diagnosis/",
+      "description": "诊断直播流量、讲解话术、商品组合、页面承接、客服跟进和复盘指标。"
+    },
+    {
+      "name": "电商客服转化话术优化",
+      "url": "https://pinmoo.top/services/customer-service-conversion-scripts/",
+      "description": "优化售前答疑、异议处理、退款预防、主动回访、老客复购和私域承接话术。"
+    },
+    {
+      "name": "会员复购与私域运营诊断",
+      "url": "https://pinmoo.top/services/member-repurchase-private-domain/",
+      "description": "梳理用户分层、复购周期、会员权益、私域内容、主动回访和老客复盘机制。"
+    },
+    {
+      "name": "生意参谋数据诊断",
+      "url": "https://pinmoo.top/services/business-advisor-data-diagnosis/",
+      "description": "串联成交、流量、商品、客户、客服、推广、直播和退款数据形成经营判断。"
+    },
+    {
+      "name": "AI电商增长顾问",
+      "url": "https://pinmoo.top/services/ai-ecommerce-growth-consultant/",
+      "description": "将电商实战经验、大模型工具和经营数据结合，用于周报生成、问题归因和行动拆解。"
+    }
+  ],
   "englishPages": [
     {
       "name": "How to Sell Products in China",

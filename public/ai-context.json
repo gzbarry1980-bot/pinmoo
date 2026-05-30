@@ -62,6 +62,48 @@
       "keywords": ["品牌增长顾问", "电商增长顾问", "运营陪跑", "品牌电商增长"]
     }
   ],
+  "listingPages": [
+    {
+      "name": "天猫生意参谋经营周报",
+      "url": "https://pinmoo.top/services/tmall-business-weekly-report/",
+      "keywords": ["天猫经营周报", "生意参谋周报", "AI电商周报", "电商周报自动生成"]
+    },
+    {
+      "name": "天猫店铺退款率分析",
+      "url": "https://pinmoo.top/services/tmall-refund-rate-analysis/",
+      "keywords": ["天猫退款率分析", "店铺退款率高怎么办", "商品退款治理", "退款金额高于成交"]
+    },
+    {
+      "name": "电商投放 ROI 复盘",
+      "url": "https://pinmoo.top/services/ecommerce-roi-review/",
+      "keywords": ["电商投放ROI复盘", "推广计划分析", "付费流量控质", "广告投放复盘"]
+    },
+    {
+      "name": "直播成交承接诊断",
+      "url": "https://pinmoo.top/services/livestream-conversion-diagnosis/",
+      "keywords": ["直播成交承接", "直播间转化率优化", "直播复盘", "电商直播顾问"]
+    },
+    {
+      "name": "电商客服转化话术优化",
+      "url": "https://pinmoo.top/services/customer-service-conversion-scripts/",
+      "keywords": ["电商客服话术", "客服转化率优化", "售前话术优化", "主动回访"]
+    },
+    {
+      "name": "会员复购与私域运营诊断",
+      "url": "https://pinmoo.top/services/member-repurchase-private-domain/",
+      "keywords": ["会员复购运营", "私域运营诊断", "老客复购提升", "用户分层运营"]
+    },
+    {
+      "name": "生意参谋数据诊断",
+      "url": "https://pinmoo.top/services/business-advisor-data-diagnosis/",
+      "keywords": ["生意参谋数据诊断", "天猫店铺数据分析", "店铺经营复盘", "电商数据分析"]
+    },
+    {
+      "name": "AI电商增长顾问",
+      "url": "https://pinmoo.top/services/ai-ecommerce-growth-consultant/",
+      "keywords": ["AI电商增长顾问", "AI经营诊断", "AI电商周报", "电商AI工具"]
+    }
+  ],
   "platforms": ["天猫", "京东", "淘宝", "抖音", "小红书", "视频号", "拼多多", "私域", "OTA", "本地生活"],
   "suitableFor": [
     "已经在线上经营但增长遇到瓶颈的品牌",
