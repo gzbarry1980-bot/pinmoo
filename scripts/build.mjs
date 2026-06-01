@@ -155,7 +155,7 @@ for (const meta of routeMeta) {
   await fs.writeFile(htmlPath, html, 'utf8');
 }
 
-const today = process.env.SITEMAP_LASTMOD || '2026-05-30';
+const today = process.env.SITEMAP_LASTMOD || '2026-06-02';
 const origin = SITE.domain;
 function sitemapUrl(loc, changefreq, priority, image) {
   const imageBlock = image

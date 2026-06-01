@@ -8,7 +8,7 @@ const ORIGIN = SITE.domain;
 const logoUrl = ORIGIN + SITE.logo;
 const ogUrl = ORIGIN + SITE.ogImage;
 const phone = '+86-13600008584';
-const contentDate = '2026-05-30';
+const contentDate = '2026-06-02';
 
 export const routeMeta = [
   {
@@ -224,7 +224,7 @@ function routeImage(meta) {
 function routeKeywords(meta) {
   if (meta.keywords?.length) return meta.keywords.join(', ');
   if (meta.leadSlug) {
-    const leadPage = leadPages.find((page) => page.slug === meta.leadSlug) || (meta.leadSlug === chinaEcommercePage.slug ? chinaEcommercePage : null);
+    const leadPage = leadPageForMeta(meta);
     if (leadPage?.searchIntent?.length) return leadPage.searchIntent.join(', ');
   }
   if (meta.caseSlug) {
@@ -234,6 +234,11 @@ function routeKeywords(meta) {
   return meta.lang === 'en'
     ? 'PINMOO Consulting, China e-commerce consulting, Tmall consultant, JD consultant, Douyin, Xiaohongshu'
     : '品沐咨询, PINMOO, 电商咨询, 电商诊断, 天猫运营顾问, 京东运营顾问, 抖音电商, 小红书种草';
+}
+
+function leadPageForMeta(meta) {
+  if (!meta.leadSlug) return null;
+  return leadPages.find((page) => page.slug === meta.leadSlug) || (meta.leadSlug === chinaEcommercePage.slug ? chinaEcommercePage : null);
 }
 
 function organizationNode() {
@@ -305,6 +310,8 @@ function breadcrumbNode(meta) {
   const homeName = meta.lang === 'en' ? 'Home' : '首页';
   const caseName = meta.lang === 'en' ? 'Case Studies' : '项目经验';
   const casePath = meta.lang === 'en' ? '/en/cases/' : '/cases/';
+  const serviceName = meta.lang === 'en' ? 'Services' : '服务介绍';
+  const servicePath = meta.lang === 'en' ? '/en/services/' : '/services/';
   const items = [{ '@type': 'ListItem', position: 1, name: homeName, item: meta.lang === 'en' ? absolute('/en/') : ORIGIN + '/' }];
   if (meta.path !== '/') {
     if (meta.path.startsWith('/cases/') && meta.path !== '/cases/') {
@@ -312,6 +319,12 @@ function breadcrumbNode(meta) {
       items.push({ '@type': 'ListItem', position: 3, name: meta.name, item: absolute(meta.path) });
     } else if (meta.path.startsWith('/en/cases/') && meta.path !== '/en/cases/') {
       items.push({ '@type': 'ListItem', position: 2, name: caseName, item: absolute(casePath) });
+      items.push({ '@type': 'ListItem', position: 3, name: meta.name, item: absolute(meta.path) });
+    } else if (meta.path.startsWith('/services/') && meta.path !== '/services/') {
+      items.push({ '@type': 'ListItem', position: 2, name: '服务介绍', item: absolute('/services/') });
+      items.push({ '@type': 'ListItem', position: 3, name: meta.name, item: absolute(meta.path) });
+    } else if (meta.path.startsWith('/en/services/') && meta.path !== '/en/services/') {
+      items.push({ '@type': 'ListItem', position: 2, name: serviceName, item: absolute(servicePath) });
       items.push({ '@type': 'ListItem', position: 3, name: meta.name, item: absolute(meta.path) });
     } else {
       items.push({ '@type': 'ListItem', position: 2, name: meta.name, item: absolute(meta.path) });
@@ -338,16 +351,48 @@ function serviceNodes() {
   }));
 }
 
+function leadServiceNode(meta) {
+  const leadPage = leadPageForMeta(meta);
+  if (!leadPage) return null;
+  const parent = services.find((service) => service.id === leadPage.serviceId);
+  return {
+    '@type': 'Service',
+    '@id': absolute(meta.path) + '#service',
+    name: leadPage.title,
+    serviceType: parent?.title || leadPage.title,
+    category: parent?.title,
+    description: leadPage.metaDescription || meta.description,
+    url: absolute(meta.path),
+    provider: { '@id': ORIGIN + '/#organization' },
+    areaServed: ['中国', '天猫', '京东', '抖音', '小红书', '私域'],
+    audience: [
+      { '@type': 'BusinessAudience', name: '品牌方' },
+      { '@type': 'BusinessAudience', name: '电商运营服务商' },
+      { '@type': 'BusinessAudience', name: '电商运营负责人' }
+    ],
+    keywords: leadPage.searchIntent.join(', '),
+    isPartOf: parent ? { '@id': ORIGIN + '/services/#' + parent.id } : { '@id': ORIGIN + '/#website' },
+    potentialAction: {
+      '@type': 'CommunicateAction',
+      name: meta.lang === 'en' ? 'Book a diagnosis' : '预约基础诊断',
+      target: absolute('/contact/')
+    }
+  };
+}
+
 function itemListNode(meta) {
   if (meta.path === '/services/') {
     return {
       '@type': 'ItemList',
       '@id': ORIGIN + '/services/#service-list',
-      name: '品沐咨询核心服务',
-      itemListElement: services.map((service, index) => ({
+      name: '品沐咨询服务与诊断入口',
+      itemListElement: leadPages.map((page, index) => ({
         '@type': 'ListItem',
         position: index + 1,
-        item: { '@id': ORIGIN + '/services/#' + service.id, name: service.title }
+        url: absolute('/services/' + page.slug + '/'),
+        name: page.title,
+        description: page.metaDescription,
+        keywords: page.searchIntent.join(', ')
       }))
     };
   }
@@ -383,7 +428,7 @@ function itemListNode(meta) {
 }
 
 function faqNode(meta) {
-  const leadPage = meta.leadSlug ? (leadPages.find((page) => page.slug === meta.leadSlug) || (meta.leadSlug === chinaEcommercePage.slug ? chinaEcommercePage : null)) : null;
+  const leadPage = leadPageForMeta(meta);
   if (leadPage) {
     return {
       '@type': 'FAQPage',
@@ -499,6 +544,7 @@ function webPageNode(meta) {
     keywords: routeKeywords(meta)
   };
   if (meta.aiTool) node.mainEntity = { '@id': absolute(meta.path) + '#software' };
+  if (meta.leadSlug) node.mainEntity = { '@id': absolute(meta.path) + '#service' };
   if (meta.caseSlug) node.mainEntity = { '@id': absolute(meta.path) + '#article' };
   return node;
 }
@@ -506,7 +552,7 @@ function webPageNode(meta) {
 export function jsonLdForRoute(meta) {
   const graph = [organizationNode(), websiteNode(), webPageNode(meta), breadcrumbNode(meta)];
   if (meta.path === '/' || meta.path === '/services/') graph.push(...serviceNodes());
-  const optional = [itemListNode(meta), faqNode(meta), personNode(meta), caseArticleNode(meta), contactNode(meta), softwareApplicationNode(meta)].filter(Boolean);
+  const optional = [itemListNode(meta), leadServiceNode(meta), faqNode(meta), personNode(meta), caseArticleNode(meta), contactNode(meta), softwareApplicationNode(meta)].filter(Boolean);
   graph.push(...optional);
   return { '@context': 'https://schema.org', '@graph': graph };
 }

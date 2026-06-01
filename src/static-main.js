@@ -219,19 +219,66 @@ function LeadPathSection() {
   return '<section class="section lead-path-section"><div class="container">' + SectionIntro('一条清晰的咨询路径，减少无效沟通', '从相似问题进入，到基础诊断，再到具体合作方案，每一步都尽量清楚、可判断。') + '<div class="lead-path-grid">' + steps + '</div></div></section>';
 }
 
+const relatedCaseSlugsByLead = {
+  'ecommerce-diagnosis': ['traditional-enterprise-ecommerce-launch', 'wine-store-diagnosis', 'tea-brand-platform-synergy'],
+  'store-diagnosis': ['wine-store-diagnosis', 'womenswear-refund-optimization', 'personal-care-device-positioning'],
+  'tmall-jd-consultant': ['tea-brand-platform-synergy', 'children-nutrition-compliance', 'traditional-enterprise-ecommerce-launch'],
+  'douyin-xiaohongshu-growth': ['tea-brand-platform-synergy', 'camping-local-life-operation', 'personal-care-device-positioning'],
+  'page-conversion-optimization': ['personal-care-device-positioning', 'children-nutrition-compliance', 'womenswear-refund-optimization'],
+  'brand-growth-consultant': ['tea-brand-platform-synergy', 'consumer-goods-membership-growth', 'traditional-enterprise-ecommerce-launch'],
+  'tmall-business-weekly-report': ['tea-brand-platform-synergy', 'wine-store-diagnosis', 'womenswear-refund-optimization'],
+  'tmall-refund-rate-analysis': ['womenswear-refund-optimization', 'children-nutrition-compliance', 'wine-store-diagnosis'],
+  'ecommerce-roi-review': ['tea-brand-platform-synergy', 'wine-store-diagnosis', 'traditional-enterprise-ecommerce-launch'],
+  'livestream-conversion-diagnosis': ['personal-care-device-positioning', 'tea-brand-platform-synergy', 'camping-local-life-operation'],
+  'customer-service-conversion-scripts': ['womenswear-refund-optimization', 'consumer-goods-membership-growth', 'personal-care-device-positioning'],
+  'member-repurchase-private-domain': ['consumer-goods-membership-growth', 'camping-local-life-operation', 'tea-brand-platform-synergy'],
+  'business-advisor-data-diagnosis': ['wine-store-diagnosis', 'tea-brand-platform-synergy', 'womenswear-refund-optimization'],
+  'ai-ecommerce-growth-consultant': ['traditional-enterprise-ecommerce-launch', 'tea-brand-platform-synergy', 'consumer-goods-membership-growth']
+};
+
+function relatedLeadPages(page) {
+  const sameService = leadPages.filter(function(item) {
+    return item.slug !== page.slug && item.serviceId === page.serviceId;
+  });
+  const fallback = leadPages.filter(function(item) {
+    return item.slug !== page.slug && item.serviceId !== page.serviceId;
+  });
+  return sameService.concat(fallback).slice(0, 4);
+}
+
+function RelatedLeadCard(page) {
+  return '<a class="related-lead-card" href="' + localizeHref('/services/' + page.slug + '/') + '"><span>' + page.eyebrow + '</span><strong>' + page.title + '</strong><small>' + page.searchIntent.slice(0, 2).join(' / ') + '</small></a>';
+}
+
+function RelatedLeadSection(page) {
+  const related = relatedLeadPages(page).map(RelatedLeadCard).join('');
+  return '<div class="reveal detail-block related-lead-block"><div class="detail-title">' + icon('Layers', 24) + '<h2>还可以一起看的诊断入口</h2></div><div class="related-lead-grid">' + related + '</div></div>';
+}
+
+function relatedCasesForLead(page) {
+  const slugs = relatedCaseSlugsByLead[page.slug] || [];
+  const picked = slugs.map(function(slug) { return getCaseBySlug(slug); }).filter(Boolean);
+  cases.forEach(function(item) {
+    if (picked.length >= 3) return;
+    if (!picked.some(function(existing) { return existing.slug === item.slug; })) picked.push(item);
+  });
+  return picked.slice(0, 3);
+}
+
 function LandingPage(page) {
   const intent = page.searchIntent.map(function(item) { return '<span>' + item + '</span>'; }).join('');
   const pain = page.painPoints.map(li).join('');
   const diagnosis = page.diagnosis.map(li).join('');
   const deliverables = page.deliverables.map(function(item) { return '<div>' + icon('CheckCircle2', 18) + '<span>' + item + '</span></div>'; }).join('');
   const faqs = page.faq.map(function(item) { return '<div class="faq-item"><button type="button"><span>' + item.q + '</span>' + icon('ChevronDown', 18) + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>'; }).join('');
-  const related = cases.slice(0, 3).map(function(item) { return '<div class="reveal">' + CaseCard(item) + '</div>'; }).join('');
+  const related = relatedCasesForLead(page).map(function(item) { return '<div class="reveal">' + CaseCard(item) + '</div>'; }).join('');
   const serviceParam = encodeURIComponent(page.title);
   return PageHero(page.title, page.subtitle, false, '<div class="lead-keywords">' + intent + '</div>') +
     '<section class="section landing-section"><div class="container landing-layout"><div class="landing-main">' +
     '<div class="reveal detail-block"><div class="detail-title">' + icon('Search', 24) + '<h2>你可能正遇到这些问题</h2></div><ul>' + pain + '</ul></div>' +
     '<div class="reveal detail-block"><div class="detail-title">' + icon('Target', 24) + '<h2>品沐会重点诊断什么</h2></div><ul>' + diagnosis + '</ul></div>' +
     '<div class="reveal detail-block"><div class="detail-title">' + icon('ClipboardList', 24) + '<h2>可能获得的交付物</h2></div><div class="deliverable-grid">' + deliverables + '</div></div>' +
+    RelatedLeadSection(page) +
     '<div class="reveal detail-block"><div class="detail-title">' + icon('ShieldCheck', 24) + '<h2>合作边界说明</h2></div><p>品沐不做“保证增长”“百分百提升”这类绝对承诺。我们更重视诊断依据、行动优先级、执行节奏和复盘机制，帮助品牌提高增长决策的清晰度和确定性。</p></div>' +
     '</div><aside class="landing-aside"><div class="aside-card reveal"><h2>适合先做什么？</h2><p>' + page.proof + '</p><a class="btn btn-primary" href="' + localizeHref('/contact/?service=' + serviceParam) + '"><span>预约基础诊断</span></a></div><div class="aside-card reveal"><h2>联系方式</h2><p>' + SITE.contactLabel + '</p><p>' + SITE.contactNote + '</p></div></aside></div></section>' +
     ProofSection() +
@@ -403,7 +450,15 @@ function initReveal() {
       if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
     });
   }, { threshold: 0.12 });
-  nodes.forEach(function(node, index) { node.style.transitionDelay = Math.min(index % 6, 5) * 60 + 'ms'; observer.observe(node); });
+  nodes.forEach(function(node, index) {
+    node.style.transitionDelay = Math.min(index % 6, 5) * 60 + 'ms';
+    const rect = node.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.95) {
+      node.classList.add('is-visible');
+      return;
+    }
+    observer.observe(node);
+  });
 }
 
 function initCounters() {
