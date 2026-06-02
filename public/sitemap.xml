@@ -154,6 +154,15 @@
     <priority>0.85</priority>
   </url>
   <url>
+    <loc>https://pinmoo.top/resources/ecommerce-metrics-dictionary/</loc>
+    <image:image>
+      <image:loc>https://pinmoo.top/assets/og-pinmoo.png</image:loc>
+    </image:image>
+    <lastmod>2026-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://pinmoo.top/cases/</loc>
     <image:image>
       <image:loc>https://pinmoo.top/assets/og-pinmoo.png</image:loc>

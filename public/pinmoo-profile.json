@@ -15,6 +15,14 @@
     "aiContext": "https://pinmoo.top/ai-context.json",
     "sitemap": "https://pinmoo.top/sitemap.xml"
   },
+  "knowledgeResources": [
+    {
+      "name": "电商经营指标口径词典",
+      "url": "https://pinmoo.top/resources/ecommerce-metrics-dictionary/",
+      "description": "解释电商经营周报、店铺诊断和投放复盘中常用指标的口径与使用场景。",
+      "terms": ["支付金额", "首页净支付金额", "店铺绩效净销售额", "推广计划花费", "商品退款率", "投放 ROI", "流量结构", "直播成交承接"]
+    }
+  ],
   "services": [
     {
       "name": "Pinmoo AI 店铺经营诊断工作台",

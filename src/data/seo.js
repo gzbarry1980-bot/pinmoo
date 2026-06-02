@@ -3,6 +3,7 @@ import { services, serviceFaqs } from './services.js';
 import { cases } from './cases.js';
 import { CASE_EN, EN_TEXT } from './en-text.js';
 import { chinaEcommercePage, leadPages } from './lead-pages.js';
+import { metricDictionary } from './resources.js';
 
 const ORIGIN = SITE.domain;
 const logoUrl = ORIGIN + SITE.logo;
@@ -50,6 +51,17 @@ export const routeMeta = [
     priority: '0.85',
     changefreq: 'monthly'
   })),
+  {
+    path: metricDictionary.path,
+    file: 'resources/' + metricDictionary.slug + '/index.html',
+    title: metricDictionary.metaTitle,
+    description: metricDictionary.metaDescription,
+    name: metricDictionary.title,
+    resourceSlug: metricDictionary.slug,
+    keywords: metricDictionary.keywords,
+    priority: '0.75',
+    changefreq: 'monthly'
+  },
   {
     path: '/cases/',
     file: 'cases/index.html',
@@ -223,6 +235,8 @@ function routeImage(meta) {
 
 function routeKeywords(meta) {
   if (meta.keywords?.length) return meta.keywords.join(', ');
+  const resourcePage = resourcePageForMeta(meta);
+  if (resourcePage?.keywords?.length) return resourcePage.keywords.join(', ');
   if (meta.leadSlug) {
     const leadPage = leadPageForMeta(meta);
     if (leadPage?.searchIntent?.length) return leadPage.searchIntent.join(', ');
@@ -239,6 +253,11 @@ function routeKeywords(meta) {
 function leadPageForMeta(meta) {
   if (!meta.leadSlug) return null;
   return leadPages.find((page) => page.slug === meta.leadSlug) || (meta.leadSlug === chinaEcommercePage.slug ? chinaEcommercePage : null);
+}
+
+function resourcePageForMeta(meta) {
+  if (meta.resourceSlug === metricDictionary.slug) return metricDictionary;
+  return null;
 }
 
 function organizationNode() {
@@ -317,6 +336,8 @@ function breadcrumbNode(meta) {
     if (meta.path.startsWith('/cases/') && meta.path !== '/cases/') {
       items.push({ '@type': 'ListItem', position: 2, name: '项目经验', item: absolute('/cases/') });
       items.push({ '@type': 'ListItem', position: 3, name: meta.name, item: absolute(meta.path) });
+    } else if (meta.path.startsWith('/resources/')) {
+      items.push({ '@type': 'ListItem', position: 2, name: meta.name, item: absolute(meta.path) });
     } else if (meta.path.startsWith('/en/cases/') && meta.path !== '/en/cases/') {
       items.push({ '@type': 'ListItem', position: 2, name: caseName, item: absolute(casePath) });
       items.push({ '@type': 'ListItem', position: 3, name: meta.name, item: absolute(meta.path) });
@@ -428,6 +449,18 @@ function itemListNode(meta) {
 }
 
 function faqNode(meta) {
+  const resourcePage = resourcePageForMeta(meta);
+  if (resourcePage?.faqs?.length) {
+    return {
+      '@type': 'FAQPage',
+      '@id': absolute(meta.path) + '#faq',
+      mainEntity: resourcePage.faqs.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
+      }))
+    };
+  }
   const leadPage = leadPageForMeta(meta);
   if (leadPage) {
     return {
@@ -525,9 +558,33 @@ function softwareApplicationNode(meta) {
   };
 }
 
+function definedTermSetNode(meta) {
+  const resourcePage = resourcePageForMeta(meta);
+  if (!resourcePage) return null;
+  return {
+    '@type': 'DefinedTermSet',
+    '@id': absolute(meta.path) + '#terms',
+    name: resourcePage.title,
+    description: resourcePage.metaDescription,
+    url: absolute(meta.path),
+    inLanguage: 'zh-CN',
+    publisher: { '@id': ORIGIN + '/#organization' },
+    hasDefinedTerm: resourcePage.terms.map((term) => ({
+      '@type': 'DefinedTerm',
+      '@id': absolute(meta.path) + '#term-' + encodeURIComponent(term.name),
+      name: term.name,
+      alternateName: term.aliases,
+      description: term.definition,
+      termCode: term.category,
+      inDefinedTermSet: { '@id': absolute(meta.path) + '#terms' }
+    }))
+  };
+}
+
 function webPageNode(meta) {
+  const resourcePage = resourcePageForMeta(meta);
   const node = {
-    '@type': meta.caseSlug ? 'Article' : meta.path === '/contact/' ? 'ContactPage' : meta.path === '/about/' ? 'AboutPage' : meta.path === '/cases/' ? 'CollectionPage' : 'WebPage',
+    '@type': meta.caseSlug ? 'Article' : resourcePage ? 'CollectionPage' : meta.path === '/contact/' ? 'ContactPage' : meta.path === '/about/' ? 'AboutPage' : meta.path === '/cases/' ? 'CollectionPage' : 'WebPage',
     '@id': absolute(meta.path) + '#webpage',
     url: absolute(meta.path),
     name: meta.title,
@@ -546,13 +603,17 @@ function webPageNode(meta) {
   if (meta.aiTool) node.mainEntity = { '@id': absolute(meta.path) + '#software' };
   if (meta.leadSlug) node.mainEntity = { '@id': absolute(meta.path) + '#service' };
   if (meta.caseSlug) node.mainEntity = { '@id': absolute(meta.path) + '#article' };
+  if (resourcePage) {
+    node.mainEntity = { '@id': absolute(meta.path) + '#terms' };
+    node.mentions = resourcePage.terms.map((term) => term.name);
+  }
   return node;
 }
 
 export function jsonLdForRoute(meta) {
   const graph = [organizationNode(), websiteNode(), webPageNode(meta), breadcrumbNode(meta)];
   if (meta.path === '/' || meta.path === '/services/') graph.push(...serviceNodes());
-  const optional = [itemListNode(meta), leadServiceNode(meta), faqNode(meta), personNode(meta), caseArticleNode(meta), contactNode(meta), softwareApplicationNode(meta)].filter(Boolean);
+  const optional = [itemListNode(meta), leadServiceNode(meta), faqNode(meta), personNode(meta), caseArticleNode(meta), contactNode(meta), softwareApplicationNode(meta), definedTermSetNode(meta)].filter(Boolean);
   graph.push(...optional);
   return { '@context': 'https://schema.org', '@graph': graph };
 }

@@ -3,6 +3,7 @@ import { services, serviceFaqs, serviceModel, serviceModelIntro, serviceModelNam
 import { cases, caseFilters, reservedCases, getCaseBySlug } from './data/cases.js';
 import { CASE_EN, EN_TEXT, FILTER_EN_TO_CN } from './data/en-text.js';
 import { chinaEcommercePage, getLeadPageBySlug, leadPages, leadPathSteps, proofAssets } from './data/lead-pages.js';
+import { metricDictionary } from './data/resources.js';
 
 const root = document.getElementById('root');
 let requestedPathname = normalizePath(window.location.pathname);
@@ -35,6 +36,7 @@ function currentPathForLang(lang) {
   const isLeadLanding = pathname.indexOf('/services/') === 0 && getLeadPageBySlug(pathname.split('/')[2]);
   if (lang === 'en' && isLeadLanding) return '/en/china-ecommerce-consulting/';
   if (lang === 'zh' && pathname === '/china-ecommerce-consulting') return '/services/';
+  if (pathname.indexOf('/resources/') === 0) return pathname + '/';
   if (lang === 'en') return pathname === '/' ? '/en/' : '/en' + pathname + '/';
   return pathname === '/' ? '/' : pathname + '/';
 }
@@ -118,7 +120,8 @@ function Header() {
 }
 
 function Footer() {
-  const links = NAV_ITEMS.map(function(item) { return '<a href="' + localizeHref(item.href) + '">' + item.label + '</a>'; }).join('');
+  const resourceLink = '<a href="/resources/ecommerce-metrics-dictionary/">' + (isEn() ? 'Metric glossary' : '经营指标词典') + '</a>';
+  const links = NAV_ITEMS.map(function(item) { return '<a href="' + localizeHref(item.href) + '">' + item.label + '</a>'; }).join('') + resourceLink;
   return '<footer class="site-footer"><div class="container footer-grid"><div class="footer-brand">' + logo('logo-frame-footer') + '<p>' + SITE.company + '</p><p>专注电商战略咨询与品牌增长陪跑</p></div><div><h2>导航链接</h2><div class="footer-links">' + links + '</div></div><div><h2>联系方式</h2><p>' + SITE.contactLabel + '</p><p>' + SITE.address + '</p><p>' + SITE.contactNote + '</p></div></div><div class="footer-bottom">© 2026 ' + SITE.company + '. All rights reserved.</div></footer>';
 }
 
@@ -304,6 +307,31 @@ function ChinaEcommercePage() {
     CtaBand('How should your brand sell products in China?', 'Book a basic diagnosis and we will help clarify platform priority, product messaging and next-step actions.', 'Book a Diagnosis');
 }
 
+function MetricTermCard(term, index) {
+  const aliases = term.aliases.map(function(alias) { return '<span>' + alias + '</span>'; }).join('');
+  return '<article class="metric-term-card reveal" id="term-' + (index + 1) + '"><div class="metric-term-head"><span class="metric-term-index">0' + (index + 1) + '</span><div><small>' + term.category + '</small><h2>' + term.name + '</h2></div></div><div class="metric-aliases" aria-label="' + term.name + '常见说法">' + aliases + '</div><p class="metric-definition">' + term.definition + '</p><div class="metric-term-grid"><div><strong>' + icon('BookOpen', 18) + '周报使用</strong><p>' + term.reportUse + '</p></div><div><strong>' + icon('ShieldCheck', 18) + '注意口径</strong><p>' + term.caution + '</p></div><div><strong>' + icon('Target', 18) + '建议动作</strong><p>' + term.action + '</p></div></div></article>';
+}
+
+function ResourceMetricDictionary() {
+  const chips = metricDictionary.keywords.map(function(item) { return '<span>' + item + '</span>'; }).join('');
+  const intro = metricDictionary.introPoints.map(function(item, index) {
+    return '<div class="metric-intro-card reveal"><span>0' + (index + 1) + '</span><p>' + item + '</p></div>';
+  }).join('');
+  const terms = metricDictionary.terms.map(MetricTermCard).join('');
+  const faqs = metricDictionary.faqs.map(function(item) {
+    return '<div class="faq-item"><button type="button"><span>' + item.q + '</span>' + icon('ChevronDown', 18) + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>';
+  }).join('');
+  const anchors = metricDictionary.terms.map(function(term, index) {
+    return '<a href="#term-' + (index + 1) + '">' + term.name + '</a>';
+  }).join('');
+  return PageHero(metricDictionary.title, metricDictionary.subtitle, false, '<p class="hero-kicker">' + metricDictionary.eyebrow + '</p><div class="lead-keywords">' + chips + '</div>') +
+    '<section class="section metric-dictionary-section"><div class="container metric-intro-grid">' + intro + '</div><div class="container metric-dictionary-layout"><div class="metric-dictionary-main">' +
+    SectionIntro('经营报告先统一口径，再讨论增长动作', '支付金额、净销售额、退款率和投放 ROI 都不是孤立指标。品沐咨询在周报中会先说明口径，再结合商品、页面、客服、推广、直播和老客运营判断下一步动作。', 'left') +
+    '<div class="metric-term-list">' + terms + '</div></div><aside class="metric-dictionary-aside"><div class="aside-card reveal metric-anchor-card"><h2>指标目录</h2><div>' + anchors + '</div></div><div class="aside-card reveal metric-side-card"><h2>适合搭配查看</h2><p>如果你已经有生意参谋、推广、退款或直播数据，可以先体验经营诊断，再判断哪些指标值得重点追踪。</p><a class="outline-link" href="' + localizeHref('/ai-diagnosis/') + '">体验 AI 经营诊断 ' + icon('ArrowRight', 16) + '</a><a class="outline-link" href="' + localizeHref('/services/tmall-business-weekly-report/') + '">查看经营周报服务 ' + icon('ArrowRight', 16) + '</a><a class="outline-link" href="' + localizeHref('/services/business-advisor-data-diagnosis/') + '">查看数据诊断入口 ' + icon('ArrowRight', 16) + '</a></div></aside></div></section>' +
+    '<section class="section faq-section"><div class="container narrow-container">' + SectionIntro('指标口径常见问题') + '<div class="faq-list">' + faqs + '</div></div></section>' +
+    CtaBand('想把指标口径落到你自己的店铺数据里？', '可以先上传经营数据生成一版周报预览，再看哪些问题需要优先拆解到商品、页面、客服、推广、直播和老客运营。', '体验经营报告');
+}
+
 function ContactSuccess() {
   return PageHero(isEn() ? 'Inquiry Received' : '已收到你的咨询需求', isEn() ? 'You can also add WeChat / mobile 13600008584 and mention your purpose. We will reply as soon as possible.' : '你也可以直接添加微信 / 手机同号 13600008584，并注明来意，我们会尽快回复。', true) +
     '<section class="section success-section"><div class="container success-grid"><div class="reveal detail-block"><div class="detail-title">' + icon('CheckCircle2', 28) + '<h2>' + (isEn() ? 'Next Step' : '下一步') + '</h2></div><p>' + (isEn() ? 'If the request is urgent, add WeChat directly and mention China e-commerce consulting, store diagnosis, operation coaching or brand growth.' : '如果比较着急，可以直接扫码或添加微信，并注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长。') + '</p><div class="success-actions">' + ButtonLink(isEn() ? 'Back to Services' : '继续查看服务', '/services/', 'secondary', false) + ButtonLink(isEn() ? 'View Case Studies' : '查看项目经验', '/cases/', 'primary', false) + '</div></div><div class="reveal wechat-qr-card success-qr"><div class="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="沐风微信二维码" loading="lazy"></div><div><strong>' + (isEn() ? 'Scan to Add WeChat' : '扫码添加微信') + '</strong><p>' + SITE.phoneDisplay + '</p><span>' + SITE.contactNote + '</span></div></div></div></section>' +
@@ -364,6 +392,7 @@ function renderPage() {
   if (pathname === '/') return Home();
   if (pathname === '/contact/success') return ContactSuccess();
   if (pathname === '/china-ecommerce-consulting') return ChinaEcommercePage();
+  if (pathname === '/resources/ecommerce-metrics-dictionary') return ResourceMetricDictionary();
   if (pathname === '/services') return Services();
   if (pathname.indexOf('/services/') === 0) {
     const page = getLeadPageBySlug(pathname.split('/')[2]);

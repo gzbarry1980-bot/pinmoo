@@ -2090,6 +2090,86 @@ button:disabled,
   background: #fff;
 }
 
+.ops-board {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 10px 0 14px;
+}
+
+.ops-card {
+  min-height: 188px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+}
+
+.ops-card header {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.ops-card header b {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 12px;
+}
+
+.ops-card header span,
+.ops-card header em {
+  min-height: 24px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0 9px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.ops-card header em {
+  background: var(--surface-soft);
+  color: var(--body);
+}
+
+.ops-card strong {
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.ops-card p {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.ops-card footer {
+  display: grid;
+  gap: 5px;
+  margin-top: auto;
+  padding-top: 9px;
+  border-top: 1px dashed var(--line);
+}
+
+.ops-card footer span,
+.ops-card footer small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .report-issue-list p {
   margin: 4px 0;
 }
@@ -2764,6 +2844,7 @@ button:disabled,
   .boss-summary,
   .quality-box,
   .quality-box ul,
+  .ops-board,
   .quadrant-grid,
   .confidence-grid,
   .chart-grid,

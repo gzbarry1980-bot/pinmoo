@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.9.5 · 2026-06-02 · 文件复核筛选版';
+const appVersion = 'v0.9.6 · 2026-06-02 · 作战看板版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -1110,6 +1110,78 @@ function deliveryGradeHtml(diagnosis) {
         <span>${escapeHtml(grade.action)}</span>
       </div>
     </section>
+  `;
+}
+
+function actionBoardGroup(issueItem) {
+  const text = `${issueItem.title || ''} ${issueItem.owner || ''} ${issueItem.lever || ''}`;
+  if (/退款|售后|利润|差评|履约/.test(text)) return '退款售后';
+  if (/投放|推广|ROI|付费|预算|关键词|计划/.test(text)) return '推广投放';
+  if (/流量|渠道|搜索|推荐|入口/.test(text)) return '流量渠道';
+  if (/客服|承接|咨询|话术|响应/.test(text)) return '客服承接';
+  if (/私域|复购|老客|会员|回访/.test(text)) return '私域复购';
+  if (/内容|直播|种草|素材/.test(text)) return '内容直播';
+  if (/商品|SKU|货品|动销|页面|主图|详情|转化/.test(text)) return '商品页面';
+  if (/数据|口径|字段/.test(text)) return '数据口径';
+  return '经营动作';
+}
+
+function actionBoardKpi(issueItem) {
+  const text = `${issueItem.title || ''} ${issueItem.lever || ''}`;
+  if (/退款|售后|利润/.test(text)) return '退款金额 / 退款率 / 差评关键词';
+  if (/投放|推广|ROI|付费/.test(text)) return '花费 / ROI / 点击成交转化率';
+  if (/流量|渠道|搜索|推荐/.test(text)) return '访客 / UV价值 / 来源转化率';
+  if (/客服|承接|咨询/.test(text)) return '响应时长 / 询单转化 / 催付成交';
+  if (/私域|复购|老客|会员|回访/.test(text)) return '老客支付 / 主动回访 / 复购率';
+  if (/内容|直播|种草/.test(text)) return '观看点击率 / 商品点击 / 种草成交';
+  if (/商品|SKU|货品|动销/.test(text)) return '支付金额 / 动销率 / TOP SKU占比';
+  if (/数据|口径/.test(text)) return '字段来源 / 口径一致性 / 文件使用率';
+  return '销售额 / 转化率 / 净销售额';
+}
+
+function actionBoardRows(diagnosis) {
+  const seen = new Set();
+  return (diagnosis.issues || [])
+    .filter((item) => item && item.action)
+    .map((item) => ({
+      group: actionBoardGroup(item),
+      title: item.title,
+      owner: item.owner || '运营',
+      priority: item.priority || 0,
+      action: item.action,
+      validation: item.validation || '下周期复盘时核实动作是否完成，并对比核心指标变化。',
+      kpi: actionBoardKpi(item)
+    }))
+    .filter((item) => {
+      const key = `${item.group}-${item.owner}-${item.action}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .slice(0, 8);
+}
+
+function actionBoardHtml(diagnosis) {
+  const rows = actionBoardRows(diagnosis);
+  if (!rows.length) return '<p class="report-note">暂无可拆解执行动作，建议先补齐核心经营数据后重新生成。</p>';
+  return `
+    <div class="ops-board">
+      ${rows.map((item, index) => `
+        <section class="ops-card">
+          <header>
+            <b>${index + 1}</b>
+            <span>${escapeHtml(item.group)}</span>
+            <em>${escapeHtml(item.owner)}</em>
+          </header>
+          <strong>${escapeHtml(item.title)}</strong>
+          <p>${escapeHtml(item.action)}</p>
+          <footer>
+            <span>跟踪：${escapeHtml(item.kpi)}</span>
+            <small>${escapeHtml(item.validation)}</small>
+          </footer>
+        </section>
+      `).join('')}
+    </div>
   `;
 }
 
@@ -2645,6 +2717,9 @@ function renderReport(diagnosis) {
       `).join('')}
     </ol>
 
+    <h4>下周期作战看板</h4>
+    ${actionBoardHtml(diagnosis)}
+
     <h4>下周期执行计划</h4>
     <div class="report-actions-list">
       ${diagnosis.actions.map((group) => `
@@ -3043,6 +3118,9 @@ function reportText(diagnosis) {
       `   验证：${item.validation}`
     ].join('\n')),
     '',
+    '下周期作战看板',
+    ...actionBoardRows(diagnosis).map((item, index) => `${index + 1}. ${item.group}｜${item.owner}｜优先级 ${item.priority}\n   动作：${item.action}\n   跟踪指标：${item.kpi}\n   验收：${item.validation}`),
+    '',
     '下周期执行计划',
     ...diagnosis.actions.flatMap((group) => [`${group.period}：${group.title}`, ...group.tasks.map((task) => `- ${task}`)]),
     '',
@@ -3205,6 +3283,13 @@ function exportWord() {
     .visual-kpi-card i b { display: block; height: 100%; background: #115df6; }
     .visual-kpi-card p { font-size: 10px; margin-top: 6px; }
     .report-actions-list section, .quality-box { border: 1px solid #d0d7e2; padding: 10px; margin: 8px 0; }
+    .ops-board { display: table; width: 100%; border-spacing: 8px; margin: 8px 0 14px; }
+    .ops-card { display: inline-block; width: 46%; min-height: 172px; border: 1px solid #d0d7e2; background: #f8fbff; padding: 10px; margin: 0 8px 8px 0; vertical-align: top; }
+    .ops-card header b { display: inline-block; min-width: 22px; height: 22px; line-height: 22px; border-radius: 50%; background: #115df6; color: #ffffff; text-align: center; margin-right: 6px; }
+    .ops-card header span, .ops-card header em { display: inline-block; color: #115df6; font-size: 10px; font-style: normal; font-weight: 700; margin-right: 5px; }
+    .ops-card strong { display: block; margin: 8px 0 5px; color: #111827; }
+    .ops-card p { margin: 5px 0; }
+    .ops-card footer span, .ops-card footer small { display: block; color: #667085; font-size: 10px; }
     .boss-summary, .quality-box { background: #f8fbff; }
     .delivery-grade { display: table; width: 100%; border: 1px solid #d0d7e2; background: #f8fbff; padding: 12px; margin: 14px 0; }
     .delivery-grade.grade-a { border-color: #86efac; background: #f0fdf4; }

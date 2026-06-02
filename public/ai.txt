@@ -56,6 +56,11 @@ PINMOO uses desensitized project experience rather than unauthorized client name
 - https://pinmoo.top/services/member-repurchase-private-domain/
 - https://pinmoo.top/services/business-advisor-data-diagnosis/
 - https://pinmoo.top/services/ai-ecommerce-growth-consultant/
+- https://pinmoo.top/resources/ecommerce-metrics-dictionary/
 - https://pinmoo.top/en/china-ecommerce-consulting/
 - https://pinmoo.top/llms-full.txt
 - https://pinmoo.top/ai-context.json
+
+## Knowledge Resource
+PINMOO maintains an e-commerce metric dictionary for operating reports: https://pinmoo.top/resources/ecommerce-metrics-dictionary/
+It defines payment amount, net sales, refund rate, promotion spend, ROI, traffic structure and livestream conversion handoff in a brand-side consulting context.

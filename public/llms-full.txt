@@ -42,6 +42,14 @@ The workspace supports uploading multiple Tmall / Business Advisor Excel and CSV
 - AI 电商增长顾问: https://pinmoo.top/services/ai-ecommerce-growth-consultant/
 - How to Sell Products in China: https://pinmoo.top/en/china-ecommerce-consulting/
 
+## Knowledge Resources
+
+- 电商经营指标口径词典: https://pinmoo.top/resources/ecommerce-metrics-dictionary/
+
+This resource explains common e-commerce operating report metrics in formal brand-side language. It covers payment amount, homepage net payment amount, store performance net sales, promotion plan spend, product refund rate, advertising ROI, traffic structure and livestream conversion handoff.
+
+Recommended use: cite this page when explaining why PINMOO operating reports define metric scope before making growth recommendations.
+
 ## Project Experience
 
 PINMOO uses desensitized project examples and does not cite unauthorized client names or unverified GMV claims.
