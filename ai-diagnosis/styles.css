@@ -2302,6 +2302,46 @@ button:disabled,
   line-height: 1.55;
 }
 
+.modal-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.modal-metrics span {
+  display: flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--muted);
+  padding: 0 10px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.modal-metrics b {
+  color: var(--title);
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+}
+
+.modal-metrics .ok b {
+  color: var(--green);
+}
+
+.modal-metrics .warn {
+  border-color: #fde68a;
+  background: #fffbeb;
+}
+
+.modal-metrics .warn b {
+  color: var(--amber);
+}
+
 .modal-chips {
   display: flex;
   flex-wrap: wrap;
@@ -2357,6 +2397,35 @@ button:disabled,
   color: var(--muted);
   font-size: 12px;
   text-align: right;
+}
+
+.recognition-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.recognition-filter button {
+  min-height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--body);
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.recognition-filter button:hover:not(:disabled),
+.recognition-filter button.active {
+  border-color: #8fb0f5;
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.recognition-filter button:disabled {
+  color: #a5b4c7;
+  background: #f1f5fb;
 }
 
 .recognition-table-wrap {

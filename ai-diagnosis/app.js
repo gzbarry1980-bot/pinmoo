@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.9.4 · 2026-05-28 · 左右栏等高版';
+const appVersion = 'v0.9.5 · 2026-06-02 · 文件复核筛选版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -5179,6 +5179,10 @@ function summarizeImportModules(importSummary) {
   return Array.from(counts.entries()).map(([name, rows]) => ({ name, rows }));
 }
 
+function importFileNeedsReview(item) {
+  return item?.status === '未读取' || ['unknown', 'ignored'].includes(item?.dominantKind) || !item?.usedRows;
+}
+
 function importRecognitionHtml(importSummary = []) {
   if (!importSummary.length) {
     return `
@@ -5193,12 +5197,14 @@ function importRecognitionHtml(importSummary = []) {
   }
   const pageSize = 8;
   const pageCount = Math.ceil(importSummary.length / pageSize);
+  const reviewCount = importSummary.filter(importFileNeedsReview).length;
+  const readyCount = Math.max(0, importSummary.length - reviewCount);
   const options = reportKindOptions.map(([value, label]) => `<option value="${value}">${label}</option>`).join('');
   const rows = importSummary.map((item, index) => {
     const usageRate = item.rawRows ? item.usedRows / item.rawRows * 100 : 0;
-    const statusClass = item.status === '未读取' || ['unknown', 'ignored'].includes(item.dominantKind) || !item.usedRows ? 'warn' : 'ok';
+    const statusClass = importFileNeedsReview(item) ? 'warn' : 'ok';
     return `
-      <tr data-recognition-row="${index}">
+      <tr data-recognition-row="${index}" data-recognition-status="${statusClass}">
         <td><strong>${index + 1}. ${escapeHtml(item.name)}</strong><span>${escapeHtml(item.note || '-')}</span></td>
         <td><b class="recognition-badge ${statusClass}">${escapeHtml(reportKindLabel(item.dominantKind || 'unknown'))}</b></td>
         <td>${item.rawRows ? `${item.usedRows}/${item.rawRows}` : '-'}</td>
@@ -5225,6 +5231,11 @@ function importRecognitionHtml(importSummary = []) {
         <strong>文件识别结果确认</strong>
         <span>${importSummary.length} 个文件${pageCount > 1 ? `，每页 ${pageSize} 个` : ''}。如识别不准，可先修正类型再生成报告。</span>
       </div>
+      <div class="recognition-filter" data-recognition-filter>
+        <button type="button" class="active" data-recognition-filter-value="all">全部 ${importSummary.length}</button>
+        <button type="button" data-recognition-filter-value="review" ${reviewCount ? '' : 'disabled'}>需处理 ${reviewCount}</button>
+        <button type="button" data-recognition-filter-value="ready" ${readyCount ? '' : 'disabled'}>已使用 ${readyCount}</button>
+      </div>
       <div class="recognition-table-wrap">
         <table class="recognition-table">
           <thead><tr><th>文件</th><th>识别为</th><th>使用行</th><th>使用率</th><th>进入模块</th><th>人工修正</th></tr></thead>
@@ -5244,20 +5255,41 @@ function setupRecognitionPager(root = document) {
     const pageText = panel.querySelector('[data-recognition-page-text]');
     const prevButton = panel.querySelector('[data-recognition-prev]');
     const nextButton = panel.querySelector('[data-recognition-next]');
+    const filterButtons = Array.from(panel.querySelectorAll('[data-recognition-filter-value]'));
     let page = 0;
+    let filter = 'all';
+
+    const rowMatchesFilter = (row) => {
+      if (filter === 'review') return row.dataset.recognitionStatus === 'warn';
+      if (filter === 'ready') return row.dataset.recognitionStatus === 'ok';
+      return true;
+    };
 
     const renderPage = () => {
-      const pageCount = Math.max(1, Math.ceil(rows.length / pageSize));
+      const visibleRows = rows.filter(rowMatchesFilter);
+      const pageCount = Math.max(1, Math.ceil(visibleRows.length / pageSize));
       page = Math.max(0, Math.min(page, pageCount - 1));
-      rows.forEach((row, index) => {
-        row.hidden = index < page * pageSize || index >= (page + 1) * pageSize;
+      rows.forEach((row) => {
+        const index = visibleRows.indexOf(row);
+        row.hidden = index < 0 || index < page * pageSize || index >= (page + 1) * pageSize;
+      });
+      filterButtons.forEach((button) => {
+        button.classList.toggle('active', button.dataset.recognitionFilterValue === filter);
       });
       if (!pager) return;
-      if (pageText) pageText.textContent = `第 ${page + 1} / ${pageCount} 页`;
+      if (pageText) pageText.textContent = visibleRows.length ? `第 ${page + 1} / ${pageCount} 页` : '无文件';
       if (prevButton) prevButton.disabled = page <= 0;
       if (nextButton) nextButton.disabled = page >= pageCount - 1;
     };
 
+    filterButtons.forEach((button) => {
+      button.onclick = () => {
+        if (button.disabled) return;
+        filter = button.dataset.recognitionFilterValue || 'all';
+        page = 0;
+        renderPage();
+      };
+    });
     if (prevButton) prevButton.onclick = () => {
       page -= 1;
       renderPage();
@@ -5280,14 +5312,23 @@ function openImportConfirmModal(meta) {
   if (!modal) return;
   clearImportConfirmErrors();
   const suggestion = meta.suggestions || {};
+  const fileSummaries = meta.fileSummaries || [];
+  const reviewCount = fileSummaries.filter(importFileNeedsReview).length;
+  const readyCount = Math.max(0, fileSummaries.length - reviewCount);
   const skipped = meta.skippedFiles?.length ? `，${meta.skippedFiles.length} 个文件未读取` : '';
   $('#importConfirmText').textContent = `已导入 ${meta.fileCount} 个文件、${meta.rowCount} 行数据${skipped}。可继续追加下一批文件，或确认店铺信息后生成${meta.reportType}。`;
   $('#modalImportSummary').innerHTML = `
     <strong>系统识别建议</strong>
     <p>店铺：${escapeHtml(suggestion.storeName || '待填写')}；类目：${escapeHtml(suggestion.industry || '待选择')}；平台：${escapeHtml(suggestion.platform || selectedPlatform)}；报告：${escapeHtml(suggestion.reportType || meta.reportType)}。</p>
+    <div class="modal-metrics">
+      <span><b>${meta.fileCount || fileSummaries.length}</b>文件</span>
+      <span><b>${Math.round(meta.rowCount || 0).toLocaleString('zh-CN')}</b>行数据</span>
+      <span class="${reviewCount ? 'warn' : 'ok'}"><b>${reviewCount}</b>需处理</span>
+      <span><b>${readyCount}</b>已使用</span>
+    </div>
     <div class="modal-chips">${importModuleChips(meta.modules)}</div>
   `;
-  $('#modalRecognitionPanel').innerHTML = importRecognitionHtml(meta.fileSummaries || []);
+  $('#modalRecognitionPanel').innerHTML = importRecognitionHtml(fileSummaries);
   document.querySelectorAll('[data-import-kind]').forEach((select) => {
     const file = select.getAttribute('data-import-kind');
     const summary = (meta.fileSummaries || []).find((item) => item.name === file);
