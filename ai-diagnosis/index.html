@@ -13,12 +13,12 @@
     <meta property="og:url" content="https://pinmoo.top/ai-diagnosis/" />
     <meta property="og:image" content="https://pinmoo.top/assets/og-pinmoo.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260602-ops-board" />
+    <link rel="stylesheet" href="./styles.css?v=20260608-site-return" />
   </head>
   <body>
     <div class="app-shell">
       <aside class="sidebar" aria-label="功能导航">
-        <a class="brand" href="./index.html" aria-label="Pinmoo AI 店铺经营诊断首页">
+        <a class="brand" href="/" aria-label="返回品沐咨询官网首页">
           <span class="brand-mark" aria-hidden="true">
             <svg viewBox="0 0 28 28">
               <rect x="4" y="14" width="4" height="8" rx="1.4"></rect>
@@ -31,6 +31,8 @@
             <em>电商增长智能体</em>
           </span>
         </a>
+
+        <a class="sidebar-home-link" href="/">返回品沐官网首页</a>
 
         <nav class="nav-list">
           <a class="active" href="#diagnosis"><span>01</span>电商经营报告</a>
@@ -53,13 +55,14 @@
           <div>
             <span>当前工作空间</span>
             <strong>品沐咨询团队</strong>
-            <em class="version-badge" id="appVersion">v0.9.6 · 2026-06-02 · 作战看板版</em>
+            <em class="version-badge" id="appVersion">v0.9.7 · 2026-06-08 · 官网互通修复版</em>
           </div>
           <label class="search-box">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
             <input id="historySearch" type="search" placeholder="搜索店铺、平台、行业或结论" />
           </label>
           <div class="topbar-actions">
+            <a class="tool-btn site-home-action" href="/">官网首页</a>
             <button id="importHistory" class="tool-btn" type="button">导入历史</button>
             <button id="exportHistory" class="tool-btn" type="button">导出历史</button>
             <input id="historyFile" type="file" accept="application/json" hidden />
@@ -412,6 +415,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js?v=20260602-ops-board"></script>
+    <script src="./app.js?v=20260608-site-return"></script>
   </body>
 </html>

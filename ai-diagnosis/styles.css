@@ -98,6 +98,26 @@ button { cursor: pointer; }
   font-weight: 800;
 }
 
+.sidebar-home-link {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius);
+  background: var(--blue-soft);
+  color: var(--blue);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 900;
+  transition: border-color 180ms var(--ease), background 180ms var(--ease);
+}
+
+.sidebar-home-link:hover {
+  border-color: #8fb0f5;
+  background: #dbeafe;
+}
+
 .nav-list {
   display: grid;
   gap: 8px;
@@ -634,6 +654,14 @@ legend,
 .danger-btn {
   min-height: 38px;
   padding: 0 14px;
+}
+
+.site-home-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--blue);
+  text-decoration: none;
 }
 
 .platform-tabs button:hover,

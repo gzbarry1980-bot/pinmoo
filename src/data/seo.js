@@ -9,7 +9,7 @@ const ORIGIN = SITE.domain;
 const logoUrl = ORIGIN + SITE.logo;
 const ogUrl = ORIGIN + SITE.ogImage;
 const phone = '+86-13600008584';
-const contentDate = '2026-06-02';
+const contentDate = '2026-06-08';
 
 export const routeMeta = [
   {

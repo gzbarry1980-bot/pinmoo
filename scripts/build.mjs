@@ -6,6 +6,7 @@ import { SITE } from '../src/data/site.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
+await fs.rm(dist, { recursive: true, force: true });
 await fs.mkdir(dist, { recursive: true });
 
 function fakeNode() {
@@ -131,6 +132,18 @@ function upsertHead(html, meta) {
   return next;
 }
 
+function assertValidHtml(html, meta) {
+  if (!/<meta charset="UTF-8"\s*\/?>/i.test(html)) {
+    throw new Error('Missing UTF-8 charset in ' + meta.file);
+  }
+  if (!/<title>[\s\S]*?<\/title>/i.test(html)) {
+    throw new Error('Malformed title tag in ' + meta.file);
+  }
+  if (!meta.aiTool && !html.includes('<main id="main-content">')) {
+    throw new Error('Missing prerendered main content in ' + meta.file);
+  }
+}
+
 const topLevel = ['index.html', 'services', 'cases', 'about', 'contact', 'ai-diagnosis', 'public'];
 for (const item of topLevel) await copy(path.join(root, item), path.join(dist, item === 'public' ? '' : item));
 for (const staleAsset of ['assets/cases/generated-case-sheet.png']) {
@@ -139,23 +152,24 @@ for (const staleAsset of ['assets/cases/generated-case-sheet.png']) {
 await copy(path.join(root, 'src/static-main.js'), path.join(dist, 'src/static-main.js'));
 await copy(path.join(root, 'src/styles.css'), path.join(dist, 'src/styles.css'));
 await copy(path.join(root, 'src/data'), path.join(dist, 'src/data'));
+const siteTemplate = await fs.readFile(path.join(root, 'index.html'), 'utf8');
 
 for (const meta of routeMeta) {
   const htmlPath = path.join(dist, meta.file);
-  let html;
-  try {
-    html = await fs.readFile(htmlPath, 'utf8');
-  } catch {
-    html = await fs.readFile(path.join(root, 'index.html'), 'utf8');
-    await fs.mkdir(path.dirname(htmlPath), { recursive: true });
+  await fs.mkdir(path.dirname(htmlPath), { recursive: true });
+  let html = meta.aiTool
+    ? await fs.readFile(htmlPath, 'utf8')
+    : siteTemplate;
+  if (!meta.aiTool) {
+    const rendered = await prerender(meta.path);
+    html = html.replace(/<div id="root">[\s\S]*?<\/div>\s*(<script type="module" src="\/src\/static-main\.js"><\/script>)/, () => '<div id="root">' + rendered + '</div>\n    <script type="module" src="/src/static-main.js"></script>');
   }
-  const rendered = await prerender(meta.path);
-  html = html.replace(/<div id="root">[\s\S]*?<\/div>\s*(<script type="module" src="\/src\/static-main\.js"><\/script>)/, () => '<div id="root">' + rendered + '</div>\n    <script type="module" src="/src/static-main.js"></script>');
   html = upsertHead(html, meta);
+  assertValidHtml(html, meta);
   await fs.writeFile(htmlPath, html, 'utf8');
 }
 
-const today = process.env.SITEMAP_LASTMOD || '2026-06-02';
+const today = process.env.SITEMAP_LASTMOD || '2026-06-08';
 const origin = SITE.domain;
 function sitemapUrl(loc, changefreq, priority, image) {
   const imageBlock = image

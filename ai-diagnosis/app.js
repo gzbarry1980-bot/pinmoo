@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.9.6 · 2026-06-02 · 作战看板版';
+const appVersion = 'v0.9.7 · 2026-06-08 · 官网互通修复版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
