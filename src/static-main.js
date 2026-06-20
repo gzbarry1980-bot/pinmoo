@@ -143,6 +143,53 @@ function CtaBand(title, text, button) {
   return '<div class="container"><div class="reveal cta-band-wrap"><section class="cta-band"><div class="cta-band-icon">' + icon('MessageCircle', 34) + '</div><div class="cta-band-text"><h2>' + t + '</h2><p>' + p + '</p></div><div class="cta-band-contact"><strong>' + SITE.contactLabel + '</strong><span>' + SITE.contactNote + '</span></div>' + ButtonLink(button || '预约咨询', '/contact/', 'primary', false) + '</section></div></div>';
 }
 
+function HomeInquirySection() {
+  const cards = [
+    {
+      icon: 'Search',
+      title: '不知道问题先从哪拆',
+      text: '适合增长乏力、团队各说各话、老板需要先判断优先级的品牌。',
+      href: '/services/ecommerce-diagnosis/',
+      cta: '看电商战略诊断'
+    },
+    {
+      icon: 'Store',
+      title: '有流量但成交承接弱',
+      text: '适合主图详情页、SKU、客服、评价和店铺首页都需要重新梳理的项目。',
+      href: '/services/store-diagnosis/',
+      cta: '看店铺诊断'
+    },
+    {
+      icon: 'BarChart3',
+      title: '数据很多但复盘不清',
+      text: '适合每周要看支付、净销售额、退款、推广 ROI 和商品风险的运营团队。',
+      href: '/services/business-advisor-data-diagnosis/',
+      cta: '看数据诊断'
+    },
+    {
+      icon: 'MessageCircle',
+      title: '想先确认是否值得合作',
+      text: '直接添加微信，发品牌、平台、当前问题和希望先看的方向，先做基础判断。',
+      href: '/contact/',
+      cta: '发起基础诊断'
+    }
+  ].map(function(item) {
+    return '<article class="inquiry-path-card reveal"><div>' + icon(item.icon, 26) + '<h3>' + item.title + '</h3></div><p>' + item.text + '</p><a class="outline-link" href="' + localizeHref(item.href) + '">' + item.cta + ' ' + icon('ArrowRight', 16) + '</a></article>';
+  }).join('');
+  return '<section class="section inquiry-path-section"><div class="container">' + SectionIntro('先从一个具体问题进入，询盘会更有效', '如果你暂时不知道该买什么服务，可以先按当前最像自己的问题进入。品沐会先帮你判断问题是否清楚、是否值得优先解决、下一步该看哪些资料。') + '<div class="inquiry-path-grid">' + cards + '</div></div></section>';
+}
+
+function FirstDiagnosisSection() {
+  const items = [
+    ['你发来什么', '品牌/店铺名称、主要平台、当前最想解决的问题、可公开的店铺或商品链接。', 'FilePenLine'],
+    ['我们先看什么', '平台路径、商品与页面、流量质量、退款风险、客服承接和团队复盘节奏。', 'Target'],
+    ['你会得到什么', '一个初步判断：问题优先级、建议先看资料、是否适合进一步诊断或陪跑。', 'CheckCircle2']
+  ].map(function(item, index) {
+    return '<div class="diagnosis-step reveal"><span>0' + (index + 1) + '</span>' + icon(item[2], 28) + '<h3>' + item[0] + '</h3><p>' + item[1] + '</p></div>';
+  }).join('');
+  return '<section class="section first-diagnosis-section"><div class="container first-diagnosis-layout"><div class="reveal first-diagnosis-copy"><p class="section-eyebrow">低门槛开始</p><h2>先做一次免费基础判断，再决定是否深入合作</h2><p>很多品牌迟迟没有咨询，是因为不知道该怎么描述问题。你不用先准备完整方案，只要把现状说清楚一点，我们会先帮你判断下一步该从哪里切入。</p>' + ButtonLink('去联系页发起诊断', '/contact/', 'primary', true) + '</div><div class="first-diagnosis-grid">' + items + '</div></div></section>';
+}
+
 function ServiceCard(service) {
   return '<article class="service-card"><div class="card-icon">' + icon(service.icon, 28) + '</div><h3>' + service.title + '</h3><p>' + service.short + '</p><a href="' + localizeHref('/contact/') + '" class="text-link">了解更多 ' + icon('ArrowRight', 16) + '</a></article>';
 }
@@ -161,7 +208,7 @@ function Home() {
   const serviceGrid = services.map(function(service, index) { return '<div class="reveal ' + (index === 0 || index === 1 ? 'bento-large' : '') + '">' + ServiceCard(service) + '</div>'; }).join('');
   const methods = METHODOLOGY.map(function(step, index) { return '<div class="reveal method-step"><span class="step-index">0' + (index + 1) + '</span><div class="method-icon">' + icon(step.icon, 32) + '</div><h3>' + step.title + '</h3><strong>' + step.text + '</strong><p>' + step.detail + '</p></div>'; }).join('');
   const previewCases = cases.slice(0, 4).map(function(item) { return '<div class="reveal">' + CaseCard(item) + '</div>'; }).join('');
-  return '<section class="home-hero"><div class="hero-grid-bg"></div><div class="container home-hero-inner"><div class="reveal hero-copy"><p class="hero-kicker">' + (isEn() ? 'China e-commerce diagnosis / AI review' : 'AI 电商经营周报 / 运营陪跑') + '</p><h1>让电商增长更有章法</h1><p class="hero-subtitle">品沐咨询专注电商战略诊断、经营周报自动生成与运营陪跑，帮助品牌从平台、商品、内容、投放到转化，搭建可持续增长路径。</p><p class="hero-support">先用数据看清净销售额、退款、流量和投放效率，再把下周期动作拆到商品、页面、客服、推广、直播和老客运营。</p><div class="hero-actions">' + ButtonLink('体验经营报告', '/ai-diagnosis/', 'primary', false) + ButtonLink('预约诊断', '/contact/', 'secondary', false) + '</div></div><div class="reveal hero-visual-wrap">' + DashboardVisual() + '</div></div></section><section class="section trust-section"><div class="container">' + SectionIntro('服务多个消费品牌，覆盖主流电商平台', '覆盖天猫、京东、抖音、小红书、视频号、拼多多等主流平台，服务行业包括茶饮、服饰、营养品、个护电器、快消品、酒水等。') + '<div class="stats-grid">' + stats + '</div></div></section><section class="section services-preview" id="services"><div class="container split-heading">' + SectionIntro('围绕品牌电商增长，我们提供从诊断到落地的系统服务', '把平台、商品、内容、投放、转化和复购放在同一套增长链路里看，而不是只解决单点问题。', 'left') + '</div><div class="container bento-grid">' + serviceGrid + '</div></section><section class="section method-section"><div class="container">' + SectionIntro('我们用一套可落地的方法，拆解电商增长问题', '品沐咨询不是只给方向，而是通过诊断、策略、执行陪跑和复盘机制，把复杂的电商增长问题拆成可执行动作。') + '<div class="method-line">' + methods + '</div></div></section><section class="section cases-preview" id="cases"><div class="container">' + SectionIntro('真实项目经验，沉淀可复用的增长方法', '每一个项目，都来自品牌在平台经营、内容表达、页面转化、投放复盘或用户承接中的真实问题。') + '<div class="home-case-grid">' + previewCases + '</div><div class="center-actions">' + ButtonLink('查看全部项目经验', '/cases/', 'primary', true) + '</div></div></section><section class="section about-preview"><div class="container about-preview-grid"><div class="reveal"><h2>更懂实战，也懂 AI 工具的电商增长伙伴</h2><p>品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，基于多年天猫、京东、抖音、小红书、私域运营经验，结合大模型工具，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。</p>' + ButtonLink('了解品沐', '/about/', 'primary', true) + '</div><div class="reveal office-visual"><img src="/assets/about-brand.svg" alt="品沐咨询品牌展示" loading="lazy"></div></div></section>' + CtaBand();
+  return '<section class="home-hero"><div class="hero-grid-bg"></div><div class="container home-hero-inner"><div class="reveal hero-copy"><p class="hero-kicker">' + (isEn() ? 'China e-commerce diagnosis / AI review' : '免费基础诊断 / AI 电商经营周报') + '</p><h1>先找准电商增长卡点，再决定怎么花钱</h1><p class="hero-subtitle">品沐咨询帮助品牌从平台、商品、页面、投放、客服、直播和复购中找出真正影响增长的环节，先判断优先级，再进入诊断、陪跑或专项优化。</p><p class="hero-support">你可以先发来品牌、平台和当前问题，我们会做一次基础判断：问题是否清楚、资料是否足够、下一步该从哪里切入。</p><div class="hero-actions">' + ButtonLink('免费基础诊断', '/contact/', 'primary', false) + ButtonLink('体验经营报告', '/ai-diagnosis/', 'secondary', false) + '</div><div class="hero-proof-row"><span>24小时内回复</span><span>先判断是否适合合作</span><span>不做绝对增长承诺</span></div></div><div class="reveal hero-visual-wrap">' + DashboardVisual() + '</div></div></section><section class="section trust-section"><div class="container">' + SectionIntro('服务多个消费品牌，覆盖主流电商平台', '覆盖天猫、京东、抖音、小红书、视频号、拼多多等主流平台，服务行业包括茶饮、服饰、营养品、个护电器、快消品、酒水等。') + '<div class="stats-grid">' + stats + '</div></div></section>' + HomeInquirySection() + '<section class="section services-preview" id="services"><div class="container split-heading">' + SectionIntro('围绕品牌电商增长，我们提供从诊断到落地的系统服务', '把平台、商品、内容、投放、转化和复购放在同一套增长链路里看，而不是只解决单点问题。', 'left') + '</div><div class="container bento-grid">' + serviceGrid + '</div></section>' + FirstDiagnosisSection() + '<section class="section method-section"><div class="container">' + SectionIntro('我们用一套可落地的方法，拆解电商增长问题', '品沐咨询不是只给方向，而是通过诊断、策略、执行陪跑和复盘机制，把复杂的电商增长问题拆成可执行动作。') + '<div class="method-line">' + methods + '</div></div></section><section class="section cases-preview" id="cases"><div class="container">' + SectionIntro('真实项目经验，沉淀可复用的增长方法', '每一个项目，都来自品牌在平台经营、内容表达、页面转化、投放复盘或用户承接中的真实问题。') + '<div class="home-case-grid">' + previewCases + '</div><div class="center-actions">' + ButtonLink('查看全部项目经验', '/cases/', 'primary', true) + '</div></div></section><section class="section about-preview"><div class="container about-preview-grid"><div class="reveal"><h2>更懂实战，也懂 AI 工具的电商增长伙伴</h2><p>品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，基于多年天猫、京东、抖音、小红书、私域运营经验，结合大模型工具，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。</p>' + ButtonLink('了解品沐', '/about/', 'primary', true) + '</div><div class="reveal office-visual"><img src="/assets/about-brand.svg" alt="品沐咨询品牌展示" loading="lazy"></div></div></section>' + CtaBand('不确定该先做诊断、陪跑还是页面优化？', '先把品牌、平台和当前问题发给我们。品沐会先帮你做基础判断，再建议是否进入正式诊断或专项合作。', '免费基础诊断');
 }
 
 function Services() {
@@ -373,7 +420,14 @@ function About() {
 function ContactForm() {
   const intents = ['电商咨询', '店铺诊断', '运营陪跑', '品牌增长', '官网咨询'].map(function(item) { return '<span>' + item + '</span>'; }).join('');
   const servicesList = services.map(function(service) { return '<li>' + icon(service.icon, 20) + '<span>' + service.title + '</span></li>'; }).join('');
-  return '<section class="contact-direct-panel" aria-labelledby="wechatConsultTitle"><div class="form-heading">' + icon('MessageCircle', 26) + '<h2 id="wechatConsultTitle">扫码添加微信，直接预约咨询</h2></div><div class="direct-qr-block"><div class="wechat-qr-crop direct-qr"><img src="/assets/wechat-qr-mufeng.jpg" alt="沐风微信二维码" loading="lazy"></div><div><strong>微信 / 手机同号：' + SITE.phoneDisplay + '</strong><p>添加微信或拨打电话时，请注明来意，我们会更快判断你的需求并安排沟通。</p><div class="direct-intents">' + intents + '</div><a class="direct-phone-link" href="tel:' + SITE.phone + '">' + icon('Phone', 18) + '拨打电话</a></div></div><div class="direct-service-box"><h3>可以直接咨询这些问题</h3><ul>' + servicesList + '</ul></div><p class="direct-note">建议添加微信后，简单发送：品牌/店铺名称、所在平台、当前最想解决的问题。</p></section>';
+  const templates = [
+    ['基础诊断', '品牌/店铺：___；主要平台：天猫/京东/抖音/小红书；当前问题：有流量但转化低/退款高/投放不稳；希望先看：店铺诊断。'],
+    ['经营周报', '我们有生意参谋/推广/退款数据，想生成一版品牌方可读的经营周报，重点看净销售额、退款、流量结构和下周期动作。'],
+    ['运营陪跑', '品牌目前有运营团队，但缺少外部复盘和优先级判断，想了解月度顾问陪跑如何合作。']
+  ].map(function(item) {
+    return '<article><strong>' + item[0] + '</strong><p>' + item[1] + '</p></article>';
+  }).join('');
+  return '<section class="contact-direct-panel" aria-labelledby="wechatConsultTitle"><div class="form-heading">' + icon('MessageCircle', 26) + '<h2 id="wechatConsultTitle">扫码添加微信，直接预约咨询</h2></div><div class="direct-qr-block"><div class="wechat-qr-crop direct-qr"><img src="/assets/wechat-qr-mufeng.jpg" alt="沐风微信二维码" loading="lazy"></div><div><strong>微信 / 手机同号：' + SITE.phoneDisplay + '</strong><p>添加微信或拨打电话时，请注明来意，我们会更快判断你的需求并安排沟通。</p><div class="direct-intents">' + intents + '</div><a class="direct-phone-link" href="tel:' + SITE.phone + '">' + icon('Phone', 18) + '拨打电话</a></div></div><div class="direct-service-box"><h3>可以直接咨询这些问题</h3><ul>' + servicesList + '</ul></div><div class="inquiry-template-box"><h3>不知道怎么开口，可以直接这样发</h3><div>' + templates + '</div></div><p class="direct-note">建议添加微信后，至少发送：品牌/店铺名称、所在平台、当前最想解决的问题、希望先看的方向。</p></section>';
 }
 
 function Contact() {
@@ -381,7 +435,7 @@ function Contact() {
     const content = item[0].indexOf('手机') >= 0 ? '<a href="tel:' + SITE.phone + '">' + item[1] + '</a>' : item[0] === '公司地址' ? '<a href="' + SITE.mapUrl + '" target="_blank" rel="noopener">' + item[1] + '</a><p class="map-hint">点击查看地图定位</p>' : '<p>' + item[1] + '</p>';
     return '<div class="contact-info-row"><span>' + icon(item[2], 26) + '</span><div><h2>' + item[0] + '</h2>' + content + '</div></div>';
   }).join('');
-  return PageHero('联系我们', '如果你正在思考品牌电商下一步怎么做，可以先和品沐聊一聊。', true) + '<section class="section contact-section"><div class="container contact-grid"><div class="reveal contact-info-panel">' + contactItems + '<div class="wechat-qr-card"><div class="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="沐风微信二维码" loading="lazy"></div><div><strong>扫码添加微信</strong><p>微信 / 手机同号：' + SITE.phoneDisplay + '</p><span>添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长</span></div></div><div class="contact-promise-grid"><div>' + icon('Zap', 24) + '<strong>快速沟通</strong><span>直连顾问高效响应</span></div><div>' + icon('Target', 24) + '<strong>明确需求</strong><span>精准匹配解决方案</span></div><div>' + icon('ShieldCheck', 24) + '<strong>24小时内回复</strong><span>工作日内快速跟进</span></div></div></div><div class="reveal">' + ContactForm() + '</div></div></section><section class="section contact-bottom-section"><div class="container two-question-grid"><div class="reveal question-card">' + icon('CircleUserRound', 32) + '<h2>适合什么品牌咨询？</h2><p>适合有电商增长需求的品牌方，包括：初创品牌、成熟品牌、电商品牌、传统品牌电商化等，无论处于哪个阶段，品沐都提供匹配的解决方案。</p></div><div class="reveal question-card">' + icon('FilePenLine', 32) + '<h2>是否可以先做基础诊断？</h2><p>可以。我们提供免费基础诊断服务，帮助你快速了解店铺现状与增长机会，再决定是否深入合作。</p></div></div></section>' + CtaBand('你的品牌，下一步该先优化哪里？', '直接扫码或添加微信联系。我们会从平台、商品、流量、转化和团队执行五个维度，帮你判断最值得优先解决的问题。', '扫码咨询');
+  return PageHero('联系我们', '先发来品牌、平台和当前问题。品沐会做一次基础判断，帮你确认下一步适合做店铺诊断、经营周报、运营陪跑还是专项优化。', true) + '<section class="section contact-section"><div class="container contact-grid"><div class="reveal contact-info-panel">' + contactItems + '<div class="wechat-qr-card"><div class="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="沐风微信二维码" loading="lazy"></div><div><strong>扫码添加微信</strong><p>微信 / 手机同号：' + SITE.phoneDisplay + '</p><span>添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长</span></div></div><div class="contact-promise-grid"><div>' + icon('Zap', 24) + '<strong>快速沟通</strong><span>直连顾问高效响应</span></div><div>' + icon('Target', 24) + '<strong>明确需求</strong><span>精准匹配解决方案</span></div><div>' + icon('ShieldCheck', 24) + '<strong>24小时内回复</strong><span>工作日内快速跟进</span></div></div></div><div class="reveal">' + ContactForm() + '</div></div></section><section class="section contact-bottom-section"><div class="container two-question-grid"><div class="reveal question-card">' + icon('CircleUserRound', 32) + '<h2>适合什么品牌咨询？</h2><p>适合有电商增长需求的品牌方，包括：初创品牌、成熟品牌、电商品牌、传统品牌电商化等。尤其适合增长遇到瓶颈、转化不稳、退款偏高、投放复盘不清或团队需要外部顾问的项目。</p></div><div class="reveal question-card">' + icon('FilePenLine', 32) + '<h2>是否可以先做基础诊断？</h2><p>可以。基础诊断先判断问题是否清楚、资料是否足够、下一步是否值得进入正式诊断或陪跑，避免一上来就做大方案。</p></div></div></section>' + CtaBand('你的品牌，下一步该先优化哪里？', '直接扫码或添加微信联系。我们会从平台、商品、流量、转化和团队执行五个维度，帮你判断最值得优先解决的问题。', '扫码咨询');
 }
 
 function FloatingContact() {

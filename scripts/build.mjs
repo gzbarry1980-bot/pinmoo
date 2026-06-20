@@ -144,6 +144,18 @@ function assertValidHtml(html, meta) {
   }
 }
 
+async function syncSourceShell(meta) {
+  if (meta.aiTool) return;
+  const sourcePath = path.join(root, meta.file);
+  const stat = await fs.stat(sourcePath).catch(() => null);
+  if (!stat || !stat.isFile()) return;
+  const html = upsertHead(siteTemplate, meta);
+  if (!/<meta charset="UTF-8"\s*\/?>/i.test(html) || !/<title>[\s\S]*?<\/title>/i.test(html)) {
+    throw new Error('Invalid source shell for ' + meta.file);
+  }
+  await fs.writeFile(sourcePath, html, 'utf8');
+}
+
 const topLevel = ['index.html', 'services', 'cases', 'about', 'contact', 'ai-diagnosis', 'public'];
 for (const item of topLevel) await copy(path.join(root, item), path.join(dist, item === 'public' ? '' : item));
 for (const staleAsset of ['assets/cases/generated-case-sheet.png']) {
@@ -169,7 +181,7 @@ for (const meta of routeMeta) {
   await fs.writeFile(htmlPath, html, 'utf8');
 }
 
-const today = process.env.SITEMAP_LASTMOD || '2026-06-08';
+const today = process.env.SITEMAP_LASTMOD || '2026-06-21';
 const origin = SITE.domain;
 function sitemapUrl(loc, changefreq, priority, image) {
   const imageBlock = image
@@ -195,5 +207,7 @@ const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://w
   '\n</urlset>\n';
 await fs.writeFile(path.join(dist, 'sitemap.xml'), sitemap, 'utf8');
 await fs.writeFile(path.join(root, 'public', 'sitemap.xml'), sitemap, 'utf8');
+
+for (const meta of routeMeta) await syncSourceShell(meta);
 
 console.log('Built static SEO/GEO site to dist');

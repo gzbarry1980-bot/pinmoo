@@ -9,14 +9,14 @@ const ORIGIN = SITE.domain;
 const logoUrl = ORIGIN + SITE.logo;
 const ogUrl = ORIGIN + SITE.ogImage;
 const phone = '+86-13600008584';
-const contentDate = '2026-06-08';
+const contentDate = '2026-06-21';
 
 export const routeMeta = [
   {
     path: '/',
     file: 'index.html',
-    title: '品沐咨询 pinmoo｜电商战略咨询与品牌增长陪跑',
-    description: '品沐咨询 pinmoo 是面向传统品牌与电商企业的AI电商增长顾问公司，结合天猫、京东、抖音、小红书、私域运营经验与大模型工具，提供经营诊断、内容生产、客服承接、私域激活与数据复盘服务。',
+    title: '品沐咨询 pinmoo｜电商诊断、运营陪跑与AI经营周报',
+    description: '品沐咨询 pinmoo 面向传统品牌与电商企业，提供免费基础诊断、电商战略诊断、店铺诊断、运营陪跑、页面转化优化、投放复盘、私域复购和AI经营周报服务，帮助品牌先找准增长卡点，再决定下一步怎么做。',
     name: '首页',
     priority: '1.0',
     changefreq: 'weekly'
@@ -84,7 +84,7 @@ export const routeMeta = [
     path: '/contact/',
     file: 'contact/index.html',
     title: '联系我们｜品沐咨询 PINMOO',
-    description: '联系广州品沐咨询有限公司。微信 / 手机同号：13600008584。添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长 / 官网咨询。',
+    description: '联系广州品沐咨询有限公司。微信 / 手机同号：13600008584。可先发送品牌、平台、当前问题和希望先看的方向，预约免费基础诊断或咨询店铺诊断、经营周报、运营陪跑与品牌增长服务。',
     name: '联系我们',
     priority: '0.8',
     changefreq: 'monthly'
@@ -287,7 +287,12 @@ function organizationNode() {
       areaServed: 'CN'
     }],
     slogan: '让电商增长更有章法',
-    description: '广州品沐咨询有限公司旗下品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，结合电商实战经验与大模型工具，提供经营诊断、内容生产、客服承接、私域激活与数据复盘服务。'
+    description: '广州品沐咨询有限公司旗下品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，结合电商实战经验与大模型工具，提供免费基础诊断、经营诊断、内容生产、客服承接、私域激活与数据复盘服务。',
+    potentialAction: {
+      '@type': 'CommunicateAction',
+      name: '预约免费基础诊断',
+      target: ORIGIN + '/contact/'
+    }
   };
 }
 
