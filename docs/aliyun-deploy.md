@@ -2,6 +2,13 @@
 
 pinmoo.top 当前部署在阿里云服务器，线上目录默认是 `/var/www/pinmoo.top`。
 
+## 域名与平台边界
+
+- `pinmoo.top`：部署在阿里云服务器，通过 GitHub 拉取更新。
+- `pinmooconsulting.com`：部署在 Netlify，通过 GitHub 更新。
+- 当前 Netlify 账号额度只保留给 `pinmooconsulting.com` 官网更新；任何新项目、测试站、预览站或非官网用途，不使用该 Netlify 账号。
+- 后续如需使用 Netlify 承载其他项目，必须使用其他账号或其他部署平台。
+
 ## 推荐发布方式
 
 在服务器终端执行：
