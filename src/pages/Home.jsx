@@ -18,13 +18,13 @@ export function Home() {
         <div className="hero-grid-bg" />
         <div className="container home-hero-inner">
           <Reveal className="hero-copy">
-            <p className="hero-kicker">AI 电商经营周报 / 运营陪跑</p>
-            <h1>让电商增长更有章法</h1>
-            <p className="hero-subtitle">品沐咨询专注电商战略诊断、经营周报自动生成与运营陪跑，帮助品牌从平台、商品、内容、投放到转化，搭建可持续增长路径。</p>
-            <p className="hero-support">先用数据看清净销售额、退款、流量和投放效率，再把下周期动作拆到商品、页面、客服、推广、直播和老客运营。</p>
+            <p className="hero-kicker">免费基础诊断 / 电商增长顾问</p>
+            <h1>先找准电商增长卡点，再决定怎么花钱</h1>
+            <p className="hero-subtitle">品沐咨询帮助品牌从平台、商品、页面、投放、客服、直播和复购中找出真正影响增长的环节，先判断优先级，再进入诊断、陪跑或专项优化。</p>
+            <p className="hero-support">你可以先发来品牌、平台和当前问题，我们会做一次基础判断：问题是否清楚、资料是否足够、下一步该从哪里切入。</p>
             <div className="hero-actions">
-              <ButtonLink href="/ai-diagnosis/" icon={false}>体验经营报告</ButtonLink>
-              <ButtonLink href="/contact/" variant="secondary" icon={false}>预约诊断</ButtonLink>
+              <ButtonLink href="/contact/" icon={false}>免费基础诊断</ButtonLink>
+              <ButtonLink href="/services/" variant="secondary" icon={false}>查看服务介绍</ButtonLink>
             </div>
           </Reveal>
           <Reveal className="hero-visual-wrap" delay={120}>
