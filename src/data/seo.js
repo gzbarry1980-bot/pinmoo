@@ -4,12 +4,13 @@ import { cases } from './cases.js';
 import { CASE_EN, EN_TEXT } from './en-text.js';
 import { chinaEcommercePage, leadPages } from './lead-pages.js';
 import { metricDictionary } from './resources.js';
+import { insightAuthor, insights } from './insights.js';
 
 const ORIGIN = SITE.domain;
 const logoUrl = ORIGIN + SITE.logo;
 const ogUrl = ORIGIN + SITE.ogImage;
 const phone = '+86-13600008584';
-const contentDate = '2026-06-21';
+const contentDate = '2026-07-10';
 
 export const routeMeta = [
   {
@@ -63,6 +64,29 @@ export const routeMeta = [
     changefreq: 'monthly'
   },
   {
+    path: '/insights/',
+    file: 'insights/index.html',
+    title: '电商经营洞察｜周报复盘、退款治理与投放ROI｜品沐咨询',
+    description: '品沐咨询经营洞察围绕电商经营周报、退款治理、付费流量质量和投放ROI复盘，提供数据口径、判断方法与可执行清单。',
+    name: '经营洞察',
+    keywords: ['电商经营复盘', '电商经营周报', '退款治理', '投放ROI复盘', '生意参谋数据分析'],
+    insightIndex: true,
+    priority: '0.85',
+    changefreq: 'weekly'
+  },
+  ...insights.map((article) => ({
+    path: '/insights/' + article.slug + '/',
+    file: 'insights/' + article.slug + '/index.html',
+    title: article.metaTitle,
+    description: article.metaDescription,
+    name: article.title,
+    keywords: article.keywords,
+    insightSlug: article.slug,
+    updated: article.updated,
+    priority: '0.8',
+    changefreq: 'monthly'
+  })),
+  {
     path: '/cases/',
     file: 'cases/index.html',
     title: '项目经验｜品沐咨询 PINMOO',
@@ -96,6 +120,7 @@ export const routeMeta = [
     description: '品沐咨询已收到你的咨询需求。你也可以直接添加微信 / 手机同号 13600008584，并注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长。',
     name: '咨询需求已收到',
     sitemap: false,
+    indexable: false,
     priority: '0.2',
     changefreq: 'yearly'
   },
@@ -109,7 +134,7 @@ export const routeMeta = [
     priority: '0.9',
     changefreq: 'monthly',
     lang: 'en',
-    alternatePath: '/'
+    noHreflang: true
   },
   ...cases.map((item) => ({
     path: '/cases/' + item.slug + '/',
@@ -186,6 +211,7 @@ routeMeta.push(
     description: 'PINMOO has received your inquiry. You can also add WeChat / mobile 13600008584 and mention your purpose.',
     name: 'Inquiry Received',
     sitemap: false,
+    indexable: false,
     priority: '0.2',
     changefreq: 'yearly',
     lang: 'en',
@@ -198,10 +224,13 @@ routeMeta.push(
     description: chinaEcommercePage.metaDescription,
     name: chinaEcommercePage.title,
     leadSlug: chinaEcommercePage.slug,
-    priority: '0.9',
+    canonicalPath: '/china-ecommerce-consulting/',
+    sitemap: false,
+    duplicate: true,
+    priority: '0.2',
     changefreq: 'monthly',
     lang: 'en',
-    alternatePath: '/china-ecommerce-consulting/'
+    noHreflang: true
   },
   ...cases.map((item) => {
     const en = CASE_EN[item.slug] || {};
@@ -245,6 +274,10 @@ function routeKeywords(meta) {
     const item = cases.find((entry) => entry.slug === meta.caseSlug);
     if (item) return [item.industry, item.serviceType, item.platform, '电商咨询', '项目经验', 'PINMOO'].join(', ');
   }
+  if (meta.insightSlug) {
+    const article = insights.find((entry) => entry.slug === meta.insightSlug);
+    if (article) return article.keywords.join(', ');
+  }
   return meta.lang === 'en'
     ? 'PINMOO Consulting, China e-commerce consulting, Tmall consultant, JD consultant, Douyin, Xiaohongshu'
     : '品沐咨询, PINMOO, 电商咨询, 电商诊断, 天猫运营顾问, 京东运营顾问, 抖音电商, 小红书种草';
@@ -260,6 +293,11 @@ function resourcePageForMeta(meta) {
   return null;
 }
 
+function insightForMeta(meta) {
+  if (!meta.insightSlug) return null;
+  return insights.find((article) => article.slug === meta.insightSlug) || null;
+}
+
 function organizationNode() {
   return {
     '@type': ['Organization', 'ProfessionalService'],
@@ -271,6 +309,8 @@ function organizationNode() {
     logo: logoUrl,
     image: ogUrl,
     telephone: phone,
+    founder: { '@id': ORIGIN + '/about/#mufeng' },
+    knowsAbout: ['电商战略诊断', '天猫与京东运营', '生意参谋数据诊断', '电商经营周报', '退款治理', '投放 ROI 复盘', '页面转化优化', '会员复购与私域运营'],
     areaServed: ['中国', '广东', '广州', '天猫', '京东', '抖音', '小红书', '视频号', '拼多多'],
     address: {
       '@type': 'PostalAddress',
@@ -343,6 +383,9 @@ function breadcrumbNode(meta) {
       items.push({ '@type': 'ListItem', position: 3, name: meta.name, item: absolute(meta.path) });
     } else if (meta.path.startsWith('/resources/')) {
       items.push({ '@type': 'ListItem', position: 2, name: meta.name, item: absolute(meta.path) });
+    } else if (meta.path.startsWith('/insights/') && meta.path !== '/insights/') {
+      items.push({ '@type': 'ListItem', position: 2, name: '经营洞察', item: absolute('/insights/') });
+      items.push({ '@type': 'ListItem', position: 3, name: meta.name, item: absolute(meta.path) });
     } else if (meta.path.startsWith('/en/cases/') && meta.path !== '/en/cases/') {
       items.push({ '@type': 'ListItem', position: 2, name: caseName, item: absolute(casePath) });
       items.push({ '@type': 'ListItem', position: 3, name: meta.name, item: absolute(meta.path) });
@@ -450,10 +493,36 @@ function itemListNode(meta) {
       }))
     };
   }
+  if (meta.path === '/insights/') {
+    return {
+      '@type': 'ItemList',
+      '@id': ORIGIN + '/insights/#article-list',
+      name: '品沐咨询电商经营洞察',
+      itemListElement: insights.map((article, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        url: absolute('/insights/' + article.slug + '/'),
+        name: article.title,
+        description: article.summary
+      }))
+    };
+  }
   return null;
 }
 
 function faqNode(meta) {
+  const insight = insightForMeta(meta);
+  if (insight?.faqs?.length) {
+    return {
+      '@type': 'FAQPage',
+      '@id': absolute(meta.path) + '#faq',
+      mainEntity: insight.faqs.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
+      }))
+    };
+  }
   const resourcePage = resourcePageForMeta(meta);
   if (resourcePage?.faqs?.length) {
     return {
@@ -491,7 +560,6 @@ function faqNode(meta) {
 }
 
 function personNode(meta) {
-  if (meta.path !== '/about/') return null;
   return {
     '@type': 'Person',
     '@id': ORIGIN + '/about/#mufeng',
@@ -501,7 +569,30 @@ function personNode(meta) {
     image: ORIGIN + '/assets/mufeng-profile.jpg',
     worksFor: { '@id': ORIGIN + '/#organization' },
     description: '鲍俊文，花名沐风，广州品沐咨询有限公司主理人，长期深耕电商运营、平台推广与品牌增长咨询。',
-    knowsAbout: ['电商咨询', '天猫运营', '京东运营', '抖音电商', '小红书种草', '店铺诊断', '页面优化', '投放复盘', '会员运营']
+    url: ORIGIN + '/about/',
+    knowsAbout: ['电商咨询', '天猫运营', '京东运营', '抖音电商', '小红书种草', '店铺诊断', '经营周报', '退款治理', '页面优化', '投放复盘', '会员运营']
+  };
+}
+
+function insightArticleNode(meta) {
+  const article = insightForMeta(meta);
+  if (!article) return null;
+  return {
+    '@type': 'Article',
+    '@id': absolute(meta.path) + '#article',
+    headline: article.title,
+    description: article.summary,
+    image: ogUrl,
+    datePublished: article.published,
+    dateModified: article.updated,
+    inLanguage: 'zh-CN',
+    articleSection: article.category,
+    keywords: article.keywords.join(', '),
+    author: { '@id': ORIGIN + '/about/#mufeng' },
+    publisher: { '@id': ORIGIN + '/#organization' },
+    mainEntityOfPage: absolute(meta.path),
+    about: article.keywords,
+    abstract: article.directAnswer
   };
 }
 
@@ -588,8 +679,9 @@ function definedTermSetNode(meta) {
 
 function webPageNode(meta) {
   const resourcePage = resourcePageForMeta(meta);
+  const insight = insightForMeta(meta);
   const node = {
-    '@type': meta.caseSlug ? 'Article' : resourcePage ? 'CollectionPage' : meta.path === '/contact/' ? 'ContactPage' : meta.path === '/about/' ? 'AboutPage' : meta.path === '/cases/' ? 'CollectionPage' : 'WebPage',
+    '@type': meta.caseSlug || insight ? 'Article' : resourcePage || meta.insightIndex ? 'CollectionPage' : meta.path === '/contact/' ? 'ContactPage' : meta.path === '/about/' ? 'AboutPage' : meta.path === '/cases/' ? 'CollectionPage' : 'WebPage',
     '@id': absolute(meta.path) + '#webpage',
     url: absolute(meta.path),
     name: meta.title,
@@ -602,12 +694,13 @@ function webPageNode(meta) {
       '@type': 'ImageObject',
       url: routeImage(meta)
     },
-    dateModified: contentDate,
+    dateModified: meta.updated || contentDate,
     keywords: routeKeywords(meta)
   };
   if (meta.aiTool) node.mainEntity = { '@id': absolute(meta.path) + '#software' };
   if (meta.leadSlug) node.mainEntity = { '@id': absolute(meta.path) + '#service' };
   if (meta.caseSlug) node.mainEntity = { '@id': absolute(meta.path) + '#article' };
+  if (insight) node.mainEntity = { '@id': absolute(meta.path) + '#article' };
   if (resourcePage) {
     node.mainEntity = { '@id': absolute(meta.path) + '#terms' };
     node.mentions = resourcePage.terms.map((term) => term.name);
@@ -618,19 +711,20 @@ function webPageNode(meta) {
 export function jsonLdForRoute(meta) {
   const graph = [organizationNode(), websiteNode(), webPageNode(meta), breadcrumbNode(meta)];
   if (meta.path === '/' || meta.path === '/services/') graph.push(...serviceNodes());
-  const optional = [itemListNode(meta), leadServiceNode(meta), faqNode(meta), personNode(meta), caseArticleNode(meta), contactNode(meta), softwareApplicationNode(meta), definedTermSetNode(meta)].filter(Boolean);
+  const optional = [itemListNode(meta), leadServiceNode(meta), faqNode(meta), personNode(meta), caseArticleNode(meta), insightArticleNode(meta), contactNode(meta), softwareApplicationNode(meta), definedTermSetNode(meta)].filter(Boolean);
   graph.push(...optional);
   return { '@context': 'https://schema.org', '@graph': graph };
 }
 
 export function metaTagsForRoute(meta) {
+  const canonicalPath = meta.canonicalPath || meta.path;
   return {
     title: meta.title,
     description: meta.description,
-    canonical: absolute(meta.path),
+    canonical: absolute(canonicalPath),
     ogTitle: meta.title,
     ogDescription: meta.description,
-    ogUrl: absolute(meta.path),
+    ogUrl: absolute(canonicalPath),
     ogImage: routeImage(meta),
     keywords: routeKeywords(meta)
   };

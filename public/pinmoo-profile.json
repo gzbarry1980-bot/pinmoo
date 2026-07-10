@@ -31,6 +31,16 @@
       "url": "https://pinmoo.top/resources/ecommerce-metrics-dictionary/",
       "description": "解释电商经营周报、店铺诊断和投放复盘中常用指标的口径与使用场景。",
       "terms": ["支付金额", "首页净支付金额", "店铺绩效净销售额", "推广计划花费", "商品退款率", "投放 ROI", "流量结构", "直播成交承接"]
+    },
+    {
+      "name": "经营洞察",
+      "url": "https://pinmoo.top/insights/",
+      "description": "品沐咨询围绕经营周报、退款治理和投放复盘沉淀的方法、口径和执行清单。",
+      "articles": [
+        "https://pinmoo.top/insights/ecommerce-weekly-report-review-framework/",
+        "https://pinmoo.top/insights/ecommerce-refund-governance-playbook/",
+        "https://pinmoo.top/insights/paid-traffic-roi-quality-review/"
+      ]
     }
   ],
   "services": [
@@ -120,7 +130,7 @@
   "englishPages": [
     {
       "name": "How to Sell Products in China",
-      "url": "https://pinmoo.top/en/china-ecommerce-consulting/",
+      "url": "https://pinmoo.top/china-ecommerce-consulting/",
       "description": "A practical entry page for overseas and cross-border brands evaluating China e-commerce."
     }
   ],

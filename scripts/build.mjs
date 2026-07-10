@@ -101,27 +101,41 @@ function upsertHead(html, meta) {
   }
   next = next.replace(/<link rel="canonical" href="[^"]*"\s*\/>/, '<link rel="canonical" href="' + escapeHtml(tags.canonical) + '" />');
   next = next.replace(/<meta property="og:title" content="[^"]*"\s*\/>/, '<meta property="og:title" content="' + escapeHtml(tags.ogTitle) + '" />');
+  next = next.replace(/<meta property="og:type" content="[^"]*"\s*\/>/, '<meta property="og:type" content="' + (meta.caseSlug || meta.insightSlug ? 'article' : 'website') + '" />');
   next = next.replace(/<meta property="og:description" content="[^"]*"\s*\/>/, '<meta property="og:description" content="' + escapeHtml(tags.ogDescription) + '" />');
   next = next.replace(/<meta property="og:url" content="[^"]*"\s*\/>/, '<meta property="og:url" content="' + escapeHtml(tags.ogUrl) + '" />');
   next = next.replace(/<meta property="og:image" content="[^"]*"\s*\/>/, '<meta property="og:image" content="' + escapeHtml(tags.ogImage) + '" />');
   next = next.replace(/\n\s*<meta name="robots" content="[^"]*"\s*\/>/g, '');
   next = next.replace(/\n\s*<meta name="author" content="[^"]*"\s*\/>/g, '');
   next = next.replace(/\n\s*<meta name="theme-color" content="[^"]*"\s*\/>/g, '');
+  next = next.replace(/\n\s*<meta property="og:site_name" content="[^"]*"\s*\/>/g, '');
+  next = next.replace(/\n\s*<meta property="og:locale" content="[^"]*"\s*\/>/g, '');
+  next = next.replace(/\n\s*<meta property="og:image:alt" content="[^"]*"\s*\/>/g, '');
+  next = next.replace(/\n\s*<meta name="twitter:title" content="[^"]*"\s*\/>/g, '');
+  next = next.replace(/\n\s*<meta name="twitter:description" content="[^"]*"\s*\/>/g, '');
+  next = next.replace(/\n\s*<meta name="twitter:image" content="[^"]*"\s*\/>/g, '');
   next = next.replace(/\n\s*<link rel="alternate" hreflang="[^"]*" href="[^"]*"\s*\/>/g, '');
   next = next.replace(/\n\s*<link rel="alternate" type="text\/plain" href="[^"]*" title="[^"]*"\s*\/>/g, '');
   next = next.replace(/\n\s*<link rel="alternate" type="text\/markdown" href="[^"]*" title="[^"]*"\s*\/>/g, '');
   next = next.replace(/\n\s*<link rel="alternate" type="application\/json" href="[^"]*" title="[^"]*"\s*\/>/g, '');
   next = next.replace(/\n\s*<script type="application\/ld\+json" data-seo-jsonld>[\s\S]*?<\/script>/g, '');
-  const zhPath = meta.lang === 'en' ? meta.alternatePath : meta.path;
-  const enPath = meta.lang === 'en' ? meta.path : (meta.path === '/' ? '/en/' : '/en' + meta.path);
   const absolutePath = (pathname) => pathname === '/' ? origin + '/' : origin + pathname;
+  const alternate = translatedRoutes(meta);
   const extra = [
-    '<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />',
+    '<meta name="robots" content="' + (meta.indexable === false ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1') + '" />',
     '<meta name="author" content="广州品沐咨询有限公司" />',
     '<meta name="theme-color" content="#1E3A5F" />',
-    '<link rel="alternate" hreflang="zh-CN" href="' + escapeHtml(absolutePath(zhPath)) + '" />',
-    '<link rel="alternate" hreflang="en" href="' + escapeHtml(absolutePath(enPath)) + '" />',
-    '<link rel="alternate" hreflang="x-default" href="' + origin + '/" />',
+    '<meta property="og:site_name" content="PINMOO 品沐咨询" />',
+    '<meta property="og:locale" content="' + (meta.lang === 'en' ? 'en_US' : 'zh_CN') + '" />',
+    '<meta property="og:image:alt" content="PINMOO 品沐咨询" />',
+    '<meta name="twitter:title" content="' + escapeHtml(tags.title) + '" />',
+    '<meta name="twitter:description" content="' + escapeHtml(tags.description) + '" />',
+    '<meta name="twitter:image" content="' + escapeHtml(tags.ogImage) + '" />',
+    ...(alternate ? [
+      '<link rel="alternate" hreflang="zh-CN" href="' + escapeHtml(absolutePath(alternate.zh.path)) + '" />',
+      '<link rel="alternate" hreflang="en" href="' + escapeHtml(absolutePath(alternate.en.path)) + '" />',
+      '<link rel="alternate" hreflang="x-default" href="' + escapeHtml(absolutePath(alternate.zh.path)) + '" />'
+    ] : []),
     '<link rel="alternate" type="text/plain" href="/llms.txt" title="PINMOO 品沐咨询 AI 摘要" />',
     '<link rel="alternate" type="text/markdown" href="/llms-full.txt" title="PINMOO 品沐咨询完整 AI 上下文" />',
     '<link rel="alternate" type="application/json" href="/pinmoo-profile.json" title="PINMOO 品沐咨询结构化品牌资料" />',
@@ -130,6 +144,17 @@ function upsertHead(html, meta) {
   ].join('\n    ');
   next = next.replace('  </head>', '    ' + extra + '\n  </head>');
   return next;
+}
+
+function translatedRoutes(meta) {
+  if (meta.noHreflang) return null;
+  if (meta.lang === 'en') {
+    if (!meta.alternatePath) return null;
+    const zh = routeMeta.find((candidate) => candidate.lang !== 'en' && candidate.path === meta.alternatePath);
+    return zh ? { zh, en: meta } : null;
+  }
+  const en = routeMeta.find((candidate) => candidate.lang === 'en' && !candidate.duplicate && candidate.alternatePath === meta.path);
+  return en ? { zh: meta, en } : null;
 }
 
 function assertValidHtml(html, meta) {
@@ -164,6 +189,18 @@ for (const staleAsset of ['assets/cases/generated-case-sheet.png']) {
 await copy(path.join(root, 'src/static-main.js'), path.join(dist, 'src/static-main.js'));
 await copy(path.join(root, 'src/styles.css'), path.join(dist, 'src/styles.css'));
 await copy(path.join(root, 'src/data'), path.join(dist, 'src/data'));
+
+const domainAwareFiles = ['robots.txt', 'llms.txt', 'llms-full.txt', 'ai.txt', 'ai-context.json', 'pinmoo-profile.json'];
+for (const filename of domainAwareFiles) {
+  const target = path.join(dist, filename);
+  const stat = await fs.stat(target).catch(() => null);
+  if (!stat?.isFile()) continue;
+  const source = await fs.readFile(target, 'utf8');
+  const localized = source
+    .replaceAll('https://pinmoo.top', SITE.domain)
+    .replaceAll('https://pinmooconsulting.com', SITE.domain);
+  await fs.writeFile(target, localized, 'utf8');
+}
 const siteTemplate = await fs.readFile(path.join(root, 'index.html'), 'utf8');
 
 for (const meta of routeMeta) {
@@ -181,29 +218,18 @@ for (const meta of routeMeta) {
   await fs.writeFile(htmlPath, html, 'utf8');
 }
 
-const today = process.env.SITEMAP_LASTMOD || '2026-06-21';
-const origin = SITE.domain;
-function sitemapUrl(loc, changefreq, priority, image) {
+function sitemapUrl(loc, lastmod, image) {
   const imageBlock = image
     ? '\n    <image:image>\n      <image:loc>' + escapeXml(image) + '</image:loc>\n    </image:image>'
     : '';
-  return '  <url>\n    <loc>' + escapeXml(loc) + '</loc>' + imageBlock + '\n    <lastmod>' + today + '</lastmod>\n    <changefreq>' + changefreq + '</changefreq>\n    <priority>' + priority + '</priority>\n  </url>';
+  return '  <url>\n    <loc>' + escapeXml(loc) + '</loc>' + imageBlock + '\n    <lastmod>' + escapeXml(lastmod) + '</lastmod>\n  </url>';
 }
-
-const extraSitemapUrls = [
-  { loc: origin + '/llms.txt', changefreq: 'monthly', priority: '0.5' },
-  { loc: origin + '/llms-full.txt', changefreq: 'monthly', priority: '0.5' },
-  { loc: origin + '/ai.txt', changefreq: 'monthly', priority: '0.5' },
-  { loc: origin + '/ai-context.json', changefreq: 'monthly', priority: '0.5' },
-  { loc: origin + '/pinmoo-profile.json', changefreq: 'monthly', priority: '0.5' }
-];
 
 const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' +
   routeMeta
-    .filter((meta) => meta.sitemap !== false)
-    .map((meta) => sitemapUrl(metaTagsForRoute(meta).canonical, meta.changefreq, meta.priority, imageForRoute(meta)))
+    .filter((meta) => meta.sitemap !== false && meta.indexable !== false && !meta.duplicate)
+    .map((meta) => sitemapUrl(metaTagsForRoute(meta).canonical, process.env.SITEMAP_LASTMOD || meta.updated || '2026-07-10', imageForRoute(meta)))
     .join('\n') +
-  '\n' + extraSitemapUrls.map((entry) => sitemapUrl(entry.loc, entry.changefreq, entry.priority)).join('\n') +
   '\n</urlset>\n';
 await fs.writeFile(path.join(dist, 'sitemap.xml'), sitemap, 'utf8');
 await fs.writeFile(path.join(root, 'public', 'sitemap.xml'), sitemap, 'utf8');

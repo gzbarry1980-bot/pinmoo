@@ -1,3 +1,12 @@
+function resolveSiteOrigin() {
+  const configured = typeof process !== 'undefined' && process.env && process.env.SITE_ORIGIN;
+  if (configured) return String(configured).replace(/\/+$/, '');
+  if (typeof window !== 'undefined' && window.location && window.location.hostname === 'pinmooconsulting.com') {
+    return 'https://pinmooconsulting.com';
+  }
+  return 'https://pinmoo.top';
+}
+
 export const SITE = {
   brand: 'PINMOO / 品沐咨询',
   shortBrand: '品沐咨询',
@@ -6,7 +15,7 @@ export const SITE = {
   addressLocality: '广州',
   addressRegion: '广东',
   mapUrl: 'https://www.google.com/maps/place/%E4%B8%AD%E5%8D%8E%E5%9B%BD%E9%99%85%E4%B8%AD%E5%BF%83/@23.1265659,113.2804833,17z/data=!3m1!4b1!4m6!3m5!1s0x3402f8cc45c5d1cd:0x36ddcf9e4e515497!8m2!3d23.1265659!4d113.2830582!16s%2Fg%2F1jkz5_lcj?entry=ttu&g_ep=EgoyMDI2MDUxMy4wIKXMDSoASAFQAw%3D%3D',
-  domain: 'https://pinmoo.top',
+  domain: resolveSiteOrigin(),
   phone: '13600008584',
   phoneDisplay: '13600008584',
   contactLabel: '微信 / 手机同号：13600008584',
@@ -23,6 +32,7 @@ export const NAV_ITEMS = [
   { label: '首页', href: '/', match: '/' },
   { label: '服务介绍', href: '/services/', match: '/services' },
   { label: '案例展示', href: '/cases/', match: '/cases' },
+  { label: '经营洞察', href: '/insights/', match: '/insights', zhOnly: true },
   { label: '关于品沐', href: '/about/', match: '/about' },
   { label: '联系我们', href: '/contact/', match: '/contact' }
 ];

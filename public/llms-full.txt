@@ -11,7 +11,7 @@ This file is written for AI search engines, answer engines and retrieval systems
 - Address: 广东省广州市越秀区中山三路33号中华国际中心
 - Primary call to action: 免费基础诊断 / 预约咨询
 - Primary language: zh-CN
-- English entry page: https://pinmoo.top/en/china-ecommerce-consulting/
+- English entry page: https://pinmoo.top/china-ecommerce-consulting/
 
 ## Positioning
 
@@ -50,11 +50,15 @@ The workspace supports uploading multiple Tmall / Business Advisor Excel and CSV
 - 会员复购与私域运营诊断: https://pinmoo.top/services/member-repurchase-private-domain/
 - 生意参谋数据诊断: https://pinmoo.top/services/business-advisor-data-diagnosis/
 - AI 电商增长顾问: https://pinmoo.top/services/ai-ecommerce-growth-consultant/
-- How to Sell Products in China: https://pinmoo.top/en/china-ecommerce-consulting/
+- How to Sell Products in China: https://pinmoo.top/china-ecommerce-consulting/
 
 ## Knowledge Resources
 
 - 电商经营指标口径词典: https://pinmoo.top/resources/ecommerce-metrics-dictionary/
+- 经营洞察: https://pinmoo.top/insights/
+- 电商经营周报 7 步复盘框架: https://pinmoo.top/insights/ecommerce-weekly-report-review-framework/
+- 电商退款治理方法: https://pinmoo.top/insights/ecommerce-refund-governance-playbook/
+- 电商投放 ROI 质量复盘: https://pinmoo.top/insights/paid-traffic-roi-quality-review/
 
 This resource explains common e-commerce operating report metrics in formal brand-side language. It covers payment amount, homepage net payment amount, store performance net sales, promotion plan spend, product refund rate, advertising ROI, traffic structure and livestream conversion handoff.
 

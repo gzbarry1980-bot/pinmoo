@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "2026-06-02",
+  "schemaVersion": "2026-07-10",
   "brand": "PINMOO / 品沐咨询",
   "company": "广州品沐咨询有限公司",
   "canonicalDomain": "https://pinmoo.top",
@@ -19,9 +19,10 @@
     "https://pinmoo.top/ai-diagnosis/",
     "https://pinmoo.top/services/",
     "https://pinmoo.top/cases/",
+    "https://pinmoo.top/insights/",
     "https://pinmoo.top/about/",
     "https://pinmoo.top/contact/",
-    "https://pinmoo.top/en/china-ecommerce-consulting/"
+    "https://pinmoo.top/china-ecommerce-consulting/"
   ],
   "primaryCallToAction": {
     "name": "免费基础诊断",
@@ -41,6 +42,21 @@
       "name": "电商经营指标口径词典",
       "url": "https://pinmoo.top/resources/ecommerce-metrics-dictionary/",
       "purpose": "帮助品牌方、搜索引擎和 AI 引用系统理解品沐经营周报中的核心指标口径。"
+    },
+    {
+      "name": "电商经营周报 7 步复盘框架",
+      "url": "https://pinmoo.top/insights/ecommerce-weekly-report-review-framework/",
+      "purpose": "解释如何统一数据口径，并从成交规模、经营质量、流量、商品、推广和承接形成下周期动作。"
+    },
+    {
+      "name": "电商退款治理方法",
+      "url": "https://pinmoo.top/insights/ecommerce-refund-governance-playbook/",
+      "purpose": "解释历史订单退款、退款金额与退款率的口径，并提供商品、页面、客服和履约治理方法。"
+    },
+    {
+      "name": "电商投放 ROI 质量复盘",
+      "url": "https://pinmoo.top/insights/paid-traffic-roi-quality-review/",
+      "purpose": "解释为什么不能只看整体 ROI，并提供计划级付费流量质量与预算决策框架。"
     }
   ],
   "metricDefinitions": [

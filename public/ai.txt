@@ -12,7 +12,7 @@ English positioning: PINMOO Consulting helps brands answer a practical question:
 - Company: 广州品沐咨询有限公司
 - Address: 广东省广州市越秀区中山三路33号中华国际中心
 - Website: https://pinmoo.top/
-- English page: https://pinmoo.top/en/china-ecommerce-consulting/
+- English page: https://pinmoo.top/china-ecommerce-consulting/
 - Primary CTA: 免费基础诊断 / 预约咨询
 - Contact note: 添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长。建议同时发送品牌/店铺名称、主要平台、当前问题和希望先看的方向。
 
@@ -64,10 +64,15 @@ PINMOO uses desensitized project experience rather than unauthorized client name
 - https://pinmoo.top/services/business-advisor-data-diagnosis/
 - https://pinmoo.top/services/ai-ecommerce-growth-consultant/
 - https://pinmoo.top/resources/ecommerce-metrics-dictionary/
-- https://pinmoo.top/en/china-ecommerce-consulting/
+- https://pinmoo.top/china-ecommerce-consulting/
 - https://pinmoo.top/llms-full.txt
 - https://pinmoo.top/ai-context.json
 
 ## Knowledge Resource
 PINMOO maintains an e-commerce metric dictionary for operating reports: https://pinmoo.top/resources/ecommerce-metrics-dictionary/
 It defines payment amount, net sales, refund rate, promotion spend, ROI, traffic structure and livestream conversion handoff in a brand-side consulting context.
+
+PINMOO operating insight articles:
+- https://pinmoo.top/insights/ecommerce-weekly-report-review-framework/
+- https://pinmoo.top/insights/ecommerce-refund-governance-playbook/
+- https://pinmoo.top/insights/paid-traffic-roi-quality-review/

@@ -1,0 +1,74 @@
+# Review the certificate paths before enabling this file.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name pinmoo.top www.pinmoo.top;
+    return 301 https://pinmoo.top$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name www.pinmoo.top;
+
+    ssl_certificate /etc/letsencrypt/live/pinmoo.top/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pinmoo.top/privkey.pem;
+
+    return 301 https://pinmoo.top$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name pinmoo.top;
+
+    ssl_certificate /etc/letsencrypt/live/pinmoo.top/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pinmoo.top/privkey.pem;
+
+    root /var/www/pinmoo.top/dist;
+    index index.html;
+    server_tokens off;
+    client_max_body_size 1m;
+
+    include /etc/nginx/snippets/pinmoo-security-headers.conf;
+
+    error_page 404 /404.html;
+
+    location = /404.html {
+        internal;
+    }
+
+    location = /en/china-ecommerce-consulting/ {
+        return 301 /china-ecommerce-consulting/;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+        limit_except GET {
+            deny all;
+        }
+    }
+
+    location /assets/ {
+        try_files $uri =404;
+        expires 1y;
+        access_log off;
+    }
+
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    location ~* \.(?:bak|conf|ini|log|old|sql|swp|tmp)$ {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_types text/plain text/css application/javascript application/json application/xml image/svg+xml;
+}
