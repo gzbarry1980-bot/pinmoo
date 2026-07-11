@@ -222,7 +222,7 @@ function DashboardVisual() {
 }
 
 function Home() {
-  const stats = TRUST_STATS.map(function(item, index) { const names = ['BadgeCheck', 'Layers', 'BriefcaseBusiness', 'Users']; return '<div class="reveal stat-card"><span class="stat-icon">' + icon(names[index], 30) + '</span><div class="stat-copy"><strong><span class="stat-number" data-count="' + item.value + '" data-suffix="' + item.suffix + '">0' + item.suffix + '</span></strong><span>' + item.label + '</span></div></div>'; }).join('');
+  const stats = TRUST_STATS.map(function(item, index) { const names = ['BadgeCheck', 'Layers', 'BriefcaseBusiness', 'Users']; return '<div class="reveal stat-card"><span class="stat-icon">' + icon(names[index], 30) + '</span><div class="stat-copy"><strong><span class="stat-number">' + item.value + item.suffix + '</span></strong><span>' + item.label + '</span></div></div>'; }).join('');
   const serviceGrid = services.map(function(service, index) { return '<div class="reveal ' + (index === 0 || index === 1 ? 'bento-large' : '') + '">' + ServiceCard(service) + '</div>'; }).join('');
   const methods = METHODOLOGY.map(function(step, index) { return '<div class="reveal method-step"><span class="step-index">0' + (index + 1) + '</span><div class="method-icon">' + icon(step.icon, 32) + '</div><h3>' + step.title + '</h3><strong>' + step.text + '</strong><p>' + step.detail + '</p></div>'; }).join('');
   const previewCases = cases.slice(0, 4).map(function(item) { return '<div class="reveal">' + CaseCard(item) + '</div>'; }).join('');
@@ -586,7 +586,6 @@ function initInteractions() {
     });
   }
   initReveal();
-  initCounters();
   initFaq();
   initFilters();
   initFloating();
@@ -609,29 +608,6 @@ function initReveal() {
     }
     observer.observe(node);
   });
-}
-
-function initCounters() {
-  const nodes = Array.from(document.querySelectorAll('.stat-number'));
-  if (!nodes.length) return;
-  const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (!entry.isIntersecting) return;
-      const node = entry.target;
-      const target = Number(node.dataset.count || 0);
-      const suffix = node.dataset.suffix || '';
-      const start = performance.now();
-      function tick(now) {
-        const progress = Math.min((now - start) / 900, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        node.textContent = Math.round(target * eased) + suffix;
-        if (progress < 1) requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-      observer.unobserve(node);
-    });
-  }, { threshold: 0.5 });
-  nodes.forEach(function(node) { observer.observe(node); });
 }
 
 function initFaq() {
