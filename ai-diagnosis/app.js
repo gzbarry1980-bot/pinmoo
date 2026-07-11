@@ -1,6 +1,6 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.9.7 · 2026-06-08 · 官网互通修复版';
+const appVersion = 'v0.10.0 · 2026-07-10 · MVP上手体验版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -178,6 +178,40 @@ const samples = [
     notes: '内容互动还可以，但进店转化弱；尺码、面料和适穿人群表达不足，退货集中在两个新款。'
   }
 ];
+
+function blankFormData() {
+  return {
+    brandName: '',
+    storeName: '',
+    industry: '美妆个护',
+    platform: '天猫',
+    reportType: '周报',
+    reportPurpose: '品牌方正式版',
+    periodStart: '',
+    periodEnd: '',
+    period: '',
+    compareType: '上一个周期',
+    dataSource: '',
+    sales: 0,
+    prevSales: 0,
+    visitors: 0,
+    prevVisitors: 0,
+    conversion: 0,
+    aov: 0,
+    refundRate: 0,
+    roi: 0,
+    productCount: 0,
+    activeProductCount: 0,
+    topSkuShare: 0,
+    serviceRate: 0,
+    searchShare: 0,
+    recommendShare: 0,
+    contentShare: 0,
+    paidShare: 0,
+    privateShare: 0,
+    notes: ''
+  };
+}
 
 let selectedPlatform = '天猫';
 let history = loadJson(storageKey, []);
@@ -371,6 +405,19 @@ function getFormData() {
   data.prevNetSales = readNumber(importedAux?.prevNetSales || Math.max(0, data.prevSales - data.prevRefundAmount));
   data.oldBuyerSales = readNumber(importedAux?.oldBuyerSales || 0);
   return data;
+}
+
+function hasMeaningfulData(data) {
+  const details = data?.importedDetails || {};
+  const hasImportedRows = Object.values(details).some((items) => Array.isArray(items) && items.length > 0);
+  return Boolean(
+    hasImportedRows ||
+    data?.sales > 0 ||
+    data?.visitors > 0 ||
+    data?.prevSales > 0 ||
+    data?.refundAmount > 0 ||
+    data?.productCount > 0
+  );
 }
 
 function getReportName(diagnosis) {
@@ -940,6 +987,71 @@ function renderActions(diagnosis) {
       <ul>${group.tasks.map((task) => `<li>${task}</li>`).join('')}</ul>
     </article>
   `).join('');
+}
+
+function setReportActionsEnabled(enabled) {
+  ['copyExecutive', 'copyWechat', 'copyReport', 'exportWord', 'exportReport', 'printReport'].forEach((id) => {
+    const button = $('#' + id);
+    if (button) button.disabled = !enabled;
+  });
+}
+
+function setManualFieldsVisible(visible, focus = false) {
+  const fields = $('#manualFields');
+  if (!fields) return;
+  fields.hidden = !visible;
+  const toggle = $('#toggleManualFieldsTop');
+  if (toggle) toggle.textContent = visible ? '收起手动录入' : '手动录入';
+  if (visible && focus) {
+    fields.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => $('#storeName')?.focus(), 260);
+  }
+}
+
+function renderEmptyWorkspace() {
+  latestDiagnosis = null;
+  $('#totalScore').textContent = '--';
+  $('#scoreRing').style.setProperty('--score-deg', '0deg');
+  $('#scoreRing').style.setProperty('--score-color', 'var(--blue)');
+  $('#summaryTitle').textContent = '上传报表，生成第一份经营周报';
+  $('#summaryText').textContent = '系统会自动识别经营概览、商品、流量、退款和推广等模块；缺失数据会明确标记，不会默认按 0 判断。';
+  $('#summaryKpis').innerHTML = [
+    ['第一步', '选择报表'],
+    ['第二步', '确认识别'],
+    ['第三步', '核实报告'],
+    ['交付', '导出 Word']
+  ].map(([label, value]) => `<div><span>${label}</span><strong>${value}</strong></div>`).join('');
+  $('#healthGrid').innerHTML = `
+    <div class="empty-readiness">
+      <article><b>核心</b><strong>经营概览</strong><span>支付金额、访客、转化、客单</span></article>
+      <article><b>核心</b><strong>商品明细</strong><span>TOP商品、动销、退款风险</span></article>
+      <article><b>核心</b><strong>流量来源</strong><span>搜索、推荐、内容、付费</span></article>
+      <article><b>增强</b><strong>退款与推广</strong><span>净销售额、计划ROI、控质建议</span></article>
+    </div>`;
+  $('#issueCount').textContent = '上传后自动按影响度排序';
+  $('#issueList').innerHTML = `
+    <div class="empty-step-list">
+      <div><b>1</b><span>先识别增长来自流量、转化、客单还是老客回访。</span></div>
+      <div><b>2</b><span>再定位高贡献商品、高退款商品和高花费低成交计划。</span></div>
+      <div><b>3</b><span>最后落到商品、页面、客服、推广、直播和老客动作。</span></div>
+    </div>`;
+  $('#actionList').innerHTML = `
+    <div class="empty-step-list">
+      <div><b>7</b><span>7天：校准口径并处理最高优先级问题。</span></div>
+      <div><b>14</b><span>14天：修复核心商品和成交承接链路。</span></div>
+      <div><b>30</b><span>30天：复盘指标变化并沉淀增长机制。</span></div>
+    </div>`;
+  $('#reportTime').textContent = '尚未生成报告';
+  $('#reportPaper').innerHTML = `
+    <div class="workspace-empty">
+      <div>
+        <span class="empty-icon">+</span>
+        <h3>上传经营报表后，这里生成正式周报预览</h3>
+        <p>建议先选首页数据概览、商品明细和流量来源。系统会提示文件识别结果、数据口径和需要补充的内容。</p>
+        <button class="primary-btn" type="button" data-trigger-import>上传报表生成周报</button>
+      </div>
+    </div>`;
+  setReportActionsEnabled(false);
 }
 
 function executiveSummary(diagnosis) {
@@ -2980,6 +3092,7 @@ function renderHistory() {
 
 function setLatest(diagnosis, persist = false) {
   latestDiagnosis = diagnosis;
+  setReportActionsEnabled(true);
   renderSummary(diagnosis);
   renderHealth(diagnosis);
   renderIssues(diagnosis);
@@ -2997,7 +3110,9 @@ function scheduleFormRecompute(delay = 220) {
   clearTimeout(formRecomputeTimer);
   formRecomputeTimer = setTimeout(() => {
     if (isImportingFiles || isGeneratingReport) return;
-    setLatest(analyze(getFormData()));
+    const data = getFormData();
+    if (!hasMeaningfulData(data)) return renderEmptyWorkspace();
+    setLatest(analyze(data));
   }, delay);
 }
 
@@ -5082,6 +5197,7 @@ function resetImportSession() {
   pendingImportMeta = null;
   clearImportProgress();
   clearReportProgress();
+  if ($('#resumeImportConfirm')) $('#resumeImportConfirm').hidden = true;
   $('#importStatus').textContent = '尚未导入数据，可先使用示例数据体验。';
 }
 
@@ -5424,6 +5540,7 @@ function openImportConfirmModal(meta) {
   $('#modalIndustry').value = suggestion.industry || $('#industry').value || '美妆个护';
   $('#modalPlatform').value = suggestion.platform || selectedPlatform || '天猫';
   $('#modalReportType').value = suggestion.reportType || meta.reportType || $('#reportType').value || '月报';
+  if ($('#resumeImportConfirm')) $('#resumeImportConfirm').hidden = true;
   modal.hidden = false;
   setTimeout(() => $('#modalStoreName').focus(), 0);
 }
@@ -5432,7 +5549,31 @@ function closeImportConfirmModal() {
   if (isGeneratingReport) return;
   const modal = $('#importConfirmModal');
   if (modal) modal.hidden = true;
-  if (pendingImportMeta) updateWorkflowStatus('draft');
+  if (pendingImportMeta) {
+    if ($('#resumeImportConfirm')) $('#resumeImportConfirm').hidden = false;
+    updateWorkflowStatus('confirm', '文件识别结果已保留。点击“继续确认并生成报告”可返回当前任务。');
+  }
+}
+
+function previewImportedDraft() {
+  if (isGeneratingReport || !pendingImportMeta) return;
+  const modalStoreName = String($('#modalStoreName')?.value || '').trim();
+  if (modalStoreName) $('#storeName').value = modalStoreName;
+  if ($('#modalIndustry')?.value) $('#industry').value = $('#modalIndustry').value;
+  if ($('#modalReportType')?.value) $('#reportType').value = $('#modalReportType').value;
+  if ($('#modalPlatform')?.value) {
+    selectedPlatform = $('#modalPlatform').value;
+    document.querySelectorAll('#platformTabs button').forEach((button) => {
+      button.classList.toggle('selected', button.dataset.platform === selectedPlatform);
+    });
+  }
+  const modal = $('#importConfirmModal');
+  if (modal) modal.hidden = true;
+  setLatest(analyze(getFormData()));
+  if ($('#resumeImportConfirm')) $('#resumeImportConfirm').hidden = false;
+  updateWorkflowStatus('draft', '已生成当前导入数据的草稿预览；确认店铺信息后再写入正式历史。');
+  jumpToReportPreview();
+  toast('已生成草稿预览，确认任务信息后可生成正式报告');
 }
 
 function clearImportConfirmErrors() {
@@ -5723,6 +5864,11 @@ function updateWorkflowStatus(stateName = 'idle', detail = '') {
   });
 }
 
+function triggerDataImport(detail = '') {
+  updateWorkflowStatus('selecting', detail || '请选择天猫/生意参谋经营报表，支持一次选择多份文件。');
+  $('#dataFile').click();
+}
+
 function bindEvents() {
   document.querySelectorAll('#platformTabs button').forEach((button) => {
     button.addEventListener('click', () => {
@@ -5741,8 +5887,13 @@ function bindEvents() {
 
   $('#diagnosisForm').addEventListener('submit', (event) => {
     event.preventDefault();
+    const data = getFormData();
+    if (!hasMeaningfulData(data)) {
+      toast('请至少填写销售额、访客或商品数据，或直接上传经营报表');
+      return;
+    }
     updateWorkflowStatus('generating', '正在根据当前表单内容生成报告，并写入历史记录。');
-    setLatest(analyze(getFormData()), true);
+    setLatest(analyze(data), true);
     updateWorkflowStatus('generated', '已生成并保存诊断报告。请先核实报告预览，再导出 Word 或复制话术。');
     jumpToReportPreview();
     toast('已生成并保存诊断报告');
@@ -5753,15 +5904,19 @@ function bindEvents() {
     const sample = samples[Math.floor(Math.random() * samples.length)];
     setFormData(sample);
     setLatest(analyze(getFormData()));
+    setManualFieldsVisible(false);
     updateWorkflowStatus('generated', '示例数据已导入并生成预览，可用于体验完整报告结构。');
     toast('已导入示例数据');
   });
 
   $('#resetForm').addEventListener('click', () => {
     resetImportSession();
-    setFormData({ ...samples[0], storeName: '', sales: 0, prevSales: 0, visitors: 0, prevVisitors: 0, notes: '' });
-    setLatest(analyze(getFormData()));
+    localStorage.removeItem(draftKey);
+    setFormData(blankFormData());
+    renderEmptyWorkspace();
+    setManualFieldsVisible(true);
     updateWorkflowStatus('idle');
+    toast('已清空当前任务');
   });
 
   $('#saveDraft').addEventListener('click', () => {
@@ -5779,14 +5934,21 @@ function bindEvents() {
   $('#printReport').addEventListener('click', () => window.print());
   $('#exportHistory').addEventListener('click', exportHistory);
   $('#importHistory').addEventListener('click', () => $('#historyFile').click());
-  $('#importData').addEventListener('click', () => {
-    updateWorkflowStatus('selecting');
-    $('#dataFile').click();
+  $('#importData').addEventListener('click', () => triggerDataImport());
+  $('#importDataMain')?.addEventListener('click', () => triggerDataImport());
+  $('#toggleManualFieldsTop')?.addEventListener('click', () => {
+    setManualFieldsVisible($('#manualFields')?.hidden, true);
+  });
+  document.addEventListener('click', (event) => {
+    if (event.target.closest('[data-trigger-import]')) triggerDataImport();
   });
   $('#appendImportFiles')?.addEventListener('click', () => {
-    updateWorkflowStatus('selecting', '请选择下一批报表文件，系统会追加到当前报告任务中。');
-    $('#dataFile').click();
+    triggerDataImport('请选择下一批报表文件，系统会追加到当前报告任务中。');
   });
+  $('#resumeImportConfirm')?.addEventListener('click', () => {
+    if (pendingImportMeta) openImportConfirmModal(pendingImportMeta);
+  });
+  $('#previewImportDraft')?.addEventListener('click', previewImportedDraft);
   $('#downloadTemplate').addEventListener('click', downloadDataTemplate);
   $('#confirmImportedReport').addEventListener('click', confirmImportedReport);
   document.querySelectorAll('[data-close-import-modal]').forEach((button) => {
@@ -5874,11 +6036,21 @@ function bindEvents() {
 function init() {
   if ($('#appVersion')) $('#appVersion').textContent = appVersion;
   const draft = loadJson(draftKey, null);
-  setFormData(draft || samples[0]);
-  setLatest(analyze(getFormData()));
+  const isLegacySampleDraft = /示例数据/.test(String(draft?.dataSource || ''));
+  const hasDraft = Boolean(!isLegacySampleDraft && draft && (draft.storeName || draft.sales || draft.dataSource));
+  if (isLegacySampleDraft) localStorage.removeItem(draftKey);
+  if (hasDraft) {
+    setFormData({ ...blankFormData(), ...draft });
+    setLatest(analyze(getFormData()));
+    setManualFieldsVisible(true);
+  } else {
+    setFormData(blankFormData());
+    setManualFieldsVisible(false);
+    renderEmptyWorkspace();
+  }
   renderHistory();
   bindEvents();
-  updateWorkflowStatus(draft ? 'draft' : 'idle', draft ? '已载入上次保存的草稿，请核实后生成正式报告。' : '');
+  updateWorkflowStatus(hasDraft ? 'draft' : 'idle', hasDraft ? '已载入上次保存的草稿，请核实后生成正式报告。' : '');
 }
 
 init();

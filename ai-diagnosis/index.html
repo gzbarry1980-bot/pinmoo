@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://pinmoo.top/ai-diagnosis/" />
     <meta property="og:image" content="https://pinmoo.top/assets/og-pinmoo.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20260608-site-return" />
+    <link rel="stylesheet" href="./styles.css?v=20260710-mvp-activation" />
   </head>
   <body>
     <div class="app-shell">
@@ -55,7 +55,7 @@
           <div>
             <span>当前工作空间</span>
             <strong>品沐咨询团队</strong>
-            <em class="version-badge" id="appVersion">v0.9.7 · 2026-06-08 · 官网互通修复版</em>
+            <em class="version-badge" id="appVersion">v0.10.0 · 2026-07-10 · MVP上手体验版</em>
           </div>
           <label class="search-box">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
@@ -72,15 +72,13 @@
         <main class="diagnosis-page" id="diagnosis">
           <section class="page-title">
             <div>
-              <h1>电商经营报告</h1>
-              <p>第一阶段优先支持天猫/生意参谋周报：多文件上传、自动识别、报告预览和 Word 导出。</p>
+              <h1>天猫经营周报生成器</h1>
+              <p>上传生意参谋经营报表，自动识别店铺、周期和数据模块，生成可核实、可导出的品牌方周报。</p>
             </div>
             <div class="title-actions">
-              <button id="loadSample" class="ghost-btn" type="button">导入示例</button>
-              <button id="importData" class="ghost-btn" type="button">导入数据</button>
-              <button id="downloadTemplate" class="ghost-btn" type="button">下载模板</button>
-              <button id="resetForm" class="ghost-btn" type="button">清空表单</button>
-              <button id="saveDraft" class="ghost-btn" type="button">保存草稿</button>
+              <button id="importData" class="primary-btn top-import-btn" type="button">上传报表生成周报</button>
+              <button id="loadSample" class="ghost-btn" type="button">体验示例</button>
+              <button id="toggleManualFieldsTop" class="ghost-btn" type="button">手动录入</button>
               <input id="dataFile" type="file" accept=".csv,.json,.xlsx,.xls,.doc,.docx,.html,application/json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" multiple hidden />
             </div>
           </section>
@@ -124,9 +122,21 @@
                 </div>
               </div>
 
-              <div class="import-box">
-                <strong>推荐方式：分批导入经营报表</strong>
-                <p>支持 CSV/JSON/XLSX/XLS/DOCX/DOC。文件多时可一次性选择，系统会在后台逐个解析并更新进度；也可以先导入核心经营、商品、流量，再继续追加其他批次。</p>
+              <div class="import-box upload-first-box">
+                <div class="upload-first-head">
+                  <div>
+                    <span class="upload-kicker">最快开始方式</span>
+                    <strong>先上传报表，店铺信息和核心指标由系统自动识别</strong>
+                    <p>首次建议优先选择“首页数据概览、商品_全部、无线店铺流量来源”。只有一份报表也可以先生成草稿，再追加退款、推广、客服、直播和内容数据。</p>
+                  </div>
+                  <button id="importDataMain" class="primary-btn upload-main-btn" type="button">选择报表并开始识别</button>
+                </div>
+                <div class="upload-pack" aria-label="推荐导入顺序">
+                  <span><b>1</b>经营概览</span>
+                  <span><b>2</b>商品明细</span>
+                  <span><b>3</b>流量来源</span>
+                  <span class="optional">可追加：退款 / 推广 / 客服 / 直播 / 内容</span>
+                </div>
                 <div class="import-progress" id="importProgress" hidden>
                   <div>
                     <span id="importProgressText">等待导入</span>
@@ -136,8 +146,21 @@
                   <small id="importProgressDetail">可分批上传，后续批次会追加到当前报告任务。</small>
                 </div>
                 <small id="importStatus">尚未导入数据，可先使用示例数据体验。</small>
+                <button id="resumeImportConfirm" class="ghost-btn import-resume-btn" type="button" hidden>继续确认并生成报告</button>
               </div>
 
+              <div class="manual-fields" id="manualFields" hidden>
+              <div class="manual-editor-head">
+                <div>
+                  <strong>手动补充与修正</strong>
+                  <span>适合没有标准报表，或需要修正系统识别结果时使用。</span>
+                </div>
+                <div class="manual-editor-actions">
+                  <button id="downloadTemplate" class="ghost-btn" type="button">下载模板</button>
+                  <button id="resetForm" class="ghost-btn" type="button">清空</button>
+                  <button id="saveDraft" class="ghost-btn" type="button">保存草稿</button>
+                </div>
+              </div>
               <div class="section-label">报告任务信息</div>
               <div class="form-row">
                 <label>品牌名称<input id="brandName" type="text" placeholder="例如：世纪茗家" /></label>
@@ -239,6 +262,7 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4"></path><path d="M12 17v4"></path><path d="M4.9 4.9l2.8 2.8"></path><path d="M16.3 16.3l2.8 2.8"></path><path d="M3 12h4"></path><path d="M17 12h4"></path><path d="M4.9 19.1l2.8-2.8"></path><path d="M16.3 7.7l2.8-2.8"></path></svg>
                 生成并保存诊断报告
               </button>
+              </div>
             </form>
 
             <div class="right-stack">
@@ -405,7 +429,7 @@
             </div>
             <div class="modal-actions">
               <button class="ghost-btn" id="appendImportFiles" type="button">继续追加文件</button>
-              <button class="ghost-btn" type="button" data-close-import-modal>先看草稿</button>
+              <button class="ghost-btn" id="previewImportDraft" type="button">先看草稿</button>
               <button class="primary-btn" id="confirmImportedReport" type="button">生成报告并写入历史</button>
             </div>
           </div>
@@ -415,6 +439,6 @@
     </div>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="./app.js?v=20260608-site-return"></script>
+    <script src="./app.js?v=20260710-mvp-activation"></script>
   </body>
 </html>
