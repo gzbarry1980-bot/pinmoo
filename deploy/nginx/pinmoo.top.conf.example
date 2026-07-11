@@ -27,10 +27,9 @@ server {
 
     root /var/www/pinmoo.top/dist;
     index index.html;
-    server_tokens off;
-    client_max_body_size 1m;
 
     include /etc/nginx/snippets/pinmoo-security-headers.conf;
+    include /etc/nginx/snippets/pinmoo-server-protection.conf;
 
     error_page 404 /404.html;
 

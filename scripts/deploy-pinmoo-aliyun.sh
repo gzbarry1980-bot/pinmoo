@@ -27,6 +27,12 @@ npm run build
 echo "==> Verify SEO, GEO and internal links"
 npm run verify
 
+echo "==> Sync managed nginx protection snippets"
+run_admin install -d -m 755 /etc/nginx/conf.d /etc/nginx/snippets
+run_admin install -m 644 deploy/nginx/pinmoo-rate-limit-zones.conf /etc/nginx/conf.d/00-pinmoo-rate-limit-zones.conf
+run_admin install -m 644 deploy/nginx/pinmoo-security-headers.conf /etc/nginx/snippets/pinmoo-security-headers.conf
+run_admin install -m 644 deploy/nginx/pinmoo-server-protection.conf /etc/nginx/snippets/pinmoo-server-protection.conf
+
 echo "==> Reload nginx"
 if command -v systemctl >/dev/null 2>&1; then
   run_admin nginx -t
