@@ -26,6 +26,7 @@ npm run build
 
 echo "==> Verify SEO, GEO and internal links"
 npm run verify
+npm run verify:agent
 
 echo "==> Sync managed nginx protection snippets"
 run_admin install -d -m 755 /etc/nginx/conf.d /etc/nginx/snippets
@@ -45,4 +46,9 @@ fi
 echo "==> Verify live canonical, crawler access, 404 and security headers"
 node scripts/verify-live.mjs https://pinmoo.top
 
-echo "==> Done. Verify: https://pinmoo.top/ and https://pinmoo.top/insights/"
+echo "==> Notify IndexNow"
+if ! node scripts/submit-indexnow.mjs https://pinmoo.top; then
+  echo "Warning: IndexNow submission failed; deployment remains valid."
+fi
+
+echo "==> Done. Verify: https://pinmoo.top/ and https://agent.pinmoo.top/"

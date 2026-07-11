@@ -7,8 +7,9 @@ import { metricDictionary } from './data/resources.js';
 import { getInsightBySlug, insightAuthor, insights } from './data/insights.js';
 
 const root = document.getElementById('root');
+const internationalHost = window.location.hostname === 'pinmooconsulting.com' || window.location.hostname === 'www.pinmooconsulting.com';
 let requestedPathname = normalizePath(window.location.pathname);
-let currentLang = requestedPathname === '/en' || requestedPathname.indexOf('/en/') === 0 || requestedPathname === '/china-ecommerce-consulting' ? 'en' : 'zh';
+let currentLang = internationalHost || requestedPathname === '/en' || requestedPathname.indexOf('/en/') === 0 || requestedPathname === '/china-ecommerce-consulting' ? 'en' : 'zh';
 let pathname = stripLangPath(requestedPathname);
 
 function normalizePath(value) {
@@ -29,6 +30,14 @@ function langPrefix() {
 function localizeHref(href) {
   if (!href || href[0] !== '/' || href.indexOf('//') === 0) return href;
   if (currentLang !== 'en') return href;
+  if (internationalHost) {
+    if (href.indexOf('/insights/') === 0 || href.indexOf('/resources/') === 0) return 'https://pinmoo.top' + href;
+    if (href === '/ai-diagnosis/' || href.indexOf('/ai-diagnosis/') === 0) return 'https://agent.pinmoo.top/';
+    if (href.indexOf('/services/') === 0 && href !== '/services/') return '/china-ecommerce-consulting/';
+    if (href === '/en/' || href === '/en') return '/';
+    if (href.indexOf('/en/') === 0) return href.slice(3);
+    return href;
+  }
   if (href === '/china-ecommerce-consulting/' || href.indexOf('/insights/') === 0) return href;
   if (href.indexOf('/services/') === 0 && href !== '/services/') {
     const slug = href.split('/')[2];
@@ -39,6 +48,10 @@ function localizeHref(href) {
 }
 
 function currentPathForLang(lang) {
+  if (internationalHost) {
+    if (lang === 'zh') return 'https://pinmoo.top' + (pathname === '/' ? '/' : pathname + '/');
+    return pathname === '/' ? '/' : pathname + '/';
+  }
   const isLeadLanding = pathname.indexOf('/services/') === 0 && getLeadPageBySlug(pathname.split('/')[2]);
   if (lang === 'en' && isLeadLanding) return '/china-ecommerce-consulting/';
   if (lang === 'en' && pathname.indexOf('/insights') === 0) return '/en/';
@@ -127,7 +140,9 @@ function Header() {
 }
 
 function Footer() {
-  const resourceLink = '<a href="/resources/ecommerce-metrics-dictionary/">' + (isEn() ? 'Metric glossary' : '经营指标词典') + '</a>';
+  const resourceLink = isEn() && internationalHost
+    ? '<a href="/china-ecommerce-consulting/">China e-commerce guide</a>'
+    : '<a href="/resources/ecommerce-metrics-dictionary/">' + (isEn() ? 'Metric glossary' : '经营指标词典') + '</a>';
   const links = NAV_ITEMS.filter(function(item) { return !item.zhOnly || !isEn(); }).map(function(item) { return '<a href="' + localizeHref(item.href) + '">' + (isEn() ? (EN_TEXT[item.label] || item.label) : item.label) + '</a>'; }).join('') + resourceLink;
   return '<footer class="site-footer"><div class="container footer-grid"><div class="footer-brand">' + logo('logo-frame-footer') + '<p>' + SITE.company + '</p><p>专注电商战略咨询与品牌增长陪跑</p></div><div><h2>导航链接</h2><div class="footer-links">' + links + '</div></div><div><h2>联系方式</h2><p>' + SITE.contactLabel + '</p><p>' + SITE.address + '</p><p>' + SITE.contactNote + '</p></div></div><div class="footer-bottom">© 2026 ' + SITE.company + '. All rights reserved.</div></footer>';
 }
@@ -561,7 +576,7 @@ function translateEnglish(html) {
 
 export function renderSite(route) {
   requestedPathname = normalizePath(route || '/');
-  currentLang = requestedPathname === '/en' || requestedPathname.indexOf('/en/') === 0 || requestedPathname === '/china-ecommerce-consulting' ? 'en' : 'zh';
+  currentLang = internationalHost || requestedPathname === '/en' || requestedPathname.indexOf('/en/') === 0 || requestedPathname === '/china-ecommerce-consulting' ? 'en' : 'zh';
   pathname = stripLangPath(requestedPathname);
   const html = Header() + '<main id="main-content">' + renderPage() + '</main>' + Footer() + FloatingContact();
   return isEn() ? translateEnglish(html) : html;

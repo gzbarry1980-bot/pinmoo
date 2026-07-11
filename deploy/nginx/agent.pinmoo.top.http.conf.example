@@ -1,0 +1,22 @@
+# Temporary HTTP-only vhost used before the first TLS certificate is issued.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name agent.pinmoo.top;
+
+    root /var/www/pinmoo.top/dist/agent;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+        limit_except GET {
+            deny all;
+        }
+    }
+
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+}

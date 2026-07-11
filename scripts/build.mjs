@@ -6,6 +6,25 @@ import { SITE } from '../src/data/site.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
+const isInternationalBuild = SITE.domain === 'https://pinmooconsulting.com';
+
+const internationalRoutes = routeMeta
+  .filter((meta) => meta.lang === 'en' && !meta.duplicate && meta.path.indexOf('/en/') === 0)
+  .map((meta) => ({
+    ...meta,
+    path: meta.path.slice(3) || '/',
+    file: meta.file.replace(/^en\//, ''),
+    renderPath: meta.path,
+    alternatePath: undefined,
+    noHreflang: true,
+    international: true,
+    updated: '2026-07-12'
+  }));
+const chinaEcommerceRoute = routeMeta.find((meta) => meta.path === '/china-ecommerce-consulting/');
+const buildRoutes = isInternationalBuild
+  ? [...internationalRoutes, ...(chinaEcommerceRoute ? [{ ...chinaEcommerceRoute, noHreflang: true, international: true, updated: '2026-07-12' }] : [])]
+  : routeMeta;
+
 await fs.rm(dist, { recursive: true, force: true });
 await fs.mkdir(dist, { recursive: true });
 
@@ -25,7 +44,7 @@ globalThis.document = {
   querySelectorAll() { return []; }
 };
 globalThis.window = {
-  location: { pathname: '/', hostname: 'pinmoo.top' },
+  location: { pathname: '/', hostname: new URL(SITE.domain).hostname },
   addEventListener(){},
   scrollY: 0,
   setTimeout,
@@ -181,7 +200,9 @@ async function syncSourceShell(meta) {
   await fs.writeFile(sourcePath, html, 'utf8');
 }
 
-const topLevel = ['index.html', 'services', 'cases', 'about', 'contact', 'ai-diagnosis', 'public'];
+const topLevel = isInternationalBuild
+  ? ['index.html', 'public']
+  : ['index.html', 'services', 'cases', 'about', 'contact', 'ai-diagnosis', 'public'];
 for (const item of topLevel) await copy(path.join(root, item), path.join(dist, item === 'public' ? '' : item));
 for (const staleAsset of ['assets/cases/generated-case-sheet.png']) {
   await fs.rm(path.join(dist, staleAsset), { force: true });
@@ -203,14 +224,14 @@ for (const filename of domainAwareFiles) {
 }
 const siteTemplate = await fs.readFile(path.join(root, 'index.html'), 'utf8');
 
-for (const meta of routeMeta) {
+for (const meta of buildRoutes) {
   const htmlPath = path.join(dist, meta.file);
   await fs.mkdir(path.dirname(htmlPath), { recursive: true });
   let html = meta.aiTool
     ? await fs.readFile(htmlPath, 'utf8')
     : siteTemplate;
   if (!meta.aiTool) {
-    const rendered = await prerender(meta.path);
+    const rendered = await prerender(meta.renderPath || meta.path);
     html = html.replace(/<div id="root">[\s\S]*?<\/div>\s*(<script type="module" src="\/src\/static-main\.js"><\/script>)/, () => '<div id="root">' + rendered + '</div>\n    <script type="module" src="/src/static-main.js"></script>');
   }
   html = upsertHead(html, meta);
@@ -226,14 +247,68 @@ function sitemapUrl(loc, lastmod, image) {
 }
 
 const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' +
-  routeMeta
+  buildRoutes
     .filter((meta) => meta.sitemap !== false && meta.indexable !== false && !meta.duplicate)
     .map((meta) => sitemapUrl(metaTagsForRoute(meta).canonical, process.env.SITEMAP_LASTMOD || meta.updated || '2026-07-10', imageForRoute(meta)))
     .join('\n') +
   '\n</urlset>\n';
 await fs.writeFile(path.join(dist, 'sitemap.xml'), sitemap, 'utf8');
-await fs.writeFile(path.join(root, 'public', 'sitemap.xml'), sitemap, 'utf8');
+if (!isInternationalBuild) {
+  await fs.writeFile(path.join(root, 'public', 'sitemap.xml'), sitemap, 'utf8');
+}
 
-for (const meta of routeMeta) await syncSourceShell(meta);
+if (!isInternationalBuild) {
+  for (const meta of routeMeta) await syncSourceShell(meta);
+}
 
-console.log('Built static SEO/GEO site to dist');
+async function buildAgentSubdomain() {
+  const sourceDir = path.join(dist, 'ai-diagnosis');
+  const agentDir = path.join(dist, 'agent');
+  await copy(sourceDir, agentDir);
+
+  const agentIndex = path.join(agentDir, 'index.html');
+  let html = await fs.readFile(agentIndex, 'utf8');
+  html = html
+    .replace(/<link rel="canonical" href="[^"]*"\s*\/>/, '<link rel="canonical" href="https://agent.pinmoo.top/" />')
+    .replace(/<meta property="og:url" content="[^"]*"\s*\/>/, '<meta property="og:url" content="https://agent.pinmoo.top/" />')
+    .replace('  </head>', '    <meta name="application-name" content="Pinmoo AI 电商经营智能体" />\n  </head>');
+  await fs.writeFile(agentIndex, html, 'utf8');
+
+  for (const filename of ['favicon.svg', '404.html']) {
+    const source = path.join(dist, filename);
+    const stat = await fs.stat(source).catch(() => null);
+    if (stat?.isFile()) await fs.copyFile(source, path.join(agentDir, filename));
+  }
+
+  const robots = [
+    'User-agent: *',
+    'Allow: /',
+    '',
+    'Sitemap: https://agent.pinmoo.top/sitemap.xml',
+    ''
+  ].join('\n');
+  const agentSitemap = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    '  <url>',
+    '    <loc>https://agent.pinmoo.top/</loc>',
+    '    <lastmod>' + escapeXml(process.env.SITEMAP_LASTMOD || '2026-07-11') + '</lastmod>',
+    '  </url>',
+    '</urlset>',
+    ''
+  ].join('\n');
+  await fs.writeFile(path.join(agentDir, 'robots.txt'), robots, 'utf8');
+  await fs.writeFile(path.join(agentDir, 'sitemap.xml'), agentSitemap, 'utf8');
+
+  if (!html.includes('https://agent.pinmoo.top/')) {
+    throw new Error('Agent subdomain canonical was not generated');
+  }
+}
+
+if (!isInternationalBuild) {
+  await buildAgentSubdomain();
+}
+
+console.log(isInternationalBuild
+  ? 'Built international PINMOO site to dist'
+  : 'Built static SEO/GEO site and agent subdomain bundle to dist');

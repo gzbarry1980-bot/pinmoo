@@ -1,0 +1,51 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name agent.pinmoo.top;
+    return 301 https://agent.pinmoo.top$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name agent.pinmoo.top;
+
+    ssl_certificate /etc/letsencrypt/live/agent.pinmoo.top/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/agent.pinmoo.top/privkey.pem;
+
+    root /var/www/pinmoo.top/dist/agent;
+    index index.html;
+
+    include /etc/nginx/snippets/pinmoo-security-headers.conf;
+    include /etc/nginx/snippets/pinmoo-server-protection.conf;
+
+    error_page 404 /404.html;
+
+    location = /404.html {
+        internal;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+        limit_except GET {
+            deny all;
+        }
+    }
+
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    location ~* \.(?:bak|conf|ini|log|old|sql|swp|tmp)$ {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    gzip on;
+    gzip_vary on;
+    gzip_min_length 1024;
+    gzip_types text/plain text/css application/javascript application/json application/xml image/svg+xml;
+}

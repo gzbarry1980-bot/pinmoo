@@ -7,6 +7,36 @@
   SITE_ORIGIN = "https://pinmooconsulting.com"
 
 [[redirects]]
+  from = "/en"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/en/*"
+  to = "/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/ai-diagnosis/*"
+  to = "https://agent.pinmoo.top/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/insights/*"
+  to = "https://pinmoo.top/insights/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/resources/*"
+  to = "https://pinmoo.top/resources/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/services/*"
+  to = "/china-ecommerce-consulting/"
+  status = 301
+
+[[redirects]]
   from = "/wp-admin/*"
   to = "/404.html"
   status = 404

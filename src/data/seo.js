@@ -19,6 +19,7 @@ export const routeMeta = [
     title: '品沐咨询 pinmoo｜电商诊断、运营陪跑与AI经营周报',
     description: '品沐咨询 pinmoo 面向传统品牌与电商企业，提供免费基础诊断、电商战略诊断、店铺诊断、运营陪跑、页面转化优化、投放复盘、私域复购和AI经营周报服务，帮助品牌先找准增长卡点，再决定下一步怎么做。',
     name: '首页',
+    updated: '2026-07-12',
     priority: '1.0',
     changefreq: 'weekly'
   },
@@ -373,13 +374,13 @@ function websiteNode() {
 function breadcrumbNode(meta) {
   const homeName = meta.lang === 'en' ? 'Home' : '首页';
   const caseName = meta.lang === 'en' ? 'Case Studies' : '项目经验';
-  const casePath = meta.lang === 'en' ? '/en/cases/' : '/cases/';
+  const casePath = meta.lang === 'en' && !meta.international ? '/en/cases/' : '/cases/';
   const serviceName = meta.lang === 'en' ? 'Services' : '服务介绍';
-  const servicePath = meta.lang === 'en' ? '/en/services/' : '/services/';
-  const items = [{ '@type': 'ListItem', position: 1, name: homeName, item: meta.lang === 'en' ? absolute('/en/') : ORIGIN + '/' }];
+  const servicePath = meta.lang === 'en' && !meta.international ? '/en/services/' : '/services/';
+  const items = [{ '@type': 'ListItem', position: 1, name: homeName, item: meta.lang === 'en' && !meta.international ? absolute('/en/') : ORIGIN + '/' }];
   if (meta.path !== '/') {
     if (meta.path.startsWith('/cases/') && meta.path !== '/cases/') {
-      items.push({ '@type': 'ListItem', position: 2, name: '项目经验', item: absolute('/cases/') });
+      items.push({ '@type': 'ListItem', position: 2, name: caseName, item: absolute(casePath) });
       items.push({ '@type': 'ListItem', position: 3, name: meta.name, item: absolute(meta.path) });
     } else if (meta.path.startsWith('/resources/')) {
       items.push({ '@type': 'ListItem', position: 2, name: meta.name, item: absolute(meta.path) });
@@ -390,7 +391,7 @@ function breadcrumbNode(meta) {
       items.push({ '@type': 'ListItem', position: 2, name: caseName, item: absolute(casePath) });
       items.push({ '@type': 'ListItem', position: 3, name: meta.name, item: absolute(meta.path) });
     } else if (meta.path.startsWith('/services/') && meta.path !== '/services/') {
-      items.push({ '@type': 'ListItem', position: 2, name: '服务介绍', item: absolute('/services/') });
+      items.push({ '@type': 'ListItem', position: 2, name: serviceName, item: absolute(servicePath) });
       items.push({ '@type': 'ListItem', position: 3, name: meta.name, item: absolute(meta.path) });
     } else if (meta.path.startsWith('/en/services/') && meta.path !== '/en/services/') {
       items.push({ '@type': 'ListItem', position: 2, name: serviceName, item: absolute(servicePath) });
