@@ -10,6 +10,10 @@ cleanup() {
 }
 trap cleanup EXIT
 
+echo "Generated at: $(date -Is)"
+echo "Log directory: $LOG_DIR"
+echo
+
 shopt -s nullglob
 files=("$LOG_DIR"/access.log "$LOG_DIR"/access.log.* "$LOG_DIR"/*access*.log "$LOG_DIR"/*access*.log.*)
 declare -A seen_files=()
@@ -36,6 +40,13 @@ if [ ! -s "$TMP_FILE" ]; then
 fi
 
 grep -oEi "$PATTERN" "$TMP_FILE" | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr
+
+echo
+echo "== Most requested paths =="
+awk '{print $7}' "$TMP_FILE" | sort | uniq -c | sort -nr | head -n 30
+
+echo
+echo "Total matching requests: $(wc -l < "$TMP_FILE")"
 
 echo
 echo "== Most recent 50 matching requests =="

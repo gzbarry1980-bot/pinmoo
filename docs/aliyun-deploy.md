@@ -20,6 +20,29 @@ cd /var/www/pinmoo.top
 bash scripts/deploy-pinmoo-aliyun.sh
 ```
 
+## 每周 AI 爬虫监测
+
+首次安装后，服务器会在每周一上午生成一份 AI 与搜索爬虫访问报告：
+
+```bash
+cd /var/www/pinmoo.top
+sudo bash scripts/install-crawler-monitoring.sh
+sudo cat /var/log/pinmoo-crawlers/latest.txt
+```
+
+报告会统计各爬虫访问次数、最常请求的 URL 和最近请求记录。历史报告保存在 `/var/log/pinmoo-crawlers/`。
+
+## 检查 Nginx 重复域名配置
+
+出现 `conflicting server name` 时，先运行只读审计，不要直接删除配置文件：
+
+```bash
+cd /var/www/pinmoo.top
+sudo bash scripts/audit-nginx-domain-conflicts.sh pinmoo.top
+```
+
+审计结果会列出所有声明 `pinmoo.top` 的 Nginx 文件。确认文件只属于废弃站点后，才能从 `sites-enabled` 中停用。
+
 脚本会自动完成：
 
 1. 拉取 GitHub 最新代码。
