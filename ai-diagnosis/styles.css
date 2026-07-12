@@ -282,16 +282,32 @@ button { cursor: pointer; }
 }
 
 .diagnosis-page {
+  min-width: 0;
   display: grid;
   gap: 18px;
   padding: 26px;
 }
 
+.diagnosis-page > * {
+  min-width: 0;
+}
+
 .page-title {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: 18px;
   align-items: end;
+}
+
+.page-title > div:first-child {
+  min-width: 0;
+  flex: 1 1 420px;
+}
+
+.page-title .title-actions {
+  flex: 0 1 auto;
+  justify-content: flex-end;
 }
 
 .page-title h1 {
@@ -875,12 +891,19 @@ legend,
 }
 
 .empty-readiness {
+  width: 100%;
+  min-width: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 168px), 1fr));
   gap: 10px;
 }
 
+.health-grid > .empty-readiness {
+  grid-column: 1 / -1;
+}
+
 .empty-readiness article {
+  min-width: 0;
   min-height: 110px;
   display: grid;
   align-content: center;
