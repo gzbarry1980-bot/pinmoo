@@ -444,6 +444,15 @@ button { cursor: pointer; }
   padding: 18px;
 }
 
+.input-panel,
+.summary-panel,
+.health-panel,
+.issue-panel,
+.action-panel,
+.report-panel {
+  container-type: inline-size;
+}
+
 .panel-head {
   display: flex;
   gap: 12px;
@@ -487,7 +496,7 @@ button { cursor: pointer; }
 
 .channel-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 82px), 1fr));
   gap: 10px;
 }
 
@@ -1017,11 +1026,12 @@ button:disabled,
 
 .health-grid {
   display: grid;
-  grid-template-columns: repeat(7, minmax(118px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 168px), 1fr));
   gap: 10px;
 }
 
 .health-card {
+  min-width: 0;
   min-height: 136px;
   display: grid;
   align-content: space-between;
@@ -1045,6 +1055,7 @@ button:disabled,
   color: var(--text);
   font-size: 20px;
   line-height: 1.15;
+  overflow-wrap: break-word;
 }
 
 .health-card em {
@@ -1397,7 +1408,7 @@ button:disabled,
 }
 
 .action-list {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
   align-items: stretch;
 }
 
@@ -1595,7 +1606,7 @@ button:disabled,
 
 .cover-kpis {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr));
   gap: 10px;
   margin: 18px 0;
 }
@@ -1639,7 +1650,7 @@ button:disabled,
 
 .module-insight {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 10px;
   margin: 12px 0;
 }
@@ -1763,7 +1774,7 @@ button:disabled,
 
 .visual-kpis {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
   gap: 10px;
 }
 
@@ -1811,7 +1822,7 @@ button:disabled,
 
 .boss-summary {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
   gap: 10px;
   margin: 10px 0 14px;
 }
@@ -1941,7 +1952,7 @@ button:disabled,
 
 .summary-grid.compact {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
   gap: 8px;
   margin: 10px 0 12px;
 }
@@ -1976,7 +1987,7 @@ button:disabled,
 
 .chart-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
   gap: 12px;
   margin: 10px 0 14px;
 }
@@ -2153,7 +2164,7 @@ button:disabled,
 
 .quadrant-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
   gap: 10px;
   margin: 10px 0 14px;
 }
@@ -2271,7 +2282,7 @@ button:disabled,
 
 .confidence-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   gap: 10px;
   margin: 10px 0 12px;
 }
@@ -2351,7 +2362,7 @@ button:disabled,
 
 .ops-board {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
   gap: 10px;
   margin: 10px 0 14px;
 }
@@ -2914,6 +2925,41 @@ button:disabled,
 
 .modal-card .report-progress {
   margin: 0;
+}
+
+@container (max-width: 720px) {
+  .summary-panel {
+    grid-template-columns: 112px minmax(0, 1fr);
+  }
+
+  .summary-kpis {
+    grid-column: 1 / -1;
+  }
+}
+
+@container (max-width: 520px) {
+  .form-row,
+  .metric-inputs,
+  .summary-panel,
+  .summary-kpis {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .score-ring {
+    margin: 0 auto;
+  }
+
+  .issue-item,
+  .issue-item-rich {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .issue-item small,
+  .issue-item-rich small {
+    grid-column: 2;
+    max-width: none;
+    text-align: left;
+  }
 }
 
 @media (max-width: 920px) {
