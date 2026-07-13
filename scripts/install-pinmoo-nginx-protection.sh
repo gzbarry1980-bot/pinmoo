@@ -6,6 +6,7 @@ SITE_CONFIG="${SITE_CONFIG:-/etc/nginx/sites-enabled/pinmoo.top}"
 CONF_D_TARGET="/etc/nginx/conf.d/00-pinmoo-rate-limit-zones.conf"
 HEADERS_TARGET="/etc/nginx/snippets/pinmoo-security-headers.conf"
 PROTECTION_TARGET="/etc/nginx/snippets/pinmoo-server-protection.conf"
+PERFORMANCE_TARGET="/etc/nginx/snippets/pinmoo-performance.conf"
 BACKUP_DIR="$(mktemp -d /tmp/pinmoo-nginx-backup.XXXXXX)"
 INSTALLED=()
 
@@ -18,6 +19,7 @@ for source in \
   "$APP_DIR/deploy/nginx/pinmoo-rate-limit-zones.conf" \
   "$APP_DIR/deploy/nginx/pinmoo-security-headers.conf" \
   "$APP_DIR/deploy/nginx/pinmoo-server-protection.conf" \
+  "$APP_DIR/deploy/nginx/pinmoo-performance.conf" \
   "$SITE_CONFIG"; do
   if [ ! -f "$source" ]; then
     echo "Missing required file: $source"
@@ -55,13 +57,14 @@ trap restore_previous ERR
 
 install -d -m 755 /etc/nginx/conf.d /etc/nginx/snippets
 
-for target in "$CONF_D_TARGET" "$HEADERS_TARGET" "$PROTECTION_TARGET" "$SITE_CONFIG"; do
+for target in "$CONF_D_TARGET" "$HEADERS_TARGET" "$PROTECTION_TARGET" "$PERFORMANCE_TARGET" "$SITE_CONFIG"; do
   backup_target "$target"
 done
 
 install -m 644 "$APP_DIR/deploy/nginx/pinmoo-rate-limit-zones.conf" "$CONF_D_TARGET"
 install -m 644 "$APP_DIR/deploy/nginx/pinmoo-security-headers.conf" "$HEADERS_TARGET"
 install -m 644 "$APP_DIR/deploy/nginx/pinmoo-server-protection.conf" "$PROTECTION_TARGET"
+install -m 644 "$APP_DIR/deploy/nginx/pinmoo-performance.conf" "$PERFORMANCE_TARGET"
 
 python3 - "$SITE_CONFIG" <<'PY'
 from pathlib import Path
@@ -72,6 +75,7 @@ text = path.read_text()
 
 security_include = "include /etc/nginx/snippets/pinmoo-security-headers.conf;"
 protection_include = "include /etc/nginx/snippets/pinmoo-server-protection.conf;"
+performance_include = "include /etc/nginx/snippets/pinmoo-performance.conf;"
 
 if security_include not in text:
     anchor = "index index.html;"
@@ -83,6 +87,13 @@ if protection_include not in text:
     text = text.replace(
         security_include,
         f"{security_include}\n    {protection_include}",
+        1,
+    )
+
+if performance_include not in text:
+    text = text.replace(
+        protection_include,
+        f"{protection_include}\n    {performance_include}",
         1,
     )
 

@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { routeMeta, jsonLdForRoute, metaTagsForRoute, imageForRoute } from '../src/data/seo.js';
 import { SITE } from '../src/data/site.js';
@@ -207,9 +208,8 @@ for (const item of topLevel) await copy(path.join(root, item), path.join(dist, i
 for (const staleAsset of ['assets/cases/generated-case-sheet.png']) {
   await fs.rm(path.join(dist, staleAsset), { force: true });
 }
-await copy(path.join(root, 'src/static-main.js'), path.join(dist, 'src/static-main.js'));
+await copy(path.join(root, 'src/site-runtime.js'), path.join(dist, 'src/site-runtime.js'));
 await copy(path.join(root, 'src/styles.css'), path.join(dist, 'src/styles.css'));
-await copy(path.join(root, 'src/data'), path.join(dist, 'src/data'));
 
 const domainAwareFiles = ['robots.txt', 'llms.txt', 'llms-full.txt', 'ai.txt', 'ai-context.json', 'pinmoo-profile.json'];
 for (const filename of domainAwareFiles) {
@@ -222,7 +222,14 @@ for (const filename of domainAwareFiles) {
     .replaceAll('https://pinmooconsulting.com', SITE.domain);
   await fs.writeFile(target, localized, 'utf8');
 }
-const siteTemplate = await fs.readFile(path.join(root, 'index.html'), 'utf8');
+const assetVersion = createHash('sha256')
+  .update(await fs.readFile(path.join(root, 'src', 'styles.css')))
+  .update(await fs.readFile(path.join(root, 'src', 'site-runtime.js')))
+  .digest('hex')
+  .slice(0, 10);
+const siteTemplate = (await fs.readFile(path.join(root, 'index.html'), 'utf8'))
+  .replace(/\/src\/styles\.css(?:\?v=[a-f0-9]+)?/g, '/src/styles.css?v=' + assetVersion)
+  .replace(/\/src\/static-main\.js(?:\?v=[a-f0-9]+)?/g, '/src/static-main.js?v=' + assetVersion);
 
 for (const meta of buildRoutes) {
   const htmlPath = path.join(dist, meta.file);
@@ -232,7 +239,7 @@ for (const meta of buildRoutes) {
     : siteTemplate;
   if (!meta.aiTool) {
     const rendered = await prerender(meta.renderPath || meta.path);
-    html = html.replace(/<div id="root">[\s\S]*?<\/div>\s*(<script type="module" src="\/src\/static-main\.js"><\/script>)/, () => '<div id="root">' + rendered + '</div>\n    <script type="module" src="/src/static-main.js"></script>');
+    html = html.replace(/<div id="root">[\s\S]*?<\/div>\s*(<script type="module" src="\/src\/static-main\.js\?v=[a-f0-9]+"><\/script>)/, () => '<div id="root">' + rendered + '</div>\n    <script type="module" src="/src/site-runtime.js?v=' + assetVersion + '"></script>');
   }
   html = upsertHead(html, meta);
   assertValidHtml(html, meta);

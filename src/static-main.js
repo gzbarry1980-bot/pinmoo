@@ -465,7 +465,10 @@ function ContactSuccess() {
 function renderCaseGrid(filter) {
   const normalizedFilter = isEn() ? (FILTER_EN_TO_CN[filter] || filter) : filter;
   const list = !normalizedFilter || normalizedFilter === '全部' ? cases : cases.filter(function(item) { return item.tags.indexOf(normalizedFilter) >= 0 || item.industry === normalizedFilter || item.serviceType.indexOf(normalizedFilter) >= 0; });
-  const html = list.map(function(item) { return '<div class="reveal is-visible">' + CaseCard(item) + '</div>'; }).join('');
+  const html = list.map(function(item) {
+    const filters = [item.industry].concat(item.tags || []).join('|');
+    return '<div class="reveal is-visible" data-case-filters="' + filters + '">' + CaseCard(item) + '</div>';
+  }).join('');
   return isEn() ? translateEnglish(html) : html;
 }
 
