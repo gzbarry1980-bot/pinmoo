@@ -1664,6 +1664,162 @@ dt { color: var(--muted); font-weight: 800; } dd { margin: 0; color: var(--text)
   .about-logo-frame { height: 74px; }
 }
 
+/* Editorial hero visuals: user-supplied business imagery with HTML-first copy. */
+.hero-editorial-visual,
+.page-hero-visual {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(109, 178, 255, .34);
+  border-radius: 8px;
+  background: #082d59;
+  box-shadow: 0 20px 44px rgba(0, 16, 42, .28);
+  isolation: isolate;
+}
+
+.hero-editorial-visual {
+  height: 410px;
+}
+
+.hero-editorial-visual::after,
+.page-hero-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08);
+  pointer-events: none;
+}
+
+.page-hero-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  z-index: 2;
+  width: 34px;
+  background: linear-gradient(90deg, #082d59 0%, rgba(8, 45, 89, .9) 45%, transparent 100%);
+  pointer-events: none;
+}
+
+.hero-editorial-visual img,
+.page-hero-visual img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  object-position: right center;
+}
+
+.hero-editorial-visual img {
+  left: -80%;
+  width: 180%;
+}
+
+.page-hero-has-visual {
+  min-height: 390px;
+  border-bottom: 3px solid rgba(194, 65, 12, .9);
+}
+
+.page-hero-has-visual .page-hero-inner {
+  display: grid;
+  grid-template-columns: minmax(320px, .78fr) minmax(540px, 1.22fr);
+  gap: 34px;
+  align-items: center;
+  min-height: 390px;
+  padding: 42px 0 46px;
+}
+
+.page-hero-copy {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+}
+
+.page-hero-has-visual .page-hero-copy h1 {
+  max-width: 600px;
+  font-size: 44px;
+}
+
+.page-hero-has-visual .page-hero-copy p {
+  max-width: 590px;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.page-hero-visual {
+  height: 302px;
+}
+
+.page-hero-visual img {
+  left: -85%;
+  width: 185%;
+}
+
+.page-hero-visual-cases img,
+.page-hero-visual-insights img {
+  left: -75%;
+  width: 175%;
+}
+
+.page-hero-visual-about img {
+  left: -62%;
+  width: 162%;
+}
+
+.page-hero-visual-contact img {
+  left: -90%;
+  width: 190%;
+}
+
+.page-hero-has-visual .case-hero-industries {
+  gap: 8px;
+}
+
+.page-hero-has-visual .case-hero-industries span {
+  min-width: 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+@media (max-width: 1100px) {
+  .hero-editorial-visual { height: 360px; }
+  .page-hero-has-visual .page-hero-inner {
+    grid-template-columns: minmax(300px, .9fr) minmax(430px, 1.1fr);
+    gap: 24px;
+  }
+  .page-hero-visual { height: 274px; }
+}
+
+@media (max-width: 860px) {
+  .page-hero-has-visual .page-hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    padding: 44px 0;
+  }
+  .page-hero-has-visual .page-hero-copy h1 { max-width: 680px; }
+  .page-hero-has-visual .page-hero-copy p { max-width: 720px; }
+  .page-hero-visual {
+    width: 100%;
+    height: 250px;
+  }
+}
+
+@media (max-width: 560px) {
+  .page-hero-has-visual .page-hero-inner {
+    gap: 22px;
+    padding: 36px 0 30px;
+  }
+  .page-hero-has-visual .page-hero-copy h1 { font-size: 32px; }
+  .page-hero-has-visual .page-hero-copy p {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .page-hero-visual { height: 188px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; animation: none !important; }
