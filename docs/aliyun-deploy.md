@@ -14,6 +14,7 @@
 ```bash
 git config --global --add safe.directory /var/www/pinmoo.top
 cd /var/www/pinmoo.top
+git pull --ff-only origin main
 bash scripts/deploy-pinmoo-aliyun.sh
 ```
 

@@ -3,6 +3,7 @@ set -euo pipefail
 
 APP_DIR="${APP_DIR:-/var/www/pinmoo.top}"
 SITE_ORIGIN="https://pinmoo.top"
+SCRIPT_PATH="$APP_DIR/scripts/deploy-pinmoo-aliyun.sh"
 
 run_admin() {
   if [ "$(id -u)" -eq 0 ]; then
@@ -14,9 +15,15 @@ run_admin() {
 
 cd "$APP_DIR"
 export SITE_ORIGIN
+script_hash_before="$(sha256sum "$SCRIPT_PATH" | awk '{print $1}')"
 
 echo "==> Pull latest code"
 git pull --ff-only origin main
+script_hash_after="$(sha256sum "$SCRIPT_PATH" | awk '{print $1}')"
+if [ "$script_hash_before" != "$script_hash_after" ] && [ "${PINMOO_DEPLOY_REEXEC:-0}" != "1" ]; then
+  echo "==> Deployment script was updated; restart with the new version"
+  exec env PINMOO_DEPLOY_REEXEC=1 APP_DIR="$APP_DIR" bash "$SCRIPT_PATH"
+fi
 
 echo "==> Install dependencies"
 npm ci --ignore-scripts --no-audit --no-fund
