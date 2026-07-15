@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pinmoo AI 店铺经营诊断工作台</title>
-    <meta name="description" content="Pinmoo AI 电商增长智能体店铺经营诊断初版，用于多店铺经营诊断、问题归因、行动计划和报告交付。" />
+    <title>Pinmoo AI 电商经营复盘行动台</title>
+    <meta name="description" content="Pinmoo AI 电商经营复盘行动台，用于识别经营异常、建立行动台账并在下一周期验证改善效果。" />
     <link rel="canonical" href="https://agent.pinmoo.top/" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Pinmoo AI 店铺经营诊断工作台" />
-    <meta property="og:description" content="Pinmoo AI 电商增长智能体店铺经营诊断初版，用于多店铺经营诊断、问题归因、行动计划和报告交付。" />
+    <meta property="og:description" content="Pinmoo AI 电商经营复盘行动台，用于识别经营异常、建立行动台账并在下一周期验证改善效果。" />
     <meta property="og:url" content="https://agent.pinmoo.top/" />
     <meta property="og:image" content="https://pinmooconsulting.com/assets/og-pinmoo.png" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -35,18 +35,18 @@
         <a class="sidebar-home-link" href="https://pinmooconsulting.com/zh/">返回品沐官网首页</a>
 
         <nav class="nav-list">
-          <a class="active" href="#diagnosis"><span>01</span>电商经营报告</a>
-          <a href="#score"><span>02</span>指标评分</a>
-          <a href="#report"><span>03</span>诊断报告</a>
-          <a href="#history"><span>04</span>历史记录</a>
-          <a href="#playbook"><span>05</span>诊断方法</a>
+          <a class="active" href="#diagnosis"><span>01</span>经营复盘</a>
+          <a href="#playbook"><span>02</span>异常雷达</a>
+          <a href="#actionLedger"><span>03</span>行动台账</a>
+          <a href="#review"><span>04</span>复盘验证</a>
+          <a href="#history"><span>05</span>历史记录</a>
         </nav>
 
         <div class="quota-card">
-          <small>本月诊断记录</small>
+          <small>经营复盘记录</small>
           <strong><b id="quotaUsed">0</b> / 200</strong>
           <div class="quota-track"><i id="quotaBar"></i></div>
-          <p>历史保存在当前浏览器，本机可连续沉淀客户诊断。</p>
+          <p>复盘和行动状态保存在当前浏览器，可连续验证经营改善效果。</p>
         </div>
       </aside>
 
@@ -55,7 +55,7 @@
           <div>
             <span>当前工作空间</span>
             <strong>品沐咨询团队</strong>
-            <em class="version-badge" id="appVersion">v0.10.1 · 2026-07-12 · 响应式布局修复版</em>
+            <em class="version-badge" id="appVersion">v0.11.0 · 2026-07-15 · 经营闭环版</em>
           </div>
           <label class="search-box">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
@@ -72,21 +72,21 @@
         <main class="diagnosis-page" id="diagnosis">
           <section class="page-title">
             <div>
-              <h1>天猫经营周报生成器</h1>
-              <p>上传生意参谋经营报表，自动识别店铺、周期和数据模块，生成可核实、可导出的品牌方周报。</p>
+            <h1>电商经营复盘行动台</h1>
+            <p>上传经营报表，定位关键异常、建立行动台账，并在下一周期验证动作效果。</p>
             </div>
             <div class="title-actions">
-              <button id="importData" class="primary-btn top-import-btn" type="button">上传报表生成周报</button>
+              <button id="importData" class="primary-btn top-import-btn" type="button">上传报表开始复盘</button>
               <button id="loadSample" class="ghost-btn" type="button">体验示例</button>
               <button id="toggleManualFieldsTop" class="ghost-btn" type="button">手动录入</button>
               <input id="dataFile" type="file" accept=".csv,.json,.xlsx,.xls,.doc,.docx,.html,application/json,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" multiple hidden />
             </div>
           </section>
 
-          <section class="panel workflow-panel" id="workflowPanel" aria-label="报告生成流程">
+          <section class="panel workflow-panel" id="workflowPanel" aria-label="经营闭环流程">
             <div class="workflow-head">
-              <strong>报告生成流程</strong>
-              <span id="workflowHint">先导入数据，系统会逐步提示确认信息、生成报告和导出文件。</span>
+              <strong>经营闭环流程</strong>
+              <span id="workflowHint">从数据识别到行动验证，每一步保留依据和执行状态。</span>
             </div>
             <ol class="workflow-steps" id="workflowSteps">
               <li data-flow-step="upload" class="active">
@@ -95,19 +95,19 @@
               </li>
               <li data-flow-step="parse">
                 <b>2</b>
-                <div><strong>识别报表</strong><span>自动判断文件类型和字段</span></div>
+                <div><strong>识别报表</strong><span>识别报表类型与关键字段</span></div>
               </li>
               <li data-flow-step="confirm">
                 <b>3</b>
-                <div><strong>确认任务</strong><span>核实店铺、类目、平台、报告类型</span></div>
+                <div><strong>确认任务</strong><span>核实店铺、周期和数据任务</span></div>
               </li>
               <li data-flow-step="preview">
                 <b>4</b>
-                <div><strong>核实报告</strong><span>查看预览和口径说明</span></div>
+                <div><strong>生成复盘</strong><span>确认异常依据、口径和关键动作</span></div>
               </li>
               <li data-flow-step="export">
                 <b>5</b>
-                <div><strong>交付导出</strong><span>导出 Word 或复制话术</span></div>
+                <div><strong>跟踪交付</strong><span>更新行动状态并沉淀复盘记录</span></div>
               </li>
             </ol>
           </section>
@@ -293,22 +293,33 @@
                 <div class="panel-head compact">
                   <span class="step-dot">3</span>
                   <div>
-                    <h2>问题优先级</h2>
+                    <h2>经营异常雷达</h2>
                     <p id="issueCount">共识别 0 个问题</p>
                   </div>
                 </div>
                 <div class="issue-list" id="issueList"></div>
               </section>
 
-              <section class="panel action-panel">
+              <section class="panel action-panel" id="actionLedger">
                 <div class="panel-head compact">
                   <span class="step-dot">4</span>
                   <div>
-                    <h2>行动计划</h2>
-                    <p>按 7 / 14 / 30 天拆解交付动作。</p>
+                    <h2>经营行动台账</h2>
+                    <p id="actionLedgerSummary">生成报告后自动建立关键动作</p>
                   </div>
                 </div>
-                <div class="action-list" id="actionList"></div>
+                <div class="action-ledger-list" id="actionList"></div>
+              </section>
+
+              <section class="panel review-panel" id="review">
+                <div class="panel-head compact">
+                  <span class="step-dot">5</span>
+                  <div>
+                    <h2>上期动作验证</h2>
+                    <p id="reviewSummary">暂无同店铺上一周期报告</p>
+                  </div>
+                </div>
+                <div class="review-grid" id="reviewGrid"></div>
               </section>
             </div>
           </section>
@@ -316,7 +327,7 @@
           <section class="report-grid">
             <article class="panel report-panel" id="report">
               <div class="panel-head compact report-toolbar">
-                <span class="step-dot">5</span>
+                <span class="step-dot">6</span>
                 <div>
                   <h2>诊断报告预览</h2>
                   <p id="reportTime">实时预览，点击生成后写入历史。</p>
@@ -334,24 +345,24 @@
             </article>
 
             <aside class="panel method-panel">
-              <h2>周报结构</h2>
+              <h2>经营闭环结构</h2>
               <div class="method-list">
-                <div><strong>01 店铺整体</strong><span>销售额、访客、转化、客单、退款、健康度</span></div>
-                <div><strong>02 宝贝排行</strong><span>核心宝贝销售、访客、订单、转化和商品判断</span></div>
-                <div><strong>03 SKU分层</strong><span>主力款、高访低转、低访高转、售后风险和长尾清理</span></div>
-                <div><strong>04 退款治理</strong><span>退款原因、退款金额、关联商品和优先修复动作</span></div>
-                <div><strong>05 流量排行</strong><span>搜索、推荐、内容、付费、私域来源贡献</span></div>
-                <div><strong>06 推广活动</strong><span>推广计划、活动成交、ROI、点击和下周期安排</span></div>
+                <div><strong>01 经营结果</strong><span>成交规模、净销售额、流量、转化、客单和退款</span></div>
+                <div><strong>02 异常证据</strong><span>将问题落到商品、流量、推广、客服和直播明细</span></div>
+                <div><strong>03 行动台账</strong><span>明确责任人、截止日期、执行状态和验收标准</span></div>
+                <div><strong>04 上期验证</strong><span>对照上期动作与本期指标，区分改善、持平和恶化</span></div>
+                <div><strong>05 正式周报</strong><span>保留口径、图表、经营判断和品牌方交付内容</span></div>
+                <div><strong>06 历史沉淀</strong><span>连续积累每家店铺的问题、动作与改善结果</span></div>
               </div>
             </aside>
           </section>
 
           <section class="panel history-panel" id="history">
             <div class="panel-head compact">
-              <span class="step-dot">6</span>
+              <span class="step-dot">7</span>
               <div>
-                <h2>诊断历史</h2>
-                <p>支持搜索、回看、删除、导出和导入。</p>
+                <h2>经营复盘历史</h2>
+                <p>支持回看报告、跟踪行动完成度，并为下一周期自动验证提供依据。</p>
               </div>
               <button id="clearHistory" class="danger-btn" type="button">清空历史</button>
             </div>
@@ -363,7 +374,7 @@
                     <th>平台</th>
                     <th>销售额</th>
                     <th>健康度</th>
-                    <th>问题数</th>
+                    <th>行动完成度</th>
                     <th>生成时间</th>
                     <th>操作</th>
                   </tr>

@@ -1,6 +1,7 @@
 const storageKey = 'pinmoo-ai-diagnosis-history-v3';
 const draftKey = 'pinmoo-ai-diagnosis-draft-v3';
-const appVersion = 'v0.10.1 · 2026-07-12 · 响应式布局修复版';
+const actionStorageKey = 'pinmoo-ai-action-ledger-v1';
+const appVersion = 'v0.11.0 · 2026-07-15 · 经营闭环版';
 
 const fieldIds = [
   'brandName', 'storeName', 'industry', 'reportType', 'reportPurpose', 'periodStart', 'periodEnd', 'period', 'compareType', 'dataSource',
@@ -215,6 +216,8 @@ function blankFormData() {
 
 let selectedPlatform = '天猫';
 let history = loadJson(storageKey, []);
+let actionLedger = loadJson(actionStorageKey, []);
+if (!Array.isArray(actionLedger)) actionLedger = [];
 let latestDiagnosis = null;
 let importedDetails = null;
 let importedSummary = null;
@@ -228,6 +231,7 @@ let queuedImportFiles = [];
 let isImportingFiles = false;
 let isGeneratingReport = false;
 let formRecomputeTimer = null;
+let actionEditTimer = null;
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -365,6 +369,209 @@ function saveHistory() {
     }
   }
   return false;
+}
+
+function saveActionLedger() {
+  try {
+    localStorage.setItem(actionStorageKey, JSON.stringify(actionLedger.slice(0, 600)));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function actionStatusLabel(status) {
+  return status === 'done' ? '已完成' : status === 'doing' ? '进行中' : '待开始';
+}
+
+function actionStatusClass(status) {
+  return status === 'done' ? 'done' : status === 'doing' ? 'doing' : 'pending';
+}
+
+function normalizedStoreKey(data = {}) {
+  return `${String(data.storeName || data.brandName || '').trim().toLowerCase()}|${String(data.platform || '').trim().toLowerCase()}`;
+}
+
+function normalizedPeriodKey(data = {}) {
+  const range = [data.periodStart, data.periodEnd].filter(Boolean).join('~');
+  return String(range || data.period || '').trim().toLowerCase();
+}
+
+function stableHash(value) {
+  let hash = 2166136261;
+  const text = String(value || '');
+  for (let index = 0; index < text.length; index += 1) {
+    hash ^= text.charCodeAt(index);
+    hash = Math.imul(hash, 16777619);
+  }
+  return (hash >>> 0).toString(36);
+}
+
+function actionMatchesDiagnosis(entry, diagnosis) {
+  return Boolean(entry && diagnosis?.data &&
+    entry.storeKey === normalizedStoreKey(diagnosis.data) &&
+    (entry.periodKey || String(entry.period || '').trim().toLowerCase()) === normalizedPeriodKey(diagnosis.data));
+}
+
+function dateValue(value) {
+  const text = String(value || '').trim();
+  const direct = Date.parse(text.replace(/\//g, '-'));
+  if (Number.isFinite(direct)) return direct;
+  const dates = text.match(/\d{4}[-/.]\d{1,2}[-/.]\d{1,2}/g) || [];
+  if (!dates.length) return 0;
+  const stamp = Date.parse(dates[dates.length - 1].replace(/[/.]/g, '-'));
+  return Number.isFinite(stamp) ? stamp : 0;
+}
+
+function addDaysText(value, days) {
+  const base = dateValue(value) || Date.now();
+  const date = new Date(base + days * 86400000);
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+function actionEntriesForDiagnosis(diagnosis) {
+  if (!diagnosis?.data) return [];
+  const deadlines = [7, 14, 30];
+  const storeKey = normalizedStoreKey(diagnosis.data);
+  const periodKey = normalizedPeriodKey(diagnosis.data);
+  return (diagnosis.issues || []).slice(0, 3).map((item, index) => {
+    const id = `action-${stableHash(`${storeKey}|${periodKey}|${item.lever || '经营'}|${index + 1}`)}`;
+    const saved = actionLedger.find((entry) => entry.id === id) || actionLedger.find((entry) =>
+      entry.storeKey === storeKey &&
+      (entry.periodKey || String(entry.period || '').trim().toLowerCase()) === periodKey &&
+      entry.lever === (item.lever || '经营') &&
+      (entry.position === index + 1 || String(entry.id || '').endsWith(`-${index + 1}`)));
+    const base = {
+      id,
+      reportId: diagnosis.id,
+      storeKey,
+      periodKey,
+      storeName: diagnosis.data.storeName || diagnosis.data.brandName || '待确认店铺',
+      platform: diagnosis.data.platform || '',
+      period: diagnosis.data.period || '',
+      position: index + 1,
+      lever: item.lever || '经营',
+      title: item.title,
+      task: item.action,
+      evidence: item.evidence,
+      validation: item.validation,
+      owner: item.owner || '运营',
+      dueDate: addDaysText(diagnosis.data.periodEnd, deadlines[index]),
+      status: 'pending',
+      createdAt: diagnosis.createdAt,
+      completedAt: ''
+    };
+    if (!saved) return base;
+    return {
+      ...base,
+      ...saved,
+      id,
+      reportId: diagnosis.id,
+      storeKey,
+      periodKey,
+      storeName: base.storeName,
+      platform: base.platform,
+      period: base.period,
+      lever: base.lever,
+      title: base.title,
+      task: base.task,
+      evidence: base.evidence,
+      validation: base.validation,
+      dueDate: saved.dueDate || base.dueDate
+    };
+  });
+}
+
+function syncActionLedger(diagnosis) {
+  const entries = actionEntriesForDiagnosis(diagnosis);
+  const currentIds = new Set(entries.map((entry) => entry.id));
+  actionLedger = actionLedger.filter((entry) => !actionMatchesDiagnosis(entry, diagnosis) || currentIds.has(entry.id));
+  entries.forEach((entry) => {
+    const saved = actionLedger.find((item) => item.id === entry.id) || actionLedger.find((item) =>
+      item.storeKey === entry.storeKey &&
+      (item.periodKey || String(item.period || '').trim().toLowerCase()) === entry.periodKey &&
+      item.lever === entry.lever &&
+      (item.position === entry.position || String(item.id || '').endsWith(`-${entry.position}`)));
+    if (saved) Object.assign(saved, entry);
+    else actionLedger.unshift(entry);
+  });
+  saveActionLedger();
+  return entries;
+}
+
+function previousDiagnosisFor(diagnosis) {
+  if (!diagnosis?.data) return null;
+  const storeKey = normalizedStoreKey(diagnosis.data);
+  if (!storeKey.split('|')[0]) return null;
+  const currentPeriod = dateValue(diagnosis.data.periodEnd || diagnosis.data.periodStart || diagnosis.data.period);
+  const candidates = history.filter((item) => item?.id !== diagnosis.id && normalizedStoreKey(item.data) === storeKey);
+  const earlier = currentPeriod
+    ? candidates.filter((item) => {
+      const stamp = dateValue(item.data?.periodEnd || item.data?.periodStart || item.data?.period);
+      return stamp && stamp < currentPeriod;
+    })
+    : candidates;
+  const pool = currentPeriod ? earlier : candidates;
+  return pool
+    .sort((a, b) => dateValue(b.data?.periodEnd || b.data?.periodStart || b.data?.period) - dateValue(a.data?.periodEnd || a.data?.periodStart || a.data?.period))[0] || null;
+}
+
+function leverMetric(lever, data = {}) {
+  const contentShare = readNumber(data.contentShare) + readNumber(data.recommendShare);
+  if (/利润|退款/.test(lever)) return { label: '退款率', value: readNumber(data.refundRate), inverse: true, format: (value) => percent(value) };
+  if (/转化/.test(lever)) return { label: '转化率', value: readNumber(data.conversion), format: (value) => percent(value) };
+  if (/流量/.test(lever)) return { label: '访客数', value: readNumber(data.visitors), format: (value) => Math.round(value).toLocaleString('zh-CN') };
+  if (/投放/.test(lever)) return { label: 'ROI', value: readNumber(data.roi), format: (value) => value ? value.toFixed(2) : '-' };
+  if (/货品/.test(lever)) {
+    const activeRate = readNumber(data.activeProductRate) || (readNumber(data.productCount) ? readNumber(data.activeProductCount) / readNumber(data.productCount) * 100 : 0);
+    return { label: '动销率', value: activeRate, format: (value) => percent(value) };
+  }
+  if (/客服/.test(lever)) return { label: '客服承接率', value: readNumber(data.serviceRate), format: (value) => percent(value, 1) };
+  if (/渠道/.test(lever)) return { label: '内容与推荐占比', value: contentShare, format: (value) => percent(value, 1) };
+  return { label: '销售额', value: readNumber(data.sales), format: (value) => yuan(value) };
+}
+
+function reviewVerificationRows(diagnosis) {
+  const previous = previousDiagnosisFor(diagnosis);
+  if (!previous) return { previous: null, rows: [] };
+  const savedActions = actionLedger
+    .filter((entry) => actionMatchesDiagnosis(entry, previous))
+    .sort((a, b) => readNumber(a.position) - readNumber(b.position));
+  const fallbackActions = (previous.issues || []).slice(0, 3).map((item, index) => ({
+    id: `${previous.id}-${index + 1}`,
+    lever: item.lever || '经营',
+    title: item.title,
+    task: item.action,
+    owner: item.owner || '运营',
+    status: 'pending',
+    validation: item.validation
+  }));
+  const actions = savedActions.length ? savedActions : fallbackActions;
+  const rows = actions.slice(0, 3).map((entry) => {
+    const currentMetric = leverMetric(entry.lever, diagnosis.data);
+    const previousMetric = leverMetric(entry.lever, previous.data);
+    const currentValue = currentMetric.value;
+    const previousValue = previousMetric.value;
+    const comparable = previousValue > 0 && Number.isFinite(currentValue);
+    const rawChange = comparable ? (currentValue - previousValue) / previousValue * 100 : 0;
+    const effectiveChange = currentMetric.inverse ? -rawChange : rawChange;
+    const outcome = !comparable ? 'unknown' : effectiveChange > 2 ? 'improved' : effectiveChange < -2 ? 'worse' : 'flat';
+    const conclusion = entry.status === 'done'
+      ? outcome === 'improved' ? '动作完成后指标改善，建议保留并继续验证。' : outcome === 'worse' ? '动作已完成但指标尚未改善，需复核执行质量或原判断。' : outcome === 'flat' ? '动作已完成，指标暂未出现明显变化。' : '动作已完成，但缺少可比指标。'
+      : entry.status === 'doing'
+        ? '动作执行中，本期先观察指标变化，不提前归因。'
+        : '尚未确认执行，指标变化不能归因于该动作。';
+    return {
+      ...entry,
+      metric: currentMetric.label,
+      previousValue: previousMetric.format(previousValue),
+      currentValue: currentMetric.format(currentValue),
+      change: comparable ? `${rawChange >= 0 ? '+' : ''}${rawChange.toFixed(1)}%` : '不可比',
+      outcome,
+      conclusion
+    };
+  });
+  return { previous, rows };
 }
 
 function getBenchmark(industry) {
@@ -896,16 +1103,19 @@ function buildTargetPlan(data, issues, decomposition, bench) {
   const baseVisitors = Math.max(data.visitors || 0, 1);
   const baseConversion = Math.max(data.conversion || 0, 0.1);
   const baseAov = Math.max(data.aov || 0, 1);
+  const formulaBaseline = baseVisitors * baseConversion / 100 * baseAov;
+  const formulaRatio = data.sales > 0 ? formulaBaseline / data.sales : 1;
+  const formulaReliable = formulaRatio >= 0.75 && formulaRatio <= 1.25;
   const settings = isMonth
     ? [
-      { level: '保守', visitorLift: 3, conversionLift: 0.12, aovLift: 1.0, recover: 0.25 },
-      { level: '建议', visitorLift: 6, conversionLift: 0.28, aovLift: 2.0, recover: 0.50 },
-      { level: '冲刺', visitorLift: 10, conversionLift: 0.45, aovLift: 3.0, recover: 0.75 }
+      { level: '保守', visitorLift: 3, conversionLift: 0.12, aovLift: 1.0, recover: 0.25, maxGrowth: 6 },
+      { level: '建议', visitorLift: 6, conversionLift: 0.28, aovLift: 2.0, recover: 0.50, maxGrowth: 12 },
+      { level: '冲刺', visitorLift: 10, conversionLift: 0.45, aovLift: 3.0, recover: 0.75, maxGrowth: 20 }
     ]
     : [
-      { level: '保守', visitorLift: 2, conversionLift: 0.08, aovLift: 0.5, recover: 0.20 },
-      { level: '建议', visitorLift: 4, conversionLift: 0.18, aovLift: 1.0, recover: 0.40 },
-      { level: '冲刺', visitorLift: 7, conversionLift: 0.30, aovLift: 1.8, recover: 0.60 }
+      { level: '保守', visitorLift: 2, conversionLift: 0.08, aovLift: 0.5, recover: 0.20, maxGrowth: 4 },
+      { level: '建议', visitorLift: 4, conversionLift: 0.18, aovLift: 1.0, recover: 0.40, maxGrowth: 8 },
+      { level: '冲刺', visitorLift: 7, conversionLift: 0.30, aovLift: 1.8, recover: 0.60, maxGrowth: 14 }
     ];
 
   const rows = settings.map((item) => {
@@ -913,8 +1123,14 @@ function buildTargetPlan(data, issues, decomposition, bench) {
     const conversion = Math.min(bench.conversion * 1.18, baseConversion + item.conversionLift);
     const aov = baseAov * (1 + item.aovLift / 100);
     const formulaSales = visitors * conversion / 100 * aov;
-    const recoverySales = recoveryMode ? data.sales + salesGap * item.recover : 0;
-    const sales = Math.round(Math.max(formulaSales, recoverySales, data.sales * 1.01));
+    const directionalSales = recoveryMode
+      ? data.sales + salesGap * item.recover
+      : data.sales * (1 + item.maxGrowth / 200);
+    const candidateSales = formulaReliable ? Math.max(formulaSales, directionalSales) : directionalSales;
+    const cappedSales = data.sales > 0
+      ? Math.min(Math.max(candidateSales, data.sales * 1.01), data.sales * (1 + item.maxGrowth / 100))
+      : formulaSales;
+    const sales = Math.round(cappedSales);
     return {
       level: item.level,
       sales,
@@ -928,6 +1144,9 @@ function buildTargetPlan(data, issues, decomposition, bench) {
   return {
     periodName,
     baseline: `当前基准：销售额 ${yuan(data.sales)}，访客 ${Math.round(data.visitors).toLocaleString('zh-CN')}，转化率 ${percent(data.conversion)}，客单价 ${yuan(data.aov)}。`,
+    basis: formulaReliable
+      ? '目标同时参考销售缺口、访客、转化率和客单价，建议在执行中按实际数据滚动校准。'
+      : '支付金额与“访客 × 转化率 × 客单价”的测算结果存在较大口径差异，本次目标销售额按历史缺口回收测算，访客、转化率和客单价仅作为方向指标。',
     focus: topIssue ? `优先杠杆：${topIssue.lever}。${topIssue.action}` : '优先杠杆：商品、内容和复购路径的二级增长诊断。',
     rows
   };
@@ -963,8 +1182,9 @@ function renderHealth(diagnosis) {
 }
 
 function renderIssues(diagnosis) {
-  $('#issueCount').textContent = `共识别 ${diagnosis.issues.length} 个问题，已按影响度排序`;
-  $('#issueList').innerHTML = diagnosis.issues.map((item, index) => `
+  const visibleIssues = diagnosis.issues.slice(0, 3);
+  $('#issueCount').textContent = `聚焦 ${visibleIssues.length} 个关键异常${diagnosis.issues.length > visibleIssues.length ? `，其余 ${diagnosis.issues.length - visibleIssues.length} 项收入正式报告` : ''}`;
+  $('#issueList').innerHTML = visibleIssues.map((item, index) => `
     <article class="issue-item issue-item-rich">
       <span class="issue-rank ${item.level}">${item.rank}</span>
       <div class="issue-copy">
@@ -980,13 +1200,101 @@ function renderIssues(diagnosis) {
 }
 
 function renderActions(diagnosis) {
-  $('#actionList').innerHTML = diagnosis.actions.map((group) => `
-    <article class="action-card">
-      <span>${group.period}</span>
-      <strong>${group.title}</strong>
-      <ul>${group.tasks.map((task) => `<li>${task}</li>`).join('')}</ul>
+  const entries = actionEntriesForDiagnosis(diagnosis);
+  const done = entries.filter((entry) => entry.status === 'done').length;
+  const doing = entries.filter((entry) => entry.status === 'doing').length;
+  const summary = $('#actionLedgerSummary');
+  if (summary) summary.textContent = entries.length ? `${done} 项完成 · ${doing} 项进行中 · ${entries.length - done - doing} 项待开始` : '生成报告后自动建立关键动作';
+  $('#actionList').innerHTML = entries.map((entry, index) => `
+    <article class="ledger-card ${actionStatusClass(entry.status)}">
+      <div class="ledger-rank">${index + 1}</div>
+      <div class="ledger-copy">
+        <header>
+          <strong>${escapeHtml(entry.title)}</strong>
+          <span>${escapeHtml(entry.lever)}</span>
+        </header>
+        <p>${escapeHtml(entry.task)}</p>
+        <small><b>验收</b>${escapeHtml(entry.validation)}</small>
+        <footer>
+          <label>
+            <span>责任人</span>
+            <input type="text" value="${escapeHtml(entry.owner)}" data-action-owner="${entry.id}" aria-label="编辑第 ${index + 1} 项行动责任人" />
+          </label>
+          <label>
+            <span>截止日期</span>
+            <input type="date" value="${escapeHtml(entry.dueDate)}" data-action-due="${entry.id}" aria-label="编辑第 ${index + 1} 项行动截止日期" />
+          </label>
+        </footer>
+      </div>
+      <label class="ledger-status ${actionStatusClass(entry.status)}">
+        <span>执行状态</span>
+        <select data-action-status="${entry.id}" aria-label="更新第 ${index + 1} 项行动状态">
+          <option value="pending" ${entry.status === 'pending' ? 'selected' : ''}>待开始</option>
+          <option value="doing" ${entry.status === 'doing' ? 'selected' : ''}>进行中</option>
+          <option value="done" ${entry.status === 'done' ? 'selected' : ''}>已完成</option>
+        </select>
+      </label>
     </article>
   `).join('');
+}
+
+function renderReviewVerification(diagnosis) {
+  const container = $('#reviewGrid');
+  const summary = $('#reviewSummary');
+  if (!container || !summary) return;
+  const verification = reviewVerificationRows(diagnosis);
+  if (!verification.previous) {
+    summary.textContent = '暂无同店铺上一周期报告';
+    container.innerHTML = `
+      <div class="review-empty">
+        <strong>下一周期自动验证本次动作</strong>
+        <p>完成本期行动状态更新后，下次导入同店铺报表，系统会自动比较对应指标，并区分“已执行有效、已执行未改善、未确认执行”。</p>
+      </div>`;
+    return;
+  }
+  const improved = verification.rows.filter((row) => row.outcome === 'improved' && row.status === 'done').length;
+  summary.textContent = `对比 ${verification.previous.data?.period || verification.previous.createdAt || '上一周期'} · ${improved} 项已验证改善`;
+  container.innerHTML = verification.rows.map((row, index) => `
+    <article class="review-card ${row.status === 'done' ? row.outcome : 'unverified'}">
+      <header>
+        <span>${index + 1}</span>
+        <strong>${escapeHtml(row.title)}</strong>
+        <em class="status-${actionStatusClass(row.status)}">${actionStatusLabel(row.status)}</em>
+      </header>
+      <div class="review-metric">
+        <span>${escapeHtml(row.metric)}</span>
+        <b>${escapeHtml(row.previousValue)}</b>
+        <i>→</i>
+        <b>${escapeHtml(row.currentValue)}</b>
+        <strong>${escapeHtml(row.change)}</strong>
+      </div>
+      <p>${escapeHtml(row.conclusion)}</p>
+    </article>
+  `).join('');
+}
+
+function actionLedgerReportHtml(diagnosis) {
+  const entries = actionEntriesForDiagnosis(diagnosis);
+  return `
+    <table class="report-table">
+      <thead><tr><th>优先动作</th><th>责任人</th><th>截止时间</th><th>状态</th><th>验收标准</th></tr></thead>
+      <tbody>
+        ${entries.map((entry) => `<tr><td>${escapeHtml(entry.task)}</td><td>${escapeHtml(entry.owner)}</td><td>${escapeHtml(entry.dueDate)}</td><td>${actionStatusLabel(entry.status)}</td><td>${escapeHtml(entry.validation)}</td></tr>`).join('')}
+      </tbody>
+    </table>`;
+}
+
+function reviewVerificationReportHtml(diagnosis) {
+  const verification = reviewVerificationRows(diagnosis);
+  if (!verification.previous) return '<p class="report-note">暂无同店铺上一周期报告。本期行动状态完成后，下一周期将自动验证对应指标。</p>';
+  return `
+    <p class="report-note">对比周期：${escapeHtml(verification.previous.data?.period || verification.previous.createdAt || '上一周期')}。仅在动作标记为已完成时，系统才会进一步判断动作后指标是否改善。</p>
+    <table class="report-table">
+      <thead><tr><th>上一期动作</th><th>状态</th><th>验证指标</th><th>上期</th><th>本期</th><th>变化</th><th>结论</th></tr></thead>
+      <tbody>
+        ${verification.rows.map((row) => `<tr><td>${escapeHtml(row.task)}</td><td>${actionStatusLabel(row.status)}</td><td>${escapeHtml(row.metric)}</td><td>${escapeHtml(row.previousValue)}</td><td>${escapeHtml(row.currentValue)}</td><td>${escapeHtml(row.change)}</td><td>${escapeHtml(row.conclusion)}</td></tr>`).join('')}
+      </tbody>
+    </table>`;
 }
 
 function setReportActionsEnabled(enabled) {
@@ -1041,14 +1349,21 @@ function renderEmptyWorkspace() {
       <div><b>14</b><span>14天：修复核心商品和成交承接链路。</span></div>
       <div><b>30</b><span>30天：复盘指标变化并沉淀增长机制。</span></div>
     </div>`;
+  if ($('#actionLedgerSummary')) $('#actionLedgerSummary').textContent = '生成报告后自动建立关键动作';
+  if ($('#reviewSummary')) $('#reviewSummary').textContent = '暂无同店铺上一周期报告';
+  if ($('#reviewGrid')) $('#reviewGrid').innerHTML = `
+    <div class="review-empty">
+      <strong>完成两期经营复盘后自动验证</strong>
+      <p>系统会把上一期动作、执行状态和本期指标放在一起判断，避免每期只生成一份新报告。</p>
+    </div>`;
   $('#reportTime').textContent = '尚未生成报告';
   $('#reportPaper').innerHTML = `
     <div class="workspace-empty">
       <div>
         <span class="empty-icon">+</span>
-        <h3>上传经营报表后，这里生成正式周报预览</h3>
-        <p>建议先选首页数据概览、商品明细和流量来源。系统会提示文件识别结果、数据口径和需要补充的内容。</p>
-        <button class="primary-btn" type="button" data-trigger-import>上传报表生成周报</button>
+        <h3>上传经营报表后，这里生成经营复盘</h3>
+        <p>建议先选首页数据概览、商品明细和流量来源。系统会定位关键异常、建立行动台账，并保留下一周期的验证依据。</p>
+        <button class="primary-btn" type="button" data-trigger-import>上传报表开始复盘</button>
       </div>
     </div>`;
   setReportActionsEnabled(false);
@@ -1534,7 +1849,7 @@ function adaptiveReportOutline(diagnosis) {
   if (state.promotion) included.push('推广情况');
   if (state.activity) included.push('活动情况');
   if (state.leverage) included.push('经营杠杆拆解');
-  included.push('经营数据评分', '关键问题与优先级', '下周期执行计划', '待确认问题', '待补充数据');
+  included.push('经营数据评分', '经营异常雷达', '经营行动台账', '上期动作验证', '下周期执行计划', '待确认问题', '待补充数据');
 
   const skipped = [];
   if (!state.overall) skipped.push('店铺整体：缺少销售额、访客、订单/转化率等大盘数据');
@@ -1799,6 +2114,7 @@ function dataConfidenceHtml(diagnosis) {
 function targetPlanHtml(targetPlan) {
   return reportSection('下周期目标建议', `
     <p>${targetPlan.baseline}</p>
+    <p class="report-note">目标口径：${targetPlan.basis || '目标需结合实际经营口径滚动校准。'}</p>
     <p>${targetPlan.focus}</p>
     <table class="report-table">
       <thead><tr><th>目标档位</th><th>目标销售额</th><th>较本期</th><th>目标访客</th><th>目标转化率</th><th>目标客单价</th></tr></thead>
@@ -2817,7 +3133,7 @@ function renderReport(diagnosis) {
 
         ${dynamicSections.join('')}
 
-    <h4>关键问题与优先级</h4>
+    <h4>经营异常雷达</h4>
     <ol class="report-issue-list">
       ${diagnosis.issues.map((item) => `
         <li>
@@ -2828,6 +3144,12 @@ function renderReport(diagnosis) {
         </li>
       `).join('')}
     </ol>
+
+    <h4>经营行动台账</h4>
+    ${actionLedgerReportHtml(diagnosis)}
+
+    <h4>上期动作验证</h4>
+    ${reviewVerificationReportHtml(diagnosis)}
 
     <h4>下周期作战看板</h4>
     ${actionBoardHtml(diagnosis)}
@@ -3071,20 +3393,25 @@ function renderHistory() {
     return !keyword || text.includes(keyword);
   });
 
-  $('#historyBody').innerHTML = rows.length ? rows.map((item) => `
+  $('#historyBody').innerHTML = rows.length ? rows.map((item) => {
+    const entries = actionLedger.filter((entry) => actionMatchesDiagnosis(entry, item));
+    const total = entries.length || Math.min(3, Array.isArray(item.issues) ? item.issues.length : 0);
+    const done = entries.filter((entry) => entry.status === 'done').length;
+    return `
     <tr>
       <td class="store-cell"><strong>${item.data.storeName || '-'}</strong><span>${item.data.industry || '-'}</span></td>
       <td>${item.data.platform || '-'}</td>
       <td>${yuan(item.data.sales || 0)}</td>
       <td><span class="score-pill ${scoreClass(item.totalScore || 0)}">${item.totalScore || '-'}</span></td>
-      <td>${Array.isArray(item.issues) ? item.issues.length : 0}</td>
+      <td><span class="action-progress-pill ${done === total && total ? 'complete' : ''}">${done} / ${total}</span></td>
       <td>${item.createdAt || '-'}</td>
       <td class="row-actions">
         <button type="button" data-load="${item.id}">查看</button>
         <button type="button" data-delete="${item.id}">删除</button>
       </td>
     </tr>
-  `).join('') : '<tr><td colspan="7">暂无诊断历史。生成第一份报告后会自动保存在这里。</td></tr>';
+  `;
+  }).join('') : '<tr><td colspan="7">暂无经营复盘记录。生成第一份报告后会自动保存在这里。</td></tr>';
 
   $('#quotaUsed').textContent = history.length;
   $('#quotaBar').style.width = Math.min(100, history.length / 2) + '%';
@@ -3092,11 +3419,13 @@ function renderHistory() {
 
 function setLatest(diagnosis, persist = false) {
   latestDiagnosis = diagnosis;
+  if (persist) syncActionLedger(diagnosis);
   setReportActionsEnabled(true);
   renderSummary(diagnosis);
   renderHealth(diagnosis);
   renderIssues(diagnosis);
   renderActions(diagnosis);
+  renderReviewVerification(diagnosis);
   renderReport(diagnosis);
   if (persist) {
     history = [diagnosis, ...history.filter((item) => item.id !== diagnosis.id)].slice(0, 200);
@@ -3116,7 +3445,7 @@ function scheduleFormRecompute(delay = 220) {
   }, delay);
 }
 
-function reportText(diagnosis) {
+function reportTextLegacy(diagnosis) {
   if (!diagnosis) return '';
   const reportName = getReportName(diagnosis);
   const weekly = diagnosis.weeklySections || {};
@@ -3136,6 +3465,8 @@ function reportText(diagnosis) {
   const refundItems = refundMatrixRows(diagnosis);
   const deliveryGrade = buildDeliveryGrade(diagnosis);
   const guideRows = missingDataGuides(diagnosis);
+  const ledgerEntries = actionEntriesForDiagnosis(diagnosis);
+  const verification = reviewVerificationRows(diagnosis);
   const lines = [
     `Pinmoo AI ${reportName}`,
     `${diagnosis.data.brandName || diagnosis.data.storeName} · ${diagnosis.data.storeName} · ${diagnosis.data.platform} · ${diagnosis.data.industry} · ${diagnosis.data.period} · ${diagnosis.data.reportPurpose || '品牌方正式版'} · ${diagnosis.data.dataSource || '数据导入'}`,
@@ -3223,7 +3554,7 @@ function reportText(diagnosis) {
     '经营数据评分',
     ...diagnosis.metrics.map((item) => `- ${item.name}：${item.value}；${item.detail}；评分 ${item.score}`),
     '',
-    '关键问题与优先级',
+    '经营异常雷达',
     ...diagnosis.issues.map((item, index) => [
       `${index + 1}. [${item.rank}] ${item.title}（优先级 ${item.priority}，责任建议：${item.owner}）`,
       `   证据：${item.evidence}`,
@@ -3232,6 +3563,14 @@ function reportText(diagnosis) {
       `   下一步：${item.action}`,
       `   验证：${item.validation}`
     ].join('\n')),
+    '',
+    '经营行动台账',
+    ...ledgerEntries.map((item, index) => `${index + 1}. ${item.title}｜${item.owner}｜截止 ${item.dueDate || '待确认'}｜${actionStatusLabel(item.status)}\n   动作：${item.task}\n   验收：${item.validation}`),
+    '',
+    '上期动作验证',
+    ...(verification.previous
+      ? verification.rows.map((item, index) => `${index + 1}. ${item.title}｜${actionStatusLabel(item.status)}\n   指标：${item.metric} ${item.previousValue} → ${item.currentValue}（${item.change}）\n   复盘：${item.conclusion}`)
+      : ['暂无同店铺上期报告。本期行动状态保存后，下一周期导入数据即可自动验证。']),
     '',
     '下周期作战看板',
     ...actionBoardRows(diagnosis).map((item, index) => `${index + 1}. ${item.group}｜${item.owner}｜优先级 ${item.priority}\n   动作：${item.action}\n   跟踪指标：${item.kpi}\n   验收：${item.validation}`),
@@ -3326,6 +3665,117 @@ function reportText(diagnosis) {
   ].join('\n');
 }
 
+function reportText(diagnosis) {
+  if (!diagnosis) return '';
+  const data = diagnosis.data || {};
+  const state = reportModuleState(diagnosis);
+  const details = data.importedDetails || {};
+  const weekly = diagnosis.weeklySections || {};
+  const ledgerEntries = actionEntriesForDiagnosis(diagnosis);
+  const verification = reviewVerificationRows(diagnosis);
+  const outline = adaptiveReportOutline(diagnosis);
+  const deliveryGrade = buildDeliveryGrade(diagnosis);
+  const lines = [];
+  const addSection = (title, rows = []) => {
+    const content = rows.filter((item) => item !== null && item !== undefined && String(item).trim());
+    if (!content.length) return;
+    lines.push('', title, ...content);
+  };
+
+  lines.push(
+    `Pinmoo AI ${getReportName(diagnosis)}`,
+    `${data.brandName || data.storeName || '待确认品牌'} · ${data.storeName || '待确认店铺'} · ${data.platform || '待确认平台'} · ${data.industry || '待确认类目'}`,
+    `${data.period || [data.periodStart, data.periodEnd].filter(Boolean).join(' 至 ') || '待确认周期'} · ${data.reportPurpose || '品牌方正式版'} · ${data.dataSource || '数据导入'}`,
+    '',
+    `一句话结论：${brandOneSentence(diagnosis)}`,
+    `综合健康度：${diagnosis.totalScore} 分`,
+    `核心结论：${diagnosis.summary.title}`,
+    diagnosis.summary.text
+  );
+
+  addSection('一、老板先看', executiveSummaryText(diagnosis).split('\n').map((item) => `- ${item}`));
+  addSection('二、交付与数据完整度', [
+    `- 交付等级：${deliveryGrade.title}`,
+    `- 交付判断：${deliveryGrade.summary}`,
+    `- 数据完整度：${diagnosis.dataQuality?.score || 0} 分，${dataQualityLabel(diagnosis.dataQuality?.score || 0)}`,
+    `- 已生成模块：${outline.included.join(' / ')}`,
+    `- 暂未生成模块：${outline.skipped.length ? outline.skipped.join(' / ') : '主要经营模块已覆盖'}`
+  ]);
+  addSection('三、数据口径确认', lineageRows(diagnosis).map((item) =>
+    `- ${item.metric}：${item.value}；${item.status}；来源：${item.files}；字段：${item.fields}；${item.method}`));
+  addSection('四、类目诊断方向', categoryDirectionRows(diagnosis).map((item) => `- ${item.name}：${item.value}`));
+
+  if (state.overall) {
+    addSection('五、本期经营总览', [
+      ...operatingSummary(diagnosis).map((item) => `- ${item}`),
+      ...brandKpiRows(diagnosis).map((item) => `- ${item.name}：本期 ${item.current}，对比期 ${item.previous}，变化 ${item.change}。判断：${item.judge}`)
+    ]);
+  }
+  if (state.daily) {
+    addSection('六、每日销售与退款表现', (details.daily || []).map((item, index) =>
+      `${index + 1}. ${item.date || item.name || '-'}：支付 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，订单 ${Math.round(item.orders || 0)}，转化 ${percent(item.conversion || 0)}，退款 ${item.refundAmount ? yuan(item.refundAmount) : '-'}，净销售额 ${yuan(item.netSales || Math.max(0, (item.sales || 0) - (item.refundAmount || 0)))}`));
+  }
+  if (state.product) {
+    const products = state.imported ? details.products || [] : weekly.products || [];
+    addSection('七、商品销售与退款风险', products.map((item, index) =>
+      `${index + 1}. ${item.name || '-'}：支付 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，买家 ${Math.round(item.orders || 0)}，转化 ${percent(item.conversion || 0)}，退款 ${item.refundAmount ? yuan(item.refundAmount) : '-'}，退款率 ${item.refundRate ? percent(item.refundRate) : '-'}。${item.note || ''}`));
+  }
+  if (state.traffic) {
+    const traffic = state.imported ? details.traffic || [] : weekly.traffic || [];
+    addSection('八、流量来源结构与质量', traffic.map((item, index) =>
+      `${index + 1}. ${item.name || '-'}：支付 ${yuan(item.sales || 0)}，访客 ${Math.round(item.visitors || 0)}，转化 ${percent(item.conversion || 0)}，UV价值 ${item.uvValue ? Number(item.uvValue).toFixed(2) : item.visitors ? ((item.sales || 0) / item.visitors).toFixed(2) : '-'}。${item.note || ''}`));
+  }
+  if (state.promotion) {
+    const promotion = state.imported ? details.promotion || [] : weekly.promotion || [];
+    addSection('九、推广计划表现', promotion.map((item, index) =>
+      `${index + 1}. ${item.name || '-'}：花费 ${yuan(item.spend || 0)}，成交 ${yuan(item.sales || 0)}，ROI ${item.roi ? Number(item.roi).toFixed(2) : '-'}，点击 ${item.clicks ? Math.round(item.clicks) : '-'}。${item.note || ''}`));
+  }
+  if (state.refundMatrix) {
+    addSection('十、退款原因治理', refundMatrixRows(diagnosis).map((item, index) =>
+      `${index + 1}. ${item.reason}：退款金额 ${item.refundAmount ? yuan(item.refundAmount) : '-'}，退款笔数 ${item.refundOrders || '-'}，关联商品 ${item.topProduct}。动作：${item.action}`));
+  }
+  if (state.live) {
+    addSection('十一、直播成交承接', (details.live || []).map((item, index) =>
+      `${index + 1}. ${item.name || '-'}：成交 ${yuan(item.sales || 0)}，观看 ${Math.round(item.liveVisitors || item.visitors || 0)}，商品点击 ${Math.round(item.liveClickUsers || 0)}，观看-点击率 ${item.liveClickRate ? percent(item.liveClickRate) : '-'}。`));
+  }
+  if (state.content) {
+    addSection('十二、内容种草表现', (details.content || []).map((item, index) =>
+      `${index + 1}. ${item.name || '-'}：成交 ${item.sales ? yuan(item.sales) : '-'}，曝光/浏览 ${Math.round(item.visitors || item.contentVisitors || item.shortVideoVisitors || 0)}，转化 ${item.conversion ? percent(item.conversion) : '-'}。`));
+  }
+  if (state.serviceDetail) {
+    addSection('十三、客服承接表现', (details.service || []).map((item, index) =>
+      `${index + 1}. ${item.name || '-'}：咨询/接待 ${Math.round(item.visitors || 0)}，成交 ${item.sales ? yuan(item.sales) : '-'}，转化/响应 ${item.conversion ? percent(item.conversion) : '-'}。`));
+  }
+
+  addSection('十四、经营异常雷达', diagnosis.issues.map((item, index) => [
+    `${index + 1}. [${item.rank}] ${item.title}｜优先级 ${item.priority}｜建议责任人 ${item.owner}`,
+    `   证据：${item.evidence}`,
+    `   判断：${item.diagnosis}`,
+    `   动作：${item.action}`,
+    `   验收：${item.validation}`
+  ].join('\n')));
+  addSection('十五、经营行动台账', ledgerEntries.map((item, index) => [
+    `${index + 1}. ${item.title}｜${item.owner}｜截止 ${item.dueDate || '待确认'}｜${actionStatusLabel(item.status)}`,
+    `   动作：${item.task}`,
+    `   验收：${item.validation}`
+  ].join('\n')));
+  addSection('十六、上期动作验证', verification.previous
+    ? verification.rows.map((item, index) => [
+      `${index + 1}. ${item.title}｜${actionStatusLabel(item.status)}`,
+      `   指标：${item.metric} ${item.previousValue} → ${item.currentValue}（${item.change}）`,
+      `   复盘：${item.conclusion}`
+    ].join('\n'))
+    : ['- 暂无同店铺上一周期报告。本期行动状态保存后，下一周期导入数据即可自动验证。']);
+  addSection('十七、下周期作战看板', actionBoardRows(diagnosis).map((item, index) =>
+    `${index + 1}. ${item.group}｜${item.owner}｜优先级 ${item.priority}\n   动作：${item.action}\n   跟踪指标：${item.kpi}\n   验收：${item.validation}`));
+  addSection('十八、需要确认的问题', confirmationQuestions(diagnosis).map((item) => `- ${item.replace(/^\d+\.\s*/, '')}`));
+  addSection('十九、需要补充的数据', missingDataGuides(diagnosis).map((item, index) =>
+    `${index + 1}. ${item.file || item.name || '待补充数据'}：${item.reason || item.tip || '补充后可增强对应模块判断。'}`));
+  addSection('微信群发送话术', [wechatShareText(diagnosis)]);
+  addSection('顾问备注', [data.notes || '暂无补充说明。']);
+  return lines.join('\n');
+}
+
 function exportReport() {
   if (!latestDiagnosis) return toast('请先生成诊断报告');
   downloadText(reportText(latestDiagnosis), `${latestDiagnosis.data.storeName}-${getReportName(latestDiagnosis)}.txt`);
@@ -3334,8 +3784,14 @@ function exportReport() {
 }
 
 function exportHistory() {
-  downloadText(JSON.stringify(history, null, 2), `pinmoo-diagnosis-history-${new Date().toISOString().slice(0, 10)}.json`);
-  toast('历史记录已导出');
+  const archive = {
+    version: 2,
+    exportedAt: new Date().toISOString(),
+    history,
+    actionLedger
+  };
+  downloadText(JSON.stringify(archive, null, 2), `pinmoo-business-review-${new Date().toISOString().slice(0, 10)}.json`);
+  toast('复盘记录与行动台账已导出');
 }
 
 function downloadText(text, filename) {
@@ -5701,6 +6157,7 @@ async function confirmImportedReport() {
     showReportRenderPlaceholder(diagnosis);
     await nextUiFrame();
     latestDiagnosis = diagnosis;
+    syncActionLedger(diagnosis);
     setReportProgress(72, '正在渲染核心指标', '正在刷新健康度、指标评分、问题优先级和行动建议。');
     renderSummary(diagnosis);
     renderHealth(diagnosis);
@@ -5708,6 +6165,7 @@ async function confirmImportedReport() {
     setReportProgress(78, '正在渲染问题与动作', '正在生成关键问题、执行计划和右侧补数建议。');
     renderIssues(diagnosis);
     renderActions(diagnosis);
+    renderReviewVerification(diagnosis);
     await nextUiFrame();
     setReportProgress(84, '正在渲染正式报告', '正在组装图表、表格、口径说明和微信群话术。');
     renderReport(diagnosis);
@@ -5776,13 +6234,13 @@ function toast(message) {
 const workflowStates = {
   idle: {
     active: 'upload',
-    hint: '先导入数据，系统会逐步提示确认信息、生成报告和导出文件。',
+    hint: '导入、识别、确认、生成，最后更新行动状态并在下一周期验证。',
     labels: {
       upload: '等待上传经营报表',
-      parse: '自动判断文件类型和字段',
-      confirm: '核实店铺、类目、平台、报告类型',
-      preview: '查看预览和口径说明',
-      export: '导出 Word 或复制话术'
+      parse: '识别报表类型与关键字段',
+      confirm: '核实店铺、周期和数据任务',
+      preview: '生成复盘并确认异常依据',
+      export: '更新行动状态并沉淀记录'
     }
   },
   selecting: {
@@ -5824,14 +6282,14 @@ const workflowStates = {
   generated: {
     active: 'preview',
     done: ['upload', 'parse', 'confirm'],
-    hint: '报告已生成，请先核实标题、周期、数据口径和核心结论，再导出交付。',
-    labels: { upload: '数据已就绪', parse: '报表已汇总', confirm: '任务已确认', preview: '等待核实报告', export: '可导出 Word' }
+    hint: '复盘已生成，请核实异常依据并更新行动状态；下期同店铺数据将自动验证效果。',
+    labels: { upload: '数据已就绪', parse: '异常已识别', confirm: '任务已确认', preview: '等待核实复盘', export: '可跟踪行动或导出' }
   },
   exported: {
     active: 'export',
     done: ['upload', 'parse', 'confirm', 'preview', 'export'],
-    hint: '交付动作已完成，如数据有调整，可重新导入或重新生成报告。',
-    labels: { upload: '数据已就绪', parse: '报表已汇总', confirm: '任务已确认', preview: '报告已核实', export: '交付已完成' }
+    hint: '本期复盘已沉淀。执行过程中可继续更新行动状态，下期将自动验证相关指标。',
+    labels: { upload: '数据已就绪', parse: '异常已识别', confirm: '任务已确认', preview: '复盘已核实', export: '行动与报告已沉淀' }
   },
   error: {
     active: 'upload',
@@ -5926,6 +6384,56 @@ function bindEvents() {
   });
 
   $('#historySearch').addEventListener('input', renderHistory);
+  $('#actionList')?.addEventListener('input', (event) => {
+    const control = event.target.closest('[data-action-owner], [data-action-due]');
+    if (!control || !latestDiagnosis) return;
+    const id = control.dataset.actionOwner || control.dataset.actionDue;
+    let entry = actionLedger.find((item) => item.id === id);
+    if (!entry) {
+      entry = actionEntriesForDiagnosis(latestDiagnosis).find((item) => item.id === id);
+      if (!entry) return;
+      actionLedger.unshift(entry);
+    }
+    if (control.matches('[data-action-owner]')) entry.owner = control.value.trim() || '待确认';
+    else if (control.value) entry.dueDate = control.value;
+    saveActionLedger();
+    clearTimeout(actionEditTimer);
+    actionEditTimer = setTimeout(() => {
+      renderReport(latestDiagnosis);
+      renderHistory();
+      updateWorkflowStatus('generated', '行动台账已自动保存。执行中可继续更新，下期同店铺复盘将自动验证对应指标。');
+    }, 260);
+  });
+  $('#actionList')?.addEventListener('change', (event) => {
+    const control = event.target.closest('[data-action-status], [data-action-owner], [data-action-due]');
+    if (!control || !latestDiagnosis) return;
+    const id = control.dataset.actionStatus || control.dataset.actionOwner || control.dataset.actionDue;
+    let entry = actionLedger.find((item) => item.id === id);
+    if (!entry) {
+      entry = actionEntriesForDiagnosis(latestDiagnosis).find((item) => item.id === id);
+      if (!entry) return;
+      actionLedger.unshift(entry);
+    }
+    let message = '行动任务已更新';
+    if (control.matches('[data-action-status]')) {
+      entry.status = control.value;
+      entry.completedAt = control.value === 'done' ? new Date().toLocaleString('zh-CN', { hour12: false }) : '';
+      message = `行动状态已更新为“${actionStatusLabel(entry.status)}”`;
+    } else if (control.matches('[data-action-owner]')) {
+      entry.owner = control.value.trim() || '待确认';
+      message = `责任人已更新为“${entry.owner}”`;
+    } else {
+      entry.dueDate = control.value || entry.dueDate;
+      message = `截止日期已更新为 ${entry.dueDate}`;
+    }
+    if (!saveActionLedger()) return toast('行动状态未保存，请检查浏览器存储空间');
+    renderActions(latestDiagnosis);
+    renderReviewVerification(latestDiagnosis);
+    renderReport(latestDiagnosis);
+    renderHistory();
+    updateWorkflowStatus('generated', '行动台账已保存。执行中可继续更新状态，下期同店铺复盘将自动验证对应指标。');
+    toast(message);
+  });
   $('#copyExecutive').addEventListener('click', copyExecutiveSummary);
   $('#copyWechat')?.addEventListener('click', copyWechatText);
   $('#copyReport').addEventListener('click', copyReport);
@@ -5987,11 +6495,19 @@ function bindEvents() {
     if (!file) return;
     try {
       const imported = JSON.parse(await file.text());
-      if (!Array.isArray(imported)) throw new Error('invalid');
-      history = [...imported, ...history].slice(0, 200);
+      const importedHistory = Array.isArray(imported) ? imported : imported.history;
+      const importedLedger = Array.isArray(imported?.actionLedger) ? imported.actionLedger : [];
+      if (!Array.isArray(importedHistory)) throw new Error('invalid');
+      history = [...importedHistory, ...history]
+        .filter((item, index, items) => item?.id && items.findIndex((candidate) => candidate?.id === item.id) === index)
+        .slice(0, 200);
+      actionLedger = [...importedLedger, ...actionLedger]
+        .filter((item, index, items) => item?.id && items.findIndex((candidate) => candidate?.id === item.id) === index)
+        .slice(0, 600);
       saveHistory();
+      saveActionLedger();
       renderHistory();
-      toast('历史记录已导入');
+      toast(`已导入 ${importedHistory.length} 份复盘记录和 ${importedLedger.length} 条行动任务`);
     } catch {
       toast('导入失败，请使用导出的 JSON 文件');
     } finally {
@@ -6005,25 +6521,37 @@ function bindEvents() {
     if (loadButton) {
       const item = history.find((record) => record.id === loadButton.dataset.load);
       if (!item) return;
+      syncActionLedger(item);
       setFormData(item.data);
       setLatest(item);
       updateWorkflowStatus('generated', '已载入历史报告，请核实报告内容或继续导出交付。');
       document.getElementById('report').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     if (deleteButton) {
-      history = history.filter((record) => record.id !== deleteButton.dataset.delete);
+      const reportId = deleteButton.dataset.delete;
+      const removed = history.find((record) => record.id === reportId);
+      history = history.filter((record) => record.id !== reportId);
+      const samePeriodStillExists = removed && history.some((record) =>
+        normalizedStoreKey(record.data) === normalizedStoreKey(removed.data) &&
+        normalizedPeriodKey(record.data) === normalizedPeriodKey(removed.data));
+      if (removed && !samePeriodStillExists) {
+        actionLedger = actionLedger.filter((entry) => !actionMatchesDiagnosis(entry, removed));
+      }
       saveHistory();
+      saveActionLedger();
       renderHistory();
-      toast('已删除该诊断记录');
+      toast('已删除该复盘记录及对应行动任务');
     }
   });
 
   $('#clearHistory').addEventListener('click', () => {
-    if (!history.length) return toast('暂无历史可清空');
+    if (!history.length && !actionLedger.length) return toast('暂无历史可清空');
     history = [];
+    actionLedger = [];
     saveHistory();
+    saveActionLedger();
     renderHistory();
-    toast('诊断历史已清空');
+    toast('复盘历史与行动台账已清空');
   });
 
   window.addEventListener('beforeunload', (event) => {
