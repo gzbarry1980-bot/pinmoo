@@ -49,4 +49,4 @@ https://pinmooconsulting.com/sitemap.xml
 https://agent.pinmoo.top/
 ```
 
-`https://pinmoo.top/` 应返回 301 并跳转到 `https://pinmooconsulting.com/zh/`。
+`http://pinmoo.top/` 和 `https://pinmoo.top/` 应返回 301 并直接跳转到 `https://pinmooconsulting.com/`，以满足 Search Console 地址变更的首页检查。

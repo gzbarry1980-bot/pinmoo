@@ -1,5 +1,6 @@
 const primaryOrigin = 'https://pinmooconsulting.com';
 const legacyOrigin = 'https://pinmoo.top';
+const legacyHttpOrigin = 'http://pinmoo.top';
 const agentOrigin = 'https://agent.pinmoo.top';
 const userAgent = 'PINMOO-Domain-Migration-Check/1.0';
 
@@ -25,11 +26,11 @@ async function fetchResponse(url, options = {}, attempts = 1) {
   throw lastError;
 }
 
-async function expectRedirect(pathname, expectedLocation) {
-  const response = await fetchResponse(legacyOrigin + pathname, { redirect: 'manual' });
+async function expectRedirect(pathname, expectedLocation, origin = legacyOrigin) {
+  const response = await fetchResponse(origin + pathname, { redirect: 'manual' });
   const location = response.headers.get('location');
   if (response.status !== 301 || location !== expectedLocation) {
-    throw new Error(`${legacyOrigin + pathname} expected 301 to ${expectedLocation}, got ${response.status} to ${location || '(none)'}`);
+    throw new Error(`${origin + pathname} expected 301 to ${expectedLocation}, got ${response.status} to ${location || '(none)'}`);
   }
 }
 
@@ -43,7 +44,7 @@ async function expectPrimaryPage(pathname) {
 }
 
 const redirectChecks = [
-  ['/', `${primaryOrigin}/zh/`],
+  ['/', `${primaryOrigin}/`],
   ['/about/', `${primaryOrigin}/zh/about/`],
   ['/services/store-diagnosis/', `${primaryOrigin}/zh/services/store-diagnosis/`],
   ['/insights/ecommerce-weekly-report-review-framework/', `${primaryOrigin}/zh/insights/ecommerce-weekly-report-review-framework/`],
@@ -55,6 +56,7 @@ const redirectChecks = [
 ];
 
 for (const [pathname, location] of redirectChecks) await expectRedirect(pathname, location);
+await expectRedirect('/', `${primaryOrigin}/`, legacyHttpOrigin);
 
 for (const pathname of [
   '/',
