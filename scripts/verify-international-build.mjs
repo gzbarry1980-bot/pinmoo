@@ -88,6 +88,9 @@ expect(sitemapUrls.includes('https://pinmooconsulting.com/zh/'), 'international 
 const robots = await read('robots.txt');
 expect(robots.includes('Sitemap: https://pinmooconsulting.com/sitemap.xml'), 'international robots sitemap is incorrect');
 
+const googleVerification = await read('google3ec590af2111084e.html');
+expect(googleVerification.trim() === 'google-site-verification: google3ec590af2111084e.html', 'Google site verification file is missing or incorrect');
+
 const htmlFiles = await listHtml(dist);
 for (const htmlFile of htmlFiles) {
   const html = await read(htmlFile);

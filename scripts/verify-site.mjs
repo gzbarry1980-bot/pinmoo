@@ -110,6 +110,9 @@ const robots = await fs.readFile(path.join(dist, 'robots.txt'), 'utf8');
 if (!robots.includes('User-agent: OAI-SearchBot')) fail('robots.txt 缺少 OAI-SearchBot');
 if (!robots.includes(`Sitemap: ${SITE.primaryDomain}/sitemap.xml`)) fail('robots.txt sitemap 域名不正确');
 
+const googleVerification = await fs.readFile(path.join(dist, 'google3ec590af2111084e.html'), 'utf8').catch(() => '');
+if (googleVerification.trim() !== 'google-site-verification: google3ec590af2111084e.html') fail('Google 站点验证文件缺失或内容不正确');
+
 const notFound = await fs.readFile(path.join(dist, '404.html'), 'utf8');
 if (!notFound.includes('content="noindex, follow"')) fail('404 页面缺少 noindex');
 
