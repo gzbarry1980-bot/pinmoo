@@ -68,6 +68,9 @@ expect(chineseHome.includes('<link rel="canonical" href="https://pinmooconsultin
 expect(chineseHome.includes('href="/zh/services/"'), 'international Chinese homepage does not keep service links on .com');
 expect(chineseHome.includes('href="https://pinmooconsulting.com/"'), 'international Chinese homepage English switch is incorrect');
 expect(!chineseHome.includes('https://pinmoo.top'), 'international Chinese homepage contains a pinmoo.top cross-domain link');
+expect(chineseHome.includes('AI电商经营周报不是自动写总结，而是先统一数据口径'), 'international Chinese homepage is missing the AI report method');
+expect(chineseHome.includes('电商店铺有流量但转化率低，应该先检查什么？'), 'international Chinese homepage is missing direct answers');
+expect(/"@type"\s*:\s*"FAQPage"/.test(chineseHome), 'international Chinese homepage is missing FAQPage structured data');
 
 const sitemap = await read('sitemap.xml');
 const sitemapUrls = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);

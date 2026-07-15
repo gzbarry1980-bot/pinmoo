@@ -1,4 +1,4 @@
-import { SITE } from './site.js';
+import { HOME_FAQS, SITE } from './site.js';
 import { services, serviceFaqs } from './services.js';
 import { cases } from './cases.js';
 import { CASE_EN, EN_TEXT } from './en-text.js';
@@ -16,8 +16,9 @@ export const routeMeta = [
   {
     path: '/',
     file: 'index.html',
-    title: '品沐咨询 pinmoo｜电商诊断、运营陪跑与AI经营周报',
-    description: '品沐咨询 pinmoo 面向传统品牌与电商企业，提供免费基础诊断、电商战略诊断、店铺诊断、运营陪跑、页面转化优化、投放复盘、私域复购和AI经营周报服务，帮助品牌先找准增长卡点，再决定下一步怎么做。',
+    title: '广州电商咨询公司｜店铺诊断、运营陪跑与AI经营周报｜品沐咨询',
+    description: '广州品沐咨询面向消费品牌与传统企业，提供天猫、京东、抖音等平台的电商战略诊断、店铺转化优化、运营陪跑、投放复盘、退款治理和AI经营周报服务。',
+    keywords: ['广州电商咨询公司', '电商战略诊断', '天猫店铺诊断', '京东运营顾问', '抖音电商咨询', '运营陪跑', 'AI经营周报'],
     name: '首页',
     updated: '2026-07-12',
     priority: '1.0',
@@ -310,6 +311,7 @@ function organizationNode() {
     logo: logoUrl,
     image: ogUrl,
     telephone: phone,
+    hasMap: SITE.mapUrl,
     founder: { '@id': ORIGIN + '/about/#mufeng' },
     knowsAbout: ['电商战略诊断', '天猫与京东运营', '生意参谋数据诊断', '电商经营周报', '退款治理', '投放 ROI 复盘', '页面转化优化', '会员复购与私域运营'],
     areaServed: ['中国', '广东', '广州', '天猫', '京东', '抖音', '小红书', '视频号', '拼多多'],
@@ -512,6 +514,17 @@ function itemListNode(meta) {
 }
 
 function faqNode(meta) {
+  if (meta.lang !== 'en' && (meta.path === '/' || meta.path === '/zh/')) {
+    return {
+      '@type': 'FAQPage',
+      '@id': absolute(meta.path) + '#faq',
+      mainEntity: HOME_FAQS.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a }
+      }))
+    };
+  }
   const insight = insightForMeta(meta);
   if (insight?.faqs?.length) {
     return {

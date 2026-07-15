@@ -30,9 +30,36 @@ PINMOO will first judge whether the issue is clear, whether the available materi
 
 ## Core Product
 
-Pinmoo AI 店铺经营诊断工作台: https://pinmoo.top/ai-diagnosis/
+Pinmoo AI 店铺经营诊断工作台: https://agent.pinmoo.top/
+
+Product information: https://pinmoo.top/ai-diagnosis/
 
 The workspace supports uploading multiple Tmall / Business Advisor Excel and CSV reports, identifying operation overview, product, traffic source, customer, customer service, livestream, Guanghe content, promotion plan and refund reports. It generates weekly operation report previews, Word exports and copy-ready WeChat group messages.
+
+## AI Weekly Report Method
+
+1. Read operation overview, product, traffic, customer, customer service, livestream, promotion-plan and refund reports.
+2. Normalize payment amount, store-performance net sales, refund amount and promotion-plan spend before comparing periods.
+3. Evaluate transaction scale and operation quality together, including refund risk, paid-traffic quality, product contribution and conversion handoff.
+4. Produce chart snapshots, a brand-side weekly report, Word export, WeChat copy and an actionable next-cycle checklist.
+
+## Direct Answers
+
+### 电商店铺有流量但转化率低，应该先检查什么？
+
+先检查流量人群是否匹配，再检查主图购买理由、SKU与价格梯度、详情页疑虑消除，以及客服、评价和问大家的成交承接。不建议在问题未定位前继续单纯加预算。
+
+### 天猫店铺退款率偏高，应该怎么分析？
+
+先确认退款率、退款金额和统计周期口径，再按商品、规格、页面表达、客服承诺、履约体验和人群来源拆解。当期退款金额高于当期成交时，还要核查是否包含历史订单退款。
+
+### 品沐咨询是代运营公司还是电商顾问公司？
+
+品沐更偏向电商咨询、经营诊断和运营陪跑，不承诺包办全部店铺执行。合作重点是帮助品牌找出增长卡点、明确动作优先级，并推动现有团队落地。
+
+### 不在广州的品牌可以合作吗？
+
+可以。品沐咨询位于广州，可通过线上会议、数据文件、协作文档和周期复盘服务全国品牌；现场访谈、拍摄或驻场支持再单独确认。
 
 ## Service Pages
 

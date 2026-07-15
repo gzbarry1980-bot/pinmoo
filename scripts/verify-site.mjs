@@ -60,6 +60,18 @@ for (const meta of routeMeta) {
   if (meta.indexable === false && !robots.includes('noindex')) fail(`${meta.file}: 非索引页应为 noindex`);
   if (meta.indexable !== false && (robots.includes('noindex') || robots.includes('nofollow'))) fail(`${meta.file}: 可索引页包含 noindex/nofollow`);
 
+  if (meta.path === '/' && meta.lang !== 'en') {
+    if (!html.includes('<title>广州电商咨询公司｜店铺诊断、运营陪跑与AI经营周报｜品沐咨询</title>')) fail('首页 title 未覆盖广州电商咨询与核心服务');
+    for (const stat of ['<span class="stat-number">50+</span>', '<span class="stat-number">6</span>', '<span class="stat-number">8+</span>', '<span class="stat-number">4</span>']) {
+      if (!html.includes(stat)) fail(`首页真实经验数据缺失: ${stat}`);
+    }
+    if (!html.includes('AI电商经营周报不是自动写总结，而是先统一数据口径')) fail('首页缺少 AI 经营周报方法说明');
+    if (!html.includes('电商店铺有流量但转化率低，应该先检查什么？')) fail('首页缺少直接问答内容');
+    if (!/"@type"\s*:\s*"FAQPage"/.test(html)) fail('首页缺少 FAQPage 结构化数据');
+    if (/class="text-link">了解更多\b/.test(html)) fail('首页服务锚文本仍使用“了解更多”');
+    if (/class="outline-link"[^>]*>查看详情\b/.test(html)) fail('首页案例锚文本仍使用“查看详情”');
+  }
+
   for (const match of html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)) {
     try {
       JSON.parse(match[1]);
@@ -104,7 +116,12 @@ if (!notFound.includes('content="noindex, follow"')) fail('404 页面缺少 noin
 for (const filename of ['ai-context.json', 'pinmoo-profile.json']) {
   const content = await fs.readFile(path.join(dist, filename), 'utf8');
   try {
-    JSON.parse(content);
+    const data = JSON.parse(content);
+    if (filename === 'ai-context.json') {
+      if (data.aiProduct?.url !== 'https://agent.pinmoo.top/') fail('ai-context.json 工作台域名不正确');
+      if (!Array.isArray(data.aiProduct?.workflow) || data.aiProduct.workflow.length !== 4) fail('ai-context.json 缺少四步周报工作流');
+      if (!Array.isArray(data.directAnswers) || data.directAnswers.length < 5) fail('ai-context.json 直接回答不足 5 条');
+    }
   } catch {
     fail(`${filename} 不是有效 JSON`);
   }

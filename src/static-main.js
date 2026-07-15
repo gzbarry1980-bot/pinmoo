@@ -1,4 +1,4 @@
-import { SITE, NAV_ITEMS, TRUST_STATS, METHODOLOGY, PLATFORM_LIST } from './data/site.js';
+import { SITE, NAV_ITEMS, TRUST_STATS, HOME_FAQS, METHODOLOGY, PLATFORM_LIST } from './data/site.js';
 import { services, serviceFaqs, serviceModel, serviceModelIntro, serviceModelName, serviceProcess, pricingNote } from './data/services.js';
 import { cases, caseFilters, reservedCases, getCaseBySlug } from './data/cases.js';
 import { CASE_EN, EN_TEXT, FILTER_EN_TO_CN } from './data/en-text.js';
@@ -239,24 +239,63 @@ function FirstDiagnosisSection() {
   return '<section class="section first-diagnosis-section"><div class="container first-diagnosis-layout"><div class="reveal first-diagnosis-copy"><p class="section-eyebrow">低门槛开始</p><h2>先做一次免费基础判断，再决定是否深入合作</h2><p>很多品牌迟迟没有咨询，是因为不知道该怎么描述问题。你不用先准备完整方案，只要把现状说清楚一点，我们会先帮你判断下一步该从哪里切入。</p>' + ButtonLink('去联系页发起诊断', '/contact/', 'primary', true) + '</div><div class="first-diagnosis-grid">' + items + '</div></div></section>';
 }
 
+const serviceLandingById = {
+  'strategy-diagnosis': 'ecommerce-diagnosis',
+  'operation-coaching': 'tmall-jd-consultant',
+  'conversion-optimization': 'page-conversion-optimization',
+  'content-seeding': 'douyin-xiaohongshu-growth',
+  'data-review': 'ecommerce-roi-review',
+  'membership-private-domain': 'member-repurchase-private-domain'
+};
+
 function ServiceCard(service) {
-  return '<article class="service-card"><div class="card-icon">' + icon(service.icon, 28) + '</div><h3>' + service.title + '</h3><p>' + service.short + '</p><a href="' + localizeHref('/contact/') + '" class="text-link">了解更多 ' + icon('ArrowRight', 16) + '</a></article>';
+  const slug = serviceLandingById[service.id] || 'ecommerce-diagnosis';
+  const cta = isEn() ? 'Explore this consulting service' : '了解' + service.title + '方案';
+  return '<article class="service-card"><div class="card-icon">' + icon(service.icon, 28) + '</div><h3>' + service.title + '</h3><p>' + service.short + '</p><a href="' + localizeHref('/services/' + slug + '/') + '" class="text-link">' + cta + ' ' + icon('ArrowRight', 16) + '</a></article>';
 }
 
 function CaseCard(item) {
   const href = localizeHref('/cases/' + item.slug + '/');
-  return '<article class="case-card"><a class="case-image" href="' + href + '" aria-label="查看' + item.title + '">' + ResponsiveImage(item.image, item.industry + '项目经验示意图', 'lazy', 'decoding="async"') + '</a><div class="case-card-body"><div class="tag-row"><span>' + item.industry + '</span><span>' + item.platform + '</span></div><h3><a href="' + href + '">' + item.title + '</a></h3><p>' + item.summary + '</p><a class="outline-link" href="' + href + '">查看详情 ' + icon('ArrowRight', 16) + '</a></div></article>';
+  const enCase = CASE_EN[item.slug];
+  const imageAlt = isEn()
+    ? (enCase?.industry || item.industry) + ' ' + (enCase?.serviceType || item.serviceType) + ' case study'
+    : item.industry + '品牌在' + item.platform + '平台的' + item.serviceType + '项目案例';
+  const cta = isEn() ? 'View ' + (enCase?.industry || item.industry) + ' case study' : '查看' + item.industry + '电商优化案例';
+  return '<article class="case-card"><a class="case-image" href="' + href + '" aria-label="查看' + item.title + '">' + ResponsiveImage(item.image, imageAlt, 'lazy', 'decoding="async"') + '</a><div class="case-card-body"><div class="tag-row"><span>' + item.industry + '</span><span>' + item.platform + '</span></div><h3><a href="' + href + '">' + item.title + '</a></h3><p>' + item.summary + '</p><a class="outline-link" href="' + href + '">' + cta + ' ' + icon('ArrowRight', 16) + '</a></div></article>';
 }
 
 function InsightCard(article) {
   const href = '/insights/' + article.slug + '/';
-  return '<article class="insight-card reveal"><div class="insight-card-meta"><span>' + article.category + '</span><time datetime="' + article.updated + '">' + article.updated + '</time></div><h3><a href="' + href + '">' + article.shortTitle + '</a></h3><p>' + article.summary + '</p><div class="insight-card-footer"><span>' + article.readTime + '</span><a class="outline-link" href="' + href + '">阅读全文 ' + icon('ArrowRight', 16) + '</a></div></article>';
+  return '<article class="insight-card reveal"><div class="insight-card-meta"><span>' + article.category + '</span><time datetime="' + article.updated + '">' + article.updated + '</time></div><h3><a href="' + href + '">' + article.shortTitle + '</a></h3><p>' + article.summary + '</p><div class="insight-card-footer"><span>' + article.readTime + '</span><a class="outline-link" href="' + href + '">阅读' + article.shortTitle + ' ' + icon('ArrowRight', 16) + '</a></div></article>';
 }
 
 function HomeInsightsSection() {
   if (isEn()) return '';
   const cards = insights.map(InsightCard).join('');
   return '<section class="section home-insights-section"><div class="container">' + SectionIntro('经营洞察：把数据变成可以执行的判断', '围绕经营周报、退款治理和投放复盘，沉淀品沐在项目中反复使用的方法、口径和执行清单。') + '<div class="insight-card-grid">' + cards + '</div><div class="center-actions">' + ButtonLink('查看全部经营洞察', '/insights/', 'secondary', true) + '</div></div></section>';
+}
+
+function AiWeeklyReportSection() {
+  if (isEn()) return '';
+  const workspaceHref = internationalHost ? localizeHref('/contact/') : 'https://agent.pinmoo.top/';
+  const workspaceLabel = internationalHost ? '咨询AI经营周报方案' : '查看AI经营周报工作台';
+  const modules = [
+    ['读取数据', '经营概览、商品、流量、客户、客服、直播、推广计划与退款报表'],
+    ['统一口径', '区分支付金额、店铺绩效净销售额、退款金额与推广计划花费'],
+    ['形成判断', '同时检查成交规模、退款风险、付费流量质量、商品表现与转化承接'],
+    ['输出动作', '生成图表快照、品牌方周报、Word文档、微信群话术和下周期行动清单']
+  ].map(function(item, index) {
+    return '<div class="ai-report-step"><span>0' + (index + 1) + '</span><div><strong>' + item[0] + '</strong><p>' + item[1] + '</p></div></div>';
+  }).join('');
+  return '<section class="section ai-report-evidence-section"><div class="container ai-report-evidence-grid"><div class="reveal ai-report-evidence-copy"><p class="section-eyebrow">PINMOO AI WEEKLY REPORT</p><h2>AI电商经营周报不是自动写总结，而是先统一数据口径</h2><p>品沐的第一阶段工作流面向天猫与生意参谋数据。系统负责识别文件和组织报告，顾问方法负责解释口径、判断风险与安排动作，避免只根据销售额或整体ROI下结论。</p><div class="ai-report-steps">' + modules + '</div><div class="ai-report-actions"><a class="btn btn-primary" href="' + workspaceHref + '">' + workspaceLabel + ' ' + icon('ArrowRight', 18) + '</a><a class="text-link" href="' + localizeHref('/services/tmall-business-weekly-report/') + '">了解天猫经营周报服务 ' + icon('ArrowRight', 16) + '</a></div></div><div class="reveal ai-report-evidence-visual"><img src="/assets/visuals/insights-weekly-report.webp" alt="天猫生意参谋AI电商经营周报的退款、投放ROI、流量质量和商品结构分析示例" width="1400" height="636" loading="lazy" decoding="async"></div></div></section>';
+}
+
+function HomeFaqSection() {
+  if (isEn()) return '';
+  const items = HOME_FAQS.map(function(item, index) {
+    return '<div class="faq-item ' + (index === 0 ? 'open' : '') + '"><button type="button"><span>' + item.q + '</span>' + icon('ChevronDown', 18) + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>';
+  }).join('');
+  return '<section class="section home-faq-section"><div class="container home-faq-grid"><div class="reveal home-faq-intro"><p class="section-eyebrow">DIRECT ANSWERS</p><h2>品牌做电商时，常见问题先直接回答</h2><p>这些回答基于品沐在店铺诊断、经营复盘和运营陪跑中反复遇到的问题。具体项目仍需结合平台、类目、统计周期和团队执行能力判断。</p><a class="text-link" href="' + localizeHref('/contact/') + '">带着具体问题咨询品沐 ' + icon('ArrowRight', 16) + '</a></div><div class="faq-list">' + items + '</div></div></section>';
 }
 
 function DashboardVisual() {
@@ -271,7 +310,7 @@ function Home() {
   const heroVisual = isEn()
     ? DashboardVisual()
     : '<div class="hero-editorial-visual"><picture><source media="(min-width: 561px)" srcset="/assets/visuals/home-growth-dashboard.webp"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="电商净销售额、投放回报与退款治理数据看板示意图" width="1400" height="748" decoding="async" fetchpriority="high"></picture></div>';
-  return '<section class="home-hero"><div class="hero-grid-bg"></div><div class="container home-hero-inner"><div class="reveal hero-copy"><p class="hero-kicker">' + (isEn() ? 'China e-commerce diagnosis / consulting' : '免费基础诊断 / 电商增长顾问') + '</p><h1>先找准电商增长卡点，再决定怎么花钱</h1><p class="hero-subtitle">品沐咨询帮助品牌从平台、商品、页面、投放、客服、直播和复购中找出真正影响增长的环节，先判断优先级，再进入诊断、陪跑或专项优化。</p><p class="hero-support">你可以先发来品牌、平台和当前问题，我们会做一次基础判断：问题是否清楚、资料是否足够、下一步该从哪里切入。</p><div class="hero-actions">' + ButtonLink('免费基础诊断', '/contact/', 'primary', false) + ButtonLink('查看服务介绍', '/services/', 'secondary', false) + '</div><div class="hero-proof-row"><span>24小时内回复</span><span>先判断是否适合合作</span><span>不做绝对增长承诺</span></div></div><div class="reveal hero-visual-wrap">' + heroVisual + '</div></div></section><section class="section trust-section"><div class="container">' + SectionIntro('服务多个消费品牌，覆盖主流电商平台', '覆盖天猫、京东、抖音、小红书、视频号、拼多多等主流平台，服务行业包括茶饮、服饰、营养品、个护电器、快消品、酒水等。') + '<div class="stats-grid">' + stats + '</div></div></section>' + HomeInquirySection() + '<section class="section services-preview" id="services"><div class="container split-heading">' + SectionIntro('围绕品牌电商增长，我们提供从诊断到落地的系统服务', '把平台、商品、内容、投放、转化和复购放在同一套增长链路里看，而不是只解决单点问题。', 'left') + '</div><div class="container bento-grid">' + serviceGrid + '</div></section>' + FirstDiagnosisSection() + '<section class="section method-section"><div class="container">' + SectionIntro('我们用一套可落地的方法，拆解电商增长问题', '品沐咨询不是只给方向，而是通过诊断、策略、执行陪跑和复盘机制，把复杂的电商增长问题拆成可执行动作。') + '<div class="method-line">' + methods + '</div></div></section><section class="section cases-preview" id="cases"><div class="container">' + SectionIntro('真实项目经验，沉淀可复用的增长方法', '每一个项目，都来自品牌在平台经营、内容表达、页面转化、投放复盘或用户承接中的真实问题。') + '<div class="home-case-grid">' + previewCases + '</div><div class="center-actions">' + ButtonLink('查看全部项目经验', '/cases/', 'primary', true) + '</div></div></section>' + HomeInsightsSection() + '<section class="section about-preview"><div class="container about-preview-grid"><div class="reveal"><h2>更懂实战，也懂 AI 工具的电商增长伙伴</h2><p>品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，基于多年天猫、京东、抖音、小红书、私域运营经验，结合大模型工具，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。</p>' + ButtonLink('了解品沐', '/about/', 'primary', true) + '</div><div class="reveal office-visual"><img src="/assets/about-brand.svg" alt="品沐咨询品牌展示" loading="lazy"></div></div></section>' + CtaBand('不确定该先做诊断、陪跑还是页面优化？', '先把品牌、平台和当前问题发给我们。品沐会先帮你做基础判断，再建议是否进入正式诊断或专项合作。', '免费基础诊断');
+  return '<section class="home-hero"><div class="hero-grid-bg"></div><div class="container home-hero-inner"><div class="reveal hero-copy"><p class="hero-kicker">' + (isEn() ? 'China e-commerce diagnosis / consulting' : '广州电商咨询 / 免费基础诊断') + '</p><h1>先找准电商增长卡点，再决定怎么花钱</h1><p class="hero-subtitle">品沐咨询帮助品牌从平台、商品、页面、投放、客服、直播和复购中找出真正影响增长的环节，先判断优先级，再进入诊断、陪跑或专项优化。</p><p class="hero-support">你可以先发来品牌、平台和当前问题，我们会做一次基础判断：问题是否清楚、资料是否足够、下一步该从哪里切入。</p><div class="hero-actions">' + ButtonLink('免费基础诊断', '/contact/', 'primary', false) + ButtonLink('查看服务介绍', '/services/', 'secondary', false) + '</div><div class="hero-proof-row"><span>24小时内回复</span><span>先判断是否适合合作</span><span>不做绝对增长承诺</span></div></div><div class="reveal hero-visual-wrap">' + heroVisual + '</div></div></section><section class="section trust-section"><div class="container">' + SectionIntro('服务多个消费品牌，覆盖主流电商平台', '覆盖天猫、京东、抖音、小红书、视频号、拼多多等主流平台，服务行业包括茶饮、服饰、营养品、个护电器、快消品、酒水等。') + '<div class="stats-grid">' + stats + '</div></div></section>' + HomeInquirySection() + '<section class="section services-preview" id="services"><div class="container split-heading">' + SectionIntro('围绕品牌电商增长，我们提供从诊断到落地的系统服务', '把平台、商品、内容、投放、转化和复购放在同一套增长链路里看，而不是只解决单点问题。', 'left') + '</div><div class="container bento-grid">' + serviceGrid + '</div></section>' + AiWeeklyReportSection() + FirstDiagnosisSection() + '<section class="section method-section"><div class="container">' + SectionIntro('我们用一套可落地的方法，拆解电商增长问题', '品沐咨询不是只给方向，而是通过诊断、策略、执行陪跑和复盘机制，把复杂的电商增长问题拆成可执行动作。') + '<div class="method-line">' + methods + '</div></div></section><section class="section cases-preview" id="cases"><div class="container">' + SectionIntro('真实项目经验，沉淀可复用的增长方法', '每一个项目，都来自品牌在平台经营、内容表达、页面转化、投放复盘或用户承接中的真实问题。') + '<div class="home-case-grid">' + previewCases + '</div><div class="center-actions">' + ButtonLink('查看全部项目经验', '/cases/', 'primary', true) + '</div></div></section>' + HomeInsightsSection() + HomeFaqSection() + '<section class="section about-preview"><div class="container about-preview-grid"><div class="reveal"><h2>更懂实战，也懂 AI 工具的电商增长伙伴</h2><p>品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，基于多年天猫、京东、抖音、小红书、私域运营经验，结合大模型工具，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。</p>' + ButtonLink('了解品沐咨询与顾问背景', '/about/', 'primary', true) + '</div><div class="reveal office-visual"><img src="/assets/about-brand.svg" alt="广州品沐咨询有限公司的电商实战与AI工具协同方法" loading="lazy"></div></div></section>' + CtaBand('不确定该先做诊断、陪跑还是页面优化？', '先把品牌、平台和当前问题发给我们。品沐会先帮你做基础判断，再建议是否进入正式诊断或专项合作。', '免费基础诊断');
 }
 
 function Services() {
@@ -516,7 +555,10 @@ function CaseDetail(item) {
   const chips = '<div class="case-meta-chips"><span>' + item.industry + '</span><span>' + item.platform + '</span><span>' + item.serviceType + '</span></div>';
   const main = DetailBlock('BookOpen', '项目背景', '<p>' + item.background + '</p>') + DetailBlock('ShieldCheck', '核心问题', '<ul>' + item.problems.map(li).join('') + '</ul>') + DetailBlock('Search', '诊断发现', '<p>' + item.diagnosis + '</p>') + DetailBlock('Target', '解决方向', '<ul>' + item.solutions.map(li).join('') + '</ul>') + DetailBlock('TrendingUp', '阶段成果', '<p>' + item.result + '</p>') + DetailBlock('Lightbulb', '项目启发', '<p>' + item.insight + '</p>');
   const highlights = item.highlights.map(function(h, index) { return '<div class="highlight-row"><span>' + (index + 1) + '</span><p>' + h + '</p></div>'; }).join('');
-  return '<section class="case-detail-hero"><div class="hero-grid-bg"></div><div class="container case-detail-hero-inner"><div class="reveal"><a class="back-link" href="' + localizeHref('/cases/') + '">返回项目经验</a><h1>' + item.title + '</h1><p>' + item.summary + '</p>' + chips + '</div><div class="reveal case-detail-image">' + ResponsiveImage(item.image, item.industry + '项目经验示意图', '', 'decoding="async" fetchpriority="high"') + '</div></div></section><section class="section case-detail-section"><div class="container case-detail-layout"><div class="case-detail-main">' + main + '</div><aside class="case-detail-aside"><div class="reveal aside-card"><h2>项目概览</h2><dl><div><dt>行业</dt><dd>' + item.industry + '</dd></div><div><dt>平台</dt><dd>' + item.platform + '</dd></div><div><dt>核心问题</dt><dd>' + item.serviceType + '</dd></div></dl></div><div class="reveal aside-card highlight-card"><h2>服务亮点</h2>' + highlights + '</div><div class="reveal aside-card"><p>' + item.cta + '</p>' + ButtonLink('预约咨询', '/contact/', 'primary', false) + '</div></aside></div></section>' + CtaBand('如果你的品牌也面临类似问题，可以预约一次基础诊断。', item.cta);
+  const detailImageAlt = isEn()
+    ? ((CASE_EN[item.slug]?.industry || item.industry) + ' ' + (CASE_EN[item.slug]?.serviceType || item.serviceType) + ' consulting case study')
+    : item.industry + '品牌在' + item.platform + '平台的' + item.serviceType + '咨询案例';
+  return '<section class="case-detail-hero"><div class="hero-grid-bg"></div><div class="container case-detail-hero-inner"><div class="reveal"><a class="back-link" href="' + localizeHref('/cases/') + '">返回项目经验</a><h1>' + item.title + '</h1><p>' + item.summary + '</p>' + chips + '</div><div class="reveal case-detail-image">' + ResponsiveImage(item.image, detailImageAlt, '', 'decoding="async" fetchpriority="high"') + '</div></div></section><section class="section case-detail-section"><div class="container case-detail-layout"><div class="case-detail-main">' + main + '</div><aside class="case-detail-aside"><div class="reveal aside-card"><h2>项目概览</h2><dl><div><dt>行业</dt><dd>' + item.industry + '</dd></div><div><dt>平台</dt><dd>' + item.platform + '</dd></div><div><dt>核心问题</dt><dd>' + item.serviceType + '</dd></div></dl></div><div class="reveal aside-card highlight-card"><h2>服务亮点</h2>' + highlights + '</div><div class="reveal aside-card"><p>' + item.cta + '</p>' + ButtonLink('预约咨询', '/contact/', 'primary', false) + '</div></aside></div></section>' + CtaBand('如果你的品牌也面临类似问题，可以预约一次基础诊断。', item.cta);
 }
 
 function About() {

@@ -32,7 +32,8 @@ PINMOO Consulting helps brands understand how to sell products in China through 
 - 会员与私域运营: 建立用户分层、复购提醒、会员权益和私域承接机制。
 
 ## SEO Landing Pages
-- Pinmoo AI 店铺经营诊断工作台: https://pinmoo.top/ai-diagnosis/
+- Pinmoo AI 店铺经营诊断工作台: https://agent.pinmoo.top/
+- AI 经营周报产品说明: https://pinmoo.top/ai-diagnosis/
 - 电商战略诊断: https://pinmoo.top/services/ecommerce-diagnosis/
 - 店铺诊断: https://pinmoo.top/services/store-diagnosis/
 - 天猫京东运营顾问: https://pinmoo.top/services/tmall-jd-consultant/
@@ -69,7 +70,8 @@ PINMOO Consulting helps brands understand how to sell products in China through 
 
 ## Key Pages
 - 首页: https://pinmoo.top/
-- AI 店铺经营诊断: https://pinmoo.top/ai-diagnosis/
+- AI 店铺经营诊断工作台: https://agent.pinmoo.top/
+- AI 经营周报产品说明: https://pinmoo.top/ai-diagnosis/
 - 服务介绍: https://pinmoo.top/services/
 - 项目经验: https://pinmoo.top/cases/
 - 经营洞察: https://pinmoo.top/insights/
