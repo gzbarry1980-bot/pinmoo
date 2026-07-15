@@ -12,6 +12,11 @@
   status = 301
 
 [[redirects]]
+  from = "/zh"
+  to = "/zh/"
+  status = 301
+
+[[redirects]]
   from = "/en/*"
   to = "/:splat"
   status = 301

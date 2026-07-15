@@ -36,6 +36,11 @@ const expectedPages = [
   'cases/index.html',
   'about/index.html',
   'contact/index.html',
+  'zh/index.html',
+  'zh/services/index.html',
+  'zh/cases/index.html',
+  'zh/about/index.html',
+  'zh/contact/index.html',
   'china-ecommerce-consulting/index.html'
 ];
 
@@ -52,12 +57,24 @@ expect(home.includes('<html lang="en">'), 'international homepage language is no
 expect(home.includes('<link rel="canonical" href="https://pinmooconsulting.com/"'), 'international homepage canonical is incorrect');
 expect(home.includes('Find the Right China E-commerce Growth Constraint'), 'international homepage did not render English content');
 expect(!home.includes('href="/en/'), 'international homepage still links to /en/ paths');
+expect(home.includes('href="/zh/"'), 'international homepage Chinese switch does not stay on the .com site');
+expect(!home.includes('href="https://pinmoo.top/"'), 'international homepage Chinese switch still crosses to pinmoo.top');
+expect(home.includes('<link rel="alternate" hreflang="zh-CN" href="https://pinmooconsulting.com/zh/"'), 'international homepage Chinese hreflang is incorrect');
+expect(home.includes('<link rel="alternate" hreflang="x-default" href="https://pinmooconsulting.com/"'), 'international homepage x-default is incorrect');
+
+const chineseHome = await read('zh/index.html');
+expect(chineseHome.includes('<html lang="zh-CN">'), 'international Chinese homepage language is not zh-CN');
+expect(chineseHome.includes('<link rel="canonical" href="https://pinmooconsulting.com/zh/"'), 'international Chinese homepage canonical is incorrect');
+expect(chineseHome.includes('href="/zh/services/"'), 'international Chinese homepage does not keep service links on .com');
+expect(chineseHome.includes('href="https://pinmooconsulting.com/"'), 'international Chinese homepage English switch is incorrect');
+expect(!chineseHome.includes('https://pinmoo.top'), 'international Chinese homepage contains a pinmoo.top cross-domain link');
 
 const sitemap = await read('sitemap.xml');
 const sitemapUrls = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
 expect(sitemapUrls.length >= 10, 'international sitemap has too few URLs');
 expect(sitemapUrls.every((url) => url.startsWith('https://pinmooconsulting.com/')), 'international sitemap contains another domain');
 expect(sitemapUrls.every((url) => !url.includes('/en/')), 'international sitemap contains legacy /en/ URLs');
+expect(sitemapUrls.includes('https://pinmooconsulting.com/zh/'), 'international sitemap is missing the Chinese homepage');
 
 const robots = await read('robots.txt');
 expect(robots.includes('Sitemap: https://pinmooconsulting.com/sitemap.xml'), 'international robots sitemap is incorrect');

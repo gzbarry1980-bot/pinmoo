@@ -9,21 +9,58 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const isInternationalBuild = SITE.domain === 'https://pinmooconsulting.com';
 
+function withInternationalChinesePrefix(routePath) {
+  return routePath === '/' ? '/zh/' : '/zh' + routePath;
+}
+
 const internationalRoutes = routeMeta
   .filter((meta) => meta.lang === 'en' && !meta.duplicate && meta.path.indexOf('/en/') === 0)
-  .map((meta) => ({
-    ...meta,
-    path: meta.path.slice(3) || '/',
-    file: meta.file.replace(/^en\//, ''),
-    renderPath: meta.path,
-    alternatePath: undefined,
-    noHreflang: true,
-    international: true,
-    updated: '2026-07-12'
-  }));
+  .map((meta) => {
+    const internationalPath = meta.path.slice(3) || '/';
+    return {
+      ...meta,
+      path: internationalPath,
+      file: meta.file.replace(/^en\//, ''),
+      renderPath: meta.path,
+      alternatePath: undefined,
+      languagePair: {
+        zh: withInternationalChinesePrefix(internationalPath),
+        en: internationalPath,
+        xDefault: internationalPath
+      },
+      international: true,
+      updated: '2026-07-15'
+    };
+  });
+const internationalChineseRoutes = routeMeta
+  .filter((meta) => meta.lang !== 'en' && !meta.duplicate && (
+    ['/', '/services/', '/cases/', '/about/', '/contact/', '/contact/success/'].includes(meta.path) ||
+    meta.caseSlug || meta.path.indexOf('/insights/') === 0 || meta.path.indexOf('/resources/') === 0
+  ))
+  .map((meta) => {
+    const internationalPath = withInternationalChinesePrefix(meta.path);
+    const hasEnglishPair = ['/', '/services/', '/cases/', '/about/', '/contact/', '/contact/success/'].includes(meta.path) || meta.caseSlug;
+    return {
+      ...meta,
+      lang: 'zh',
+      path: internationalPath,
+      file: path.posix.join('zh', meta.file),
+      renderPath: internationalPath,
+      alternatePath: undefined,
+      ...(hasEnglishPair ? {
+        languagePair: {
+          zh: internationalPath,
+          en: meta.path,
+          xDefault: meta.path
+        }
+      } : { noHreflang: true }),
+      international: true,
+      updated: '2026-07-15'
+    };
+  });
 const chinaEcommerceRoute = routeMeta.find((meta) => meta.path === '/china-ecommerce-consulting/');
 const buildRoutes = isInternationalBuild
-  ? [...internationalRoutes, ...(chinaEcommerceRoute ? [{ ...chinaEcommerceRoute, noHreflang: true, international: true, updated: '2026-07-12' }] : [])]
+  ? [...internationalRoutes, ...internationalChineseRoutes, ...(chinaEcommerceRoute ? [{ ...chinaEcommerceRoute, noHreflang: true, international: true, updated: '2026-07-15' }] : [])]
   : routeMeta;
 
 await fs.rm(dist, { recursive: true, force: true });
@@ -154,7 +191,7 @@ function upsertHead(html, meta) {
     ...(alternate ? [
       '<link rel="alternate" hreflang="zh-CN" href="' + escapeHtml(absolutePath(alternate.zh.path)) + '" />',
       '<link rel="alternate" hreflang="en" href="' + escapeHtml(absolutePath(alternate.en.path)) + '" />',
-      '<link rel="alternate" hreflang="x-default" href="' + escapeHtml(absolutePath(alternate.zh.path)) + '" />'
+      '<link rel="alternate" hreflang="x-default" href="' + escapeHtml(absolutePath(alternate.xDefaultPath || alternate.zh.path)) + '" />'
     ] : []),
     '<link rel="alternate" type="text/plain" href="/llms.txt" title="PINMOO 品沐咨询 AI 摘要" />',
     '<link rel="alternate" type="text/markdown" href="/llms-full.txt" title="PINMOO 品沐咨询完整 AI 上下文" />',
@@ -167,6 +204,13 @@ function upsertHead(html, meta) {
 }
 
 function translatedRoutes(meta) {
+  if (meta.languagePair) {
+    return {
+      zh: { path: meta.languagePair.zh },
+      en: { path: meta.languagePair.en },
+      xDefaultPath: meta.languagePair.xDefault
+    };
+  }
   if (meta.noHreflang) return null;
   if (meta.lang === 'en') {
     if (!meta.alternatePath) return null;

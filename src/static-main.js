@@ -9,7 +9,7 @@ import { getInsightBySlug, insightAuthor, insights } from './data/insights.js';
 const root = document.getElementById('root');
 const internationalHost = window.location.hostname === 'pinmooconsulting.com' || window.location.hostname === 'www.pinmooconsulting.com';
 let requestedPathname = normalizePath(window.location.pathname);
-let currentLang = internationalHost || requestedPathname === '/en' || requestedPathname.indexOf('/en/') === 0 || requestedPathname === '/china-ecommerce-consulting' ? 'en' : 'zh';
+let currentLang = languageForPath(requestedPathname);
 let pathname = stripLangPath(requestedPathname);
 
 function normalizePath(value) {
@@ -20,24 +20,43 @@ function stripLangPath(value) {
   const path = normalizePath(value);
   if (path === '/en') return '/';
   if (path.indexOf('/en/') === 0) return normalizePath(path.slice(3));
+  if (path === '/zh') return '/';
+  if (path.indexOf('/zh/') === 0) return normalizePath(path.slice(3));
   return path;
 }
 
-function langPrefix() {
-  return currentLang === 'en' ? '/en' : '';
+function languageForPath(value) {
+  const path = normalizePath(value);
+  if (internationalHost) {
+    return path === '/zh' || path.indexOf('/zh/') === 0 ? 'zh' : 'en';
+  }
+  return path === '/en' || path.indexOf('/en/') === 0 || path === '/china-ecommerce-consulting' ? 'en' : 'zh';
+}
+
+function internationalChinesePath(href) {
+  if (href === '/') return '/zh/';
+  return '/zh' + href;
 }
 
 function localizeHref(href) {
   if (!href || href[0] !== '/' || href.indexOf('//') === 0) return href;
-  if (currentLang !== 'en') return href;
   if (internationalHost) {
-    if (href.indexOf('/insights/') === 0 || href.indexOf('/resources/') === 0) return 'https://pinmoo.top' + href;
     if (href === '/ai-diagnosis/' || href.indexOf('/ai-diagnosis/') === 0) return 'https://agent.pinmoo.top/';
+    if (currentLang === 'zh') {
+      if (href === '/zh/' || href === '/zh' || href.indexOf('/zh/') === 0) return href;
+      if (href.indexOf('/services/') === 0 && href !== '/services/') return '/zh/services/';
+      if (href === '/china-ecommerce-consulting/') return '/zh/';
+      if (href === '/en/' || href === '/en') return '/zh/';
+      if (href.indexOf('/en/') === 0) return internationalChinesePath(href.slice(3));
+      return internationalChinesePath(href);
+    }
+    if (href.indexOf('/insights/') === 0 || href.indexOf('/resources/') === 0) return '/china-ecommerce-consulting/';
     if (href.indexOf('/services/') === 0 && href !== '/services/') return '/china-ecommerce-consulting/';
     if (href === '/en/' || href === '/en') return '/';
     if (href.indexOf('/en/') === 0) return href.slice(3);
     return href;
   }
+  if (currentLang !== 'en') return href;
   if (href === '/china-ecommerce-consulting/' || href.indexOf('/insights/') === 0) return href;
   if (href.indexOf('/services/') === 0 && href !== '/services/') {
     const slug = href.split('/')[2];
@@ -49,8 +68,12 @@ function localizeHref(href) {
 
 function currentPathForLang(lang) {
   if (internationalHost) {
-    if (lang === 'zh') return 'https://pinmoo.top' + (pathname === '/' ? '/' : pathname + '/');
-    return pathname === '/' ? '/' : pathname + '/';
+    if (lang === 'zh') {
+      if (pathname === '/china-ecommerce-consulting') return '/zh/';
+      return pathname === '/' ? '/zh/' : '/zh' + pathname + '/';
+    }
+    if (pathname.indexOf('/insights') === 0 || pathname.indexOf('/resources') === 0) return SITE.domain + '/';
+    return SITE.domain + (pathname === '/' ? '/' : pathname + '/');
   }
   const isLeadLanding = pathname.indexOf('/services/') === 0 && getLeadPageBySlug(pathname.split('/')[2]);
   if (lang === 'en' && isLeadLanding) return '/china-ecommerce-consulting/';
@@ -140,8 +163,8 @@ function Header() {
 }
 
 function Footer() {
-  const resourceLink = isEn() && internationalHost
-    ? '<a href="/china-ecommerce-consulting/">China e-commerce guide</a>'
+  const resourceLink = internationalHost
+    ? (isEn() ? '<a href="/china-ecommerce-consulting/">China e-commerce guide</a>' : '<a href="/zh/resources/ecommerce-metrics-dictionary/">\u7ecf\u8425\u6307\u6807\u8bcd\u5178</a>')
     : '<a href="/resources/ecommerce-metrics-dictionary/">' + (isEn() ? 'Metric glossary' : '经营指标词典') + '</a>';
   const links = NAV_ITEMS.filter(function(item) { return !item.zhOnly || !isEn(); }).map(function(item) { return '<a href="' + localizeHref(item.href) + '">' + (isEn() ? (EN_TEXT[item.label] || item.label) : item.label) + '</a>'; }).join('') + resourceLink;
   return '<footer class="site-footer"><div class="container footer-grid"><div class="footer-brand">' + logo('logo-frame-footer') + '<p>' + SITE.company + '</p><p>专注电商战略咨询与品牌增长陪跑</p></div><div><h2>导航链接</h2><div class="footer-links">' + links + '</div></div><div><h2>联系方式</h2><p>' + SITE.contactLabel + '</p><p>' + SITE.address + '</p><p>' + SITE.contactNote + '</p></div></div><div class="footer-bottom">© 2026 ' + SITE.company + '. All rights reserved.</div></footer>';
@@ -587,10 +610,13 @@ function translateEnglish(html) {
 
 export function renderSite(route) {
   requestedPathname = normalizePath(route || '/');
-  currentLang = internationalHost || requestedPathname === '/en' || requestedPathname.indexOf('/en/') === 0 || requestedPathname === '/china-ecommerce-consulting' ? 'en' : 'zh';
+  currentLang = languageForPath(requestedPathname);
   pathname = stripLangPath(requestedPathname);
   const html = Header() + '<main id="main-content">' + renderPage() + '</main>' + Footer() + FloatingContact();
-  return isEn() ? translateEnglish(html) : html;
+  const localizedHtml = internationalHost
+    ? html.replace(/href="(\/[^"#?]*)"/g, function(match, href) { return 'href="' + localizeHref(href) + '"'; })
+    : html;
+  return isEn() ? translateEnglish(localizedHtml) : localizedHtml;
 }
 
 root.innerHTML = renderSite(requestedPathname);
