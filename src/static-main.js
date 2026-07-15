@@ -44,7 +44,6 @@ function localizeHref(href) {
     if (href === '/ai-diagnosis/' || href.indexOf('/ai-diagnosis/') === 0) return 'https://agent.pinmoo.top/';
     if (currentLang === 'zh') {
       if (href === '/zh/' || href === '/zh' || href.indexOf('/zh/') === 0) return href;
-      if (href.indexOf('/services/') === 0 && href !== '/services/') return '/zh/services/';
       if (href === '/china-ecommerce-consulting/') return '/zh/';
       if (href === '/en/' || href === '/en') return '/zh/';
       if (href.indexOf('/en/') === 0) return internationalChinesePath(href.slice(3));
@@ -72,6 +71,7 @@ function currentPathForLang(lang) {
       if (pathname === '/china-ecommerce-consulting') return '/zh/';
       return pathname === '/' ? '/zh/' : '/zh' + pathname + '/';
     }
+    if (pathname.indexOf('/services/') === 0 && getLeadPageBySlug(pathname.split('/')[2])) return SITE.domain + '/china-ecommerce-consulting/';
     if (pathname.indexOf('/insights') === 0 || pathname.indexOf('/resources') === 0) return SITE.domain + '/';
     return SITE.domain + (pathname === '/' ? '/' : pathname + '/');
   }

@@ -38,7 +38,12 @@ const expectedPages = [
   'contact/index.html',
   'zh/index.html',
   'zh/services/index.html',
+  'zh/services/store-diagnosis/index.html',
+  'zh/services/tmall-business-weekly-report/index.html',
   'zh/cases/index.html',
+  'zh/insights/index.html',
+  'zh/insights/ecommerce-weekly-report-review-framework/index.html',
+  'zh/resources/ecommerce-metrics-dictionary/index.html',
   'zh/about/index.html',
   'zh/contact/index.html',
   'china-ecommerce-consulting/index.html'
@@ -71,6 +76,7 @@ expect(!chineseHome.includes('https://pinmoo.top'), 'international Chinese homep
 expect(chineseHome.includes('AI电商经营周报不是自动写总结，而是先统一数据口径'), 'international Chinese homepage is missing the AI report method');
 expect(chineseHome.includes('电商店铺有流量但转化率低，应该先检查什么？'), 'international Chinese homepage is missing direct answers');
 expect(/"@type"\s*:\s*"FAQPage"/.test(chineseHome), 'international Chinese homepage is missing FAQPage structured data');
+expect(chineseHome.includes('href="/zh/services/store-diagnosis/"'), 'international Chinese homepage does not link to the store diagnosis page');
 
 const sitemap = await read('sitemap.xml');
 const sitemapUrls = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);

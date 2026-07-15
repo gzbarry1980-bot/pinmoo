@@ -1,139 +1,51 @@
-# Pinmoo.top 阿里云部署
+# Pinmoo 阿里云部署
 
-pinmoo.top 当前部署在阿里云服务器，线上目录默认是 `/var/www/pinmoo.top`。
+## 域名边界
 
-## 域名与平台边界
+- `https://pinmooconsulting.com/`：唯一官网主域名，由 Netlify 从 GitHub 自动部署。
+- `https://pinmooconsulting.com/zh/`：中文官网首页。
+- `https://pinmoo.top/`：历史域名，由阿里云 Nginx 逐页 301 跳转到 `.com` 对应页面。
+- `https://agent.pinmoo.top/`：独立电商经营报告工作台，不跳转。
 
-- `pinmoo.top`：部署在阿里云服务器，通过 GitHub 拉取更新。
-- `agent.pinmoo.top`：同一服务器上的独立智能体入口，部署步骤见 `docs/agent-subdomain-deploy.md`。
-- `pinmooconsulting.com`：部署在 Netlify，通过 GitHub 更新。
-- `gzbarry1980@gmail.com`：只用于更新 `pinmooconsulting.com` 官网，Netlify 额度保留给官网发布。
-- `barrybao1980@gmail.com`：可用于其他 Netlify 项目、测试站、预览站或非官网用途。
-- 后续如需使用 Netlify 承载非官网项目，优先使用 `barrybao1980@gmail.com` 或其他账号，不使用 `gzbarry1980@gmail.com`。
+## 一键部署
 
-## 推荐发布方式
-
-在服务器终端执行：
+在阿里云“命令助手”中使用 `root` 用户执行：
 
 ```bash
+git config --global --add safe.directory /var/www/pinmoo.top
 cd /var/www/pinmoo.top
 bash scripts/deploy-pinmoo-aliyun.sh
 ```
 
-## 每周 AI 爬虫监测
-
-首次安装后，服务器会在每周一上午生成一份 AI 与搜索爬虫访问报告：
-
-```bash
-cd /var/www/pinmoo.top
-sudo bash scripts/install-crawler-monitoring.sh
-sudo cat /var/log/pinmoo-crawlers/latest.txt
-```
-
-报告会统计各爬虫访问次数、最常请求的 URL 和最近请求记录。历史报告保存在 `/var/log/pinmoo-crawlers/`。
-
-## 检查 Nginx 重复域名配置
-
-出现 `conflicting server name` 时，先运行只读审计，不要直接删除配置文件：
-
-```bash
-cd /var/www/pinmoo.top
-sudo bash scripts/audit-nginx-domain-conflicts.sh pinmoo.top
-```
-
-审计结果会列出所有声明 `pinmoo.top` 的 Nginx 文件。确认文件只属于废弃站点后，才能从 `sites-enabled` 中停用。
-
 脚本会自动完成：
 
-1. 拉取 GitHub 最新代码。
-2. 安装依赖并关闭第三方安装脚本。
-3. 按 `https://pinmoo.top` 构建静态站点。
-4. 检查 canonical、sitemap、robots、JSON-LD、站内链接和 404 页面。
-5. 验证 nginx 配置后重载。
-6. 在线复核 canonical、抓取权限、404 状态码和安全响应头。
+1. 从 GitHub 拉取最新代码。
+2. 构建站点和 `agent.pinmoo.top` 工作台。
+3. 检查 canonical、sitemap、robots、JSON-LD 和站内链接。
+4. 确认 `agent.pinmoo.top` 使用独立 Nginx 配置。
+5. 备份旧配置到 `/var/backups/pinmoo-nginx/`。
+6. 安装 `.top` 到 `.com` 的逐页 301 跳转并重载 Nginx。
+7. 在线检查 `.com` 主站、`.top` 跳转和 Agent 工作台。
+8. 向 IndexNow 提交 `.com` sitemap 中的 URL。
 
-## 首次启用 Nginx 防护
-
-本次升级新增了四份防护配置：
-
-- `deploy/nginx/pinmoo-security-headers.conf`：安全响应头。
-- `deploy/nginx/pinmoo-rate-limit-zones.conf`：单 IP 请求频率和并发连接共享区。
-- `deploy/nginx/pinmoo-server-protection.conf`：限速、慢连接超时和静态文件缓存。
-- `deploy/nginx/pinmoo.top.conf.example`：静态站点、正确 404、敏感路径拦截和缓存示例。
-
-推荐在阿里云“命令助手”中以 `root` 用户执行一键安装。脚本会备份现有配置，运行 `nginx -t`，失败时自动回滚：
+## 单独安装域名跳转
 
 ```bash
 cd /var/www/pinmoo.top
-bash scripts/install-pinmoo-nginx-protection.sh
+bash scripts/install-primary-domain-redirect.sh
+node scripts/verify-domain-strategy.mjs
 ```
 
-默认保护策略允许每个 IP 短时突发 60 个请求，持续速率限制为每秒 10 个请求，同时最多保留 30 个活动连接。超限返回 `429`，正常网页首屏加载和搜索引擎抓取可使用突发额度。
+如果脚本提示 `agent.pinmoo.top` 没有独立 Nginx 配置，应先按 `docs/agent-subdomain-deploy.md` 完成工作台配置，不要强行覆盖。
 
-先查看当前生效配置和证书路径：
-
-```bash
-sudo nginx -T | less
-```
-
-备份当前站点配置，并安装安全响应头：
-
-```bash
-SITE_CONFIG="$(readlink -f /etc/nginx/sites-enabled/pinmoo.top)"
-sudo cp "$SITE_CONFIG" "${SITE_CONFIG}.backup-$(date +%Y%m%d-%H%M%S)"
-sudo cp /var/www/pinmoo.top/deploy/nginx/pinmoo-rate-limit-zones.conf /etc/nginx/conf.d/00-pinmoo-rate-limit-zones.conf
-sudo cp /var/www/pinmoo.top/deploy/nginx/pinmoo-security-headers.conf /etc/nginx/snippets/pinmoo-security-headers.conf
-sudo cp /var/www/pinmoo.top/deploy/nginx/pinmoo-server-protection.conf /etc/nginx/snippets/pinmoo-server-protection.conf
-```
-
-对照 `deploy/nginx/pinmoo.top.conf.example` 修改当前 `pinmoo.top` 的 HTTPS `server`，重点确认：
-
-```nginx
-root /var/www/pinmoo.top/dist;
-include /etc/nginx/snippets/pinmoo-security-headers.conf;
-include /etc/nginx/snippets/pinmoo-server-protection.conf;
-
-location / {
-    try_files $uri $uri/ =404;
-    limit_except GET {
-        deny all;
-    }
-}
-
-error_page 404 /404.html;
-```
-
-不要直接覆盖证书路径。修改完成后执行：
-
-```bash
-sudo nginx -t
-sudo systemctl reload nginx
-cd /var/www/pinmoo.top
-node scripts/verify-live.mjs https://pinmoo.top
-```
-
-线上检查通过时，不存在的网址会返回真正的 `404`，首页会带有 CSP、HSTS、X-Frame-Options 等安全响应头。
-
-## 手动发布方式
-
-如果脚本不可用，可以执行：
-
-```bash
-cd /var/www/pinmoo.top
-git pull
-npm ci --ignore-scripts --no-audit --no-fund
-npm run build
-npm run verify
-sudo nginx -t
-sudo systemctl reload nginx
-node scripts/verify-live.mjs https://pinmoo.top
-```
-
-发布后访问：
+## 验收地址
 
 ```text
-https://pinmoo.top/
-https://pinmoo.top/insights/
+https://pinmooconsulting.com/
+https://pinmooconsulting.com/zh/
+https://pinmooconsulting.com/zh/services/store-diagnosis/
+https://pinmooconsulting.com/sitemap.xml
+https://agent.pinmoo.top/
 ```
 
-页面顶部版本号应与本地版本一致。
+`https://pinmoo.top/` 应返回 301 并跳转到 `https://pinmooconsulting.com/zh/`。

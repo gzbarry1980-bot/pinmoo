@@ -1,6 +1,6 @@
 # agent.pinmoo.top 部署说明
 
-`agent.pinmoo.top` 用于独立承载 Pinmoo AI 电商经营智能体。域名根路径直接打开应用，原地址 `https://pinmoo.top/ai-diagnosis/` 继续保留。
+`agent.pinmoo.top` 用于独立承载 Pinmoo AI 电商经营智能体。域名根路径直接打开应用，原地址 `https://pinmoo.top/ai-diagnosis/` 使用 301 跳转到该独立域名。
 
 ## 当前状态
 
@@ -70,4 +70,4 @@ curl -s https://agent.pinmoo.top/ | grep 'https://agent.pinmoo.top/'
 - `http://agent.pinmoo.top/` 自动跳转到 HTTPS。
 - `https://agent.pinmoo.top/` 返回 200。
 - canonical 和 `og:url` 都是 `https://agent.pinmoo.top/`。
-- 页面内“返回品沐官网”跳转到 `https://pinmoo.top/`。
+- 页面内“返回品沐官网”跳转到 `https://pinmooconsulting.com/zh/`。

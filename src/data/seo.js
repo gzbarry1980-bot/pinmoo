@@ -6,7 +6,7 @@ import { chinaEcommercePage, leadPages } from './lead-pages.js';
 import { metricDictionary } from './resources.js';
 import { insightAuthor, insights } from './insights.js';
 
-const ORIGIN = SITE.domain;
+const ORIGIN = SITE.primaryDomain;
 const logoUrl = ORIGIN + SITE.logo;
 const ogUrl = ORIGIN + SITE.ogImage;
 const phone = '+86-13600008584';
@@ -32,6 +32,7 @@ export const routeMeta = [
     name: 'Pinmoo AI 店铺经营诊断',
     keywords: ['天猫经营周报', '生意参谋周报', '电商经营诊断', 'AI电商增长', '店铺诊断工具'],
     aiTool: true,
+    sitemap: false,
     priority: '0.95',
     changefreq: 'weekly'
   },
@@ -252,8 +253,19 @@ routeMeta.push(
 );
 
 export function absolute(pathname) {
-  if (pathname === '/') return ORIGIN + '/';
-  return ORIGIN + pathname;
+  if (SITE.domain === SITE.primaryDomain) {
+    return pathname === '/' ? ORIGIN + '/' : ORIGIN + pathname;
+  }
+
+  if (pathname === '/ai-diagnosis/' || pathname.startsWith('/ai-diagnosis/')) {
+    return 'https://agent.pinmoo.top/';
+  }
+  if (pathname === '/en/' || pathname === '/en') return ORIGIN + '/';
+  if (pathname.startsWith('/en/')) return ORIGIN + pathname.slice(3);
+  if (pathname === '/china-ecommerce-consulting/') return ORIGIN + pathname;
+
+  const primaryPath = pathname === '/' ? '/zh/' : '/zh' + pathname;
+  return ORIGIN + primaryPath;
 }
 
 function routeImage(meta) {

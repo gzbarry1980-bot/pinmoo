@@ -28,17 +28,17 @@
 
 [[redirects]]
   from = "/insights/*"
-  to = "https://pinmoo.top/insights/:splat"
+  to = "/zh/insights/:splat"
   status = 301
 
 [[redirects]]
   from = "/resources/*"
-  to = "https://pinmoo.top/resources/:splat"
+  to = "/zh/resources/:splat"
   status = 301
 
 [[redirects]]
   from = "/services/*"
-  to = "/china-ecommerce-consulting/"
+  to = "/zh/services/:splat"
   status = 301
 
 [[redirects]]

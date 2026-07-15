@@ -118,4 +118,4 @@ echo "Nginx request limiting and connection protection are active."
 echo "Backup retained at: $BACKUP_DIR"
 
 cd "$APP_DIR"
-node scripts/verify-live.mjs https://pinmoo.top
+node scripts/verify-domain-strategy.mjs

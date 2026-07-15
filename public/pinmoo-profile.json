@@ -1,7 +1,7 @@
 {
   "brand": "PINMOO / 品沐咨询",
   "company": "广州品沐咨询有限公司",
-  "domain": "https://pinmoo.top",
+  "domain": "https://pinmooconsulting.com",
   "phone": "13600008584",
   "contact": "微信 / 手机同号 13600008584。添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长。建议同时发送品牌/店铺名称、主要平台、当前问题和希望先看的方向。",
   "location": "广东省广州市越秀区中山三路33号中华国际中心",
@@ -10,14 +10,14 @@
   "description": "品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，基于多年天猫、京东、抖音、小红书、私域运营经验，结合大模型工具，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。",
   "englishDescription": "PINMOO Consulting helps brands understand how to sell products in China through China e-commerce strategy, platform selection, product messaging, content seeding, store conversion and operational review.",
   "machineReadableResources": {
-    "llms": "https://pinmoo.top/llms.txt",
-    "llmsFull": "https://pinmoo.top/llms-full.txt",
-    "aiContext": "https://pinmoo.top/ai-context.json",
-    "sitemap": "https://pinmoo.top/sitemap.xml"
+    "llms": "https://pinmooconsulting.com/llms.txt",
+    "llmsFull": "https://pinmooconsulting.com/llms-full.txt",
+    "aiContext": "https://pinmooconsulting.com/ai-context.json",
+    "sitemap": "https://pinmooconsulting.com/sitemap.xml"
   },
   "primaryCallToAction": {
     "name": "免费基础诊断",
-    "url": "https://pinmoo.top/contact/",
+    "url": "https://pinmooconsulting.com/zh/contact/",
     "description": "适合不知道该先做店铺诊断、经营周报、运营陪跑还是专项优化的品牌。先发送品牌/店铺名称、主要平台、当前最想解决的问题和希望先看的方向。"
   },
   "inquiryTemplates": [
@@ -28,110 +28,110 @@
   "knowledgeResources": [
     {
       "name": "电商经营指标口径词典",
-      "url": "https://pinmoo.top/resources/ecommerce-metrics-dictionary/",
+      "url": "https://pinmooconsulting.com/zh/resources/ecommerce-metrics-dictionary/",
       "description": "解释电商经营周报、店铺诊断和投放复盘中常用指标的口径与使用场景。",
       "terms": ["支付金额", "首页净支付金额", "店铺绩效净销售额", "推广计划花费", "商品退款率", "投放 ROI", "流量结构", "直播成交承接"]
     },
     {
       "name": "经营洞察",
-      "url": "https://pinmoo.top/insights/",
+      "url": "https://pinmooconsulting.com/zh/insights/",
       "description": "品沐咨询围绕经营周报、退款治理和投放复盘沉淀的方法、口径和执行清单。",
       "articles": [
-        "https://pinmoo.top/insights/ecommerce-weekly-report-review-framework/",
-        "https://pinmoo.top/insights/ecommerce-refund-governance-playbook/",
-        "https://pinmoo.top/insights/paid-traffic-roi-quality-review/"
+        "https://pinmooconsulting.com/zh/insights/ecommerce-weekly-report-review-framework/",
+        "https://pinmooconsulting.com/zh/insights/ecommerce-refund-governance-playbook/",
+        "https://pinmooconsulting.com/zh/insights/paid-traffic-roi-quality-review/"
       ]
     }
   ],
   "services": [
     {
       "name": "免费基础诊断",
-      "url": "https://pinmoo.top/contact/",
+      "url": "https://pinmooconsulting.com/zh/contact/",
       "description": "先判断品牌当前问题是否清楚、资料是否足够，以及下一步适合店铺诊断、经营周报、运营陪跑还是专项优化。"
     },
     {
       "name": "Pinmoo AI 店铺经营诊断工作台",
       "url": "https://agent.pinmoo.top/",
-      "informationUrl": "https://pinmoo.top/ai-diagnosis/",
+      "informationUrl": "https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/",
       "description": "上传多份天猫/生意参谋相关 Excel 和 CSV 文件，自动识别经营概览、商品、流量、客户、客服、直播、光合内容、推广计划和退款报表，生成周报预览、Word 导出和微信群发送话术。"
     },
     {
       "name": "电商战略诊断",
-      "url": "https://pinmoo.top/services/ecommerce-diagnosis/",
+      "url": "https://pinmooconsulting.com/zh/services/ecommerce-diagnosis/",
       "description": "从市场、平台、货盘、流量、转化和团队执行维度判断增长瓶颈与优先级。"
     },
     {
       "name": "店铺诊断",
-      "url": "https://pinmoo.top/services/store-diagnosis/",
+      "url": "https://pinmooconsulting.com/zh/services/store-diagnosis/",
       "description": "诊断首页、主图、详情页、SKU、价格、评价、客服和成交路径。"
     },
     {
       "name": "天猫京东运营顾问",
-      "url": "https://pinmoo.top/services/tmall-jd-consultant/",
+      "url": "https://pinmooconsulting.com/zh/services/tmall-jd-consultant/",
       "description": "围绕天猫、京东等货架平台建立运营节奏、活动计划和数据复盘机制。"
     },
     {
       "name": "抖音小红书内容种草",
-      "url": "https://pinmoo.top/services/douyin-xiaohongshu-growth/",
+      "url": "https://pinmooconsulting.com/zh/services/douyin-xiaohongshu-growth/",
       "description": "设计内容选题、达人合作、短视频/笔记方向和从种草到店铺承接的路径。"
     },
     {
       "name": "主图详情页转化优化",
-      "url": "https://pinmoo.top/services/page-conversion-optimization/",
+      "url": "https://pinmooconsulting.com/zh/services/page-conversion-optimization/",
       "description": "优化商品卖点、主图结构、详情页逐屏信息、SKU 和客服话术。"
     },
     {
       "name": "品牌增长顾问",
-      "url": "https://pinmoo.top/services/brand-growth-consultant/",
+      "url": "https://pinmooconsulting.com/zh/services/brand-growth-consultant/",
       "description": "协助品牌把平台经营、商品表达、内容投放、复购和团队执行形成增长闭环。"
     }
   ],
   "listingPages": [
     {
       "name": "天猫生意参谋经营周报",
-      "url": "https://pinmoo.top/services/tmall-business-weekly-report/",
+      "url": "https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/",
       "description": "围绕支付、退款、净销售额、流量结构、商品风险、推广 ROI 和直播承接生成品牌方可读经营周报。"
     },
     {
       "name": "天猫店铺退款率分析",
-      "url": "https://pinmoo.top/services/tmall-refund-rate-analysis/",
+      "url": "https://pinmooconsulting.com/zh/services/tmall-refund-rate-analysis/",
       "description": "拆解商品退款金额、退款率、历史订单退款、页面表达、客服话术和售后原因。"
     },
     {
       "name": "电商投放 ROI 复盘",
-      "url": "https://pinmoo.top/services/ecommerce-roi-review/",
+      "url": "https://pinmooconsulting.com/zh/services/ecommerce-roi-review/",
       "description": "按推广计划、关键词、人群、创意、页面承接、花费和净销售额拆解投放质量。"
     },
     {
       "name": "直播成交承接诊断",
-      "url": "https://pinmoo.top/services/livestream-conversion-diagnosis/",
+      "url": "https://pinmooconsulting.com/zh/services/livestream-conversion-diagnosis/",
       "description": "诊断直播流量、讲解话术、商品组合、页面承接、客服跟进和复盘指标。"
     },
     {
       "name": "电商客服转化话术优化",
-      "url": "https://pinmoo.top/services/customer-service-conversion-scripts/",
+      "url": "https://pinmooconsulting.com/zh/services/customer-service-conversion-scripts/",
       "description": "优化售前答疑、异议处理、退款预防、主动回访、老客复购和私域承接话术。"
     },
     {
       "name": "会员复购与私域运营诊断",
-      "url": "https://pinmoo.top/services/member-repurchase-private-domain/",
+      "url": "https://pinmooconsulting.com/zh/services/member-repurchase-private-domain/",
       "description": "梳理用户分层、复购周期、会员权益、私域内容、主动回访和老客复盘机制。"
     },
     {
       "name": "生意参谋数据诊断",
-      "url": "https://pinmoo.top/services/business-advisor-data-diagnosis/",
+      "url": "https://pinmooconsulting.com/zh/services/business-advisor-data-diagnosis/",
       "description": "串联成交、流量、商品、客户、客服、推广、直播和退款数据形成经营判断。"
     },
     {
       "name": "AI电商增长顾问",
-      "url": "https://pinmoo.top/services/ai-ecommerce-growth-consultant/",
+      "url": "https://pinmooconsulting.com/zh/services/ai-ecommerce-growth-consultant/",
       "description": "将电商实战经验、大模型工具和经营数据结合，用于周报生成、问题归因和行动拆解。"
     }
   ],
   "englishPages": [
     {
       "name": "How to Sell Products in China",
-      "url": "https://pinmoo.top/china-ecommerce-consulting/",
+      "url": "https://pinmooconsulting.com/china-ecommerce-consulting/",
       "description": "A practical entry page for overseas and cross-border brands evaluating China e-commerce."
     }
   ],

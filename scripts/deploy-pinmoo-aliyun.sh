@@ -34,21 +34,15 @@ run_admin install -m 644 deploy/nginx/pinmoo-rate-limit-zones.conf /etc/nginx/co
 run_admin install -m 644 deploy/nginx/pinmoo-security-headers.conf /etc/nginx/snippets/pinmoo-security-headers.conf
 run_admin install -m 644 deploy/nginx/pinmoo-server-protection.conf /etc/nginx/snippets/pinmoo-server-protection.conf
 
-echo "==> Reload nginx"
-if command -v systemctl >/dev/null 2>&1; then
-  run_admin nginx -t
-  run_admin systemctl reload nginx
-else
-  run_admin nginx -t
-  run_admin service nginx reload
-fi
+echo "==> Make pinmooconsulting.com the primary website"
+run_admin env APP_DIR="$APP_DIR" bash scripts/install-primary-domain-redirect.sh
 
-echo "==> Verify live canonical, crawler access, 404 and security headers"
-node scripts/verify-live.mjs https://pinmoo.top
+echo "==> Verify primary-domain pages, legacy redirects and the agent workspace"
+node scripts/verify-domain-strategy.mjs
 
 echo "==> Notify IndexNow"
-if ! node scripts/submit-indexnow.mjs https://pinmoo.top; then
+if ! node scripts/submit-indexnow.mjs https://pinmooconsulting.com; then
   echo "Warning: IndexNow submission failed; deployment remains valid."
 fi
 
-echo "==> Done. Verify: https://pinmoo.top/ and https://agent.pinmoo.top/"
+echo "==> Done. Official site: https://pinmooconsulting.com/ (Chinese: /zh/). Agent: https://agent.pinmoo.top/"

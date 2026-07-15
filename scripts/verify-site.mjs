@@ -102,13 +102,13 @@ const expectedSitemapUrls = routeMeta
 if (new Set(pageUrls).size !== pageUrls.length) fail('sitemap 包含重复 URL');
 if (pageUrls.length !== expectedSitemapUrls.length) fail(`sitemap 页面数不正确: ${pageUrls.length}/${expectedSitemapUrls.length}`);
 for (const url of pageUrls) {
-  if (!url.startsWith(SITE.domain + '/')) fail(`sitemap 出现其他域名: ${url}`);
+  if (!url.startsWith(SITE.primaryDomain + '/')) fail(`sitemap 出现其他域名: ${url}`);
   if (/\/(?:llms(?:-full)?\.txt|ai\.txt|ai-context\.json|pinmoo-profile\.json)$/.test(url)) fail(`sitemap 不应包含机器资料文件: ${url}`);
 }
 
 const robots = await fs.readFile(path.join(dist, 'robots.txt'), 'utf8');
 if (!robots.includes('User-agent: OAI-SearchBot')) fail('robots.txt 缺少 OAI-SearchBot');
-if (!robots.includes(`Sitemap: ${SITE.domain}/sitemap.xml`)) fail('robots.txt sitemap 域名不正确');
+if (!robots.includes(`Sitemap: ${SITE.primaryDomain}/sitemap.xml`)) fail('robots.txt sitemap 域名不正确');
 
 const notFound = await fs.readFile(path.join(dist, '404.html'), 'utf8');
 if (!notFound.includes('content="noindex, follow"')) fail('404 页面缺少 noindex');

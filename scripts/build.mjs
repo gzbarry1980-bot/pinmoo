@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { routeMeta, jsonLdForRoute, metaTagsForRoute, imageForRoute } from '../src/data/seo.js';
+import { absolute, routeMeta, jsonLdForRoute, metaTagsForRoute, imageForRoute } from '../src/data/seo.js';
 import { SITE } from '../src/data/site.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -33,10 +33,7 @@ const internationalRoutes = routeMeta
     };
   });
 const internationalChineseRoutes = routeMeta
-  .filter((meta) => meta.lang !== 'en' && !meta.duplicate && (
-    ['/', '/services/', '/cases/', '/about/', '/contact/', '/contact/success/'].includes(meta.path) ||
-    meta.caseSlug || meta.path.indexOf('/insights/') === 0 || meta.path.indexOf('/resources/') === 0
-  ))
+  .filter((meta) => meta.lang !== 'en' && !meta.duplicate && !meta.aiTool)
   .map((meta) => {
     const internationalPath = withInternationalChinesePrefix(meta.path);
     const hasEnglishPair = ['/', '/services/', '/cases/', '/about/', '/contact/', '/contact/success/'].includes(meta.path) || meta.caseSlug;
@@ -143,7 +140,6 @@ async function prerender(pathname) {
 
 function upsertHead(html, meta) {
   const tags = metaTagsForRoute(meta);
-  const origin = SITE.domain;
   let next = html;
   next = next.replace(/<html lang="[^"]*">/, '<html lang="' + (meta.lang === 'en' ? 'en' : 'zh-CN') + '">');
   next = next.replace(/<title>[\s\S]*?<\/title>/, '<title>' + escapeHtml(tags.title) + '</title>');
@@ -176,7 +172,7 @@ function upsertHead(html, meta) {
   next = next.replace(/\n\s*<link rel="alternate" type="text\/markdown" href="[^"]*" title="[^"]*"\s*\/>/g, '');
   next = next.replace(/\n\s*<link rel="alternate" type="application\/json" href="[^"]*" title="[^"]*"\s*\/>/g, '');
   next = next.replace(/\n\s*<script type="application\/ld\+json" data-seo-jsonld>[\s\S]*?<\/script>/g, '');
-  const absolutePath = (pathname) => pathname === '/' ? origin + '/' : origin + pathname;
+  const absolutePath = (pathname) => absolute(pathname);
   const alternate = translatedRoutes(meta);
   const extra = [
     '<meta name="robots" content="' + (meta.indexable === false ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1') + '" />',
@@ -191,7 +187,7 @@ function upsertHead(html, meta) {
     ...(alternate ? [
       '<link rel="alternate" hreflang="zh-CN" href="' + escapeHtml(absolutePath(alternate.zh.path)) + '" />',
       '<link rel="alternate" hreflang="en" href="' + escapeHtml(absolutePath(alternate.en.path)) + '" />',
-      '<link rel="alternate" hreflang="x-default" href="' + escapeHtml(absolutePath(alternate.xDefaultPath || alternate.zh.path)) + '" />'
+      '<link rel="alternate" hreflang="x-default" href="' + escapeHtml(absolutePath(alternate.xDefaultPath || alternate.en.path)) + '" />'
     ] : []),
     '<link rel="alternate" type="text/plain" href="/llms.txt" title="PINMOO 品沐咨询 AI 摘要" />',
     '<link rel="alternate" type="text/markdown" href="/llms-full.txt" title="PINMOO 品沐咨询完整 AI 上下文" />',
@@ -262,8 +258,7 @@ for (const filename of domainAwareFiles) {
   if (!stat?.isFile()) continue;
   const source = await fs.readFile(target, 'utf8');
   const localized = source
-    .replaceAll('https://pinmoo.top', SITE.domain)
-    .replaceAll('https://pinmooconsulting.com', SITE.domain);
+    .replaceAll('https://pinmoo.top', SITE.primaryDomain);
   await fs.writeFile(target, localized, 'utf8');
 }
 const assetVersion = createHash('sha256')

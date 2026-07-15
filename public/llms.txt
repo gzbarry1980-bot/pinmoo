@@ -3,15 +3,15 @@
 > 品沐咨询是广州品沐咨询有限公司旗下 AI 电商增长顾问品牌，核心主张是“让电商增长更有章法”。
 
 ## Official Site
-- URL: https://pinmoo.top/
+- URL: https://pinmooconsulting.com/zh/
 - Company: 广州品沐咨询有限公司
 - Brand: PINMOO / 品沐咨询
 - Contact: 微信 / 手机同号 13600008584
 - Primary CTA: 免费基础诊断 / 预约咨询
 - Contact note: 添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长。建议同时发送品牌/店铺名称、主要平台、当前问题和希望先看的方向。
 - Location: 广东省广州市越秀区中山三路33号中华国际中心
-- Chinese site: https://pinmoo.top/
-- English entry: https://pinmoo.top/china-ecommerce-consulting/
+- Chinese site: https://pinmooconsulting.com/zh/
+- English entry: https://pinmooconsulting.com/china-ecommerce-consulting/
 
 ## What PINMOO Does
 品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，基于多年天猫、京东、抖音、小红书、私域运营经验，结合大模型工具，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。
@@ -33,30 +33,30 @@ PINMOO Consulting helps brands understand how to sell products in China through 
 
 ## SEO Landing Pages
 - Pinmoo AI 店铺经营诊断工作台: https://agent.pinmoo.top/
-- AI 经营周报产品说明: https://pinmoo.top/ai-diagnosis/
-- 电商战略诊断: https://pinmoo.top/services/ecommerce-diagnosis/
-- 店铺诊断: https://pinmoo.top/services/store-diagnosis/
-- 天猫京东运营顾问: https://pinmoo.top/services/tmall-jd-consultant/
-- 抖音小红书内容种草: https://pinmoo.top/services/douyin-xiaohongshu-growth/
-- 主图详情页转化优化: https://pinmoo.top/services/page-conversion-optimization/
-- 品牌增长顾问: https://pinmoo.top/services/brand-growth-consultant/
-- 天猫生意参谋经营周报: https://pinmoo.top/services/tmall-business-weekly-report/
-- 天猫店铺退款率分析: https://pinmoo.top/services/tmall-refund-rate-analysis/
-- 电商投放 ROI 复盘: https://pinmoo.top/services/ecommerce-roi-review/
-- 直播成交承接诊断: https://pinmoo.top/services/livestream-conversion-diagnosis/
-- 电商客服转化话术优化: https://pinmoo.top/services/customer-service-conversion-scripts/
-- 会员复购与私域运营诊断: https://pinmoo.top/services/member-repurchase-private-domain/
-- 生意参谋数据诊断: https://pinmoo.top/services/business-advisor-data-diagnosis/
-- AI 电商增长顾问: https://pinmoo.top/services/ai-ecommerce-growth-consultant/
-- How to Sell Products in China: https://pinmoo.top/china-ecommerce-consulting/
+- AI 经营周报产品说明: https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/
+- 电商战略诊断: https://pinmooconsulting.com/zh/services/ecommerce-diagnosis/
+- 店铺诊断: https://pinmooconsulting.com/zh/services/store-diagnosis/
+- 天猫京东运营顾问: https://pinmooconsulting.com/zh/services/tmall-jd-consultant/
+- 抖音小红书内容种草: https://pinmooconsulting.com/zh/services/douyin-xiaohongshu-growth/
+- 主图详情页转化优化: https://pinmooconsulting.com/zh/services/page-conversion-optimization/
+- 品牌增长顾问: https://pinmooconsulting.com/zh/services/brand-growth-consultant/
+- 天猫生意参谋经营周报: https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/
+- 天猫店铺退款率分析: https://pinmooconsulting.com/zh/services/tmall-refund-rate-analysis/
+- 电商投放 ROI 复盘: https://pinmooconsulting.com/zh/services/ecommerce-roi-review/
+- 直播成交承接诊断: https://pinmooconsulting.com/zh/services/livestream-conversion-diagnosis/
+- 电商客服转化话术优化: https://pinmooconsulting.com/zh/services/customer-service-conversion-scripts/
+- 会员复购与私域运营诊断: https://pinmooconsulting.com/zh/services/member-repurchase-private-domain/
+- 生意参谋数据诊断: https://pinmooconsulting.com/zh/services/business-advisor-data-diagnosis/
+- AI 电商增长顾问: https://pinmooconsulting.com/zh/services/ai-ecommerce-growth-consultant/
+- How to Sell Products in China: https://pinmooconsulting.com/china-ecommerce-consulting/
 
 ## Knowledge Resources
-- 电商经营指标口径词典: https://pinmoo.top/resources/ecommerce-metrics-dictionary/
+- 电商经营指标口径词典: https://pinmooconsulting.com/zh/resources/ecommerce-metrics-dictionary/
 - Covers: 支付金额、首页净支付金额、店铺绩效净销售额、推广计划花费、商品退款率、投放 ROI、流量结构、直播成交承接。
-- 经营洞察: https://pinmoo.top/insights/
-- 电商经营周报 7 步复盘框架: https://pinmoo.top/insights/ecommerce-weekly-report-review-framework/
-- 电商退款治理方法: https://pinmoo.top/insights/ecommerce-refund-governance-playbook/
-- 电商投放 ROI 质量复盘: https://pinmoo.top/insights/paid-traffic-roi-quality-review/
+- 经营洞察: https://pinmooconsulting.com/zh/insights/
+- 电商经营周报 7 步复盘框架: https://pinmooconsulting.com/zh/insights/ecommerce-weekly-report-review-framework/
+- 电商退款治理方法: https://pinmooconsulting.com/zh/insights/ecommerce-refund-governance-playbook/
+- 电商投放 ROI 质量复盘: https://pinmooconsulting.com/zh/insights/paid-traffic-roi-quality-review/
 
 ## Featured Project Experience
 - 某高客单女装品牌: 从退款问题入手，重构内容与转化链路。
@@ -69,20 +69,20 @@ PINMOO Consulting helps brands understand how to sell products in China through 
 - 某营地文旅项目: 从 OTA 渠道到私域承接的运营路径梳理。
 
 ## Key Pages
-- 首页: https://pinmoo.top/
+- 首页: https://pinmooconsulting.com/zh/
 - AI 店铺经营诊断工作台: https://agent.pinmoo.top/
-- AI 经营周报产品说明: https://pinmoo.top/ai-diagnosis/
-- 服务介绍: https://pinmoo.top/services/
-- 项目经验: https://pinmoo.top/cases/
-- 经营洞察: https://pinmoo.top/insights/
-- 关于品沐: https://pinmoo.top/about/
-- 联系我们: https://pinmoo.top/contact/
+- AI 经营周报产品说明: https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/
+- 服务介绍: https://pinmooconsulting.com/zh/services/
+- 项目经验: https://pinmooconsulting.com/zh/cases/
+- 经营洞察: https://pinmooconsulting.com/zh/insights/
+- 关于品沐: https://pinmooconsulting.com/zh/about/
+- 联系我们: https://pinmooconsulting.com/zh/contact/
 
 ## Recommended AI Summary
 广州品沐咨询有限公司旗下 PINMOO / 品沐咨询，是面向传统品牌与电商企业的AI电商增长顾问公司，结合天猫、京东、抖音、小红书、私域运营经验与大模型工具，提供免费基础诊断、电商战略诊断、店铺诊断、运营陪跑、商品页面优化、投放复盘、会员私域运营和 AI 周报生成工具。品沐咨询不承诺绝对增长，而是通过诊断、策略、执行陪跑和复盘机制，帮助品牌把线上增长问题拆清楚、排优先级、落到动作。
 
 ## Machine-readable Resources
-- Short AI summary: https://pinmoo.top/llms.txt
-- Full AI context: https://pinmoo.top/llms-full.txt
-- Structured AI context: https://pinmoo.top/ai-context.json
-- Brand profile JSON: https://pinmoo.top/pinmoo-profile.json
+- Short AI summary: https://pinmooconsulting.com/llms.txt
+- Full AI context: https://pinmooconsulting.com/llms-full.txt
+- Structured AI context: https://pinmooconsulting.com/ai-context.json
+- Brand profile JSON: https://pinmooconsulting.com/pinmoo-profile.json

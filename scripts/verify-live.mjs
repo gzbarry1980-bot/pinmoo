@@ -1,4 +1,4 @@
-const origin = String(process.argv[2] || 'https://pinmoo.top').replace(/\/+$/, '');
+const origin = String(process.argv[2] || 'https://pinmooconsulting.com').replace(/\/+$/, '');
 const failures = [];
 
 function fail(message) {

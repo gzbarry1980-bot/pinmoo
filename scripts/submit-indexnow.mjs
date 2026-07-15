@@ -1,5 +1,5 @@
 const INDEXNOW_KEY = '9f4d7e2a18c643b5a17e8d39f62b04c1';
-const requestedOrigin = process.argv[2] || process.env.SITE_ORIGIN || 'https://pinmoo.top';
+const requestedOrigin = process.argv[2] || process.env.SITE_ORIGIN || 'https://pinmooconsulting.com';
 const origin = new URL(requestedOrigin);
 const allowedHosts = new Set(['pinmoo.top', 'pinmooconsulting.com']);
 

@@ -9,6 +9,7 @@
     "verify": "node scripts/verify-site.mjs",
     "verify:agent": "node scripts/verify-agent-build.mjs",
     "verify:international": "node scripts/verify-international-build.mjs",
+    "verify:domains": "node scripts/verify-domain-strategy.mjs",
     "verify:live": "node scripts/verify-live.mjs",
     "preview": "node scripts/serve.mjs dist",
     "assets": "node scripts/prepare-assets.mjs",

@@ -10,8 +10,8 @@
 | 品牌名称 | PINMOO / 品沐咨询 |
 | 英文名称 | Guangzhou PINMOO Consulting Co., Ltd. |
 | 主理人 | 鲍俊文，花名沐风 |
-| 中文官网 | https://pinmoo.top/ |
-| 国际官网 | https://pinmooconsulting.com/ |
+| 中文官网 | https://pinmooconsulting.com/zh/ |
+| 英文官网 | https://pinmooconsulting.com/ |
 | AI 经营工具 | https://agent.pinmoo.top/ |
 | 联系方式 | 微信 / 手机同号 13600008584 |
 | 地址 | 广东省广州市越秀区中山三路33号中华国际中心 |

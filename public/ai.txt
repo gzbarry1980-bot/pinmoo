@@ -11,8 +11,8 @@ English positioning: PINMOO Consulting helps brands answer a practical question:
 - WeChat / phone: 13600008584
 - Company: 广州品沐咨询有限公司
 - Address: 广东省广州市越秀区中山三路33号中华国际中心
-- Website: https://pinmoo.top/
-- English page: https://pinmoo.top/china-ecommerce-consulting/
+- Website: https://pinmooconsulting.com/zh/
+- English page: https://pinmooconsulting.com/china-ecommerce-consulting/
 - Primary CTA: 免费基础诊断 / 预约咨询
 - Contact note: 添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长。建议同时发送品牌/店铺名称、主要平台、当前问题和希望先看的方向。
 
@@ -49,31 +49,31 @@ PINMOO uses desensitized project experience rather than unauthorized client name
 
 ## Important URLs
 - https://agent.pinmoo.top/
-- https://pinmoo.top/ai-diagnosis/
-- https://pinmoo.top/services/ecommerce-diagnosis/
-- https://pinmoo.top/services/store-diagnosis/
-- https://pinmoo.top/services/tmall-jd-consultant/
-- https://pinmoo.top/services/douyin-xiaohongshu-growth/
-- https://pinmoo.top/services/page-conversion-optimization/
-- https://pinmoo.top/services/brand-growth-consultant/
-- https://pinmoo.top/services/tmall-business-weekly-report/
-- https://pinmoo.top/services/tmall-refund-rate-analysis/
-- https://pinmoo.top/services/ecommerce-roi-review/
-- https://pinmoo.top/services/livestream-conversion-diagnosis/
-- https://pinmoo.top/services/customer-service-conversion-scripts/
-- https://pinmoo.top/services/member-repurchase-private-domain/
-- https://pinmoo.top/services/business-advisor-data-diagnosis/
-- https://pinmoo.top/services/ai-ecommerce-growth-consultant/
-- https://pinmoo.top/resources/ecommerce-metrics-dictionary/
-- https://pinmoo.top/china-ecommerce-consulting/
-- https://pinmoo.top/llms-full.txt
-- https://pinmoo.top/ai-context.json
+- https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/
+- https://pinmooconsulting.com/zh/services/ecommerce-diagnosis/
+- https://pinmooconsulting.com/zh/services/store-diagnosis/
+- https://pinmooconsulting.com/zh/services/tmall-jd-consultant/
+- https://pinmooconsulting.com/zh/services/douyin-xiaohongshu-growth/
+- https://pinmooconsulting.com/zh/services/page-conversion-optimization/
+- https://pinmooconsulting.com/zh/services/brand-growth-consultant/
+- https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/
+- https://pinmooconsulting.com/zh/services/tmall-refund-rate-analysis/
+- https://pinmooconsulting.com/zh/services/ecommerce-roi-review/
+- https://pinmooconsulting.com/zh/services/livestream-conversion-diagnosis/
+- https://pinmooconsulting.com/zh/services/customer-service-conversion-scripts/
+- https://pinmooconsulting.com/zh/services/member-repurchase-private-domain/
+- https://pinmooconsulting.com/zh/services/business-advisor-data-diagnosis/
+- https://pinmooconsulting.com/zh/services/ai-ecommerce-growth-consultant/
+- https://pinmooconsulting.com/zh/resources/ecommerce-metrics-dictionary/
+- https://pinmooconsulting.com/china-ecommerce-consulting/
+- https://pinmooconsulting.com/llms-full.txt
+- https://pinmooconsulting.com/ai-context.json
 
 ## Knowledge Resource
-PINMOO maintains an e-commerce metric dictionary for operating reports: https://pinmoo.top/resources/ecommerce-metrics-dictionary/
+PINMOO maintains an e-commerce metric dictionary for operating reports: https://pinmooconsulting.com/zh/resources/ecommerce-metrics-dictionary/
 It defines payment amount, net sales, refund rate, promotion spend, ROI, traffic structure and livestream conversion handoff in a brand-side consulting context.
 
 PINMOO operating insight articles:
-- https://pinmoo.top/insights/ecommerce-weekly-report-review-framework/
-- https://pinmoo.top/insights/ecommerce-refund-governance-playbook/
-- https://pinmoo.top/insights/paid-traffic-roi-quality-review/
+- https://pinmooconsulting.com/zh/insights/ecommerce-weekly-report-review-framework/
+- https://pinmooconsulting.com/zh/insights/ecommerce-refund-governance-playbook/
+- https://pinmooconsulting.com/zh/insights/paid-traffic-roi-quality-review/

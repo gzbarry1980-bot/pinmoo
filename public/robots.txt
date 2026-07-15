@@ -55,8 +55,8 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://pinmoo.top/sitemap.xml
+Sitemap: https://pinmooconsulting.com/sitemap.xml
 
-# AI-readable brand summary: https://pinmoo.top/llms.txt
-# Full AI context: https://pinmoo.top/llms-full.txt
-# Structured AI context: https://pinmoo.top/ai-context.json
+# AI-readable brand summary: https://pinmooconsulting.com/llms.txt
+# Full AI context: https://pinmooconsulting.com/llms-full.txt
+# Structured AI context: https://pinmooconsulting.com/ai-context.json
