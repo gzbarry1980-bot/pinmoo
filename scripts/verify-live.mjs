@@ -10,7 +10,11 @@ async function get(pathname) {
   return { response, text: await response.text() };
 }
 
-for (const pathname of ['/', '/about/', '/insights/']) {
+const primaryPages = origin.includes('pinmooconsulting.com')
+  ? ['/', '/zh/about/', '/zh/insights/']
+  : ['/', '/about/', '/insights/'];
+
+for (const pathname of primaryPages) {
   const { response, text } = await get(pathname);
   if (response.status !== 200) fail(`${pathname} 状态码为 ${response.status}`);
   const expectedCanonical = origin + pathname;
