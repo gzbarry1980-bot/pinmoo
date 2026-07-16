@@ -1,12 +1,42 @@
 import { growthInsights } from './insights-growth.js';
+import { decisionInsights } from './insights-decision.js';
 
 export const insightAuthor = {
   name: '鲍俊文',
-  alternateName: '沐风',
-  role: '品沐咨询创始顾问｜电商运营与品牌增长顾问'
+  alternateName: '沐风、BarryBao',
+  role: '品沐咨询主理人',
+  disclosure: '内容由品沐咨询基于电商经营方法与公开边界编写，AI参与结构整理和文字校对，最终由鲍俊文复核。'
 };
 
-export const insights = [
+export const insightClusters = [
+  {
+    id: 'decision',
+    title: '服务决策与可信度',
+    summary: '帮助品牌比较咨询、陪跑与代运营，核验服务商、报价、案例证据和合作边界。',
+    categories: ['服务选择', '顾问评估', '合作报价', '案例证据', '合作边界']
+  },
+  {
+    id: 'operations',
+    title: '店铺经营与增长诊断',
+    summary: '围绕流量转化、商品结构、客服、直播、会员复购和生意参谋资料定位经营问题。',
+    categories: ['店铺转化', '商品结构', '客服承接', '直播复盘', '会员复购', '数据诊断']
+  },
+  {
+    id: 'review',
+    title: '经营质量与数据复盘',
+    summary: '统一成交、退款、流量与投放口径，把周报结论拆成下一周期可以执行的动作。',
+    categories: ['经营复盘', '退款治理', '投放复盘']
+  },
+  {
+    id: 'ai-geo',
+    title: 'AI经营工具与GEO衡量',
+    summary: '说明AI经营周报的能力边界，以及生成式引擎引用、询盘与成交的测量方法。',
+    categories: ['AI经营工具', 'GEO衡量']
+  }
+];
+
+const insightEntries = [
+  ...decisionInsights,
   ...growthInsights,
   {
     slug: 'ecommerce-weekly-report-review-framework',
@@ -311,6 +341,14 @@ export const insights = [
     relatedServices: ['ecommerce-roi-review', 'business-advisor-data-diagnosis']
   }
 ];
+
+export const insights = insightEntries.map((article) => ({
+  contentModel: 'CEBA',
+  reviewStatus: 'editorially-reviewed',
+  businessIntent: '经营问题诊断与复盘',
+  probeIds: [],
+  ...article
+}));
 
 export function getInsightBySlug(slug) {
   return insights.find((item) => item.slug === slug);

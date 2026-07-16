@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { absolute, routeMeta, jsonLdForRoute, metaTagsForRoute, imageForRoute } from '../src/data/seo.js';
 import { SITE } from '../src/data/site.js';
-import { insights } from '../src/data/insights.js';
+import { insightAuthor, insightClusters, insights } from '../src/data/insights.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -30,7 +30,7 @@ const internationalRoutes = routeMeta
         xDefault: internationalPath
       },
       international: true,
-      updated: meta.updated || '2026-07-16'
+      updated: meta.updated || '2026-07-10'
     };
   });
 const internationalChineseRoutes = routeMeta
@@ -53,12 +53,12 @@ const internationalChineseRoutes = routeMeta
         }
       } : { noHreflang: true }),
       international: true,
-      updated: meta.updated || '2026-07-16'
+      updated: meta.updated || '2026-07-10'
     };
   });
 const chinaEcommerceRoute = routeMeta.find((meta) => meta.path === '/china-ecommerce-consulting/');
 const buildRoutes = isInternationalBuild
-  ? [...internationalRoutes, ...internationalChineseRoutes, ...(chinaEcommerceRoute ? [{ ...chinaEcommerceRoute, noHreflang: true, international: true, updated: chinaEcommerceRoute.updated || '2026-07-16' }] : [])]
+  ? [...internationalRoutes, ...internationalChineseRoutes, ...(chinaEcommerceRoute ? [{ ...chinaEcommerceRoute, noHreflang: true, international: true, updated: chinaEcommerceRoute.updated || '2026-07-10' }] : [])]
   : routeMeta;
 
 await fs.rm(dist, { recursive: true, force: true });
@@ -297,7 +297,7 @@ function sitemapUrl(loc, lastmod, image) {
 const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' +
   buildRoutes
     .filter((meta) => meta.sitemap !== false && meta.indexable !== false && !meta.duplicate)
-    .map((meta) => sitemapUrl(metaTagsForRoute(meta).canonical, process.env.SITEMAP_LASTMOD || meta.updated || '2026-07-10', imageForRoute(meta)))
+    .map((meta) => sitemapUrl(metaTagsForRoute(meta).canonical, meta.updated || '2026-07-10', imageForRoute(meta)))
     .join('\n') +
   '\n</urlset>\n';
 await fs.writeFile(path.join(dist, 'sitemap.xml'), sitemap, 'utf8');
@@ -313,8 +313,24 @@ const knowledgeIndex = {
     url: SITE.primaryDomain + '/'
   },
   language: 'zh-CN',
+  articleCount: insights.length,
   canonicalCollection: SITE.primaryDomain + '/zh/insights/',
+  contentMethod: 'CEBA: Claim, Evidence, Boundary, Action',
+  editorialPolicy: '每篇文章必须提供直接回答、判断依据、适用范围、使用限制、执行动作、作者和复核日期；不使用未经核验的客户名称、数字或结果承诺。',
   usageNote: '内容用于解释电商经营问题、数据口径和诊断方法，不代表任何品牌的实际经营结果或保证。',
+  author: {
+    name: insightAuthor.name,
+    alternateName: insightAuthor.alternateName,
+    role: insightAuthor.role,
+    disclosure: insightAuthor.disclosure,
+    url: SITE.primaryDomain + '/zh/about/'
+  },
+  topicClusters: insightClusters.map((cluster) => ({
+    id: cluster.id,
+    name: cluster.title,
+    description: cluster.summary,
+    categories: cluster.categories
+  })),
   articles: insights.map((article) => ({
     title: article.title,
     category: article.category,
@@ -322,10 +338,16 @@ const knowledgeIndex = {
     datePublished: article.published,
     dateModified: article.updated,
     directAnswer: article.directAnswer,
+    contentModel: article.contentModel,
+    reviewStatus: article.reviewStatus,
+    productionDisclosure: insightAuthor.disclosure,
+    businessIntent: article.businessIntent,
+    probeIds: article.probeIds,
     keywords: article.keywords,
     evidenceBasis: article.evidence?.basis || '',
     applicableScope: article.evidence?.scope || '',
     limitations: article.evidence?.limits || '',
+    actionPoints: article.keyPoints,
     questions: (article.faqs || []).map((item) => ({ question: item.q, answer: item.a }))
   }))
 };

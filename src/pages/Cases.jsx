@@ -22,6 +22,10 @@ export function Cases() {
       </PageHero>
       <section className="section cases-page-section">
         <div className="container">
+          <Reveal className="case-privacy-note">
+            <strong>案例公开边界</strong>
+            <p>以下案例均为真实项目，现有内容已经核对。因客户保密协议，统一匿名呈现，并隐去客户名称、店铺账号、截图、原始数据及其他可识别细节。</p>
+          </Reveal>
           <div className="filter-row" role="group" aria-label="案例筛选标签">
             {caseFilters.map((item) => <button type="button" key={item} className={filter === item ? 'active' : ''} onClick={() => setFilter(item)}>{item}</button>)}
           </div>
@@ -30,7 +34,7 @@ export function Cases() {
           </div>
           <Reveal className="reserved-card">
             <h2>二期案例预留</h2>
-            <p>后续可继续扩展更多项目经验，目前首版先展示 6 个脱敏案例。</p>
+            <p>后续只增加完成事实核对与保密边界审查的匿名案例。</p>
             <div>{reservedCases.map((item) => <span key={item}>{item}</span>)}</div>
           </Reveal>
         </div>

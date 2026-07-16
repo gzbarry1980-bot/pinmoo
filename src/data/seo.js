@@ -20,7 +20,7 @@ export const routeMeta = [
     description: '广州品沐咨询面向消费品牌与传统企业，提供天猫、京东、抖音等平台的电商战略诊断、店铺转化优化、运营陪跑、投放复盘、退款治理和AI经营周报服务。',
     keywords: ['广州电商咨询公司', '电商战略诊断', '天猫店铺诊断', '京东运营顾问', '抖音电商咨询', '运营陪跑', 'AI经营周报'],
     name: '首页',
-    updated: '2026-07-12',
+    updated: '2026-07-16',
     priority: '1.0',
     changefreq: 'weekly'
   },
@@ -42,6 +42,7 @@ export const routeMeta = [
     title: '服务介绍｜品沐咨询 PINMOO',
     description: '品沐咨询围绕平台选择、商品结构、内容种草、页面转化、广告投放、直播运营、会员复购等关键环节，提供诊断、策略、陪跑和复盘优化服务。',
     name: '服务介绍',
+    updated: '2026-07-16',
     priority: '0.9',
     changefreq: 'monthly'
   },
@@ -69,10 +70,10 @@ export const routeMeta = [
   {
     path: '/insights/',
     file: 'insights/index.html',
-    title: '电商经营洞察｜店铺转化、周报、退款、直播与复购｜品沐咨询',
-    description: '品沐咨询经营洞察围绕店铺转化、商品结构、客服、直播、会员复购、经营周报、退款治理和投放ROI，提供直接答案、数据口径与执行清单。',
+    title: '电商经营洞察｜服务选择、店铺诊断、数据复盘与AI工具｜品沐咨询',
+    description: '品沐咨询经营洞察覆盖电商顾问与代运营选择、店铺诊断、商品客服、经营周报、退款投放、AI工具和GEO衡量，提供证据、边界与执行清单。',
     name: '经营洞察',
-    keywords: ['电商经营复盘', '店铺转化率', '商品结构', '客服转化', '直播复盘', '会员复购', '经营周报', '退款治理', '投放ROI复盘', '生意参谋数据分析'],
+    keywords: ['电商咨询怎么选', '电商顾问靠谱吗', '店铺诊断', '运营陪跑', '店铺转化率', '经营周报', '退款治理', '投放ROI复盘', 'AI经营周报', 'GEO ROI'],
     insightIndex: true,
     updated: '2026-07-16',
     priority: '0.85',
@@ -96,6 +97,7 @@ export const routeMeta = [
     title: '项目经验｜品沐咨询 PINMOO',
     description: '品沐咨询项目经验覆盖茶饮食品、服饰鞋包、营养健康、个护电器、传统企业转型、酒水食品等行业，关注问题拆解、动作落地与持续复盘。',
     name: '项目经验',
+    updated: '2026-07-16',
     priority: '0.9',
     changefreq: 'monthly'
   },
@@ -103,8 +105,9 @@ export const routeMeta = [
     path: '/about/',
     file: 'about/index.html',
     title: '关于品沐咨询｜鲍俊文 沐风｜广州品沐咨询有限公司',
-    description: '了解广州品沐咨询有限公司及主理人鲍俊文，花名沐风。品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。',
+    description: '品沐咨询是广州品沐咨询有限公司旗下电商增长咨询的简称，由鲍俊文（沐风、BarryBao）主理，面向消费品牌提供电商经营诊断、运营陪跑、页面优化、投放复盘和AI经营工具服务。',
     name: '关于品沐',
+    updated: '2026-07-16',
     priority: '0.8',
     changefreq: 'monthly'
   },
@@ -147,6 +150,7 @@ export const routeMeta = [
     description: item.summary,
     name: item.title,
     caseSlug: item.slug,
+    updated: '2026-07-16',
     priority: '0.7',
     changefreq: 'monthly'
   }))
@@ -245,6 +249,7 @@ routeMeta.push(
       description: en.summary || item.summary,
       name: en.title || item.title,
       caseSlug: item.slug,
+      updated: '2026-07-16',
       priority: '0.7',
       changefreq: 'monthly',
       lang: 'en',
@@ -325,7 +330,6 @@ function organizationNode() {
     image: ogUrl,
     telephone: phone,
     hasMap: SITE.mapUrl,
-    founder: { '@id': ORIGIN + '/about/#mufeng' },
     knowsAbout: ['电商战略诊断', '天猫与京东运营', '生意参谋数据诊断', '电商经营周报', '退款治理', '投放 ROI 复盘', '页面转化优化', '会员复购与私域运营'],
     areaServed: ['中国', '广东', '广州', '天猫', '京东', '抖音', '小红书', '视频号', '拼多多'],
     address: {
@@ -343,7 +347,7 @@ function organizationNode() {
       areaServed: 'CN'
     }],
     slogan: '让电商增长更有章法',
-    description: '广州品沐咨询有限公司旗下品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，结合电商实战经验与大模型工具，提供免费基础诊断、经营诊断、内容生产、客服承接、私域激活与数据复盘服务。',
+    description: SITE.positioning,
     potentialAction: {
       '@type': 'CommunicateAction',
       name: '预约免费基础诊断',
@@ -598,11 +602,11 @@ function personNode(meta) {
     '@type': 'Person',
     '@id': ORIGIN + '/about/#mufeng',
     name: '鲍俊文',
-    alternateName: ['沐风', '鲍俊文｜沐风'],
-    jobTitle: '电商运营与品牌增长顾问',
+    alternateName: ['沐风', 'BarryBao'],
+    jobTitle: '品沐咨询主理人',
     image: ORIGIN + '/assets/mufeng-profile.jpg',
     worksFor: { '@id': ORIGIN + '/#organization' },
-    description: '鲍俊文，花名沐风，广州品沐咨询有限公司主理人，长期深耕电商运营、平台推广与品牌增长咨询。',
+    description: '鲍俊文，公开别名沐风、BarryBao，主理品沐咨询，面向消费品牌提供电商经营诊断、运营陪跑、页面优化、投放复盘和AI经营工具服务。',
     url: ORIGIN + '/about/',
     knowsAbout: ['电商咨询', '天猫运营', '京东运营', '抖音电商', '小红书种草', '店铺诊断', '经营周报', '退款治理', '页面优化', '投放复盘', '会员运营']
   };
@@ -623,10 +627,12 @@ function insightArticleNode(meta) {
     articleSection: article.category,
     keywords: article.keywords.join(', '),
     author: { '@id': ORIGIN + '/about/#mufeng' },
+    editor: { '@id': ORIGIN + '/about/#mufeng' },
     publisher: { '@id': ORIGIN + '/#organization' },
     mainEntityOfPage: absolute(meta.path),
     about: article.keywords,
     abstract: article.directAnswer,
+    creditText: insightAuthor.disclosure,
     isAccessibleForFree: true
   };
 }

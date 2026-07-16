@@ -36,6 +36,10 @@ export function CaseDetail({ item }) {
       <section className="section case-detail-section">
         <div className="container case-detail-layout">
           <div className="case-detail-main">
+            <Reveal className="case-privacy-note">
+              <strong>匿名案例说明</strong>
+              <p>本案例来自真实项目，现有内容已经核对；因客户保密协议，客户名称及可识别细节已隐去。</p>
+            </Reveal>
             <DetailBlock icon="BookOpen" title="项目背景"><p>{item.background}</p></DetailBlock>
             <DetailBlock icon="ShieldCheck" title="核心问题"><ul>{item.problems.map((problem) => <li key={problem}>{problem}</li>)}</ul></DetailBlock>
             <DetailBlock icon="Search" title="诊断发现"><p>{item.diagnosis}</p></DetailBlock>

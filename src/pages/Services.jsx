@@ -86,7 +86,7 @@ export function Services() {
                   <div><h3>交付成果</h3><ul>{service.deliverables.map((item) => <li key={item}>{item}</li>)}</ul></div>
                 </div>
                 <div className="service-fee">
-                  <strong>费用参考</strong>
+                  <strong>合作范围</strong>
                   <p>{service.fee}</p>
                   <span>{pricingNote}</span>
                 </div>

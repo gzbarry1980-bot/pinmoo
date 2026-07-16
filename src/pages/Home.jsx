@@ -8,6 +8,7 @@ import { SectionIntro } from '../components/SectionIntro.jsx';
 import { ServiceCard } from '../components/ServiceCard.jsx';
 import { StatCounter } from '../components/StatCounter.jsx';
 import { METHODOLOGY, TRUST_STATS } from '../data/site.js';
+import { SITE } from '../data/site.js';
 import { cases } from '../data/cases.js';
 import { services } from '../data/services.js';
 
@@ -41,7 +42,7 @@ export function Home() {
               <Reveal className="stat-card" key={item.label} delay={index * 80}>
                 <Icon name={index === 0 ? 'BadgeCheck' : index === 1 ? 'Layers' : index === 2 ? 'BriefcaseBusiness' : 'Users'} size={30} />
                 <div className="stat-copy">
-                  <strong><StatCounter value={item.value} suffix={item.suffix} /></strong>
+                  <strong>{typeof item.value === 'number' ? <StatCounter value={item.value} suffix={item.suffix} /> : item.value}</strong>
                   <span>{item.label}</span>
                 </div>
               </Reveal>
@@ -82,7 +83,7 @@ export function Home() {
 
       <section className="section cases-preview" id="cases">
         <div className="container">
-          <SectionIntro title="真实项目经验，沉淀可复用的增长方法" text="每一个项目，都来自品牌在平台经营、内容表达、页面转化、投放复盘或用户承接中的真实问题。" />
+          <SectionIntro title="真实项目经验，沉淀可复用的增长方法" text="案例均来自真实项目，现有内容已经核对；因客户保密协议采用匿名方式呈现，并隐去客户名称及可识别细节。" />
           <div className="home-case-grid">
             {cases.slice(0, 4).map((item, index) => <Reveal key={item.slug} delay={index * 80}><CaseCard item={item} /></Reveal>)}
           </div>
@@ -94,7 +95,7 @@ export function Home() {
         <div className="container about-preview-grid">
           <Reveal>
             <h2>更懂实战，也懂 AI 工具的电商增长伙伴</h2>
-            <p>品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，基于多年天猫、京东、抖音、小红书、私域运营经验，结合大模型工具，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。</p>
+            <p>{SITE.positioning}</p>
             <ButtonLink href="/about/">了解品沐</ButtonLink>
           </Reveal>
           <Reveal className="office-visual" delay={120}>

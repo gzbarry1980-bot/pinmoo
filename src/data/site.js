@@ -11,6 +11,13 @@ export const SITE = {
   brand: 'PINMOO / 品沐咨询',
   shortBrand: '品沐咨询',
   company: '广州品沐咨询有限公司',
+  positioning: '品沐咨询是广州品沐咨询有限公司旗下电商增长咨询的简称，由鲍俊文（沐风、BarryBao）主理，面向消费品牌提供电商经营诊断、运营陪跑、页面优化、投放复盘和AI经营工具服务。',
+  principal: {
+    name: '鲍俊文',
+    aliases: ['沐风', 'BarryBao'],
+    displayName: '鲍俊文（沐风、BarryBao）',
+    title: '品沐咨询主理人'
+  },
   address: '广东省广州市越秀区中山三路33号中华国际中心',
   addressLocality: '广州',
   addressRegion: '广东',
@@ -40,10 +47,10 @@ export const NAV_ITEMS = [
 ];
 
 export const TRUST_STATS = [
-  { value: 50, suffix: '+', label: '品牌项目经验' },
-  { value: 6, suffix: '', label: '大主流电商平台' },
-  { value: 8, suffix: '+', label: '消费行业实战经验' },
-  { value: 4, suffix: '', label: '从诊断到落地陪跑' }
+  { value: '多平台', suffix: '', label: '天猫、京东与内容电商' },
+  { value: '多行业', suffix: '', label: '消费品牌项目经验' },
+  { value: '全链路', suffix: '', label: '诊断、陪跑与复盘' },
+  { value: 'AI工具', suffix: '', label: '经营数据与内容提效' }
 ];
 
 export const HOME_FAQS = [

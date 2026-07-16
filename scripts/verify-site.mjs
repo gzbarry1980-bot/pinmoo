@@ -62,9 +62,11 @@ for (const meta of routeMeta) {
 
   if (meta.path === '/' && meta.lang !== 'en') {
     if (!html.includes('<title>广州电商咨询公司｜店铺诊断、运营陪跑与AI经营周报｜品沐咨询</title>')) fail('首页 title 未覆盖广州电商咨询与核心服务');
-    for (const stat of ['<span class="stat-number">50+</span>', '<span class="stat-number">6</span>', '<span class="stat-number">8+</span>', '<span class="stat-number">4</span>']) {
-      if (!html.includes(stat)) fail(`首页真实经验数据缺失: ${stat}`);
+    for (const signal of ['多平台', '多行业', '全链路', 'AI工具']) {
+      if (!html.includes(signal)) fail(`首页能力信号缺失: ${signal}`);
     }
+    if (!html.includes('看板为演示数据，不代表客户经营结果')) fail('首页经营看板缺少演示数据声明');
+    if (!html.includes('案例均来自真实项目，现有内容已经核对')) fail('首页缺少匿名案例事实边界');
     if (!html.includes('AI电商经营周报不是自动写总结，而是先统一数据口径')) fail('首页缺少 AI 经营周报方法说明');
     if (!html.includes('电商店铺有流量但转化率低，应该先检查什么？')) fail('首页缺少直接问答内容');
     if (!/"@type"\s*:\s*"FAQPage"/.test(html)) fail('首页缺少 FAQPage 结构化数据');
@@ -77,6 +79,7 @@ for (const meta of routeMeta) {
     if (!/"@type"\s*:\s*"FAQPage"/.test(html)) fail(`${meta.file}: 缺少 FAQPage 结构化数据`);
     if (!html.includes('本文依据与适用边界')) fail(`${meta.file}: 缺少证据说明与适用边界`);
     if (!html.includes('id="directAnswerTitle">核心结论</h2>')) fail(`${meta.file}: 缺少可直接引用的核心结论`);
+    if (!html.includes('AI参与结构整理和文字校对，最终由鲍俊文复核')) fail(`${meta.file}: 缺少 AI 参与和人工复核声明`);
   }
 
   for (const match of html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)) {
@@ -130,7 +133,7 @@ for (const filename of ['ai-context.json', 'pinmoo-profile.json']) {
     if (filename === 'ai-context.json') {
       if (data.aiProduct?.url !== 'https://agent.pinmoo.top/') fail('ai-context.json 工作台域名不正确');
       if (!Array.isArray(data.aiProduct?.workflow) || data.aiProduct.workflow.length !== 4) fail('ai-context.json 缺少四步周报工作流');
-      if (!Array.isArray(data.directAnswers) || data.directAnswers.length < 10) fail('ai-context.json 直接回答不足 10 条');
+      if (!Array.isArray(data.directAnswers) || data.directAnswers.length < 19) fail('ai-context.json 直接回答不足 19 条');
       if (data.machineReadableResources?.knowledgeIndex !== 'https://pinmooconsulting.com/knowledge-index.json') fail('ai-context.json 缺少正式知识索引');
     }
   } catch {
@@ -141,13 +144,14 @@ for (const filename of ['ai-context.json', 'pinmoo-profile.json']) {
 const knowledgeIndexContent = await fs.readFile(path.join(dist, 'knowledge-index.json'), 'utf8').catch(() => '');
 try {
   const knowledgeIndex = JSON.parse(knowledgeIndexContent);
-  if (!Array.isArray(knowledgeIndex.articles) || knowledgeIndex.articles.length < 9) fail('knowledge-index.json 经营洞察不足 9 篇');
+  if (!Array.isArray(knowledgeIndex.articles) || knowledgeIndex.articles.length < 17) fail('knowledge-index.json 经营洞察不足 17 篇');
   if (knowledgeIndex.articles?.some((article) => !article.canonicalUrl?.startsWith('https://pinmooconsulting.com/zh/insights/'))) {
     fail('knowledge-index.json canonical 域名或路径不正确');
   }
-  if (knowledgeIndex.articles?.some((article) => !article.directAnswer || !article.applicableScope || !article.limitations)) {
-    fail('knowledge-index.json 缺少直接回答、适用范围或使用限制');
+  if (knowledgeIndex.articles?.some((article) => !article.directAnswer || !article.applicableScope || !article.limitations || article.contentModel !== 'CEBA' || article.reviewStatus !== 'editorially-reviewed')) {
+    fail('knowledge-index.json 缺少直接回答、适用范围、使用限制或内容复核信息');
   }
+  if (!Array.isArray(knowledgeIndex.topicClusters) || knowledgeIndex.topicClusters.length !== 4) fail('knowledge-index.json 主题簇不完整');
 } catch {
   fail('knowledge-index.json 缺失或不是有效 JSON');
 }

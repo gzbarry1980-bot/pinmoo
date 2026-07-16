@@ -14,9 +14,9 @@ const beliefCards = [
 ];
 
 const experience = [
-  ['前天猫服务站淘宝大学培训基地运营推广板块负责人', 'GraduationCap'],
-  ['多年淘宝、天猫、京东等平台运营推广经验', 'Layers'],
-  ['服务过茶饮、服饰、营养品、个护电器、快消品等多个消费行业', 'ShoppingBag'],
+  ['面向消费品牌提供电商增长咨询服务', 'GraduationCap'],
+  ['覆盖天猫、京东与内容电商经营问题', 'Layers'],
+  ['现有案例均为真实项目，并按保密协议匿名呈现', 'ShoppingBag'],
   ['擅长店铺诊断、主图详情页优化、投放复盘、会员运营、内容种草与全域电商规划', 'Image'],
   ['长期输出品牌增长、电商运营和代运营避坑相关内容', 'FilePenLine']
 ];
@@ -39,7 +39,7 @@ export function About() {
           <Reveal className="brand-showcase">
             <span className="logo-frame about-logo-frame"><img src={SITE.logo} alt="PINMOO 品沐咨询 Logo" /></span>
             <h2>品沐咨询是谁？</h2>
-            <p>品沐咨询是一家面向传统品牌与电商企业的AI电商增长顾问公司，基于多年天猫、京东、抖音、小红书、私域运营经验，结合大模型工具，帮助企业完成从经营诊断、内容生产、客服承接、私域激活到数据复盘的全链路数字化升级。</p>
+            <p>{SITE.positioning}</p>
           </Reveal>
           <Reveal delay={120}>
             <h2>我们相信，电商增长不是靠单点动作，而是靠系统协同。</h2>
@@ -55,9 +55,9 @@ export function About() {
           <Reveal className="principal-info">
             <div className="profile-mark"><Icon name="CircleUserRound" size={72} /></div>
             <div>
-              <h2>鲍俊文｜沐风</h2>
-              <p className="role-lines">广州品沐咨询有限公司主理人<br />品沐咨询创始顾问<br />电商运营与品牌增长顾问</p>
-              <p>鲍俊文，花名沐风，广州品沐咨询有限公司主理人，长期深耕电商运营、平台推广与品牌增长咨询。曾任前天猫服务站淘宝大学培训基地运营推广板块负责人，拥有多年淘宝、天猫、京东等主流平台运营经验，曾为多个茶饮、服饰、营养品、个护电器、快消品等品牌提供店铺诊断、平台规划、活动复盘、页面优化、内容种草与运营陪跑服务。</p>
+              <h2>{SITE.principal.displayName}</h2>
+              <p className="role-lines">{SITE.principal.title}</p>
+              <p>鲍俊文，公开别名沐风、BarryBao，主理品沐咨询，面向消费品牌提供电商经营诊断、运营陪跑、页面优化、投放复盘和AI经营工具服务。</p>
             </div>
           </Reveal>
           <div className="experience-grid">

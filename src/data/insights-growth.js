@@ -10,6 +10,7 @@ export const growthInsights = [
     published: '2026-07-16',
     updated: '2026-07-16',
     readTime: '约 8 分钟',
+    featured: true,
     evidence: {
       basis: '流量来源、访客、商品曝光与点击、加购、支付、页面版本、评价问答和客服询单等同周期数据。',
       scope: '适用于已有稳定访客但支付转化偏低的天猫、京东等货架电商店铺；内容平台还需补充内容点击到店链路。',
@@ -406,6 +407,7 @@ export const growthInsights = [
     published: '2026-07-16',
     updated: '2026-07-16',
     readTime: '约 8 分钟',
+    featured: true,
     evidence: {
       basis: '品沐咨询电商经营周报与店铺诊断所需的数据模块、字段关联和口径核查流程。',
       scope: '主要面向天猫与生意参谋相关导出文件，也可作为京东、抖音等平台数据准备的结构参考。',

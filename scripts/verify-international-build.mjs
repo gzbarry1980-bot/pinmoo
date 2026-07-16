@@ -80,9 +80,10 @@ expect(chineseHome.includes('href="/zh/services/store-diagnosis/"'), 'internatio
 expect(await exists('zh/insights/store-traffic-no-conversion-diagnosis/index.html'), 'international build is missing the store conversion insight');
 
 const knowledgeIndex = JSON.parse(await read('knowledge-index.json'));
-expect(Array.isArray(knowledgeIndex.articles) && knowledgeIndex.articles.length >= 9, 'international knowledge index has too few articles');
+expect(Array.isArray(knowledgeIndex.articles) && knowledgeIndex.articles.length >= 17, 'international knowledge index has too few articles');
 expect(knowledgeIndex.articles.every((article) => article.canonicalUrl.startsWith('https://pinmooconsulting.com/zh/insights/')), 'international knowledge index contains an incorrect canonical URL');
 expect(knowledgeIndex.articles.every((article) => article.directAnswer && article.evidenceBasis && article.applicableScope && article.limitations), 'international knowledge index is missing citation context');
+expect(knowledgeIndex.articles.every((article) => article.contentModel === 'CEBA' && article.reviewStatus === 'editorially-reviewed'), 'international knowledge index is missing editorial review metadata');
 
 const sitemap = await read('sitemap.xml');
 const sitemapUrls = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
