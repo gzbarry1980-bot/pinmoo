@@ -77,6 +77,12 @@ expect(chineseHome.includes('AI电商经营周报不是自动写总结，而是�
 expect(chineseHome.includes('电商店铺有流量但转化率低，应该先检查什么？'), 'international Chinese homepage is missing direct answers');
 expect(/"@type"\s*:\s*"FAQPage"/.test(chineseHome), 'international Chinese homepage is missing FAQPage structured data');
 expect(chineseHome.includes('href="/zh/services/store-diagnosis/"'), 'international Chinese homepage does not link to the store diagnosis page');
+expect(await exists('zh/insights/store-traffic-no-conversion-diagnosis/index.html'), 'international build is missing the store conversion insight');
+
+const knowledgeIndex = JSON.parse(await read('knowledge-index.json'));
+expect(Array.isArray(knowledgeIndex.articles) && knowledgeIndex.articles.length >= 9, 'international knowledge index has too few articles');
+expect(knowledgeIndex.articles.every((article) => article.canonicalUrl.startsWith('https://pinmooconsulting.com/zh/insights/')), 'international knowledge index contains an incorrect canonical URL');
+expect(knowledgeIndex.articles.every((article) => article.directAnswer && article.evidenceBasis && article.applicableScope && article.limitations), 'international knowledge index is missing citation context');
 
 const sitemap = await read('sitemap.xml');
 const sitemapUrls = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);

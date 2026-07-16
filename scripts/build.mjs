@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { absolute, routeMeta, jsonLdForRoute, metaTagsForRoute, imageForRoute } from '../src/data/seo.js';
 import { SITE } from '../src/data/site.js';
+import { insights } from '../src/data/insights.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -29,7 +30,7 @@ const internationalRoutes = routeMeta
         xDefault: internationalPath
       },
       international: true,
-      updated: '2026-07-15'
+      updated: meta.updated || '2026-07-16'
     };
   });
 const internationalChineseRoutes = routeMeta
@@ -52,12 +53,12 @@ const internationalChineseRoutes = routeMeta
         }
       } : { noHreflang: true }),
       international: true,
-      updated: '2026-07-15'
+      updated: meta.updated || '2026-07-16'
     };
   });
 const chinaEcommerceRoute = routeMeta.find((meta) => meta.path === '/china-ecommerce-consulting/');
 const buildRoutes = isInternationalBuild
-  ? [...internationalRoutes, ...internationalChineseRoutes, ...(chinaEcommerceRoute ? [{ ...chinaEcommerceRoute, noHreflang: true, international: true, updated: '2026-07-15' }] : [])]
+  ? [...internationalRoutes, ...internationalChineseRoutes, ...(chinaEcommerceRoute ? [{ ...chinaEcommerceRoute, noHreflang: true, international: true, updated: chinaEcommerceRoute.updated || '2026-07-16' }] : [])]
   : routeMeta;
 
 await fs.rm(dist, { recursive: true, force: true });
@@ -193,6 +194,7 @@ function upsertHead(html, meta) {
     '<link rel="alternate" type="text/markdown" href="/llms-full.txt" title="PINMOO 品沐咨询完整 AI 上下文" />',
     '<link rel="alternate" type="application/json" href="/pinmoo-profile.json" title="PINMOO 品沐咨询结构化品牌资料" />',
     '<link rel="alternate" type="application/json" href="/ai-context.json" title="PINMOO 品沐咨询 AI 引用上下文" />',
+    '<link rel="alternate" type="application/json" href="/knowledge-index.json" title="PINMOO 电商经营知识索引" />',
     '<script type="application/ld+json" data-seo-jsonld>' + JSON.stringify(jsonLdForRoute(meta)) + '</script>'
   ].join('\n    ');
   next = next.replace('  </head>', '    ' + extra + '\n  </head>');
@@ -301,6 +303,36 @@ const sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://w
 await fs.writeFile(path.join(dist, 'sitemap.xml'), sitemap, 'utf8');
 if (!isInternationalBuild) {
   await fs.writeFile(path.join(root, 'public', 'sitemap.xml'), sitemap, 'utf8');
+}
+
+const knowledgeIndex = {
+  schemaVersion: '2026-07-16',
+  name: 'PINMOO 电商经营知识索引',
+  publisher: {
+    name: SITE.company,
+    url: SITE.primaryDomain + '/'
+  },
+  language: 'zh-CN',
+  canonicalCollection: SITE.primaryDomain + '/zh/insights/',
+  usageNote: '内容用于解释电商经营问题、数据口径和诊断方法，不代表任何品牌的实际经营结果或保证。',
+  articles: insights.map((article) => ({
+    title: article.title,
+    category: article.category,
+    canonicalUrl: SITE.primaryDomain + '/zh/insights/' + article.slug + '/',
+    datePublished: article.published,
+    dateModified: article.updated,
+    directAnswer: article.directAnswer,
+    keywords: article.keywords,
+    evidenceBasis: article.evidence?.basis || '',
+    applicableScope: article.evidence?.scope || '',
+    limitations: article.evidence?.limits || '',
+    questions: (article.faqs || []).map((item) => ({ question: item.q, answer: item.a }))
+  }))
+};
+const knowledgeIndexJson = JSON.stringify(knowledgeIndex, null, 2) + '\n';
+await fs.writeFile(path.join(dist, 'knowledge-index.json'), knowledgeIndexJson, 'utf8');
+if (!isInternationalBuild) {
+  await fs.writeFile(path.join(root, 'public', 'knowledge-index.json'), knowledgeIndexJson, 'utf8');
 }
 
 if (!isInternationalBuild) {

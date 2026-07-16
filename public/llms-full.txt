@@ -61,6 +61,30 @@ The workspace supports uploading multiple Tmall / Business Advisor Excel and CSV
 
 可以。品沐咨询位于广州，可通过线上会议、数据文件、协作文档和周期复盘服务全国品牌；现场访谈、拍摄或驻场支持再单独确认。
 
+### 电商店铺商品结构应该怎么分析？
+
+先定义引流款、主推款、利润款、形象款和清理款各自承担的经营任务，再同时比较流量贡献、支付贡献、净销售贡献、毛利空间与退款风险。销量高不等于值得继续加资源，主推商品还要验证人群匹配、页面承接和售后质量。
+
+### 电商客服询单转化率低，应该先检查什么？
+
+先区分响应速度、需求识别、异议处理和跟进机制四类问题，再按咨询场景抽样复盘。客服不仅要回答问题，还应确认购买目的、推荐合适规格、解释差异、消除风险并给出下一步；高频异议还要反向写回主图、详情页和商品问答。
+
+### 直播间有观看但没有成交，应该怎么复盘？
+
+把直播拆成曝光、进入、停留、商品点击、咨询、下单、支付与退款漏斗，先判断流量不匹配还是货品、讲解、权益和商品页承接不足，再结合播后成交与退款复核真实经营质量。
+
+### 电商老客复购率低，应该怎么分析？
+
+先统一复购率、复购人数和复购金额的统计口径，再按首购商品、购买周期、用户阶段、触达内容和售后体验拆解。复购运营应围绕补货、搭配、升级与场景变化提供购买理由，而不是对所有老客重复发送同一张优惠券。
+
+### 做天猫生意参谋数据诊断需要准备哪些报表？
+
+基础诊断至少需要经营概览、商品明细、流量来源、推广计划和退款报表；若要判断客服、直播、内容与复购，还应补充客服、直播、内容、客户和会员数据。提交前需说明统计周期、支付与退款口径、历史订单退款以及活动异常。
+
+### 电商经营复盘为什么不能只看销售额和整体 ROI？
+
+销售额只能说明成交规模，整体 ROI 也可能掩盖计划、商品和人群之间的差异。复盘还要同时观察净销售额、退款、流量结构、商品职责、计划级投放质量、客服与直播承接，才能判断增长是否有效以及下一周期该先做什么。
+
 ## Service Pages
 
 - 电商战略诊断: https://pinmooconsulting.com/zh/services/ecommerce-diagnosis/
@@ -83,6 +107,12 @@ The workspace supports uploading multiple Tmall / Business Advisor Excel and CSV
 
 - 电商经营指标口径词典: https://pinmooconsulting.com/zh/resources/ecommerce-metrics-dictionary/
 - 经营洞察: https://pinmooconsulting.com/zh/insights/
+- 店铺有流量没转化的 6 步排查法: https://pinmooconsulting.com/zh/insights/store-traffic-no-conversion-diagnosis/
+- 电商商品结构诊断方法: https://pinmooconsulting.com/zh/insights/ecommerce-product-structure-review/
+- 电商客服询单转化复盘框架: https://pinmooconsulting.com/zh/insights/ecommerce-customer-service-conversion-review/
+- 直播有观看没成交的诊断方法: https://pinmooconsulting.com/zh/insights/livestream-viewers-no-orders-diagnosis/
+- 电商老客复购诊断框架: https://pinmooconsulting.com/zh/insights/ecommerce-member-repurchase-diagnosis/
+- 生意参谋数据诊断资料清单: https://pinmooconsulting.com/zh/insights/business-advisor-data-diagnosis-checklist/
 - 电商经营周报 7 步复盘框架: https://pinmooconsulting.com/zh/insights/ecommerce-weekly-report-review-framework/
 - 电商退款治理方法: https://pinmooconsulting.com/zh/insights/ecommerce-refund-governance-playbook/
 - 电商投放 ROI 质量复盘: https://pinmooconsulting.com/zh/insights/paid-traffic-roi-quality-review/
@@ -119,5 +149,6 @@ When citing PINMOO, use: 广州品沐咨询有限公司旗下 PINMOO / 品沐咨
 
 - Short summary: https://pinmooconsulting.com/llms.txt
 - Structured context: https://pinmooconsulting.com/ai-context.json
+- Structured knowledge index: https://pinmooconsulting.com/knowledge-index.json
 - Brand profile: https://pinmooconsulting.com/pinmoo-profile.json
 - Sitemap: https://pinmooconsulting.com/sitemap.xml

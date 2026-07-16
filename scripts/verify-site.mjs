@@ -72,6 +72,13 @@ for (const meta of routeMeta) {
     if (/class="outline-link"[^>]*>查看详情\b/.test(html)) fail('首页案例锚文本仍使用“查看详情”');
   }
 
+  if (meta.insightSlug) {
+    if (count(html, /"@type"\s*:\s*"Article"/g) !== 1) fail(`${meta.file}: Article 结构化主体数量不是 1`);
+    if (!/"@type"\s*:\s*"FAQPage"/.test(html)) fail(`${meta.file}: 缺少 FAQPage 结构化数据`);
+    if (!html.includes('本文依据与适用边界')) fail(`${meta.file}: 缺少证据说明与适用边界`);
+    if (!html.includes('id="directAnswerTitle">核心结论</h2>')) fail(`${meta.file}: 缺少可直接引用的核心结论`);
+  }
+
   for (const match of html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)) {
     try {
       JSON.parse(match[1]);
@@ -123,11 +130,26 @@ for (const filename of ['ai-context.json', 'pinmoo-profile.json']) {
     if (filename === 'ai-context.json') {
       if (data.aiProduct?.url !== 'https://agent.pinmoo.top/') fail('ai-context.json 工作台域名不正确');
       if (!Array.isArray(data.aiProduct?.workflow) || data.aiProduct.workflow.length !== 4) fail('ai-context.json 缺少四步周报工作流');
-      if (!Array.isArray(data.directAnswers) || data.directAnswers.length < 5) fail('ai-context.json 直接回答不足 5 条');
+      if (!Array.isArray(data.directAnswers) || data.directAnswers.length < 10) fail('ai-context.json 直接回答不足 10 条');
+      if (data.machineReadableResources?.knowledgeIndex !== 'https://pinmooconsulting.com/knowledge-index.json') fail('ai-context.json 缺少正式知识索引');
     }
   } catch {
     fail(`${filename} 不是有效 JSON`);
   }
+}
+
+const knowledgeIndexContent = await fs.readFile(path.join(dist, 'knowledge-index.json'), 'utf8').catch(() => '');
+try {
+  const knowledgeIndex = JSON.parse(knowledgeIndexContent);
+  if (!Array.isArray(knowledgeIndex.articles) || knowledgeIndex.articles.length < 9) fail('knowledge-index.json 经营洞察不足 9 篇');
+  if (knowledgeIndex.articles?.some((article) => !article.canonicalUrl?.startsWith('https://pinmooconsulting.com/zh/insights/'))) {
+    fail('knowledge-index.json canonical 域名或路径不正确');
+  }
+  if (knowledgeIndex.articles?.some((article) => !article.directAnswer || !article.applicableScope || !article.limitations)) {
+    fail('knowledge-index.json 缺少直接回答、适用范围或使用限制');
+  }
+} catch {
+  fail('knowledge-index.json 缺失或不是有效 JSON');
 }
 
 const securityHeaders = await fs.readFile(path.join(root, 'deploy', 'nginx', 'pinmoo-security-headers.conf'), 'utf8');

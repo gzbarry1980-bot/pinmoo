@@ -69,11 +69,12 @@ export const routeMeta = [
   {
     path: '/insights/',
     file: 'insights/index.html',
-    title: '电商经营洞察｜周报复盘、退款治理与投放ROI｜品沐咨询',
-    description: '品沐咨询经营洞察围绕电商经营周报、退款治理、付费流量质量和投放ROI复盘，提供数据口径、判断方法与可执行清单。',
+    title: '电商经营洞察｜店铺转化、周报、退款、直播与复购｜品沐咨询',
+    description: '品沐咨询经营洞察围绕店铺转化、商品结构、客服、直播、会员复购、经营周报、退款治理和投放ROI，提供直接答案、数据口径与执行清单。',
     name: '经营洞察',
-    keywords: ['电商经营复盘', '电商经营周报', '退款治理', '投放ROI复盘', '生意参谋数据分析'],
+    keywords: ['电商经营复盘', '店铺转化率', '商品结构', '客服转化', '直播复盘', '会员复购', '经营周报', '退款治理', '投放ROI复盘', '生意参谋数据分析'],
     insightIndex: true,
+    updated: '2026-07-16',
     priority: '0.85',
     changefreq: 'weekly'
   },
@@ -380,6 +381,13 @@ function websiteNode() {
         name: 'PINMOO structured AI context',
         url: ORIGIN + '/ai-context.json',
         encodingFormat: 'application/json'
+      },
+      {
+        '@type': 'DataFeed',
+        '@id': ORIGIN + '/knowledge-index.json#data',
+        name: 'PINMOO e-commerce knowledge index',
+        url: ORIGIN + '/knowledge-index.json',
+        encodingFormat: 'application/json'
       }
     ]
   };
@@ -618,7 +626,8 @@ function insightArticleNode(meta) {
     publisher: { '@id': ORIGIN + '/#organization' },
     mainEntityOfPage: absolute(meta.path),
     about: article.keywords,
-    abstract: article.directAnswer
+    abstract: article.directAnswer,
+    isAccessibleForFree: true
   };
 }
 
@@ -707,7 +716,7 @@ function webPageNode(meta) {
   const resourcePage = resourcePageForMeta(meta);
   const insight = insightForMeta(meta);
   const node = {
-    '@type': meta.caseSlug || insight ? 'Article' : resourcePage || meta.insightIndex ? 'CollectionPage' : meta.path === '/contact/' ? 'ContactPage' : meta.path === '/about/' ? 'AboutPage' : meta.path === '/cases/' ? 'CollectionPage' : 'WebPage',
+    '@type': resourcePage || meta.insightIndex ? 'CollectionPage' : meta.path === '/contact/' ? 'ContactPage' : meta.path === '/about/' ? 'AboutPage' : meta.path === '/cases/' ? 'CollectionPage' : 'WebPage',
     '@id': absolute(meta.path) + '#webpage',
     url: absolute(meta.path),
     name: meta.title,

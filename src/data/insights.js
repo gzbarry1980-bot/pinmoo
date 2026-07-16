@@ -1,3 +1,5 @@
+import { growthInsights } from './insights-growth.js';
+
 export const insightAuthor = {
   name: '鲍俊文',
   alternateName: '沐风',
@@ -5,6 +7,7 @@ export const insightAuthor = {
 };
 
 export const insights = [
+  ...growthInsights,
   {
     slug: 'ecommerce-weekly-report-review-framework',
     category: '经营复盘',

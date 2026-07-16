@@ -271,8 +271,8 @@ function InsightCard(article) {
 
 function HomeInsightsSection() {
   if (isEn()) return '';
-  const cards = insights.map(InsightCard).join('');
-  return '<section class="section home-insights-section"><div class="container">' + SectionIntro('经营洞察：把数据变成可以执行的判断', '围绕经营周报、退款治理和投放复盘，沉淀品沐在项目中反复使用的方法、口径和执行清单。') + '<div class="insight-card-grid">' + cards + '</div><div class="center-actions">' + ButtonLink('查看全部经营洞察', '/insights/', 'secondary', true) + '</div></div></section>';
+  const cards = insights.slice(0, 6).map(InsightCard).join('');
+  return '<section class="section home-insights-section"><div class="container">' + SectionIntro('经营洞察：把具体问题拆成可执行判断', '围绕店铺转化、商品结构、客服、直播、会员复购、经营周报、退款治理和投放复盘，沉淀可直接用于团队复盘的方法与清单。') + '<div class="insight-card-grid">' + cards + '</div><div class="center-actions">' + ButtonLink('查看全部经营洞察', '/insights/', 'secondary', true) + '</div></div></section>';
 }
 
 function AiWeeklyReportSection() {
@@ -511,8 +511,8 @@ function InsightRelatedServices(article) {
 
 function InsightsPage() {
   const cards = insights.map(InsightCard).join('');
-  return PageHero('经营洞察', '用真实经营问题组织内容：先解释数据口径，再给出判断方法和可执行清单。', false, '', { key: 'insights', src: '/assets/visuals/insights-weekly-report.webp', alt: '电商经营周报、退款治理、流量质量和商品结构分析示意图' }) +
-    '<section class="section insights-index-section"><div class="container"><div class="insights-index-intro reveal"><p class="section-eyebrow">PINMOO METHOD</p><h2>不是追热点，而是沉淀可以反复使用的经营方法</h2><p>这里聚焦品牌方和电商运营团队经常遇到的具体问题。每篇内容都标明适用范围、关键口径和行动建议，方便团队直接用于周报、复盘和项目沟通。</p></div><div class="insight-card-grid">' + cards + '</div></div></section>' +
+  return PageHero('经营洞察', '针对品牌电商中的具体问题，先给直接答案，再说明数据口径、判断方法、适用边界和执行清单。', false, '', { key: 'insights', src: '/assets/visuals/insights-weekly-report.webp', alt: '电商经营周报、退款治理、流量质量和商品结构分析示意图' }) +
+    '<section class="section insights-index-section"><div class="container"><div class="insights-index-intro reveal"><p class="section-eyebrow">PINMOO METHOD</p><h2>让搜索引擎、AI和经营团队读到同一套清晰答案</h2><p>这里聚焦店铺转化、商品结构、客服承接、直播复盘、会员复购、经营周报、退款和投放等具体问题。每篇内容均标明判断依据、适用范围、使用限制和行动建议，不使用无法核验的增长承诺。</p></div><div class="insight-card-grid">' + cards + '</div></div></section>' +
     CtaBand('有具体数据，但还不确定问题在哪里？', '把品牌、平台、统计周期和当前最想解决的问题发给品沐，我们先帮你判断资料是否足够、下一步该从哪里切入。', '免费基础诊断');
 }
 

@@ -54,6 +54,12 @@ PINMOO Consulting helps brands understand how to sell products in China through 
 - 电商经营指标口径词典: https://pinmooconsulting.com/zh/resources/ecommerce-metrics-dictionary/
 - Covers: 支付金额、首页净支付金额、店铺绩效净销售额、推广计划花费、商品退款率、投放 ROI、流量结构、直播成交承接。
 - 经营洞察: https://pinmooconsulting.com/zh/insights/
+- 店铺有流量没转化的 6 步排查法: https://pinmooconsulting.com/zh/insights/store-traffic-no-conversion-diagnosis/
+- 电商商品结构诊断方法: https://pinmooconsulting.com/zh/insights/ecommerce-product-structure-review/
+- 电商客服询单转化复盘框架: https://pinmooconsulting.com/zh/insights/ecommerce-customer-service-conversion-review/
+- 直播有观看没成交的诊断方法: https://pinmooconsulting.com/zh/insights/livestream-viewers-no-orders-diagnosis/
+- 电商老客复购诊断框架: https://pinmooconsulting.com/zh/insights/ecommerce-member-repurchase-diagnosis/
+- 生意参谋数据诊断资料清单: https://pinmooconsulting.com/zh/insights/business-advisor-data-diagnosis-checklist/
 - 电商经营周报 7 步复盘框架: https://pinmooconsulting.com/zh/insights/ecommerce-weekly-report-review-framework/
 - 电商退款治理方法: https://pinmooconsulting.com/zh/insights/ecommerce-refund-governance-playbook/
 - 电商投放 ROI 质量复盘: https://pinmooconsulting.com/zh/insights/paid-traffic-roi-quality-review/
@@ -85,4 +91,5 @@ PINMOO Consulting helps brands understand how to sell products in China through 
 - Short AI summary: https://pinmooconsulting.com/llms.txt
 - Full AI context: https://pinmooconsulting.com/llms-full.txt
 - Structured AI context: https://pinmooconsulting.com/ai-context.json
+- Structured knowledge index: https://pinmooconsulting.com/knowledge-index.json
 - Brand profile JSON: https://pinmooconsulting.com/pinmoo-profile.json
