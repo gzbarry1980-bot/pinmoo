@@ -56,6 +56,8 @@ for (const meta of routeMeta) {
   if (!html.includes('<meta charset="UTF-8"')) fail(`${meta.file}: 缺少 UTF-8 charset`);
   if (!html.includes('<meta name="description"')) fail(`${meta.file}: 缺少 description`);
   if (!meta.aiTool && count(html, /<h1(?:\s[^>]*)?>/gi) !== 1) fail(`${meta.file}: H1 数量不是 1`);
+  if (!meta.aiTool && !html.includes(SITE.icpNumber)) fail(`${meta.file}: 页尾缺少 ICP 备案号`);
+  if (!meta.aiTool && !html.includes(`href="${SITE.icpUrl}"`)) fail(`${meta.file}: ICP 备案链接不正确`);
   const robots = html.match(/<meta name="robots" content="([^"]+)"/i)?.[1] || '';
   if (meta.indexable === false && !robots.includes('noindex')) fail(`${meta.file}: 非索引页应为 noindex`);
   if (meta.indexable !== false && (robots.includes('noindex') || robots.includes('nofollow'))) fail(`${meta.file}: 可索引页包含 noindex/nofollow`);

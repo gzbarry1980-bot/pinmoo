@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { SITE } from '../src/data/site.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -101,6 +102,10 @@ expect(googleVerification.trim() === 'google-site-verification: google3ec590af21
 const htmlFiles = await listHtml(dist);
 for (const htmlFile of htmlFiles) {
   const html = await read(htmlFile);
+  if (!['404.html', 'google3ec590af2111084e.html'].includes(htmlFile)) {
+    expect(html.includes(SITE.icpNumber), `${htmlFile} is missing the ICP filing number`);
+    expect(html.includes(`href="${SITE.icpUrl}"`), `${htmlFile} has an incorrect ICP filing link`);
+  }
   expect(!html.includes('href="/en/'), `${htmlFile} still links to a legacy /en/ path`);
   for (const match of html.matchAll(/href="(\/[^"?#]*)/g)) {
     const href = match[1];

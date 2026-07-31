@@ -167,7 +167,7 @@ function Footer() {
     ? (isEn() ? '<a href="/china-ecommerce-consulting/">China e-commerce guide</a>' : '<a href="/zh/resources/ecommerce-metrics-dictionary/">\u7ecf\u8425\u6307\u6807\u8bcd\u5178</a>')
     : '<a href="/resources/ecommerce-metrics-dictionary/">' + (isEn() ? 'Metric glossary' : '经营指标词典') + '</a>';
   const links = NAV_ITEMS.filter(function(item) { return !item.zhOnly || !isEn(); }).map(function(item) { return '<a href="' + localizeHref(item.href) + '">' + (isEn() ? (EN_TEXT[item.label] || item.label) : item.label) + '</a>'; }).join('') + resourceLink;
-  return '<footer class="site-footer"><div class="container footer-grid"><div class="footer-brand">' + logo('logo-frame-footer') + '<p>' + SITE.company + '</p><p>专注电商战略咨询与品牌增长陪跑</p></div><div><h2>导航链接</h2><div class="footer-links">' + links + '</div></div><div><h2>联系方式</h2><p>' + SITE.contactLabel + '</p><p>' + SITE.address + '</p><p>' + SITE.contactNote + '</p></div></div><div class="footer-bottom">© 2026 ' + SITE.company + '. All rights reserved.</div></footer>';
+  return '<footer class="site-footer"><div class="container footer-grid"><div class="footer-brand">' + logo('logo-frame-footer') + '<p>' + SITE.company + '</p><p>专注电商战略咨询与品牌增长陪跑</p></div><div><h2>导航链接</h2><div class="footer-links">' + links + '</div></div><div><h2>联系方式</h2><p>' + SITE.contactLabel + '</p><p>' + SITE.address + '</p><p>' + SITE.contactNote + '</p></div></div><div class="footer-bottom"><span>© 2026 ' + SITE.company + '. All rights reserved.</span><a href="' + SITE.icpUrl + '" target="_blank" rel="noopener noreferrer">' + SITE.icpNumber + '</a></div></footer>';
 }
 
 function ButtonLink(label, href, variant, withIcon) {

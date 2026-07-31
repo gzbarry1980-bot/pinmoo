@@ -1626,7 +1626,9 @@ dt { color: var(--muted); font-weight: 800; } dd { margin: 0; color: var(--text)
 .footer-links { display: grid; grid-template-columns: repeat(2, minmax(90px, 1fr)); gap: 8px 18px; }
 .footer-links a { color: var(--body); font-weight: 800; }
 .footer-links a:hover { color: var(--royal); }
-.footer-bottom { width: min(1200px, calc(100% - 48px)); margin: 28px auto 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; text-align: center; }
+.footer-bottom { width: min(1200px, calc(100% - 48px)); margin: 28px auto 0; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; text-align: center; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 8px 16px; }
+.footer-bottom a { color: inherit; }
+.footer-bottom a:hover { color: var(--royal); }
 
 .floating-contact { position: fixed; right: 24px; bottom: 24px; z-index: 60; display: grid; justify-items: end; gap: 10px; }
 .floating-button { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; border: 0; border-radius: 999px; padding: 0 18px; color: #fff; background: linear-gradient(135deg, #ff7b3a, #ff4d1d); font-weight: 900; box-shadow: 0 18px 34px rgba(255,107,53,.32); }

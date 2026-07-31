@@ -23,7 +23,10 @@ export function Footer() {
           <p>{SITE.contactNote}</p>
         </div>
       </div>
-      <div className="footer-bottom">© 2026 {SITE.company}. All rights reserved.</div>
+      <div className="footer-bottom">
+        <span>© 2026 {SITE.company}. All rights reserved.</span>
+        <a href={SITE.icpUrl} target="_blank" rel="noopener noreferrer">{SITE.icpNumber}</a>
+      </div>
     </footer>
   );
 }
