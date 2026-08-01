@@ -36,6 +36,7 @@ const expectedPages = [
   'services/index.html',
   'services/store-diagnosis/index.html',
   'services/tmall-business-weekly-report/index.html',
+  'services/geo-consulting/index.html',
   'cases/index.html',
   'cases/womenswear-refund-optimization/index.html',
   'about/index.html',
