@@ -1,0 +1,4 @@
+<view class="webview-page">
+  <web-view wx:if="{{src}}" src="{{src}}" binderror="onError"></web-view>
+  <view wx:if="{{error}}" class="web-error">{{error}}</view>
+</view>

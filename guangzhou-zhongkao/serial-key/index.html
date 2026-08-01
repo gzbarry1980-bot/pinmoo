@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>序列号生成器</title>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <h1 class="site-title">序列号生成器</h1>
+      <a class="btn btn-ghost" href="/">进入中考模拟系统</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h2 class="card-title">内部管理验证</h2>
+      <p class="card-hint">请输入服务端配置的序列号管理密钥。密钥仅保存在本次浏览器会话，不会写入本机长期存储。</p>
+      <div class="inline-form">
+        <input id="adminApiKey" class="text-input" type="password" autocomplete="off" placeholder="粘贴 SERIAL_ADMIN_API_KEY" />
+        <button id="connectBtn" class="btn btn-secondary" type="button">连接管理服务</button>
+      </div>
+      <p id="connectionStatus" class="card-hint" role="status" aria-live="polite">未连接服务端；不能生成或作废正式序列号。</p>
+    </section>
+
+    <!-- 生成区 -->
+    <section class="card">
+      <h2 class="card-title">生成序列号</h2>
+      <p class="card-hint">点击按钮生成唯一 10 位序列号（已自动排除易混字符 0 / O / 1 / I / L）。</p>
+      <button id="generateBtn" class="btn btn-primary btn-lg">生成序列号</button>
+      <div id="resultBox" class="result-box hidden">
+        <code id="generatedCode" class="code-display"></code>
+        <button id="copyBtn" class="btn btn-secondary">复制</button>
+      </div>
+    </section>
+
+    <!-- 作废区 -->
+    <section class="card">
+      <h2 class="card-title">作废序列号</h2>
+      <p class="card-hint">输入或粘贴需要作废的序列号，或点击下方有效序列号快速填入。</p>
+      <div class="inline-form">
+        <input
+          id="invalidateInput"
+          class="text-input"
+          type="text"
+          maxlength="10"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="输入 10 位序列号"
+        />
+        <button id="invalidateBtn" class="btn btn-danger">作废</button>
+      </div>
+      <div class="active-list-wrap">
+        <div class="active-list-label">有效序列号（点击选中）：</div>
+        <div id="activeList" class="active-list"></div>
+      </div>
+    </section>
+
+    <!-- 列表区 -->
+    <section class="card">
+      <div class="list-head">
+        <h2 class="card-title">序列号列表</h2>
+        <div class="filter-group" id="filterGroup">
+          <button class="chip active" data-filter="all">全部</button>
+          <button class="chip" data-filter="active">有效</button>
+          <button class="chip" data-filter="invalid">已作废</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="key-table">
+          <thead>
+            <tr>
+              <th>序列号</th>
+              <th>状态</th>
+              <th>创建时间</th>
+              <th>作废时间</th>
+            </tr>
+          </thead>
+          <tbody id="keyTableBody"></tbody>
+        </table>
+        <div id="emptyState" class="empty-state hidden">暂无序列号</div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 轻提示 -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js?v=20260726c"></script>
+</body>
+</html>

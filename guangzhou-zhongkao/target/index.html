@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN" data-app-home="../">
+  <head>
+  <style>/* 关键样式兜底，避免 CSS 未加载时整页崩坏 */
+    html, body { margin: 0; background: #edf2f8; color: #24324a; font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
+    .app-shell { max-width: 1440px; margin: 0 auto; padding: 24px; }
+  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>目标校版｜广州中考志愿模拟助手</title>
+    <meta name="description" content="已经有目标学校？目标校版结合历年同口径录取门槛、位次和波动程度，倒推建议冲刺分与志愿位置。" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css?v=20260726k" />
+    <link rel="stylesheet" href="../typography.css?v=20260726a" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <nav class="site-nav" aria-label="主导航">
+      <a class="brand" href="../">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></svg></span>
+        广州中考志愿模拟
+      </a>
+      <div class="nav-links">
+        <a href="https://pinmooconsulting.com/zh/" target="_blank" rel="noreferrer">品沐咨询官网 ↗</a>
+        <a href="../direction/">方向版</a>
+        <a href="../target/" class="is-current" aria-current="page">目标校版</a>
+        <a href="../verify/">求证版</a>
+        <a href="../special/?mode=talent">特长生</a>
+        <a href="../special/?mode=autonomous">自主招生</a>
+        <a href="../unlock/">解锁 / 账户</a>
+      </div>
+    </nav>
+    <main id="main" class="app-shell">
+      <div class="page-hero">
+        <a class="back-home" href="../">← 返回首页</a>
+        <span class="page-eyebrow">目标学校版</span>
+        <h1>我已经有目标学校</h1>
+        <p>先选目标学校，倒推建议冲刺分和志愿位置。系统结合2021—2026年同口径录取门槛、分数段位次、末位志愿和波动程度，给出分值目标与配套志愿建议。</p>
+      </div>
+
+      <section id="targetWorkspace" class="direction-workspace target-workspace" aria-labelledby="landingTarget">
+        <div class="direction-hero">
+          <div class="hero-title-group">
+            <span class="icon-badge icon-badge--brand" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>
+            </span>
+            <div><span class="step-label">目标学校版</span><h2>先选目标学校，倒推建议冲刺分和志愿位置</h2><p>系统结合2021—2026年同口径录取门槛、分数段位次、末位志愿和波动程度，给出分值目标与配套志愿建议。</p></div>
+          </div>
+          <span class="privacy-chip">匿名 · 不收集身份信息</span>
+        </div>
+        <form id="targetForm" class="direction-form target-form">
+          <label class="target-school-field">目标学校
+            <input name="targetSchoolName" id="targetSchoolName" type="search" list="targetSchoolList" autocomplete="off" placeholder="输入学校或校区名称" required />
+            <datalist id="targetSchoolList"></datalist>
+            <small>可输入关键字后从候选学校中选择</small>
+          </label>
+          <label>当前估分（选填）
+            <input name="targetCurrentScore" id="targetCurrentScore" type="number" min="0" max="810" placeholder="用于计算距目标还差多少分" />
+          </label>
+          <label>考生类别
+            <select name="targetCandidateType" id="targetCandidateType"><option value="户籍生">户籍生</option><option value="随迁子女">符合公办高中条件的随迁子女</option></select>
+          </label>
+          <label>升学区域
+            <select name="targetAdmissionDistrict" id="targetAdmissionDistrict"></select>
+          </label>
+          <label>户籍所在区
+            <select name="targetHouseholdDistrict" id="targetHouseholdDistrict"></select>
+            <small>用于安排同区匹配校和保底校</small>
+          </label>
+          <div class="direction-submit">
+            <p><strong>你会得到什么？</strong><span>建议冲刺分、匹配目标分、稳妥目标分、目标学校志愿位置，以及可替换的匹配校和保底校。</span></p>
+            <button id="analyzeTarget" class="primary-button" type="submit">分析目标学校</button>
+          </div>
+        </form>
+
+        <section id="targetResult" class="direction-result" hidden>
+          <div class="direction-result-head">
+            <div><span class="step-label">目标分析</span><h2 id="targetTitle">正在计算目标分值…</h2><p id="targetSummary"></p></div>
+            <div class="direction-result-actions">
+              <button class="ghost-button compact-back" type="button" data-scroll-target="#targetForm">← 返回修改目标</button>
+              <button id="adoptTarget" class="primary-button" type="button">按此建议生成求证草案</button>
+            </div>
+          </div>
+          <div id="targetStats" class="direction-stats"></div>
+          <div class="target-detail-grid">
+            <section class="target-card"><div class="target-card-head"><strong>历年录取依据</strong><small>不同年度总分分布不同，目标分已按位次换算</small></div><div id="targetHistory"></div></section>
+            <section class="target-card"><div class="target-card-head"><strong>具体填报建议</strong><small>建议会指明批次、志愿位置和搭配学校</small></div><ol id="targetAdvice" class="target-advice"></ol></section>
+          </div>
+          <div class="direction-notice"><strong>分值怎么理解？</strong><span>"冲刺起步"代表可以尝试，并非大概率录取；"匹配目标"和"稳妥目标"仍会受到当年计划、成绩分布、志愿竞争及同分序号影响，不构成录取承诺。</span></div>
+        </section>
+      </section>
+
+      <section class="disclaimer" aria-label="免责声明">
+        <strong>免责声明</strong>
+        <p>本系统依据公开招生政策及历史数据进行模拟分析，所示评分、录取机会和学校建议均为统计估计，不代表官方录取结果或任何录取承诺。招生政策、计划、报考范围、成绩分布和志愿竞争每年可能变化，请以当年广州市教育局、广州市招生考试委员会办公室及中考服务平台最终公布的信息为准。名额分配、随迁子女、跨区及其他资格请向学校或招考部门核实。志愿选择由考生及监护人自行决定。本系统仅供参考。</p>
+      </section>
+    </main>
+
+    <nav class="quick-return" aria-label="快捷返回">
+      <button type="button" data-smart-back>← 返回上一处</button>
+      <a href="../" id="homeReturn" data-home-return>⌂ 助手首页</a>
+      <button type="button" data-scroll-top>↑ 回到顶部</button>
+    </nav>
+    <footer><span>广州中考志愿模拟助手 · 由品沐提供</span><span><a href="../privacy/">隐私说明</a> · <a href="https://gzzk.gz.gov.cn/zkzz/" target="_blank" rel="noreferrer">广州招考官方入口</a></span></footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="../access-gate.js?v=20260726c"></script>
+    <script src="../navigation.js?v=20260726j"></script>
+  <script type="module" src="../app.js?v=20260729b"></script>
+  </body>
+</html>

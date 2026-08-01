@@ -77,7 +77,7 @@ expect(/"@type"\s*:\s*"FAQPage"/.test(home), 'international Chinese homepage is 
 const englishHome = await read('en/index.html');
 expect(englishHome.includes('<html lang="en">'), 'international English homepage language is not English');
 expect(englishHome.includes('<link rel="canonical" href="https://pinmooconsulting.com/en/"'), 'international English homepage canonical is incorrect');
-expect(englishHome.includes('Find the Right China E-commerce Growth Constraint'), 'international English homepage did not render English content');
+expect(englishHome.includes('Make your brand easier for AI search to find and understand'), 'international English homepage did not render English content');
 expect(englishHome.includes('https://pinmooconsulting.com/'), 'international English homepage Chinese switch is incorrect');
 expect(!englishHome.includes('href="/zh/'), 'international English homepage still links to legacy /zh/ paths');
 

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <title>广州中考志愿｜临提交改动风险</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Microsoft YaHei";
+        src: local("Microsoft YaHei");
+        font-weight: 100 900;
+        font-style: normal;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; width: 1080px; height: 1920px; overflow: hidden; background: #0d1520; }
+      body { color: #f7f3e8; font-family: "Microsoft YaHei", "Noto Sans JP", sans-serif; }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+      .clip { position: absolute; inset: 0; width: 100%; height: 100%; overflow: hidden; }
+      .scene-fill { position: absolute; inset: 0; background: #0d1520; }
+      .grid {
+        position: absolute; inset: 0; opacity: 0.17;
+        background-image:
+          linear-gradient(rgba(145,160,176,.18) 2px, transparent 2px),
+          linear-gradient(90deg, rgba(145,160,176,.18) 2px, transparent 2px);
+        background-size: 120px 120px;
+      }
+      .glow {
+        position: absolute; width: 1000px; height: 1000px; border-radius: 50%;
+        left: 420px; top: 280px; opacity: 0;
+        background: radial-gradient(circle, rgba(255,107,61,.42) 0%, rgba(255,107,61,.16) 38%, rgba(255,107,61,0) 72%);
+        transform-origin: center;
+      }
+      .edge-line { position: absolute; left: 72px; right: 72px; height: 3px; background: #ff6b3d; transform-origin: left center; }
+      .edge-line.top { top: 126px; }
+      .edge-line.bottom { bottom: 184px; }
+      .series-tag { position: absolute; left: 72px; top: 72px; font-size: 28px; font-weight: 700; letter-spacing: .08em; color: #ff6b3d; }
+      .timer { position: absolute; right: 72px; top: 64px; font: 700 34px/1 "JetBrains Mono", monospace; color: #f7f3e8; font-variant-numeric: tabular-nums; }
+      .timer span { color: #ff6b3d; }
+      .phase { position: absolute; inset: 0; opacity: 0; }
+      #phase-hook { opacity: 1; }
+      .hook-stack { position: absolute; left: 72px; right: 72px; top: 390px; display: flex; flex-direction: column; gap: 28px; }
+      .hook-line { display: block; width: 100%; font-size: 128px; line-height: 1.08; font-weight: 900; letter-spacing: -.05em; will-change: transform, opacity; }
+      #hook-line-1 { font-size: 112px; color: #f7f3e8; }
+      #hook-line-2 { color: #f7f3e8; }
+      #hook-line-3 { color: #ff6b3d; font-size: 154px; }
+      .hook-note { position: absolute; left: 76px; bottom: 260px; font: 700 28px/1.4 "JetBrains Mono", monospace; color: #91a0b0; letter-spacing: .08em; }
+      .risk-title { position: absolute; left: 72px; top: 230px; width: 860px; font-size: 74px; line-height: 1.15; font-weight: 900; letter-spacing: -.04em; }
+      .risk-title b { color: #ff6b3d; }
+      .table-shell { position: absolute; left: 72px; right: 72px; top: 520px; height: 720px; border: 3px solid rgba(247,243,232,.24); border-radius: 34px; background: rgba(19,31,45,.94); padding: 34px; overflow: hidden; }
+      .table-head { display: flex; justify-content: space-between; align-items: center; height: 72px; padding: 0 18px; border-bottom: 2px solid rgba(145,160,176,.3); color: #91a0b0; font-size: 26px; font-weight: 700; }
+      .rows { position: relative; height: 560px; margin-top: 20px; }
+      .row-card { position: absolute; left: 0; right: 0; height: 152px; border-radius: 24px; display: grid; grid-template-columns: 110px 1fr 90px; align-items: center; padding: 0 26px; will-change: transform, opacity; }
+      .row-card .num { font: 700 38px/1 "JetBrains Mono", monospace; color: #91a0b0; }
+      .row-card .label { font-size: 42px; font-weight: 900; letter-spacing: -.02em; }
+      .row-card .mark { font: 700 24px/1 "JetBrains Mono", monospace; text-align: right; }
+      #row-a { top: 0; background: #1a2a3b; }
+      #victim { top: 176px; background: #24384d; z-index: 2; }
+      #row-c { top: 352px; background: #1a2a3b; }
+      #intruder { top: 176px; background: #ff6b3d; color: #0d1520; z-index: 3; transform: translateX(1100px) rotate(-9deg); opacity: 0; }
+      #intruder .num, #intruder .mark { color: #0d1520; }
+      .risk-caption { position: absolute; left: 72px; right: 72px; bottom: 250px; display: flex; justify-content: space-between; align-items: end; }
+      .risk-caption .big { width: 720px; font-size: 62px; font-weight: 900; line-height: 1.2; }
+      .risk-caption .big b { color: #ff6b3d; }
+      .risk-caption .code { font: 700 28px/1.4 "JetBrains Mono", monospace; color: #91a0b0; text-align: right; }
+      .close-card { position: absolute; left: 72px; right: 72px; top: 340px; bottom: 320px; border-radius: 44px; border: 4px solid #ff6b3d; background: #152333; padding: 86px 68px; display: flex; flex-direction: column; justify-content: space-between; }
+      .check-ring { width: 180px; height: 180px; border: 18px solid #ff6b3d; border-radius: 50%; display: grid; place-items: center; font: 900 90px/1 "JetBrains Mono", monospace; color: #ff6b3d; }
+      .close-kicker { font: 700 26px/1.2 "JetBrains Mono", monospace; color: #91a0b0; letter-spacing: .09em; }
+      .close-main { font-size: 116px; line-height: 1.12; font-weight: 900; letter-spacing: -.05em; }
+      .close-main b { color: #ff6b3d; }
+      .close-sub { font-size: 40px; line-height: 1.45; color: #d5dce3; }
+      .footer { position: absolute; left: 72px; right: 72px; bottom: 84px; display: flex; justify-content: space-between; font: 700 24px/1 "JetBrains Mono", monospace; color: #91a0b0; }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-txxr" id="root" data-composition-id="main" data-start="0" data-duration="10" data-width="1080" data-height="1920">
+      <section data-hf-id="hf-tnaa" id="main-scene" class="clip" data-start="0" data-duration="10" data-track-index="1">
+        <div data-hf-id="hf-apxe" class="scene-fill"></div>
+        <div data-hf-id="hf-80b5" class="grid" data-layout-ignore=""></div>
+        <div data-hf-id="hf-u3u6" id="ambient-glow" class="glow" data-layout-ignore=""></div>
+        <div data-hf-id="hf-dq84" id="line-top" class="edge-line top" data-layout-ignore=""></div>
+        <div data-hf-id="hf-wll6" id="line-bottom" class="edge-line bottom" data-layout-ignore=""></div>
+        <div data-hf-id="hf-pmmh" class="series-tag">广州中考志愿提醒</div>
+        <div data-hf-id="hf-y7hd" class="timer">T-<span data-hf-id="hf-shrg" id="timer-number">10</span>S</div>
+
+        <div data-hf-id="hf-j0a0" id="phase-hook" class="phase">
+          <div data-hf-id="hf-6wai" class="hook-stack">
+            <div data-hf-id="hf-0ml5" id="hook-line-1" class="hook-line">最后改一所</div>
+            <div data-hf-id="hf-egxz" id="hook-line-2" class="hook-line">整张志愿表</div>
+            <div data-hf-id="hf-ixbn" id="hook-line-3" class="hook-line">都可能乱！</div>
+          </div>
+          <div data-hf-id="hf-chvs" class="hook-note">LAST-MINUTE CHANGE / 全表重查</div>
+        </div>
+
+        <div data-hf-id="hf-texc" id="phase-risk" class="phase">
+          <div data-hf-id="hf-3rpg" class="risk-title">动一处，<b data-hf-id="hf-qt0l">前后顺序</b><br data-hf-id="hf-x5px">都要重新检查</div>
+          <div data-hf-id="hf-82qd" class="table-shell">
+            <div data-hf-id="hf-npab" class="table-head"><span data-hf-id="hf-m3yw">志愿顺序</span><span data-hf-id="hf-c42f">提交前检查</span></div>
+            <div data-hf-id="hf-hnc7" class="rows">
+              <div data-hf-id="hf-hpn1" id="row-a" class="row-card"><span data-hf-id="hf-cshg" class="num">01</span><span data-hf-id="hf-recx" class="label">原顺序</span><span data-hf-id="hf-3200" class="mark">OK</span></div>
+              <div data-hf-id="hf-4lxl" id="victim" class="row-card"><span data-hf-id="hf-blkd" class="num">02</span><span data-hf-id="hf-sgud" class="label">原承接位</span><span data-hf-id="hf-fwqb" class="mark">OLD</span></div>
+              <div data-hf-id="hf-plv3" id="row-c" class="row-card"><span data-hf-id="hf-bzve" class="num">03</span><span data-hf-id="hf-xrqi" class="label">后续志愿</span><span data-hf-id="hf-f9za" class="mark">CHECK</span></div>
+              <div data-hf-id="hf-u5z4" id="intruder" class="row-card"><span data-hf-id="hf-8jhd" class="num">02</span><span data-hf-id="hf-c5ie" class="label">临时改动</span><span data-hf-id="hf-dck0" class="mark">NEW</span></div>
+            </div>
+          </div>
+          <div data-hf-id="hf-e7s4" class="risk-caption"><div data-hf-id="hf-y7v3" class="big">不是改完一格<br data-hf-id="hf-rsrt"><b data-hf-id="hf-qshy">就结束</b></div><div data-hf-id="hf-1tfw" class="code">ORDER<br data-hf-id="hf-szow">RECHECK</div></div>
+        </div>
+
+        <div data-hf-id="hf-pu7b" id="phase-close" class="phase">
+          <div data-hf-id="hf-z7km" id="close-card" class="close-card">
+            <div data-hf-id="hf-bpqr" id="check-ring" class="check-ring">✓</div>
+            <div data-hf-id="hf-yeow">
+              <div data-hf-id="hf-291j" class="close-kicker">BEFORE FINAL SUBMISSION</div>
+              <div data-hf-id="hf-35kf" id="close-main" class="close-main">正式提交前<br data-hf-id="hf-sldv"><b data-hf-id="hf-2rfj">再模拟一次</b></div>
+            </div>
+            <div data-hf-id="hf-c3mx" class="close-sub">把整张志愿表重新走一遍，确认顺序与前后承接。</div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-yh7l" class="footer"><span data-hf-id="hf-cwpl">PINMOO · ZHONGKAO</span><span data-hf-id="hf-9vh7">READY TO REVIEW</span></div>
+      </section>
+
+      <audio data-hf-id="hf-cswu" id="voice" src=".media/audio/voice/voice_002.wav" data-start="0" data-duration="7.824" data-track-index="10" data-volume="1"></audio>
+      <audio data-hf-id="hf-f8yx" id="bgm" src=".media/audio/bgm/bgm_001.wav" data-start="0" data-duration="10" data-track-index="11" data-volume="0.17"></audio>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const PULSE = 0.7;
+      const BEATS = [0.18, 0.88, 1.58];
+
+      tl.fromTo("#line-top", { scaleX: 0 }, { scaleX: 1, duration: 0.62, ease: "power3.out" }, 0.12);
+      tl.fromTo("#line-bottom", { scaleX: 0 }, { scaleX: 1, duration: 0.92, ease: "circ.out" }, 0.34);
+      tl.fromTo("#hook-line-1", { scale: 1.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "power4.out" }, BEATS[0]);
+      tl.fromTo("#hook-line-2", { x: -320, opacity: 0 }, { x: 0, opacity: 1, duration: 0.46, ease: "expo.out" }, BEATS[1]);
+      tl.fromTo("#hook-line-3", { y: 100, rotation: 6, opacity: 0 }, { y: 0, rotation: 0, opacity: 1, duration: 0.56, ease: "circ.out" }, BEATS[2]);
+      tl.fromTo(".hook-note", { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, PULSE * 3.25);
+
+      tl.to("#phase-hook", { opacity: 0, duration: 0.24, ease: "power3.in" }, 2.76);
+      tl.set("#phase-hook", { visibility: "hidden" }, 3.0);
+      tl.set("#phase-risk", { opacity: 1, visibility: "visible" }, 2.92);
+      tl.fromTo(".risk-title", { x: -140, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 2.98);
+      tl.fromTo(".table-shell", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.66, ease: "back.out(1.45)" }, 3.14);
+      tl.fromTo("#row-a", { x: -90, opacity: 0 }, { x: 0, opacity: 1, duration: 0.34, ease: "power3.out" }, 3.42);
+      tl.fromTo("#victim", { x: -90, opacity: 0 }, { x: 0, opacity: 1, duration: 0.38, ease: "circ.out" }, 3.56);
+      tl.fromTo("#row-c", { x: -90, opacity: 0 }, { x: 0, opacity: 1, duration: 0.42, ease: "power2.out" }, 3.70);
+
+      const intruder = document.getElementById("intruder");
+      const victim = document.getElementById("victim");
+      const driver = { p: 0 };
+      tl.to(driver, {
+        p: 1,
+        duration: 0.86,
+        ease: "back.out(1.5)",
+        onUpdate: () => {
+          const intruderX = 1100 * (1 - driver.p);
+          const intruderOpacity = Math.min(1, driver.p * 5);
+          const intruderRot = -9 * (1 - driver.p);
+          const victimP = Math.min(1, driver.p / 0.46);
+          intruder.style.transform = `translateX(${intruderX}px) rotate(${intruderRot}deg)`;
+          intruder.style.opacity = String(intruderOpacity);
+          victim.style.transform = `translateX(${-1100 * victimP}px) rotate(${-18 * victimP}deg)`;
+          victim.style.opacity = String(1 - victimP);
+        }
+      }, 4.18);
+      tl.fromTo(".risk-caption", { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.48, ease: "power4.out" }, 4.72);
+
+      tl.to("#phase-risk", { opacity: 0, duration: 0.24, ease: "power3.in" }, 6.12);
+      tl.set("#phase-risk", { visibility: "hidden" }, 6.36);
+      tl.set("#phase-close", { opacity: 1, visibility: "visible" }, 6.20);
+      tl.fromTo("#close-card", { scale: 0.76, opacity: 0, rotation: -3 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.72, ease: "back.out(1.65)" }, 6.24);
+      tl.fromTo("#check-ring", { scale: 0, rotation: -18 }, { scale: 1, rotation: 0, duration: 0.58, ease: "back.out(2)" }, 6.52);
+      tl.fromTo(".close-kicker", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.36, ease: "power3.out" }, 6.80);
+      tl.fromTo("#close-main", { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.56, ease: "expo.out" }, 7.00);
+      tl.fromTo(".close-sub", { opacity: 0 }, { opacity: 1, duration: 0.72, ease: "sine.out" }, 7.44);
+
+      tl.fromTo("#ambient-glow", { opacity: 0, scale: 0.84 }, { opacity: 0.30, scale: 1, duration: 1.05, ease: "power2.out" }, 0.15);
+      const glow = document.getElementById("ambient-glow");
+      const phase = { p: 0 };
+      tl.to(phase, {
+        p: Math.PI * 6,
+        duration: 8.8,
+        ease: "none",
+        onUpdate: () => {
+          const s = Math.sin(phase.p);
+          glow.style.opacity = String(0.27 + s * 0.025);
+          glow.style.transform = `scale(${1 + s * 0.018})`;
+        }
+      }, 1.20);
+
+      const timerProxy = { value: 10 };
+      tl.to(timerProxy, {
+        value: 0,
+        duration: 10,
+        ease: "none",
+        onUpdate: () => { document.getElementById("timer-number").textContent = String(Math.max(0, Math.ceil(timerProxy.value))).padStart(2, "0"); }
+      }, 0);
+      tl.to("#bgm", { volume: 0, duration: 0.6, ease: "power2.in" }, 9.4);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

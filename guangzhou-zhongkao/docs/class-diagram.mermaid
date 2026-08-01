@@ -1,0 +1,31 @@
+flowchart TD
+    Home["index.html 志愿助手首页"]
+    Home --> Tabs["workspace-switch 三大入口 tab（方向版/目标校版/求证版）"]
+    Tabs --> Dir["directionWorkspace 方向版"]
+    Tabs --> Tgt["targetWorkspace 目标校版"]
+    Tabs --> Ver["verifyWorkspace 求证版"]
+
+    Dir --> DirForm["directionForm 估分表单"]
+    Dir --> DirRes["directionResult + risk switch + 采用草案"]
+    DirRes -. adopt .-> Ver
+
+    Tgt --> TgtForm["targetForm 目标学校表单"]
+    Tgt --> TgtRes["targetResult 分值倒推 + 生成草案"]
+    TgtRes -. adopt .-> Ver
+
+    Ver --> Steps["workflow-steps 唯一步骤器（profile/school/plan/analysis）"]
+    Steps --> P["profile STEP1 考生信息"]
+    Steps --> S["schoolExplorer STEP2 筛选表"]
+    Steps --> V["volunteerForm STEP3 志愿表"]
+    Steps --> A["analysis STEP4-5 评分/机会/补强"]
+    S <-->|常驻已选概览，替代整页互跳| V
+    Steps --> CTA["guideStart = 下一步 CTA（文案随 activeStep）"]
+
+    Home --> Special["special/ 特长生与自主招生资格"]
+    Home --> Unlock["unlock/ 账户与解锁"]
+
+    subgraph 禁区["业务逻辑禁区（不得修改）"]
+        Eng["engine.js 投档/录取判断"]
+        Data["data/*.json 官方数据集"]
+    end
+    App["app.js UI编排 + 建议生成UX"] -->|seed/iterations 原样| Eng

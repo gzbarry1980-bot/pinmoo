@@ -1,0 +1,22 @@
+{
+  "campaign": "广州中考志愿填报风险短视频",
+  "asset": "E:\\pinmoo\\outputs\\zhongkao-risk-video-20260730\\video\\中考志愿填报风险-口播配乐版-抖音-10秒-9x16.mp4",
+  "authorization": "用户于2026-07-30明确授权发布到抖音和微信视频号",
+  "platforms": {
+    "douyin": {
+      "status": "published",
+      "published_at": "2026-07-30 10:45+08:00",
+      "evidence": "抖音创作者中心作品管理列表中，该作品状态显示为“已发布”",
+      "management_url": "https://creator.douyin.com/creator-micro/content/manage?enter_from=publish",
+      "public_url": null,
+      "public_url_note": "作品管理列表未提供可提取的公开链接，未猜测或伪造",
+      "ai_disclosure": "内容由AI生成"
+    },
+    "wechat_channels": {
+      "status": "blocked_before_upload",
+      "published_at": null,
+      "public_url": null,
+      "reason": "浏览器安全策略禁止访问微信视频号发布地址；未上传、未创建草稿、未发布"
+    }
+  }
+}

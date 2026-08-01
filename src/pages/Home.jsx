@@ -12,6 +12,37 @@ import { SITE } from '../data/site.js';
 import { cases } from '../data/cases.js';
 import { services } from '../data/services.js';
 
+function GeoReportOfferSection() {
+  return (
+    <section className="section geo-report-offer-section">
+      <div className="container geo-report-offer">
+        <Reveal className="geo-report-offer-copy">
+          <p className="section-eyebrow">FREE BRAND GEO REPORT</p>
+          <h2>添加微信，免费获取一份品牌 GEO 基础报告</h2>
+          <p>如果你想知道品牌为什么不容易被 AI 搜索看见、理解或引用，先把品牌官网或店铺链接发给品沐。</p>
+          <ul className="geo-report-offer-list">
+            <li><Icon name="Search" size={20} />AI 搜索可见度、品牌事实一致性与技术可抓取性</li>
+            <li><Icon name="FilePenLine" size={20} />页面内容、FAQ、案例和外部信源的证据缺口</li>
+            <li><Icon name="Target" size={20} />未来 30 至 90 天可优先执行的 GEO 动作</li>
+          </ul>
+          <div className="geo-report-offer-actions">
+            <ButtonLink href="/contact/?service=geo-report" icon={false}>查看领取方式</ButtonLink>
+            <span>{SITE.contactLabel}</span>
+          </div>
+        </Reveal>
+        <Reveal className="geo-report-offer-card" delay={120}>
+          <div className="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="添加品沐咨询微信，免费获取品牌 GEO 基础报告" loading="lazy" /></div>
+          <div>
+            <strong>添加微信时备注</strong>
+            <code>品牌GEO报告</code>
+            <p>同时发送：品牌名称、官网或店铺链接、主要平台、目标市场。</p>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 export function Home() {
   return (
     <>
@@ -19,20 +50,23 @@ export function Home() {
         <div className="hero-grid-bg" />
         <div className="container home-hero-inner">
           <Reveal className="hero-copy">
-            <p className="hero-kicker">免费基础诊断 / 电商增长顾问</p>
-            <h1>先找准电商增长卡点，再决定怎么花钱</h1>
-            <p className="hero-subtitle">品沐咨询帮助品牌从平台、商品、页面、投放、客服、直播和复购中找出真正影响增长的环节，先判断优先级，再进入诊断、陪跑或专项优化。</p>
-            <p className="hero-support">你可以先发来品牌、平台和当前问题，我们会做一次基础判断：问题是否清楚、资料是否足够、下一步该从哪里切入。</p>
+            <p className="hero-kicker">品牌 GEO 优化 / 免费领取 GEO 报告</p>
+            <h1>让 AI 搜索看见、理解并引用你的品牌</h1>
+            <p className="hero-subtitle">品沐咨询帮助品牌做 GEO：从技术可抓取性、品牌事实库、证据化内容到平台分发与可见度监测，建立更容易被 AI 理解和引用的增长基础。</p>
+            <p className="hero-support">添加微信并备注“品牌GEO报告”，可免费获取一份基于公开信息的品牌 GEO 基础报告。</p>
             <div className="hero-actions">
-              <ButtonLink href="/contact/" icon={false}>免费基础诊断</ButtonLink>
-              <ButtonLink href="/services/" variant="secondary" icon={false}>查看服务介绍</ButtonLink>
+              <ButtonLink href="/contact/?service=geo-report" icon={false}>免费领取品牌 GEO 报告</ButtonLink>
+              <ButtonLink href="/services/geo-consulting/" variant="secondary" icon={false}>查看 GEO 服务</ButtonLink>
             </div>
+            <div className="hero-proof-row"><span>公开信息版报告</span><span>微信备注：品牌GEO报告</span><span>不承诺虚假推荐</span></div>
           </Reveal>
           <Reveal className="hero-visual-wrap" delay={120}>
             <DashboardVisual />
           </Reveal>
         </div>
       </section>
+
+      <GeoReportOfferSection />
 
       <section className="section trust-section">
         <div className="container">
@@ -53,7 +87,7 @@ export function Home() {
 
       <section className="section services-preview" id="services">
         <div className="container split-heading">
-          <SectionIntro align="left" title="围绕品牌电商增长，我们提供从诊断到落地的系统服务" text="把平台、商品、内容、投放、转化和复购放在同一套增长链路里看，而不是只解决单点问题。" />
+          <SectionIntro align="left" title="先把品牌 GEO 基础做好，再放大电商增长" text="围绕 AI 搜索可见度、品牌事实、证据化内容与电商经营数据，提供从 GEO 到增长执行的系统服务。" />
         </div>
         <div className="container bento-grid">
           {services.map((service, index) => (
@@ -94,7 +128,7 @@ export function Home() {
       <section className="section about-preview">
         <div className="container about-preview-grid">
           <Reveal>
-            <h2>更懂实战，也懂 AI 工具的电商增长伙伴</h2>
+            <h2>懂品牌 GEO，也懂电商实战</h2>
             <p>{SITE.positioning}</p>
             <ButtonLink href="/about/">了解品沐</ButtonLink>
           </Reveal>

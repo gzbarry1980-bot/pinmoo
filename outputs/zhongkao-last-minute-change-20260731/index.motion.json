@@ -1,0 +1,11 @@
+{
+  "duration": 10,
+  "assertions": [
+    { "kind": "appearsBy", "selector": "#hook-line-1", "bySec": 0.8 },
+    { "kind": "before", "a": "#hook-line-1", "b": "#hook-line-3" },
+    { "kind": "appearsBy", "selector": "#intruder", "bySec": 5.2 },
+    { "kind": "appearsBy", "selector": "#close-main", "bySec": 8.0 },
+    { "kind": "staysInFrame", "selector": "#close-card" },
+    { "kind": "keepsMoving", "withinSelector": "#main-scene", "maxStaticSec": 1.8 }
+  ]
+}

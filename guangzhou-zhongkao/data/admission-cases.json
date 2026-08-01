@@ -1,0 +1,137 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-07-29T15:46:03.804Z",
+  "policy": {
+    "actualCaseUse": "validation_only",
+    "ruleCaseUse": "regression_test",
+    "note": "公开个案无法还原全部竞争者和完整志愿表，不直接用于提高或降低单校概率。"
+  },
+  "sources": [
+    {
+      "id": "official-2026-simple-guide",
+      "title": "广州中考填报志愿简明指引",
+      "url": "https://gzzk.gz.gov.cn/gkmlpt/content/10/10831/post_10831970.html",
+      "publisher": "广州市招生考试委员会办公室",
+      "fetchedAt": "2026-07-29T15:46:03.804Z",
+      "sha256": "8e432e1d15f9feaf8816971e5a12181795cdb6edd7a287efe312be3177b342e8"
+    },
+    {
+      "id": "official-2026-quota-faq",
+      "title": "2026年广州市普通高中名额分配招生问答",
+      "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/zkzx/content/post_10787238.html",
+      "publisher": "广州市招生考试委员会办公室",
+      "fetchedAt": "2026-07-29T15:46:03.804Z",
+      "sha256": "45f8ac9e0a92acdb47a823ce83721e734b7074231d89084f36156a845c04d49b"
+    },
+    {
+      "id": "official-2024-rule-examples",
+      "title": "2024年广州市中考志愿填报问答",
+      "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/zkzx/content/post_10257438.html",
+      "publisher": "广州市招生考试委员会办公室",
+      "fetchedAt": "2026-07-29T15:46:03.804Z",
+      "sha256": "da86b3346fdbaf2242d33d622431635e7c9e0172350b772586c78e8e69469aa7"
+    },
+    {
+      "id": "official-2026-batch2-pdf",
+      "title": "2026年广州市高中阶段学校招生录取分数（第二批次招生学校）",
+      "url": "https://gzzk.gz.gov.cn/attachment/8/8050/8050474/10908461.pdf",
+      "publisher": "广州市招生考试委员会办公室",
+      "fetchedAt": "2026-07-29T15:46:03.804Z",
+      "sha256": "17ee1ab1d31a6729b95798b6e6e58ab080aebd28b17532724f3d550e8f67c946"
+    },
+    {
+      "id": "media-2026-quota-cases",
+      "title": "“超级锦鲤”679分上华附",
+      "url": "https://newspaper.gzdaily.cn/h5/html5/2026-07/21/content_871_911611.htm",
+      "publisher": "广州日报",
+      "fetchedAt": "2026-07-29T15:46:03.804Z",
+      "sha256": "e6a17a40f031675205adbf27a8da8665639ce138a394e37ce970b9fb1e11ff10"
+    },
+    {
+      "id": "official-2025-batch2-pdf",
+      "title": "2025年广州市高中阶段学校招生录取分数（第二批次招生学校）",
+      "url": "https://gzzk.gz.gov.cn/attachment/7/7848/7848251/10363933.pdf",
+      "publisher": "广州市招生考试委员会办公室",
+      "fetchedAt": "2026-07-29T15:46:03.804Z",
+      "sha256": "c388a08a837462cdecfbe4bb20c484262788bac3e199d7d361704f25b818034a"
+    },
+    {
+      "id": "government-2025-quota-cases",
+      "title": "广州市中考第一批次和第二批次录取结果出炉",
+      "url": "https://www.gz.gov.cn/zwfw/zxfw/jyfw7/content/post_10364798.html",
+      "publisher": "广州市人民政府门户网站",
+      "fetchedAt": "2026-07-29T15:46:03.804Z",
+      "sha256": "fb5a0224504cec509604d9193cb120ad4d626ce7a4109aaaf7ae0217e602d87d"
+    }
+  ],
+  "ruleCases": [
+    {
+      "id": "official-2024-regular-710",
+      "year": 2024,
+      "kind": "official_hypothetical",
+      "batch": 3,
+      "candidateScore": 710,
+      "candidateGradient": 1,
+      "completePlanKnown": true,
+      "sourceIds": ["official-2024-rule-examples"],
+      "volunteers": [
+        { "position": 1, "cutoffScore": 715, "lastVolunteerNo": 1, "expectedState": "fail" },
+        { "position": 2, "cutoffScore": 705, "lastVolunteerNo": 1, "expectedState": "fail" },
+        { "position": 3, "cutoffScore": 698, "lastVolunteerNo": 3, "expectedState": "pass" }
+      ],
+      "expectedAdmittedPosition": 3
+    },
+    {
+      "id": "official-2024-regular-638",
+      "year": 2024,
+      "kind": "official_hypothetical",
+      "batch": 3,
+      "candidateScore": 638,
+      "candidateGradient": 3,
+      "completePlanKnown": true,
+      "sourceIds": ["official-2024-rule-examples"],
+      "volunteers": [
+        { "position": 1, "cutoffScore": 670, "lastVolunteerNo": 1, "expectedState": "fail" },
+        { "position": 2, "cutoffScore": 630, "lastVolunteerNo": 1, "expectedState": "fail" },
+        { "position": 3, "cutoffScore": 622, "lastVolunteerNo": 3, "lastCandidateScore": 642, "expectedState": "fail" },
+        { "position": 4, "cutoffScore": 598, "lastVolunteerNo": 4, "expectedState": "pass" }
+      ],
+      "expectedAdmittedPosition": 4
+    },
+    {
+      "id": "official-2026-quota-two-candidates",
+      "year": 2026,
+      "kind": "official_rule_comparison",
+      "batch": 2,
+      "completePlanKnown": true,
+      "sourceIds": ["official-2026-quota-faq"],
+      "rule": "先比梯度，再比志愿顺序，最后比分数",
+      "expected": {
+        "differentGradient": "高一梯度但第三志愿的甲先录取",
+        "sameGradient": "第一志愿但分数较低的乙先录取"
+      }
+    }
+  ],
+  "actualCases": [
+    { "id": "actual-2026-quota-01", "year": 2026, "batch": 2, "sourceSchoolName": "广州市从化区城郊中学", "schoolName": "华南师范大学附属中学（知识城校区）", "admittedScore": 679, "lastVolunteerNo": 1, "completePlanKnown": false, "sourceIds": ["official-2026-batch2-pdf", "media-2026-quota-cases"] },
+    { "id": "actual-2026-quota-02", "year": 2026, "batch": 2, "sourceSchoolName": "广州市花都区华万学校", "schoolName": "华南师范大学附属中学（知识城校区）", "admittedScore": 681, "lastVolunteerNo": 1, "completePlanKnown": false, "sourceIds": ["official-2026-batch2-pdf", "media-2026-quota-cases"] },
+    { "id": "actual-2026-quota-03", "year": 2026, "batch": 2, "sourceSchoolName": "广州市增城区新塘镇第二中学", "schoolName": "华南师范大学附属中学（知识城校区）", "admittedScore": 681, "lastVolunteerNo": 1, "completePlanKnown": false, "sourceIds": ["official-2026-batch2-pdf", "media-2026-quota-cases"] },
+    { "id": "actual-2026-quota-04", "year": 2026, "batch": 2, "sourceSchoolName": "广州市增城区永宁街永新中学", "schoolName": "华南师范大学附属中学（知识城校区）", "admittedScore": 681, "lastVolunteerNo": 1, "completePlanKnown": false, "sourceIds": ["official-2026-batch2-pdf", "media-2026-quota-cases"] },
+    { "id": "actual-2026-quota-05", "year": 2026, "batch": 2, "sourceSchoolName": "广州市番禺区石碁中学", "schoolName": "广东实验中学（荔湾校区）", "admittedScore": 683, "lastVolunteerNo": 3, "completePlanKnown": false, "sourceIds": ["official-2026-batch2-pdf", "media-2026-quota-cases"] },
+    { "id": "actual-2026-quota-06", "year": 2026, "batch": 2, "sourceSchoolName": "广州市从化区城郊中学", "schoolName": "广东实验中学（荔湾校区）", "admittedScore": 683, "lastVolunteerNo": 1, "completePlanKnown": false, "sourceIds": ["official-2026-batch2-pdf", "media-2026-quota-cases"] },
+    { "id": "actual-2026-quota-07", "year": 2026, "batch": 2, "sourceSchoolName": "广州市花都区新雅街清埔初级中学", "schoolName": "广东广雅中学（荔湾校区）", "admittedScore": 676, "lastVolunteerNo": 2, "completePlanKnown": false, "sourceIds": ["official-2026-batch2-pdf", "media-2026-quota-cases"] },
+    { "id": "actual-2025-quota-01", "year": 2025, "batch": 2, "sourceSchoolName": "广州市花都区花山镇花山初级中学", "schoolName": "华南师范大学附属中学（石牌校区）", "admittedScore": 690, "lastVolunteerNo": 1, "completePlanKnown": false, "sourceIds": ["official-2025-batch2-pdf", "government-2025-quota-cases"] },
+    { "id": "actual-2025-quota-02", "year": 2025, "batch": 2, "sourceSchoolName": "广州科学城中学", "schoolName": "华南师范大学附属中学（知识城校区）", "admittedScore": 680, "lastVolunteerNo": 1, "completePlanKnown": false, "sourceIds": ["official-2025-batch2-pdf", "government-2025-quota-cases"] },
+    { "id": "actual-2025-quota-03", "year": 2025, "batch": 2, "sourceSchoolName": "广州市花都区新雅街嘉行学校", "schoolName": "广东实验中学（荔湾校区）", "admittedScore": 686, "lastVolunteerNo": 3, "completePlanKnown": false, "sourceIds": ["official-2025-batch2-pdf", "government-2025-quota-cases"] },
+    { "id": "actual-2025-quota-04", "year": 2025, "batch": 2, "sourceSchoolName": "广州市增城区荔城街荔景中学", "schoolName": "广东实验中学（荔湾校区）", "admittedScore": 686, "lastVolunteerNo": 1, "completePlanKnown": false, "sourceIds": ["official-2025-batch2-pdf", "government-2025-quota-cases"] },
+    { "id": "actual-2025-quota-05", "year": 2025, "batch": 2, "sourceSchoolName": "广州市从化区流溪中学", "schoolName": "广东实验中学（白云校区）", "admittedScore": 690, "lastVolunteerNo": 1, "completePlanKnown": false, "sourceIds": ["official-2025-batch2-pdf", "government-2025-quota-cases"] },
+    { "id": "actual-2025-quota-06", "year": 2025, "batch": 2, "sourceSchoolName": "广州增城外国语实验中学", "schoolName": "广州外国语学校", "admittedScore": 696, "lastVolunteerNo": 1, "completePlanKnown": false, "sourceIds": ["official-2025-batch2-pdf", "government-2025-quota-cases"] },
+    { "id": "actual-2025-quota-07", "year": 2025, "batch": 2, "sourceSchoolName": "广东第二师范学院附属南沙珠江学校", "schoolName": "广州市第二中学", "admittedScore": 692, "lastVolunteerNo": 2, "completePlanKnown": false, "sourceIds": ["official-2025-batch2-pdf", "government-2025-quota-cases"] },
+    { "id": "actual-2025-quota-08", "year": 2025, "batch": 2, "sourceSchoolName": "广州市真光中学东漖学校", "schoolName": "广州大学附属中学", "admittedScore": 694, "lastVolunteerNo": 1, "completePlanKnown": false, "sourceIds": ["official-2025-batch2-pdf", "government-2025-quota-cases"] },
+    { "id": "actual-2025-quota-09", "year": 2025, "batch": 2, "sourceSchoolName": "广州市增城区荔城街第三中学", "schoolName": "广州大学附属中学", "admittedScore": 694, "lastVolunteerNo": 1, "completePlanKnown": false, "sourceIds": ["official-2025-batch2-pdf", "government-2025-quota-cases"] }
+  ],
+  "aggregateSignals": [
+    { "year": 2026, "kind": "quota_completion", "plans": 31858, "admitted": 29312, "completionRate": 92, "belowThirdGradient": 8594, "sourceIds": ["media-2026-quota-cases"], "modelUse": "context_only" },
+    { "year": 2025, "kind": "quota_completion", "plans": 27794, "admitted": 24719, "completionRate": 89, "belowThirdGradient": 7055, "sourceIds": ["government-2025-quota-cases"], "modelUse": "context_only" }
+  ]
+}

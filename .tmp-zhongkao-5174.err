@@ -1,0 +1,50 @@
+::1 - - [29/Jul/2026 22:14:39] "GET /direction/ HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /direction/ HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /styles.css?v=20260726k HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /typography.css?v=20260726a HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /access-gate.js?v=20260726c HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /navigation.js?v=20260726j HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /app.js?v=20260729a HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] code 404, message File not found
+::1 - - [29/Jul/2026 22:14:44] "GET /api/access/config HTTP/1.1" 404 -
+::1 - - [29/Jul/2026 22:14:44] "GET /engine.js?v=20260729a HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /realistic-sim.js?v=20260729a HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /access-config.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /data/manifest.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /data/schools.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /data/score-bands.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /data/control-lines.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /data/source-schools.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /data/admissions.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:14:44] "GET /data/sources.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:18:43] "GET /direction/ HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:55:50] "GET /direction/ HTTP/1.1" 304 -
+::1 - - [29/Jul/2026 22:55:50] "GET /app.js?v=20260729a HTTP/1.1" 304 -
+::1 - - [29/Jul/2026 22:55:50] code 404, message File not found
+::1 - - [29/Jul/2026 22:55:50] "GET /api/access/config HTTP/1.1" 404 -
+::1 - - [29/Jul/2026 22:55:50] "GET /engine.js?v=20260729a HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 22:55:50] "GET /realistic-sim.js?v=20260729a HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:53:08] "GET /direction/ HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /direction/ HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /styles.css?v=20260726k HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /typography.css?v=20260726a HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /access-gate.js?v=20260726c HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /navigation.js?v=20260726j HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /app.js?v=20260729b HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] code 404, message File not found
+::1 - - [29/Jul/2026 23:54:27] "GET /engine.js?v=20260729b HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /api/access/config HTTP/1.1" 404 -
+::1 - - [29/Jul/2026 23:54:27] "GET /realistic-sim.js?v=20260729b HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /access-config.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /data/manifest.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /data/schools.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /data/source-schools.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /data/admissions.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /data/score-bands.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /data/control-lines.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /data/sources.json HTTP/1.1" 200 -
+::1 - - [29/Jul/2026 23:54:27] "GET /favicon.svg HTTP/1.1" 200 -
+::1 - - [01/Aug/2026 22:50:45] "GET / HTTP/1.1" 200 -
+::1 - - [01/Aug/2026 22:53:15] "GET / HTTP/1.1" 200 -
+::1 - - [01/Aug/2026 22:53:15] code 404, message File not found
+::1 - - [01/Aug/2026 22:53:15] "GET /contact/ HTTP/1.1" 404 -

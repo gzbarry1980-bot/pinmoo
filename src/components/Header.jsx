@@ -36,7 +36,7 @@ export function Header({ pathname }) {
             <a key={item.href} className={isActive(item, pathname) ? 'active' : ''} href={item.href}>{item.label}</a>
           ))}
         </nav>
-        <a className="header-cta" href="/contact/">预约咨询</a>
+        <a className="header-cta" href="/contact/?service=geo-report">免费领 GEO 报告</a>
         <button className="mobile-menu-btn" type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? '关闭导航' : '打开导航'} aria-expanded={open}>
           <Icon name={open ? 'X' : 'Menu'} size={24} />
         </button>
@@ -46,7 +46,7 @@ export function Header({ pathname }) {
           {NAV_ITEMS.map((item) => (
             <a key={item.href} className={isActive(item, pathname) ? 'active' : ''} href={item.href} onClick={() => setOpen(false)}>{item.label}</a>
           ))}
-          <a className="mobile-nav-cta" href="/contact/" onClick={() => setOpen(false)}>预约咨询</a>
+          <a className="mobile-nav-cta" href="/contact/?service=geo-report" onClick={() => setOpen(false)}>免费领 GEO 报告</a>
         </nav>
       </div>
     </header>

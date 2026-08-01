@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-07-30T00:00:00+08:00",
+  "status": "ready_for_review_not_published",
+  "source": "C:\\Users\\Administrator\\Downloads\\中考志愿填报风险_v1.mp4",
+  "sourceContainerDurationSeconds": 118.125,
+  "usedSourceRangeSeconds": [
+    0,
+    10
+  ],
+  "video": "E:\\pinmoo\\outputs\\zhongkao-risk-video-20260730\\video\\中考志愿填报风险-口播配乐版-抖音-10秒-9x16.mp4",
+  "cover": "E:\\pinmoo\\outputs\\zhongkao-risk-video-20260730\\cover\\中考志愿填报风险-封面-1080x1440.png",
+  "subtitles": "E:\\pinmoo\\outputs\\zhongkao-risk-video-20260730\\subtitles\\中考志愿填报风险-字幕.srt",
+  "voice": "E:\\pinmoo\\outputs\\zhongkao-risk-video-20260730\\audio\\中考志愿填报风险-10秒男声.wav",
+  "music": "E:\\pinmoo\\outputs\\zhongkao-risk-video-20260730\\audio\\中考志愿填报风险-10秒配乐.wav",
+  "narration": "分数够，不代表一定录取。高中报考顺序填错，也可能连续落选。正式提交前，先模拟一次。",
+  "durationSeconds": 10.0,
+  "videoSha256": "7F92A2EF3483D8EC010E105E0BFE033E1B40C09460F899891F63253B91E1436D",
+  "coverSha256": "ADBEDE32AE504086C422AA4E12E41FF650CC54C4D4D468543F576F980BCDCCDA"
+}

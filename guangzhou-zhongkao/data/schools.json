@@ -1,0 +1,7415 @@
+[
+  {
+    "id": "gz-17ac15270cde",
+    "name": "北京师范大学广州实验学校",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区北师大二纵路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-fa83810265d4",
+    "name": "博罗县东江广雅学校有限公司",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-ef96f6edf9cc",
+    "name": "广大附中增城实验中学",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "增城区",
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区新塘镇瑶田村新围校前南街10号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-0b4e52c00d90",
+    "name": "广东第二师范学院番禺附属中学",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区东环街螺山路2号广东二师附中",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-37d974269f94",
+    "name": "广东番禺中学",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区桥南街龙岐路501号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-db0000595127",
+    "name": "广东广雅中学（本部校区）",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-8683cc839e3f",
+    "name": "广东广雅中学（本部校区）（中外合作办学项目）",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-d88fc5845fdc",
+    "name": "广东广雅中学（花都校区）",
+    "district": "花都区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区雅正路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-6b8cf4e3bb80",
+    "name": "广东广雅中学（荔湾校区）",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广雅路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-cf141cc1032c",
+    "name": "广东广雅中学（荔湾校区）（中外合作办学项目）",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区广雅路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-97eb5e311ea4",
+    "name": "广东广雅中学（荔湾校区）（中外合作办学项目）（A-Level课程）",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-43e6a8d17881",
+    "name": "广东广雅中学（荔湾校区）（中外合作办学项目）（AP课程）",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-2d5bcaab3eb7",
+    "name": "广东华侨中学",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区金沙洲善贤路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-bb7012d2ecc8",
+    "name": "广东华侨中学（中外合作办学项目）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广东省广州市白云区金沙洲善贤路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-cdf564031741",
+    "name": "广东实验中学",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-503814527dc3",
+    "name": "广东实验中学（白云校区）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区永平街道贤达二街6号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-188763d2e720",
+    "name": "广东实验中学（白云校区）（中外合作办学项目）（中英课程艺术设计班）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区永平街道贤达二街6号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-cba13a665f6c",
+    "name": "广东实验中学（白云校区）（中外合作办学项目）（中英A-Level课程班）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区永平街道贤达二街6号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-5424230557c2",
+    "name": "广东实验中学（荔湾校区）",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区省实路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-aa9e62d0017a",
+    "name": "广东实验中学（荔湾校区）（中外合作办学项目）（中美AP课程班）",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区省实路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-9d8dfd950364",
+    "name": "广东实验中学（中外合作办学项目）（中美AP课程班）",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-c0282b928894",
+    "name": "广东实验中学（中外合作办学项目）（中英课程艺术设计班）",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-4a834e4421b7",
+    "name": "广东实验中学（中外合作办学项目）（中英A-Level课程班）",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-6fe4162e25a0",
+    "name": "广东实验中学花都学校",
+    "district": "花都区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区新雅街道鹏阳二路2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-bc933f7f407e",
+    "name": "广东实验中学越秀学校",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "环市东路天胜村16号之一",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-8c2d86dd33d8",
+    "name": "广东实验中学越秀学校（中外合作办学项目）",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-e6ddf838b6af",
+    "name": "广东外语外贸大学从化第三中学",
+    "district": "从化区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "从化区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "从化区",
+    "campusAddress": "从化区江埔街大江路",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-7631e9594f26",
+    "name": "广东外语外贸大学实验中学",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区太和镇和意路38号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-601ef3343da5",
+    "name": "广东仲元中学",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "番禺区大龙街傍雁路288号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-eff8e0690790",
+    "name": "广州奥林匹克中学",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区车陂路696号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-6304fc4cbefc",
+    "name": "广州大同中学",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区钟落潭镇竹料路口",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-96a493c0f2d1",
+    "name": "广州大学附属中学",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "大学城校区",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c5297257f160",
+    "name": "广州大学附属中学南沙实验学校",
+    "district": "南沙区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区横沥镇沐春路12号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e1a72041f0d8",
+    "name": "广州开发区外国语学校",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "黄埔区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区黄埔东路3013号大院",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-05cb9dd5648e",
+    "name": "广州科学城中学",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区萝平路79号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-850716c0e425",
+    "name": "广州理工实验学校",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区中新镇团结山口路169号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-9dbb9437193a",
+    "name": "广州理工实验学校（公费班）",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区中新镇团结山口路169号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-0a29ac73bb2e",
+    "name": "广州理工实验学校（原增城广外）",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-c9629340d263",
+    "name": "广州龙涛外国语学校",
+    "district": "从化区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "从化区",
+    "campusAddress": "广州从化区太平镇三百洞大道8号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c4ecd95c3ede",
+    "name": "广州龙涛外国语学校（公费班）",
+    "district": "从化区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "从化区",
+    "campusAddress": "广州从化区太平镇三百洞大道8号19988211234、19988211818",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-4d6b3fb3b971",
+    "name": "广州龙涛外国语学校（原南洋英文学校）",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-889f4eba0ac6",
+    "name": "广州龙涛外国语学校（原南洋英文学校）（公费班）",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-0cb8cafe0d0a",
+    "name": "广州美术学院附中广艺中等职业技术学校有限公司（综合高中）（（绘画）公费班）",
+    "district": "海珠区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区新港西路25号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-71fbd08ef50d",
+    "name": "广州美术学院附中广艺中等职业技术学校有限公司（综合高中）（绘画）",
+    "district": "海珠区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区新港西路25号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-154e3df7fba0",
+    "name": "广州南方学院番禺附属中学",
+    "district": "番禺区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区南村镇兴南大道163号华南新城内",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-2c8f5717c5c4",
+    "name": "广州南方学院番禺附属中学（公费班）",
+    "district": "番禺区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区南村镇兴南大道163号华南新城内",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-513915ae9e07",
+    "name": "广州南方学院番禺附属中学（原华附番禺）",
+    "district": "番禺区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-45251b95d5d7",
+    "name": "广州南洋英文学校",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-b38404ec3cef",
+    "name": "广州彭加木纪念中学",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "白云区石井街庆槎路521号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-edd407b925cc",
+    "name": "广州石化中学",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "黄埔区",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区石化路166大院",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-067c359b28a3",
+    "name": "广州实验中学",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区创新大道修业路6号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-a57616d2b894",
+    "name": "广州市爱莎文华高中有限公司",
+    "district": "荔湾区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区海龙路238号31340164、31241065",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-6ae686d9b19b",
+    "name": "广州市爱莎文华高中有限公司（公费班）",
+    "district": "荔湾区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区海龙路238号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-52e5f9144af8",
+    "name": "广州市白云区广东第二师范学院实验中学",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "白云区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区钟落潭镇大塘路2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-304e78fe5897",
+    "name": "广州市白云区广州空港实验中学",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区人和镇兴贤路86号广州空港实验中学",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-7e2ca5cf8118",
+    "name": "广州市白云区广州空港实验中学（原71中）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2021-batch-2-pdf"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-0b6122b7f350",
+    "name": "广州市白云区培英实验学校（同和校区）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区沙太北路965号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-a7d121cbfad8",
+    "name": "广州市白云区颜乐天纪念中学",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "白云区",
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区环岗二路11号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-2e959965bbd0",
+    "name": "广州市白云区云英实验学校（同和校区）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "白云区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-b4abc8040652",
+    "name": "广州市白云行知职业技术学校（综合高中）（会计事务）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "白云区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "天平架兴华直街316号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-0802e5a28db3",
+    "name": "广州市白云行知职业技术学校（综合高中）（计算机网络技术）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "白云区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "天平架兴华直街316号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-d768cf5fe47a",
+    "name": "广州市白云艺术中学",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "白云区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区嘉禾街百花岭北街63号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-915081bfe18f",
+    "name": "广州市白云中学",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区金沙洲藤业一路366号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-43e48037b91f",
+    "name": "广州市北培高级中学有限公司",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-d0bc9adc6ed1",
+    "name": "广州市北培高级中学有限公司（公费班）",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-6c4514a3a9a5",
+    "name": "广州市博萃德学校",
+    "district": "番禺区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区钟村街博鸿七路1号广州博萃德学校",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-9b934ab13472",
+    "name": "广州市财经商贸职业学校（综合高中）（会计事务）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区机场路新市新街24号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e28d29bb45ce",
+    "name": "广州市朝晖高级中学有限公司（原北培）",
+    "district": "南沙区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区大岗镇潭灵大道西20号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c4aaa19e0bd6",
+    "name": "广州市朝晖高级中学有限公司（原北培）（公费班）",
+    "district": "南沙区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区大岗镇潭灵大道西20号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-bbabf25e82e7",
+    "name": "广州市从化区从化中学",
+    "district": "从化区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "从化区",
+    "campusAddress": "从化区街口街城内路239号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-802d6bb4ee0f",
+    "name": "广州市从化区第二中学",
+    "district": "从化区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "从化区",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "从化区",
+    "campusAddress": "从化区城郊街环城路33号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c4f8a3488918",
+    "name": "广州市从化区第三中学",
+    "district": "从化区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "从化区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-e349e546764a",
+    "name": "广州市从化区第四中学",
+    "district": "从化区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "从化区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "从化区",
+    "campusAddress": "街口街教育路23号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b8335e527df9",
+    "name": "广州市从化区第五中学",
+    "district": "从化区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "从化区",
+    "campusAddress": "城郊街埔顶",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-1de59867ff70",
+    "name": "广州市从化区流溪中学",
+    "district": "从化区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "从化区",
+    "campusAddress": "从化区江埔街沿江南路300号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-ad42ba26282e",
+    "name": "广州市第八十九中学",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区天源路1219号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-69ec77e6c53d",
+    "name": "广州市第八十六中学",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区大沙地西5号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-3a2e51774f57",
+    "name": "广州市第二中学",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区开创大道北水西路",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-5cc46321ec5e",
+    "name": "广州市第二中学南沙天元学校",
+    "district": "南沙区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区南沙街英东大道25号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-0f05b24c70f2",
+    "name": "广州市第九十七中学",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区晓港中马路133号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e19ef8b52141",
+    "name": "广州市第九十七中学（江南新苑校区）",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区晓港东横街12号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-53cb715e3a8c",
+    "name": "广州市第九十七中学（金碧校区）",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2021-batch-2-pdf"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-db3715d8fbbd",
+    "name": "广州市第六十六中学",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "白云区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区江高镇神山管理区雄郭东路203号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b58761bc093a",
+    "name": "广州市第六十五中学",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-97d31b62893d",
+    "name": "广州市第六十五中学（江府校区）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区江高镇泉溪北工业区二路12号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-8ee20499f631",
+    "name": "广州市第六十五中学（江高校区）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区爱国西路190号020-86601977、86200832",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-209157ce7865",
+    "name": "广州市第六十五中学（同德校区）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区德康路怡康正街7号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-ea31eea80034",
+    "name": "广州市第六中学",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-d1dab230f119",
+    "name": "广州市第六中学（从化校区）",
+    "district": "从化区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "从化区",
+    "campusAddress": "广州市从化区灌村中路165号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b610fbd1676b",
+    "name": "广州市第六中学（海珠校区）",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市新港西路179号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-2dd907658236",
+    "name": "广州市第六中学（海珠校区）（中外合作办学项目）",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-e0c6a89c9e84",
+    "name": "广州市第六中学（花都校区）",
+    "district": "花都区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广东省广州市花都区花山镇昌瑞北街2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-38d821325c58",
+    "name": "广州市第六中学（中外合作办学项目）",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-89976c80ab47",
+    "name": "广州市第七十五中学",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区燕成路21号020-87715356、87242697",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-8310deb2ea5a",
+    "name": "广州市第七中学",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "广州市越秀区烟墩路28号020-87774521、87763371",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-65aee10eb2d8",
+    "name": "广州市第七中学（桂花校区）",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-3bff4a1a0881",
+    "name": "广州市第七中学（麓湖校区）",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "广州市越秀区下塘西路41号020-87774521、87763371",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-044aabdc6232",
+    "name": "广州市第三中学",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "广州市越秀区大新路163号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-ec1a75c75160",
+    "name": "广州市第十六中学",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "广州市中山二路37号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-7e4ccac84bc9",
+    "name": "广州市第十六中学（水荫校区）",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "广州市水荫一横路38号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b258dd7d2e26",
+    "name": "广州市第十七中学",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "广州市小北路280号020-83568656、83568629",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-3e42c44a3219",
+    "name": "广州市第十三中学",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "老三区",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "广州市文德北路83号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-697d83e2a6c6",
+    "name": "广州市第四十一中学",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区工业大道北101号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-f13c506ad0ce",
+    "name": "广州市第四中学",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区西华路太保直街1号（后门）康王北路芦荻街（正门）",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-3ffdae4a2e72",
+    "name": "广州市第五中学",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "海珠区南村路32号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-0ef96b413381",
+    "name": "广州市第五中学（金碧校区）",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区金恒路66号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-61981727b151",
+    "name": "广州市第一一三中学",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-87a56f8ac023",
+    "name": "广州市第一一三中学（金融城校区）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区黄埔大道中306号之020-85516394、85528560二",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-763ca1aefe73",
+    "name": "广州市第一一三中学（元岗校区）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区元岗北街161号大院",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-6030e3e82113",
+    "name": "广州市第一中学",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区大坦沙岛育贤路30号（高中校区）",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-50162fac5f95",
+    "name": "广州市东江外语实验学校",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区新塘镇新保大道187号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e48f7d07bdb7",
+    "name": "广州市东江外语实验学校（公费班）",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区新塘镇新保大道187号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-5a61f83d1160",
+    "name": "广州市番禺区大龙中学",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区大龙街城区大道一号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-deb7e9c9ac29",
+    "name": "广州市番禺区洛溪新城中学",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "番禺区洛浦街洛溪新城如意路80号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-ae239104e547",
+    "name": "广州市番禺区南村中学",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "番禺区",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区南村镇金江大道415号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-644a4c4a8b4c",
+    "name": "广州市番禺区祈福英语实验学校（港澳台班）",
+    "district": "番禺区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "番禺区钟村镇祈福新村学院路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-22d77001c38b",
+    "name": "广州市番禺区祈福英语实验学校（国内班）",
+    "district": "番禺区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-6d99b2340106",
+    "name": "广州市番禺区祈福英语实验学校（普通高中）",
+    "district": "番禺区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "番禺区钟村镇祈福新村学院路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-43cf337ad65c",
+    "name": "广州市番禺区祈福英语实验学校（中美加班）",
+    "district": "番禺区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-1343082190ea",
+    "name": "广州市番禺区祈福英语实验学校（中外合作办学项目）",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "番禺区钟村镇祈福新村学院路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b9a4407871a5",
+    "name": "广州市番禺区石北中学",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "番禺区",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "番禺区大石街山西路6号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-2124ed968cfa",
+    "name": "广州市番禺区石楼中学",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "番禺区",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "番禺区石楼镇莲品路18号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-1f0447042a82",
+    "name": "广州市番禺区石碁中学",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "番禺区",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "番禺区石基镇市莲路129号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-34e28db6dd52",
+    "name": "广州市番禺区实验中学",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区市桥康乐路116号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-537a0a7b946c",
+    "name": "广州市番禺区象贤中学",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "番禺区沙湾镇亚中坊路15号020-84731873-8238",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-310172ff7886",
+    "name": "广州市番禺区象贤中学（中外合作办学项目）",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区沙湾街亚中坊路15号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-339796dd9cf8",
+    "name": "广州市番禺区新造职业技术学校（综合高中）（计算机网络技术）",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "番禺区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区新造镇育新路28号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c32dc6f92729",
+    "name": "广州市番禺区新造职业技术学校（综合高中）（商务英语）",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "番禺区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区新造镇育新路28号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-32c86361cb17",
+    "name": "广州市纺织服装职业学校（综合高中）（工艺美术）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区东莞庄路231号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-61f75d939ad2",
+    "name": "广州市纺织服装职业学校（综合高中）（艺术设计与制作）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区东莞庄路231号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e9c4428f8ebc",
+    "name": "广州市斐特思学校",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区新塘镇南安村",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-df0c351e554a",
+    "name": "广州市海华高级中学",
+    "district": "海珠区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区华洲路145号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b3c7b8d1db6f",
+    "name": "广州市海华高级中学（公费班）",
+    "district": "海珠区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区华洲路145号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-2de1d636a9da",
+    "name": "广州市海珠工艺美术职业学校（综合高中）（绘画）",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "老三区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区南边路33号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-87117dd82431",
+    "name": "广州市海珠工艺美术职业学校（综合高中）（社会文化艺术）",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "老三区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-7d41f8668918",
+    "name": "广州市海珠外国语实验中学",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "海珠区前进路121号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-bb9a2a430342",
+    "name": "广州市海珠外国语实验中学（江海校区）",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "海珠区石榴岗路南一街31号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b3f2712c4116",
+    "name": "广州市海珠中学",
+    "district": "海珠区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "海珠区石榴岗路15号020-33377989-810",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-66ffe7390032",
+    "name": "广州市海珠中学（公费班）",
+    "district": "海珠区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "海珠区石榴岗路15号020-33377989-810",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-4bd7a49bbff9",
+    "name": "广州市衡美高级中学有限公司",
+    "district": "番禺区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区石碁镇前锋村前锋南路西龙大街2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-8a4c4d37a309",
+    "name": "广州市衡美高级中学有限公司（公费班）",
+    "district": "番禺区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区石碁镇前锋村前锋南路西龙大街2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-218dac4eb24e",
+    "name": "广州市花都区第二中学",
+    "district": "花都区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "花都区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区炭步镇沿江路1号区二中",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-3bc46d147e2a",
+    "name": "广州市花都区第一中学",
+    "district": "花都区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "花都区",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区花山镇坪山大街54号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b9a746e81797",
+    "name": "广州市花都区邝维煜纪念中学",
+    "district": "花都区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区新华镇建设北路129号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-d3a78288b0fe",
+    "name": "广州市花都区邝维煜纪念中学（雅正校区）",
+    "district": "花都区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区平步大道中131号雅宝新城桃李居三街5号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-abeb3792c714",
+    "name": "广州市花都区新华中学",
+    "district": "花都区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区新华街商业大道74号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-0b36f446a971",
+    "name": "广州市花都区秀全中学",
+    "district": "花都区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区花城街溶华街1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-26538a2e0b47",
+    "name": "广州市花都区圆玄中学",
+    "district": "花都区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区花新华街梅花路9号圆玄中学",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-4cdc0e4f92d4",
+    "name": "广州市花都区职业技术学校（综合高中）（工艺美术）",
+    "district": "花都区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "花都区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区新华街云山大道65号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b87465db548f",
+    "name": "广州市花都区职业技术学校（综合高中）（社会文化艺术）",
+    "district": "花都区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "花都区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区新华街云山大道65号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c09b01d52594",
+    "name": "广州市华德高级中学有限公司",
+    "district": "花都区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区赤坭镇髻岭西路28号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-98db2d8336fd",
+    "name": "广州市华德高级中学有限公司（公费班）",
+    "district": "花都区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区赤坭镇髻岭西路28号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-32aa2922deac",
+    "name": "广州市华汇高级中学有限公司",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区中新镇城高路20号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-40f24dfd5218",
+    "name": "广州市华汇高级中学有限公司（公费班）",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区中新镇城高路20号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-a92078f2a13a",
+    "name": "广州市华美英语实验学校（港澳台）",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-17dd1aca3391",
+    "name": "广州市华美英语实验学校（港澳台班）",
+    "district": "天河区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "020-87210495、87210868、广州市天河区华美路23号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-3d66c03b01ba",
+    "name": "广州市华美英语实验学校（公费班）",
+    "district": "天河区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "020-87210495、87210868、广州市天河区华美路23号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-d80042199eeb",
+    "name": "广州市华美英语实验学校（普通高中）",
+    "district": "天河区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "020-87210495、87210868、广州市天河区华美路23号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-5ce26b07dc8e",
+    "name": "广州市华美英语实验学校（中加高中）",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-c270f6fdbba4",
+    "name": "广州市华美英语实验学校（中外合作办学项目）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区华美路23号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-480b946f88e2",
+    "name": "广州市华商外语实验高级中学有限公司",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区永宁街香山大道28号32878192、32878193",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c9ed5342c9b6",
+    "name": "广州市华商外语实验高级中学有限公司（公费班）",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区永宁街香山大道28号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-1163d8ac48d3",
+    "name": "广州市华万高中有限公司",
+    "district": "花都区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区芙蓉大道62-1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e5b3cacaf53c",
+    "name": "广州市华万高中有限公司（公费班）",
+    "district": "花都区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区芙蓉大道62-1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-9393ee961d0c",
+    "name": "广州市华文高级中学",
+    "district": "白云区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广东省广州市白云区九太路122号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c8e40830ba51",
+    "name": "广州市华文高级中学（公费班）",
+    "district": "白云区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广东省广州市白云区九太路122号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-68f2e691e9a0",
+    "name": "广州市黄埔区开元学校",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区禾丰路3号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-ab655f2f177b",
+    "name": "广州市黄埔区苏元学校",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区水西路17号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-ba9185aa35b5",
+    "name": "广州市黄埔区知识城中学",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "黄埔区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-502edaee8019",
+    "name": "广州市黄广附属学校",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区石滩镇东西大道与南北大道交汇处",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-76cca237af97",
+    "name": "广州市黄广附属学校（公费班）",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区石滩镇东西大道与南北大道交汇处",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c6867b56fb8c",
+    "name": "广州市黄广附属学校（原黄冈增城）",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-a30d8ce65bce",
+    "name": "广州市黄广牛剑高级中学有限公司",
+    "district": "花都区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区秀全街岐山大道",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-fa0f6a7cb5a2",
+    "name": "广州市黄广中学",
+    "district": "花都区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区雅瑶中路88号（地铁9号线清塘站A出口）",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-5ae95b354a70",
+    "name": "广州市黄广中学（公费班）",
+    "district": "花都区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区雅瑶中路88号（地铁9号线清塘站A出口）",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-0942da418ef5",
+    "name": "广州市黄广中学（中外合作办学项目）",
+    "district": "花都区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区雅瑶中路88号（地铁9号线清塘站A出口）",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-85e49de4858e",
+    "name": "广州市龙外实验学校",
+    "district": "白云区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区太福路68号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-41296573f9d1",
+    "name": "广州市龙外实验学校（公费班）",
+    "district": "白云区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区太福路68号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-1384e6156202",
+    "name": "广州市贸易职业高级中学（综合高中）（大数据技术应用）",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "老三区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "越秀区中山六路125号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-ee1c1ec02a8a",
+    "name": "广州市贸易职业高级中学（综合高中）（电子商务）",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "老三区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-9b9a0e4fc578",
+    "name": "广州市贸易职业高级中学（综合高中）（艺术设计与制作）",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "老三区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-5ece925df52b",
+    "name": "广州市明贤实验高级中学有限公司",
+    "district": "南沙区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区晨旭路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-d030ae0e8368",
+    "name": "广州市明贤实验高级中学有限公司（公费班）",
+    "district": "南沙区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区晨旭路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-7c58d7de35f8",
+    "name": "广州市明珠高级中学有限公司",
+    "district": "黄埔区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区知识城博华三路101号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-ead699a592bc",
+    "name": "广州市明珠高级中学有限公司（公费班）",
+    "district": "黄埔区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区知识城博华三路101号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-5c6ec516124f",
+    "name": "广州市南海中学",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "荔湾区南岸富力路56号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b83fdf742512",
+    "name": "广州市南郡高级中学有限公司（原央美现代高级中学）",
+    "district": "南沙区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区金岭南路15号、26号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-7fdeaeb10004",
+    "name": "广州市南郡高级中学有限公司（原央美现代高级中学）（公费班）",
+    "district": "南沙区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区金岭南路15号、26号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-1269ff73ebf6",
+    "name": "广州市南沙大岗中学",
+    "district": "南沙区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "南沙区",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区大岗镇越山路",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-92de2e2ddc8a",
+    "name": "广州市南沙第一中学",
+    "district": "南沙区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区南沙街丰泽东路",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-91a1244c0567",
+    "name": "广州市南沙东涌中学",
+    "district": "南沙区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区东涌镇和乐路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-118e4b04a512",
+    "name": "广州市南沙麒麟中学",
+    "district": "南沙区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "南沙区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区黄阁镇黄阁大道北麒麟新城",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-bae5c9f16d45",
+    "name": "广州市南沙鱼窝头中学",
+    "district": "南沙区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "南沙区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区东涌镇市鱼路42号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-496f004fad5f",
+    "name": "广州市南外实验学校",
+    "district": "南沙区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区万顷沙镇工业大道429号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-0ef6320f59dd",
+    "name": "广州市南外实验学校（公费班）",
+    "district": "南沙区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区万顷沙镇工业大道429号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e46ea8053870",
+    "name": "广州市南武中学",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "同福中路362号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c12b967bf504",
+    "name": "广州市南武中学（岭南画派纪念校区）",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "老三区",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区江南西路玫瑰二街12020-84416605、84420012号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c79869ca9978",
+    "name": "广州市培才高级中学",
+    "district": "海珠区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区燕子岗路燕岗街20号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-4759604c589b",
+    "name": "广州市培才高级中学（公费班）",
+    "district": "海珠区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区燕子岗路燕岗街20号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-fc15993bef13",
+    "name": "广州市培英中学",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-36a40bf707ec",
+    "name": "广州市培英中学（白云新城校区）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区云城西路1151号广州市培英中学白云新城校区",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-d0679fc04427",
+    "name": "广州市培英中学（鹤洞校区）",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区培真路60号020-81679523、81699416",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-7a27991d409c",
+    "name": "广州市培英中学（鹤洞校区）（中外合作办学项目）",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区鹤洞路124号之一",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-583fa968cf6b",
+    "name": "广州市培英中学（中外合作办学项目）",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-79a8dd8dc065",
+    "name": "广州市培正中学",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "020-87305762、87651040、广州越秀区培正路2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-8c7de6dcc772",
+    "name": "广州市侨光财经职业技术学校（综合高中）（（计算机网络技术）公费班）",
+    "district": "从化区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "从化区",
+    "campusAddress": "广东从化经济开发区高技术产业园丰盈六巷1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-9360ea50fe2a",
+    "name": "广州市侨光财经职业技术学校（综合高中）（计算机网络技术）",
+    "district": "从化区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "从化区",
+    "campusAddress": "广东从化经济开发区高技术产业园丰盈六巷1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-cc5c0129cd54",
+    "name": "广州市庆丰实验学校",
+    "district": "白云区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区石井庆丰一路2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-5e80fb9bacc7",
+    "name": "广州市庆丰实验学校（公费班）",
+    "district": "白云区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区石井庆丰一路2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-83679ddacea6",
+    "name": "广州市实验外语学校",
+    "district": "白云区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区广花一路599号（机场高速、华南快速，平沙出口）",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b3cda51c08fe",
+    "name": "广州市实验外语学校（中外合作办学项目）",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-f69c131f38ae",
+    "name": "广州市实验外语学校（中外合作办学项目）（日语）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区广花一路599号（机场高速、华南快速，平沙出口）",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-55b195a5eebd",
+    "name": "广州市实验外语学校（中外合作办学项目）（英语）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区广花一路599号（机场高速、华南快速，平沙出口）",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-bebacfbd3819",
+    "name": "广州市天河外国语学校",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-a049afd13d31",
+    "name": "广州市天河外国语学校（智慧城校区）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区华南路西侧长兴路北侧",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-4e608835ab75",
+    "name": "广州市天河外国语学校（珠江新城校区）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区珠江新城海乐路9号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-fc37db3455fe",
+    "name": "广州市天河职业高级中学（综合高中）（计算机网络技术）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "天河区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区棠德路121号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-06d1ab38363f",
+    "name": "广州市天河职业高级中学（综合高中）（金融事务）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "天河区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区棠德路121号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-184375a9a384",
+    "name": "广州市天河职业高级中学（综合高中）（幼儿保育）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "天河区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-bcfe78433eae",
+    "name": "广州市天河中学",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区珠江新城华成路7号020-38016591、38016577",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-26f3b523ac81",
+    "name": "广州市天健学校",
+    "district": "黄埔区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区长贤路103号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-ce21209dd567",
+    "name": "广州市天健学校（公费班）",
+    "district": "黄埔区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区长贤路103号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-9a6f1f35a825",
+    "name": "广州市铁一中学（白云校区）",
+    "district": "白云区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区均禾街均禾大道新石路163号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-727b6d8ff167",
+    "name": "广州市铁一中学（番禺校区）",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区石楼镇亚运城铁中路020-39925999转23272号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-0a2cc03d55ef",
+    "name": "广州市铁一中学（越秀校区）",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "广州市越秀区东兴南路文化里13020-61325999-2106号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-5270454882f7",
+    "name": "广州市维港青藤中学",
+    "district": "南沙区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区港前大道180号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-4d2ea45a8a4a",
+    "name": "广州市维港青藤中学（公费班）",
+    "district": "南沙区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区港前大道180号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-6ec62c9aecf9",
+    "name": "广州市为明学校",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-71ded247da59",
+    "name": "广州市为明学校（公费班）",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-023bf6a0da30",
+    "name": "广州市为明学校（光大校区）",
+    "district": "海珠区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区沙渡路131号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-d97228e787ea",
+    "name": "广州市为明学校（光大校区）（公费班）",
+    "district": "海珠区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区沙渡路131号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-f82e162f7a06",
+    "name": "广州市为明学校（盛景校区）",
+    "district": "海珠区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区南洲路中怡街25号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e573a373658d",
+    "name": "广州市为明学校（盛景校区）（公费班）",
+    "district": "海珠区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "广州市海珠区南洲路中怡街25号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-3a660d18a750",
+    "name": "广州市为明学校（盛景校区）（中外合作办学项目）",
+    "district": "海珠区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "海珠区",
+    "campusAddress": "1、广州市海珠区沙渡路131号；2、广州市海珠区南洲路中怡街25号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-26c9c0d1b477",
+    "name": "广州市为明学校（中外合作办学项目）",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-5b1c632c0aea",
+    "name": "广州市西关培英中学",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "老三区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市多宝路67号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-37ecf29eda89",
+    "name": "广州市西关外国语学校",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区中山八路石路基1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-8ebc920d1571",
+    "name": "广州市西关外国语学校（中外合作办学项目）",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市中山八路石路基1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-8f2b4d24314b",
+    "name": "广州市香江中学",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区新塘镇翡翠绿洲小区内",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-7eab7a58e81a",
+    "name": "广州市香江中学（公费班）",
+    "district": "增城区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区新塘镇翡翠绿洲小区内",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-1dd6e9fc795e",
+    "name": "广州市香江中学（普通高考班）",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-8163e303a174",
+    "name": "广州市香江中学（中外合作办学项目）",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区新塘镇翡翠绿洲小区内",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c08612871929",
+    "name": "广州市香江中学（AP课程班）",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-d2467963002a",
+    "name": "广州市协和中学",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-0babf9d58eac",
+    "name": "广州市新侨学校",
+    "district": "黄埔区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区中新知识城慈济路2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-096de147cab9",
+    "name": "广州市新侨学校（公费班）",
+    "district": "黄埔区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区中新知识城慈济路2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e0ddaaa292bb",
+    "name": "广州市新侨学校（中外合作办学项目）（A-level课程）",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区知识城慈济路2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c387e50bcad8",
+    "name": "广州市新侨学校（中外合作办学项目）（IBDP课程）",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区知识城慈济路2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-79d886cb6871",
+    "name": "广州市新亚高级中学",
+    "district": "南沙区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区广生路14号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-eef0ec3e5a36",
+    "name": "广州市新亚高级中学（公费班）",
+    "district": "南沙区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区广生路14号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-24f27c6f79f5",
+    "name": "广州市新亚高级中学（中外合作办学项目）",
+    "district": "南沙区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区广生路14号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-fe1855fed592",
+    "name": "广州市星执学校",
+    "district": "番禺区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区番禺大道北星河湾东区",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-2f094aa91932",
+    "name": "广州市星执学校（公费班）",
+    "district": "番禺区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "广州市番禺区番禺大道北星河湾东区",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-ae8be5b8f5a6",
+    "name": "广州市亚加达外国语高级中学",
+    "district": "白云区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区白云大道南1148号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-274584994184",
+    "name": "广州市亚加达外国语高级中学（公费班）",
+    "district": "白云区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区白云大道南1148号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-dc586a16ac45",
+    "name": "广州市央美现代高级中学有限公司",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-0105cdb0d32a",
+    "name": "广州市央美现代高级中学有限公司（公费班）",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-5b9791a3dc28",
+    "name": "广州市耀华学校",
+    "district": "花都区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区花东镇北兴学而街9号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-d20d274083e3",
+    "name": "广州市耀华学校（公费班）",
+    "district": "花都区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "花都区",
+    "campusAddress": "广州市花都区花东镇北兴学而街9号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-a46d46a5295f",
+    "name": "广州市禺山高级中学",
+    "district": "番禺区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "番禺区",
+    "campusAddress": "番禺区桥南街福贤路323号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-0eebefaa93e8",
+    "name": "广州市玉岩中学",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区玉中路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-81902b3f8aec",
+    "name": "广州市育才中学",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "广州市福今路2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-f303d2d01fce",
+    "name": "广州市源雅学校",
+    "district": "白云区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区大源北路46号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-5f500a5418c2",
+    "name": "广州市源雅学校（公费班）",
+    "district": "白云区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区大源北路46号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e06abc629a4f",
+    "name": "广州市增城区第一中学",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区荔湖街荔湖大道133号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-a8d49e4a3303",
+    "name": "广州市增城区高级中学",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "增城区增江街梅花路10号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b96406c75756",
+    "name": "广州市增城区荔城中学",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区增江街东桥东路43号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-774ba3732b65",
+    "name": "广州市增城区南香山中学",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "增城区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区永宁街伴湖一路357号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e0ffdf53a122",
+    "name": "广州市增城区派潭中学",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "增城区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "增城区派潭镇榕林路67号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-20e16df5a92b",
+    "name": "广州市增城区仙村中学",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "增城区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "增城区仙村镇仙村大道8号仙村中学",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-7b23af080db1",
+    "name": "广州市增城区新塘中学",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区新塘镇港口大道328新塘中学",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e63afeddbce1",
+    "name": "广州市增城区应元学校",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "增城区",
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广东省广州市增城区宁埔大道与创学路交叉口广州市增城区应元学校高中部",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e4d08e5bef11",
+    "name": "广州市增城区永和中学",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "增城区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广东省广州市增城区永宁街永贤路36号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-985849148729",
+    "name": "广州市增城区增城中学",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区荔湖街荔城大道420号增城中学",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-490f3ee0a366",
+    "name": "广州市增城区郑中钧中学",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "增城区增江街教育路18号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-45a9c77faf4c",
+    "name": "广州市增城区中新中学",
+    "district": "增城区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "增城区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "增城区",
+    "campusAddress": "广州市增城区中新镇学园路14号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-d93473f23283",
+    "name": "广州市真光中学",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区白鹤洞培真路17号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b24c8ca363ab",
+    "name": "广州市真光中学（汾水校区）",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区芳村汾水小区芬芳街47号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-d2d9695e0772",
+    "name": "广州市真光中学（广钢校区）",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区崇文五路",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e3e696577f4f",
+    "name": "广州市执信中学",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2021-batch-2-pdf"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-3e4c063e7acc",
+    "name": "广州市执信中学（二沙岛校区）（中外合作办学项目）",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-332218cea79d",
+    "name": "广州市执信中学（二沙岛校区）（中外合作办学项目）（A-Level课程）",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "广州市越秀区白云街春晓街2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e86449237884",
+    "name": "广州市执信中学（二沙岛校区）（中外合作办学项目）（AP课程）",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "广州市越秀区白云街春晓街2号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-284b2b772794",
+    "name": "广州市执信中学（天河校区）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "天河区珠吉街道至信路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-a356b84be321",
+    "name": "广州市执信中学（执信路校区）",
+    "district": "越秀区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "越秀区",
+    "campusAddress": "广州市越秀区执信南路152号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-3191052cb57d",
+    "name": "广州市珠江高级中学",
+    "district": "白云区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区龙归街永兴村永凤路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-c89ef22066a0",
+    "name": "广州市珠江高级中学（公费班）",
+    "district": "白云区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "白云区",
+    "campusAddress": "广州市白云区龙归街永兴村永凤路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-cfe870007f41",
+    "name": "广州思源学校",
+    "district": "天河区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区珠吉街走马岗东路155号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-fb386bf0fde1",
+    "name": "广州思源学校（公费班）",
+    "district": "天河区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区珠吉街走马岗东路155号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-b372e6724412",
+    "name": "广州天省实验学校",
+    "district": "天河区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区天源路399号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-f2e5fcd92a13",
+    "name": "广州天省实验学校（公费班）",
+    "district": "天河区",
+    "ownership": "民办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区天源路399号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-4421b7e6687d",
+    "name": "广州天省实验学校（中外合作办学项目）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区天源路399号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-39546db6ee78",
+    "name": "广州外国语学校",
+    "district": "南沙区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区凤凰大道102号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-ded7d37eaf74",
+    "name": "广州外国语学校（中外合作办学项目）（A-Level课程）",
+    "district": "南沙区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区凤凰大道102号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-753359e9f429",
+    "name": "广州外国语学校（中外合作办学项目）（AP课程）",
+    "district": "南沙区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区凤凰大道102号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e27c383123b3",
+    "name": "广州外国语学校（中外合作办学项目）（IB-DP课程）",
+    "district": "南沙区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区凤凰大道102号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-a9afa174ddb3",
+    "name": "广州协和学校",
+    "district": "荔湾区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区西湾路93号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-ba4c09ad93ff",
+    "name": "广州英豪学校",
+    "district": "从化区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "从化区",
+    "campusAddress": "从化区流溪温泉旅游度假区",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-22b88703745d",
+    "name": "广州英豪学校（公费班）",
+    "district": "从化区",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-4",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "从化区",
+    "campusAddress": "从化区流溪温泉旅游度假区",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-d73eecd60172",
+    "name": "广州知识城中学",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "黄埔区"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区龙湖街凤凰下街29号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-53982052dcc7",
+    "name": "广州中学",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区华美路63号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-524a67309dff",
+    "name": "华南师范大学附属南沙中学",
+    "district": "南沙区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "南沙区",
+    "campusAddress": "广州市南沙区南沙街凤滨一路1号华南师范大学附属南沙中学",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-056ad7c9a7d2",
+    "name": "华南师范大学附属中学",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2021-batch-2-pdf",
+      "official-2022-batch-2-pdf",
+      "official-2023-batch-2-pdf"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-198c01489912",
+    "name": "华南师范大学附属中学（石牌校区）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区中山大道西1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-fd2a5311bae4",
+    "name": "华南师范大学附属中学（知识城校区）",
+    "district": "黄埔区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-3",
+      "official-2025-batch-3",
+      "official-2026-batch-3",
+      "official-2024-batch-2-pdf",
+      "official-2025-batch-2-pdf",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "黄埔区",
+    "campusAddress": "广州市黄埔区博华六路111号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-e3076a688fd1",
+    "name": "华南师范大学附属中学南海实验高级中学",
+    "district": "外市",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "外市",
+    "campusAddress": "佛山市南海区桂城东平路7号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-0c0a8676ec8c",
+    "name": "清华附中湾区学校",
+    "district": "未核准",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2023-batch-3",
+      "official-2024-batch-3",
+      "official-2025-batch-3"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-11fe9a9bc94f",
+    "name": "清华附中湾区学校（智谷校区）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区天坤二路99号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-27a6b9f3302f",
+    "name": "清华附中湾区学校（智慧城校区）",
+    "district": "天河区",
+    "ownership": "公办",
+    "category": "示范性或优质普通高中",
+    "admissionScopes": [
+      "全市",
+      "送生初中"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2026-batch-3",
+      "official-2026-batch-2-pdf",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "天河区",
+    "campusAddress": "广州市天河区华观路",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  },
+  {
+    "id": "gz-323c67bee441",
+    "name": "清远市广铁一中（万科城）外国语学校",
+    "district": "未核准",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2022-batch-4",
+      "official-2023-batch-4",
+      "official-2024-batch-4",
+      "official-2025-batch-4"
+    ],
+    "campusDistrict": null,
+    "campusAddress": null,
+    "campusDistrictSourceId": null
+  },
+  {
+    "id": "gz-95fae0f3d461",
+    "name": "肇庆市华赋实验学校",
+    "district": "外市",
+    "ownership": "民办",
+    "category": "普通高中或综合高中",
+    "admissionScopes": [
+      "全市"
+    ],
+    "boarding": null,
+    "annualFee": null,
+    "annualFeeSourceId": null,
+    "sourceIds": [
+      "official-2024-batch-4",
+      "official-2025-batch-4",
+      "official-2026-batch-4",
+      "official-2026-school-directory-pdf"
+    ],
+    "campusDistrict": "外市",
+    "campusAddress": "肇庆市高新区大旺大道华赋实验学校",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
+  }
+]

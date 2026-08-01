@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN" data-app-home="../">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>输入序列号｜广州中考志愿模拟助手</title>
+    <meta name="description" content="粘贴品沐提供的序列号，解锁广州中考志愿模拟助手。" />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css?v=20260726k" />
+    <link rel="stylesheet" href="./unlock.css?v=20260726e" />
+    <link rel="stylesheet" href="../typography.css?v=20260726a" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <nav class="site-nav" aria-label="主导航">
+      <a class="brand" href="../">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></svg></span>
+        广州中考志愿模拟
+      </a>
+      <div class="nav-links">
+        <a href="https://pinmooconsulting.com/zh/" target="_blank" rel="noreferrer">品沐咨询官网 ↗</a>
+        <a href="../direction/">方向版</a>
+        <a href="../target/">目标校版</a>
+        <a href="../verify/">求证版</a>
+        <a href="../special/?mode=talent">特长生</a>
+        <a href="../special/?mode=autonomous">自主招生</a>
+        <a href="../unlock/" class="is-current" aria-current="page">输入序列号</a>
+      </div>
+    </nav>
+
+    <main id="main" class="access-shell">
+      <section class="access-hero serial-hero">
+        <div>
+          <a class="inline-back" href="../">← 返回志愿助手</a>
+          <span class="eyebrow">序列号解锁</span>
+          <h1>粘贴序列号，解锁完整功能</h1>
+          <p>请输入品沐提供的序列号。每个序列号最多绑定两台设备；第三台设备需要使用新的序列号。</p>
+        </div>
+      </section>
+
+      <section class="access-card serial-card">
+        <div id="serialEntitledPanel" class="serial-entitled" hidden>
+          <span class="serial-entitled-mark" aria-hidden="true">✓</span>
+          <div>
+            <strong>当前设备已解锁</strong>
+            <p id="serialDeviceStatus">正在读取设备绑定状态…</p>
+          </div>
+          <a class="primary-button" href="../">进入志愿助手</a>
+        </div>
+        <div class="access-step"><b>1</b><span><strong>输入解锁序列号</strong><small>序列号由品沐提供，请完整粘贴</small></span></div>
+        <form id="serialForm" class="serial-form">
+          <label>序列号
+            <textarea id="serialCode" name="serialCode" rows="3" autocomplete="off" spellcheck="false" placeholder="例如：XXXX-XXXX-XXXX-XXXX" required></textarea>
+          </label>
+          <button class="primary-button full-button" type="submit">验证并解锁</button>
+        </form>
+        <div id="serialStatus" class="serial-status" role="status" aria-live="polite">验证成功后将绑定当前设备，并写入服务端使用权。</div>
+        <p class="serial-support-note">如遇序列号无法验证或设备绑定异常，请联系原购买平台客服协助核查；为保护使用权，请勿向无关人员提供完整序列号。</p>
+      </section>
+
+      <section class="disclaimer" aria-label="免责声明">
+        <strong>使用说明</strong>
+        <p>序列号不得转让、传播或用于非授权用途。系统所示评分、录取机会和学校建议均为统计估计，不代表官方录取结果或任何录取承诺。招生政策和计划每年可能变化，请以当年官方公布信息为准。本系统仅供参考。<a href="../privacy/">查看隐私说明</a></p>
+      </section>
+    </main>
+
+    <nav class="quick-return" aria-label="快捷返回">
+      <button type="button" data-smart-back>← 返回上一页</button>
+      <a href="../" data-home-return>⌂ 助手首页</a>
+      <button type="button" data-scroll-top>↑ 回到顶部</button>
+    </nav>
+    <div id="accessToast" class="access-toast" role="status" aria-live="polite"></div>
+    <script src="../navigation.js?v=20260726j"></script>
+    <script src="../access-gate.js?v=20260726h"></script>
+    <script type="module" src="./unlock.js?v=20260726h"></script>
+  </body>
+</html>

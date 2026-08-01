@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-CN" data-app-home="./">
+  <head>
+  <style>/* 关键样式兜底：外部 CSS 因任何原因未加载时，首屏也不至于全灰崩坏（外部 stylesheet 在本标签之后加载，会正常覆盖） */
+    html, body { margin: 0; background: #edf2f8; color: #24324a; font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
+    .app-shell { max-width: 1440px; margin: 0 auto; padding: 24px; }
+    .home-masthead { text-align: center; padding: 40px 16px 6px; }
+    .home-title { font-size: clamp(32px, 6vw, 54px); font-weight: 900; color: #24324a; margin: 0; }
+    .home-brandmark { display: inline-grid; place-items: center; width: 62px; height: 62px; margin: 0 auto 18px; border-radius: 19px; background: linear-gradient(135deg, #0b5cff, #0646c8); color: #fff; }
+    .home-brandmark svg { width: 33px; height: 33px; }
+    .landing-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 32px auto 0; padding: 0 16px; }
+    @media (max-width: 760px) { .landing-cards { grid-template-columns: 1fr; } }
+  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>广州中考志愿模拟助手｜历年数据复盘与冲稳保分析</title>
+    <meta name="description" content="基于广州招考官方公开资料，重点模拟第三、第四批普通高中志愿，兼顾第二批名额分配资格核对，并提供第一批特长项目、开放日与自主招生历史成绩查询。" />
+    <link rel="canonical" href="https://zhongkao.pinmooconsulting.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="广州中考志愿模拟助手" />
+    <meta property="og:description" content="按广州多梯度投档规则模拟志愿，查看历史复盘、机会区间和填报建议。" />
+    <meta property="og:url" content="https://zhongkao.pinmooconsulting.com/" />
+    <meta property="og:image" content="https://zhongkao.pinmooconsulting.com/assets/og-cover.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="广州中考志愿模拟助手真实界面预览" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css?v=20260801a" />
+    <link rel="stylesheet" href="./typography.css?v=20260726a" />
+  </head>
+  <body class="zhongkao-home">
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <nav class="site-nav" aria-label="主导航">
+      <a class="brand" href="./">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></svg></span>
+        广州中考志愿模拟
+      </a>
+      <div class="nav-links">
+        <a href="https://pinmooconsulting.com/zh/" target="_blank" rel="noreferrer">品沐咨询官网 ↗</a>
+        <a href="./direction/">方向版</a>
+        <a href="./target/">目标校版</a>
+        <a href="./verify/">求证版</a>
+        <a href="./special/?mode=talent">特长生</a>
+        <a href="./special/?mode=autonomous">自主招生</a>
+        <a href="./unlock/">解锁 / 账户</a>
+      </div>
+    </nav>
+    <main id="main" class="app-shell">
+      <section class="landing" id="landing" aria-label="开始使用">
+        <header class="home-masthead">
+          <span class="home-brandmark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="33" height="33" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></svg>
+          </span>
+          <h1 class="home-title">广州中考志愿模拟助手</h1>
+          <p class="home-byline">由品沐咨询提供</p>
+          <p class="home-source-note">数据来源：广州市招生考试委员会办公室历年公开录取数据（2021–2026）及广州市教育局招生政策；结果仅为模拟参考，请以官方当年公布信息为准。<button id="showSources" class="text-button" type="button">查看数据明细</button></p>
+          <span id="dataVersion" class="home-data-version"></span>
+        </header>
+        <div class="home-focus-note" role="note">
+          <span>主填报主线</span>
+          <strong>第三批、第四批普通高中志愿</strong>
+          <p>大多数家庭真正需要反复推演的是普通高中志愿顺序、梯度和保底。第一批专项先看项目、开放日和往年自招成绩；第二批名额分配按资格核对，真正的主填报从第三、第四批开始。</p>
+        </div>
+        <div class="landing-cards">
+          <a class="card card--raised landing-card" id="landingDirection" href="./direction/" aria-label="进入方向版：我只知道大概分数">
+            <span class="landing-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></svg>
+            </span>
+            <span class="landing-card-kicker">方向版</span>
+            <h2>我只知道大概分数</h2>
+            <p>系统帮我找冲稳保方向</p>
+            <span class="btn btn--primary landing-card-cta">开始找方向 →</span>
+          </a>
+          <a class="card card--raised landing-card" id="landingTarget" href="./target/" aria-label="进入目标校版：我已经有目标学校">
+            <span class="landing-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><circle cx="12" cy="12" r="3.2"/><path d="M12 2.5v2.8M12 18.7v2.8M2.5 12h2.8M18.7 12h2.8"/></svg>
+            </span>
+            <span class="landing-card-kicker">目标校版</span>
+            <h2>我已经有目标学校</h2>
+            <p>倒推冲刺分与填报建议</p>
+            <span class="btn btn--primary landing-card-cta">分析目标校 →</span>
+          </a>
+          <a class="card card--raised landing-card landing-card--featured" id="landingVerify" href="./verify/" aria-label="进入求证版：我已经有填报计划">
+            <span class="landing-card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 7.4-7 9-4-1.6-7-4.6-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
+            <span class="landing-card-kicker">求证版</span>
+            <h2>我已经有填报计划</h2>
+            <p>帮我求证、评分并补强</p>
+            <span class="btn btn--primary landing-card-cta">进入求证 →</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- 次要入口：扩展查询工具 -->
+      <section class="secondary-entries" aria-label="扩展查询工具">
+        <p class="secondary-eyebrow">扩展查询工具</p>
+        <div class="secondary-grid">
+          <a class="secondary-entry" href="./special/?mode=talent">
+            <span class="secondary-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 13.5l-1.5 7L12 19l4.5 1.5L15 13.5"/><path d="M12 6.5l1 2.2 2.3.3-1.7 1.6.4 2.3-2-.9-2 .9.4-2.3-1.7-1.6 2.3-.3z"/></svg>
+            </span>
+            <span class="secondary-text"><strong>第一批：特长项目查询</strong><small>按足球、田径、民乐等项目查看对应学校；资格以官方测试和公示为准</small></span>
+            <span class="secondary-go" aria-hidden="true">→</span>
+          </a>
+          <a class="secondary-entry" href="./special/?mode=autonomous">
+            <span class="secondary-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 7.4-7 9-4-1.6-7-4.6-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
+            <span class="secondary-text"><strong>第一批：开放日与自招成绩</strong><small>看目标校公开活动、往年100分制合成成绩和官方简章</small></span>
+            <span class="secondary-go" aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- 功能概览预览：未付费用户可见的概览内容 -->
+      <section class="home-preview" aria-label="功能概览预览">
+        <p class="secondary-eyebrow">功能概览预览</p>
+        <h2 class="home-preview-title">志愿模拟能给你什么</h2>
+        <div class="preview-copy">
+          <p><strong>方向版：</strong>只填估分区间，围绕第三、第四批普通高中志愿生成冲、稳、保草案。</p>
+          <p><strong>目标校版：</strong>选定心仪学校，倒推冲刺分数方向、机会区间及可替换学校。</p>
+          <p><strong>求证版：</strong>已有学校名单时，核对资格、梯度、志愿顺序和保底完整性，给出具体调整建议。</p>
+        </div>
+        <p class="preview-note">以上为功能概览。完整生成、分析与求证需解锁后使用。</p>
+      </section>
+
+      <section class="disclaimer" aria-label="免责声明">
+        <strong>免责声明</strong>
+        <p>本系统依据公开招生政策及历史数据进行模拟分析，所示评分、录取机会和学校建议均为统计估计，不代表官方录取结果或任何录取承诺。招生政策、计划、报考范围、成绩分布和志愿竞争每年可能变化，请以当年广州市教育局、广州市招生考试委员会办公室及中考服务平台最终公布的信息为准。名额分配、随迁子女、跨区及其他资格请向学校或招考部门核实。志愿选择由考生及监护人自行决定。本系统仅供参考。</p>
+      </section>
+    </main>
+
+    <nav class="quick-return" aria-label="快捷返回">
+      <button type="button" data-smart-back>← 返回上一处</button>
+      <a href="./" id="homeReturn" data-home-return>⌂ 助手首页</a>
+      <button type="button" data-scroll-top>↑ 回到顶部</button>
+    </nav>
+    <footer><span>广州中考志愿模拟助手 · 由品沐提供</span><span><a href="./privacy/">隐私说明</a> · <a href="https://gzzk.gz.gov.cn/zkzz/" target="_blank" rel="noreferrer">广州招考官方入口</a></span></footer>
+
+    <dialog id="sourceDialog">
+      <div class="dialog-head"><h2>数据来源与覆盖</h2><button id="closeSources" type="button" aria-label="关闭">×</button></div>
+      <div id="sourceContent"></div>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="./access-gate.js?v=20260726c"></script>
+    <script src="./navigation.js?v=20260726j"></script>
+  <script type="module" src="./app.js?v=20260729b"></script>
+  </body>
+</html>

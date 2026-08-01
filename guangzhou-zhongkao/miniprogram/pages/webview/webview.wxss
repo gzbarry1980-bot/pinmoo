@@ -1,0 +1,1 @@
+.webview-page { min-height: 100vh; background: #f4f7fb; }.web-error { margin: 40rpx 28rpx; padding: 26rpx; background: #fff; border-radius: 16rpx; color: #627d98; line-height: 1.6; }

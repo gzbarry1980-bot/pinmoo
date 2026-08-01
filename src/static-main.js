@@ -163,7 +163,8 @@ function ResponsiveImage(src, alt, loading, attrs) {
 function Header() {
   const language = '<div class="language-switch" aria-label="Language switch"><a class="' + (!isEn() ? 'active' : '') + '" href="' + currentPathForLang('zh') + '">中文</a><a class="' + (isEn() ? 'active' : '') + '" href="' + currentPathForLang('en') + '">EN</a></div>';
   const nav = NAV_ITEMS.filter(function(item) { return !item.zhOnly || !isEn(); }).map(function(item) { return '<a class="' + (isActive(item) ? 'active' : '') + '" href="' + localizeHref(item.href) + '">' + (isEn() ? (EN_TEXT[item.label] || item.label) : item.label) + '</a>'; }).join('') + language;
-  return '<header class="site-header"><div class="container header-shell"><a class="brand-link" href="' + localizeHref('/') + '" aria-label="PINMOO 品沐咨询首页">' + logo('logo-frame-header') + '</a><nav class="desktop-nav" aria-label="主导航">' + nav + '</nav><div class="header-actions"><a class="header-cta" href="' + localizeHref('/contact/') + '">' + (isEn() ? 'Book' : '预约咨询') + '</a></div><button class="mobile-menu-btn" type="button" aria-label="打开导航" aria-expanded="false">' + icon('Menu', 24) + '</button></div><div class="mobile-nav-panel"><nav aria-label="移动端导航">' + nav + '<a class="mobile-nav-cta" href="' + localizeHref('/contact/') + '">' + (isEn() ? 'Book a Consultation' : '预约咨询') + '</a></nav></div></header>';
+  const headerHref = isEn() ? '/contact/' : '/contact/?service=geo-report';
+  return '<header class="site-header"><div class="container header-shell"><a class="brand-link" href="' + localizeHref('/') + '" aria-label="PINMOO 品沐咨询首页">' + logo('logo-frame-header') + '</a><nav class="desktop-nav" aria-label="主导航">' + nav + '</nav><div class="header-actions"><a class="header-cta" href="' + localizeHref(headerHref) + '">' + (isEn() ? 'Book' : '免费领 GEO 报告') + '</a></div><button class="mobile-menu-btn" type="button" aria-label="打开导航" aria-expanded="false">' + icon('Menu', 24) + '</button></div><div class="mobile-nav-panel"><nav aria-label="移动端导航">' + nav + '<a class="mobile-nav-cta" href="' + localizeHref(headerHref) + '">' + (isEn() ? 'Book a Consultation' : '免费领 GEO 报告') + '</a></nav></div></header>';
 }
 
 function Footer() {
@@ -191,19 +192,20 @@ function PageHero(title, subtitle, compact, extra, visual) {
 }
 
 function CtaBand(title, text, button) {
-  const t = title || '你的品牌，下一步该先优化哪里？';
-  const p = text || '留下需求，或直接添加微信联系。我们会从平台、商品、流量、转化和团队执行五个维度，帮你判断最值得优先解决的问题。';
-  return '<div class="container"><div class="reveal cta-band-wrap"><section class="cta-band"><div class="cta-band-icon">' + icon('MessageCircle', 34) + '</div><div class="cta-band-text"><h2>' + t + '</h2><p>' + p + '</p></div><div class="cta-band-contact"><strong>' + SITE.contactLabel + '</strong><span>' + SITE.contactNote + '</span></div>' + ButtonLink(button || '预约咨询', '/contact/', 'primary', false) + '</section></div></div>';
+  const t = title || (isEn() ? 'Where should your brand optimize first?' : '添加微信，免费获取一份品牌 GEO 基础报告');
+  const p = text || (isEn() ? 'Share your brand website and current market question. We will clarify the next practical step before proposing a larger engagement.' : '发送品牌名称、官网或店铺链接、主要平台和目标市场。品沐会基于公开信息先做一份品牌 GEO 基础判断，帮助你看清 AI 搜索可见度、事实一致性和下一步优化方向。');
+  const ctaHref = isEn() ? '/contact/' : '/contact/?service=geo-report';
+  return '<div class="container"><div class="reveal cta-band-wrap"><section class="cta-band"><div class="cta-band-icon">' + icon('MessageCircle', 34) + '</div><div class="cta-band-text"><h2>' + t + '</h2><p>' + p + '</p></div><div class="cta-band-contact"><strong>' + SITE.contactLabel + '</strong><span>' + SITE.contactNote + '</span></div>' + ButtonLink(button || (isEn() ? 'Book a Consultation' : '免费领取 GEO 报告'), ctaHref, 'primary', false) + '</section></div></div>';
 }
 
 function HomeInquirySection() {
   const cards = [
     {
-      icon: 'Search',
-      title: '不知道问题先从哪拆',
-      text: '适合增长乏力、团队各说各话、老板需要先判断优先级的品牌。',
-      href: '/services/ecommerce-diagnosis/',
-      cta: '看电商战略诊断'
+      icon: 'Rocket',
+      title: '想知道 AI 为什么不提你的品牌',
+      text: '添加微信并备注“品牌GEO报告”，可先免费获取一份基于公开信息的品牌 GEO 基础报告。',
+      href: '/contact/?service=geo-report',
+      cta: '免费领品牌 GEO 报告'
     },
     {
       icon: 'Store',
@@ -221,29 +223,30 @@ function HomeInquirySection() {
     },
     {
       icon: 'MessageCircle',
-      title: '想先确认是否值得合作',
-      text: '直接添加微信，发品牌、平台、当前问题和希望先看的方向，先做基础判断。',
-      href: '/contact/',
-      cta: '发起基础诊断'
+      title: '想先确认品牌 GEO 是否值得做',
+      text: '直接添加微信并备注“品牌GEO报告”，发品牌名称、官网或店铺链接、平台和目标市场，先获取公开信息版基础报告。',
+      href: '/contact/?service=geo-report',
+      cta: '免费领 GEO 报告'
     }
   ].map(function(item) {
     return '<article class="inquiry-path-card reveal"><div>' + icon(item.icon, 26) + '<h3>' + item.title + '</h3></div><p>' + item.text + '</p><a class="outline-link" href="' + localizeHref(item.href) + '">' + item.cta + ' ' + icon('ArrowRight', 16) + '</a></article>';
   }).join('');
-  return '<section class="section inquiry-path-section"><div class="container">' + SectionIntro('先从一个具体问题进入，询盘会更有效', '如果你暂时不知道该买什么服务，可以先按当前最像自己的问题进入。品沐会先帮你判断问题是否清楚、是否值得优先解决、下一步该看哪些资料。') + '<div class="inquiry-path-grid">' + cards + '</div></div></section>';
+  return '<section class="section inquiry-path-section"><div class="container">' + SectionIntro('先从一个具体问题进入，询盘会更有效', '如果你想知道 AI 是否找得到、理解对并引用你的品牌，可以先领取一份公开信息版 GEO 基础报告；其他电商问题再从诊断和数据复盘进入。') + '<div class="inquiry-path-grid">' + cards + '</div></div></section>';
 }
 
 function FirstDiagnosisSection() {
   const items = [
-    ['你发来什么', '品牌/店铺名称、主要平台、当前最想解决的问题、可公开的店铺或商品链接。', 'FilePenLine'],
-    ['我们先看什么', '平台路径、商品与页面、流量质量、退款风险、客服承接和团队复盘节奏。', 'Target'],
-    ['你会得到什么', '一个初步判断：问题优先级、建议先看资料、是否适合进一步诊断或陪跑。', 'CheckCircle2']
+    ['你发来什么', '品牌名称、官网或店铺链接、主要平台、目标市场和当前最想解决的问题。', 'FilePenLine'],
+    ['我们先看什么', 'AI 搜索可见度、品牌事实一致性、技术可抓取性、内容证据和外部信源。', 'Target'],
+    ['你会得到什么', '一份公开信息版初步报告：问题优先级、证据缺口和未来 30 至 90 天动作建议。', 'CheckCircle2']
   ].map(function(item, index) {
     return '<div class="diagnosis-step reveal"><span>0' + (index + 1) + '</span>' + icon(item[2], 28) + '<h3>' + item[0] + '</h3><p>' + item[1] + '</p></div>';
   }).join('');
-  return '<section class="section first-diagnosis-section"><div class="container first-diagnosis-layout"><div class="reveal first-diagnosis-copy"><p class="section-eyebrow">低门槛开始</p><h2>先做一次免费基础判断，再决定是否深入合作</h2><p>很多品牌迟迟没有咨询，是因为不知道该怎么描述问题。你不用先准备完整方案，只要把现状说清楚一点，我们会先帮你判断下一步该从哪里切入。</p>' + ButtonLink('去联系页发起诊断', '/contact/', 'primary', true) + '</div><div class="first-diagnosis-grid">' + items + '</div></div></section>';
+  return '<section class="section first-diagnosis-section"><div class="container first-diagnosis-layout"><div class="reveal first-diagnosis-copy"><p class="section-eyebrow">免费 GEO 报告</p><h2>先获取一份品牌 GEO 基础报告，再决定是否做长期优化</h2><p>添加微信并备注“品牌GEO报告”，把品牌公开资料发来。品沐先做基础判断，再告诉你优先补哪一类内容，不以虚假排名或绝对推荐作为承诺。</p>' + ButtonLink('添加微信领取报告', '/contact/?service=geo-report', 'primary', true) + '</div><div class="first-diagnosis-grid">' + items + '</div></div></section>';
 }
 
 const serviceLandingById = {
+  'geo-consulting': 'geo-consulting',
   'strategy-diagnosis': 'ecommerce-diagnosis',
   'operation-coaching': 'tmall-jd-consultant',
   'conversion-optimization': 'page-conversion-optimization',
@@ -306,6 +309,11 @@ function DashboardVisual() {
   return '<div class="dashboard-visual" aria-label="电商数据看板演示数据示意图"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="growth-arrow"></div><div class="metric-card metric-main"><span>演示数据 · 净销售额趋势</span><strong>¥ 11,936,420</strong><em>+16.8%</em><svg viewBox="0 0 260 80" role="img" aria-label="增长趋势线"><polyline points="6,62 38,48 70,52 102,45 136,50 170,38 205,34 250,12" fill="none" stroke="#255BFF" stroke-width="5" stroke-linecap="round"></polyline><path d="M6 72 C70 38,120 72,250 22 L250 80 L6 80 Z" fill="rgba(74,91,255,.12)"></path></svg></div><div class="metric-card metric-roi"><span>演示数据 · 付费 ROI</span><strong>3.42</strong><em>计划级拆解</em></div><div class="metric-card metric-donut"><span>演示数据 · 流量结构</span><div class="donut"></div></div><div class="metric-card metric-rate"><span>演示数据 · 退款治理</span><strong>4.21%</strong><div class="bars"><i></i><i></i><i></i><i></i><i></i></div></div></div>';
 }
 
+function GeoReportOfferSection() {
+  if (isEn()) return '';
+  return '<section class="section geo-report-offer-section"><div class="container geo-report-offer"><div class="reveal geo-report-offer-copy"><p class="section-eyebrow">FREE BRAND GEO REPORT</p><h2>添加微信，免费获取一份品牌 GEO 基础报告</h2><p>如果你想知道品牌为什么不容易被 AI 搜索看见、理解或引用，先把品牌官网或店铺链接发给品沐。</p><ul class="geo-report-offer-list"><li>' + icon('Search', 20) + 'AI 搜索可见度、品牌事实一致性与技术可抓取性</li><li>' + icon('FilePenLine', 20) + '页面内容、FAQ、案例和外部信源的证据缺口</li><li>' + icon('Target', 20) + '未来 30 至 90 天可优先执行的 GEO 动作</li></ul><div class="geo-report-offer-actions">' + ButtonLink('查看领取方式', '/contact/?service=geo-report', 'primary', false) + '<span>' + SITE.contactLabel + '</span></div></div><div class="reveal geo-report-offer-card"><div class="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="添加品沐咨询微信，免费获取品牌 GEO 基础报告" loading="lazy"></div><div><strong>添加微信时备注</strong><code>品牌GEO报告</code><p>同时发送：品牌名称、官网或店铺链接、主要平台、目标市场。</p></div></div></div></section>';
+}
+
 function Home() {
   const stats = TRUST_STATS.map(function(item, index) { const names = ['BadgeCheck', 'Layers', 'BriefcaseBusiness', 'Users']; return '<div class="reveal stat-card"><span class="stat-icon">' + icon(names[index], 30) + '</span><div class="stat-copy"><strong><span class="stat-number">' + item.value + item.suffix + '</span></strong><span>' + item.label + '</span></div></div>'; }).join('');
   const serviceGrid = services.map(function(service, index) { return '<div class="reveal ' + (index === 0 || index === 1 ? 'bento-large' : '') + '">' + ServiceCard(service) + '</div>'; }).join('');
@@ -314,7 +322,15 @@ function Home() {
   const heroVisual = isEn()
     ? DashboardVisual()
     : '<div class="hero-editorial-visual"><picture><source media="(min-width: 561px)" srcset="/assets/visuals/home-growth-dashboard.webp"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="电商净销售额、投放回报与退款治理演示数据看板" width="1400" height="748" decoding="async" fetchpriority="high"></picture><p class="visual-demo-note">看板为演示数据，不代表客户经营结果</p></div>';
-  return '<section class="home-hero"><div class="hero-grid-bg"></div><div class="container home-hero-inner"><div class="reveal hero-copy"><p class="hero-kicker">' + (isEn() ? 'China e-commerce diagnosis / consulting' : '广州电商咨询 / 免费基础诊断') + '</p><h1>先找准电商增长卡点，再决定怎么花钱</h1><p class="hero-subtitle">品沐咨询帮助品牌从平台、商品、页面、投放、客服、直播和复购中找出真正影响增长的环节，先判断优先级，再进入诊断、陪跑或专项优化。</p><p class="hero-support">你可以先发来品牌、平台和当前问题，我们会做一次基础判断：问题是否清楚、资料是否足够、下一步该从哪里切入。</p><div class="hero-actions">' + ButtonLink('免费基础诊断', '/contact/', 'primary', false) + ButtonLink('查看服务介绍', '/services/', 'secondary', false) + '</div><div class="hero-proof-row"><span>24小时内回复</span><span>先判断是否适合合作</span><span>不做绝对增长承诺</span></div></div><div class="reveal hero-visual-wrap">' + heroVisual + '</div></div></section><section class="section trust-section"><div class="container">' + SectionIntro('服务多个消费品牌，覆盖主流电商平台', '覆盖天猫、京东、抖音、小红书、视频号、拼多多等主流平台，服务行业包括茶饮、服饰、营养品、个护电器、快消品、酒水等。') + '<div class="stats-grid">' + stats + '</div></div></section>' + HomeInquirySection() + '<section class="section services-preview" id="services"><div class="container split-heading">' + SectionIntro('围绕品牌电商增长，我们提供从诊断到落地的系统服务', '把平台、商品、内容、投放、转化和复购放在同一套增长链路里看，而不是只解决单点问题。', 'left') + '</div><div class="container bento-grid">' + serviceGrid + '</div></section>' + AiWeeklyReportSection() + FirstDiagnosisSection() + '<section class="section method-section"><div class="container">' + SectionIntro('我们用一套可落地的方法，拆解电商增长问题', '品沐咨询不是只给方向，而是通过诊断、策略、执行陪跑和复盘机制，把复杂的电商增长问题拆成可执行动作。') + '<div class="method-line">' + methods + '</div></div></section><section class="section cases-preview" id="cases"><div class="container">' + SectionIntro('真实项目经验，沉淀可复用的增长方法', '案例均来自真实项目，现有内容已经核对；因客户保密协议采用匿名方式呈现，并隐去客户名称及可识别细节。') + '<div class="home-case-grid">' + previewCases + '</div><div class="center-actions">' + ButtonLink('查看全部项目经验', '/cases/', 'primary', true) + '</div></div></section>' + HomeInsightsSection() + HomeFaqSection() + '<section class="section about-preview"><div class="container about-preview-grid"><div class="reveal"><h2>更懂实战，也懂 AI 工具的电商增长伙伴</h2><p>' + SITE.positioning + '</p>' + ButtonLink('了解品沐咨询与顾问背景', '/about/', 'primary', true) + '</div><div class="reveal office-visual"><img src="/assets/about-brand.svg" alt="广州品沐咨询有限公司的电商实战与AI工具协同方法" loading="lazy"></div></div></section>' + CtaBand('不确定该先做诊断、陪跑还是页面优化？', '先把品牌、平台和当前问题发给我们。品沐会先帮你做基础判断，再建议是否进入正式诊断或专项合作。', '免费基础诊断');
+  const heroKicker = isEn() ? 'GEO / China e-commerce growth consulting' : '品牌 GEO 优化 / 免费领取 GEO 报告';
+  const heroTitle = isEn() ? 'Make your brand easier for AI search to find and understand' : '让 AI 搜索看见、理解并引用你的品牌';
+  const heroSubtitle = isEn() ? 'PINMOO helps consumer brands build a clearer foundation for AI search visibility through entity facts, evidence-led content, technical crawlability and China e-commerce execution.' : '品沐咨询帮助品牌做 GEO：从技术可抓取性、品牌事实库、证据化内容到平台分发与可见度监测，建立更容易被 AI 理解和引用的增长基础。';
+  const heroSupport = isEn() ? 'Share your official website and current market question. We will clarify the next practical step before proposing a larger engagement.' : '添加微信并备注“品牌GEO报告”，可免费获取一份基于公开信息的品牌 GEO 基础报告。';
+  const heroPrimary = isEn() ? ButtonLink('Book a GEO consultation', '/contact/', 'primary', false) : ButtonLink('免费领取品牌 GEO 报告', '/contact/?service=geo-report', 'primary', false);
+  const heroSecondary = isEn() ? ButtonLink('See our consulting approach', '/china-ecommerce-consulting/', 'secondary', false) : ButtonLink('查看 GEO 服务', '/services/geo-consulting/', 'secondary', false);
+  const heroProof = isEn() ? '<span>Evidence-led content</span><span>Entity and fact consistency</span><span>No guaranteed recommendation</span>' : '<span>公开信息版报告</span><span>微信备注：品牌GEO报告</span><span>不承诺虚假推荐</span>';
+  const aboutPreviewTitle = isEn() ? 'GEO expertise with hands-on e-commerce execution' : '懂品牌 GEO，也懂电商实战';
+  return '<section class="home-hero"><div class="hero-grid-bg"></div><div class="container home-hero-inner"><div class="reveal hero-copy"><p class="hero-kicker">' + heroKicker + '</p><h1>' + heroTitle + '</h1><p class="hero-subtitle">' + heroSubtitle + '</p><p class="hero-support">' + heroSupport + '</p><div class="hero-actions">' + heroPrimary + heroSecondary + '</div><div class="hero-proof-row">' + heroProof + '</div></div><div class="reveal hero-visual-wrap">' + heroVisual + '</div></div></section>' + GeoReportOfferSection() + '<section class="section trust-section"><div class="container">' + SectionIntro('服务多个消费品牌，覆盖主流电商平台', '覆盖天猫、京东、抖音、小红书、视频号、拼多多等主流平台，服务行业包括茶饮、服饰、营养品、个护电器、快消品、酒水等。') + '<div class="stats-grid">' + stats + '</div></div></section>' + HomeInquirySection() + '<section class="section services-preview" id="services"><div class="container split-heading">' + SectionIntro('先把品牌 GEO 基础做好，再放大电商增长', '围绕 AI 搜索可见度、品牌事实、证据化内容与电商经营数据，提供从 GEO 到增长执行的系统服务。', 'left') + '</div><div class="container bento-grid">' + serviceGrid + '</div></section>' + AiWeeklyReportSection() + FirstDiagnosisSection() + '<section class="section method-section"><div class="container">' + SectionIntro('我们用一套可落地的方法，拆解电商增长问题', '品沐咨询不是只给方向，而是通过诊断、策略、执行陪跑和复盘机制，把复杂的电商增长问题拆成可执行动作。') + '<div class="method-line">' + methods + '</div></div></section><section class="section cases-preview" id="cases"><div class="container">' + SectionIntro('真实项目经验，沉淀可复用的增长方法', '案例均来自真实项目，现有内容已经核对；因客户保密协议采用匿名方式呈现，并隐去客户名称及可识别细节。') + '<div class="home-case-grid">' + previewCases + '</div><div class="center-actions">' + ButtonLink('查看全部项目经验', '/cases/', 'primary', true) + '</div></div></section>' + HomeInsightsSection() + HomeFaqSection() + '<section class="section about-preview"><div class="container about-preview-grid"><div class="reveal"><h2>' + aboutPreviewTitle + '</h2><p>' + SITE.positioning + '</p>' + ButtonLink('了解品沐咨询与顾问背景', '/about/', 'primary', true) + '</div><div class="reveal office-visual"><img src="/assets/about-brand.svg" alt="广州品沐咨询有限公司的品牌 GEO 与电商实战协同方法" loading="lazy"></div></div></section>' + CtaBand(isEn() ? 'Want to know whether AI search can find your brand?' : '添加微信，免费获取一份品牌 GEO 基础报告', isEn() ? 'Share your brand website and current question. We will clarify the next practical step before proposing a larger engagement.' : '发送品牌名称、官网或店铺链接、主要平台和目标市场。品沐会基于公开信息先做一份品牌 GEO 基础判断。', isEn() ? 'Book a GEO consultation' : '免费领取 GEO 报告');
 }
 
 function Services() {
@@ -528,7 +544,7 @@ function InsightsPage() {
   const clusterNav = insightClusters.map(function(cluster) { return '<a href="#' + cluster.id + '">' + cluster.title + '</a>'; }).join('');
   return PageHero('经营洞察', '针对品牌电商中的具体问题，先给直接答案，再说明数据口径、判断方法、适用边界和执行清单。', false, '', { key: 'insights', src: '/assets/visuals/insights-weekly-report.webp', alt: '电商经营周报、退款治理、流量质量和商品结构分析示意图' }) +
     '<section class="section insights-index-section"><div class="container"><div class="insights-index-intro reveal"><p class="section-eyebrow">PINMOO METHOD</p><h2>让搜索引擎、AI和经营团队读到同一套清晰答案</h2><p>这里聚焦服务决策、店铺经营、数据复盘和AI工具等具体问题。每篇内容均标明判断依据、适用范围、使用限制和行动建议，不使用无法核验的增长承诺。</p></div><nav class="insight-cluster-nav reveal" aria-label="经营洞察主题">' + clusterNav + '</nav>' + clusters + '</div></section>' +
-    CtaBand('有具体数据，但还不确定问题在哪里？', '把品牌、平台、统计周期和当前最想解决的问题发给品沐，我们先帮你判断资料是否足够、下一步该从哪里切入。', '免费基础诊断');
+    CtaBand('先获取一份品牌 GEO 基础报告', '添加微信并备注“品牌GEO报告”，发送品牌名称、官网或店铺链接、主要平台和目标市场，品沐会基于公开信息先判断品牌的 AI 搜索可见度与证据缺口。', '免费领取 GEO 报告');
 }
 
 function InsightDetail(article) {
@@ -585,16 +601,16 @@ function About() {
 }
 
 function ContactForm() {
-  const intents = ['电商咨询', '店铺诊断', '运营陪跑', '品牌增长', '官网咨询'].map(function(item) { return '<span>' + item + '</span>'; }).join('');
+  const intents = ['品牌GEO报告', 'GEO技术审计', 'AI搜索可见度', '电商咨询', '官网咨询'].map(function(item) { return '<span>' + item + '</span>'; }).join('');
   const servicesList = services.map(function(service) { return '<li>' + icon(service.icon, 20) + '<span>' + service.title + '</span></li>'; }).join('');
   const templates = [
-    ['基础诊断', '品牌/店铺：___；主要平台：天猫/京东/抖音/小红书；当前问题：有流量但转化低/退款高/投放不稳；希望先看：店铺诊断。'],
+    ['品牌GEO报告', '品牌名称：___；官网或店铺链接：___；主要平台：天猫/京东/抖音/小红书；目标市场：___；希望先看：品牌 GEO 可见度与内容优化。'],
     ['经营周报', '我们有生意参谋/推广/退款数据，想生成一版品牌方可读的经营周报，重点看净销售额、退款、流量结构和下周期动作。'],
     ['运营陪跑', '品牌目前有运营团队，但缺少外部复盘和优先级判断，想了解月度顾问陪跑如何合作。']
   ].map(function(item) {
     return '<article><strong>' + item[0] + '</strong><p>' + item[1] + '</p></article>';
   }).join('');
-  return '<section class="contact-direct-panel" aria-labelledby="wechatConsultTitle"><div class="form-heading">' + icon('MessageCircle', 26) + '<h2 id="wechatConsultTitle">扫码添加微信，直接预约咨询</h2></div><div class="direct-qr-block"><div class="wechat-qr-crop direct-qr"><img src="/assets/wechat-qr-mufeng.jpg" alt="沐风微信二维码" loading="lazy"></div><div><strong>微信 / 手机同号：' + SITE.phoneDisplay + '</strong><p>添加微信或拨打电话时，请注明来意，我们会更快判断你的需求并安排沟通。</p><div class="direct-intents">' + intents + '</div><a class="direct-phone-link" href="tel:' + SITE.phone + '">' + icon('Phone', 18) + '拨打电话</a></div></div><div class="direct-service-box"><h3>可以直接咨询这些问题</h3><ul>' + servicesList + '</ul></div><div class="inquiry-template-box"><h3>不知道怎么开口，可以直接这样发</h3><div>' + templates + '</div></div><p class="direct-note">建议添加微信后，至少发送：品牌/店铺名称、所在平台、当前最想解决的问题、希望先看的方向。</p></section>';
+  return '<section class="contact-direct-panel" aria-labelledby="wechatConsultTitle"><div class="form-heading">' + icon('MessageCircle', 26) + '<h2 id="wechatConsultTitle">扫码添加微信，免费领取品牌 GEO 报告</h2></div><div class="direct-qr-block"><div class="wechat-qr-crop direct-qr"><img src="/assets/wechat-qr-mufeng.jpg" alt="添加品沐咨询微信，免费获取品牌 GEO 基础报告" loading="lazy"></div><div><strong>微信 / 手机同号：' + SITE.phoneDisplay + '</strong><p>备注“品牌GEO报告”，发送品牌名称、官网或店铺链接、主要平台和目标市场，可先免费获取一份基于公开信息的品牌 GEO 基础报告。</p><div class="direct-intents">' + intents + '</div><a class="direct-phone-link" href="tel:' + SITE.phone + '">' + icon('Phone', 18) + '拨打电话</a></div></div><div class="direct-service-box"><h3>品牌 GEO 报告会先看什么</h3><ul>' + servicesList + '</ul></div><div class="inquiry-template-box"><h3>不知道怎么开口，可以直接这样发</h3><div>' + templates + '</div></div><p class="direct-note">建议添加微信后，至少发送：品牌名称、官网或店铺链接、主要平台、目标市场，并备注“品牌GEO报告”。</p></section>';
 }
 
 function Contact() {
@@ -602,7 +618,7 @@ function Contact() {
     const content = item[0].indexOf('手机') >= 0 ? '<a href="tel:' + SITE.phone + '">' + item[1] + '</a>' : item[0] === '公司地址' ? '<a href="' + SITE.mapUrl + '" target="_blank" rel="noopener">' + item[1] + '</a><p class="map-hint">点击查看地图定位</p>' : '<p>' + item[1] + '</p>';
     return '<div class="contact-info-row"><span>' + icon(item[2], 26) + '</span><div><h2>' + item[0] + '</h2>' + content + '</div></div>';
   }).join('');
-  return PageHero('联系我们', '先发来品牌、平台和当前问题。品沐会做一次基础判断，帮你确认下一步适合做店铺诊断、经营周报、运营陪跑还是专项优化。', true, '', { key: 'contact', src: '/assets/visuals/contact-diagnosis-flow.webp', alt: '从品牌现状、所在平台和当前问题到店铺诊断、经营周报、运营陪跑及专项优化的咨询流程示意图' }) + '<section class="section contact-section"><div class="container contact-grid"><div class="reveal contact-info-panel">' + contactItems + '<div class="wechat-qr-card"><div class="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="沐风微信二维码" loading="lazy"></div><div><strong>扫码添加微信</strong><p>微信 / 手机同号：' + SITE.phoneDisplay + '</p><span>添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长</span></div></div><div class="contact-promise-grid"><div>' + icon('Zap', 24) + '<strong>快速沟通</strong><span>直连顾问高效响应</span></div><div>' + icon('Target', 24) + '<strong>明确需求</strong><span>精准匹配解决方案</span></div><div>' + icon('ShieldCheck', 24) + '<strong>24小时内回复</strong><span>工作日内快速跟进</span></div></div></div><div class="reveal">' + ContactForm() + '</div></div></section><section class="section contact-bottom-section"><div class="container two-question-grid"><div class="reveal question-card">' + icon('CircleUserRound', 32) + '<h2>适合什么品牌咨询？</h2><p>适合有电商增长需求的品牌方，包括：初创品牌、成熟品牌、电商品牌、传统品牌电商化等。尤其适合增长遇到瓶颈、转化不稳、退款偏高、投放复盘不清或团队需要外部顾问的项目。</p></div><div class="reveal question-card">' + icon('FilePenLine', 32) + '<h2>是否可以先做基础诊断？</h2><p>可以。基础诊断先判断问题是否清楚、资料是否足够、下一步是否值得进入正式诊断或陪跑，避免一上来就做大方案。</p></div></div></section>' + CtaBand('你的品牌，下一步该先优化哪里？', '直接扫码或添加微信联系。我们会从平台、商品、流量、转化和团队执行五个维度，帮你判断最值得优先解决的问题。', '扫码咨询');
+  return PageHero('添加微信，免费获取品牌 GEO 基础报告', '添加微信并备注“品牌GEO报告”，发送品牌名称、官网或店铺链接、主要平台和目标市场。品沐会基于公开信息先做一份品牌 GEO 基础报告。', true, '', { key: 'contact', src: '/assets/visuals/contact-diagnosis-flow.webp', alt: '从品牌现状、所在平台和当前问题到品牌 GEO 基础报告的咨询流程示意图' }) + '<section class="section contact-section"><div class="container contact-grid"><div class="reveal contact-info-panel">' + contactItems + '<div class="wechat-qr-card"><div class="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="添加品沐咨询微信，免费获取品牌 GEO 基础报告" loading="lazy"></div><div><strong>扫码添加微信，免费领取 GEO 报告</strong><p>微信 / 手机同号：' + SITE.phoneDisplay + '</p><span>备注“品牌GEO报告”，发送品牌名称、官网或店铺链接、主要平台和目标市场</span></div></div><div class="contact-promise-grid"><div>' + icon('Zap', 24) + '<strong>快速沟通</strong><span>直连顾问高效响应</span></div><div>' + icon('Target', 24) + '<strong>明确需求</strong><span>精准匹配解决方案</span></div><div>' + icon('ShieldCheck', 24) + '<strong>24小时内回复</strong><span>工作日内快速跟进</span></div></div></div><div class="reveal">' + ContactForm() + '</div></div></section><section class="section contact-bottom-section"><div class="container two-question-grid"><div class="reveal question-card">' + icon('CircleUserRound', 32) + '<h2>适合什么品牌咨询？</h2><p>适合希望提高 AI 搜索可见度、完善品牌事实和证据内容，同时需要电商经营诊断与增长执行的消费品牌。</p></div><div class="reveal question-card">' + icon('FilePenLine', 32) + '<h2>品牌 GEO 报告会给到什么？</h2><p>报告基于公开信息，先看 AI 搜索可见度、实体事实一致性、技术可抓取性、内容证据与外部信源，再给出未来 30 至 90 天的优先动作。不承诺虚假排名或 AI 推荐结果。</p></div></div></section>' + CtaBand('先获取一份品牌 GEO 基础报告', '直接扫码或添加微信，备注“品牌GEO报告”。我们会先从公开信息判断品牌当前最值得补齐的可见度与证据问题。', '免费领取 GEO 报告');
 }
 
 function FloatingContact() {

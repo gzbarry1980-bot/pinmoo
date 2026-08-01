@@ -1,0 +1,46 @@
+{
+  "route": "deep-research",
+  "mode": "brief",
+  "objective": "为广州中考助手新增2026特长生与自主招生逐校资格查询页",
+  "artifacts": [
+    "research-plan.md",
+    "research-notes/policy-and-data.md",
+    "registry.md",
+    "draft.md",
+    "run-summary.json"
+  ],
+  "sources": 7,
+  "sourcePolicy": "广州招考与广州市教育局官方来源优先",
+  "subagents": 0,
+  "optionalModules": {
+    "counterEvidenceSearch": false,
+    "evaluation": "implemented through build validation and browser QA"
+  },
+  "qualityGates": {
+    "routing": "passed",
+    "process": "passed",
+    "grounding": "passed",
+    "output": "passed",
+    "efficiency": "passed",
+    "observability": "passed"
+  },
+  "verification": {
+    "specialTalentEntries": 113,
+    "generalHighSchoolTalentEntries": 111,
+    "autonomousSchools": 56,
+    "autonomousProspectusLinks": 56,
+    "build": "passed",
+    "engineTests": 6,
+    "browserChecks": [
+      "school keyword filter",
+      "talent/autonomous tab switch",
+      "eligibility stop result",
+      "desktop no horizontal overflow",
+      "mobile 375px no horizontal overflow"
+    ]
+  },
+  "limitations": [
+    "系统只做通用资格初筛，不替代专业测试、学校资格审核或官方公示。",
+    "自主招生个性化报名条件通过逐校官方简章提供，未将叙述性条件压缩为可能误导的自动结论。"
+  ]
+}

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN" data-app-home="../">
+  <head>
+  <style>/* 关键样式兜底，避免 CSS 未加载时整页崩坏 */
+    html, body { margin: 0; background: #edf2f8; color: #24324a; font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
+    .app-shell { max-width: 1440px; margin: 0 auto; padding: 24px; }
+  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>方向版｜广州中考志愿模拟助手</title>
+    <meta name="description" content="只知道大概分数？方向版根据最新录取门槛、历年波动和志愿顺序，生成可继续修改的冲稳保方向草案。" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css?v=20260726k" />
+    <link rel="stylesheet" href="../typography.css?v=20260726a" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <nav class="site-nav" aria-label="主导航">
+      <a class="brand" href="../">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></svg></span>
+        广州中考志愿模拟
+      </a>
+      <div class="nav-links">
+        <a href="https://pinmooconsulting.com/zh/" target="_blank" rel="noreferrer">品沐咨询官网 ↗</a>
+        <a href="../direction/" class="is-current" aria-current="page">方向版</a>
+        <a href="../target/">目标校版</a>
+        <a href="../verify/">求证版</a>
+        <a href="../special/?mode=talent">特长生</a>
+        <a href="../special/?mode=autonomous">自主招生</a>
+        <a href="../unlock/">解锁 / 账户</a>
+      </div>
+    </nav>
+    <main id="main" class="app-shell">
+      <div class="page-hero">
+        <a class="back-home" href="../">← 返回首页</a>
+        <span class="page-eyebrow">方向版</span>
+        <h1>我只知道大概分数</h1>
+        <p>系统帮我找冲稳保方向。只填大概分数，不用先研究学校，系统会根据最新录取门槛、历年波动和志愿顺序，给出一份可继续修改的草案。</p>
+      </div>
+
+      <section id="directionWorkspace" class="direction-workspace" aria-labelledby="landingDirection">
+        <div class="direction-hero">
+          <div class="hero-title-group">
+            <span class="icon-badge icon-badge--brand" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg>
+            </span>
+            <div><span class="step-label">方向版</span><h2>只填大概分数，先生成一份冲稳保方向</h2><p>不用先研究学校。系统会根据最新录取门槛、历年波动和志愿顺序，给出一份可继续修改的草案。</p></div>
+          </div>
+          <span class="privacy-chip">匿名 · 不收集身份信息</span>
+        </div>
+        <form id="directionForm" class="direction-form">
+          <label>估分下限
+            <input name="directionLow" id="directionLow" type="number" min="0" max="810" value="680" required />
+            <small>按发挥不理想时估计</small>
+          </label>
+          <label>估分上限
+            <input name="directionHigh" id="directionHigh" type="number" min="0" max="810" value="700" required />
+            <small>按发挥较好时估计</small>
+          </label>
+          <label>考生类别
+            <select name="directionCandidateType" id="directionCandidateType"><option value="户籍生">户籍生</option><option value="随迁子女">符合公办高中条件的随迁子女</option></select>
+            <small>用于核对公办高中报考口径</small>
+          </label>
+          <label>升学区域
+            <select name="directionDistrict" id="directionDistrict"></select>
+            <small>按报名时确定的升学区域选择</small>
+          </label>
+          <label>户籍所在区
+            <select name="directionHouseholdDistrict" id="directionHouseholdDistrict"></select>
+            <small>同机会档优先推荐户籍同区学校</small>
+          </label>
+          <label>希望方案更偏向
+            <select name="directionRisk" id="directionRisk"><option value="均衡">均衡</option><option value="稳健">稳健</option><option value="进取">进取</option></select>
+            <small>决定冲刺、匹配和保底的比例</small>
+          </label>
+          <label class="simulation-mode-card">
+            <input type="checkbox" name="realisticSimDirection" id="realisticSimDirection" />
+            <span class="simulation-mode-copy"><strong>波动压力测试</strong><small>额外模拟发挥偏差、年际难度和压线不确定性，临界学校的机会区间或档位可能改变。</small></span>
+            <em class="simulation-mode-state"></em>
+          </label>
+          <label>学校性质
+            <select name="directionOwnership" id="directionOwnership"><option value="公办">优先只看公办</option><option value="不限">公民办均可</option></select>
+            <small>选择"不限"会纳入民办学校</small>
+          </label>
+          <div class="direction-submit">
+            <p><strong>系统会生成什么？</strong><span>第三批6个方向、第四批6个方向和整体风险；同机会档内优先录取门槛排名靠前、户籍同区的学校。</span></p>
+            <button id="generateDirection" class="primary-button" type="submit">生成我的填报方向</button>
+          </div>
+        </form>
+
+        <section id="directionResult" class="direction-result" hidden>
+          <div class="direction-result-head">
+            <div><span class="step-label">系统建议</span><h2 id="directionTitle">正在生成方向…</h2><p id="directionSummary"></p></div>
+            <div class="direction-result-actions">
+              <button class="ghost-button compact-back" type="button" data-scroll-target="#directionForm">← 返回修改分数</button>
+              <div id="directionRiskSwitch" class="direction-risk-switch" role="group" aria-label="切换方案策略">
+                <button type="button" data-direction-risk="进取" aria-pressed="false"><b>进取</b><small>4冲 4稳 4保</small></button>
+                <button type="button" data-direction-risk="均衡" aria-pressed="false"><b>均衡</b><small>2冲 4稳 6保</small></button>
+                <button type="button" data-direction-risk="稳健" aria-pressed="false"><b>稳健</b><small>1冲 3稳 8保</small></button>
+              </div>
+              <button id="adoptDirection" class="primary-button" type="button">采用这份草案，进入方案求证</button>
+            </div>
+          </div>
+          <div id="directionStats" class="direction-stats"></div>
+          <div id="directionGroups" class="direction-groups" data-gate="direction"></div>
+          <div class="direction-notice"><strong>怎么看两种机会？</strong><span>“单校把握”用于判断冲稳保配置；“最终去向”表示整组志愿按顺序投档后，最后录到该校的概率。后排保底通常只在前序学校未录取时才会出场，因此两者不应混为一谈。</span></div>
+        </section>
+      </section>
+
+      <section class="disclaimer" aria-label="免责声明">
+        <strong>免责声明</strong>
+        <p>本系统依据公开招生政策及历史数据进行模拟分析，所示评分、录取机会和学校建议均为统计估计，不代表官方录取结果或任何录取承诺。招生政策、计划、报考范围、成绩分布和志愿竞争每年可能变化，请以当年广州市教育局、广州市招生考试委员会办公室及中考服务平台最终公布的信息为准。名额分配、随迁子女、跨区及其他资格请向学校或招考部门核实。志愿选择由考生及监护人自行决定。本系统仅供参考。</p>
+      </section>
+    </main>
+
+    <nav class="quick-return" aria-label="快捷返回">
+      <button type="button" data-smart-back>← 返回上一处</button>
+      <a href="../" id="homeReturn" data-home-return>⌂ 助手首页</a>
+      <button type="button" data-scroll-top>↑ 回到顶部</button>
+    </nav>
+    <footer><span>广州中考志愿模拟助手 · 由品沐提供</span><span><a href="../privacy/">隐私说明</a> · <a href="https://gzzk.gz.gov.cn/zkzz/" target="_blank" rel="noreferrer">广州招考官方入口</a></span></footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="../access-gate.js?v=20260726c"></script>
+    <script src="../navigation.js?v=20260726j"></script>
+  <script type="module" src="../app.js?v=20260729b"></script>
+  </body>
+</html>

@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-07-29T00:00:00+08:00",
+  "status": "ready_for_review_not_published",
+  "count": 5,
+  "music": "E:\\pinmoo\\outputs\\zhongkao-promo-video-30s-20260728\\audio\\广州中考志愿-家长痛点版-原创紧张递进配乐.wav",
+  "variants": [
+    {
+      "id": "01-lowest-score",
+      "label": "只看最低分",
+      "status": "ready_for_review_not_published",
+      "video": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\01-lowest-score\\video\\广州中考志愿-只看最低分-30秒-9x16.mp4",
+      "cover": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\01-lowest-score\\cover\\只看最低分-封面-1080x1440.png",
+      "subtitles": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\01-lowest-score\\subtitles\\只看最低分-字幕.srt",
+      "durationSeconds": 30.0,
+      "videoSha256": "23B3F8686032D87C368D0DFBA9DE0A437F4BDDFBA2A6D5C9FB3695CF82297EDD",
+      "coverSha256": "4086B5B431AEAC5D0729FABF49EFBC2BDE23DD7A0C2276677B3425708AD7B976",
+      "publicCta": "想了解使用方式，私信我"
+    },
+    {
+      "id": "02-copy-others",
+      "label": "照抄别人志愿",
+      "status": "ready_for_review_not_published",
+      "video": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\02-copy-others\\video\\广州中考志愿-照抄别人志愿-30秒-9x16.mp4",
+      "cover": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\02-copy-others\\cover\\照抄别人志愿-封面-1080x1440.png",
+      "subtitles": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\02-copy-others\\subtitles\\照抄别人志愿-字幕.srt",
+      "durationSeconds": 30.0,
+      "videoSha256": "3CB20011473B07A72FF3544851FD6A6150B89C1331F50D52B91032C46A5B01F1",
+      "coverSha256": "DBC76D0CCD2355DB10F0D8BDC31A470E73EA49D111ED5C521CB7B5D22FE69F90",
+      "publicCta": "需要体验入口，私信咨询"
+    },
+    {
+      "id": "03-eligibility",
+      "label": "资格范围没核清",
+      "status": "ready_for_review_not_published",
+      "video": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\03-eligibility\\video\\广州中考志愿-资格范围没核清-30秒-9x16.mp4",
+      "cover": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\03-eligibility\\cover\\资格范围没核清-封面-1080x1440.png",
+      "subtitles": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\03-eligibility\\subtitles\\资格范围没核清-字幕.srt",
+      "durationSeconds": 30.0,
+      "videoSha256": "817B808FB75D59FF3169DF68EA465C84D6D13E7D4226B745F37B477157A4DEBF",
+      "coverSha256": "E508A3C66FD31C4092960E5E2354FB2AAA4B872E31F69268CBD351BE119DC8FB",
+      "publicCta": "了解系统能力，私信获取说明"
+    },
+    {
+      "id": "04-order-priority",
+      "label": "同梯度顺序排错",
+      "status": "ready_for_review_not_published",
+      "video": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\04-order-priority\\video\\广州中考志愿-同梯度顺序排错-30秒-9x16.mp4",
+      "cover": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\04-order-priority\\cover\\同梯度顺序排错-封面-1080x1440.png",
+      "subtitles": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\04-order-priority\\subtitles\\同梯度顺序排错-字幕.srt",
+      "durationSeconds": 30.0,
+      "videoSha256": "EB747CE8B9E546C04BE326A51C5C415F0EEAB28D5C14F0668A1CD2ED65402E11",
+      "coverSha256": "7434D06C4BB290C07D0EAB6B85A1CD4A5886E79A77CD08491B1893EE877DE507",
+      "publicCta": "想了解使用方式，私信我"
+    },
+    {
+      "id": "05-filled-not-safe",
+      "label": "填满但没有承接",
+      "status": "ready_for_review_not_published",
+      "video": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\05-filled-not-safe\\video\\广州中考志愿-填满但没有承接-30秒-9x16.mp4",
+      "cover": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\05-filled-not-safe\\cover\\填满但没有承接-封面-1080x1440.png",
+      "subtitles": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\05-filled-not-safe\\subtitles\\填满但没有承接-字幕.srt",
+      "durationSeconds": 30.0,
+      "videoSha256": "C344D861DB9D7CAEE2E661D75A760343C1B5403807CF00B62B550FA24C79E681",
+      "coverSha256": "995F3F6243964D3657B8A02E37234382B207D6091E89DAA7A21741823E441E62",
+      "publicCta": "需要体验入口，私信咨询"
+    }
+  ]
+}

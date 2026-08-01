@@ -1,0 +1,8 @@
+{
+  "mode": "brief implementation research",
+  "scope": "2026 Guangzhou autonomous-enrollment school public events",
+  "schoolsCovered": 56,
+  "verifiedEventSchoolProfiles": 7,
+  "keyConstraint": "Open days are not an autonomous-enrollment processing channel.",
+  "status": "implemented with source-linked records and explicit unknown state"
+}

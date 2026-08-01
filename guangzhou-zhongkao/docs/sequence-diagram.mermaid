@@ -1,0 +1,30 @@
+sequenceDiagram
+    participant U as 用户
+    participant Dir as 方向版/目标校版
+    participant Ver as 求证版(verifyWorkspace)
+    participant Eng as engine.js（禁区）
+
+    Note over U,Dir: 生成草案阶段
+    U->>Dir: 填写分数 / 目标学校
+    Dir->>Eng: simulateOutcomes(草稿, seed=20260722, 10000)
+    Eng-->>Dir: directionAnalysis / directionScore
+    Dir-->>U: 展示方向结果（stats/groups/advice）
+
+    Note over U,Ver: 采用草案 → 带入求证（优化后：复用结果、免重算）
+    U->>Dir: 采用草案 / 生成草案
+    Dir->>Ver: setProfile(profile) + plan = 草稿
+    Ver->>Ver: 复用 directionAnalysis 作为 latestAnalysis 初值
+    Ver-->>U: 定位到 volunteerForm（不立即重算）
+
+    Note over U,Eng: 用户主动分析（或首次进入即带出）
+    U->>Ver: 点击「分析当前方案」
+    Ver->>Eng: simulateOutcomes(plan, seed=20260722, 10000)
+    Eng-->>Ver: latestAnalysis（slotResults/chance/tier）
+    Ver->>Eng: evaluatePlan(profile, plan, latestAnalysis)
+    Eng-->>Ver: latestScore（维度/建议/补强）
+    Ver-->>U: 展示评分环 / 逐志愿机会 / 补强清单 / 调整建议
+
+    Note over U,Eng: 历史复盘模式（mode=replay）
+    U->>Ver: 切换到历史复盘并分析
+    Ver->>Eng: replayPlan(profile, plan, dataset)
+    Eng-->>Ver: 逐志愿 pass/fail/uncertain 判定

@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily Guangzhou Zhongkao access database backup
+
+[Timer]
+OnCalendar=*-*-* 03:15:00
+Persistent=true
+RandomizedDelaySec=10m
+Unit=zhongkao-access-backup.service
+
+[Install]
+WantedBy=timers.target

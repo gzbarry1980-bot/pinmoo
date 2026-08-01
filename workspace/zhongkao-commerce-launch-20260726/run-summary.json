@@ -1,0 +1,9 @@
+{
+  "date": "2026-07-26",
+  "mode": "brief",
+  "workflow": "single-agent",
+  "sources": 9,
+  "threads": ["platform", "advertising", "refunds", "filing"],
+  "evaluation": "self-checked",
+  "limitations": ["platform category selection must be confirmed in live seller consoles", "not legal advice"]
+}

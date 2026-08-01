@@ -38,7 +38,7 @@ export const EN_TEXT = {
   '每一个项目，都来自品牌在平台经营、内容表达、页面转化、投放复盘或用户承接中的真实问题。': 'Every case comes from real brand problems in platform operations, content messaging, page conversion, campaign review or customer retention.',
   '更懂实战的电商咨询伙伴': 'A China E-commerce Consulting Partner Grounded in Practice',
   '更懂实战，也懂 AI 工具的电商增长伙伴': 'An E-commerce Growth Partner Grounded in Practice and AI Tools',
-  '品沐咨询是广州品沐咨询有限公司旗下电商增长咨询的简称，由鲍俊文（沐风、BarryBao）主理，面向消费品牌提供电商经营诊断、运营陪跑、页面优化、投放复盘和AI经营工具服务。': 'PINMOO Consulting is the e-commerce growth consulting name of Guangzhou PINMOO Consulting Co., Ltd. It is led by Bao Junwen (Mufeng, BarryBao) and provides consumer brands with e-commerce diagnosis, operation coaching, page optimization, advertising review and AI business tools.',
+  '品沐咨询是广州品沐咨询有限公司旗下电商增长咨询的简称，由鲍俊文（沐风、BarryBao）主理，面向消费品牌提供电商经营诊断、运营陪跑、页面优化、投放复盘和AI经营工具服务。': 'PINMOO Consulting is the e-commerce growth consulting name of Guangzhou Pinmoo Consulting Co., Ltd. It is led by Bao Junwen (Mufeng, BarryBao) and provides consumer brands with e-commerce diagnosis, operation coaching, page optimization, advertising review and AI business tools.',
   '案例均来自真实项目，现有内容已经核对；因客户保密协议采用匿名方式呈现，并隐去客户名称及可识别细节。': 'All cases come from real projects and the published content has been reviewed. Client names and identifying details are withheld under confidentiality agreements.',
   '多平台': 'Multi-platform',
   '天猫、京东与内容电商': 'Tmall, JD and content commerce',
@@ -48,7 +48,7 @@ export const EN_TEXT = {
   '诊断、陪跑与复盘': 'Diagnosis, coaching and review',
   'AI工具': 'AI tools',
   '经营数据与内容提效': 'Business data and content productivity',
-  '广州品沐咨询有限公司长期关注品牌在线上渠道的真实增长问题，从平台选择、货盘规划、内容表达、页面转化到数据复盘，帮助品牌把电商业务做得更清晰、更有章法。': 'Guangzhou PINMOO Consulting focuses on real growth challenges in online channels, from platform selection, product planning and content expression to page conversion and data review.',
+  '广州品沐咨询有限公司长期关注品牌在线上渠道的真实增长问题，从平台选择、货盘规划、内容表达、页面转化到数据复盘，帮助品牌把电商业务做得更清晰、更有章法。': 'Guangzhou Pinmoo Consulting focuses on real growth challenges in online channels, from platform selection, product planning and content expression to page conversion and data review.',
   '你的品牌，下一步该先优化哪里？': 'Where Should Your Brand Optimize First?',
   '留下需求，或直接添加微信联系。我们会从平台、商品、流量、转化和团队执行五个维度，帮你判断最值得优先解决的问题。': 'Leave your request or add us on WeChat. We will help identify the highest-priority issue across platform, product, traffic, conversion and team execution.',
   '微信 / 手机同号：13600008584': 'WeChat / Mobile: 13600008584',
@@ -271,7 +271,7 @@ export const EN_TEXT = {
   '一家更懂电商实战的品牌增长咨询伙伴。': 'A brand growth consulting partner with hands-on China e-commerce experience.',
   '一家结合电商实战与 AI 工具的增长顾问公司。': 'A growth consulting company combining e-commerce practice and AI tools.',
   '品沐咨询是谁？': 'Who Is PINMOO Consulting?',
-  '广州品沐咨询有限公司是一家专注电商战略咨询、平台运营陪跑和品牌增长服务的咨询机构，长期服务消费品牌、传统企业和新消费项目，围绕天猫、京东、抖音、小红书、视频号、拼多多等主流平台，帮助品牌建立更清晰、更可执行的线上增长路径。': 'Guangzhou PINMOO Consulting is focused on e-commerce strategy consulting, platform operation coaching and brand growth services. We serve consumer brands, traditional enterprises and new consumer projects across major China platforms including Tmall, JD, Douyin, Xiaohongshu, WeChat Channels and Pinduoduo.',
+  '广州品沐咨询有限公司是一家专注电商战略咨询、平台运营陪跑和品牌增长服务的咨询机构，长期服务消费品牌、传统企业和新消费项目，围绕天猫、京东、抖音、小红书、视频号、拼多多等主流平台，帮助品牌建立更清晰、更可执行的线上增长路径。': 'Guangzhou Pinmoo Consulting is focused on e-commerce strategy consulting, platform operation coaching and brand growth services. We serve consumer brands, traditional enterprises and new consumer projects across major China platforms including Tmall, JD, Douyin, Xiaohongshu, WeChat Channels and Pinduoduo.',
   '我们相信，电商增长不是靠单点动作，而是靠系统协同。': 'We believe e-commerce growth is not driven by isolated actions, but by system coordination.',
   '很多品牌不是没有努力做电商，而是平台选择、货盘结构、内容表达、页面转化、广告投放、客服承接和复盘机制之间没有形成闭环。品沐咨询的价值，就是帮助品牌把复杂问题拆清楚，把关键动作排出优先级，并通过持续陪跑推动落地。': 'Many brands do put effort into e-commerce, but platform choice, product mix, content messaging, page conversion, ads, customer service and review mechanisms are not connected. PINMOO helps clarify complex problems, prioritize key actions and push execution through continuous coaching.',
   '以数据为依据': 'Data as Evidence',
@@ -314,7 +314,7 @@ export const EN_TEXT = {
   '如果你正在思考品牌电商下一步怎么做，可以先和品沐聊一聊。': 'If you are thinking about your next China e-commerce move, talk to PINMOO first.',
   '公司名称': 'Company Name',
   '公司地址': 'Company Address',
-  '广东省广州市越秀区中山三路33号中华国际中心': 'China International Center, No. 33 Zhongshan 3rd Road, Yuexiu District, Guangzhou, Guangdong, China',
+  '广东省广州市越秀区中华国际广场': 'Zhonghua International Plaza, Yuexiu District, Guangzhou, Guangdong, China',
   '点击查看地图定位': 'Tap to open map location',
   '联系说明': 'Contact Note',
   '工作时间': 'Working Hours',
@@ -419,7 +419,7 @@ export const EN_TEXT = {
   '适合有电商增长需求的品牌方，包括：初创品牌、成熟品牌、电商品牌、传统品牌电商化等。尤其适合增长遇到瓶颈、转化不稳、退款偏高、投放复盘不清或团队需要外部顾问的项目。': 'Suitable for startup, established, e-commerce-native and traditional brands entering online channels, especially when growth has stalled, conversion is unstable, refunds are high, paid-media review is unclear or the team needs an external advisor.',
   '可以。基础诊断先判断问题是否清楚、资料是否足够、下一步是否值得进入正式诊断或陪跑，避免一上来就做大方案。': 'Yes. The initial diagnosis checks whether the problem is clear, whether the evidence is sufficient and whether a formal diagnosis or coaching engagement is justified before committing to a larger project.',
   '品沐咨询': 'PINMOO Consulting',
-  '广州品沐咨询有限公司': 'Guangzhou PINMOO Consulting Co., Ltd.'
+  '广州品沐咨询有限公司': 'Guangzhou Pinmoo Consulting Co., Ltd.'
 };
 
 export const CASE_EN = {

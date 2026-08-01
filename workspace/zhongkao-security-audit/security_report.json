@@ -1,0 +1,45 @@
+{
+  "auditDate": "2026-07-23T17:40:00+08:00",
+  "scope": [
+    "server/zhongkao-access",
+    "guangzhou-zhongkao/unlock",
+    "zhongkao.pinmoo.top nginx/systemd/ssh/ports",
+    "npm dependencies"
+  ],
+  "releaseDecision": "preview_only",
+  "findings": [
+    {
+      "severity": "high",
+      "status": "mitigated_not_fixed",
+      "title": "xlsx development dependency has published advisories",
+      "evidence": "package.json; scripts/zhongkao/data-lib.mjs",
+      "runtimeExposure": false
+    },
+    {
+      "severity": "medium",
+      "status": "open",
+      "title": "Host SSH and historical public services need hardening",
+      "evidence": "sshd -T and ss -lntup on 47.237.186.156"
+    },
+    {
+      "severity": "blocker",
+      "status": "open",
+      "title": "Real payment, SMS, backup and legal acceptance are not implemented",
+      "evidence": "ACCESS_MODE=preview; OTP_PROVIDER=disabled; PAYMENT_PROVIDER=disabled"
+    },
+    {
+      "severity": "medium",
+      "status": "fixed",
+      "title": "Static release file permissions were world writable",
+      "evidence": "live index.html changed from 0666 to 0644"
+    },
+    {
+      "severity": "medium",
+      "status": "fixed",
+      "title": "Forwarded client IP could be spoofed for application rate limits",
+      "evidence": "Nginx now sets X-Forwarded-For to remote_addr"
+    }
+  ],
+  "skippedTools": ["semgrep", "gitleaks", "trivy", "penetration_test"],
+  "paymentEnabled": false
+}

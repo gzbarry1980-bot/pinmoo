@@ -1,0 +1,15 @@
+{
+  "short": {
+    "duration": 14.93,
+    "hook": "715分，第二志愿也可能落选！",
+    "video": "E:\\pinmoo\\outputs\\zhongkao-videos-v2-20260724\\广州中考志愿助手-15秒强钩子版-动态字幕.mp4"
+  },
+  "long": {
+    "duration": 120.19,
+    "hook": "715分，明明超过第二志愿712分，为什么还是没有录取？",
+    "video": "E:\\pinmoo\\outputs\\zhongkao-videos-v2-20260724\\广州中考志愿助手-2分钟案例详解版-动态字幕.mp4"
+  },
+  "format": "1080x1920 H.264/AAC",
+  "motion": "zoompan + xfade + concise burned subtitles",
+  "source": "https://zhongkao.pinmoo.top/"
+}

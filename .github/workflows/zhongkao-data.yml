@@ -1,0 +1,99 @@
+name: Guangzhou Zhongkao data and deploy
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 19 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'guangzhou-zhongkao/**'
+      - 'scripts/zhongkao/**'
+      - 'scripts/build.mjs'
+      - 'scripts/verify-zhongkao-build.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+
+permissions:
+  contents: write
+
+jobs:
+  update-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      ALIYUN_HOST: ${{ secrets.ALIYUN_HOST }}
+      ALIYUN_USER: ${{ secrets.ALIYUN_USER }}
+      ALIYUN_SSH_KEY: ${{ secrets.ALIYUN_SSH_KEY }}
+    steps:
+      - name: Decide whether scheduled run is due
+        id: due
+        shell: bash
+        run: |
+          month="$(TZ=Asia/Shanghai date +%-m)"
+          weekday="$(TZ=Asia/Shanghai date +%u)"
+          if [ "${{ github.event_name }}" != "schedule" ] || { [ "$month" -ge 4 ] && [ "$month" -le 8 ]; } || [ "$weekday" -eq 1 ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.due.outputs.run == 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.due.outputs.run == 'true'
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.due.outputs.run == 'true'
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      - name: Fetch and validate official data
+        if: steps.due.outputs.run == 'true'
+        run: npm run data:zhongkao
+
+      - name: Build and verify
+        if: steps.due.outputs.run == 'true'
+        run: |
+          npm run build
+          npm run verify:zhongkao
+
+      - name: Package immutable release
+        if: steps.due.outputs.run == 'true'
+        id: package
+        shell: bash
+        run: |
+          version="$(node -p "JSON.parse(require('fs').readFileSync('dist/zhongkao/data/manifest.json','utf8')).version")"
+          tar -czf "zhongkao-$version.tgz" -C dist/zhongkao .
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "archive=zhongkao-$version.tgz" >> "$GITHUB_OUTPUT"
+
+      - name: Publish data release
+        if: steps.due.outputs.run == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          tag="zhongkao-data-${{ steps.package.outputs.version }}"
+          gh release view "$tag" >/dev/null 2>&1 || gh release create "$tag" "${{ steps.package.outputs.archive }}" --title "$tag" --notes "Validated Guangzhou Zhongkao official-data bundle."
+
+      - name: Configure SSH
+        if: steps.due.outputs.run == 'true' && env.ALIYUN_HOST != ''
+        shell: bash
+        run: |
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$ALIYUN_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$ALIYUN_HOST" >> ~/.ssh/known_hosts
+
+      - name: Upload and atomically deploy
+        if: steps.due.outputs.run == 'true' && env.ALIYUN_HOST != ''
+        shell: bash
+        run: |
+          remote_archive="/tmp/${{ steps.package.outputs.archive }}"
+          remote_script="/tmp/deploy-zhongkao-aliyun.sh"
+          scp "${{ steps.package.outputs.archive }}" "$ALIYUN_USER@$ALIYUN_HOST:$remote_archive"
+          scp scripts/deploy-zhongkao-aliyun.sh "$ALIYUN_USER@$ALIYUN_HOST:$remote_script"
+          ssh "$ALIYUN_USER@$ALIYUN_HOST" "bash '$remote_script' '$remote_archive' '${{ steps.package.outputs.version }}'"

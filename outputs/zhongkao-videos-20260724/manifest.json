@@ -1,0 +1,15 @@
+{
+  "short": {
+    "video": "E:\\pinmoo\\outputs\\zhongkao-videos-20260724\\广州中考志愿助手-15秒精华版-竖屏字幕.mp4",
+    "subtitle": "E:\\pinmoo\\outputs\\zhongkao-videos-20260724\\广州中考志愿助手-15秒精华版.srt",
+    "duration": 14.5
+  },
+  "long": {
+    "video": "E:\\pinmoo\\outputs\\zhongkao-videos-20260724\\广州中考志愿助手-2分钟详解版-竖屏字幕.mp4",
+    "subtitle": "E:\\pinmoo\\outputs\\zhongkao-videos-20260724\\广州中考志愿助手-2分钟详解版.srt",
+    "duration": 120.05
+  },
+  "format": "1080x1920 H.264/AAC",
+  "voice": "zh-CN-XiaoxiaoNeural",
+  "source": "https://zhongkao.pinmoo.top/"
+}

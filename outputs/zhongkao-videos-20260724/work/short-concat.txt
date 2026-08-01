@@ -1,0 +1,13 @@
+file 'E:\pinmoo\outputs\zhongkao-videos-20260724\work\prepared\00-short-title.png'
+duration 2.200
+file 'E:\pinmoo\outputs\zhongkao-videos-20260724\work\prepared\02-three-modes.png'
+duration 2.412
+file 'E:\pinmoo\outputs\zhongkao-videos-20260724\work\prepared\03-direction-form.png'
+duration 2.412
+file 'E:\pinmoo\outputs\zhongkao-videos-20260724\work\prepared\04-direction-result.png'
+duration 2.412
+file 'E:\pinmoo\outputs\zhongkao-videos-20260724\work\prepared\12-analysis-score.png'
+duration 2.412
+file 'E:\pinmoo\outputs\zhongkao-videos-20260724\work\prepared\99-outro.png'
+duration 2.800
+file 'E:\pinmoo\outputs\zhongkao-videos-20260724\work\prepared\99-outro.png'

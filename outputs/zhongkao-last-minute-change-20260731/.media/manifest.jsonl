@@ -1,0 +1,3 @@
+{"id":"voice_001","type":"voice","path":".media/audio/voice/voice_001.mp3","source":"ingested","description":"voice-raw.mp3","provenance":{"provider":"local","from":"E:\\pinmoo\\outputs\\zhongkao-last-minute-change-20260731\\assets\\voice-raw.mp3"}}
+{"id":"bgm_001","type":"bgm","path":".media/audio/bgm/bgm_001.wav","source":"ingested","description":"中考志愿填报风险-10秒配乐.wav","provenance":{"provider":"local","from":"E:\\pinmoo\\outputs\\zhongkao-risk-video-20260730\\audio\\中考志愿填报风险-10秒配乐.wav"}}
+{"id":"voice_002","type":"voice","path":".media/audio/voice/voice_002.wav","source":"ingested","description":"voice-master.wav","provenance":{"provider":"local","from":"E:\\pinmoo\\outputs\\zhongkao-last-minute-change-20260731\\assets\\voice-master.wav"}}

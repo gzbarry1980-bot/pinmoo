@@ -1,0 +1,38 @@
+{
+  "runDate": "2026-07-29",
+  "question": "收集更多广州中考志愿方案与实际入学情况并优化系统",
+  "mode": "brief",
+  "orchestration": "single-agent",
+  "stakes": "medium",
+  "searches": 4,
+  "sourcesAccepted": 7,
+  "sourcesRejectedClass": ["匿名论坛", "无法核验的自媒体个案"],
+  "artifacts": [
+    "research-plan.md",
+    "research-notes/rules-and-cases.md",
+    "research-notes/actual-admissions.md",
+    "registry.md",
+    "draft.md",
+    "evaluation.md",
+    "run-summary.json"
+  ],
+  "implementation": {
+    "ruleCases": 3,
+    "actualCases": 16,
+    "modelVersion": "2.1",
+    "newCalibration": ["cutoffSpan", "volunteerReachRate", "firstChoiceOnlyRate"],
+    "testsAdded": 5
+  },
+  "evaluation": "PASS",
+  "citationVerification": "PASS",
+  "sourceEvaluator": {
+    "automaticThreshold": false,
+    "reason": "权威材料集中在广州招考官方域名；媒体个案仅在官方PDF交叉核验后采用"
+  },
+  "optionalModules": {
+    "subagents": false,
+    "tensionDiscovery": false,
+    "landscapeScan": false,
+    "manualSpotChecks": true
+  }
+}

@@ -1,0 +1,28 @@
+/* 全站仅保留三档字号：标题、正文、备注。字重、颜色和留白用于表达层级。 */
+:root {
+  --zk-font-title: 22px;
+  --zk-font-body: 14px;
+  --zk-font-note: 12px;
+  --zk-font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--zk-font-family) !important;
+  font-size: var(--zk-font-body) !important;
+}
+
+body :where(a, abbr, b, button, dd, div, dt, em, figcaption, input, label, li, option, p, select, small, span, strong, summary, td, textarea, th) {
+  font-family: inherit !important;
+  font-size: var(--zk-font-body) !important;
+}
+
+body :where(h1, h2, h3, .home-title, .home-preview-title, .page-hero h1, .direction-hero h2, .direction-result-head h2, .panel-heading h2, .section-heading h2, .rules-card h2, .source-card h2, .school-card h3, .access-hero h1, .access-step strong, .access-test h2, .paywall-title, .dialog-head h2, .analysis-grid h3, .advice-section h3, .improvement-head h3, .score-ring strong, .direction-stat strong, .dimension-card strong) {
+  font-size: var(--zk-font-title) !important;
+  line-height: 1.35 !important;
+}
+
+body :where(small, .eyebrow, .secondary-eyebrow, .step-label, .guide-kicker, .page-eyebrow, .home-source-note, .home-data-version, .home-byline, .inline-back, .quick-return button, .quick-return a, .site-nav .brand, .site-nav .nav-links a, label, .fact span, .score-reference-box span, .score-reference-box small, .score-reference-note, .school-event-box > span, .school-event-item small, .school-event-item a, .admission-route-note, .school-badge, .school-card-head p, .school-link, .legend, .table-note, .tier-badge, .tier-tag, .same-district-badge, .privacy-chip, .muted, .disclaimer p, footer, .serial-status, .access-test p) {
+  font-size: var(--zk-font-note) !important;
+}
+
+body :where(button, input, select, textarea) { line-height: 1.45 !important; }

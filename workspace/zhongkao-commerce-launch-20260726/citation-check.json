@@ -1,0 +1,38 @@
+{
+  "summary": {
+    "total_inline_citations": 7,
+    "unique_citation_numbers": 6,
+    "reference_entries": 6,
+    "critical_issues": 0,
+    "warnings": 1,
+    "verdict": "PASS"
+  },
+  "issues": [],
+  "warnings": [
+    {
+      "type": "SOURCE_CONCENTRATION",
+      "severity": "warning",
+      "citation": 4,
+      "message": "[4] accounts for 29% of all citations (>25% threshold)",
+      "fix": "Diversify sources — find alternative references for some claims"
+    }
+  ],
+  "citation_coverage": {
+    "inline_numbers": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "reference_numbers": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  }
+}

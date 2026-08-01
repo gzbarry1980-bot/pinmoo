@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0.0",
+  "version": "20260722-d38b3ec0",
+  "generatedAt": "2026-07-22T03:42:52.407Z",
+  "latestPolicyYear": 2026,
+  "years": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "coverage": {
+    "2021": {
+      "batch2": 3440,
+      "batch3": 0,
+      "batch4": 0,
+      "scoreBands": 0
+    },
+    "2022": {
+      "batch2": 4105,
+      "batch3": 0,
+      "batch4": 69,
+      "scoreBands": 36
+    },
+    "2023": {
+      "batch2": 4716,
+      "batch3": 259,
+      "batch4": 82,
+      "scoreBands": 36
+    },
+    "2024": {
+      "batch2": 5132,
+      "batch3": 292,
+      "batch4": 104,
+      "scoreBands": 36
+    },
+    "2025": {
+      "batch2": 4486,
+      "batch3": 328,
+      "batch4": 113,
+      "scoreBands": 36
+    },
+    "2026": {
+      "batch2": 5343,
+      "batch3": 355,
+      "batch4": 126,
+      "scoreBands": 36
+    }
+  },
+  "counts": {
+    "schools": 311,
+    "schoolLocations": 257,
+    "sourceSchools": 675,
+    "admissions": 1728,
+    "allocations": 27222,
+    "scoreBands": 180,
+    "sources": 27
+  },
+  "limitations": [
+    "2021年第三、第四批及2022年第三批官方页面以图片发布，当前自动数据包仅保留其来源，未来预测对这些统招记录按缺失处理。",
+    "官方录取分数表未统一提供每校实际录取人数；相关字段保持为空，不以招生计划推定。",
+    "学校住宿、学费及高考表现缺少统一可比口径，未进入机会模型。"
+  ]
+}

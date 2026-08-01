@@ -1,0 +1,16 @@
+{
+  "mode": "brief",
+  "workflow": "single-agent",
+  "research_question": "广州高中选校页面应展示何种升学结果或增值评价指标",
+  "sources_approved": 7,
+  "optional_modules": [],
+  "artifacts": [
+    "research-plan.md",
+    "registry.md",
+    "draft.md",
+    "run-summary.json"
+  ],
+  "evaluation": "manual-quality-gate",
+  "main_gap": "未发现覆盖广州市全部普通高中的统一公开增值评价结果",
+  "completed_at": "2026-07-22"
+}

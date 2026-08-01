@@ -7,7 +7,7 @@ export function ServiceCard({ service, compact = false }) {
       <div className="card-icon"><Icon name={service.icon} size={28} /></div>
       <h3>{service.title}</h3>
       <p>{service.short}</p>
-      <a href="/contact/" className="text-link">了解更多 <Icon name="ArrowRight" size={16} /></a>
+      <a href={service.id === 'geo-consulting' ? '/services/geo-consulting/' : '/contact/'} className="text-link">{service.id === 'geo-consulting' ? '了解品牌 GEO 服务' : '了解咨询方案'} <Icon name="ArrowRight" size={16} /></a>
     </article>
   );
 }

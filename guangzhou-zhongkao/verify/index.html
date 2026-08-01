@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="zh-CN" data-app-home="../">
+  <head>
+  <style>/* 关键样式兜底，避免 CSS 未加载时整页崩坏 */
+    html, body { margin: 0; background: #edf2f8; color: #24324a; font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
+    .app-shell { max-width: 1440px; margin: 0 auto; padding: 24px; }
+  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>求证版｜广州中考志愿模拟助手</title>
+    <meta name="description" content="已经有填报计划？求证版帮你核对资格、模拟录取机会、给出方案评分与可执行调整建议，并支持一键补强。" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../styles.css?v=20260726k" />
+    <link rel="stylesheet" href="../typography.css?v=20260726a" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要内容</a>
+    <nav class="site-nav" aria-label="主导航">
+      <a class="brand" href="../">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5 5-2z"/></svg></span>
+        广州中考志愿模拟
+      </a>
+      <div class="nav-links">
+        <a href="https://pinmooconsulting.com/zh/" target="_blank" rel="noreferrer">品沐咨询官网 ↗</a>
+        <a href="../direction/">方向版</a>
+        <a href="../target/">目标校版</a>
+        <a href="../verify/" class="is-current" aria-current="page">求证版</a>
+        <a href="../special/?mode=talent">特长生</a>
+        <a href="../special/?mode=autonomous">自主招生</a>
+        <a href="../unlock/">解锁 / 账户</a>
+      </div>
+    </nav>
+    <main id="main" class="app-shell">
+      <div class="page-hero">
+        <a class="back-home" href="../">← 返回首页</a>
+        <span class="page-eyebrow">求证版</span>
+        <h1>我已经有填报计划</h1>
+        <p>帮我求证、评分并补强。系统按广州多梯度投档规则模拟录取机会，给出方案评分、逐志愿机会与可执行调整建议，支持一键补强。</p>
+      </div>
+
+      <div id="verifyWorkspace" aria-labelledby="landingVerify">
+
+      <section class="workflow-guide" aria-labelledby="workflowGuideTitle">
+        <div class="workflow-guide-head">
+          <div class="hero-title-group">
+            <span class="icon-badge icon-badge--info" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2.4"/><circle cx="18" cy="6" r="2.4"/><path d="M8 15.6C13.5 13 14 10 16 7.6"/></svg>
+            </span>
+            <div><span class="guide-kicker">求证版流程</span><h2 id="workflowGuideTitle">系统只带你走当前需要的下一步</h2><p id="workflowHint">先填写必要的分数和区域信息，其他资格与偏好可以按需展开。</p></div>
+          </div>
+          <button id="guideStart" class="guide-start-button" type="button" data-next-target="#profile">继续：填写考生信息</button>
+        </div>
+        <nav class="workflow-steps" aria-label="求证版使用进度">
+          <button type="button" data-guide-target="#profile" data-flow-step="profile"><b>1</b><span><strong>考生信息</strong><small id="flowProfileState">待填写</small></span></button>
+          <button type="button" data-guide-target="#schoolExplorer" data-flow-step="school"><b>2</b><span><strong>选择学校</strong><small id="flowSchoolState">待选择</small></span></button>
+          <button type="button" data-guide-target="#volunteerForm" data-flow-step="plan"><b>3</b><span><strong>排列志愿</strong><small id="flowPlanState">待填写</small></span></button>
+          <button type="button" data-guide-target="#analysis" data-flow-step="analysis"><b>4</b><span><strong>分析调整</strong><small id="flowAnalysisState">待分析</small></span></button>
+        </nav>
+      </section>
+
+      <section class="panel" id="profile">
+        <div class="panel-heading">
+          <div class="panel-heading-title">
+            <span class="icon-badge icon-badge--brand" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c0-3.3 3.1-5.4 7-5.4s7 2.1 7 5.4"/></svg>
+            </span>
+            <div><span class="step-label">STEP 1</span><h2>考生信息与分析模式</h2></div>
+          </div>
+          <span class="privacy-chip">匿名 · 本地保存</span>
+        </div>
+        <form id="profileForm">
+          <div class="profile-grid profile-essentials">
+          <label>分析模式
+            <select name="mode" id="mode">
+              <option value="forecast">未来预测</option>
+              <option value="replay">历史复盘</option>
+            </select>
+          </label>
+          <label>目标年度
+            <select name="targetYear" id="targetYear"></select>
+          </label>
+          <label>中心分值
+            <input name="score" id="score" type="number" min="0" max="810" value="710" required />
+          </label>
+          <label class="forecast-only">估分下限
+            <input name="scoreLow" id="scoreLow" type="number" min="0" max="810" value="700" />
+          </label>
+          <label class="forecast-only">估分上限
+            <input name="scoreHigh" id="scoreHigh" type="number" min="0" max="810" value="720" />
+          </label>
+          <label class="replay-only" hidden>同分序号（选填）
+            <input name="tieRank" id="tieRank" type="number" min="1" placeholder="例如 120" />
+          </label>
+          <label>考生类别
+            <select name="candidateType" id="candidateType">
+              <option value="户籍生">户籍生</option>
+              <option value="随迁子女">符合公办高中条件的随迁子女</option>
+            </select>
+          </label>
+          <label>升学区域
+            <select name="admissionDistrict" id="admissionDistrict"></select>
+          </label>
+          <label>户籍所在区
+            <select name="householdDistrict" id="householdDistrict"></select>
+          </label>
+          <label>风险偏好
+            <select name="riskPreference" id="riskPreference">
+              <option value="均衡">均衡</option>
+              <option value="稳健">稳健</option>
+              <option value="进取">进取</option>
+            </select>
+          </label>
+          <label class="simulation-mode-card">
+            <input type="checkbox" name="realisticSim" id="realisticSim" />
+            <span class="simulation-mode-copy"><strong>波动压力测试</strong><small>额外模拟发挥偏差、年际难度和压线不确定性，临界学校的机会区间或档位可能改变。</small></span>
+            <em class="simulation-mode-state"></em>
+          </label>
+          </div>
+          <div class="profile-confirmations">
+            <label class="checkbox-field"><input name="notAdmittedFirstBatch" id="notAdmittedFirstBatch" type="checkbox" checked /><span><strong>未被第一批录取</strong><small>第一批录取后不会再参加后续批次投档</small></span></label>
+            <label class="checkbox-field"><input name="quotaEligible" id="quotaEligible" type="checkbox" /><span><strong>我确认参加第二批名额分配</strong><small>勾选后再补充所在初中；不确定时可先完成第三、第四批</small></span></label>
+          </div>
+          <div id="quotaDetails" class="quota-details" hidden>
+            <div><span class="step-label">第二批名额分配</span><strong>请选择考生所在初中</strong><small>系统只会加载该初中对应的名额分配学校；取消勾选会同步清空第二批志愿。</small></div>
+            <label>所在初中<select name="sourceSchoolId" id="sourceSchoolId"><option value="">请选择所在初中</option></select></label>
+          </div>
+          <details id="advancedProfile" class="advanced-profile">
+            <summary><span><strong>补充资格与偏好</strong><small>学籍、参考等级、住宿、学费及排除学校</small></span><b>按需填写</b></summary>
+            <div class="profile-grid advanced-profile-grid">
+              <label>学籍所在区<select name="schoolDistrict" id="schoolDistrict"></select></label>
+              <label>参考科目等级<select name="referenceGrade" id="referenceGrade"><option value="C">4C及以上</option><option value="D">4D及以上</option><option value="unknown">暂不确定</option></select></label>
+              <label>学校性质偏好<select name="ownershipPreference" id="ownershipPreference"><option value="不限">不限</option><option value="公办">优先公办</option><option value="民办">可接受民办</option></select></label>
+              <label>住宿偏好<select name="boardingPreference" id="boardingPreference"><option value="不限">不限</option><option value="需要住宿">需要住宿</option><option value="不住宿">不需要住宿</option></select></label>
+              <label>年学费上限（元）<input name="maxAnnualFee" id="maxAnnualFee" type="number" min="0" step="100" placeholder="不填表示不限" /></label>
+              <label>偏好区域（逗号分隔）<input name="preferredDistricts" id="preferredDistricts" type="text" placeholder="例如：天河区、越秀区" /></label>
+              <label>排除学校（逗号分隔）<input name="excludedSchools" id="excludedSchools" type="text" placeholder="输入不接受的学校名称" /></label>
+              <label class="checkbox-field"><input name="crossDistrict" id="crossDistrict" type="checkbox" /><span>按跨区升学口径核查</span></label>
+            </div>
+          </details>
+        </form>
+        <div id="policyBanner" class="policy-banner">2027及以后尚未发布正式规则时，暂按2026年志愿结构和投档规则模拟。</div>
+      </section>
+
+      <section class="panel" id="schoolExplorer">
+        <div class="panel-heading">
+          <div class="panel-heading-title">
+            <span class="icon-badge icon-badge--brand" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4L3 9l9 5 9-5-9-5z"/><path d="M7 11.4V17c0 1 2.2 2.4 5 2.4s5-1.4 5-2.4v-5.6"/><path d="M21 9v5"/></svg>
+            </span>
+            <div><span class="step-label">STEP 2</span><h2>学校筛选与录取门槛</h2></div>
+          </div>
+          <div class="school-selection-status">
+            <span class="muted" id="schoolCount"></span>
+            <button id="viewPlan" class="selected-overview" type="button" aria-expanded="false" aria-controls="selectedPreview">
+              <span class="selected-overview-count" id="selectedCount">已选 0 所</span>
+              <span class="selected-overview-hint">展开志愿表缩略</span>
+            </button>
+          </div>
+        </div>
+        <div id="selectedPreview" class="selected-preview" hidden></div>
+        <div class="filter-row">
+          <label class="search-field"><span>搜索</span><input id="schoolSearch" type="search" placeholder="输入学校或校区名称" /></label>
+          <label>批次<select id="schoolBatch"><option value="3">第三批</option><option value="4">第四批</option><option value="2">第二批</option></select></label>
+          <label>性质<select id="schoolOwnership"><option value="不限">不限</option><option value="公办">公办</option><option value="民办">民办</option></select></label>
+          <label>招生范围<select id="schoolScope"><option value="不限">不限</option><option value="全市">全市</option><option value="本区">本区/老三区</option></select></label>
+        </div>
+        <div class="school-table-wrap">
+          <table class="school-table">
+            <thead><tr><th>学校</th><th>性质/范围</th><th>最新最低分</th><th>历史波动</th><th>数据年数</th><th></th></tr></thead>
+            <tbody id="schoolTableBody"></tbody>
+          </table>
+        </div>
+        <p class="table-note">"录取门槛"是公开录取数据排序，不代表学校教学质量排名。学校自报高考成绩因口径不统一，不参与本系统评分。</p>
+      </section>
+
+      <section class="panel" id="volunteerForm" data-gate="volunteer">
+        <div class="panel-heading">
+          <div class="panel-heading-title">
+            <span class="icon-badge icon-badge--brand" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2.5"/><path d="M9 4.2V3.4h6v.8"/><path d="M8.5 11h7M8.5 15h7M8.5 19h4"/></svg>
+            </span>
+            <div><span class="step-label">STEP 3</span><h2>2026结构模拟志愿表</h2></div>
+          </div>
+          <div class="panel-heading-actions">
+            <a class="text-link-back" href="#schoolExplorer" data-scroll-target="#schoolExplorer">← 返回学校筛选</a>
+            <div class="legend"><span class="reach">冲刺</span><span class="match">匹配</span><span class="safe">保底</span></div>
+          </div>
+        </div>
+        <aside class="plan-coach" aria-live="polite">
+          <div class="coach-summary"><span>填写进度</span><strong id="coachProgress">准备填写志愿</strong><small id="coachHint">建议先完成考生信息，再从第三批学校开始筛选。</small></div>
+          <div id="coachChecklist" class="coach-checklist"></div>
+          <button id="coachAnalyze" class="primary-button" type="button">填好了，帮我检查</button>
+        </aside>
+        <div id="batchForms" class="batch-forms"></div>
+        <div class="form-actions">
+          <button id="clearPlan" class="danger-button" type="button">清空志愿</button>
+          <button id="analyzePlan" class="primary-button" type="button">分析当前方案</button>
+        </div>
+      </section>
+
+      <section class="panel analysis-panel" id="analysis" hidden>
+        <div class="panel-heading">
+          <div class="panel-heading-title">
+            <span class="icon-badge icon-badge--brand" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><rect x="6" y="11" width="3" height="6" rx="1"/><rect x="11" y="6" width="3" height="11" rx="1"/><rect x="16" y="13" width="3" height="4" rx="1"/></svg>
+            </span>
+            <div><span class="step-label">STEP 4—5</span><h2>方案合理度、录取机会与调整建议</h2></div>
+          </div>
+          <div class="analysis-actions">
+            <a class="text-link-back" href="#volunteerForm" data-scroll-target="#volunteerForm">← 返回志愿表修改</a>
+            <button id="exportPlan" class="ghost-button" type="button">导出匿名JSON</button>
+            <button id="printPlan" class="ghost-button" type="button">打印 / 另存PDF</button>
+          </div>
+        </div>
+        <div class="gated-block" data-gate="score">
+        <div class="score-overview">
+          <div class="score-ring" id="scoreRing"><strong id="totalScore">--</strong><span>方案合理度</span></div>
+          <div class="score-summary"><span id="scoreLabel" class="grade-badge">等待分析</span><h3 id="mostLikely">请先填写志愿</h3><p id="noneRisk"></p></div>
+          <div class="dimension-grid" id="dimensionGrid"></div>
+        </div>
+        <section class="improvement-section" id="improvementSection">
+          <div class="improvement-head"><div><span>合理度补强清单</span><h3 id="improvementTitle">分析后可由系统一键补强</h3></div><strong id="scoreGap">合理度满分100</strong></div>
+          <div id="scoreCaps" class="score-caps"></div>
+          <div id="improvementList" class="improvement-list"></div>
+          <p class="improvement-note">合理度分数评价的是：这些志愿与当前考生分值是否匹配、冲稳保是否完整、顺序和资格是否合理。它不是中考成绩的折算，不因考分绝对高低直接加减分；合理度100分也不代表录取机会为100%。</p>
+        </section>
+        </div>
+        <div class="analysis-grid" data-gate="chance">
+          <section><h3>逐志愿机会</h3><div id="chanceList" class="chance-list"></div></section>
+          <section><h3>预计录取去向</h3><p class="section-hint">点击学校可查看校区、招生条件与历年录取门槛。</p><div id="outcomeList" class="outcome-list"></div></section>
+        </div>
+        <section class="advice-section" data-gate="advice"><h3>可执行调整建议</h3><ol id="adviceList"></ol></section>
+        <details class="method-details"><summary>模型口径与数据局限</summary><div id="methodText"></div></details>
+      </section>
+      </div>
+
+      <section class="disclaimer" aria-label="免责声明">
+        <strong>免责声明</strong>
+        <p>本系统依据公开招生政策及历史数据进行模拟分析，所示评分、录取机会和学校建议均为统计估计，不代表官方录取结果或任何录取承诺。招生政策、计划、报考范围、成绩分布和志愿竞争每年可能变化，请以当年广州市教育局、广州市招生考试委员会办公室及中考服务平台最终公布的信息为准。名额分配、随迁子女、跨区及其他资格请向学校或招考部门核实。志愿选择由考生及监护人自行决定。本系统仅供参考。</p>
+      </section>
+    </main>
+
+    <dialog id="schoolDetailDialog" class="school-detail-dialog" aria-labelledby="schoolDetailTitle">
+      <div class="dialog-head"><div><small>预计去向学校资料</small><h2 id="schoolDetailTitle">学校详情</h2></div><button id="closeSchoolDetail" type="button" aria-label="关闭学校详情">×</button></div>
+      <div id="schoolDetailContent" class="school-detail-content"></div>
+    </dialog>
+
+    <nav class="quick-return" aria-label="快捷返回">
+      <button type="button" data-smart-back>← 返回上一处</button>
+      <a href="../" id="homeReturn" data-home-return>⌂ 助手首页</a>
+      <button type="button" data-scroll-top>↑ 回到顶部</button>
+    </nav>
+    <footer><span>广州中考志愿模拟助手 · 由品沐提供</span><span><a href="../privacy/">隐私说明</a> · <a href="https://gzzk.gz.gov.cn/zkzz/" target="_blank" rel="noreferrer">广州招考官方入口</a></span></footer>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="../access-gate.js?v=20260726c"></script>
+    <script src="../navigation.js?v=20260726j"></script>
+  <script type="module" src="../app.js?v=20260729b"></script>
+  </body>
+</html>

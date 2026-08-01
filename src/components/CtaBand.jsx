@@ -3,7 +3,7 @@ import { ButtonLink } from './ButtonLink.jsx';
 import { Icon } from './Icon.jsx';
 import { Reveal } from './Reveal.jsx';
 
-export function CtaBand({ title = '你的品牌，下一步该先优化哪里？', text = '留下需求，或直接添加微信联系。我们会从平台、商品、流量、转化和团队执行五个维度，帮你判断最值得优先解决的问题。', button = '预约咨询' }) {
+export function CtaBand({ title = '添加微信，免费获取一份品牌 GEO 基础报告', text = '发送品牌名称、官网或店铺链接、主要平台和目标市场。品沐会基于公开信息先做一份品牌 GEO 基础判断，帮助你看清 AI 搜索可见度、事实一致性和下一步优化方向。', button = '免费领取 GEO 报告' }) {
   return (
     <Reveal className="cta-band-wrap">
       <section className="cta-band">
@@ -16,7 +16,7 @@ export function CtaBand({ title = '你的品牌，下一步该先优化哪里？
           <strong>{SITE.contactLabel}</strong>
           <span>{SITE.contactNote}</span>
         </div>
-        <ButtonLink href="/contact/" icon={false}>{button}</ButtonLink>
+        <ButtonLink href="/contact/?service=geo-report" icon={false}>{button}</ButtonLink>
       </section>
     </Reveal>
   );

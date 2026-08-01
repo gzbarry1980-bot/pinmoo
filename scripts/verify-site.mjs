@@ -41,7 +41,11 @@ async function localTargetExists(pathname) {
   return false;
 }
 
-for (const meta of routeMeta) {
+const buildableMeta = SITE.domain === SITE.primaryDomain
+  ? routeMeta.filter((meta) => !meta.aiTool && !meta.duplicate)
+  : routeMeta;
+
+for (const meta of buildableMeta) {
   const target = path.join(dist, meta.file);
   const html = await fs.readFile(target, 'utf8').catch(() => null);
   if (!html) {
@@ -63,7 +67,9 @@ for (const meta of routeMeta) {
   if (meta.indexable !== false && (robots.includes('noindex') || robots.includes('nofollow'))) fail(`${meta.file}: 可索引页包含 noindex/nofollow`);
 
   if (meta.path === '/' && meta.lang !== 'en') {
-    if (!html.includes('<title>广州电商咨询公司｜店铺诊断、运营陪跑与AI经营周报｜品沐咨询</title>')) fail('首页 title 未覆盖广州电商咨询与核心服务');
+    if (!html.includes('<title>品牌 GEO 优化｜AI搜索可见度与品牌增长咨询｜品沐咨询</title>')) fail('首页 title 未覆盖品牌 GEO 与 AI 搜索可见度');
+    if (!html.includes('免费获取一份品牌 GEO 基础报告')) fail('首页缺少品牌 GEO 免费报告主 CTA');
+    if (!html.includes('品牌GEO报告')) fail('首页缺少微信备注口令');
     for (const signal of ['多平台', '多行业', '全链路', 'AI工具']) {
       if (!html.includes(signal)) fail(`首页能力信号缺失: ${signal}`);
     }

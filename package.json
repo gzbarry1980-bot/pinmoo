@@ -9,11 +9,21 @@
     "verify": "node scripts/verify-site.mjs",
     "verify:content": "node scripts/verify-insight-quality.mjs",
     "verify:agent": "node scripts/verify-agent-build.mjs",
+    "verify:zhongkao": "node --test scripts/zhongkao/test-engine.mjs scripts/zhongkao/test-admission-cases.mjs && node scripts/verify-zhongkao-build.mjs",
+    "test:zhongkao-access": "node --test scripts/zhongkao/test-access-server.mjs",
+    "dev:zhongkao-access": "node server/zhongkao-access/server.mjs",
+    "data:zhongkao": "node scripts/zhongkao/update-data.mjs && node scripts/zhongkao/update-first-batch-data.mjs",
+    "data:zhongkao:first-batch": "node scripts/zhongkao/update-first-batch-data.mjs",
+    "data:zhongkao:autonomous-results": "node scripts/zhongkao/parse-autonomous-results.mjs",
     "verify:international": "node scripts/verify-international-build.mjs",
     "verify:domains": "node scripts/verify-domain-strategy.mjs",
     "verify:live": "node scripts/verify-live.mjs",
     "preview": "node scripts/serve.mjs dist",
     "assets": "node scripts/prepare-assets.mjs",
     "deploy:aliyun": "bash scripts/deploy-pinmoo-aliyun.sh"
+  },
+  "devDependencies": {
+    "pdfjs-dist": "^6.1.200",
+    "xlsx": "^0.18.5"
   }
 }

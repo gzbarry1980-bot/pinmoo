@@ -1,0 +1,76 @@
+{
+  "2021": {
+    "gradients": [
+      690,
+      650,
+      610,
+      570,
+      530
+    ],
+    "publicMinimum": 515,
+    "privateMinimum": 515,
+    "sourceId": "official-2021-score-bands"
+  },
+  "2022": {
+    "gradients": [
+      710,
+      670,
+      630,
+      590,
+      550
+    ],
+    "publicMinimum": 545,
+    "privateMinimum": 545,
+    "sourceId": "official-2022-score-bands"
+  },
+  "2023": {
+    "gradients": [
+      715,
+      675,
+      635,
+      595,
+      555
+    ],
+    "publicMinimum": 545,
+    "privateMinimum": 545,
+    "sourceId": "official-2023-score-bands"
+  },
+  "2024": {
+    "gradients": [
+      702,
+      662,
+      622,
+      582,
+      542
+    ],
+    "publicMinimum": 502,
+    "privateMinimum": 502,
+    "sourceId": "official-2024-control-lines"
+  },
+  "2025": {
+    "gradients": [
+      707,
+      667,
+      627,
+      587,
+      547,
+      507
+    ],
+    "publicMinimum": 487,
+    "privateMinimum": 487,
+    "sourceId": "official-2025-control-lines"
+  },
+  "2026": {
+    "gradients": [
+      712,
+      672,
+      632,
+      592,
+      552,
+      512
+    ],
+    "publicMinimum": 492,
+    "privateMinimum": 412,
+    "sourceId": "official-2026-control-lines"
+  }
+}

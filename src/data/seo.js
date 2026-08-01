@@ -16,9 +16,9 @@ export const routeMeta = [
   {
     path: '/',
     file: 'index.html',
-    title: '广州电商咨询公司｜店铺诊断、运营陪跑与AI经营周报｜品沐咨询',
-    description: '广州品沐咨询面向消费品牌与传统企业，提供天猫、京东、抖音等平台的电商战略诊断、店铺转化优化、运营陪跑、投放复盘、退款治理、AI经营周报和GEO生成式引擎优化服务。',
-    keywords: ['广州电商咨询公司', '电商战略诊断', '天猫店铺诊断', '京东运营顾问', '抖音电商咨询', '运营陪跑', 'AI经营周报', 'GEO服务', 'AI搜索优化', '生成式引擎优化'],
+    title: '品牌 GEO 优化｜AI搜索可见度与品牌增长咨询｜品沐咨询',
+    description: '品沐咨询帮助消费品牌做 GEO 生成式引擎优化，提升 AI 搜索对品牌的抓取、理解与引用基础；添加微信并备注“品牌GEO报告”，可免费获取一份基于公开信息的品牌 GEO 基础报告。',
+    keywords: ['品牌GEO优化', '品牌GEO报告', 'AI搜索可见度', '生成式引擎优化', 'GEO服务', '广州电商咨询公司', '电商战略诊断', '天猫店铺诊断', 'AI经营周报'],
     name: '首页',
     updated: '2026-07-16',
     priority: '1.0',
@@ -115,7 +115,7 @@ export const routeMeta = [
     path: '/contact/',
     file: 'contact/index.html',
     title: '联系我们｜品沐咨询 PINMOO',
-    description: '联系广州品沐咨询有限公司。微信 / 手机同号：13600008584。可先发送品牌、平台、当前问题和希望先看的方向，预约免费基础诊断或咨询店铺诊断、经营周报、运营陪跑与品牌增长服务。',
+    description: '联系广州品沐咨询有限公司。添加微信 / 手机同号：13600008584，备注“品牌GEO报告”，发送品牌名称、官网或店铺链接、主要平台和目标市场，可免费获取一份基于公开信息的品牌 GEO 基础报告。',
     name: '联系我们',
     updated: '2026-07-17',
     priority: '0.8',
@@ -353,8 +353,8 @@ function organizationNode() {
     description: SITE.positioning,
     potentialAction: {
       '@type': 'CommunicateAction',
-      name: '预约免费基础诊断',
-      target: ORIGIN + '/contact/'
+      name: '免费领取品牌 GEO 基础报告',
+      target: ORIGIN + '/contact/?service=geo-report'
     }
   };
 }

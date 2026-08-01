@@ -56,7 +56,7 @@ export function ContactForm() {
     <form className="contact-form" onSubmit={submit} noValidate>
       <div className="form-heading">
         <Icon name="FilePenLine" size={26} />
-        <h2>在线咨询</h2>
+        <h2>在线咨询 / 领取 GEO 报告</h2>
       </div>
       <label>
         <span>姓名 <b>*</b></span>
@@ -87,11 +87,11 @@ export function ContactForm() {
       </fieldset>
       <label>
         <span>咨询需求</span>
-        <textarea maxLength={500} value={form.message} onChange={(event) => update('message', event.target.value)} placeholder="请简要描述您的品牌/店铺情况及当前需要解决的问题" />
+        <textarea maxLength={500} value={form.message} onChange={(event) => update('message', event.target.value)} placeholder="如需领取 GEO 报告，请填写品牌官网或店铺链接、主要平台和目标市场" />
       </label>
       <button className="form-submit" type="submit" disabled={loading}>{loading ? '提交中...' : '提交咨询需求'}</button>
       {success && <div className="success-message"><Icon name="CheckCircle2" size={20} />已收到您的需求。你也可以直接添加微信 / 手机同号 {SITE.phoneDisplay}，并注明来意，我们会尽快回复。</div>}
-      <p className="form-note"><Icon name="MessageCircle" size={18} />你也可以直接添加微信 / 手机同号 <a href={'tel:' + SITE.phone}>{SITE.phoneDisplay}</a>，并注明来意。</p>
+      <p className="form-note"><Icon name="MessageCircle" size={18} />也可以直接添加微信 / 手机同号 <a href={'tel:' + SITE.phone}>{SITE.phoneDisplay}</a>，备注“品牌GEO报告”领取公开信息版基础报告。</p>
     </form>
   );
 }

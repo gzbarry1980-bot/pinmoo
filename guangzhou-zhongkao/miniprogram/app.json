@@ -1,0 +1,30 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/direction/direction",
+    "pages/target/target",
+    "pages/special/special",
+    "pages/webview/webview"
+  ],
+  "window": {
+    "navigationBarTitleText": "广州中考志愿模拟助手",
+    "navigationBarBackgroundColor": "#102a43",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f4f7fb",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#627d98",
+    "selectedColor": "#0b7285",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      { "pagePath": "pages/home/home", "text": "首页" },
+      { "pagePath": "pages/direction/direction", "text": "按分数" },
+      { "pagePath": "pages/target/target", "text": "目标校" },
+      { "pagePath": "pages/special/special", "text": "专项" }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

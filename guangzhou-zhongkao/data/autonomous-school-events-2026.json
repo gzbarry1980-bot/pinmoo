@@ -1,0 +1,115 @@
+{
+  "version": "2026-events-20260726",
+  "year": 2026,
+  "generatedAt": "2026-07-26T00:00:00+08:00",
+  "scope": "仅收录可追溯的学校公开活动；未收录不代表学校没有活动。",
+  "officialTimeline": {
+    "title": "2026年自主招生官方办理时间（已结束）",
+    "items": [
+      { "date": "5月9日", "label": "统一公布学校计划及简章" },
+      { "date": "5月12日9:00—5月15日18:00", "label": "考生通过中考服务平台网上报名" },
+      { "date": "5月20日前", "label": "学校确定综合能力考核名单" },
+      { "date": "5月22—28日", "label": "公示参加综合能力考核名单" },
+      { "date": "6月1—5日", "label": "填报志愿" },
+      { "date": "7月4—5日", "label": "学校综合能力考核" }
+    ],
+    "sourceId": "official-2026-autonomous-notice"
+  },
+  "events": [
+    {
+      "schoolId": "gz-198c01489912",
+      "type": "校园开放日",
+      "dateDisplay": "2026年5月16日（周六）9:00—12:00",
+      "location": "华南师大附中石牌校区",
+      "status": "已结束",
+      "sourceId": "event-huafu-2026",
+      "note": "仅用于了解学校；自主招生仍须按全市统一时间在中考服务平台报名。"
+    },
+    {
+      "schoolId": "gz-36a40bf707ec",
+      "type": "社团嘉年华暨校园开放日",
+      "dateDisplay": "2026年5月16日（周六）8:30—12:00",
+      "location": "白云新城校区",
+      "status": "已结束",
+      "sourceId": "event-peiying-2026",
+      "note": "仅用于了解学校；自主招生仍须按全市统一时间在中考服务平台报名。"
+    },
+    {
+      "schoolId": "gz-d0679fc04427",
+      "type": "社团嘉年华暨校园开放日",
+      "dateDisplay": "2026年5月16日（周六）8:30—12:00",
+      "location": "鹤洞校区",
+      "status": "已结束",
+      "sourceId": "event-peiying-2026",
+      "note": "仅用于了解学校；自主招生仍须按全市统一时间在中考服务平台报名。"
+    },
+    {
+      "schoolId": "gz-0a2cc03d55ef",
+      "type": "校园开放日",
+      "dateDisplay": "2026年5月17日（周日）9:30—12:30",
+      "location": "越秀校区",
+      "status": "已结束",
+      "sourceId": "event-tieyi-2026",
+      "note": "三校区同期开放；需预约。仅用于了解学校，不办理自主招生报名。"
+    },
+    {
+      "schoolId": "gz-727b6d8ff167",
+      "type": "校园开放日",
+      "dateDisplay": "2026年5月17日（周日）9:30—12:30",
+      "location": "番禺校区",
+      "status": "已结束",
+      "sourceId": "event-tieyi-2026",
+      "note": "三校区同期开放；需预约。仅用于了解学校，不办理自主招生报名。"
+    },
+    {
+      "schoolId": "gz-9a6f1f35a825",
+      "type": "校园开放日",
+      "dateDisplay": "2026年5月17日（周日）9:30—12:30",
+      "location": "白云校区",
+      "status": "已结束",
+      "sourceId": "event-tieyi-2026",
+      "note": "三校区同期开放；需预约。仅用于了解学校，不办理自主招生报名。"
+    },
+    {
+      "schoolId": "gz-7d41f8668918",
+      "type": "高中部校园开放日",
+      "dateDisplay": "2026年5月5日（周二）",
+      "location": "校本部（前进路121号）",
+      "status": "已结束",
+      "sourceId": "event-haizhu-foreign-2026",
+      "note": "学校说明该活动不收集学生资料、不是招生宣传；自主招生须走官方平台。"
+    }
+  ],
+  "sources": [
+    {
+      "id": "official-2026-autonomous-notice",
+      "title": "广州市教育局：2026年普通高中学校自主招生工作通知",
+      "url": "https://jyj.gz.gov.cn/gk/zfxxgkml/bmwj/qtwj/content/post_10781652.html",
+      "authority": "官方"
+    },
+    {
+      "id": "event-huafu-2026",
+      "title": "2026年华南师大附中石牌校区校园开放日（转述学校活动）",
+      "url": "https://gz.bendibao.com/xiuxian/2026513/367949.shtm",
+      "authority": "第三方转述，需以学校当年通知复核"
+    },
+    {
+      "id": "event-peiying-2026",
+      "title": "2026年广州市培英中学校园开放日（转述学校活动）",
+      "url": "https://gz.bendibao.com/xiuxian/2026513/367936.shtm",
+      "authority": "第三方转述，需以学校当年通知复核"
+    },
+    {
+      "id": "event-tieyi-2026",
+      "title": "2026年广州市铁一中学校园开放日（转述学校活动）",
+      "url": "https://www.zizzs.com/gk/zhongkao/221285.html",
+      "authority": "第三方转述，需以学校当年通知复核"
+    },
+    {
+      "id": "event-haizhu-foreign-2026",
+      "title": "2026年广州市海珠外国语实验中学校园开放日（转载学校声明）",
+      "url": "https://www.sohu.com/a/1010267468_121124007",
+      "authority": "转载来源，需以学校当年通知复核"
+    }
+  ]
+}

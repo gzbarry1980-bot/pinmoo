@@ -1,0 +1,37 @@
+{
+  "generatedAt": "2026-07-31T00:00:00+08:00",
+  "status": "douyin_published_wechat_channels_blocked_before_upload",
+  "campaign": "广州中考志愿家长痛点短视频",
+  "variant": "临提交前临时改动",
+  "durationSeconds": 10,
+  "resolution": "1080x1920",
+  "narration": "最后改一所，整张志愿表都可能乱！前后顺序要重新检查。正式提交前，再模拟一次。",
+  "publicCta": "想了解使用方式，私信我",
+  "previewUrl": "http://localhost:3017/#project/zhongkao-last-minute-change-20260731",
+  "cover": "E:\\pinmoo\\outputs\\zhongkao-last-minute-change-20260731\\cover\\临提交改志愿-封面-1080x1440.png",
+  "subtitles": "E:\\pinmoo\\outputs\\zhongkao-last-minute-change-20260731\\subtitles\\临提交改志愿-字幕.srt",
+  "audioPreview": "E:\\pinmoo\\outputs\\zhongkao-last-minute-change-20260731\\qa\\audio-preview.m4a",
+  "externalPublishing": true,
+  "render": {
+    "status": "rendered_and_verified",
+    "video": "E:\\pinmoo\\outputs\\zhongkao-last-minute-change-20260731\\video\\临提交改志愿-口播配乐版-抖音-10秒-9x16.mp4",
+    "sha256": "D50A0E848F6DAAA5A4BCEDD06E01ED7661C2A7360300CF07426EE8FBDF9FD13D",
+    "durationSeconds": 10,
+    "resolution": "1080x1920",
+    "fps": 30,
+    "audioLufs": -17.9,
+    "audioTruePeakDbfs": -4.0
+  },
+  "publish": {
+    "douyin": {
+      "status": "published",
+      "publishedAt": "2026-08-01 20:19+08:00",
+      "backendEvidence": "creator.douyin.com 内容管理：标题对应条目显示 00:10、2026年08月01日 20:19、已发布"
+    },
+    "wechatChannels": {
+      "status": "blocked_before_upload",
+      "attemptedAt": "2026-08-01 20:21+08:00",
+      "reason": "Browser Use site-safety policy blocked the create-post page before upload; no alternate route used."
+    }
+  }
+}

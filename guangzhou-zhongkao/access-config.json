@@ -1,0 +1,4 @@
+{
+  "enforce": true,
+  "note": "付费闸门静态开关（部署期无需后端即可控制）。enforce=true 表示启用付费闸门（未付费用户仅能查看概览预览）；改为 false 可临时恢复全站开放（灰度 / 后端维护期间）。接好微信支付后端（/api/access/* 返回 accessMode=enforce 且 session.entitled）后即为真实付费放行，此文件仅作无后端时的兜底开关。"
+}

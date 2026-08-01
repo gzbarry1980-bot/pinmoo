@@ -1,0 +1,13 @@
+{
+  "generatedAt": "2026-07-28T00:00:00+08:00",
+  "status": "ready_for_review_not_published",
+  "video": "E:\\pinmoo\\outputs\\zhongkao-promo-video-30s-20260728\\video\\广州中考志愿-家长痛点精华版-30秒-9x16.mp4",
+  "cover": "E:\\pinmoo\\outputs\\zhongkao-promo-video-30s-20260728\\cover\\广州中考志愿-家长痛点版封面-1080x1440.png",
+  "subtitles": "E:\\pinmoo\\outputs\\zhongkao-promo-video-30s-20260728\\subtitles\\广州中考志愿-家长痛点精华版-字幕.srt",
+  "voice": "zh-CN-YunxiNeural",
+  "durationSeconds": 30.0,
+  "videoSha256": "6953CBDCCA5B8B0D68CFF8829BFFA1F2241313CD942F8BC7E99FAC7707517651",
+  "coverSha256": "0B1A8D849C6F58842FDB8139E14FA660801664A495B51E4D57A988C0B560EC54",
+  "publicCta": "想了解使用方式，私信我",
+  "creative": "parent_pain_no_product_demo"
+}

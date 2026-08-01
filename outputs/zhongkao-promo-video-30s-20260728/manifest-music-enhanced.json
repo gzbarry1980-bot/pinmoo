@@ -1,0 +1,14 @@
+{
+  "status": "ready_for_review_not_published",
+  "sourceVideo": "E:\\pinmoo\\outputs\\zhongkao-promo-video-30s-20260728\\video\\广州中考志愿-家长痛点精华版-30秒-9x16.mp4",
+  "music": "E:\\pinmoo\\outputs\\zhongkao-promo-video-30s-20260728\\audio\\广州中考志愿-家长痛点版-原创紧张递进配乐.wav",
+  "outputVideo": "E:\\pinmoo\\outputs\\zhongkao-promo-video-30s-20260728\\video\\广州中考志愿-家长痛点精华版-30秒-配乐增强-9x16.mp4",
+  "durationSeconds": 30.0,
+  "musicRights": "original_programmatic_composition",
+  "mixing": "voice_led_with_sidechain_ducking",
+  "audio": "stereo_48000hz",
+  "integratedLoudnessLufs": -16.2,
+  "truePeakDbfs": -2.1,
+  "videoSha256": "FDF4BEBD65C51561638C60367A00A2C6545EF3CBD84A2B4527B488F20086DB41",
+  "musicSha256": "0850B218E6438D1406C68CFBAB98F7760368CA49A83700D1980479F896024EBE"
+}
