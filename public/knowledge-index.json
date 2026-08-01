@@ -1,13 +1,14 @@
 {
-  "schemaVersion": "2026-07-16",
+  "schemaVersion": "2026-07-17",
   "name": "PINMOO 电商经营知识索引",
   "publisher": {
     "name": "广州品沐咨询有限公司",
+    "alternateName": "Guangzhou Pinmoo Consulting Co., Ltd.",
     "url": "https://pinmooconsulting.com/"
   },
   "language": "zh-CN",
   "articleCount": 17,
-  "canonicalCollection": "https://pinmooconsulting.com/zh/insights/",
+  "canonicalCollection": "https://pinmooconsulting.com/insights/",
   "contentMethod": "CEBA: Claim, Evidence, Boundary, Action",
   "editorialPolicy": "每篇文章必须提供直接回答、判断依据、适用范围、使用限制、执行动作、作者和复核日期；不使用未经核验的客户名称、数字或结果承诺。",
   "usageNote": "内容用于解释电商经营问题、数据口径和诊断方法，不代表任何品牌的实际经营结果或保证。",
@@ -16,7 +17,7 @@
     "alternateName": "沐风、BarryBao",
     "role": "品沐咨询主理人",
     "disclosure": "内容由品沐咨询基于电商经营方法与公开边界编写，AI参与结构整理和文字校对，最终由鲍俊文复核。",
-    "url": "https://pinmooconsulting.com/zh/about/"
+    "url": "https://pinmooconsulting.com/about/"
   },
   "topicClusters": [
     {
@@ -68,7 +69,7 @@
     {
       "title": "电商咨询、运营陪跑和代运营有什么区别：责任边界与选择方法",
       "category": "服务选择",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "电商咨询主要负责诊断、策略和决策支持；运营陪跑在此基础上持续推动品牌团队执行与复盘；代运营通常承担更多店铺日常操作。选择时不要只看服务名称，要确认谁负责上架、活动、投放、客服和数据复盘，账号与数据归谁管理，以及每个周期用什么交付物验收。",
@@ -115,7 +116,7 @@
     {
       "title": "如何判断电商顾问是否靠谱：品牌签约前的 8 项核验清单",
       "category": "顾问评估",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/how-to-evaluate-ecommerce-consultant/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/how-to-evaluate-ecommerce-consultant/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "判断电商顾问是否靠谱，应核验八项内容：身份与主体是否一致、能否先定义问题、是否解释证据和限制、案例是否说明匿名边界、交付物是否具体、账号与数据是否归品牌、沟通复盘机制是否明确，以及是否回避无法负责的绝对增长承诺。",
@@ -163,7 +164,7 @@
     {
       "title": "店铺诊断、运营陪跑和专项优化怎么选：交付内容与适用阶段",
       "category": "服务选择",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/store-diagnosis-vs-coaching-vs-project-optimization/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/store-diagnosis-vs-coaching-vs-project-optimization/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "问题尚未定位时先做店铺或经营诊断；问题跨商品、页面、投放、客服和团队，需要持续推进时选择运营陪跑；问题已经明确且能在一个模块内验证时选择专项优化。选择前还要确认品牌是否有人接收交付并推动执行。",
@@ -210,7 +211,7 @@
     {
       "title": "电商咨询服务怎么报价：影响费用的 7 个变量与询价清单",
       "category": "合作报价",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/ecommerce-consulting-pricing-factors/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/ecommerce-consulting-pricing-factors/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "电商咨询费用通常由七个变量决定：平台和店铺数量、SKU规模、数据文件复杂度、问题是否跨模块、服务周期、会议与审核频次，以及交付物深度。有效询价应先确认范围、双方投入、交付清单和不包含事项，再形成书面报价，而不是只问一个统一月费。",
@@ -256,7 +257,7 @@
     {
       "title": "匿名电商案例如何证明真实：保密协议下的证据边界与核验方法",
       "category": "案例证据",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/anonymous-ecommerce-case-study-evidence/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/anonymous-ecommerce-case-study-evidence/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "匿名电商案例可以通过四层信息建立可信度：说明项目是否真实且已核对、解释为何匿名、公开不会识别客户的问题与动作、明确数据口径和不能披露的内容。客户名称、店铺账号、后台截图和原始数据不应为了营销而越过保密协议。",
@@ -303,7 +304,7 @@
     {
       "title": "品牌做 GEO 怎么计算 ROI：AI 引用、询盘与成交的归因方法",
       "category": "GEO衡量",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/geo-roi-attribution-for-ecommerce-brands/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/geo-roi-attribution-for-ecommerce-brands/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "GEO ROI 应分三层衡量：可见性层记录类别提及率、引用率和被引页面数；行为层记录AI来源访问、内容互动和用户自报；经营层记录有效询盘、商机和成交。只有存在直接点击、可靠UTM或用户明确自报时，才适合做直接归因；其余应记为辅助影响或未知。",
@@ -349,7 +350,7 @@
     {
       "title": "AI 电商经营周报和人工周报有什么区别：能力、误差与审核边界",
       "category": "AI经营工具",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/ai-ecommerce-weekly-report-vs-manual-report/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/ai-ecommerce-weekly-report-vs-manual-report/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "AI经营周报擅长批量读取报表、统一字段、计算指标、生成图表和组织初稿；人工周报更擅长确认业务背景、识别异常口径、判断因果边界和推动团队行动。可靠做法不是二选一，而是由AI承担重复处理，由经营人员审核数据、补充背景并批准结论。",
@@ -395,7 +396,7 @@
     {
       "title": "哪些品牌暂时不适合做电商咨询：合作前应先补齐的 6 个条件",
       "category": "合作边界",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/when-ecommerce-consulting-is-not-a-fit/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/when-ecommerce-consulting-is-not-a-fit/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "品牌若没有明确内部负责人、无法提供基础经营数据、产品与供货尚不稳定、没有执行和审批资源、预算与目标完全不匹配，或要求服务方保证绝对销量，暂时不适合直接进入长期电商咨询或陪跑。应先补齐责任、数据、供给和执行基础，再决定服务方式。",
@@ -442,7 +443,7 @@
     {
       "title": "电商店铺有流量没转化怎么办：从人群、商品到客服的 6 步排查法",
       "category": "店铺转化",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/store-traffic-no-conversion-diagnosis/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/store-traffic-no-conversion-diagnosis/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "店铺有流量没转化时，应先确认流量是否来自目标人群，再依次检查商品与价格是否匹配、主图能否形成点击后的购买理由、详情页是否消除顾虑、评价等信任内容是否充分，以及客服能否承接询单。问题未定位前，不建议单纯增加流量。",
@@ -486,7 +487,7 @@
     {
       "title": "电商店铺商品结构怎么分析：引流款、主推款与利润款的诊断方法",
       "category": "商品结构",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/ecommerce-product-structure-review/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/ecommerce-product-structure-review/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "电商商品结构分析应同时看访客、成交、毛利、退款、库存、投放和复购，再判断商品承担引流、主推成交、利润、复购或品牌形象中的哪项职责。商品职责不清时，容易出现流量集中但成交弱、爆款有销售但无利润，或高退款商品持续占用预算。",
@@ -526,7 +527,7 @@
     {
       "title": "电商客服询单转化率低怎么分析：从响应到异议处理的复盘框架",
       "category": "客服承接",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/ecommerce-customer-service-conversion-review/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/ecommerce-customer-service-conversion-review/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "客服询单转化率低时，先区分响应不及时、需求识别不完整、推荐不匹配、异议没有解决，还是商品与优惠本身缺乏竞争力。有效客服话术不是统一复制答案，而是确认用户场景、推荐合适规格、说明证据与边界，并对高意向未成交用户安排合规回访。",
@@ -566,7 +567,7 @@
     {
       "title": "电商直播有观看没成交怎么复盘：从流量、货品到播后承接",
       "category": "直播复盘",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/livestream-viewers-no-orders-diagnosis/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/livestream-viewers-no-orders-diagnosis/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "直播有观看没成交时，应按流量进入、停留互动、商品点击、加购支付、退款与播后承接分段复盘。在线人数高但商品点击低，通常先检查人群与讲解；点击不低但支付弱，应检查货品、价格、商品页、客服和库存。",
@@ -606,7 +607,7 @@
     {
       "title": "电商老客复购率低怎么分析：从复购周期到会员触达的诊断框架",
       "category": "会员复购",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/ecommerce-member-repurchase-diagnosis/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/ecommerce-member-repurchase-diagnosis/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "老客复购率低时，先确认品类是否具备复购条件和合理周期，再检查首购体验、可复购商品、用户分层、触达内容、优惠依赖和成交路径。复购运营不是给所有老客群发折扣，而是在合适时间给特定用户明确的再次购买理由。",
@@ -646,7 +647,7 @@
     {
       "title": "生意参谋数据诊断需要哪些报表：品牌电商复盘资料清单",
       "category": "数据诊断",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/business-advisor-data-diagnosis-checklist/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/business-advisor-data-diagnosis-checklist/",
       "datePublished": "2026-07-16",
       "dateModified": "2026-07-16",
       "directAnswer": "生意参谋数据诊断至少需要同周期的经营概览、商品、流量来源、退款和推广计划报表；若要判断转化承接，还应补充客服、直播、客户与内容数据。文件应保留原始字段，不先手工合并，并说明活动、页面改版、库存和口径变化。",
@@ -690,7 +691,7 @@
     {
       "title": "电商经营周报怎么复盘：从成交规模到经营质量的 7 步框架",
       "category": "经营复盘",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/ecommerce-weekly-report-review-framework/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/ecommerce-weekly-report-review-framework/",
       "datePublished": "2026-07-10",
       "dateModified": "2026-07-12",
       "directAnswer": "电商经营周报应按“统一口径、看成交规模、看经营质量、拆流量、拆商品、拆推广、定动作”七步复盘。核心不是判断销售额涨跌，而是解释变化来自哪里、质量是否可持续，以及下周期由谁先做什么。",
@@ -730,7 +731,7 @@
     {
       "title": "电商退款率高怎么分析：从历史订单到商品、页面与客服的治理方法",
       "category": "退款治理",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/ecommerce-refund-governance-playbook/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/ecommerce-refund-governance-playbook/",
       "datePublished": "2026-07-10",
       "dateModified": "2026-07-12",
       "directAnswer": "退款率高时，先核对退款按发生时间还是原订单时间统计，再按退款金额锁定高贡献高风险商品，结合退款原因、页面承诺、客服记录、规格尺码和履约数据判断根因。退款金额高于当期成交，不等于当期商品一定失控，可能包含历史订单退款。",
@@ -770,7 +771,7 @@
     {
       "title": "电商投放 ROI 怎么复盘：为什么不能只看整体投产比",
       "category": "投放复盘",
-      "canonicalUrl": "https://pinmooconsulting.com/zh/insights/paid-traffic-roi-quality-review/",
+      "canonicalUrl": "https://pinmooconsulting.com/insights/paid-traffic-roi-quality-review/",
       "datePublished": "2026-07-10",
       "dateModified": "2026-07-12",
       "directAnswer": "电商投放 ROI 复盘应从整体结果下钻到计划、人群、关键词、创意和商品，结合花费占比、点击率、点击成本、加购率、成交转化、退款和净销售贡献判断。ROI 高不等于可以直接加预算，ROI 低也不等于立即停投。",

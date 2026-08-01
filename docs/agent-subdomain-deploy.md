@@ -70,4 +70,4 @@ curl -s https://agent.pinmoo.top/ | grep 'https://agent.pinmoo.top/'
 - `http://agent.pinmoo.top/` 自动跳转到 HTTPS。
 - `https://agent.pinmoo.top/` 返回 200。
 - canonical 和 `og:url` 都是 `https://agent.pinmoo.top/`。
-- 页面内“返回品沐官网”跳转到 `https://pinmooconsulting.com/zh/`。
+- 页面内“返回品沐官网”跳转到 `https://pinmooconsulting.com/`。

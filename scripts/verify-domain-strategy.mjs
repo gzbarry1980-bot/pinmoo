@@ -45,11 +45,12 @@ async function expectPrimaryPage(pathname) {
 
 const redirectChecks = [
   ['/', `${primaryOrigin}/`],
-  ['/about/', `${primaryOrigin}/zh/about/`],
-  ['/services/store-diagnosis/', `${primaryOrigin}/zh/services/store-diagnosis/`],
-  ['/insights/ecommerce-weekly-report-review-framework/', `${primaryOrigin}/zh/insights/ecommerce-weekly-report-review-framework/`],
-  ['/en/', `${primaryOrigin}/`],
-  ['/en/about/', `${primaryOrigin}/about/`],
+  ['/about/', `${primaryOrigin}/about/`],
+  ['/services/store-diagnosis/', `${primaryOrigin}/services/store-diagnosis/`],
+  ['/insights/ecommerce-weekly-report-review-framework/', `${primaryOrigin}/insights/ecommerce-weekly-report-review-framework/`],
+  ['/en/', `${primaryOrigin}/en/`],
+  ['/en/about/', `${primaryOrigin}/en/about/`],
+  ['/zh/', `${primaryOrigin}/`],
   ['/china-ecommerce-consulting/', `${primaryOrigin}/china-ecommerce-consulting/`],
   ['/ai-diagnosis/', `${agentOrigin}/`],
   ['/sitemap.xml', `${primaryOrigin}/sitemap.xml`]
@@ -60,12 +61,13 @@ await expectRedirect('/', `${primaryOrigin}/`, legacyHttpOrigin);
 
 for (const pathname of [
   '/',
-  '/zh/',
-  '/zh/about/',
-  '/zh/services/store-diagnosis/',
-  '/zh/services/tmall-business-weekly-report/',
-  '/zh/insights/',
-  '/zh/resources/ecommerce-metrics-dictionary/',
+  '/about/',
+  '/services/store-diagnosis/',
+  '/services/tmall-business-weekly-report/',
+  '/insights/',
+  '/resources/ecommerce-metrics-dictionary/',
+  '/en/',
+  '/en/about/',
   '/china-ecommerce-consulting/'
 ]) {
   await expectPrimaryPage(pathname);
@@ -77,6 +79,7 @@ const sitemapUrls = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g), (match)
 if (sitemapResponse.status !== 200 || sitemapUrls.length < 20) throw new Error('Primary sitemap is unavailable or incomplete');
 if (sitemapUrls.some((url) => !url.startsWith(`${primaryOrigin}/`))) throw new Error('Primary sitemap contains a non-primary domain');
 if (sitemap.includes('pinmoo.top')) throw new Error('Primary sitemap still contains pinmoo.top');
+if (sitemap.includes('/zh/')) throw new Error('Primary sitemap still contains legacy /zh/ URLs');
 
 const agentResponse = await fetchResponse(`${agentOrigin}/`, { redirect: 'follow' });
 const agentHtml = await agentResponse.text();

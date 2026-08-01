@@ -3,7 +3,7 @@
 ## 域名边界
 
 - `https://pinmooconsulting.com/`：唯一官网主域名，由 Netlify 从 GitHub 自动部署。
-- `https://pinmooconsulting.com/zh/`：中文官网首页。
+- `https://pinmooconsulting.com/`：中文官网首页。
 - `https://pinmoo.top/`：历史域名，由阿里云 Nginx 逐页 301 跳转到 `.com` 对应页面。
 - `https://agent.pinmoo.top/`：独立电商经营报告工作台，不跳转。
 
@@ -43,8 +43,8 @@ node scripts/verify-domain-strategy.mjs
 
 ```text
 https://pinmooconsulting.com/
-https://pinmooconsulting.com/zh/
-https://pinmooconsulting.com/zh/services/store-diagnosis/
+https://pinmooconsulting.com/
+https://pinmooconsulting.com/services/store-diagnosis/
 https://pinmooconsulting.com/sitemap.xml
 https://agent.pinmoo.top/
 ```

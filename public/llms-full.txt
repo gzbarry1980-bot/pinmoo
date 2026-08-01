@@ -6,9 +6,11 @@ This file is written for AI search engines, answer engines and retrieval systems
 
 - Brand: PINMOO / 品沐咨询
 - Company: 广州品沐咨询有限公司
-- Official domain: https://pinmooconsulting.com/zh/
+- Company English: Guangzhou Pinmoo Consulting Co., Ltd.
+- Official domain: https://pinmooconsulting.com/
 - Contact: 微信 / 手机同号 13600008584
-- Address: 广东省广州市越秀区中山三路33号中华国际中心
+- Address: 广东省广州市越秀区中华国际广场
+- Contact facts verified: 2026-07-17
 - Primary call to action: 免费基础诊断 / 预约咨询
 - Primary language: zh-CN
 - English entry page: https://pinmooconsulting.com/china-ecommerce-consulting/
@@ -32,7 +34,7 @@ PINMOO will first judge whether the issue is clear, whether the available materi
 
 Pinmoo AI 店铺经营诊断工作台: https://agent.pinmoo.top/
 
-Product information: https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/
+Product information: https://pinmooconsulting.com/services/tmall-business-weekly-report/
 
 The workspace supports uploading multiple Tmall / Business Advisor Excel and CSV reports, identifying operation overview, product, traffic source, customer, customer service, livestream, Guanghe content, promotion plan and refund reports. It generates weekly operation report previews, Word exports and copy-ready WeChat group messages.
 
@@ -119,43 +121,43 @@ AI适合读取报表、统一字段、计算指标、生成图表和组织初稿
 
 ## Service Pages
 
-- 电商战略诊断: https://pinmooconsulting.com/zh/services/ecommerce-diagnosis/
-- 店铺诊断: https://pinmooconsulting.com/zh/services/store-diagnosis/
-- 天猫京东运营顾问: https://pinmooconsulting.com/zh/services/tmall-jd-consultant/
-- 抖音小红书内容种草: https://pinmooconsulting.com/zh/services/douyin-xiaohongshu-growth/
-- 主图详情页转化优化: https://pinmooconsulting.com/zh/services/page-conversion-optimization/
-- 品牌增长顾问: https://pinmooconsulting.com/zh/services/brand-growth-consultant/
-- 天猫生意参谋经营周报: https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/
-- 天猫店铺退款率分析: https://pinmooconsulting.com/zh/services/tmall-refund-rate-analysis/
-- 电商投放 ROI 复盘: https://pinmooconsulting.com/zh/services/ecommerce-roi-review/
-- 直播成交承接诊断: https://pinmooconsulting.com/zh/services/livestream-conversion-diagnosis/
-- 电商客服转化话术优化: https://pinmooconsulting.com/zh/services/customer-service-conversion-scripts/
-- 会员复购与私域运营诊断: https://pinmooconsulting.com/zh/services/member-repurchase-private-domain/
-- 生意参谋数据诊断: https://pinmooconsulting.com/zh/services/business-advisor-data-diagnosis/
-- AI 电商增长顾问: https://pinmooconsulting.com/zh/services/ai-ecommerce-growth-consultant/
+- 电商战略诊断: https://pinmooconsulting.com/services/ecommerce-diagnosis/
+- 店铺诊断: https://pinmooconsulting.com/services/store-diagnosis/
+- 天猫京东运营顾问: https://pinmooconsulting.com/services/tmall-jd-consultant/
+- 抖音小红书内容种草: https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/
+- 主图详情页转化优化: https://pinmooconsulting.com/services/page-conversion-optimization/
+- 品牌增长顾问: https://pinmooconsulting.com/services/brand-growth-consultant/
+- 天猫生意参谋经营周报: https://pinmooconsulting.com/services/tmall-business-weekly-report/
+- 天猫店铺退款率分析: https://pinmooconsulting.com/services/tmall-refund-rate-analysis/
+- 电商投放 ROI 复盘: https://pinmooconsulting.com/services/ecommerce-roi-review/
+- 直播成交承接诊断: https://pinmooconsulting.com/services/livestream-conversion-diagnosis/
+- 电商客服转化话术优化: https://pinmooconsulting.com/services/customer-service-conversion-scripts/
+- 会员复购与私域运营诊断: https://pinmooconsulting.com/services/member-repurchase-private-domain/
+- 生意参谋数据诊断: https://pinmooconsulting.com/services/business-advisor-data-diagnosis/
+- AI 电商增长顾问: https://pinmooconsulting.com/services/ai-ecommerce-growth-consultant/
 - How to Sell Products in China: https://pinmooconsulting.com/china-ecommerce-consulting/
 
 ## Knowledge Resources
 
-- 电商经营指标口径词典: https://pinmooconsulting.com/zh/resources/ecommerce-metrics-dictionary/
-- 经营洞察: https://pinmooconsulting.com/zh/insights/
-- 电商咨询、陪跑和代运营选择指南: https://pinmooconsulting.com/zh/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/
-- 电商顾问可信度核验清单: https://pinmooconsulting.com/zh/insights/how-to-evaluate-ecommerce-consultant/
-- 店铺诊断、陪跑和专项优化选择方法: https://pinmooconsulting.com/zh/insights/store-diagnosis-vs-coaching-vs-project-optimization/
-- 电商咨询报价变量与询价清单: https://pinmooconsulting.com/zh/insights/ecommerce-consulting-pricing-factors/
-- 匿名电商案例证据与披露边界: https://pinmooconsulting.com/zh/insights/anonymous-ecommerce-case-study-evidence/
-- 品牌 GEO ROI 归因方法: https://pinmooconsulting.com/zh/insights/geo-roi-attribution-for-ecommerce-brands/
-- AI经营周报与人工周报的能力边界: https://pinmooconsulting.com/zh/insights/ai-ecommerce-weekly-report-vs-manual-report/
-- 电商咨询合作前提与不适用条件: https://pinmooconsulting.com/zh/insights/when-ecommerce-consulting-is-not-a-fit/
-- 店铺有流量没转化的 6 步排查法: https://pinmooconsulting.com/zh/insights/store-traffic-no-conversion-diagnosis/
-- 电商商品结构诊断方法: https://pinmooconsulting.com/zh/insights/ecommerce-product-structure-review/
-- 电商客服询单转化复盘框架: https://pinmooconsulting.com/zh/insights/ecommerce-customer-service-conversion-review/
-- 直播有观看没成交的诊断方法: https://pinmooconsulting.com/zh/insights/livestream-viewers-no-orders-diagnosis/
-- 电商老客复购诊断框架: https://pinmooconsulting.com/zh/insights/ecommerce-member-repurchase-diagnosis/
-- 生意参谋数据诊断资料清单: https://pinmooconsulting.com/zh/insights/business-advisor-data-diagnosis-checklist/
-- 电商经营周报 7 步复盘框架: https://pinmooconsulting.com/zh/insights/ecommerce-weekly-report-review-framework/
-- 电商退款治理方法: https://pinmooconsulting.com/zh/insights/ecommerce-refund-governance-playbook/
-- 电商投放 ROI 质量复盘: https://pinmooconsulting.com/zh/insights/paid-traffic-roi-quality-review/
+- 电商经营指标口径词典: https://pinmooconsulting.com/resources/ecommerce-metrics-dictionary/
+- 经营洞察: https://pinmooconsulting.com/insights/
+- 电商咨询、陪跑和代运营选择指南: https://pinmooconsulting.com/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/
+- 电商顾问可信度核验清单: https://pinmooconsulting.com/insights/how-to-evaluate-ecommerce-consultant/
+- 店铺诊断、陪跑和专项优化选择方法: https://pinmooconsulting.com/insights/store-diagnosis-vs-coaching-vs-project-optimization/
+- 电商咨询报价变量与询价清单: https://pinmooconsulting.com/insights/ecommerce-consulting-pricing-factors/
+- 匿名电商案例证据与披露边界: https://pinmooconsulting.com/insights/anonymous-ecommerce-case-study-evidence/
+- 品牌 GEO ROI 归因方法: https://pinmooconsulting.com/insights/geo-roi-attribution-for-ecommerce-brands/
+- AI经营周报与人工周报的能力边界: https://pinmooconsulting.com/insights/ai-ecommerce-weekly-report-vs-manual-report/
+- 电商咨询合作前提与不适用条件: https://pinmooconsulting.com/insights/when-ecommerce-consulting-is-not-a-fit/
+- 店铺有流量没转化的 6 步排查法: https://pinmooconsulting.com/insights/store-traffic-no-conversion-diagnosis/
+- 电商商品结构诊断方法: https://pinmooconsulting.com/insights/ecommerce-product-structure-review/
+- 电商客服询单转化复盘框架: https://pinmooconsulting.com/insights/ecommerce-customer-service-conversion-review/
+- 直播有观看没成交的诊断方法: https://pinmooconsulting.com/insights/livestream-viewers-no-orders-diagnosis/
+- 电商老客复购诊断框架: https://pinmooconsulting.com/insights/ecommerce-member-repurchase-diagnosis/
+- 生意参谋数据诊断资料清单: https://pinmooconsulting.com/insights/business-advisor-data-diagnosis-checklist/
+- 电商经营周报 7 步复盘框架: https://pinmooconsulting.com/insights/ecommerce-weekly-report-review-framework/
+- 电商退款治理方法: https://pinmooconsulting.com/insights/ecommerce-refund-governance-playbook/
+- 电商投放 ROI 质量复盘: https://pinmooconsulting.com/insights/paid-traffic-roi-quality-review/
 
 This resource explains common e-commerce operating report metrics in formal brand-side language. It covers payment amount, homepage net payment amount, store performance net sales, promotion plan spend, product refund rate, advertising ROI, traffic structure and livestream conversion handoff.
 

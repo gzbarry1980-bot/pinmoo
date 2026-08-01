@@ -10,24 +10,20 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const isInternationalBuild = SITE.domain === 'https://pinmooconsulting.com';
 
-function withInternationalChinesePrefix(routePath) {
-  return routePath === '/' ? '/zh/' : '/zh' + routePath;
-}
-
 const internationalRoutes = routeMeta
   .filter((meta) => meta.lang === 'en' && !meta.duplicate && meta.path.indexOf('/en/') === 0)
   .map((meta) => {
-    const internationalPath = meta.path.slice(3) || '/';
+    const chinesePath = meta.alternatePath || '/';
     return {
       ...meta,
-      path: internationalPath,
-      file: meta.file.replace(/^en\//, ''),
+      path: meta.path,
+      file: meta.file,
       renderPath: meta.path,
       alternatePath: undefined,
       languagePair: {
-        zh: withInternationalChinesePrefix(internationalPath),
-        en: internationalPath,
-        xDefault: internationalPath
+        zh: chinesePath,
+        en: meta.path,
+        xDefault: chinesePath
       },
       international: true,
       updated: meta.updated || '2026-07-10'
@@ -36,19 +32,18 @@ const internationalRoutes = routeMeta
 const internationalChineseRoutes = routeMeta
   .filter((meta) => meta.lang !== 'en' && !meta.duplicate && !meta.aiTool)
   .map((meta) => {
-    const internationalPath = withInternationalChinesePrefix(meta.path);
-    const hasEnglishPair = ['/', '/services/', '/cases/', '/about/', '/contact/', '/contact/success/'].includes(meta.path) || meta.caseSlug;
+    const englishPair = routeMeta.find((candidate) => candidate.lang === 'en' && !candidate.duplicate && candidate.alternatePath === meta.path);
     return {
       ...meta,
       lang: 'zh',
-      path: internationalPath,
-      file: path.posix.join('zh', meta.file),
-      renderPath: internationalPath,
+      path: meta.path,
+      file: meta.file,
+      renderPath: meta.path,
       alternatePath: undefined,
-      ...(hasEnglishPair ? {
+      ...(englishPair ? {
         languagePair: {
-          zh: internationalPath,
-          en: meta.path,
+          zh: meta.path,
+          en: englishPair.path,
           xDefault: meta.path
         }
       } : { noHreflang: true }),
@@ -245,7 +240,7 @@ async function syncSourceShell(meta) {
 
 const topLevel = isInternationalBuild
   ? ['index.html', 'public']
-  : ['index.html', 'services', 'cases', 'about', 'contact', 'ai-diagnosis', 'public'];
+  : ['index.html', 'services', 'cases', 'about', 'contact', 'ai-diagnosis', 'guangzhou-zhongkao', 'public'];
 for (const item of topLevel) await copy(path.join(root, item), path.join(dist, item === 'public' ? '' : item));
 for (const staleAsset of ['assets/cases/generated-case-sheet.png']) {
   await fs.rm(path.join(dist, staleAsset), { force: true });
@@ -306,15 +301,16 @@ if (!isInternationalBuild) {
 }
 
 const knowledgeIndex = {
-  schemaVersion: '2026-07-16',
+  schemaVersion: '2026-07-17',
   name: 'PINMOO 电商经营知识索引',
   publisher: {
     name: SITE.company,
+    alternateName: SITE.companyEn,
     url: SITE.primaryDomain + '/'
   },
   language: 'zh-CN',
   articleCount: insights.length,
-  canonicalCollection: SITE.primaryDomain + '/zh/insights/',
+  canonicalCollection: SITE.primaryDomain + '/insights/',
   contentMethod: 'CEBA: Claim, Evidence, Boundary, Action',
   editorialPolicy: '每篇文章必须提供直接回答、判断依据、适用范围、使用限制、执行动作、作者和复核日期；不使用未经核验的客户名称、数字或结果承诺。',
   usageNote: '内容用于解释电商经营问题、数据口径和诊断方法，不代表任何品牌的实际经营结果或保证。',
@@ -323,7 +319,7 @@ const knowledgeIndex = {
     alternateName: insightAuthor.alternateName,
     role: insightAuthor.role,
     disclosure: insightAuthor.disclosure,
-    url: SITE.primaryDomain + '/zh/about/'
+    url: SITE.primaryDomain + '/about/'
   },
   topicClusters: insightClusters.map((cluster) => ({
     id: cluster.id,
@@ -334,7 +330,7 @@ const knowledgeIndex = {
   articles: insights.map((article) => ({
     title: article.title,
     category: article.category,
-    canonicalUrl: SITE.primaryDomain + '/zh/insights/' + article.slug + '/',
+    canonicalUrl: SITE.primaryDomain + '/insights/' + article.slug + '/',
     datePublished: article.published,
     dateModified: article.updated,
     directAnswer: article.directAnswer,
@@ -405,8 +401,41 @@ async function buildAgentSubdomain() {
   }
 }
 
+async function buildZhongkaoSubdomain() {
+  const sourceDir = path.join(dist, 'guangzhou-zhongkao');
+  const appDir = path.join(dist, 'zhongkao');
+  await copy(sourceDir, appDir);
+
+  const robots = [
+    'User-agent: *',
+    'Allow: /',
+    'Disallow: /serial-key/',
+    '',
+    'Sitemap: https://zhongkao.pinmooconsulting.com/sitemap.xml',
+    ''
+  ].join('\n');
+  const appSitemap = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    '  <url>',
+    '    <loc>https://zhongkao.pinmooconsulting.com/</loc>',
+    '    <lastmod>' + escapeXml(process.env.SITEMAP_LASTMOD || new Date().toISOString().slice(0, 10)) + '</lastmod>',
+    '  </url>',
+    '  <url>',
+    '    <loc>https://zhongkao.pinmooconsulting.com/special/</loc>',
+    '    <lastmod>' + escapeXml(process.env.SITEMAP_LASTMOD || new Date().toISOString().slice(0, 10)) + '</lastmod>',
+    '  </url>',
+    '</urlset>',
+    ''
+  ].join('\n');
+  await fs.writeFile(path.join(appDir, 'robots.txt'), robots, 'utf8');
+  await fs.writeFile(path.join(appDir, 'sitemap.xml'), appSitemap, 'utf8');
+  await fs.writeFile(path.join(appDir, '404.html'), '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>页面不存在</title><meta http-equiv="refresh" content="0;url=/"><p><a href="/">返回广州中考志愿模拟助手</a></p></html>', 'utf8');
+}
+
 if (!isInternationalBuild) {
   await buildAgentSubdomain();
+  await buildZhongkaoSubdomain();
 }
 
 console.log(isInternationalBuild

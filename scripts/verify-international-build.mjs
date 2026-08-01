@@ -34,19 +34,22 @@ function expect(condition, message) {
 const expectedPages = [
   'index.html',
   'services/index.html',
+  'services/store-diagnosis/index.html',
+  'services/tmall-business-weekly-report/index.html',
   'cases/index.html',
+  'cases/womenswear-refund-optimization/index.html',
   'about/index.html',
   'contact/index.html',
-  'zh/index.html',
-  'zh/services/index.html',
-  'zh/services/store-diagnosis/index.html',
-  'zh/services/tmall-business-weekly-report/index.html',
-  'zh/cases/index.html',
-  'zh/insights/index.html',
-  'zh/insights/ecommerce-weekly-report-review-framework/index.html',
-  'zh/resources/ecommerce-metrics-dictionary/index.html',
-  'zh/about/index.html',
-  'zh/contact/index.html',
+  'insights/index.html',
+  'insights/ecommerce-weekly-report-review-framework/index.html',
+  'insights/store-traffic-no-conversion-diagnosis/index.html',
+  'resources/ecommerce-metrics-dictionary/index.html',
+  'en/index.html',
+  'en/services/index.html',
+  'en/cases/index.html',
+  'en/cases/womenswear-refund-optimization/index.html',
+  'en/about/index.html',
+  'en/contact/index.html',
   'china-ecommerce-consulting/index.html'
 ];
 
@@ -54,35 +57,33 @@ for (const relativePath of expectedPages) {
   expect(await exists(relativePath), `missing ${relativePath}`);
 }
 
-for (const relativePath of ['en', 'ai-diagnosis', 'agent', 'insights', 'resources']) {
+for (const relativePath of ['zh', 'ai-diagnosis', 'agent']) {
   expect(!(await exists(relativePath)), `international build should not publish dist/${relativePath}`);
 }
 
 const home = await read('index.html');
-expect(home.includes('<html lang="en">'), 'international homepage language is not English');
+expect(home.includes('<html lang="zh-CN">'), 'international homepage language is not Chinese');
 expect(home.includes('<link rel="canonical" href="https://pinmooconsulting.com/"'), 'international homepage canonical is incorrect');
-expect(home.includes('Find the Right China E-commerce Growth Constraint'), 'international homepage did not render English content');
-expect(!home.includes('href="/en/'), 'international homepage still links to /en/ paths');
-expect(home.includes('href="/zh/"'), 'international homepage Chinese switch does not stay on the .com site');
-expect(!home.includes('href="https://pinmoo.top/"'), 'international homepage Chinese switch still crosses to pinmoo.top');
-expect(home.includes('<link rel="alternate" hreflang="zh-CN" href="https://pinmooconsulting.com/zh/"'), 'international homepage Chinese hreflang is incorrect');
+expect(home.includes('href="/services/"'), 'international Chinese homepage does not keep service links at the root path');
+expect(home.includes('https://pinmooconsulting.com/en/'), 'international homepage English switch is incorrect');
+expect(!home.includes('href="/zh/'), 'international homepage still links to legacy /zh/ paths');
+expect(!home.includes('href="https://pinmoo.top/"'), 'international homepage still crosses to pinmoo.top');
+expect(home.includes('<link rel="alternate" hreflang="zh-CN" href="https://pinmooconsulting.com/"'), 'international homepage Chinese hreflang is incorrect');
+expect(home.includes('<link rel="alternate" hreflang="en" href="https://pinmooconsulting.com/en/"'), 'international homepage English hreflang is incorrect');
 expect(home.includes('<link rel="alternate" hreflang="x-default" href="https://pinmooconsulting.com/"'), 'international homepage x-default is incorrect');
+expect(/"@type"\s*:\s*"FAQPage"/.test(home), 'international Chinese homepage is missing FAQPage structured data');
 
-const chineseHome = await read('zh/index.html');
-expect(chineseHome.includes('<html lang="zh-CN">'), 'international Chinese homepage language is not zh-CN');
-expect(chineseHome.includes('<link rel="canonical" href="https://pinmooconsulting.com/zh/"'), 'international Chinese homepage canonical is incorrect');
-expect(chineseHome.includes('href="/zh/services/"'), 'international Chinese homepage does not keep service links on .com');
-expect(chineseHome.includes('href="https://pinmooconsulting.com/"'), 'international Chinese homepage English switch is incorrect');
-expect(!chineseHome.includes('https://pinmoo.top'), 'international Chinese homepage contains a pinmoo.top cross-domain link');
-expect(chineseHome.includes('AI电商经营周报不是自动写总结，而是先统一数据口径'), 'international Chinese homepage is missing the AI report method');
-expect(chineseHome.includes('电商店铺有流量但转化率低，应该先检查什么？'), 'international Chinese homepage is missing direct answers');
-expect(/"@type"\s*:\s*"FAQPage"/.test(chineseHome), 'international Chinese homepage is missing FAQPage structured data');
-expect(chineseHome.includes('href="/zh/services/store-diagnosis/"'), 'international Chinese homepage does not link to the store diagnosis page');
-expect(await exists('zh/insights/store-traffic-no-conversion-diagnosis/index.html'), 'international build is missing the store conversion insight');
+const englishHome = await read('en/index.html');
+expect(englishHome.includes('<html lang="en">'), 'international English homepage language is not English');
+expect(englishHome.includes('<link rel="canonical" href="https://pinmooconsulting.com/en/"'), 'international English homepage canonical is incorrect');
+expect(englishHome.includes('Find the Right China E-commerce Growth Constraint'), 'international English homepage did not render English content');
+expect(englishHome.includes('https://pinmooconsulting.com/'), 'international English homepage Chinese switch is incorrect');
+expect(!englishHome.includes('href="/zh/'), 'international English homepage still links to legacy /zh/ paths');
 
 const knowledgeIndex = JSON.parse(await read('knowledge-index.json'));
+expect(knowledgeIndex.canonicalCollection === 'https://pinmooconsulting.com/insights/', 'international knowledge index collection URL is incorrect');
 expect(Array.isArray(knowledgeIndex.articles) && knowledgeIndex.articles.length >= 17, 'international knowledge index has too few articles');
-expect(knowledgeIndex.articles.every((article) => article.canonicalUrl.startsWith('https://pinmooconsulting.com/zh/insights/')), 'international knowledge index contains an incorrect canonical URL');
+expect(knowledgeIndex.articles.every((article) => article.canonicalUrl.startsWith('https://pinmooconsulting.com/insights/')), 'international knowledge index contains an incorrect canonical URL');
 expect(knowledgeIndex.articles.every((article) => article.directAnswer && article.evidenceBasis && article.applicableScope && article.limitations), 'international knowledge index is missing citation context');
 expect(knowledgeIndex.articles.every((article) => article.contentModel === 'CEBA' && article.reviewStatus === 'editorially-reviewed'), 'international knowledge index is missing editorial review metadata');
 
@@ -90,8 +91,9 @@ const sitemap = await read('sitemap.xml');
 const sitemapUrls = Array.from(sitemap.matchAll(/<loc>([^<]+)<\/loc>/g), (match) => match[1]);
 expect(sitemapUrls.length >= 10, 'international sitemap has too few URLs');
 expect(sitemapUrls.every((url) => url.startsWith('https://pinmooconsulting.com/')), 'international sitemap contains another domain');
-expect(sitemapUrls.every((url) => !url.includes('/en/')), 'international sitemap contains legacy /en/ URLs');
-expect(sitemapUrls.includes('https://pinmooconsulting.com/zh/'), 'international sitemap is missing the Chinese homepage');
+expect(sitemapUrls.every((url) => !url.includes('/zh/')), 'international sitemap contains legacy /zh/ URLs');
+expect(sitemapUrls.includes('https://pinmooconsulting.com/'), 'international sitemap is missing the Chinese homepage');
+expect(sitemapUrls.includes('https://pinmooconsulting.com/en/'), 'international sitemap is missing the English homepage');
 
 const robots = await read('robots.txt');
 expect(robots.includes('Sitemap: https://pinmooconsulting.com/sitemap.xml'), 'international robots sitemap is incorrect');
@@ -106,7 +108,7 @@ for (const htmlFile of htmlFiles) {
     expect(html.includes(SITE.icpNumber), `${htmlFile} is missing the ICP filing number`);
     expect(html.includes(`href="${SITE.icpUrl}"`), `${htmlFile} has an incorrect ICP filing link`);
   }
-  expect(!html.includes('href="/en/'), `${htmlFile} still links to a legacy /en/ path`);
+  expect(!html.includes('href="/zh/'), `${htmlFile} still links to a legacy /zh/ path`);
   for (const match of html.matchAll(/href="(\/[^"?#]*)/g)) {
     const href = match[1];
     if (href.startsWith('/assets/') || href.startsWith('/src/')) continue;

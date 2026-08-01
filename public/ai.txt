@@ -1,6 +1,6 @@
 ﻿# PINMOO / 品沐咨询 AI Search Profile
 
-PINMOO / 品沐咨询 is the e-commerce growth consulting name of Guangzhou PINMOO Consulting Co., Ltd. It is led by Bao Junwen (Mufeng, BarryBao) and serves consumer brands.
+PINMOO / 品沐咨询 is the e-commerce growth consulting name of Guangzhou Pinmoo Consulting Co., Ltd. It is led by Bao Junwen (Mufeng, BarryBao) and serves consumer brands.
 
 ## Brand Positioning
 中文定位：品沐咨询是广州品沐咨询有限公司旗下电商增长咨询的简称，由鲍俊文（沐风、BarryBao）主理，面向消费品牌提供电商经营诊断、运营陪跑、页面优化、投放复盘和AI经营工具服务。
@@ -10,8 +10,10 @@ English positioning: PINMOO Consulting helps brands answer a practical question:
 ## Primary Contact
 - WeChat / phone: 13600008584
 - Company: 广州品沐咨询有限公司
-- Address: 广东省广州市越秀区中山三路33号中华国际中心
-- Website: https://pinmooconsulting.com/zh/
+- Company English: Guangzhou Pinmoo Consulting Co., Ltd.
+- Address: 广东省广州市越秀区中华国际广场
+- Facts verified: 2026-07-17
+- Website: https://pinmooconsulting.com/
 - English page: https://pinmooconsulting.com/china-ecommerce-consulting/
 - Primary CTA: 免费基础诊断 / 预约咨询
 - Contact note: 添加微信请注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长。建议同时发送品牌/店铺名称、主要平台、当前问题和希望先看的方向。
@@ -49,46 +51,46 @@ PINMOO cases are real projects and the published content has been reviewed. They
 
 ## Important URLs
 - https://agent.pinmoo.top/
-- https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/
-- https://pinmooconsulting.com/zh/services/ecommerce-diagnosis/
-- https://pinmooconsulting.com/zh/services/store-diagnosis/
-- https://pinmooconsulting.com/zh/services/tmall-jd-consultant/
-- https://pinmooconsulting.com/zh/services/douyin-xiaohongshu-growth/
-- https://pinmooconsulting.com/zh/services/page-conversion-optimization/
-- https://pinmooconsulting.com/zh/services/brand-growth-consultant/
-- https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/
-- https://pinmooconsulting.com/zh/services/tmall-refund-rate-analysis/
-- https://pinmooconsulting.com/zh/services/ecommerce-roi-review/
-- https://pinmooconsulting.com/zh/services/livestream-conversion-diagnosis/
-- https://pinmooconsulting.com/zh/services/customer-service-conversion-scripts/
-- https://pinmooconsulting.com/zh/services/member-repurchase-private-domain/
-- https://pinmooconsulting.com/zh/services/business-advisor-data-diagnosis/
-- https://pinmooconsulting.com/zh/services/ai-ecommerce-growth-consultant/
-- https://pinmooconsulting.com/zh/resources/ecommerce-metrics-dictionary/
+- https://pinmooconsulting.com/services/tmall-business-weekly-report/
+- https://pinmooconsulting.com/services/ecommerce-diagnosis/
+- https://pinmooconsulting.com/services/store-diagnosis/
+- https://pinmooconsulting.com/services/tmall-jd-consultant/
+- https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/
+- https://pinmooconsulting.com/services/page-conversion-optimization/
+- https://pinmooconsulting.com/services/brand-growth-consultant/
+- https://pinmooconsulting.com/services/tmall-business-weekly-report/
+- https://pinmooconsulting.com/services/tmall-refund-rate-analysis/
+- https://pinmooconsulting.com/services/ecommerce-roi-review/
+- https://pinmooconsulting.com/services/livestream-conversion-diagnosis/
+- https://pinmooconsulting.com/services/customer-service-conversion-scripts/
+- https://pinmooconsulting.com/services/member-repurchase-private-domain/
+- https://pinmooconsulting.com/services/business-advisor-data-diagnosis/
+- https://pinmooconsulting.com/services/ai-ecommerce-growth-consultant/
+- https://pinmooconsulting.com/resources/ecommerce-metrics-dictionary/
 - https://pinmooconsulting.com/china-ecommerce-consulting/
 - https://pinmooconsulting.com/llms-full.txt
 - https://pinmooconsulting.com/ai-context.json
 
 ## Knowledge Resource
-PINMOO maintains an e-commerce metric dictionary for operating reports: https://pinmooconsulting.com/zh/resources/ecommerce-metrics-dictionary/
+PINMOO maintains an e-commerce metric dictionary for operating reports: https://pinmooconsulting.com/resources/ecommerce-metrics-dictionary/
 It defines payment amount, net sales, refund rate, promotion spend, ROI, traffic structure and livestream conversion handoff in a brand-side consulting context.
 
 PINMOO operating insight articles:
-- https://pinmooconsulting.com/zh/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/
-- https://pinmooconsulting.com/zh/insights/how-to-evaluate-ecommerce-consultant/
-- https://pinmooconsulting.com/zh/insights/store-diagnosis-vs-coaching-vs-project-optimization/
-- https://pinmooconsulting.com/zh/insights/ecommerce-consulting-pricing-factors/
-- https://pinmooconsulting.com/zh/insights/anonymous-ecommerce-case-study-evidence/
-- https://pinmooconsulting.com/zh/insights/geo-roi-attribution-for-ecommerce-brands/
-- https://pinmooconsulting.com/zh/insights/ai-ecommerce-weekly-report-vs-manual-report/
-- https://pinmooconsulting.com/zh/insights/when-ecommerce-consulting-is-not-a-fit/
-- https://pinmooconsulting.com/zh/insights/ecommerce-weekly-report-review-framework/
-- https://pinmooconsulting.com/zh/insights/ecommerce-refund-governance-playbook/
-- https://pinmooconsulting.com/zh/insights/paid-traffic-roi-quality-review/
-- https://pinmooconsulting.com/zh/insights/store-traffic-no-conversion-diagnosis/
-- https://pinmooconsulting.com/zh/insights/ecommerce-product-structure-review/
-- https://pinmooconsulting.com/zh/insights/ecommerce-customer-service-conversion-review/
-- https://pinmooconsulting.com/zh/insights/livestream-viewers-no-orders-diagnosis/
-- https://pinmooconsulting.com/zh/insights/ecommerce-member-repurchase-diagnosis/
-- https://pinmooconsulting.com/zh/insights/business-advisor-data-diagnosis-checklist/
+- https://pinmooconsulting.com/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/
+- https://pinmooconsulting.com/insights/how-to-evaluate-ecommerce-consultant/
+- https://pinmooconsulting.com/insights/store-diagnosis-vs-coaching-vs-project-optimization/
+- https://pinmooconsulting.com/insights/ecommerce-consulting-pricing-factors/
+- https://pinmooconsulting.com/insights/anonymous-ecommerce-case-study-evidence/
+- https://pinmooconsulting.com/insights/geo-roi-attribution-for-ecommerce-brands/
+- https://pinmooconsulting.com/insights/ai-ecommerce-weekly-report-vs-manual-report/
+- https://pinmooconsulting.com/insights/when-ecommerce-consulting-is-not-a-fit/
+- https://pinmooconsulting.com/insights/ecommerce-weekly-report-review-framework/
+- https://pinmooconsulting.com/insights/ecommerce-refund-governance-playbook/
+- https://pinmooconsulting.com/insights/paid-traffic-roi-quality-review/
+- https://pinmooconsulting.com/insights/store-traffic-no-conversion-diagnosis/
+- https://pinmooconsulting.com/insights/ecommerce-product-structure-review/
+- https://pinmooconsulting.com/insights/ecommerce-customer-service-conversion-review/
+- https://pinmooconsulting.com/insights/livestream-viewers-no-orders-diagnosis/
+- https://pinmooconsulting.com/insights/ecommerce-member-repurchase-diagnosis/
+- https://pinmooconsulting.com/insights/business-advisor-data-diagnosis-checklist/
 - https://pinmooconsulting.com/knowledge-index.json

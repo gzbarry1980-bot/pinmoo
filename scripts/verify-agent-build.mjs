@@ -17,7 +17,7 @@ function expect(condition, message) {
 const index = await read('index.html');
 expect(index.includes('<link rel="canonical" href="https://agent.pinmoo.top/"'), 'canonical 不是 agent.pinmoo.top');
 expect(index.includes('<meta property="og:url" content="https://agent.pinmoo.top/"'), 'og:url 不是 agent.pinmoo.top');
-expect(index.includes('href="https://pinmooconsulting.com/zh/"'), '返回官网链接未使用 .com 中文首页绝对地址');
+expect(index.includes('href="https://pinmooconsulting.com/"'), '返回官网链接未使用 .com 中文首页绝对地址');
 expect(index.includes('./app.js?'), 'index.html 缺少智能体脚本');
 expect(index.includes('./styles.css?'), 'index.html 缺少智能体样式');
 

@@ -147,7 +147,7 @@ const knowledgeIndexContent = await fs.readFile(path.join(dist, 'knowledge-index
 try {
   const knowledgeIndex = JSON.parse(knowledgeIndexContent);
   if (!Array.isArray(knowledgeIndex.articles) || knowledgeIndex.articles.length < 17) fail('knowledge-index.json 经营洞察不足 17 篇');
-  if (knowledgeIndex.articles?.some((article) => !article.canonicalUrl?.startsWith('https://pinmooconsulting.com/zh/insights/'))) {
+  if (knowledgeIndex.articles?.some((article) => !article.canonicalUrl?.startsWith('https://pinmooconsulting.com/insights/'))) {
     fail('knowledge-index.json canonical 域名或路径不正确');
   }
   if (knowledgeIndex.articles?.some((article) => !article.directAnswer || !article.applicableScope || !article.limitations || article.contentModel !== 'CEBA' || article.reviewStatus !== 'editorially-reviewed')) {

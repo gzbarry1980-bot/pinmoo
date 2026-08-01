@@ -11,7 +11,7 @@ async function get(pathname) {
 }
 
 const primaryPages = origin.includes('pinmooconsulting.com')
-  ? ['/', '/zh/about/', '/zh/insights/']
+  ? ['/', '/about/', '/insights/']
   : ['/', '/about/', '/insights/'];
 
 for (const pathname of primaryPages) {

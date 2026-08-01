@@ -9,7 +9,7 @@ import { insightAuthor, insights } from './insights.js';
 const ORIGIN = SITE.primaryDomain;
 const logoUrl = ORIGIN + SITE.logo;
 const ogUrl = ORIGIN + SITE.ogImage;
-const phone = '+86-13600008584';
+const phone = '+86-' + SITE.phone;
 const contentDate = '2026-07-10';
 
 export const routeMeta = [
@@ -107,7 +107,7 @@ export const routeMeta = [
     title: '关于品沐咨询｜鲍俊文 沐风｜广州品沐咨询有限公司',
     description: '品沐咨询是广州品沐咨询有限公司旗下电商增长咨询的简称，由鲍俊文（沐风、BarryBao）主理，面向消费品牌提供电商经营诊断、运营陪跑、页面优化、投放复盘和AI经营工具服务。',
     name: '关于品沐',
-    updated: '2026-07-16',
+    updated: '2026-07-17',
     priority: '0.8',
     changefreq: 'monthly'
   },
@@ -117,6 +117,7 @@ export const routeMeta = [
     title: '联系我们｜品沐咨询 PINMOO',
     description: '联系广州品沐咨询有限公司。微信 / 手机同号：13600008584。可先发送品牌、平台、当前问题和希望先看的方向，预约免费基础诊断或咨询店铺诊断、经营周报、运营陪跑与品牌增长服务。',
     name: '联系我们',
+    updated: '2026-07-17',
     priority: '0.8',
     changefreq: 'monthly'
   },
@@ -193,9 +194,10 @@ routeMeta.push(
   {
     path: '/en/about/',
     file: 'en/about/index.html',
-    title: 'About PINMOO Consulting | Guangzhou PINMOO Consulting Co., Ltd.',
-    description: 'Learn about Guangzhou PINMOO Consulting and its practical China e-commerce consulting experience across strategy diagnosis, operation coaching, store diagnosis, page optimization, content seeding and data review.',
+    title: 'About PINMOO Consulting | Guangzhou Pinmoo Consulting Co., Ltd.',
+    description: 'Learn about Guangzhou Pinmoo Consulting Co., Ltd. and its practical China e-commerce consulting services across strategy diagnosis, operation coaching, store diagnosis, page optimization, content seeding and data review.',
     name: 'About',
+    updated: '2026-07-17',
     priority: '0.8',
     changefreq: 'monthly',
     lang: 'en',
@@ -207,6 +209,7 @@ routeMeta.push(
     title: 'Contact | PINMOO Consulting',
     description: 'Contact PINMOO Consulting. WeChat / mobile: 13600008584. Please mention your purpose, such as e-commerce consulting, store diagnosis, operation coaching or brand growth.',
     name: 'Contact',
+    updated: '2026-07-17',
     priority: '0.8',
     changefreq: 'monthly',
     lang: 'en',
@@ -323,7 +326,7 @@ function organizationNode() {
     '@type': ['Organization', 'ProfessionalService'],
     '@id': ORIGIN + '/#organization',
     name: SITE.company,
-    alternateName: ['PINMOO', '品沐咨询', 'pinmoo consulting', 'pinmooconsulting'],
+    alternateName: ['PINMOO', '品沐咨询', SITE.companyEn, 'pinmoo consulting', 'pinmooconsulting'],
     legalName: SITE.company,
     url: ORIGIN + '/',
     logo: logoUrl,
@@ -538,7 +541,7 @@ function itemListNode(meta) {
 }
 
 function faqNode(meta) {
-  if (meta.lang !== 'en' && (meta.path === '/' || meta.path === '/zh/')) {
+  if (meta.lang !== 'en' && meta.path === '/') {
     return {
       '@type': 'FAQPage',
       '@id': absolute(meta.path) + '#faq',

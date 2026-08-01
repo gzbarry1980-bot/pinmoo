@@ -8,16 +8,21 @@
 
 [[redirects]]
   from = "/en"
-  to = "/"
+  to = "/en/"
   status = 301
 
 [[redirects]]
   from = "/zh"
-  to = "/zh/"
+  to = "/"
   status = 301
 
 [[redirects]]
-  from = "/en/*"
+  from = "/zh/"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/zh/*"
   to = "/:splat"
   status = 301
 
@@ -27,18 +32,8 @@
   status = 301
 
 [[redirects]]
-  from = "/insights/*"
-  to = "/zh/insights/:splat"
-  status = 301
-
-[[redirects]]
-  from = "/resources/*"
-  to = "/zh/resources/:splat"
-  status = 301
-
-[[redirects]]
-  from = "/services/*"
-  to = "/zh/services/:splat"
+  from = "/guangzhou-zhongkao/*"
+  to = "https://zhongkao.pinmooconsulting.com/:splat"
   status = 301
 
 [[redirects]]

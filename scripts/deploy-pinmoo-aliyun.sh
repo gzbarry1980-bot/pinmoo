@@ -52,4 +52,4 @@ if ! node scripts/submit-indexnow.mjs https://pinmooconsulting.com; then
   echo "Warning: IndexNow submission failed; deployment remains valid."
 fi
 
-echo "==> Done. Official site: https://pinmooconsulting.com/ (Chinese: /zh/). Agent: https://agent.pinmoo.top/"
+echo "==> Done. Official site: https://pinmooconsulting.com/ (Chinese default, English: /en/). Agent: https://agent.pinmoo.top/"
