@@ -17,8 +17,8 @@ export const routeMeta = [
     path: '/',
     file: 'index.html',
     title: '广州电商咨询公司｜店铺诊断、运营陪跑与AI经营周报｜品沐咨询',
-    description: '广州品沐咨询面向消费品牌与传统企业，提供天猫、京东、抖音等平台的电商战略诊断、店铺转化优化、运营陪跑、投放复盘、退款治理和AI经营周报服务。',
-    keywords: ['广州电商咨询公司', '电商战略诊断', '天猫店铺诊断', '京东运营顾问', '抖音电商咨询', '运营陪跑', 'AI经营周报'],
+    description: '广州品沐咨询面向消费品牌与传统企业，提供天猫、京东、抖音等平台的电商战略诊断、店铺转化优化、运营陪跑、投放复盘、退款治理、AI经营周报和GEO生成式引擎优化服务。',
+    keywords: ['广州电商咨询公司', '电商战略诊断', '天猫店铺诊断', '京东运营顾问', '抖音电商咨询', '运营陪跑', 'AI经营周报', 'GEO服务', 'AI搜索优化', '生成式引擎优化'],
     name: '首页',
     updated: '2026-07-16',
     priority: '1.0',
@@ -303,7 +303,7 @@ function routeKeywords(meta) {
   }
   return meta.lang === 'en'
     ? 'PINMOO Consulting, China e-commerce consulting, Tmall consultant, JD consultant, Douyin, Xiaohongshu'
-    : '品沐咨询, PINMOO, 电商咨询, 电商诊断, 天猫运营顾问, 京东运营顾问, 抖音电商, 小红书种草';
+    : '品沐咨询, PINMOO, 电商咨询, 电商诊断, 天猫运营顾问, 京东运营顾问, 抖音电商, 小红书种草, GEO服务, AI搜索优化';
 }
 
 function leadPageForMeta(meta) {
@@ -333,7 +333,7 @@ function organizationNode() {
     image: ogUrl,
     telephone: phone,
     hasMap: SITE.mapUrl,
-    knowsAbout: ['电商战略诊断', '天猫与京东运营', '生意参谋数据诊断', '电商经营周报', '退款治理', '投放 ROI 复盘', '页面转化优化', '会员复购与私域运营'],
+    knowsAbout: ['电商战略诊断', '天猫与京东运营', '生意参谋数据诊断', '电商经营周报', '退款治理', '投放 ROI 复盘', '页面转化优化', '会员复购与私域运营', 'GEO 生成式引擎优化', 'AI 搜索可见度', '品牌事实库与证据化内容'],
     areaServed: ['中国', '广东', '广州', '天猫', '京东', '抖音', '小红书', '视频号', '拼多多'],
     address: {
       '@type': 'PostalAddress',
@@ -611,7 +611,7 @@ function personNode(meta) {
     worksFor: { '@id': ORIGIN + '/#organization' },
     description: '鲍俊文，公开别名沐风、BarryBao，主理品沐咨询，面向消费品牌提供电商经营诊断、运营陪跑、页面优化、投放复盘和AI经营工具服务。',
     url: ORIGIN + '/about/',
-    knowsAbout: ['电商咨询', '天猫运营', '京东运营', '抖音电商', '小红书种草', '店铺诊断', '经营周报', '退款治理', '页面优化', '投放复盘', '会员运营']
+    knowsAbout: ['电商咨询', '天猫运营', '京东运营', '抖音电商', '小红书种草', '店铺诊断', '经营周报', '退款治理', '页面优化', '投放复盘', '会员运营', 'GEO 生成式引擎优化', 'AI 搜索可见度']
   };
 }
 

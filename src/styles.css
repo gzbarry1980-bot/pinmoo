@@ -1303,6 +1303,21 @@ textarea:focus-visible {
 .model-card p, .process-card p, .work-step p { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
 .service-detail-section { background: #fff; }
 .service-detail-list { display: grid; gap: 24px; }
+.geo-service-section { background: linear-gradient(180deg, #f7fafc 0%, #ffffff 100%); }
+.geo-service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.geo-service-card {
+  min-height: 258px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: #fff;
+  box-shadow: var(--soft-shadow);
+}
+.geo-service-topline { display: flex; align-items: center; justify-content: space-between; color: var(--royal); }
+.geo-service-topline span { font-size: 13px; font-weight: 900; letter-spacing: .08em; }
+.geo-service-card h3 { margin: 22px 0 10px; color: var(--text); font-size: 21px; }
+.geo-service-card p { margin: 0 0 18px; color: var(--body); }
+.geo-service-card strong { display: block; color: var(--royal); font-size: 14px; line-height: 1.6; }
 .service-detail-card {
   padding: 30px;
   border: 1px solid var(--line);
@@ -1651,6 +1666,7 @@ dt { color: var(--muted); font-weight: 800; } dd { margin: 0; color: var(--text)
   .home-case-grid, .cases-grid { grid-template-columns: repeat(2, 1fr); }
   .cases-page-section .cases-grid { grid-template-columns: repeat(2, 1fr); }
   .model-grid, .process-grid, .method-line { grid-template-columns: repeat(3, 1fr); }
+  .geo-service-grid { grid-template-columns: repeat(2, 1fr); }
   .service-detail-columns { grid-template-columns: repeat(2, 1fr); }
   .experience-grid { grid-template-columns: repeat(3, 1fr); }
   .principal-card, .case-detail-layout, .case-detail-hero-inner { grid-template-columns: 1fr; }
@@ -1706,7 +1722,7 @@ dt { color: var(--muted); font-weight: 800; } dd { margin: 0; color: var(--text)
   .metric-rate { left: 168px; width: 228px; }
   .metric-donut { left: 8px; }
   .metric-roi { right: 20px; }
-  .stats-grid, .bento-grid, .home-case-grid, .cases-grid, .model-grid, .process-grid, .method-line, .about-preview-grid, .about-brand-grid, .contact-grid, .two-question-grid, .fit-grid, .footer-grid { grid-template-columns: 1fr; }
+  .stats-grid, .bento-grid, .home-case-grid, .cases-grid, .model-grid, .process-grid, .method-line, .geo-service-grid, .about-preview-grid, .about-brand-grid, .contact-grid, .two-question-grid, .fit-grid, .footer-grid { grid-template-columns: 1fr; }
   .inquiry-path-grid, .first-diagnosis-layout, .first-diagnosis-grid { grid-template-columns: 1fr; }
   .cases-page-section .cases-grid { grid-template-columns: 1fr; }
   .bento-grid > .reveal, .bento-grid > .bento-large { grid-column: span 1; }
@@ -1736,7 +1752,7 @@ dt { color: var(--muted); font-weight: 800; } dd { margin: 0; color: var(--text)
   .dashboard-visual { display: none; }
   .home-hero { min-height: auto; }
   .stat-card { padding: 18px; }
-  .service-card, .service-detail-card, .contact-info-panel, .contact-form, .contact-direct-panel, .detail-block, .aside-card { padding: 22px; border-radius: 20px; }
+  .service-card, .service-detail-card, .geo-service-card, .contact-info-panel, .contact-form, .contact-direct-panel, .detail-block, .aside-card { padding: 22px; border-radius: 20px; }
   .home-case-grid, .cases-grid { grid-template-columns: 1fr; }
   .case-hero-industries span { min-width: auto; }
   .logo-frame-footer { width: 190px; height: 48px; }

@@ -32,6 +32,7 @@
     "https://pinmooconsulting.com/",
     "https://pinmooconsulting.com/services/tmall-business-weekly-report/",
     "https://pinmooconsulting.com/services/",
+    "https://pinmooconsulting.com/services/geo-consulting/",
     "https://pinmooconsulting.com/cases/",
     "https://pinmooconsulting.com/insights/",
     "https://pinmooconsulting.com/about/",
@@ -316,6 +317,11 @@
       "name": "品牌增长顾问",
       "url": "https://pinmooconsulting.com/services/brand-growth-consultant/",
       "keywords": ["品牌增长顾问", "电商增长顾问", "运营陪跑", "品牌电商增长"]
+    },
+    {
+      "name": "GEO 生成式引擎优化",
+      "url": "https://pinmooconsulting.com/services/geo-consulting/",
+      "keywords": ["GEO服务", "GEO优化", "AI搜索优化", "生成式引擎优化", "品牌事实库", "AI可见度监测"]
     }
   ],
   "listingPages": [
@@ -358,6 +364,11 @@
       "name": "AI电商增长顾问",
       "url": "https://pinmooconsulting.com/services/ai-ecommerce-growth-consultant/",
       "keywords": ["AI电商增长顾问", "AI经营诊断", "AI电商周报", "电商AI工具"]
+    },
+    {
+      "name": "GEO服务",
+      "url": "https://pinmooconsulting.com/services/geo-consulting/",
+      "keywords": ["GEO服务", "AI搜索优化", "生成式引擎优化", "品牌事实库", "AI可见度监测"]
     }
   ],
   "platforms": ["天猫", "京东", "淘宝", "抖音", "小红书", "视频号", "拼多多", "私域", "OTA", "本地生活"],

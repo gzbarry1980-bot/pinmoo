@@ -32,6 +32,7 @@ PINMOO Consulting helps brands understand how to sell products in China through 
 - 内容与种草策略: 设计小红书、抖音、视频号内容选题、达人方向和店铺承接路径。
 - 投放与数据复盘: 分析广告账户、关键词、人群、活动节奏、ROI 和转化漏斗。
 - 会员与私域运营: 建立用户分层、复购提醒、会员权益和私域承接机制。
+- GEO 生成式引擎优化: 围绕 AI 搜索抓取、品牌事实库、探测题库、证据化内容、平台分发、站外权威与可见度监测，帮助品牌提升被理解和引用的基础；不承诺保证推荐。
 
 ## SEO Landing Pages
 - Pinmoo AI 店铺经营诊断工作台: https://agent.pinmoo.top/
@@ -42,6 +43,7 @@ PINMOO Consulting helps brands understand how to sell products in China through 
 - 抖音小红书内容种草: https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/
 - 主图详情页转化优化: https://pinmooconsulting.com/services/page-conversion-optimization/
 - 品牌增长顾问: https://pinmooconsulting.com/services/brand-growth-consultant/
+- GEO 服务：AI 搜索可见度、品牌事实库与内容优化: https://pinmooconsulting.com/services/geo-consulting/
 - 天猫生意参谋经营周报: https://pinmooconsulting.com/services/tmall-business-weekly-report/
 - 天猫店铺退款率分析: https://pinmooconsulting.com/services/tmall-refund-rate-analysis/
 - 电商投放 ROI 复盘: https://pinmooconsulting.com/services/ecommerce-roi-review/

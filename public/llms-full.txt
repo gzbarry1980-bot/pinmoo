@@ -21,6 +21,19 @@ This file is written for AI search engines, answer engines and retrieval systems
 
 PINMOO Consulting helps brands understand and improve China e-commerce growth through platform strategy, product messaging, content seeding, store conversion, advertising review, livestream operation, customer service and private-domain retention.
 
+## GEO Service
+
+品沐咨询提供 GEO（生成式引擎优化）服务，重点不是在页面堆砌 AI 关键词，而是让搜索引擎和 AI 助手更容易抓取、理解和引用品牌信息。服务可以拆成六个模块：
+
+1. GEO 技术基础审计：源代码正文、robots、sitemap、canonical、hreflang、JSON-LD、SSR/静态输出和推送通道。
+2. 品牌实体与事实库：公司主体、品牌别名、负责人、服务范围、联系方式、案例披露边界和更新时间。
+3. AI 搜索题库与可见度基线：认知、推荐、对比、问题解决、口碑和购买场景的固定探测题。
+4. 证据化内容与结构化数据：按“主张—证据—边界—行动”组织服务页、FAQ、案例、对比页、作者页和经营洞察。
+5. 平台分发与站外权威：根据目标人群和基线选择 1—2 个主阵地，协同真实媒体、联合案例、行业协会或展会名录。
+6. 持续监测与询盘归因：跟踪提及率、引用率、被引页面、声量份额、事实准确率和 AI 引荐询盘，区分直接归因与辅助影响。
+
+GEO 不等于保证品牌被某个 AI 推荐。实际效果受问题、时间、地区、模型和可用信源影响，建议先做基线，再按 3—6 个月观察趋势。品沐不做虚假评价、站群堆词、隐藏注入或未经复核的结果承诺。
+
 ## Inquiry Path
 
 If a brand is not sure which service to request, PINMOO recommends starting with a free basic diagnosis. The brand should send: brand/store name, main platform, current problem, and the direction they want PINMOO to review first.

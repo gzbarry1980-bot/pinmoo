@@ -6,7 +6,7 @@ import { PageHero } from '../components/PageHero.jsx';
 import { Reveal } from '../components/Reveal.jsx';
 import { SectionIntro } from '../components/SectionIntro.jsx';
 import { leadPages, proofAssets } from '../data/lead-pages.js';
-import { pricingNote, services, serviceFaqs, serviceModel, serviceModelIntro, serviceModelName, serviceProcess } from '../data/services.js';
+import { geoServiceModules, pricingNote, services, serviceFaqs, serviceModel, serviceModelIntro, serviceModelName, serviceProcess } from '../data/services.js';
 
 function LeadEntrySection() {
   return (
@@ -20,6 +20,26 @@ function LeadEntrySection() {
               <h3>{page.title}</h3>
               <p>{page.subtitle}</p>
               <a className="outline-link" href={`/services/${page.slug}/`}>查看诊断方案 <Icon name="ArrowRight" size={16} /></a>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GeoServiceModulesSection() {
+  return (
+    <section className="section geo-service-section">
+      <div className="container">
+        <SectionIntro title="GEO 服务可以拆成六个模块" text="GEO 不是在页面里堆几个 AI 关键词，而是把可抓取性、事实一致性、可引用内容、外部信源和持续测量连接起来。可以按当前缺口选择单项，也可以按 90 天计划组合推进。" />
+        <div className="geo-service-grid">
+          {geoServiceModules.map((item, index) => (
+            <Reveal className="geo-service-card" key={item.code} delay={index * 60}>
+              <div className="geo-service-topline"><span>{item.code}</span><Icon name={item.icon} size={25} /></div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+              <strong>交付：{item.deliverable}</strong>
             </Reveal>
           ))}
         </div>
@@ -96,6 +116,7 @@ export function Services() {
           </div>
         </div>
       </section>
+      <GeoServiceModulesSection />
       <ProofSection />
       <section className="section process-section">
         <div className="container">

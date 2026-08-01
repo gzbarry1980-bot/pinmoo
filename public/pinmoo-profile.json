@@ -91,6 +91,11 @@
       "name": "品牌增长顾问",
       "url": "https://pinmooconsulting.com/services/brand-growth-consultant/",
       "description": "协助品牌把平台经营、商品表达、内容投放、复购和团队执行形成增长闭环。"
+    },
+    {
+      "name": "GEO 生成式引擎优化",
+      "url": "https://pinmooconsulting.com/services/geo-consulting/",
+      "description": "围绕 AI 搜索抓取、品牌实体、事实库、探测题库、证据化内容、平台分发、站外权威与引用监测，建立可解释、可复测的生成式引擎优化路径。"
     }
   ],
   "listingPages": [
@@ -133,6 +138,11 @@
       "name": "AI电商增长顾问",
       "url": "https://pinmooconsulting.com/services/ai-ecommerce-growth-consultant/",
       "description": "将电商实战经验、大模型工具和经营数据结合，用于周报生成、问题归因和行动拆解。"
+    },
+    {
+      "name": "GEO服务",
+      "url": "https://pinmooconsulting.com/services/geo-consulting/",
+      "description": "围绕AI搜索抓取、品牌实体、事实库、探测题库、证据化内容、平台分发与可见度监测，建立可解释、可复测的生成式引擎优化机制。"
     }
   ],
   "englishPages": [

@@ -1,5 +1,5 @@
 import { SITE, NAV_ITEMS, TRUST_STATS, HOME_FAQS, METHODOLOGY, PLATFORM_LIST } from './data/site.js';
-import { services, serviceFaqs, serviceModel, serviceModelIntro, serviceModelName, serviceProcess, pricingNote } from './data/services.js';
+import { geoServiceModules, services, serviceFaqs, serviceModel, serviceModelIntro, serviceModelName, serviceProcess, pricingNote } from './data/services.js';
 import { cases, caseFilters, reservedCases, getCaseBySlug } from './data/cases.js';
 import { CASE_EN, EN_TEXT, FILTER_EN_TO_CN } from './data/en-text.js';
 import { chinaEcommercePage, getLeadPageBySlug, leadPages, leadPathSteps, proofAssets } from './data/lead-pages.js';
@@ -322,10 +322,17 @@ function Services() {
   const details = services.map(function(service) { return '<div class="reveal service-detail-card"><div class="service-detail-head"><div class="card-icon">' + icon(service.icon, 30) + '</div><div><h2>' + service.title + '</h2><p>' + service.short + '</p></div></div><div class="service-detail-columns"><div><h3>适合谁</h3><ul>' + service.fit.map(li).join('') + '</ul></div><div><h3>解决什么问题</h3><ul>' + service.problems.map(li).join('') + '</ul></div><div><h3>主要服务内容</h3><ul>' + service.content.map(li).join('') + '</ul></div><div><h3>交付成果</h3><ul>' + service.deliverables.map(li).join('') + '</ul></div></div><div class="service-fee"><strong>合作范围</strong><p>' + service.fee + '</p><span>' + pricingNote + '</span></div><div class="detail-cta">' + ButtonLink('预约咨询', '/contact/', 'primary', true) + '</div></div>'; }).join('');
   const process = serviceProcess.map(function(item, index) { return '<div class="reveal process-card"><span>0' + (index + 1) + '</span>' + icon(item.icon, 30) + '<h3>' + item.title + '</h3><p>' + item.text + '</p></div>'; }).join('');
   const faqs = serviceFaqs.map(function(item, index) { return '<div class="faq-item ' + (index === 0 ? 'open' : '') + '"><button type="button"><span>' + item.q + '</span>' + icon('ChevronDown', 18) + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>'; }).join('');
-  return PageHero('从诊断到陪跑，帮品牌建立可持续增长路径', '品沐咨询围绕电商业务中的平台选择、商品结构、内容种草、页面转化、广告投放、直播运营、会员复购等关键环节，为品牌提供诊断、策略、执行陪跑和复盘优化服务。', false, '', { key: 'services', src: '/assets/visuals/service-growth-path.webp', alt: '从诊断、策略、陪跑到复盘的电商增长路径示意图' }) + LeadEntrySection() + '<section class="section model-section"><div class="container">' + SectionIntro(serviceModelName, serviceModelIntro) + '<div class="model-grid">' + model + '</div></div></section><section class="section service-detail-section"><div class="container">' + SectionIntro('我们提供的核心服务') + '<div class="service-detail-list">' + details + '</div></div></section>' + ProofSection() + '<section class="section process-section"><div class="container">' + SectionIntro('我们如何陪品牌一起解决问题？') + '<div class="process-grid">' + process + '</div></div></section><section class="section faq-section"><div class="container narrow-container">' + SectionIntro('常见问题') + '<div class="faq-list">' + faqs + '</div></div></section>' + CtaBand('想知道你的品牌下一步该先优化哪里？', '从专业诊断开始，帮你找到增长突破口。');
+  return PageHero('从诊断到陪跑，帮品牌建立可持续增长路径', '品沐咨询围绕电商业务中的平台选择、商品结构、内容种草、页面转化、广告投放、直播运营、会员复购等关键环节，为品牌提供诊断、策略、执行陪跑和复盘优化服务。', false, '', { key: 'services', src: '/assets/visuals/service-growth-path.webp', alt: '从诊断、策略、陪跑到复盘的电商增长路径示意图' }) + LeadEntrySection() + '<section class="section model-section"><div class="container">' + SectionIntro(serviceModelName, serviceModelIntro) + '<div class="model-grid">' + model + '</div></div></section><section class="section service-detail-section"><div class="container">' + SectionIntro('我们提供的核心服务') + '<div class="service-detail-list">' + details + '</div></div></section>' + GeoServiceModulesSection() + ProofSection() + '<section class="section process-section"><div class="container">' + SectionIntro('我们如何陪品牌一起解决问题？') + '<div class="process-grid">' + process + '</div></div></section><section class="section faq-section"><div class="container narrow-container">' + SectionIntro('常见问题') + '<div class="faq-list">' + faqs + '</div></div></section>' + CtaBand('想知道你的品牌下一步该先优化哪里？', '从专业诊断开始，帮你找到增长突破口。');
 }
 
 function li(item) { return '<li>' + item + '</li>'; }
+
+function GeoServiceModulesSection() {
+  const cards = geoServiceModules.map(function(item) {
+    return '<article class="geo-service-card reveal"><div class="geo-service-topline"><span>' + item.code + '</span>' + icon(item.icon, 25) + '</div><h3>' + item.title + '</h3><p>' + item.text + '</p><strong>交付：' + item.deliverable + '</strong></article>';
+  }).join('');
+  return '<section class="section geo-service-section"><div class="container">' + SectionIntro('GEO 服务可以拆成六个模块', 'GEO 不是在页面里堆几个 AI 关键词，而是把可抓取性、事实一致性、可引用内容、外部信源和持续测量连接起来。可以按当前缺口选择单项，也可以按 90 天计划组合推进。') + '<div class="geo-service-grid">' + cards + '</div></div></section>';
+}
 
 function LeadPageCard(page) {
   return '<article class="lead-card reveal"><span>' + page.eyebrow + '</span><h3>' + page.title + '</h3><p>' + page.subtitle + '</p><a class="outline-link" href="' + localizeHref('/services/' + page.slug + '/') + '">查看诊断方案 ' + icon('ArrowRight', 16) + '</a></article>';
