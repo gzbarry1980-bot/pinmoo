@@ -6,6 +6,10 @@
   NODE_VERSION = "20"
   SITE_ORIGIN = "https://pinmooconsulting.com"
 
+[[edge_functions]]
+  path = "/*"
+  function = "legacy-domain-redirect"
+
 [[redirects]]
   from = "/en"
   to = "/en/"
