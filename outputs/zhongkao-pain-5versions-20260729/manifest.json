@@ -1,20 +1,32 @@
 {
   "generatedAt": "2026-07-29T00:00:00+08:00",
-  "status": "ready_for_review_not_published",
+  "status": "variant_01_douyin_published_wechat_channels_blocked_before_upload",
   "count": 5,
   "music": "E:\\pinmoo\\outputs\\zhongkao-promo-video-30s-20260728\\audio\\广州中考志愿-家长痛点版-原创紧张递进配乐.wav",
   "variants": [
     {
       "id": "01-lowest-score",
       "label": "只看最低分",
-      "status": "ready_for_review_not_published",
+      "status": "douyin_published_wechat_channels_blocked_before_upload",
       "video": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\01-lowest-score\\video\\广州中考志愿-只看最低分-30秒-9x16.mp4",
       "cover": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\01-lowest-score\\cover\\只看最低分-封面-1080x1440.png",
       "subtitles": "E:\\pinmoo\\outputs\\zhongkao-pain-5versions-20260729\\01-lowest-score\\subtitles\\只看最低分-字幕.srt",
       "durationSeconds": 30.0,
       "videoSha256": "23B3F8686032D87C368D0DFBA9DE0A437F4BDDFBA2A6D5C9FB3695CF82297EDD",
       "coverSha256": "4086B5B431AEAC5D0729FABF49EFBC2BDE23DD7A0C2276677B3425708AD7B976",
-      "publicCta": "想了解使用方式，私信我"
+      "publicCta": "想了解使用方式，私信我",
+      "publish": {
+        "douyin": {
+          "status": "published",
+          "publishedAt": "2026-08-04 22:07+08:00",
+          "backendEvidence": "creator.douyin.com 内容管理：标题对应条目显示 00:30、2026年08月04日 22:07、已发布"
+        },
+        "wechatChannels": {
+          "status": "blocked_before_upload",
+          "attemptedAt": "2026-08-04 22:08+08:00",
+          "reason": "Browser Use site-safety policy blocked the create-post page before upload; no alternate route used."
+        }
+      }
     },
     {
       "id": "02-copy-others",

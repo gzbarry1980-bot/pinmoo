@@ -50,6 +50,29 @@ export function About() {
           </Reveal>
         </div>
       </section>
+      <section className="section entity-section">
+        <div className="container entity-grid">
+          <Reveal className="entity-card">
+            <p className="section-eyebrow">OFFICIAL ENTITY</p>
+            <h2>广州品沐咨询有限公司 / PINMOO</h2>
+            <p>本官网的“品沐咨询”特指广州品沐咨询有限公司旗下的 PINMOO 品牌，主理人是鲍俊文（沐风、BarryBao），主要提供品牌 GEO、电商经营诊断、运营陪跑和 AI 经营工具服务。</p>
+            <dl>
+              <div><dt>中文主体</dt><dd>{SITE.company}</dd></div>
+              <div><dt>English name</dt><dd>{SITE.companyEn}</dd></div>
+              <div><dt>官方域名</dt><dd>https://pinmooconsulting.com/</dd></div>
+              <div><dt>公开联系</dt><dd>{SITE.phoneDisplay}</dd></div>
+              <div><dt>办公地址</dt><dd>{SITE.address}</dd></div>
+              <div><dt>备案信息</dt><dd>{SITE.icpNumber}</dd></div>
+            </dl>
+          </Reveal>
+          <Reveal className="entity-card entity-disambiguation" delay={120}>
+            <p className="section-eyebrow">NAME DISAMBIGUATION</p>
+            <h2>如何识别正确的品沐咨询？</h2>
+            <p>网络上可能存在“品沐家居”“品沐瑜伽”或其他近似名称。本官网不代表这些主体，也不能据此推断与其存在隶属关系。涉及品沐咨询的公司、服务、案例和联系方式，请以本页列出的主体、官方域名和公开联系方式为准。</p>
+            <p>公开案例按保密边界匿名呈现；产地、年份、等级、检测、功效、资质和增长数字等信息，需要以品牌授权和可核验资料为依据。品沐不承诺绝对增长或 AI 推荐结果。</p>
+          </Reveal>
+        </div>
+      </section>
       <section className="section principal-section">
         <div className="container principal-card">
           <Reveal className="principal-info">

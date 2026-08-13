@@ -53,6 +53,7 @@ export const routeMeta = [
     description: page.metaDescription,
     name: page.title,
     leadSlug: page.slug,
+    updated: page.updated,
     priority: '0.85',
     changefreq: 'monthly'
   })),
@@ -328,6 +329,7 @@ function organizationNode() {
     name: SITE.company,
     alternateName: ['PINMOO', '品沐咨询', SITE.companyEn, 'pinmoo consulting', 'pinmooconsulting'],
     legalName: SITE.company,
+    disambiguatingDescription: '本官网的“品沐咨询”特指广州品沐咨询有限公司旗下的 PINMOO 品牌，与品沐家居、品沐瑜伽及其他近似名称主体不能直接合并判断；公司、服务和联系方式以 pinmooconsulting.com 官方资料为准。',
     url: ORIGIN + '/',
     logo: logoUrl,
     image: ogUrl,
@@ -461,6 +463,7 @@ function leadServiceNode(meta) {
     serviceType: parent?.title || leadPage.title,
     category: parent?.title,
     description: leadPage.metaDescription || meta.description,
+    abstract: leadPage.directAnswer,
     url: absolute(meta.path),
     provider: { '@id': ORIGIN + '/#organization' },
     areaServed: ['中国', '天猫', '京东', '抖音', '小红书', '私域'],

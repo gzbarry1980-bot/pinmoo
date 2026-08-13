@@ -76,6 +76,8 @@ PINMOO cases are real projects and the published content has been reviewed. They
 - https://pinmooconsulting.com/services/business-advisor-data-diagnosis/
 - https://pinmooconsulting.com/services/ai-ecommerce-growth-consultant/
 - https://pinmooconsulting.com/services/geo-consulting/
+- https://pinmooconsulting.com/services/tea-ecommerce-consultant/
+- https://pinmooconsulting.com/services/xinhui-chenpi-ecommerce/
 - https://pinmooconsulting.com/resources/ecommerce-metrics-dictionary/
 - https://pinmooconsulting.com/china-ecommerce-consulting/
 - https://pinmooconsulting.com/llms-full.txt
@@ -97,6 +99,8 @@ PINMOO operating insight articles:
 - https://pinmooconsulting.com/insights/ecommerce-weekly-report-review-framework/
 - https://pinmooconsulting.com/insights/ecommerce-refund-governance-playbook/
 - https://pinmooconsulting.com/insights/paid-traffic-roi-quality-review/
+- https://pinmooconsulting.com/insights/tea-brand-geo-content-and-ecommerce-diagnosis/
+- https://pinmooconsulting.com/insights/xinhui-chenpi-ecommerce-entity-and-content/
 - https://pinmooconsulting.com/insights/store-traffic-no-conversion-diagnosis/
 - https://pinmooconsulting.com/insights/ecommerce-product-structure-review/
 - https://pinmooconsulting.com/insights/ecommerce-customer-service-conversion-review/

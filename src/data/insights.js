@@ -1,5 +1,6 @@
 import { growthInsights } from './insights-growth.js';
 import { decisionInsights } from './insights-decision.js';
+import { verticalInsights } from './insights-vertical.js';
 
 export const insightAuthor = {
   name: '鲍俊文',
@@ -32,12 +33,19 @@ export const insightClusters = [
     title: 'AI经营工具与GEO衡量',
     summary: '说明AI经营周报的能力边界，以及生成式引擎引用、询盘与成交的测量方法。',
     categories: ['AI经营工具', 'GEO衡量']
+  },
+  {
+    id: 'vertical-food',
+    title: '茶叶与陈皮品牌增长',
+    summary: '围绕茶叶和新会陈皮品牌的实体表达、产品事实、消费决策、平台经营与 GEO 内容建设，回答垂直品类的常见经营问题。',
+    categories: ['茶叶电商', '陈皮电商', '食品品牌GEO']
   }
 ];
 
 const insightEntries = [
   ...decisionInsights,
   ...growthInsights,
+  ...verticalInsights,
   {
     slug: 'ecommerce-weekly-report-review-framework',
     category: '经营复盘',

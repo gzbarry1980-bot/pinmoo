@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { metaTagsForRoute, routeMeta } from '../src/data/seo.js';
 import { SITE } from '../src/data/site.js';
+import { insightClusters } from '../src/data/insights.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -159,7 +160,7 @@ try {
   if (knowledgeIndex.articles?.some((article) => !article.directAnswer || !article.applicableScope || !article.limitations || article.contentModel !== 'CEBA' || article.reviewStatus !== 'editorially-reviewed')) {
     fail('knowledge-index.json 缺少直接回答、适用范围、使用限制或内容复核信息');
   }
-  if (!Array.isArray(knowledgeIndex.topicClusters) || knowledgeIndex.topicClusters.length !== 4) fail('knowledge-index.json 主题簇不完整');
+  if (!Array.isArray(knowledgeIndex.topicClusters) || knowledgeIndex.topicClusters.length !== insightClusters.length) fail(`knowledge-index.json 主题簇不完整: ${knowledgeIndex.topicClusters?.length || 0}/${insightClusters.length}`);
 } catch {
   fail('knowledge-index.json 缺失或不是有效 JSON');
 }
