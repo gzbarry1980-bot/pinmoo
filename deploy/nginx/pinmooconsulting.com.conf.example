@@ -29,8 +29,6 @@ server {
 
     root /var/www/pinmoo.top/dist;
     index index.html;
-    charset utf-8;
-    server_tokens off;
 
     ssl_certificate /etc/letsencrypt/live/pinmooconsulting.com-wildcard/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/pinmooconsulting.com-wildcard/privkey.pem;
