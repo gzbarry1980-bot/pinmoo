@@ -358,9 +358,8 @@ if (!isInternationalBuild) {
 }
 
 async function buildAgentSubdomain() {
-  const sourceDir = path.join(dist, 'ai-diagnosis');
   const agentDir = path.join(dist, 'agent');
-  await copy(sourceDir, agentDir);
+  await copy(path.join(root, 'ai-diagnosis'), agentDir);
 
   const agentIndex = path.join(agentDir, 'index.html');
   let html = await fs.readFile(agentIndex, 'utf8');
@@ -433,8 +432,9 @@ async function buildZhongkaoSubdomain() {
   await fs.writeFile(path.join(appDir, '404.html'), '<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>页面不存在</title><meta http-equiv="refresh" content="0;url=/"><p><a href="/">返回广州中考志愿模拟助手</a></p></html>', 'utf8');
 }
 
+await buildAgentSubdomain();
+
 if (!isInternationalBuild) {
-  await buildAgentSubdomain();
   await buildZhongkaoSubdomain();
 }
 

@@ -1,0 +1,80 @@
+# Primary official website: pinmooconsulting.com.
+# The project directory name /var/www/pinmoo.top is historical and is kept
+# for compatibility with the existing Alibaba Cloud server.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name pinmooconsulting.com www.pinmooconsulting.com;
+    return 301 https://pinmooconsulting.com$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name www.pinmooconsulting.com;
+
+    ssl_certificate /etc/letsencrypt/live/pinmooconsulting.com-wildcard/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pinmooconsulting.com-wildcard/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    return 301 https://pinmooconsulting.com$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name pinmooconsulting.com;
+
+    root /var/www/pinmoo.top/dist;
+    index index.html;
+    charset utf-8;
+    server_tokens off;
+
+    ssl_certificate /etc/letsencrypt/live/pinmooconsulting.com-wildcard/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pinmooconsulting.com-wildcard/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    include /etc/nginx/snippets/pinmoo-security-headers.conf;
+    include /etc/nginx/snippets/pinmoo-server-protection.conf;
+    include /etc/nginx/snippets/pinmoo-performance.conf;
+
+    error_page 404 /404.html;
+    location = /404.html {
+        internal;
+    }
+
+    location = /ai-diagnosis {
+        return 301 https://agent.pinmoo.top/;
+    }
+
+    location ^~ /ai-diagnosis/ {
+        return 301 https://agent.pinmoo.top/;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+        limit_except GET {
+            deny all;
+        }
+    }
+
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    location ~* \.(?:bak|conf|ini|log|old|sql|swp|tmp)$ {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    location ~* \.(?:css|js|png|jpg|jpeg|gif|svg|webp|ico|woff2?)$ {
+        expires 7d;
+        try_files $uri =404;
+    }
+}

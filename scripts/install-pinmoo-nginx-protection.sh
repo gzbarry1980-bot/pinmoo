@@ -2,7 +2,7 @@
 set -euo pipefail
 
 APP_DIR="${APP_DIR:-/var/www/pinmoo.top}"
-SITE_CONFIG="${SITE_CONFIG:-/etc/nginx/sites-enabled/pinmoo.top}"
+SITE_CONFIG="${SITE_CONFIG:-/etc/nginx/sites-enabled/pinmooconsulting.com}"
 CONF_D_TARGET="/etc/nginx/conf.d/00-pinmoo-rate-limit-zones.conf"
 HEADERS_TARGET="/etc/nginx/snippets/pinmoo-security-headers.conf"
 PROTECTION_TARGET="/etc/nginx/snippets/pinmoo-server-protection.conf"
@@ -118,4 +118,4 @@ echo "Nginx request limiting and connection protection are active."
 echo "Backup retained at: $BACKUP_DIR"
 
 cd "$APP_DIR"
-node scripts/verify-domain-strategy.mjs
+node scripts/verify-live.mjs https://pinmooconsulting.com

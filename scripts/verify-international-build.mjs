@@ -60,9 +60,15 @@ for (const relativePath of expectedPages) {
   expect(await exists(relativePath), `missing ${relativePath}`);
 }
 
-for (const relativePath of ['zh', 'ai-diagnosis', 'agent']) {
+for (const relativePath of ['zh', 'ai-diagnosis']) {
   expect(!(await exists(relativePath)), `international build should not publish dist/${relativePath}`);
 }
+
+const agentIndex = await read('agent/index.html');
+expect(agentIndex.includes('<link rel="canonical" href="https://agent.pinmoo.top/"'), 'international build agent canonical is incorrect');
+expect(agentIndex.includes('https://pinmooconsulting.com/'), 'international build agent home link is incorrect');
+expect(await exists('agent/robots.txt'), 'international build agent robots.txt is missing');
+expect(await exists('agent/sitemap.xml'), 'international build agent sitemap.xml is missing');
 
 const home = await read('index.html');
 expect(home.includes('<html lang="zh-CN">'), 'international homepage language is not Chinese');
@@ -138,7 +144,8 @@ expect(googleVerification.trim() === 'google-site-verification: google3ec590af21
 const htmlFiles = await listHtml(dist);
 for (const htmlFile of htmlFiles) {
   const html = await read(htmlFile);
-  if (!['404.html', 'google3ec590af2111084e.html'].includes(htmlFile)) {
+  const isAgentAsset = /^agent[\\/]/.test(htmlFile);
+  if (!['404.html', 'google3ec590af2111084e.html'].includes(htmlFile) && !isAgentAsset) {
     expect(html.includes(SITE.icpNumber), `${htmlFile} is missing the ICP filing number`);
     expect(html.includes(`href="${SITE.icpUrl}"`), `${htmlFile} has an incorrect ICP filing link`);
   }
