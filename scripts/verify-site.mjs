@@ -79,6 +79,10 @@ for (const meta of buildableMeta) {
     if (!html.includes('AI电商经营周报不是自动写总结，而是先统一数据口径')) fail('首页缺少 AI 经营周报方法说明');
     if (!html.includes('电商店铺有流量但转化率低，应该先检查什么？')) fail('首页缺少直接问答内容');
     if (!/"@type"\s*:\s*"FAQPage"/.test(html)) fail('首页缺少 FAQPage 结构化数据');
+    if (!/"@type"\s*:\s*"Brand"/.test(html)) fail('首页缺少 PINMOO Brand 结构化数据');
+    if (!html.includes('"foundingDate":"2022"')) fail('首页组织结构化数据缺少成立时间');
+    if (!html.includes('"founder":{"@id":"https://pinmooconsulting.com/about/#mufeng"}')) fail('首页组织结构化数据缺少主理人关系');
+    if (!html.includes('"brand":{"@id":"https://pinmooconsulting.com/#brand"}')) fail('首页组织结构化数据缺少公司与品牌关系');
     if (/class="text-link">了解更多\b/.test(html)) fail('首页服务锚文本仍使用“了解更多”');
     if (/class="outline-link"[^>]*>查看详情\b/.test(html)) fail('首页案例锚文本仍使用“查看详情”');
   }

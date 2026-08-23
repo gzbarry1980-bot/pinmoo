@@ -329,6 +329,9 @@ function organizationNode() {
     name: SITE.company,
     alternateName: ['PINMOO', '品沐咨询', SITE.companyEn, 'pinmoo consulting', 'pinmooconsulting'],
     legalName: SITE.company,
+    foundingDate: '2022',
+    founder: { '@id': ORIGIN + '/about/#mufeng' },
+    brand: { '@id': ORIGIN + '/#brand' },
     disambiguatingDescription: '本官网的“品沐咨询”特指广州品沐咨询有限公司旗下的 PINMOO 品牌，与品沐家居、品沐瑜伽及其他近似名称主体不能直接合并判断；公司、服务和联系方式以 pinmooconsulting.com 官方资料为准。',
     url: ORIGIN + '/',
     logo: logoUrl,
@@ -358,6 +361,19 @@ function organizationNode() {
       name: '免费领取品牌 GEO 基础报告',
       target: ORIGIN + '/contact/?service=geo-report'
     }
+  };
+}
+
+function brandNode() {
+  return {
+    '@type': 'Brand',
+    '@id': ORIGIN + '/#brand',
+    name: 'PINMOO 品沐咨询',
+    alternateName: ['PINMOO', '品沐咨询'],
+    url: ORIGIN + '/',
+    logo: logoUrl,
+    description: '广州品沐咨询有限公司旗下品牌，提供品牌 GEO、AI 搜索可见度与电商增长咨询服务。',
+    owner: { '@id': ORIGIN + '/#organization' }
   };
 }
 
@@ -756,7 +772,7 @@ function webPageNode(meta) {
 }
 
 export function jsonLdForRoute(meta) {
-  const graph = [organizationNode(), websiteNode(), webPageNode(meta), breadcrumbNode(meta)];
+  const graph = [organizationNode(), brandNode(), websiteNode(), webPageNode(meta), breadcrumbNode(meta)];
   if (meta.path === '/' || meta.path === '/services/') graph.push(...serviceNodes());
   const optional = [itemListNode(meta), leadServiceNode(meta), faqNode(meta), personNode(meta), caseArticleNode(meta), insightArticleNode(meta), contactNode(meta), softwareApplicationNode(meta), definedTermSetNode(meta)].filter(Boolean);
   graph.push(...optional);

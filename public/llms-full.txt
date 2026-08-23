@@ -190,6 +190,9 @@ AI适合读取报表、统一字段、计算指标、生成图表和组织初稿
 - 电商投放 ROI 质量复盘: https://pinmooconsulting.com/insights/paid-traffic-roi-quality-review/
 - 茶叶品牌做 GEO 先做什么: https://pinmooconsulting.com/insights/tea-brand-geo-content-and-ecommerce-diagnosis/
 - 新会陈皮电商可信表达方法: https://pinmooconsulting.com/insights/xinhui-chenpi-ecommerce-entity-and-content/
+- 品牌为什么在 AI 搜索里搜不到: https://pinmooconsulting.com/insights/why-brand-is-not-found-in-ai-search/
+- 品牌事实库怎么做: https://pinmooconsulting.com/insights/brand-fact-base-for-ai-search/
+- GEO 内容怎么写才容易被引用: https://pinmooconsulting.com/insights/geo-content-evidence-checklist/
 
 This resource explains common e-commerce operating report metrics in formal brand-side language. It covers payment amount, homepage net payment amount, store performance net sales, promotion plan spend, product refund rate, advertising ROI, traffic structure and livestream conversion handoff.
 

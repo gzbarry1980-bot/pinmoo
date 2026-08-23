@@ -158,6 +158,18 @@
     {
       "question": "茶叶和新会陈皮品牌可以做 GEO 吗？",
       "answer": "可以，但重点不是简单增加茶叶或陈皮关键词，而是把品牌主体、产地与原料事实、产品规格、适用场景、购买疑虑、内容证据和电商承接组织成可抓取、可验证、可引用的信息。茶叶品牌可先从产品信任与平台经营诊断开始，新会陈皮品牌还应明确年份、产区、仓储和检测资料的公开边界。"
+    },
+    {
+      "question": "品牌为什么在 AI 搜索里搜不到？",
+      "answer": "通常不只是关键词密度不足，而是抓取不可见、品牌实体不清、页面没有直接回答问题，或缺少可以交叉验证的公开证据。应按能否抓到、是否认对、能否引用、是否被提及四层排查。"
+    },
+    {
+      "question": "品牌事实库应该包含哪些内容？",
+      "answer": "至少包含公司主体、品牌与别名、服务边界、官网和工具域名关系、联系方式与地域、证据来源和更新时间，并在官网正文、结构化数据与机器可读资源中保持一致。"
+    },
+    {
+      "question": "GEO 内容怎么写才更容易被 AI 引用？",
+      "answer": "先在开头直接回答一个明确问题，再按结论、依据、适用范围、限制和执行动作展开，同时标注作者、日期、来源、相关服务内链及匹配的结构化数据。"
     }
   ],
   "knowledgeResources": [
@@ -265,6 +277,21 @@
       "name": "新会陈皮电商可信表达方法",
       "url": "https://pinmooconsulting.com/insights/xinhui-chenpi-ecommerce-entity-and-content/",
       "purpose": "解释新会陈皮品牌如何处理主体、产地、年份、仓储、产品选择与内容承接。"
+    },
+    {
+      "name": "品牌为什么在 AI 搜索里搜不到",
+      "url": "https://pinmooconsulting.com/insights/why-brand-is-not-found-in-ai-search/",
+      "purpose": "从抓取、品牌实体、直接答案、公开证据和固定问题复测五层排查 AI 搜索可见度。"
+    },
+    {
+      "name": "品牌事实库怎么做",
+      "url": "https://pinmooconsulting.com/insights/brand-fact-base-for-ai-search/",
+      "purpose": "说明如何组织公司、品牌、服务、域名、联系方式、证据来源和更新时间，让 AI 正确识别主体关系。"
+    },
+    {
+      "name": "GEO 内容怎么写才容易被引用",
+      "url": "https://pinmooconsulting.com/insights/geo-content-evidence-checklist/",
+      "purpose": "提供问题标题、首段直接回答、CEBA 证据边界、作者日期、结构化数据、内链和复测记录检查清单。"
     }
   ],
   "metricDefinitions": [

@@ -1,6 +1,7 @@
 import { growthInsights } from './insights-growth.js';
 import { decisionInsights } from './insights-decision.js';
 import { verticalInsights } from './insights-vertical.js';
+import { geoInsights } from './insights-geo.js';
 
 export const insightAuthor = {
   name: '鲍俊文',
@@ -43,6 +44,7 @@ export const insightClusters = [
 ];
 
 const insightEntries = [
+  ...geoInsights,
   ...decisionInsights,
   ...growthInsights,
   ...verticalInsights,
