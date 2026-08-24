@@ -4,7 +4,7 @@ function resolveSiteOrigin() {
   if (typeof window !== 'undefined' && window.location && window.location.hostname === 'pinmooconsulting.com') {
     return 'https://pinmooconsulting.com';
   }
-  return 'https://pinmoo.top';
+  return 'https://pinmooconsulting.com';
 }
 
 export const SITE = {

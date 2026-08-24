@@ -162,7 +162,7 @@ function ResponsiveImage(src, alt, loading, attrs) {
 
 function Header() {
   const language = '<div class="language-switch" aria-label="Language switch"><a class="' + (!isEn() ? 'active' : '') + '" href="' + currentPathForLang('zh') + '">中文</a><a class="' + (isEn() ? 'active' : '') + '" href="' + currentPathForLang('en') + '">EN</a></div>';
-  const nav = NAV_ITEMS.filter(function(item) { return !item.zhOnly || !isEn(); }).map(function(item) { return '<a class="' + (isActive(item) ? 'active' : '') + '" href="' + localizeHref(item.href) + '">' + (isEn() ? (EN_TEXT[item.label] || item.label) : item.label) + '</a>'; }).join('') + language;
+  const nav = NAV_ITEMS.filter(function(item) { return !item.zhOnly || !isEn(); }).map(function(item) { const active = isActive(item); return '<a class="' + (active ? 'active' : '') + '"' + (active ? ' aria-current="page"' : '') + ' href="' + localizeHref(item.href) + '">' + (isEn() ? (EN_TEXT[item.label] || item.label) : item.label) + '</a>'; }).join('') + language;
   const headerHref = isEn() ? '/contact/' : '/contact/?service=geo-report';
   return '<header class="site-header"><div class="container header-shell"><a class="brand-link" href="' + localizeHref('/') + '" aria-label="PINMOO 品沐咨询首页">' + logo('logo-frame-header') + '</a><nav class="desktop-nav" aria-label="主导航">' + nav + '</nav><div class="header-actions"><a class="header-cta" href="' + localizeHref(headerHref) + '">' + (isEn() ? 'Book' : '免费领 GEO 报告') + '</a></div><button class="mobile-menu-btn" type="button" aria-label="打开导航" aria-expanded="false">' + icon('Menu', 24) + '</button></div><div class="mobile-nav-panel"><nav aria-label="移动端导航">' + nav + '<a class="mobile-nav-cta" href="' + localizeHref(headerHref) + '">' + (isEn() ? 'Book a Consultation' : '免费领 GEO 报告') + '</a></nav></div></header>';
 }
@@ -172,7 +172,13 @@ function Footer() {
     ? (isEn() ? '<a href="/china-ecommerce-consulting/">China e-commerce guide</a>' : '<a href="/resources/ecommerce-metrics-dictionary/">\u7ecf\u8425\u6307\u6807\u8bcd\u5178</a>')
     : '<a href="/resources/ecommerce-metrics-dictionary/">' + (isEn() ? 'Metric glossary' : '经营指标词典') + '</a>';
   const links = NAV_ITEMS.filter(function(item) { return !item.zhOnly || !isEn(); }).map(function(item) { return '<a href="' + localizeHref(item.href) + '">' + (isEn() ? (EN_TEXT[item.label] || item.label) : item.label) + '</a>'; }).join('') + resourceLink;
-  return '<footer class="site-footer"><div class="container footer-grid"><div class="footer-brand">' + logo('logo-frame-footer') + '<p>' + SITE.company + '</p><p>专注电商战略咨询与品牌增长陪跑</p></div><div><h2>导航链接</h2><div class="footer-links">' + links + '</div></div><div><h2>联系方式</h2><p>' + SITE.contactLabel + '</p><p>' + SITE.address + '</p><p>' + SITE.contactNote + '</p></div></div><div class="footer-bottom"><span>© 2026 ' + SITE.company + '. All rights reserved.</span><a href="' + SITE.icpUrl + '" target="_blank" rel="noopener noreferrer">' + SITE.icpNumber + '</a></div></footer>';
+  const navTitle = isEn() ? 'Explore' : '导航链接';
+  const contactTitle = isEn() ? 'Contact' : '联系方式';
+  const summary = isEn() ? 'China e-commerce strategy, GEO and brand growth consulting.' : '专注品牌 GEO、电商战略咨询与增长陪跑';
+  const phoneLabel = isEn() ? 'WeChat / mobile: ' + SITE.phoneDisplay : SITE.contactLabel;
+  const address = isEn() ? 'Office: Guangzhou, China' : SITE.address;
+  const websiteLabel = isEn() ? 'Official site: ' : '官网：';
+  return '<footer class="site-footer"><div class="container footer-grid"><div class="footer-brand">' + logo('logo-frame-footer') + '<p class="footer-entity-name"><strong>' + (isEn() ? SITE.companyEn : SITE.company) + '</strong><span>' + (isEn() ? SITE.company : SITE.companyEn) + '</span></p><p>' + summary + '</p></div><div><h2>' + navTitle + '</h2><div class="footer-links">' + links + '</div></div><div><h2>' + contactTitle + '</h2><address class="footer-contact"><p><a class="footer-phone" href="tel:' + SITE.phone + '">' + phoneLabel + '</a></p><p>' + address + '</p><p><span>' + websiteLabel + '</span><a href="' + SITE.primaryDomain + '/">pinmooconsulting.com</a></p><p>' + (isEn() ? 'Free public-information GEO report by request.' : SITE.contactNote) + '</p></address></div></div><div class="footer-bottom"><span>© 2026 ' + SITE.company + '. All rights reserved.</span><a href="' + SITE.icpUrl + '" target="_blank" rel="noopener noreferrer">' + SITE.icpNumber + '</a></div></footer>';
 }
 
 function ButtonLink(label, href, variant, withIcon) {
@@ -268,7 +274,7 @@ function CaseCard(item) {
     ? (enCase?.industry || item.industry) + ' ' + (enCase?.serviceType || item.serviceType) + ' case study'
     : item.industry + '品牌在' + item.platform + '平台的' + item.serviceType + '项目案例';
   const cta = isEn() ? 'View ' + (enCase?.industry || item.industry) + ' case study' : '查看' + item.industry + '电商优化案例';
-  return '<article class="case-card"><a class="case-image" href="' + href + '" aria-label="查看' + item.title + '">' + ResponsiveImage(item.image, imageAlt, 'lazy', 'decoding="async"') + '</a><div class="case-card-body"><div class="tag-row"><span>' + item.industry + '</span><span>' + item.platform + '</span></div><h3><a href="' + href + '">' + item.title + '</a></h3><p>' + item.summary + '</p><a class="outline-link" href="' + href + '">' + cta + ' ' + icon('ArrowRight', 16) + '</a></div></article>';
+  return '<article class="case-card"><a class="case-image" href="' + href + '" aria-label="查看' + item.title + '">' + ResponsiveImage(item.image, imageAlt, 'lazy', 'width="1200" height="800" decoding="async"') + '</a><div class="case-card-body"><div class="tag-row"><span>' + item.industry + '</span><span>' + item.platform + '</span></div><h3><a href="' + href + '">' + item.title + '</a></h3><p>' + item.summary + '</p><a class="outline-link" href="' + href + '">' + cta + ' ' + icon('ArrowRight', 16) + '</a></div></article>';
 }
 
 function InsightCard(article) {
@@ -311,7 +317,7 @@ function DashboardVisual() {
 
 function GeoReportOfferSection() {
   if (isEn()) return '';
-  return '<section class="section geo-report-offer-section"><div class="container geo-report-offer"><div class="reveal geo-report-offer-copy"><p class="section-eyebrow">FREE BRAND GEO REPORT</p><h2>添加微信，免费获取一份品牌 GEO 基础报告</h2><p>如果你想知道品牌为什么不容易被 AI 搜索看见、理解或引用，先把品牌官网或店铺链接发给品沐。</p><ul class="geo-report-offer-list"><li>' + icon('Search', 20) + 'AI 搜索可见度、品牌事实一致性与技术可抓取性</li><li>' + icon('FilePenLine', 20) + '页面内容、FAQ、案例和外部信源的证据缺口</li><li>' + icon('Target', 20) + '未来 30 至 90 天可优先执行的 GEO 动作</li></ul><div class="geo-report-offer-actions">' + ButtonLink('查看领取方式', '/contact/?service=geo-report', 'primary', false) + '<span>' + SITE.contactLabel + '</span></div></div><div class="reveal geo-report-offer-card"><div class="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="添加品沐咨询微信，免费获取品牌 GEO 基础报告" loading="lazy"></div><div><strong>添加微信时备注</strong><code>品牌GEO报告</code><p>同时发送：品牌名称、官网或店铺链接、主要平台、目标市场。</p></div></div></div></section>';
+  return '<section class="section geo-report-offer-section"><div class="container geo-report-offer"><div class="reveal geo-report-offer-copy"><p class="section-eyebrow">FREE BRAND GEO REPORT</p><h2>添加微信，免费获取一份品牌 GEO 基础报告</h2><p>如果你想知道品牌为什么不容易被 AI 搜索看见、理解或引用，先把品牌官网或店铺链接发给品沐。</p><ul class="geo-report-offer-list"><li>' + icon('Search', 20) + 'AI 搜索可见度、品牌事实一致性与技术可抓取性</li><li>' + icon('FilePenLine', 20) + '页面内容、FAQ、案例和外部信源的证据缺口</li><li>' + icon('Target', 20) + '未来 30 至 90 天可优先执行的 GEO 动作</li></ul><div class="geo-report-offer-actions">' + ButtonLink('查看领取方式', '/contact/?service=geo-report', 'primary', false) + '<span>' + SITE.contactLabel + '</span></div></div><div class="reveal geo-report-offer-card"><div class="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="添加品沐咨询微信，免费获取品牌 GEO 基础报告" width="320" height="320" loading="lazy" decoding="async"></div><div><strong>添加微信时备注</strong><code>品牌GEO报告</code><p>同时发送：品牌名称、官网或店铺链接、主要平台、目标市场。</p></div></div></div></section>';
 }
 
 function Home() {

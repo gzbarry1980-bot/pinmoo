@@ -8,7 +8,13 @@ export default async function legacyDomainRedirect(request: Request, context: { 
     return context.next();
   }
 
-  const target = new URL(url.pathname || '/', PRIMARY_ORIGIN);
+  let pathname = url.pathname || '/';
+  if (pathname === '/zh' || pathname === '/zh/') {
+    pathname = '/';
+  } else if (pathname.startsWith('/zh/')) {
+    pathname = pathname.slice(3) || '/';
+  }
+  const target = new URL(pathname, PRIMARY_ORIGIN);
   target.search = url.search;
   return Response.redirect(target.toString(), 301);
 }
