@@ -329,7 +329,7 @@ function Home() {
     ? DashboardVisual()
     : '<div class="hero-editorial-visual"><picture><source media="(min-width: 561px)" srcset="/assets/visuals/home-growth-dashboard.webp"><img src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="电商净销售额、投放回报与退款治理演示数据看板" width="1400" height="748" decoding="async" fetchpriority="high"></picture><p class="visual-demo-note">看板为演示数据，不代表客户经营结果</p></div>';
   const heroKicker = isEn() ? 'GEO / China e-commerce growth consulting' : '品牌 GEO 优化 / 免费领取 GEO 报告';
-  const heroTitle = isEn() ? 'Make your brand easier for AI search to find and understand' : '让 AI 搜索看见、理解并引用你的品牌';
+  const heroTitle = isEn() ? 'Make your brand easier for AI search to find and understand' : '让 AI 搜索看见、<br>理解并引用你的品牌';
   const heroSubtitle = isEn() ? 'PINMOO helps consumer brands build a clearer foundation for AI search visibility through entity facts, evidence-led content, technical crawlability and China e-commerce execution.' : '品沐咨询帮助品牌做 GEO：从技术可抓取性、品牌事实库、证据化内容到平台分发与可见度监测，建立更容易被 AI 理解和引用的增长基础。';
   const heroSupport = isEn() ? 'Share your official website and current market question. We will clarify the next practical step before proposing a larger engagement.' : '添加微信并备注“品牌GEO报告”，可免费获取一份基于公开信息的品牌 GEO 基础报告。';
   const heroPrimary = isEn() ? ButtonLink('Book a GEO consultation', '/contact/', 'primary', false) : ButtonLink('免费领取品牌 GEO 报告', '/contact/?service=geo-report', 'primary', false);

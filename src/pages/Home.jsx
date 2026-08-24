@@ -51,7 +51,7 @@ export function Home() {
         <div className="container home-hero-inner">
           <Reveal className="hero-copy">
             <p className="hero-kicker">品牌 GEO 优化 / 免费领取 GEO 报告</p>
-            <h1>让 AI 搜索看见、理解并引用你的品牌</h1>
+            <h1>让 AI 搜索看见、<br />理解并引用你的品牌</h1>
             <p className="hero-subtitle">品沐咨询帮助品牌做 GEO：从技术可抓取性、品牌事实库、证据化内容到平台分发与可见度监测，建立更容易被 AI 理解和引用的增长基础。</p>
             <p className="hero-support">添加微信并备注“品牌GEO报告”，可免费获取一份基于公开信息的品牌 GEO 基础报告。</p>
             <div className="hero-actions">

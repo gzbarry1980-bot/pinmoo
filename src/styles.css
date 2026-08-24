@@ -2986,18 +2986,30 @@ dt { color: var(--muted); font-weight: 800; } dd { margin: 0; color: var(--text)
     display: none;
     min-height: 0;
   }
+  .home-hero-inner,
+  .hero-copy,
+  .hero-actions {
+    min-width: 0;
+    max-width: 100%;
+  }
   .home-hero-inner { padding: 38px 0 34px; }
   .hero-copy h1,
   .page-hero h1,
   .case-detail-hero h1 {
     font-size: 32px;
     line-height: 1.2;
+    text-wrap: initial;
+    overflow-wrap: anywhere;
   }
   .hero-subtitle {
     font-size: 17px;
     line-height: 1.75;
+    overflow-wrap: anywhere;
   }
-  .hero-support { line-height: 1.7; }
+  .hero-support {
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
   .hero-proof-row {
     display: flex;
     gap: 6px 14px;
@@ -3007,11 +3019,11 @@ dt { color: var(--muted); font-weight: 800; } dd { margin: 0; color: var(--text)
   }
   .hero-actions {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 10px;
   }
   .hero-actions .btn {
-    width: auto;
+    width: 100%;
     min-width: 0;
     padding: 0 12px;
   }
