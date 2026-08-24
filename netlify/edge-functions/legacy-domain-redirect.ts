@@ -1,5 +1,6 @@
 const LEGACY_HOSTS = new Set(['pinmoo.top', 'www.pinmoo.top']);
 const PRIMARY_ORIGIN = 'https://pinmooconsulting.com';
+const AGENT_ORIGIN = 'https://agent.pinmoo.top';
 
 export default async function legacyDomainRedirect(request: Request, context: { next: () => Promise<Response> }) {
   const url = new URL(request.url);
@@ -9,6 +10,12 @@ export default async function legacyDomainRedirect(request: Request, context: { 
   }
 
   let pathname = url.pathname || '/';
+  if (pathname === '/ai-diagnosis' || pathname.startsWith('/ai-diagnosis/')) {
+    const suffix = pathname.slice('/ai-diagnosis'.length) || '/';
+    const agentTarget = new URL(suffix, AGENT_ORIGIN);
+    agentTarget.search = url.search;
+    return Response.redirect(agentTarget.toString(), 301);
+  }
   if (pathname === '/zh' || pathname === '/zh/') {
     pathname = '/';
   } else if (pathname.startsWith('/zh/')) {
