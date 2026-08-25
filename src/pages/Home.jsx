@@ -7,7 +7,7 @@ import { Reveal } from '../components/Reveal.jsx';
 import { SectionIntro } from '../components/SectionIntro.jsx';
 import { ServiceCard } from '../components/ServiceCard.jsx';
 import { StatCounter } from '../components/StatCounter.jsx';
-import { METHODOLOGY, TRUST_STATS } from '../data/site.js';
+import { GEO_EVIDENCE_HOOKS, METHODOLOGY, TRUST_STATS } from '../data/site.js';
 import { SITE } from '../data/site.js';
 import { cases } from '../data/cases.js';
 import { services } from '../data/services.js';
@@ -43,6 +43,29 @@ function GeoReportOfferSection() {
   );
 }
 
+function GeoEvidenceSection() {
+  return (
+    <section className="section geo-evidence-section" aria-labelledby="geo-evidence-title">
+      <div className="container">
+        <div className="geo-evidence-heading">
+          <p className="section-eyebrow">EVIDENCE-LED GEO</p>
+          <h2 id="geo-evidence-title">先把可核验的事实写清楚，再谈 AI 引用</h2>
+          <p>品沐把公开资料、页面结构、内容证据和测量边界放在同一套表达里。没有来源、时间、口径或授权的数字，不会被当作公开业绩发布。</p>
+        </div>
+        <div className="geo-evidence-grid">
+          {GEO_EVIDENCE_HOOKS.map((item, index) => (
+            <Reveal className="geo-evidence-card" key={item.title} delay={index * 70}>
+              <span>0{index + 1}</span>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function Home() {
   return (
     <>
@@ -67,6 +90,7 @@ export function Home() {
       </section>
 
       <GeoReportOfferSection />
+      <GeoEvidenceSection />
 
       <section className="section trust-section">
         <div className="container">

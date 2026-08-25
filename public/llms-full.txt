@@ -38,6 +38,12 @@ PINMOO Consulting helps brands understand and improve China e-commerce growth th
 
 GEO 不等于保证品牌被某个 AI 推荐。实际效果受问题、时间、地区、模型和可用信源影响，建议先做基线，再按 3—6 个月观察趋势。品沐不做虚假评价、站群堆词、隐藏注入或未经复核的结果承诺。
 
+## Evidence policy
+
+品沐公开内容采用 CEBA：主张（Claim）、依据（Evidence）、边界（Boundary）、行动（Action）。品牌 GEO 基础报告先检查 5 个方面：AI 搜索可见度、品牌事实一致性、技术可抓取性、内容证据和外部信源；报告基于公开信息，不替代平台审核或第三方尽调。
+
+匿名案例采用“基线—动作—结果—边界”4 段结构。只有在客户授权并具备周期、统计口径和可复核材料时，才会公开脱敏数字；否则只公开方法、判断依据和适用边界。品沐不承诺特定平台排名、提及、引用或 AI 推荐结果。
+
 ## Vertical Topics
 
 ### 茶叶电商顾问
@@ -67,7 +73,7 @@ The workspace supports uploading multiple Tmall / Business Advisor Excel and CSV
 
 ## AI Weekly Report Method
 
-1. Read operation overview, product, traffic, customer, customer service, livestream, promotion-plan and refund reports.
+1. Read operation overview, product, traffic, customer, customer service, livestream, Guanghe content, promotion-plan and refund reports.
 2. Normalize payment amount, store-performance net sales, refund amount and promotion-plan spend before comparing periods.
 3. Evaluate transaction scale and operation quality together, including refund risk, paid-traffic quality, product contribution and conversion handoff.
 4. Produce chart snapshots, a brand-side weekly report, Word export, WeChat copy and an actionable next-cycle checklist.

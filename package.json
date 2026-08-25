@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
-    "verify": "node scripts/verify-site.mjs",
+    "verify": "node scripts/verify-site.mjs && node scripts/verify-geo-evidence.mjs",
     "verify:content": "node scripts/verify-insight-quality.mjs",
+    "verify:geo": "node scripts/verify-geo-evidence.mjs",
     "verify:agent": "node scripts/verify-agent-build.mjs",
     "verify:zhongkao": "node --test scripts/zhongkao/test-engine.mjs scripts/zhongkao/test-admission-cases.mjs && node scripts/verify-zhongkao-build.mjs",
     "test:zhongkao-access": "node --test scripts/zhongkao/test-access-server.mjs",

@@ -34,6 +34,12 @@
     "url": "https://pinmooconsulting.com/contact/?service=geo-report",
     "description": "添加微信 / 手机同号 13600008584，备注“品牌GEO报告”，发送品牌名称、官网或店铺链接、主要平台和目标市场，先获取一份基于公开信息的品牌 GEO 基础报告。"
   },
+  "evidencePolicy": {
+    "method": "CEBA: Claim, Evidence, Boundary, Action",
+    "publicReportScope": ["AI 搜索可见度", "品牌事实一致性", "技术可抓取性", "内容证据", "外部信源"],
+    "caseDisclosure": "匿名案例只有在获得授权并具备周期、口径和可复核材料时，才会公开脱敏数字；否则只公开方法与边界。",
+    "noGuarantee": "不承诺特定平台排名、提及、引用或 AI 推荐结果。"
+  },
   "inquiryTemplates": [
     "品牌/店铺：___；主要平台：天猫/京东/抖音/小红书；当前问题：有流量但转化低/退款高/投放不稳；希望先看：店铺诊断。",
     "我们有生意参谋/推广/退款数据，想生成一版品牌方可读的经营周报，重点看净销售额、退款、流量结构和下周期动作。",

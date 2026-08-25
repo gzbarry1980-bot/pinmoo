@@ -10,6 +10,7 @@
 - Contact: 微信 / 手机同号 13600008584
 - Primary CTA: 免费领取品牌 GEO 基础报告
 - Contact note: 添加微信并备注“品牌GEO报告”，发送品牌名称、官网或店铺链接、主要平台和目标市场，可免费获取一份基于公开信息的品牌 GEO 基础报告。
+- GEO 内容采用 CEBA（主张、依据、边界、行动）；公开信息版报告先检查 AI 可见度、事实一致性、技术可抓取性、内容证据与外部信源，不承诺特定 AI 推荐结果。
 - Location: 广东省广州市越秀区中华国际广场
 - Contact facts verified: 2026-07-17
 - Chinese site: https://pinmooconsulting.com/
