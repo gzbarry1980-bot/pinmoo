@@ -1539,13 +1539,29 @@ textarea:focus-visible {
   line-height: 1.75;
 }
 .service-detail-card {
-  padding: 30px;
+  padding: 0;
   border: 1px solid var(--line);
-  border-radius: var(--radius-lg);
+  border-radius: 8px;
   background: #fff;
   box-shadow: var(--soft-shadow);
+  overflow: hidden;
 }
-.service-detail-head { display: grid; grid-template-columns: 70px 1fr; gap: 18px; align-items: start; margin-bottom: 24px; }
+.service-detail-summary {
+  min-height: 118px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 20px;
+  align-items: center;
+  padding: 24px 30px;
+  cursor: pointer;
+  list-style: none;
+}
+.service-detail-summary::-webkit-details-marker { display: none; }
+.service-detail-summary > svg { color: var(--royal); transition: transform 180ms var(--ease); }
+.service-detail-card[open] .service-detail-summary { border-bottom: 1px solid var(--line); }
+.service-detail-card[open] .service-detail-summary > svg { transform: rotate(180deg); }
+.service-detail-body { padding: 26px 30px 30px; }
+.service-detail-head { display: grid; grid-template-columns: 70px 1fr; gap: 18px; align-items: start; margin: 0; }
 .service-detail-head h2 { margin: 0 0 6px; color: var(--text); font-size: 26px; }
 .service-detail-head p { margin: 0; color: var(--muted); }
 .service-detail-columns { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; }
@@ -1969,6 +1985,8 @@ dt { color: var(--muted); font-weight: 800; } dd { margin: 0; color: var(--text)
   .bento-grid > .reveal, .bento-grid > .bento-large { grid-column: span 1; }
   .section-intro, .section-intro-left { text-align: left; margin-left: 0; }
   .service-detail-head { grid-template-columns: 1fr; }
+  .service-detail-summary { min-height: 0; padding: 20px; align-items: start; }
+  .service-detail-body { padding: 22px 20px 24px; }
   .service-detail-columns, .belief-grid, .work-steps, .fit-list, .contact-promise-grid, .entity-grid { grid-template-columns: 1fr; }
   .principal-card { padding: 24px; }
   .principal-info { grid-template-columns: 1fr; }
@@ -1998,7 +2016,7 @@ dt { color: var(--muted); font-weight: 800; } dd { margin: 0; color: var(--text)
   .geo-report-offer-actions { align-items: stretch; }
   .geo-report-offer-actions .btn { width: 100%; }
   .stat-card { padding: 18px; }
-  .service-card, .service-detail-card, .geo-service-card, .contact-info-panel, .contact-form, .contact-direct-panel, .detail-block, .aside-card, .entity-card { padding: 22px; border-radius: 20px; }
+  .service-card, .geo-service-card, .contact-info-panel, .contact-form, .contact-direct-panel, .detail-block, .aside-card, .entity-card { padding: 22px; border-radius: 20px; }
   .home-case-grid, .cases-grid { grid-template-columns: 1fr; }
   .case-hero-industries span { min-width: auto; }
   .logo-frame-footer { width: 190px; height: 48px; }

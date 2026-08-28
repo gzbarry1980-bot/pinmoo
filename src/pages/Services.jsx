@@ -14,7 +14,7 @@ function LeadEntrySection() {
       <div className="container">
         <SectionIntro title="按问题进入，更快找到适合你的咨询方案" text="不同品牌卡住的位置不一样。你可以直接从当前最像自己的问题进入，先看诊断重点、交付物和适合场景。" />
         <div className="lead-card-grid">
-          {leadPages.map((page) => (
+          {leadPages.slice(0, 6).map((page) => (
             <Reveal className="lead-card" key={page.slug}>
               <span>{page.eyebrow}</span>
               <h3>{page.title}</h3>
@@ -23,6 +23,7 @@ function LeadEntrySection() {
             </Reveal>
           ))}
         </div>
+        <div className="center-actions"><a className="text-link" href="#core-services">继续浏览全部核心服务 <Icon name="ArrowRight" size={16} /></a></div>
       </div>
     </section>
   );
@@ -89,28 +90,35 @@ export function Services() {
           </div>
         </div>
       </section>
-      <section className="section service-detail-section">
+      <section className="section service-detail-section" id="core-services">
         <div className="container">
           <SectionIntro title="我们提供的核心服务" />
           <div className="service-detail-list">
             {services.map((service, index) => (
-              <Reveal className="service-detail-card" key={service.id} delay={index * 70}>
-                <div className="service-detail-head">
-                  <div className="card-icon"><Icon name={service.icon} size={30} /></div>
-                  <div><h2>{service.title}</h2><p>{service.short}</p></div>
-                </div>
-                <div className="service-detail-columns">
-                  <div><h3>适合谁</h3><ul>{service.fit.map((item) => <li key={item}>{item}</li>)}</ul></div>
-                  <div><h3>解决什么问题</h3><ul>{service.problems.map((item) => <li key={item}>{item}</li>)}</ul></div>
-                  <div><h3>主要服务内容</h3><ul>{service.content.map((item) => <li key={item}>{item}</li>)}</ul></div>
-                  <div><h3>交付成果</h3><ul>{service.deliverables.map((item) => <li key={item}>{item}</li>)}</ul></div>
-                </div>
-                <div className="service-fee">
-                  <strong>合作范围</strong>
-                  <p>{service.fee}</p>
-                  <span>{pricingNote}</span>
-                </div>
-                <ButtonLink href="/contact/" className="detail-cta">预约咨询</ButtonLink>
+              <Reveal className="service-detail-shell" key={service.id} delay={index * 50}>
+                <details className="service-detail-card" open={index === 0}>
+                  <summary className="service-detail-summary">
+                    <div className="service-detail-head">
+                      <div className="card-icon"><Icon name={service.icon} size={30} /></div>
+                      <div><h2>{service.title}</h2><p>{service.short}</p></div>
+                    </div>
+                    <Icon name="ChevronDown" size={22} />
+                  </summary>
+                  <div className="service-detail-body">
+                    <div className="service-detail-columns">
+                      <div><h3>适合谁</h3><ul>{service.fit.map((item) => <li key={item}>{item}</li>)}</ul></div>
+                      <div><h3>解决什么问题</h3><ul>{service.problems.map((item) => <li key={item}>{item}</li>)}</ul></div>
+                      <div><h3>主要服务内容</h3><ul>{service.content.map((item) => <li key={item}>{item}</li>)}</ul></div>
+                      <div><h3>交付成果</h3><ul>{service.deliverables.map((item) => <li key={item}>{item}</li>)}</ul></div>
+                    </div>
+                    <div className="service-fee">
+                      <strong>合作范围</strong>
+                      <p>{service.fee}</p>
+                      <span>{pricingNote}</span>
+                    </div>
+                    <ButtonLink href="/contact/" className="detail-cta">预约咨询</ButtonLink>
+                  </div>
+                </details>
               </Reveal>
             ))}
           </div>
