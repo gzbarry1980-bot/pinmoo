@@ -38,8 +38,20 @@ export function CaseDetail({ item }) {
           <div className="case-detail-main">
             <Reveal className="case-privacy-note">
               <strong>匿名案例说明</strong>
-              <p>本案例来自真实项目，现有内容已经核对；因客户保密协议，客户名称及可识别细节已隐去。</p>
+              <p>本案例来自真实项目，现有公开内容已经核对；依据客户资料保密与公开授权边界，客户名称及可识别细节已隐去。</p>
             </Reveal>
+            {item.evidence && (
+              <Reveal className="insight-evidence case-evidence">
+                <span>证据与公开边界</span>
+                <h2>这项案例依据什么公开？</h2>
+                <dl>
+                  <div><dt>数据截止</dt><dd>{item.evidence.asOf}</dd></div>
+                  <div><dt>证据状态</dt><dd>{item.evidence.level}</dd></div>
+                  <div><dt>判断依据</dt><dd>{item.evidence.basis}</dd></div>
+                  <div><dt>公开边界</dt><dd>{item.evidence.boundary}</dd></div>
+                </dl>
+              </Reveal>
+            )}
             <DetailBlock icon="BookOpen" title="项目背景"><p>{item.background}</p></DetailBlock>
             <DetailBlock icon="ShieldCheck" title="核心问题"><ul>{item.problems.map((problem) => <li key={problem}>{problem}</li>)}</ul></DetailBlock>
             <DetailBlock icon="Search" title="诊断发现"><p>{item.diagnosis}</p></DetailBlock>
@@ -54,6 +66,7 @@ export function CaseDetail({ item }) {
                 <div><dt>行业</dt><dd>{item.industry}</dd></div>
                 <div><dt>平台</dt><dd>{item.platform}</dd></div>
                 <div><dt>核心问题</dt><dd>{item.serviceType}</dd></div>
+                {item.caseId && <div><dt>案例编号</dt><dd>{item.caseId}</dd></div>}
               </dl>
             </Reveal>
             <Reveal className="aside-card highlight-card" delay={80}>

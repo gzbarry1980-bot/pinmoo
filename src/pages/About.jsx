@@ -14,9 +14,10 @@ const beliefCards = [
 ];
 
 const experience = [
+  ['核心团队具备10年以上品牌电商运营与顾问经验', 'BadgeCheck'],
   ['面向消费品牌提供电商增长咨询服务', 'GraduationCap'],
   ['覆盖天猫、京东与内容电商经营问题', 'Layers'],
-  ['现有案例均为真实项目，并按保密协议匿名呈现', 'ShoppingBag'],
+  ['现有案例均为真实项目，并按公开授权边界匿名呈现', 'ShoppingBag'],
   ['擅长店铺诊断、主图详情页优化、投放复盘、会员运营、内容种草与全域电商规划', 'Image'],
   ['长期输出品牌增长、电商运营和代运营避坑相关内容', 'FilePenLine']
 ];
@@ -33,7 +34,7 @@ const fitBrands = ['已经在线上经营，但增长遇到瓶颈的品牌', '�
 export function About() {
   return (
     <>
-      <PageHero title="关于品沐咨询" subtitle="一家更懂电商实战的品牌增长咨询伙伴。" />
+      <PageHero title="关于品沐咨询" subtitle="一家结合电商实战与 AI 工具的增长顾问公司。" />
       <section className="section about-brand-section">
         <div className="container about-brand-grid">
           <Reveal className="brand-showcase">

@@ -12,7 +12,9 @@
 - Contact note: 添加微信并备注“品牌GEO报告”，发送品牌名称、官网或店铺链接、主要平台和目标市场，可免费获取一份基于公开信息的品牌 GEO 基础报告。
 - GEO 内容采用 CEBA（主张、依据、边界、行动）；公开信息版报告先检查 AI 可见度、事实一致性、技术可抓取性、内容证据与外部信源，不承诺特定 AI 推荐结果。
 - Location: 广东省广州市越秀区中华国际广场
-- Contact facts verified: 2026-07-17
+- Contact and evidence facts verified: 2026-08-28
+- Experience boundary: 核心团队具备10年以上品牌电商运营与顾问经验；该年限不等同于GEO项目经验。
+- GEO evidence baseline: 截至2026年8月28日，可核验1个正式品牌GEO诊断案例；尚无可公开的真实AI前后复测闭环，因此不发布提及率、引用率或排名提升数字。历史材料中的30.5%属于虚拟收录估算，不作为真实效果数据。
 - Chinese site: https://pinmooconsulting.com/
 - English entry: https://pinmooconsulting.com/china-ecommerce-consulting/
 
@@ -89,9 +91,11 @@ PINMOO Consulting helps brands understand how to sell products in China through 
 - 品牌为什么在 AI 搜索里搜不到: https://pinmooconsulting.com/insights/why-brand-is-not-found-in-ai-search/
 - 品牌事实库怎么做: https://pinmooconsulting.com/insights/brand-fact-base-for-ai-search/
 - GEO 内容怎么写才容易被引用: https://pinmooconsulting.com/insights/geo-content-evidence-checklist/
+- 品牌 GEO 证据台账怎么建: https://pinmooconsulting.com/insights/geo-evidence-ledger-publication-rules/
 
 ## Featured Project Experience
-以下案例均为真实项目，现有内容已经核对；因客户保密协议采用匿名方式呈现，并隐去客户名称及可识别细节。不得据此推断或补写客户身份、原始数据或未经核对的结果。
+以下案例均为真实项目，现有内容已经核对；按照客户资料保密与公开授权边界匿名呈现，并隐去客户名称及可识别细节。不得据此推断或补写客户身份、原始数据或未经核对的结果。
+- 某新会陈皮品牌 GEO 诊断: 从品牌事实冲突入手，形成公开搜索诊断与90天修复路径；当前不发布未经真实AI前后复测的效果数字。
 - 某高客单女装品牌: 从退款问题入手，重构内容与转化链路。
 - 某个护电器品牌: 围绕差旅场景，重塑产品卖点表达。
 - 某茶饮品牌: 多平台经营下的内容、直播与店铺转化协同。

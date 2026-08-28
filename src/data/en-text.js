@@ -291,6 +291,13 @@ export const EN_TEXT = {
   '擅长店铺诊断、主图详情页优化、投放复盘、会员运营、内容种草与全域电商规划': 'Specialized in store diagnosis, main-image/detail-page optimization, ad review, membership operations, content seeding and omni-channel e-commerce planning',
   '长期输出品牌增长、电商运营和代运营避坑相关内容': 'Long-term content output on brand growth, e-commerce operations and agency pitfalls',
   '案例公开边界': 'Case Disclosure Boundary',
+  'GEO优化': 'GEO Optimization',
+  '证据与公开边界': 'Evidence and Public Disclosure Boundary',
+  '这项案例依据什么公开？': 'What evidence supports this public case?',
+  '数据截止': 'Evidence as of',
+  '证据状态': 'Evidence status',
+  '判断依据': 'Basis',
+  '公开边界': 'Public boundary',
   '以下案例均为真实项目，现有内容已经核对。因客户保密协议，统一匿名呈现，并隐去客户名称、店铺账号、截图、原始数据及其他可识别细节。': 'The following cases are real projects and the published content has been reviewed. They are presented anonymously under confidentiality agreements, with client names, store accounts, screenshots, raw data and other identifying details withheld.',
   '匿名案例说明': 'Anonymous Case Notice',
   '本案例来自真实项目，现有内容已经核对；因客户保密协议，客户名称及可识别细节已隐去。': 'This case comes from a real project and the published content has been reviewed. The client name and identifying details are withheld under a confidentiality agreement.',
@@ -423,6 +430,27 @@ export const EN_TEXT = {
 };
 
 export const CASE_EN = {
+  'chenpi-brand-geo-diagnosis': {
+    title: 'Xinhui Chenpi Brand: A 90-Day GEO Repair Path Starting from Conflicting Brand Facts',
+    industry: 'Tea & Food',
+    serviceType: 'GEO Optimization / Brand Fact Base / AI Visibility Baseline',
+    platform: 'Official Website / Search Engines / AI Answer Engines',
+    summary: 'The engagement started with public search diagnosis and conflicting brand facts, then organized a 90-day GEO repair path covering entity facts, evidence-led content, technical crawlability and fixed AI probes.',
+    background: 'The client is a Xinhui chenpi and premium tea brand. Public information was fragmented across pages and platforms, and key facts lacked a consistent, verifiable source that search engines and AI systems could cite.',
+    problems: ['Company, brand, product and origin facts were not expressed consistently.', 'Public pages did not answer high-intent user questions directly.', 'Evidence sources and disclosure boundaries were not clearly recorded.', 'No fixed AI probe set or repeatable visibility baseline had been established.'],
+    diagnosis: 'The immediate issue was not content volume alone. The brand first needed one consistent entity definition, verifiable evidence and clear boundaries before expanding content or measuring AI visibility over time.',
+    solutions: ['Audit public search results and record conflicting brand facts.', 'Build a fact ledger with sources, dates, owners and public authorization status.', 'Organize content with the Claim, Evidence, Boundary and Action framework.', 'Plan a fixed AI probe set and retest schedule for T0, T+14, T+30, T+60 and T+90.', 'Create a 90-day repair path across the official website, structured data and selected external sources.'],
+    result: 'The public search diagnosis and 90-day method have been documented. As of August 28, 2026, there is no public real-world AI before-and-after measurement loop, so no uplift percentage is published.',
+    insight: 'GEO credibility begins with consistent facts and repeatable measurement, not with an unsupported visibility claim.',
+    cta: 'If your brand is described inconsistently or rarely cited in AI answers, request a basic public-information GEO report.',
+    highlights: ['Public search diagnosis', 'Brand fact conflict audit', 'Evidence ledger', '90-day GEO repair path'],
+    evidence: {
+      asOf: '2026-08-28',
+      level: 'Public search facts verified; AI outcome measurement pending',
+      basis: 'CASE-GEO-01 records the public search diagnosis, fact conflicts and 90-day action plan.',
+      boundary: 'No public real-world AI before-and-after measurement loop exists yet. The historical 30.5% figure was a virtual estimate and must not be presented as a verified outcome.'
+    }
+  },
   'womenswear-refund-optimization': {
     title: 'Premium Womenswear Brand: Rebuilding Content and Conversion from Refund Issues',
     industry: 'Apparel & Fashion',
@@ -559,5 +587,6 @@ export const FILTER_EN_TO_CN = {
   'Page Optimization': '页面优化',
   'Content Seeding': '内容种草',
   'Advertising Review': '投放复盘',
-  'Private Domain & Membership': '私域会员'
+  'Private Domain & Membership': '私域会员',
+  'GEO Optimization': 'GEO优化'
 };

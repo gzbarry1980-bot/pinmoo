@@ -80,9 +80,15 @@ for (const article of insights) {
 
 const aiContext = JSON.parse(await fs.readFile(path.join(root, 'public', 'ai-context.json'), 'utf8'));
 const profile = JSON.parse(await fs.readFile(path.join(root, 'public', 'pinmoo-profile.json'), 'utf8'));
-if (!aiContext.evidencePolicy || aiContext.publicEvidenceHooks?.length !== 4) fail('public/ai-context.json 缺少完整证据政策或事实句');
+if (!aiContext.evidencePolicy || aiContext.publicEvidenceHooks?.length !== GEO_EVIDENCE_HOOKS.length) fail('public/ai-context.json 缺少完整证据政策或事实句');
 if (!profile.evidencePolicy) fail('public/pinmoo-profile.json 缺少 evidencePolicy');
 if (aiContext.canonicalDomain !== SITE.primaryDomain) fail('ai-context.json 的 canonicalDomain 与主域名不一致');
+if (aiContext.evidenceSnapshot?.verifiedFormalGeoDiagnoses !== 1) fail('ai-context.json 缺少已核验正式 GEO 诊断基线');
+if (profile.evidenceSnapshot?.verifiedFormalGeoDiagnoses !== 1) fail('pinmoo-profile.json 缺少已核验正式 GEO 诊断基线');
+
+const geoCase = cases.find((item) => item.slug === 'chenpi-brand-geo-diagnosis');
+if (!geoCase?.evidence?.boundary || !/尚未|不发布|不得|未经|不属于/.test(geoCase.evidence.boundary)) fail('新会陈皮 GEO 案例缺少明确结果边界');
+if (!insights.some((item) => item.slug === 'geo-evidence-ledger-publication-rules')) fail('缺少 GEO 证据台账公开规则文章');
 
 const llms = await fs.readFile(path.join(root, 'public', 'llms-full.txt'), 'utf8');
 if (!llms.includes('## Evidence policy') || !llms.includes('CEBA')) fail('public/llms-full.txt 缺少证据政策');

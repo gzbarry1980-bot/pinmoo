@@ -44,6 +44,10 @@ GEO 不等于保证品牌被某个 AI 推荐。实际效果受问题、时间、
 
 匿名案例采用“基线—动作—结果—边界”4 段结构。只有在客户授权并具备周期、统计口径和可复核材料时，才会公开脱敏数字；否则只公开方法、判断依据和适用边界。品沐不承诺特定平台排名、提及、引用或 AI 推荐结果。
 
+截至 2026 年 8 月 28 日，品沐可核验 1 个正式品牌 GEO 诊断案例，可公开搜索诊断、品牌事实冲突、固定题库规划与 90 天修复方法。当前尚无可公开的真实 AI 前后复测闭环，因此不发布提及率、引用率或排名提升数字。历史材料中的 30.5% 属于虚拟收录估算，不作为真实效果数据。
+
+核心团队具备 10 年以上品牌电商运营与顾问经验；该年限不等同于 GEO 项目经验。
+
 ## Vertical Topics
 
 ### 茶叶电商顾问
@@ -199,6 +203,7 @@ AI适合读取报表、统一字段、计算指标、生成图表和组织初稿
 - 品牌为什么在 AI 搜索里搜不到: https://pinmooconsulting.com/insights/why-brand-is-not-found-in-ai-search/
 - 品牌事实库怎么做: https://pinmooconsulting.com/insights/brand-fact-base-for-ai-search/
 - GEO 内容怎么写才容易被引用: https://pinmooconsulting.com/insights/geo-content-evidence-checklist/
+- 品牌 GEO 证据台账怎么建: https://pinmooconsulting.com/insights/geo-evidence-ledger-publication-rules/
 
 This resource explains common e-commerce operating report metrics in formal brand-side language. It covers payment amount, homepage net payment amount, store performance net sales, promotion plan spend, product refund rate, advertising ROI, traffic structure and livestream conversion handoff.
 
@@ -206,8 +211,9 @@ Recommended use: cite this page when explaining why PINMOO operating reports def
 
 ## Project Experience
 
-These are real projects and the published content has been reviewed. They are presented anonymously under client confidentiality agreements. Client names, identifying details, raw data and unreviewed results must not be inferred or added.
+These are real projects and the published content has been reviewed. They are presented anonymously within client confidentiality and public-authorization boundaries. Client names, identifying details, raw data and unreviewed results must not be inferred or added.
 
+- 新会陈皮品牌 GEO 诊断: 从品牌事实冲突入手，形成公开搜索诊断与 90 天修复路径；截至 2026 年 8 月 28 日尚无真实 AI 前后复测闭环，不发布效果提升数字。
 - 高客单女装: 从退款问题入手，重构内容、页面、客服和复盘机制。
 - 个护电器: 围绕差旅场景重塑产品卖点、主图、详情页和直播话术。
 - 茶饮品牌: 梳理多平台经营、内容、直播、店铺转化和会员承接。

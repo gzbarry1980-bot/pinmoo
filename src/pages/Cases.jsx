@@ -24,7 +24,7 @@ export function Cases() {
         <div className="container">
           <Reveal className="case-privacy-note">
             <strong>案例公开边界</strong>
-            <p>以下案例均为真实项目，现有内容已经核对。因客户保密协议，统一匿名呈现，并隐去客户名称、店铺账号、截图、原始数据及其他可识别细节。</p>
+            <p>以下案例均为真实项目，现有公开内容已经核对。依据客户资料保密与公开授权边界，统一匿名呈现，并隐去客户名称、店铺账号、截图、未经授权的原始数据及其他可识别细节。</p>
           </Reveal>
           <div className="filter-row" role="group" aria-label="案例筛选标签">
             {caseFilters.map((item) => <button type="button" key={item} className={filter === item ? 'active' : ''} onClick={() => setFilter(item)}>{item}</button>)}

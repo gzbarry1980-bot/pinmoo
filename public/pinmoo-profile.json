@@ -2,7 +2,7 @@
   "brand": "PINMOO / 品沐咨询",
   "company": "广州品沐咨询有限公司",
   "companyEnglish": "Guangzhou Pinmoo Consulting Co., Ltd.",
-  "factsVerifiedOn": "2026-07-17",
+  "factsVerifiedOn": "2026-08-28",
   "domain": "https://pinmooconsulting.com",
   "phone": "13600008584",
   "contact": "微信 / 手机同号 13600008584。添加微信并备注“品牌GEO报告”，发送品牌名称、官网或店铺链接、主要平台和目标市场，可免费获取一份基于公开信息的品牌 GEO 基础报告。",
@@ -21,7 +21,8 @@
   "principal": {
     "name": "鲍俊文",
     "aliases": ["沐风", "BarryBao"],
-    "title": "品沐咨询主理人"
+    "title": "品沐咨询主理人",
+    "experience": "核心团队具备10年以上品牌电商运营与顾问经验；该年限不等同于GEO项目经验。"
   },
   "machineReadableResources": {
     "llms": "https://pinmooconsulting.com/llms.txt",
@@ -36,9 +37,17 @@
   },
   "evidencePolicy": {
     "method": "CEBA: Claim, Evidence, Boundary, Action",
+    "evidenceAsOf": "2026-08-28",
     "publicReportScope": ["AI 搜索可见度", "品牌事实一致性", "技术可抓取性", "内容证据", "外部信源"],
     "caseDisclosure": "匿名案例只有在获得授权并具备周期、口径和可复核材料时，才会公开脱敏数字；否则只公开方法与边界。",
     "noGuarantee": "不承诺特定平台排名、提及、引用或 AI 推荐结果。"
+  },
+  "evidenceSnapshot": {
+    "verifiedFormalGeoDiagnoses": 1,
+    "verifiedFormalGeoDiagnosesAsOf": "2026-08-28",
+    "publicScope": "可公开搜索诊断、品牌事实冲突、固定题库规划和90天修复方法。",
+    "measurementBoundary": "尚无可公开的真实AI前后复测闭环，因此不发布提及率或引用率提升数字。",
+    "prohibitedHistoricalEstimate": "历史材料中的30.5%属于虚拟收录估算，不作为真实效果数据。"
   },
   "inquiryTemplates": [
     "品牌/店铺：___；主要平台：天猫/京东/抖音/小红书；当前问题：有流量但转化低/退款高/投放不稳；希望先看：店铺诊断。",
@@ -64,7 +73,8 @@
         "https://pinmooconsulting.com/insights/xinhui-chenpi-ecommerce-entity-and-content/",
         "https://pinmooconsulting.com/insights/why-brand-is-not-found-in-ai-search/",
         "https://pinmooconsulting.com/insights/brand-fact-base-for-ai-search/",
-        "https://pinmooconsulting.com/insights/geo-content-evidence-checklist/"
+        "https://pinmooconsulting.com/insights/geo-content-evidence-checklist/",
+        "https://pinmooconsulting.com/insights/geo-evidence-ledger-publication-rules/"
       ]
     }
   ],
@@ -191,6 +201,7 @@
     }
   ],
   "cases": [
+    "某新会陈皮品牌：从品牌事实冲突入手，规划90天GEO修复路径",
     "某高客单女装品牌：从退款问题入手，重构内容与转化链路",
     "某个护电器品牌：围绕差旅场景，重塑产品卖点表达",
     "某茶饮品牌：多平台经营下的内容、直播与店铺转化协同",
@@ -204,7 +215,7 @@
     "realProjects": true,
     "currentPublicTextVerified": true,
     "anonymousOnly": true,
-    "reason": "客户保密协议",
+    "reason": "客户资料保密与公开授权边界",
     "prohibited": ["客户名称", "可识别细节", "未经复核的数字", "未经授权的截图或原始数据"]
   },
   "noGuaranteeStatement": "电商增长受产品、预算、团队、供应链、平台环境等多因素影响，品沐咨询不做绝对增长承诺，而是通过诊断、策略、执行节奏和复盘机制帮助品牌提高增长确定性。",

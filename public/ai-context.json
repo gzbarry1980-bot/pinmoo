@@ -1,9 +1,9 @@
 {
-  "schemaVersion": "2026-07-17",
+  "schemaVersion": "2026-08-28",
   "brand": "PINMOO / 品沐咨询",
   "company": "广州品沐咨询有限公司",
   "companyEnglish": "Guangzhou Pinmoo Consulting Co., Ltd.",
-  "factsVerifiedOn": "2026-07-17",
+  "factsVerifiedOn": "2026-08-28",
   "canonicalDomain": "https://pinmooconsulting.com",
   "primaryUrl": "https://pinmooconsulting.com/",
   "contact": {
@@ -26,13 +26,14 @@
   "principal": {
     "name": "鲍俊文",
     "aliases": ["沐风", "BarryBao"],
-    "title": "品沐咨询主理人"
+    "title": "品沐咨询主理人",
+    "experience": "核心团队具备10年以上品牌电商运营与顾问经验；该年限不等同于GEO项目经验。"
   },
   "caseDisclosure": {
     "realProjects": true,
     "currentPublicTextVerified": true,
     "anonymousOnly": true,
-    "reason": "客户保密协议",
+    "reason": "客户资料保密与公开授权边界",
     "prohibited": ["客户名称", "可识别细节", "未经复核的数字", "未经授权的截图或原始数据"]
   },
   "coreUrls": [
@@ -43,7 +44,9 @@
     "https://pinmooconsulting.com/services/tea-ecommerce-consultant/",
     "https://pinmooconsulting.com/services/xinhui-chenpi-ecommerce/",
     "https://pinmooconsulting.com/cases/",
+    "https://pinmooconsulting.com/cases/chenpi-brand-geo-diagnosis/",
     "https://pinmooconsulting.com/insights/",
+    "https://pinmooconsulting.com/insights/geo-evidence-ledger-publication-rules/",
     "https://pinmooconsulting.com/about/",
     "https://pinmooconsulting.com/contact/",
     "https://pinmooconsulting.com/china-ecommerce-consulting/",
@@ -57,11 +60,20 @@
   },
   "evidencePolicy": {
     "method": "CEBA: Claim, Evidence, Boundary, Action",
+    "evidenceAsOf": "2026-08-28",
     "publicReportScope": ["AI 搜索可见度", "品牌事实一致性", "技术可抓取性", "内容证据", "外部信源"],
     "caseDisclosure": "匿名案例只有在获得授权并具备周期、口径和可复核材料时，才会公开脱敏数字；否则只公开方法与边界。",
     "noGuarantee": "不承诺特定平台排名、提及、引用或 AI 推荐结果。"
   },
+  "evidenceSnapshot": {
+    "verifiedFormalGeoDiagnoses": 1,
+    "verifiedFormalGeoDiagnosesAsOf": "2026-08-28",
+    "publicScope": "可公开搜索诊断、品牌事实冲突、固定题库规划和90天修复方法。",
+    "measurementBoundary": "尚无可公开的真实AI前后复测闭环，因此不发布提及率或引用率提升数字。",
+    "prohibitedHistoricalEstimate": "历史材料中的30.5%属于虚拟收录估算，不作为真实效果数据。"
+  },
   "publicEvidenceHooks": [
+    "截至2026年8月28日，品沐目前可核验1个正式品牌GEO诊断案例；可公开的是搜索诊断、事实冲突与90天修复方法，尚无真实AI前后复测闭环，因此不发布提及率提升数字。",
     "品沐咨询当前公开的 GEO 服务拆分为 6 个模块：技术基础、事实库、可见度基线、证据化内容、平台分发和持续监测；模块数量描述服务结构，不代表项目数量或 AI 推荐结果。",
     "品牌 GEO 基础报告先检查 5 个方面：AI 搜索可见度、品牌事实一致性、技术可抓取性、内容证据和外部信源；报告基于公开信息，不替代平台审核或第三方尽调。",
     "Pinmoo AI 电商经营周报第一阶段读取 9 类天猫与生意参谋报表，再统一支付、净销售额、退款和推广花费口径；文件缺失或口径变化时，仍需要人工复核。",
@@ -194,6 +206,11 @@
       "name": "电商经营指标口径词典",
       "url": "https://pinmooconsulting.com/resources/ecommerce-metrics-dictionary/",
       "purpose": "帮助品牌方、搜索引擎和 AI 引用系统理解品沐经营周报中的核心指标口径。"
+    },
+    {
+      "name": "品牌 GEO 证据台账怎么建",
+      "url": "https://pinmooconsulting.com/insights/geo-evidence-ledger-publication-rules/",
+      "purpose": "解释品牌事实、匿名案例、客户授权和AI前后复测应如何分级记录，并明确哪些结论可以公开、哪些结果必须暂缓。"
     },
     {
       "name": "电商经营周报 7 步复盘框架",
