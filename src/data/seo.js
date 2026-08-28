@@ -564,7 +564,7 @@ function faqNode(meta) {
     return {
       '@type': 'FAQPage',
       '@id': absolute(meta.path) + '#faq',
-      mainEntity: HOME_FAQS.map((item) => ({
+      mainEntity: HOME_FAQS.slice(0, 4).map((item) => ({
         '@type': 'Question',
         name: item.q,
         acceptedAnswer: { '@type': 'Answer', text: item.a }

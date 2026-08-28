@@ -1144,6 +1144,7 @@ textarea:focus-visible {
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
 }
+.inquiry-path-grid-human { grid-template-columns: repeat(3, 1fr); }
 .inquiry-path-card {
   min-height: 238px;
   display: flex;
@@ -1302,7 +1303,8 @@ textarea:focus-visible {
 
 .cases-preview { background: #fff; }
 .home-case-grid, .cases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.home-case-grid { grid-template-columns: repeat(4, 1fr); }
+.home-case-grid { grid-template-columns: repeat(3, 1fr); }
+.home-case-grid-featured { grid-template-columns: repeat(2, 1fr); }
 .case-card {
   height: 100%;
   display: flex;
@@ -1458,6 +1460,30 @@ textarea:focus-visible {
   border-top: 1px solid #e3eaf3;
   border-bottom: 1px solid #e3eaf3;
 }
+
+.geo-evidence-section-compact { padding: 30px 0; }
+.geo-evidence-disclosure {
+  border: 1px solid #d9e3f0;
+  background: #fff;
+}
+.geo-evidence-disclosure summary {
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 24px;
+  cursor: pointer;
+  list-style: none;
+}
+.geo-evidence-disclosure summary::-webkit-details-marker { display: none; }
+.geo-evidence-disclosure summary > span { display: grid; gap: 4px; }
+.geo-evidence-disclosure summary strong { color: var(--text); font-size: 20px; }
+.geo-evidence-disclosure summary small { color: var(--muted); font-size: 14px; }
+.geo-evidence-disclosure summary svg { color: var(--royal); transition: transform 180ms var(--ease); }
+.geo-evidence-disclosure[open] summary { border-bottom: 1px solid #e3eaf3; }
+.geo-evidence-disclosure[open] summary svg { transform: rotate(180deg); }
+.geo-evidence-disclosure .geo-evidence-grid { padding: 22px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 .geo-evidence-heading {
   max-width: 780px;

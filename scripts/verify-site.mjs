@@ -69,14 +69,12 @@ for (const meta of buildableMeta) {
 
   if (meta.path === '/' && meta.lang !== 'en') {
     if (!html.includes('<title>品牌 GEO 优化｜AI搜索可见度与品牌增长咨询｜品沐咨询</title>')) fail('首页 title 未覆盖品牌 GEO 与 AI 搜索可见度');
-    if (!html.includes('免费获取一份品牌 GEO 基础报告')) fail('首页缺少品牌 GEO 免费报告主 CTA');
+    if (!html.includes('免费领取品牌 GEO 报告')) fail('首页缺少品牌 GEO 免费报告主 CTA');
     if (!html.includes('品牌GEO报告')) fail('首页缺少微信备注口令');
-    for (const signal of ['多平台', '多行业', '全链路', 'AI工具']) {
-      if (!html.includes(signal)) fail(`首页能力信号缺失: ${signal}`);
-    }
     if (!html.includes('看板为演示数据，不代表客户经营结果')) fail('首页经营看板缺少演示数据声明');
-    if (!html.includes('案例均来自真实项目，现有内容已经核对')) fail('首页缺少匿名案例事实边界');
-    if (!html.includes('AI电商经营周报不是自动写总结，而是先统一数据口径')) fail('首页缺少 AI 经营周报方法说明');
+    if (!html.includes('客户资料保密与公开授权边界')) fail('首页缺少匿名案例事实边界');
+    if (!html.includes('你现在最想解决哪件事？')) fail('首页缺少面向访客的问题入口');
+    if (!html.includes('我们如何保证内容可信？')) fail('首页缺少可展开的证据说明');
     if (!html.includes('电商店铺有流量但转化率低，应该先检查什么？')) fail('首页缺少直接问答内容');
     if (!/"@type"\s*:\s*"FAQPage"/.test(html)) fail('首页缺少 FAQPage 结构化数据');
     if (!/"@type"\s*:\s*"Brand"/.test(html)) fail('首页缺少 PINMOO Brand 结构化数据');
