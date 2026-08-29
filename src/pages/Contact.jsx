@@ -34,17 +34,13 @@ export function Contact() {
                 </div>
               </div>
             ))}
-            <div className="wechat-qr-card">
-              <div className="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="添加品沐咨询微信，免费获取品牌 GEO 基础报告" loading="lazy" /></div>
-              <div><strong>扫码添加微信，免费领取 GEO 报告</strong><p>微信 / 手机同号：{SITE.phoneDisplay}</p><span>备注“品牌GEO报告”，发送品牌名称、官网或店铺链接、主要平台和目标市场</span></div>
-            </div>
             <div className="contact-promise-grid">
               <div><Icon name="Zap" size={24} /><strong>快速沟通</strong><span>直连顾问高效响应</span></div>
               <div><Icon name="Target" size={24} /><strong>明确需求</strong><span>精准匹配解决方案</span></div>
               <div><Icon name="ShieldCheck" size={24} /><strong>24小时内回复</strong><span>工作日内快速跟进</span></div>
             </div>
           </Reveal>
-          <Reveal delay={120}><ContactForm /></Reveal>
+          <Reveal className="contact-primary-panel" delay={120}><ContactForm /></Reveal>
         </div>
       </section>
       <section className="section contact-bottom-section">

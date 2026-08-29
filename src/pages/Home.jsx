@@ -66,7 +66,7 @@ export function Home() {
               <ButtonLink href="/contact/?service=geo-report" icon={false}>免费领取品牌 GEO 报告</ButtonLink>
               <ButtonLink href="/services/geo-consulting/" variant="secondary" icon={false}>查看 GEO 服务</ButtonLink>
             </div>
-            <div className="hero-proof-row"><span>公开信息版报告</span><span>微信备注：品牌GEO报告</span><span>不承诺虚假推荐</span></div>
+            <div className="hero-proof-row"><span>无需整理复杂资料</span><span>发送品牌名称与官网</span><span>工作日 24 小时内回复</span></div>
           </Reveal>
           <Reveal className="hero-visual-wrap" delay={120}>
             <DashboardVisual />

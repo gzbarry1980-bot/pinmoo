@@ -1,97 +1,64 @@
 import { useState } from 'react';
-import { PLATFORM_LIST, SITE } from '../data/site.js';
+import { SITE } from '../data/site.js';
 import { Icon } from './Icon.jsx';
 
-const initialForm = {
-  name: '',
-  company: '',
-  phone: '',
-  wechat: '',
-  platforms: [],
-  message: ''
-};
+const intents = ['品牌GEO报告', 'GEO技术审计', 'AI搜索可见度', '电商咨询', '官网咨询'];
 
-function validate(form) {
-  const errors = {};
-  if (!form.name.trim()) errors.name = '请填写姓名';
-  if (!form.company.trim()) errors.company = '请填写公司名称';
-  if (!form.phone.trim()) errors.phone = '请填写联系电话';
-  else if (!/^1[3-9]\d{9}$|^0\d{2,3}-?\d{7,8}$/.test(form.phone.trim())) errors.phone = '请输入正确的联系电话';
-  return errors;
-}
+const reportChecks = [
+  ['Search', 'GEO 生成式引擎优化'],
+  ['Target', '电商战略诊断'],
+  ['Layers', '平台运营陪跑'],
+  ['PackageCheck', '商品与页面优化'],
+  ['FilePenLine', '内容与种草策略'],
+  ['BarChart3', '投放与数据复盘'],
+  ['Users', '会员与私域运营']
+];
+
+const templates = [
+  ['品牌GEO报告', '品牌名称：___；官网或店铺链接：___；主要平台：天猫/京东/抖音/小红书；目标市场：___；希望先看：品牌 GEO 可见度与内容优化。'],
+  ['经营周报', '您好，我们有生意参谋、推广和退款数据，想生成一版品牌方可读的经营周报，重点看净销售额、退款、流量结构和下周期动作。'],
+  ['运营陪跑', '您好，品牌目前有运营团队，但缺少外部复盘和优先级判断，想了解月度顾问陪跑如何合作。']
+];
 
 export function ContactForm() {
-  const [form, setForm] = useState(initialForm);
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [copied, setCopied] = useState(-1);
 
-  const update = (field, value) => {
-    setForm((current) => ({ ...current, [field]: value }));
-    setErrors((current) => ({ ...current, [field]: undefined }));
-  };
-
-  const togglePlatform = (platform) => {
-    setForm((current) => {
-      const exists = current.platforms.includes(platform);
-      return { ...current, platforms: exists ? current.platforms.filter((item) => item !== platform) : [...current.platforms, platform] };
-    });
-  };
-
-  const submit = (event) => {
-    event.preventDefault();
-    const nextErrors = validate(form);
-    setErrors(nextErrors);
-    if (Object.keys(nextErrors).length) return;
-    setLoading(true);
-    setSuccess(false);
-    window.setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-      setForm(initialForm);
-    }, 1000);
+  const copyTemplate = async (text, index) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(index);
+      window.setTimeout(() => setCopied(-1), 2400);
+    } catch {
+      setCopied(-1);
+    }
   };
 
   return (
-    <form className="contact-form" onSubmit={submit} noValidate>
+    <section className="contact-direct-panel" aria-labelledby="wechatConsultTitle">
       <div className="form-heading">
-        <Icon name="FilePenLine" size={26} />
-        <h2>在线咨询 / 领取 GEO 报告</h2>
+        <Icon name="MessageCircle" size={26} />
+        <h2 id="wechatConsultTitle">扫码添加微信，免费领取品牌 GEO 报告</h2>
       </div>
-      <label>
-        <span>姓名 <b>*</b></span>
-        <input value={form.name} onChange={(event) => update('name', event.target.value)} placeholder="请输入您的姓名" />
-        {errors.name && <em>{errors.name}</em>}
-      </label>
-      <label>
-        <span>公司名称 <b>*</b></span>
-        <input value={form.company} onChange={(event) => update('company', event.target.value)} placeholder="请输入公司名称" />
-        {errors.company && <em>{errors.company}</em>}
-      </label>
-      <label>
-        <span>联系电话 <b>*</b></span>
-        <input value={form.phone} onChange={(event) => update('phone', event.target.value)} placeholder="请输入手机号" inputMode="tel" />
-        {errors.phone && <em>{errors.phone}</em>}
-      </label>
-      <label>
-        <span>微信号</span>
-        <input value={form.wechat} onChange={(event) => update('wechat', event.target.value)} placeholder="请输入微信号（选填）" />
-      </label>
-      <fieldset>
-        <legend>关注平台</legend>
-        <div className="platform-checks">
-          {[...PLATFORM_LIST, '其他'].map((platform) => (
-            <button type="button" key={platform} className={form.platforms.includes(platform) ? 'selected' : ''} onClick={() => togglePlatform(platform)}>{platform}</button>
-          ))}
+      <div className="direct-qr-block">
+        <div className="wechat-qr-crop direct-qr"><img src="/assets/wechat-qr-mufeng.jpg" alt="添加品沐咨询微信，免费获取品牌 GEO 基础报告" loading="lazy" /></div>
+        <div>
+          <strong>微信 / 手机同号：{SITE.phoneDisplay}</strong>
+          <p>备注“品牌GEO报告”，发送品牌名称、官网或店铺链接、主要平台和目标市场，可先免费获取一份基于公开信息的品牌 GEO 基础报告。</p>
+          <div className="direct-intents">{intents.map((item) => <span key={item}>{item}</span>)}</div>
+          <a className="direct-phone-link" href={'tel:' + SITE.phone}><Icon name="Phone" size={18} />拨打电话</a>
         </div>
-      </fieldset>
-      <label>
-        <span>咨询需求</span>
-        <textarea maxLength={500} value={form.message} onChange={(event) => update('message', event.target.value)} placeholder="如需领取 GEO 报告，请填写品牌官网或店铺链接、主要平台和目标市场" />
-      </label>
-      <button className="form-submit" type="submit" disabled={loading}>{loading ? '提交中...' : '提交咨询需求'}</button>
-      {success && <div className="success-message"><Icon name="CheckCircle2" size={20} />已收到您的需求。你也可以直接添加微信 / 手机同号 {SITE.phoneDisplay}，并注明来意，我们会尽快回复。</div>}
-      <p className="form-note"><Icon name="MessageCircle" size={18} />也可以直接添加微信 / 手机同号 <a href={'tel:' + SITE.phone}>{SITE.phoneDisplay}</a>，备注“品牌GEO报告”领取公开信息版基础报告。</p>
-    </form>
+      </div>
+      <div className="direct-service-box"><h3>品牌 GEO 报告会先看什么</h3><ul>{reportChecks.map(([icon, label]) => <li key={label}><Icon name={icon} size={20} /><span>{label}</span></li>)}</ul></div>
+      <div className="inquiry-template-box">
+        <h3>不知道怎么开口，可以直接复制后发送</h3>
+        <div>{templates.map(([title, text], index) => (
+          <article key={title}>
+            <strong>{title}</strong><p>{text}</p>
+            <button type="button" className="copy-template-button" onClick={() => copyTemplate(text, index)}><Icon name={copied === index ? 'Check' : 'Copy'} size={16} />{copied === index ? '已复制，可粘贴到微信' : '复制这段话'}</button>
+          </article>
+        ))}</div>
+      </div>
+      <p className="direct-note">建议添加微信后，至少发送：品牌名称、官网或店铺链接、主要平台、目标市场，并备注“品牌GEO报告”。</p>
+    </section>
   );
 }

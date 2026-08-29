@@ -86,6 +86,46 @@ function initFloatingContact() {
     const open = panel.hidden;
     panel.hidden = !open;
     button.setAttribute('aria-expanded', String(open));
+    button.setAttribute('aria-label', open ? '关闭微信咨询' : '打开微信咨询');
+  });
+  document.addEventListener('pointerdown', function(event) {
+    if (wrap.contains(event.target)) return;
+    panel.hidden = true;
+    button.setAttribute('aria-expanded', 'false');
+    button.setAttribute('aria-label', '打开微信咨询');
+  });
+  document.addEventListener('keydown', function(event) {
+    if (event.key !== 'Escape') return;
+    panel.hidden = true;
+    button.setAttribute('aria-expanded', 'false');
+    button.setAttribute('aria-label', '打开微信咨询');
+  });
+}
+
+function initTemplateCopy() {
+  document.querySelectorAll('.copy-template-button[data-copy-target]').forEach(function(button) {
+    button.addEventListener('click', async function() {
+      const target = document.getElementById(button.dataset.copyTarget || '');
+      const text = target?.textContent?.trim();
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch {
+        const input = document.createElement('textarea');
+        input.value = text;
+        input.setAttribute('readonly', '');
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        input.remove();
+      }
+      const label = button.querySelector('span');
+      if (!label) return;
+      label.textContent = '已复制，可粘贴到微信';
+      window.setTimeout(function() { label.textContent = '复制这段话'; }, 2400);
+    });
   });
 }
 
@@ -93,3 +133,4 @@ initHeader();
 initFaq();
 initCaseFilters();
 initFloatingContact();
+initTemplateCopy();
