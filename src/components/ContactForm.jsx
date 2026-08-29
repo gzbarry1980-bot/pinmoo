@@ -49,15 +49,15 @@ export function ContactForm() {
         </div>
       </div>
       <div className="direct-service-box"><h3>品牌 GEO 报告会先看什么</h3><ul>{reportChecks.map(([icon, label]) => <li key={label}><Icon name={icon} size={20} /><span>{label}</span></li>)}</ul></div>
-      <div className="inquiry-template-box">
-        <h3>不知道怎么开口，可以直接复制后发送</h3>
+      <details className="inquiry-template-box">
+        <summary><span><strong>不知道怎么开口？</strong><small>展开并复制常用咨询话术</small></span><Icon name="ChevronDown" size={20} /></summary>
         <div>{templates.map(([title, text], index) => (
           <article key={title}>
             <strong>{title}</strong><p>{text}</p>
             <button type="button" className="copy-template-button" onClick={() => copyTemplate(text, index)}><Icon name={copied === index ? 'Check' : 'Copy'} size={16} />{copied === index ? '已复制，可粘贴到微信' : '复制这段话'}</button>
           </article>
         ))}</div>
-      </div>
+      </details>
       <p className="direct-note">建议添加微信后，至少发送：品牌名称、官网或店铺链接、主要平台、目标市场，并备注“品牌GEO报告”。</p>
     </section>
   );
