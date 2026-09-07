@@ -9,12 +9,14 @@ import { leadPages, proofAssets } from '../data/lead-pages.js';
 import { geoServiceModules, pricingNote, services, serviceFaqs, serviceModel, serviceModelIntro, serviceModelName, serviceProcess } from '../data/services.js';
 
 function LeadEntrySection() {
+  const prioritySlugs = ['ecommerce-diagnosis', 'store-diagnosis', 'tmall-jd-consultant', 'page-conversion-optimization', 'ecommerce-roi-review', 'geo-consulting'];
+  const priorityPages = prioritySlugs.map((slug) => leadPages.find((page) => page.slug === slug)).filter(Boolean);
   return (
     <section className="section lead-entry-section">
       <div className="container">
         <SectionIntro title="按问题进入，更快找到适合你的咨询方案" text="不同品牌卡住的位置不一样。你可以直接从当前最像自己的问题进入，先看诊断重点、交付物和适合场景。" />
         <div className="lead-card-grid">
-          {leadPages.slice(0, 6).map((page) => (
+          {priorityPages.map((page) => (
             <Reveal className="lead-card" key={page.slug}>
               <span>{page.eyebrow}</span>
               <h3>{page.title}</h3>
@@ -40,7 +42,7 @@ function GeoServiceModulesSection() {
               <div className="geo-service-topline"><span>{item.code}</span><Icon name={item.icon} size={25} /></div>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
-              <strong>交付：{item.deliverable}</strong>
+              <details className="geo-service-proof"><summary>工作依据与服务范围</summary><div><span>依据</span><p>{item.evidence}</p></div><div><span>边界</span><p>{item.boundary}</p></div><div><span>下一步</span><p>{item.action}</p></div></details><strong>交付：{item.deliverable}</strong>
             </Reveal>
           ))}
         </div>
@@ -70,31 +72,17 @@ function ProofSection() {
 }
 
 export function Services() {
+  const serviceOrder = ['strategy-diagnosis', 'operation-coaching', 'conversion-optimization', 'content-seeding', 'data-review', 'membership-private-domain', 'geo-consulting'];
+  const orderedServices = serviceOrder.map((id) => services.find((service) => service.id === id)).filter(Boolean);
   return (
     <>
-      <PageHero title="从诊断到陪跑，帮品牌建立可持续增长路径" subtitle="品沐咨询围绕电商业务中的平台选择、商品结构、内容种草、页面转化、广告投放、直播运营、会员复购等关键环节，为品牌提供诊断、策略、执行陪跑和复盘优化服务。" />
+      <PageHero title="品牌电商增长咨询服务" subtitle="从被发现、被理解，到成交、复购与经营提效。品沐按品牌当前问题组合战略诊断、运营陪跑、商品页面、内容投放、数据复盘、会员运营与 GEO 服务。" />
       <LeadEntrySection />
-      <section className="section model-section">
-        <div className="container">
-          <SectionIntro title={serviceModelName} text={serviceModelIntro} />
-          <div className="model-grid">
-            {serviceModel.map((item, index) => (
-              <Reveal className="model-card" key={item.code} delay={index * 70}>
-                <span>{item.code}</span>
-                <Icon name={['Target', 'MapPinned', 'PackageCheck', 'Image', 'LineChart'][index]} size={30} />
-                <small>{item.title}</small>
-                <h3>{item.name}</h3>
-                <p>{item.text}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
       <section className="section service-detail-section" id="core-services">
         <div className="container">
           <SectionIntro title="我们提供的核心服务" />
           <div className="service-detail-list">
-            {services.map((service, index) => (
+            {orderedServices.map((service, index) => (
               <Reveal className="service-detail-shell" key={service.id} delay={index * 50}>
                 <details className="service-detail-card" open={index === 0}>
                   <summary className="service-detail-summary">

@@ -17,7 +17,7 @@ const contactItems = [
 export function Contact() {
   return (
     <>
-      <PageHero title="添加微信，免费获取品牌 GEO 基础报告" subtitle="备注“品牌GEO报告”，发送品牌名称、官网或店铺链接、主要平台和目标市场。品沐会基于公开信息先做一份初步判断。" compact />
+      <PageHero title="联系品沐咨询" subtitle="从一个具体问题开始：电商战略、运营陪跑、商品页面、内容投放、数据复盘、会员复购或品牌 GEO。" compact />
       <section className="section contact-section">
         <div className="container contact-grid">
           <Reveal className="contact-info-panel">

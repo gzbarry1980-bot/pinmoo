@@ -99,21 +99,21 @@ expect(/"@type"\s*:\s*"Service"/.test(chenpiPage), 'chenpi consultant page is mi
 const teaInsight = await read('insights/tea-brand-geo-content-and-ecommerce-diagnosis/index.html');
 expect(teaInsight.includes('茶叶品牌做 GEO'), 'tea insight did not render');
 expect(teaInsight.includes('核心结论'), 'tea insight is missing a direct answer block');
-expect(teaInsight.includes('本文依据与适用边界'), 'tea insight is missing evidence boundaries');
+expect(teaInsight.includes('本文依据与适用范围') && teaInsight.includes('使用限制'), 'tea insight is missing evidence boundaries');
 expect(teaInsight.includes('https://pinmooconsulting.com/insights/tea-brand-geo-content-and-ecommerce-diagnosis/'), 'tea insight canonical is incorrect');
 expect(/"@type"\s*:\s*"Article"/.test(teaInsight), 'tea insight is missing Article structured data');
 
 const chenpiInsight = await read('insights/xinhui-chenpi-ecommerce-entity-and-content/index.html');
 expect(chenpiInsight.includes('新会陈皮电商如何建立可信表达'), 'chenpi insight did not render');
 expect(chenpiInsight.includes('核心结论'), 'chenpi insight is missing a direct answer block');
-expect(chenpiInsight.includes('本文依据与适用边界'), 'chenpi insight is missing evidence boundaries');
+expect(chenpiInsight.includes('本文依据与适用范围') && chenpiInsight.includes('使用限制'), 'chenpi insight is missing evidence boundaries');
 expect(chenpiInsight.includes('https://pinmooconsulting.com/insights/xinhui-chenpi-ecommerce-entity-and-content/'), 'chenpi insight canonical is incorrect');
 expect(/"@type"\s*:\s*"Article"/.test(chenpiInsight), 'chenpi insight is missing Article structured data');
 
 const englishHome = await read('en/index.html');
 expect(englishHome.includes('<html lang="en">'), 'international English homepage language is not English');
 expect(englishHome.includes('<link rel="canonical" href="https://pinmooconsulting.com/en/"'), 'international English homepage canonical is incorrect');
-expect(englishHome.includes('Make your brand easier for AI search to find and understand'), 'international English homepage did not render English content');
+expect(englishHome.includes('China e-commerce growth consulting') && englishHome.includes('Discuss China growth'), 'international English homepage did not render English content');
 expect(englishHome.includes('https://pinmooconsulting.com/'), 'international English homepage Chinese switch is incorrect');
 expect(!englishHome.includes('href="/zh/'), 'international English homepage still links to legacy /zh/ paths');
 

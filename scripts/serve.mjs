@@ -20,7 +20,8 @@ const types = new Map([
 function safePath(urlPath) {
   const decoded = decodeURIComponent(urlPath.split('?')[0]);
   const resolved = path.resolve(root, '.' + decoded);
-  if (!resolved.startsWith(root)) return null;
+  if (resolved !== root && !resolved.startsWith(root + path.sep)) return null;
+  if (decoded.split('/').some(part => part.startsWith('.'))) return null;
   return resolved;
 }
 
@@ -41,7 +42,7 @@ const server = http.createServer(async (req, res) => {
     if (!stat && !path.extname(filePath)) {
       filePath = path.join(filePath, 'index.html');
       stat = await fs.stat(filePath).catch(() => null);
-      if (!stat) filePath = path.join(root, 'index.html');
+      if (!stat && path.basename(root) !== 'dist') filePath = path.join(root, 'index.html');
     }
     const data = await fs.readFile(filePath);
     res.writeHead(200, { 'Content-Type': types.get(path.extname(filePath)) || 'application/octet-stream' });

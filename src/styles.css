@@ -760,6 +760,11 @@ button { cursor: pointer; }
 .logo-frame img { object-fit: contain; filter: brightness(1.06) contrast(1.08); }
 .logo-frame-header { width: 210px; height: 42px; padding: 2px 0; }
 .logo-frame-footer { width: 224px; height: 56px; }
+.site-footer .logo-frame-footer { background: transparent; overflow: visible; }
+.site-footer .logo-frame-footer img {
+  filter: invert(1) hue-rotate(180deg) saturate(1.4);
+  mix-blend-mode: screen;
+}
 .desktop-nav {
   justify-self: center;
   display: flex;

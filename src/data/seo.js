@@ -16,9 +16,9 @@ export const routeMeta = [
   {
     path: '/',
     file: 'index.html',
-    title: '品牌 GEO 优化｜AI搜索可见度与品牌增长咨询｜品沐咨询',
-    description: '品沐咨询帮助消费品牌做 GEO 生成式引擎优化，提升 AI 搜索对品牌的抓取、理解与引用基础；添加微信并备注“品牌GEO报告”，可免费获取一份基于公开信息的品牌 GEO 基础报告。',
-    keywords: ['品牌GEO优化', '品牌GEO报告', 'AI搜索可见度', '生成式引擎优化', 'GEO服务', '广州电商咨询公司', '电商战略诊断', '天猫店铺诊断', 'AI经营周报'],
+    title: '品沐咨询｜品牌电商增长顾问｜广州电商咨询与GEO服务',
+    description: '品沐咨询为消费品牌提供电商战略诊断、运营陪跑、商品页面优化、内容投放、数据复盘、会员复购、AI经营工具与GEO服务，帮助品牌从被发现走向成交和持续增长。',
+    keywords: ['广州电商咨询公司', '品牌电商增长顾问', '电商战略诊断', '运营陪跑', '天猫店铺诊断', '商品页面优化', '投放复盘', '品牌GEO优化', 'AI经营周报'],
     name: '首页',
     updated: '2026-07-16',
     priority: '1.0',
@@ -39,8 +39,8 @@ export const routeMeta = [
   {
     path: '/services/',
     file: 'services/index.html',
-    title: '服务介绍｜品沐咨询 PINMOO',
-    description: '品沐咨询围绕平台选择、商品结构、内容种草、页面转化、广告投放、直播运营、会员复购等关键环节，提供诊断、策略、陪跑和复盘优化服务。',
+    title: '品牌电商增长咨询服务｜战略诊断、运营陪跑与GEO｜品沐咨询',
+    description: '品沐咨询提供电商战略诊断、平台运营陪跑、商品与页面优化、内容种草、投放数据复盘、会员私域、AI工具与GEO服务，明确工作范围与交付成果。',
     name: '服务介绍',
     updated: '2026-07-16',
     priority: '0.9',
@@ -71,8 +71,8 @@ export const routeMeta = [
   {
     path: '/insights/',
     file: 'insights/index.html',
-    title: '电商经营洞察｜服务选择、店铺诊断、数据复盘与AI工具｜品沐咨询',
-    description: '品沐咨询经营洞察覆盖电商顾问与代运营选择、店铺诊断、商品客服、经营周报、退款投放、AI工具和GEO衡量，提供证据、边界与执行清单。',
+    title: '电商经营与品牌增长洞察｜店铺、投放、复购与GEO｜品沐咨询',
+    description: '品沐咨询经营洞察覆盖电商顾问与代运营选择、店铺诊断、商品客服、经营周报、退款投放、会员复购、AI工具和GEO衡量，提供可执行的方法与清单。',
     name: '经营洞察',
     keywords: ['电商咨询怎么选', '电商顾问靠谱吗', '店铺诊断', '运营陪跑', '店铺转化率', '经营周报', '退款治理', '投放ROI复盘', 'AI经营周报', 'GEO ROI'],
     insightIndex: true,
@@ -106,7 +106,7 @@ export const routeMeta = [
     path: '/about/',
     file: 'about/index.html',
     title: '关于品沐咨询｜鲍俊文 沐风｜广州品沐咨询有限公司',
-    description: '品沐咨询是广州品沐咨询有限公司旗下电商增长咨询的简称，由鲍俊文（沐风、BarryBao）主理，面向消费品牌提供电商经营诊断、运营陪跑、页面优化、投放复盘和AI经营工具服务。',
+    description: SITE.positioning,
     name: '关于品沐',
     updated: '2026-07-17',
     priority: '0.8',
@@ -115,8 +115,8 @@ export const routeMeta = [
   {
     path: '/contact/',
     file: 'contact/index.html',
-    title: '联系我们｜品沐咨询 PINMOO',
-    description: '联系广州品沐咨询有限公司。添加微信 / 手机同号：13600008584，备注“品牌GEO报告”，发送品牌名称、官网或店铺链接、主要平台和目标市场，可免费获取一份基于公开信息的品牌 GEO 基础报告。',
+    title: '联系品沐咨询｜品牌电商增长、运营陪跑与GEO咨询',
+    description: '联系广州品沐咨询有限公司，咨询电商战略、运营陪跑、商品页面、内容投放、数据复盘、会员复购或品牌GEO。微信 / 手机同号：13600008584。',
     name: '联系我们',
     updated: '2026-07-17',
     priority: '0.8',
@@ -162,7 +162,7 @@ routeMeta.push(
   {
     path: '/en/',
     file: 'en/index.html',
-    title: 'PINMOO Consulting | China E-commerce Strategy and Brand Growth',
+    title: 'PINMOO | Brand GEO and China E-commerce Consulting',
     description: 'PINMOO Consulting helps brands sell products in China through e-commerce strategy diagnosis, platform operation coaching, product page optimization, content seeding, advertising review and private domain growth.',
     name: 'Home',
     priority: '1.0',
@@ -372,7 +372,7 @@ function brandNode() {
     alternateName: ['PINMOO', '品沐咨询'],
     url: ORIGIN + '/',
     logo: logoUrl,
-    description: '广州品沐咨询有限公司旗下品牌，提供品牌 GEO、AI 搜索可见度与电商增长咨询服务。',
+    description: '广州品沐咨询有限公司旗下品牌，提供品牌电商增长咨询、运营陪跑、经营复盘、AI 工具与 GEO 服务。',
     owner: { '@id': ORIGIN + '/#organization' }
   };
 }

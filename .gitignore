@@ -11,3 +11,5 @@ yarn-error.log*
 .vercel/
 .netlify/
 tmp/
+.qa/
+.tmp-*

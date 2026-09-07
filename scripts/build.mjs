@@ -5,6 +5,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { absolute, routeMeta, jsonLdForRoute, metaTagsForRoute, imageForRoute } from '../src/data/seo.js';
 import { SITE } from '../src/data/site.js';
 import { insightAuthor, insightClusters, insights } from '../src/data/insights.js';
+import { nginxEvents } from './event-schema.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -58,6 +59,8 @@ const buildRoutes = isInternationalBuild
 
 await fs.rm(dist, { recursive: true, force: true });
 await fs.mkdir(dist, { recursive: true });
+await fs.mkdir(path.join(dist, '.deploy'), { recursive: true });
+await fs.writeFile(path.join(dist, '.deploy/events-http.conf'), nginxEvents());
 
 function fakeNode() {
   return {
@@ -264,6 +267,7 @@ const assetVersion = createHash('sha256')
   .update(await fs.readFile(path.join(root, 'src', 'site-runtime.js')))
   .digest('hex')
   .slice(0, 10);
+await fs.writeFile(path.join(dist, 'site-build.json'), JSON.stringify({ version: assetVersion, builtAt: new Date().toISOString(), articleCount: insights.length, primaryDomain: SITE.primaryDomain }, null, 2) + '\n');
 const siteTemplate = (await fs.readFile(path.join(root, 'index.html'), 'utf8'))
   .replace(/\/src\/styles\.css(?:\?v=[a-f0-9]+)?/g, '/src/styles.css?v=' + assetVersion)
   .replace(/\/src\/static-main\.js(?:\?v=[a-f0-9]+)?/g, '/src/static-main.js?v=' + assetVersion);
@@ -351,6 +355,7 @@ const knowledgeIndex = {
   }))
 };
 const knowledgeIndexJson = JSON.stringify(knowledgeIndex, null, 2) + '\n';
+await fs.writeFile(path.join(dist, '.deploy/probe-registry.json'), JSON.stringify({ version: '2026-09-07', status: 'questions-defined-not-measured', articleBindings: insights.map(article => ({ ids: article.probeIds, url: SITE.primaryDomain + '/insights/' + article.slug + '/' })), questions: insights.flatMap(article => article.probeIds.filter(id => /^G0[1-8]$|^Q-/.test(id)).map(id => ({ id, question: article.title, baseline: null }))), legacyIds: 'Existing A/R/P/C/T bindings are retained; their original questions are not redefined by this registry.' }, null, 2));
 await fs.writeFile(path.join(dist, 'knowledge-index.json'), knowledgeIndexJson, 'utf8');
 if (!isInternationalBuild) {
   await fs.writeFile(path.join(root, 'public', 'knowledge-index.json'), knowledgeIndexJson, 'utf8');

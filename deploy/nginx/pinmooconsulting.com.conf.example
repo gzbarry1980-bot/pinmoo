@@ -14,8 +14,8 @@ server {
     listen [::]:443 ssl http2;
     server_name www.pinmooconsulting.com;
 
-    ssl_certificate /etc/letsencrypt/live/pinmooconsulting.com-wildcard/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/pinmooconsulting.com-wildcard/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/pinmooconsulting.com-apex/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pinmooconsulting.com-apex/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
@@ -27,17 +27,18 @@ server {
     listen [::]:443 ssl http2;
     server_name pinmooconsulting.com;
 
-    root /var/www/pinmoo.top/dist;
+    root /var/www/pinmoo-current;
     index index.html;
 
-    ssl_certificate /etc/letsencrypt/live/pinmooconsulting.com-wildcard/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/pinmooconsulting.com-wildcard/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/pinmooconsulting.com-apex/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pinmooconsulting.com-apex/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
     include /etc/nginx/snippets/pinmoo-security-headers.conf;
     include /etc/nginx/snippets/pinmoo-server-protection.conf;
     include /etc/nginx/snippets/pinmoo-performance.conf;
+    include /etc/nginx/snippets/pinmoo-events-location.conf;
 
     error_page 404 /404.html;
     location = /404.html {

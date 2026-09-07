@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { metaTagsForRoute, routeMeta } from '../src/data/seo.js';
 import { SITE } from '../src/data/site.js';
-import { insightClusters } from '../src/data/insights.js';
+import { insightClusters, insights } from '../src/data/insights.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -68,7 +68,7 @@ for (const meta of buildableMeta) {
   if (meta.indexable !== false && (robots.includes('noindex') || robots.includes('nofollow'))) fail(`${meta.file}: 可索引页包含 noindex/nofollow`);
 
   if (meta.path === '/' && meta.lang !== 'en') {
-    if (!html.includes('<title>品牌 GEO 优化｜AI搜索可见度与品牌增长咨询｜品沐咨询</title>')) fail('首页 title 未覆盖品牌 GEO 与 AI 搜索可见度');
+    if (!html.includes('<title>品沐咨询｜品牌电商增长顾问｜广州电商咨询与GEO服务</title>')) fail('首页 title 未覆盖品牌电商增长与 GEO 服务');
     if (!html.includes('免费领取品牌 GEO 基础报告') || !html.includes('data-event="report_open"')) fail('首页缺少品牌 GEO 免费报告主 CTA');
     if (!html.includes('品牌GEO报告')) fail('首页缺少微信备注口令');
     if (!html.includes('报告结构示意，不代表客户结果')) fail('首页报告展示缺少示意声明');
@@ -90,7 +90,9 @@ for (const meta of buildableMeta) {
     if (!/"@type"\s*:\s*"FAQPage"/.test(html)) fail(`${meta.file}: 缺少 FAQPage 结构化数据`);
     if (!html.includes('本文依据与适用范围') || !html.includes('使用限制')) fail(`${meta.file}: 缺少证据说明与适用边界`);
     if (!html.includes('id="directAnswerTitle">核心结论</h2>')) fail(`${meta.file}: 缺少可直接引用的核心结论`);
-    if (!html.includes('AI参与结构整理和文字校对，最终由鲍俊文复核')) fail(`${meta.file}: 缺少 AI 参与和人工复核声明`);
+    const article = insights.find(item => item.slug === meta.insightSlug);
+    const disclosure = article?.disclosure || 'AI参与结构整理和文字校对，最终由鲍俊文复核';
+    if (!html.includes(disclosure)) fail(`${meta.file}: 缺少与文章来源匹配的 AI 参与声明`);
   }
 
   for (const match of html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/gi)) {

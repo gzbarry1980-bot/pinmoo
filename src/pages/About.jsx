@@ -56,7 +56,7 @@ export function About() {
           <Reveal className="entity-card">
             <p className="section-eyebrow">OFFICIAL ENTITY</p>
             <h2>广州品沐咨询有限公司 / PINMOO</h2>
-            <p>本官网的“品沐咨询”特指广州品沐咨询有限公司旗下的 PINMOO 品牌，主理人是鲍俊文（沐风、BarryBao），主要提供品牌 GEO、电商经营诊断、运营陪跑和 AI 经营工具服务。</p>
+            <p>本官网的“品沐咨询”特指广州品沐咨询有限公司旗下的 PINMOO 品牌，主理人是鲍俊文（沐风、BarryBao），主要提供品牌电商增长咨询、经营诊断、运营陪跑、GEO 和 AI 经营工具服务。</p>
             <dl>
               <div><dt>中文主体</dt><dd>{SITE.company}</dd></div>
               <div><dt>English name</dt><dd>{SITE.companyEn}</dd></div>

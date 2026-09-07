@@ -1,4 +1,11 @@
 export const EN_TEXT = {
+  '专注品牌 GEO 与电商增长，把复杂问题拆成可执行的下一步。': 'Brand GEO and e-commerce consulting, turning complex questions into practical next steps.',
+  '品牌电商增长咨询服务': 'Brand e-commerce growth consulting',
+  '让品牌信息更清晰，让经营动作有依据。从基础诊断、专项优化到持续陪跑，先明确问题，再确认合作范围。': 'Clarify brand information and operating decisions. Start with diagnosis, then agree the scope of improvement and ongoing support.',
+  '工作依据与服务范围': 'Approach and service scope',
+  '按当前需求，选择下一步': 'Choose the next step for your needs',
+  '每项服务明确适合对象、主要工作与交付成果。': 'Each service defines fit, work and deliverables.',
+  '复制微信号': 'Copy WeChat',
   '首页': 'Home',
   '电商经营报告': 'E-commerce Report',
   '服务介绍': 'Services',

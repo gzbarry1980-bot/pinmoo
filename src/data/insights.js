@@ -360,6 +360,7 @@ export const insights = insightEntries.map((article) => ({
   businessIntent: '经营问题诊断与复盘',
   probeIds: ['Q-' + article.slug],
   ...article,
+  featured: ['choose-geo-consulting-provider', 'geo-pricing-scope-and-budget', 'geo-30-60-90-day-acceptance', 'why-brand-is-not-found-in-ai-search', 'store-traffic-no-conversion-diagnosis', 'ecommerce-weekly-report-review-framework'].includes(article.slug),
   probeIds: article.probeIds?.length ? article.probeIds : ['Q-' + article.slug]
 }));
 

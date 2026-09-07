@@ -1,13 +1,14 @@
 // Shared by the static generator and the optional React preview.
 export function geoHero(en = false) {
-  const steps = en ? ['Find the gaps', 'Clarify brand facts', 'Measure again'] : ['发现问题', '补齐品牌信息', '持续复测'];
+  const steps = en ? ['Be discovered', 'Win the decision', 'Grow with evidence'] : ['被发现', '形成购买', '持续增长'];
   return `<section class="geo-hero"><div class="container geo-hero-content">
-    <p class="geo-eyebrow">PINMOO CONSULTING <span>GEO / BRAND / COMMERCE</span></p>
-    <h1>${en ? 'PINMOO<br><span>Brand GEO consulting</span>' : '品沐咨询<span class="heading-divider">｜</span><br class="mobile-break"><span>品牌 GEO 增长顾问</span>'}</h1>
-    <p class="geo-hero-description">${en ? 'Help AI search find your brand, understand your products and connect people to reliable information.' : '让 AI 找得到你的品牌，也让客户看得懂你的价值。'}</p>
-    <div class="geo-hero-actions"><a class="btn btn-primary" href="${en ? '/en/contact/' : '/contact/?service=geo-report'}" data-event="report_open" data-placement="hero">${en ? 'Request a GEO report' : '加微信，免费领取品牌 GEO 基础报告'}</a><a class="geo-text-link" href="${en ? '/china-ecommerce-consulting/' : '/services/geo-consulting/'}">${en ? 'Explore our approach' : '了解服务与交付'} <span aria-hidden="true">↗</span></a></div>
-    <div class="geo-journey" aria-label="${en ? 'Our approach' : '品牌 GEO 优化路径'}">${steps.map((step,i) => `<div class="geo-journey-step" style="--step:${i}"><span>0${i+1}</span><strong>${step}</strong></div>`).join('')}</div>
-    <p class="geo-hero-note">${en ? 'Start with your brand name and website. The free report uses public information.' : '发送品牌名称与官网即可开始 · 基于公开信息，不需要提供后台账号'}</p>
+    <p class="geo-eyebrow">PINMOO CONSULTING <span>BRAND / COMMERCE / AI</span></p>
+    <h1>${en ? 'PINMOO<br><span>China e-commerce growth consulting</span>' : '品沐咨询<span class="heading-divider">｜</span><br class="mobile-break"><span>品牌电商增长顾问</span>'}</h1>
+    <p class="geo-hero-description">${en ? 'From search visibility and product value to conversion, media efficiency and repeat purchase.' : '从品牌被发现、商品被理解，到成交效率、投放质量与会员复购，帮助品牌把电商增长做成一条完整链路。'}</p>
+    <div class="geo-hero-actions"><a class="btn btn-primary" href="${en ? '/en/contact/' : '/contact/'}" data-placement="hero">${en ? 'Discuss China growth' : '预约品牌电商咨询'}</a><a class="geo-text-link" href="${en ? '/china-ecommerce-consulting/' : '/contact/?service=geo-report'}" data-event="report_open" data-placement="hero">${en ? 'Explore our approach' : '免费领取品牌 GEO 基础报告'} <span aria-hidden="true">↗</span></a></div>
+    <figure class="geo-hero-art commerce-hero-art"><img src="/assets/visuals/service-growth-path.webp" width="1400" height="700" decoding="async" fetchpriority="high" alt="${en ? 'PINMOO e-commerce growth consulting path from diagnosis to review' : '品沐咨询从诊断、策略、陪跑到复盘的品牌电商增长服务链路'}"><figcaption>${en ? 'PINMOO consulting approach' : '品沐咨询服务链路示意'}</figcaption></figure>
+    <div class="geo-journey" aria-label="${en ? 'Commerce growth journey' : '品牌电商增长链路'}">${steps.map((step,i) => `<div class="geo-journey-step" style="--step:${i}"><span>0${i+1}</span><strong>${step}</strong></div>`).join('')}</div>
+    <p class="geo-hero-note">${en ? 'Start with one concrete business question.' : 'GEO 与 SEO 解决“被发现”，电商经营能力承接“为什么买、如何增长”'}</p>
   </div></section>`;
 }
 
@@ -23,7 +24,7 @@ export function geoReportPreview(en = false) {
   ];
   return `<section class="section geo-report-section"><div class="container">
     <div class="geo-report-heading"><div><p class="geo-eyebrow">YOUR FIRST GEO REPORT</p><h2>${en ? 'A clearer starting point.' : '先看清问题，再决定投入。'}</h2></div><p>${en ? 'Report structure illustration, not a client result.' : '免费基础报告包含什么？以下为报告结构示意，不代表客户结果。'}</p></div>
-    <div class="geo-report-layout"><figure class="geo-report-art"><img src="/assets/visuals/insights-weekly-report.webp" width="1400" height="636" loading="lazy" decoding="async" alt="${en ? 'Example of a structured consulting report' : '经营分析报告的信息组织示意'}"><figcaption>${en ? 'From findings to practical actions' : '从信息梳理，到具体行动'}</figcaption></figure>
+    <div class="geo-report-layout"><figure class="geo-report-art"><img src="/assets/visuals/geo-report-structure.webp" width="1200" height="545" loading="lazy" decoding="async" alt="${en ? 'AI-generated illustration of a GEO report structure' : '品牌 GEO 报告结构示意（AI 生成图）'}"><figcaption>${en ? 'AI-generated report structure illustration' : '报告结构示意图 · AI 生成'}</figcaption></figure>
     <div class="geo-report-reader"><nav class="geo-report-tabs" aria-label="${en ? 'Report chapters' : '报告章节'}">${items.map((x,i)=>`<a href="#report-panel-${i}" data-report-tab="${i}" id="report-tab-${i}">${x[0]}</a>`).join('')}</nav>${items.map((x,i)=>`<section id="report-panel-${i}" class="geo-report-panel" data-report-panel="${i}"><span class="geo-report-number">0${i+1} / 03</span><h3>${x[1]}</h3><p>${x[2]}</p><ul>${x[3].map(s=>`<li>${s}</li>`).join('')}</ul></section>`).join('')}</div></div>
   </div></section>`;
 }
