@@ -2,6 +2,7 @@ import { growthInsights } from './insights-growth.js';
 import { decisionInsights } from './insights-decision.js';
 import { verticalInsights } from './insights-vertical.js';
 import { geoInsights } from './insights-geo.js';
+import { geoBuyerInsights } from './insights-geo-buyers.js';
 
 export const insightAuthor = {
   name: '鲍俊文',
@@ -44,6 +45,7 @@ export const insightClusters = [
 ];
 
 const insightEntries = [
+  ...geoBuyerInsights,
   ...geoInsights,
   ...decisionInsights,
   ...growthInsights,
@@ -356,8 +358,9 @@ export const insights = insightEntries.map((article) => ({
   contentModel: 'CEBA',
   reviewStatus: 'editorially-reviewed',
   businessIntent: '经营问题诊断与复盘',
-  probeIds: [],
-  ...article
+  probeIds: ['Q-' + article.slug],
+  ...article,
+  probeIds: article.probeIds?.length ? article.probeIds : ['Q-' + article.slug]
 }));
 
 export function getInsightBySlug(slug) {

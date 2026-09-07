@@ -9,6 +9,9 @@ import { GEO_EVIDENCE_HOOKS } from '../data/site.js';
 import { SITE } from '../data/site.js';
 import { cases } from '../data/cases.js';
 import { services } from '../data/services.js';
+import { geoHero, geoReportPreview, geoProcess } from '../components/geo-experience.js';
+import { insights } from '../data/insights.js';
+import { HOME_FAQS } from '../data/site.js';
 
 function HumanPathSection() {
   const paths = [
@@ -54,25 +57,7 @@ function GeoEvidenceSection() {
 export function Home() {
   return (
     <>
-      <section className="home-hero">
-        <div className="hero-grid-bg" />
-        <div className="container home-hero-inner">
-          <Reveal className="hero-copy">
-            <p className="hero-kicker">品牌 GEO 咨询与电商增长顾问</p>
-            <h1>让你的品牌在 AI 搜索里<br />更容易被找到和说清楚</h1>
-            <p className="hero-subtitle">品沐帮助消费品牌统一官网、平台与公开资料中的品牌事实，补齐可引用内容，并持续检查 AI 是否找得到、理解对、引用准。</p>
-            <p className="hero-support">不知道从哪里开始？把品牌官网或店铺链接发来，先获取一份公开信息版 GEO 基础报告。</p>
-            <div className="hero-actions">
-              <ButtonLink href="/contact/?service=geo-report" icon={false}>免费领取品牌 GEO 报告</ButtonLink>
-              <ButtonLink href="/services/geo-consulting/" variant="secondary" icon={false}>查看 GEO 服务</ButtonLink>
-            </div>
-            <div className="hero-proof-row"><span>无需整理复杂资料</span><span>发送品牌名称与官网</span><span>工作日 24 小时内回复</span></div>
-          </Reveal>
-          <Reveal className="hero-visual-wrap" delay={120}>
-            <DashboardVisual />
-          </Reveal>
-        </div>
-      </section>
+      <div dangerouslySetInnerHTML={{ __html: geoHero() }} />
 
       <HumanPathSection />
 
@@ -89,6 +74,7 @@ export function Home() {
         </div>
       </section>
 
+      <div dangerouslySetInnerHTML={{ __html: geoReportPreview() }} />
       <section className="section cases-preview" id="cases">
         <div className="container">
           <SectionIntro title="真实项目经验，沉淀可复用的增长方法" text="案例均来自真实项目，现有内容已经核对；因客户保密协议采用匿名方式呈现，并隐去客户名称及可识别细节。" />
@@ -99,18 +85,9 @@ export function Home() {
         </div>
       </section>
 
-      <section className="section about-preview">
-        <div className="container about-preview-grid">
-          <Reveal>
-            <h2>懂品牌 GEO，也懂电商实战</h2>
-            <p>{SITE.positioning}</p>
-            <ButtonLink href="/about/">了解品沐</ButtonLink>
-          </Reveal>
-          <Reveal className="office-visual" delay={120}>
-            <img src="/assets/about-brand.png" alt="品沐咨询品牌展示" loading="lazy" />
-          </Reveal>
-        </div>
-      </section>
+<div dangerouslySetInnerHTML={{ __html: geoProcess() }} />
+      <section className="section home-insights-section"><div className="container"><SectionIntro title="经营洞察" text="从真实问题出发，找到下一步。" /><div className="insight-card-grid">{insights.filter(item => item.featured).map(item => <article className="insight-card" key={item.slug}><span>{item.category}</span><h3><a href={'/insights/' + item.slug + '/'}>{item.title}</a></h3><p>{item.summary}</p></article>)}</div></div></section>
+      <section className="section faq-section"><div className="container narrow-container"><SectionIntro title="常见问题" />{HOME_FAQS.map(item => <details key={item.q}><summary>{item.q}</summary><p>{item.a}</p></details>)}</div></section>
 
       <GeoEvidenceSection />
 

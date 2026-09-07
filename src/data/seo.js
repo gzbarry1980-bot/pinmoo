@@ -339,7 +339,7 @@ function organizationNode() {
     telephone: phone,
     hasMap: SITE.mapUrl,
     knowsAbout: ['电商战略诊断', '天猫与京东运营', '生意参谋数据诊断', '电商经营周报', '退款治理', '投放 ROI 复盘', '页面转化优化', '会员复购与私域运营', 'GEO 生成式引擎优化', 'AI 搜索可见度', '品牌事实库与证据化内容'],
-    areaServed: ['中国', '广东', '广州', '天猫', '京东', '抖音', '小红书', '视频号', '拼多多'],
+    areaServed: ['中国', '广东', '广州'],
     address: {
       '@type': 'PostalAddress',
       streetAddress: SITE.address,
@@ -482,7 +482,7 @@ function leadServiceNode(meta) {
     abstract: leadPage.directAnswer,
     url: absolute(meta.path),
     provider: { '@id': ORIGIN + '/#organization' },
-    areaServed: ['中国', '天猫', '京东', '抖音', '小红书', '私域'],
+    areaServed: ['中国'],
     audience: [
       { '@type': 'BusinessAudience', name: '品牌方' },
       { '@type': 'BusinessAudience', name: '电商运营服务商' },
@@ -648,13 +648,14 @@ function insightArticleNode(meta) {
     inLanguage: 'zh-CN',
     articleSection: article.category,
     keywords: article.keywords.join(', '),
-    author: { '@id': ORIGIN + '/about/#mufeng' },
-    editor: { '@id': ORIGIN + '/about/#mufeng' },
+    author: { '@id': ORIGIN + (article.authorType === 'Organization' ? '/#organization' : '/about/#mufeng') },
+    ...(article.authorType === 'Organization' ? {} : { editor: { '@id': ORIGIN + '/about/#mufeng' } }),
     publisher: { '@id': ORIGIN + '/#organization' },
     mainEntityOfPage: absolute(meta.path),
     about: article.keywords,
     abstract: article.directAnswer,
-    creditText: insightAuthor.disclosure,
+    creditText: article.disclosure || insightAuthor.disclosure,
+    citation: (article.sources || []).map(source => source.url),
     isAccessibleForFree: true
   };
 }

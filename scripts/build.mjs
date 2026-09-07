@@ -221,7 +221,7 @@ function assertValidHtml(html, meta) {
   if (!/<title>[\s\S]*?<\/title>/i.test(html)) {
     throw new Error('Malformed title tag in ' + meta.file);
   }
-  if (!meta.aiTool && !html.includes('<main id="main-content">')) {
+  if (!meta.aiTool && !/<main\b[^>]*\bid="main-content"/.test(html)) {
     throw new Error('Missing prerendered main content in ' + meta.file);
   }
 }
@@ -246,7 +246,7 @@ for (const staleAsset of ['assets/cases/generated-case-sheet.png']) {
   await fs.rm(path.join(dist, staleAsset), { force: true });
 }
 await copy(path.join(root, 'src/site-runtime.js'), path.join(dist, 'src/site-runtime.js'));
-await copy(path.join(root, 'src/styles.css'), path.join(dist, 'src/styles.css'));
+await fs.writeFile(path.join(dist, 'src/styles.css'), (await fs.readFile(path.join(root, 'src/styles.css'), 'utf8')) + '\n' + (await fs.readFile(path.join(root, 'src/experience.css'), 'utf8')));
 
 const domainAwareFiles = ['robots.txt', 'llms.txt', 'llms-full.txt', 'ai.txt', 'ai-context.json', 'pinmoo-profile.json'];
 for (const filename of domainAwareFiles) {
@@ -260,6 +260,7 @@ for (const filename of domainAwareFiles) {
 }
 const assetVersion = createHash('sha256')
   .update(await fs.readFile(path.join(root, 'src', 'styles.css')))
+  .update(await fs.readFile(path.join(root, 'src', 'experience.css')))
   .update(await fs.readFile(path.join(root, 'src', 'site-runtime.js')))
   .digest('hex')
   .slice(0, 10);
@@ -336,7 +337,9 @@ const knowledgeIndex = {
     directAnswer: article.directAnswer,
     contentModel: article.contentModel,
     reviewStatus: article.reviewStatus,
-    productionDisclosure: insightAuthor.disclosure,
+    productionDisclosure: article.disclosure || insightAuthor.disclosure,
+    author: article.authorName || insightAuthor.name,
+    sources: article.sources || [],
     businessIntent: article.businessIntent,
     probeIds: article.probeIds,
     keywords: article.keywords,
