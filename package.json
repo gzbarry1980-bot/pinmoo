@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "node scripts/serve.mjs",
     "build": "node scripts/build.mjs",
+    "build:zhongkao": "node scripts/build-zhongkao.mjs",
     "verify": "node scripts/verify-site.mjs && node scripts/verify-geo-evidence.mjs",
     "verify:content": "node scripts/verify-insight-quality.mjs",
     "verify:geo": "node scripts/verify-geo-evidence.mjs",
