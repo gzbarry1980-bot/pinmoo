@@ -63,7 +63,7 @@ export const CONTROL_LINES = {
 export const OFFICIAL_GUIDE_URL = 'https://gzzk.gz.gov.cn/attachment/8/8027/8027351/10816553.pdf';
 export const OFFICIAL_QA_URL = 'https://gzzk.gz.gov.cn/gkmlpt/content/10/10811/post_10811628.html?jump=true';
 export const AUTONOMOUS_POLICY_URL = 'https://jyj.gz.gov.cn/yw/zsks/content/post_10781674.html';
-export const AUTONOMOUS_MASTER_URL = 'https://gzzk.gz.gov.cn/gkmlpt/content/10/10805/post_10805488.html?jump=true';
+export const AUTONOMOUS_MASTER_URL = 'https://gzzk.gz.gov.cn/zwgk/tzwj/content/post_10805491.html';
 export const AUTONOMOUS_QUALIFICATION_URL = 'https://gzzk.gz.gov.cn/zwgk/tzwj/content/post_10823523.html';
 export const SPECIAL_TALENT_NOTICE_URL = 'https://gzzk.gz.gov.cn/gkmlpt/content/10/10756/post_10756204.html';
 export const FIRST_BATCH_RESULT_URL = 'https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_10908006.html';
