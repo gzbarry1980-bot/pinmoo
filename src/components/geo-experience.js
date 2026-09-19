@@ -1,15 +1,29 @@
 // Shared by the static generator and the optional React preview.
 export function geoHero(en = false) {
   const steps = en ? ['Be discovered', 'Win the decision', 'Grow with evidence'] : ['被发现', '形成购买', '持续增长'];
-  return `<section class="geo-hero"><div class="container geo-hero-content">
+  return `<section class="geo-hero studio-hero"><img class="studio-backdrop" src="/assets/visuals/human-home.webp" width="1672" height="941" alt="" fetchpriority="high"><div class="container geo-hero-content">
     <p class="geo-eyebrow">PINMOO CONSULTING <span>BRAND / COMMERCE / AI</span></p>
-    <h1>${en ? 'PINMOO<br><span>China e-commerce growth consulting</span>' : '品沐咨询<span class="heading-divider">｜</span><br class="mobile-break"><span>品牌电商增长顾问</span>'}</h1>
+    <h1>${en ? 'PINMOO<br><span>China e-commerce growth consulting</span>' : '品沐咨询<br><span>品牌电商增长顾问</span>'}</h1>
+    <p class="studio-statement">${en ? 'Find the opportunity.<br>Build what comes next.' : '看清增长机会。<br>让下一步，真正发生。'}</p>
     <p class="geo-hero-description">${en ? 'From search visibility and product value to conversion, media efficiency and repeat purchase.' : '从品牌被发现、商品被理解，到成交效率、投放质量与会员复购，帮助品牌把电商增长做成一条完整链路。'}</p>
     <div class="geo-hero-actions"><a class="btn btn-primary" href="${en ? '/en/contact/' : '/contact/'}" data-placement="hero">${en ? 'Discuss China growth' : '预约品牌电商咨询'}</a><a class="geo-text-link" href="${en ? '/china-ecommerce-consulting/' : '/contact/?service=geo-report'}" data-event="report_open" data-placement="hero">${en ? 'Explore our approach' : '免费领取品牌 GEO 基础报告'} <span aria-hidden="true">↗</span></a></div>
-    <figure class="geo-hero-art commerce-hero-art"><img src="/assets/visuals/service-growth-path.webp" width="1400" height="700" decoding="async" fetchpriority="high" alt="${en ? 'PINMOO e-commerce growth consulting path from diagnosis to review' : '品沐咨询从诊断、策略、陪跑到复盘的品牌电商增长服务链路'}"><figcaption>${en ? 'PINMOO consulting approach' : '品沐咨询服务链路示意'}</figcaption></figure>
-    <div class="geo-journey" aria-label="${en ? 'Commerce growth journey' : '品牌电商增长链路'}">${steps.map((step,i) => `<div class="geo-journey-step" style="--step:${i}"><span>0${i+1}</span><strong>${step}</strong></div>`).join('')}</div>
+    <div class="geo-journey" aria-label="${en ? 'Commerce growth journey' : '品牌电商增长链路'}">${steps.map((step,i) => `<a class="geo-journey-step" href="${en ? '/en/services/' : ['/services/geo-consulting/','/services/page-conversion-optimization/','/services/tmall-jd-consultant/'][i]}" style="--step:${i}"><span>0${i+1}</span><strong>${step}</strong><span class="studio-arrow" aria-hidden="true">↗</span></a>`).join('')}</div>
     <p class="geo-hero-note">${en ? 'Start with one concrete business question.' : 'GEO 与 SEO 解决“被发现”，电商经营能力承接“为什么买、如何增长”'}</p>
-  </div></section>`;
+  </div><span class="studio-image-credit">${en ? 'GROWTH, BY DESIGN / AI visual' : 'GROWTH, BY DESIGN / AI 创意视觉'}</span></section><div class="studio-disciplines"><div class="container"><span>STRATEGY</span><span>${en ? 'Commerce operations' : '电商经营'}</span><span>${en ? 'Brand discovery' : '品牌发现'}</span><span>${en ? 'Conversion' : '成交转化'}</span><span>DATA & AI</span></div></div>`;
+}
+
+export function consultingOverview(en = false) {
+  const prefix = en ? '/en' : '';
+  const items = en ? [
+    ['Strategy & operations', 'Find priorities. Put the plan into practice.', 'services', '/en/services/'],
+    ['Product & conversion', 'Connect product value with the buying decision.', 'cases', '/en/services/'],
+    ['GEO & search visibility', 'Help customers discover and understand your brand.', 'insights', '/china-ecommerce-consulting/']
+  ] : [
+    ['电商战略与运营陪跑', '找到经营重点，让策略进入日常执行。', 'services', '/services/tmall-jd-consultant/'],
+    ['商品表达与成交转化', '让商品价值被理解，让流量更好地承接。', 'cases', '/services/page-conversion-optimization/'],
+    ['品牌 GEO 与搜索发现', '从搜索与 AI 问答，建立品牌的发现入口。', 'insights', '/services/geo-consulting/']
+  ];
+  return `<section class="section consulting-offer"><div class="container"><div class="consulting-heading"><div><p class="section-eyebrow">OUR SERVICES</p><h2>${en ? 'The right support.<br>At the right stage.' : '从经营问题出发，<br>找到适合的增长支持。'}</h2></div><p>${en ? 'Strategy, execution and review work together. Start with the question that matters most to your business.' : '品牌所处的阶段不同，优先事项也不同。品沐把战略、执行和复盘连在一起，从最值得解决的问题开始。'}</p></div><div class="consulting-mosaic">${items.map((x,i)=>`<a class="consulting-service reveal" href="${x[3]}"><img src="/assets/visuals/brand-${x[2]}.webp?v=people-20260918" alt="" width="1672" height="941" loading="lazy"><div><span>0${i+1}</span><h3>${x[0]}</h3><p>${x[1]}</p></div><span class="consulting-link-arrow" aria-hidden="true">↗</span></a>`).join('')}</div></div></section><section class="consulting-request"><div class="container"><h2>${en ? 'A question specific to your brand?' : '你的品牌，需要怎样的支持？'}</h2><a class="btn btn-secondary" href="${prefix}/contact/">${en ? 'Talk with PINMOO' : '聊聊你的经营问题'} <span aria-hidden="true">↗</span></a></div></section><section class="section consulting-approach"><div class="container"><figure><img src="/assets/visuals/brand-about.webp?v=people-20260918" alt="${en ? 'AI illustration of a consulting discussion' : '咨询团队讨论场景示意（AI生成）'}" width="1672" height="941" loading="lazy"><figcaption>${en ? 'AI consulting illustration' : 'AI 咨询场景示意'}</figcaption></figure><div><p class="section-eyebrow">OUR APPROACH</p><h2>${en ? 'Clarity in strategy.<br>Consistency in execution.' : '把复杂问题拆清楚，<br>陪团队把关键动作做扎实。'}</h2><p>${en ? 'We connect platform operations, product communication, media quality and business review into a practical working process.' : '从平台经营、商品页面到内容投放与数据复盘，先统一判断，再明确行动。GEO 帮助品牌被发现，经营能力承接后续的购买与复购。'}</p><ul><li>${en ? 'Priorities based on your business context' : '先判断问题与优先级，再确定合作范围'}</li><li>${en ? 'Clear deliverables and regular reviews' : '明确交付、团队配合和持续复盘节奏'}</li></ul><a class="geo-text-link" href="${prefix}/about/">${en ? 'Meet PINMOO' : '了解品沐的工作方式'} ↗</a></div></div></section>`;
 }
 
 export function geoReportPreview(en = false) {

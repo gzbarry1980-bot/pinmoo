@@ -102,6 +102,7 @@ try {
   const opacities = await motion.locator('.geo-journey-step strong').evaluateAll(elements => elements.map(el => getComputedStyle(el).opacity));
   assert.deepEqual(opacities, ['1','1','1']);
   await motion.emulateMedia({ reducedMotion: 'reduce' });
+  await motion.waitForFunction(() => !document.documentElement.classList.contains('motion-ready'));
   assert.equal(await motion.locator('html').evaluate(el => el.classList.contains('motion-ready')), false);
   results.interactions.push('2.4-second sequence and reduced-motion');
   await animated.close();

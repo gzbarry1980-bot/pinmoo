@@ -73,7 +73,7 @@ for (const meta of buildableMeta) {
     if (!html.includes('品牌GEO报告')) fail('首页缺少微信备注口令');
     if (!html.includes('报告结构示意，不代表客户结果')) fail('首页报告展示缺少示意声明');
     if (!html.includes('客户资料保密与公开授权边界')) fail('首页缺少匿名案例事实边界');
-    if (!html.includes('你现在最想解决哪件事？')) fail('首页缺少面向访客的问题入口');
+    if (!html.includes('consulting-mosaic') || !html.includes('/services/page-conversion-optimization/') || !html.includes('/services/tmall-jd-consultant/')) fail('首页缺少面向访客的服务入口');
     if (!html.includes('我们如何保证内容可信？')) fail('首页缺少可展开的证据说明');
     if (!html.includes('电商店铺有流量但转化率低，应该先检查什么？')) fail('首页缺少直接问答内容');
     if (!/"@type"\s*:\s*"FAQPage"/.test(html)) fail('首页缺少 FAQPage 结构化数据');

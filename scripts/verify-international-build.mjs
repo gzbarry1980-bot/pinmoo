@@ -150,6 +150,15 @@ for (const htmlFile of htmlFiles) {
     expect(html.includes(`href="${SITE.icpUrl}"`), `${htmlFile} has an incorrect ICP filing link`);
   }
   expect(!html.includes('href="/zh/'), `${htmlFile} still links to a legacy /zh/ path`);
+  if (/^en[\\/]/.test(htmlFile)) {
+    const body = (html.match(/<body[\s\S]*?<\/body>/i)?.[0] || html)
+      .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replaceAll('中文', '')
+      .replaceAll(SITE.icpNumber, '');
+    const untranslated = body.match(/[\u4e00-\u9fff]+/g) || [];
+    expect(untranslated.length === 0, `${htmlFile} contains untranslated Chinese UI text: ${[...new Set(untranslated)].slice(0, 8).join(', ')}`);
+  }
   for (const match of html.matchAll(/href="(\/[^"?#]*)/g)) {
     const href = match[1];
     if (href.startsWith('/assets/') || href.startsWith('/src/')) continue;

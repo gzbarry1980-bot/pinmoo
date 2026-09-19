@@ -9,7 +9,7 @@ import { GEO_EVIDENCE_HOOKS } from '../data/site.js';
 import { SITE } from '../data/site.js';
 import { cases } from '../data/cases.js';
 import { services } from '../data/services.js';
-import { geoHero, geoReportPreview, geoProcess } from '../components/geo-experience.js';
+import { geoHero, geoReportPreview, geoProcess, consultingOverview } from '../components/geo-experience.js';
 import { insights } from '../data/insights.js';
 import { HOME_FAQS } from '../data/site.js';
 
@@ -71,22 +71,7 @@ export function Home() {
     <>
       <div dangerouslySetInnerHTML={{ __html: geoHero() }} />
 
-      <HumanPathSection />
-
-      <GrowthChainSection />
-
-      <section className="section services-preview" id="services">
-        <div className="container split-heading">
-          <SectionIntro align="left" title="围绕生意问题，选择需要的增长支持" text="从战略诊断、运营陪跑，到商品页面与投放复盘，服务于品牌电商的真实经营结果。" />
-        </div>
-        <div className="container bento-grid">
-          {services.filter((service) => ['strategy-diagnosis', 'operation-coaching', 'conversion-optimization', 'data-review'].includes(service.id)).map((service, index) => (
-            <Reveal key={service.id} className={index === 0 || index === 1 ? 'bento-large' : ''} delay={index * 70}>
-              <ServiceCard service={service} />
-            </Reveal>
-          ))}
-        </div>
-      </section>
+      <div dangerouslySetInnerHTML={{ __html: consultingOverview() }} />
 
       <section className="section cases-preview" id="cases">
         <div className="container">
