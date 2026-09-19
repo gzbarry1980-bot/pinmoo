@@ -136,6 +136,9 @@ if (!robots.includes(`Sitemap: ${SITE.primaryDomain}/sitemap.xml`)) fail('robots
 const googleVerification = await fs.readFile(path.join(dist, 'google3ec590af2111084e.html'), 'utf8').catch(() => '');
 if (googleVerification.trim() !== 'google-site-verification: google3ec590af2111084e.html') fail('Google 站点验证文件缺失或内容不正确');
 
+const baiduVerification = await fs.readFile(path.join(dist, 'baidu_verify_codeva-uekB8QgVKv.html'), 'utf8').catch(() => '');
+if (baiduVerification.trim() !== '783cd28caa21a50d9d52e6ba5889f705') fail('百度站点验证文件缺失或内容不正确');
+
 const notFound = await fs.readFile(path.join(dist, '404.html'), 'utf8');
 if (!notFound.includes('content="noindex, follow"')) fail('404 页面缺少 noindex');
 

@@ -141,11 +141,14 @@ expect(robots.includes('Sitemap: https://pinmooconsulting.com/sitemap.xml'), 'in
 const googleVerification = await read('google3ec590af2111084e.html');
 expect(googleVerification.trim() === 'google-site-verification: google3ec590af2111084e.html', 'Google site verification file is missing or incorrect');
 
+const baiduVerification = await read('baidu_verify_codeva-uekB8QgVKv.html');
+expect(baiduVerification.trim() === '783cd28caa21a50d9d52e6ba5889f705', 'Baidu site verification file is missing or incorrect');
+
 const htmlFiles = await listHtml(dist);
 for (const htmlFile of htmlFiles) {
   const html = await read(htmlFile);
   const isAgentAsset = /^agent[\\/]/.test(htmlFile);
-  if (!['404.html', 'google3ec590af2111084e.html'].includes(htmlFile) && !isAgentAsset) {
+  if (!['404.html', 'google3ec590af2111084e.html', 'baidu_verify_codeva-uekB8QgVKv.html'].includes(htmlFile) && !isAgentAsset) {
     expect(html.includes(SITE.icpNumber), `${htmlFile} is missing the ICP filing number`);
     expect(html.includes(`href="${SITE.icpUrl}"`), `${htmlFile} has an incorrect ICP filing link`);
   }
