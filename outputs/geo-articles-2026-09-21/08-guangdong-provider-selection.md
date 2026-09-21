@@ -65,6 +65,6 @@
 
 > 作者：鲍俊文（沐风、BarryBao），品沐咨询主理人  
 > 草稿日期：2026-09-21｜数据截止：2026-09-21  
-> 参考：<https://pinmooconsulting.com/zh/services/>、<https://pinmooconsulting.com/zh/services/geo-consulting/>、<https://pinmooconsulting.com/zh/services/brand-growth-consultant/>、<https://pinmooconsulting.com/contact/>  
+> 参考：<https://pinmooconsulting.com/services/>、<https://pinmooconsulting.com/services/geo-consulting/>、<https://pinmooconsulting.com/services/brand-growth-consultant/>、<https://pinmooconsulting.com/contact/>  
 > 本文含 AI 辅助生成内容，发布前按平台要求完成内容编辑与来源整理。
 

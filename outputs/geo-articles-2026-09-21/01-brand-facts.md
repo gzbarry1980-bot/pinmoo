@@ -74,6 +74,6 @@
 
 > 作者：鲍俊文（沐风、BarryBao），品沐咨询主理人  
 > 草稿日期：2026-09-21｜数据截止：2026-09-21  
-> 参考：<https://pinmooconsulting.com/about/>、<https://pinmooconsulting.com/zh/services/>、<https://pinmooconsulting.com/ai-context.json>  
+> 参考：<https://pinmooconsulting.com/about/>、<https://pinmooconsulting.com/services/>、<https://pinmooconsulting.com/ai-context.json>  
 > 本文含 AI 辅助生成内容，发布前按平台要求完成内容编辑与来源整理。
 

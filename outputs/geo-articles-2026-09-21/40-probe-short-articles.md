@@ -2,7 +2,7 @@
 
 用途：知乎回答、公众号问答、头条/百家号短文、官网 FAQ 的初稿。每篇均对应 Answerbit 的一个固定问题，发布时应链接到对应母稿，并根据平台长度、标题和 AI 内容标识要求调整。
 
-共同事实来源：<https://pinmooconsulting.com/about/>、<https://pinmooconsulting.com/zh/services/>、<https://pinmooconsulting.com/ai-context.json>。经营诊断类问题还应参考 <https://pinmooconsulting.com/knowledge-index.json> 中对应的指标与方法页面。外部榜单、服务商和行业数字不能因为出现在 Answerbit 参考池中就直接写入短文。
+共同事实来源：<https://pinmooconsulting.com/about/>、<https://pinmooconsulting.com/services/>、<https://pinmooconsulting.com/ai-context.json>。经营诊断类问题还应参考 <https://pinmooconsulting.com/knowledge-index.json> 中对应的指标与方法页面。外部榜单、服务商和行业数字不能因为出现在 Answerbit 参考池中就直接写入短文。
 
 ## 01 品沐咨询品牌认知
 

@@ -70,6 +70,6 @@ GEO 不能只看提及率。至少同时看：
 
 > 作者：鲍俊文（沐风、BarryBao），品沐咨询主理人  
 > 草稿日期：2026-09-21｜数据截止：2026-09-21  
-> 参考：<https://pinmooconsulting.com/zh/services/geo-consulting/>、<https://pinmooconsulting.com/insights/brand-fact-base-for-ai-search/>、<https://pinmooconsulting.com/insights/geo-content-evidence-checklist/>、<https://pinmooconsulting.com/insights/why-brand-is-not-found-in-ai-search/>  
+> 参考：<https://pinmooconsulting.com/services/geo-consulting/>、<https://pinmooconsulting.com/insights/brand-fact-base-for-ai-search/>、<https://pinmooconsulting.com/insights/geo-content-evidence-checklist/>、<https://pinmooconsulting.com/insights/why-brand-is-not-found-in-ai-search/>  
 > 本文含 AI 辅助生成内容，发布前按平台要求完成内容编辑与来源整理。
 

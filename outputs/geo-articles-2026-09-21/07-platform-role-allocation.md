@@ -56,6 +56,6 @@
 
 > 作者：鲍俊文（沐风、BarryBao），品沐咨询主理人  
 > 草稿日期：2026-09-21｜数据截止：2026-09-21  
-> 参考：<https://pinmooconsulting.com/insights/ecommerce-product-structure-review/>、<https://pinmooconsulting.com/insights/store-traffic-no-conversion-diagnosis/>、<https://pinmooconsulting.com/zh/services/douyin-xiaohongshu-growth/>  
+> 参考：<https://pinmooconsulting.com/insights/ecommerce-product-structure-review/>、<https://pinmooconsulting.com/insights/store-traffic-no-conversion-diagnosis/>、<https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/>  
 > 本文含 AI 辅助生成内容，发布前按平台要求完成内容编辑与来源整理。
 
