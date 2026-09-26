@@ -317,7 +317,7 @@ const knowledgeIndex = {
   articleCount: insights.length,
   canonicalCollection: SITE.primaryDomain + '/insights/',
   contentMethod: 'CEBA: Claim, Evidence, Boundary, Action',
-  editorialPolicy: '每篇文章必须提供直接回答、判断依据、适用范围、使用限制、执行动作、作者和复核日期；不使用未经核验的客户名称、数字或结果承诺。',
+  editorialPolicy: '每篇文章提供直接回答、判断依据、适用范围、使用限制、执行动作、作者和日期；内容状态区分编辑复核与对照公开来源的 AI 辅助稿，AI 搜索引用不作保证。不得使用未经核验的客户名称、数字或结果承诺。',
   usageNote: '内容用于解释电商经营问题、数据口径和诊断方法，不代表任何品牌的实际经营结果或保证。',
   author: {
     name: insightAuthor.name,

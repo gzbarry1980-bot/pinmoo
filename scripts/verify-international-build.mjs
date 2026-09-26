@@ -122,7 +122,7 @@ expect(knowledgeIndex.canonicalCollection === 'https://pinmooconsulting.com/insi
 expect(Array.isArray(knowledgeIndex.articles) && knowledgeIndex.articles.length >= 19, 'international knowledge index has too few articles');
 expect(knowledgeIndex.articles.every((article) => article.canonicalUrl.startsWith('https://pinmooconsulting.com/insights/')), 'international knowledge index contains an incorrect canonical URL');
 expect(knowledgeIndex.articles.every((article) => article.directAnswer && article.evidenceBasis && article.applicableScope && article.limitations), 'international knowledge index is missing citation context');
-expect(knowledgeIndex.articles.every((article) => article.contentModel === 'CEBA' && article.reviewStatus === 'editorially-reviewed'), 'international knowledge index is missing editorial review metadata');
+expect(knowledgeIndex.articles.every((article) => article.contentModel === 'CEBA' && ['editorially-reviewed', 'source-reviewed-ai-assisted'].includes(article.reviewStatus)), 'international knowledge index is missing editorial review metadata');
 expect(knowledgeIndex.articles.some((article) => article.canonicalUrl.endsWith('/tea-brand-geo-content-and-ecommerce-diagnosis/')), 'international knowledge index is missing the tea insight');
 expect(knowledgeIndex.articles.some((article) => article.canonicalUrl.endsWith('/xinhui-chenpi-ecommerce-entity-and-content/')), 'international knowledge index is missing the chenpi insight');
 expect(knowledgeIndex.topicClusters?.some((cluster) => cluster.id === 'vertical-food'), 'international knowledge index is missing the vertical food cluster');

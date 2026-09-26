@@ -32,16 +32,20 @@ for (const article of insights) {
   }
   if (!clusterCategories.has(article.category)) fail(`${label}: category 未进入任何主题簇`);
   if (article.contentModel !== 'CEBA') fail(`${label}: contentModel 必须为 CEBA`);
-  if (article.reviewStatus !== 'editorially-reviewed') fail(`${label}: 未标记编辑复核状态`);
+  const allowedReviewStatus = ['editorially-reviewed', 'source-reviewed-ai-assisted'].includes(article.reviewStatus);
+  if (!allowedReviewStatus) fail(`${label}: 内容状态不在允许范围内`);
+  if (article.reviewStatus === 'source-reviewed-ai-assisted' && (article.authorType !== 'Organization' || !article.disclosure?.includes('AI参与') || !article.sources?.length)) {
+    fail(`${label}: AI 辅助稿必须使用机构署名、AI 说明和来源链接`);
+  }
   if (!article.businessIntent) fail(`${label}: 缺少商业搜索意图`);
   if (!Array.isArray(article.probeIds)) fail(`${label}: probeIds 必须为数组`);
 
   if (!article.evidence?.basis || !article.evidence?.scope || !article.evidence?.limits) fail(`${label}: 证据、适用范围或限制不完整`);
   if (article.directAnswer.length < 60) fail(`${label}: 直接回答过短`);
   if (!Array.isArray(article.keyPoints) || article.keyPoints.length < 4) fail(`${label}: 关键点不足 4 条`);
-  if (!Array.isArray(article.sections) || article.sections.length < 4) fail(`${label}: 正文章节不足 4 节`);
+  if (!Array.isArray(article.sections) || article.sections.length < (article.storyFormat ? 3 : 4)) fail(`${label}: 正文章节不足`);
   if (textLength(article.sections) < 800) fail(`${label}: 正文信息量不足`);
-  if (!Array.isArray(article.faqs) || article.faqs.length < 2) fail(`${label}: FAQ 不足 2 条`);
+  if (!Array.isArray(article.faqs) || (!article.storyFormat && article.faqs.length < 2)) fail(`${label}: FAQ 不足 2 条`);
   if (!Array.isArray(article.relatedServices) || article.relatedServices.length < 1) fail(`${label}: 缺少服务内链`);
 
   const sectionIds = new Set();

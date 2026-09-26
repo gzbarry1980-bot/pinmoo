@@ -3,6 +3,7 @@ import { decisionInsights } from './insights-decision.js';
 import { verticalInsights } from './insights-vertical.js';
 import { geoInsights } from './insights-geo.js';
 import { geoBuyerInsights } from './insights-geo-buyers.js';
+import { pinmooInsights } from './insights-pinmoo.js';
 
 export const insightAuthor = {
   name: '鲍俊文',
@@ -17,6 +18,18 @@ export const insightClusters = [
     title: '服务决策与可信度',
     summary: '帮助品牌比较咨询、陪跑与代运营，核验服务商、报价、案例证据和合作边界。',
     categories: ['服务选择', '顾问评估', '合作报价', '案例证据', '合作边界']
+  },
+  {
+    id: 'brand-answers',
+    title: '品沐咨询与品牌认知',
+    summary: '基于官网公开信息，说明品沐咨询的主体、服务、平台范围、适合对象与项目经验。',
+    categories: ['品牌认知']
+  },
+  {
+    id: 'guangzhou-services',
+    title: '广州电商顾问选择',
+    summary: '围绕广州品牌的实际经营问题，了解怎样比较电商顾问、确认项目分工与合作边界。',
+    categories: ['广州电商服务']
   },
   {
     id: 'operations',
@@ -45,6 +58,7 @@ export const insightClusters = [
 ];
 
 const insightEntries = [
+  ...pinmooInsights,
   ...geoBuyerInsights,
   ...geoInsights,
   ...decisionInsights,

@@ -329,6 +329,22 @@
   border-bottom: 1px solid #dbe4f0;
 }
 
+.insight-story-lead {
+  margin-bottom: 12px;
+}
+
+.insight-story-lead p {
+  margin: 0 0 18px;
+  color: #405a78;
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+.insight-story-lead p:first-child {
+  color: #2f4868;
+  font-size: 19px;
+}
+
 .insight-section-index {
   display: block;
   margin-bottom: 10px;
@@ -458,6 +474,10 @@
   background: #fff;
 }
 
+.insight-author-card.organization-author-card {
+  grid-template-columns: minmax(0, 1fr);
+}
+
 .insight-author-card img {
   width: 112px;
   aspect-ratio: 1;
@@ -519,6 +539,11 @@
 .insight-toc a span {
   color: #ff6b35;
   font-weight: 800;
+}
+
+.story-format .insight-toc a {
+  display: block;
+  padding: 8px 0;
 }
 
 .insight-toc-contact p {

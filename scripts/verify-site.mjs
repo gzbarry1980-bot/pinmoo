@@ -164,7 +164,7 @@ try {
   if (knowledgeIndex.articles?.some((article) => !article.canonicalUrl?.startsWith('https://pinmooconsulting.com/insights/'))) {
     fail('knowledge-index.json canonical 域名或路径不正确');
   }
-  if (knowledgeIndex.articles?.some((article) => !article.directAnswer || !article.applicableScope || !article.limitations || article.contentModel !== 'CEBA' || article.reviewStatus !== 'editorially-reviewed')) {
+  if (knowledgeIndex.articles?.some((article) => !article.directAnswer || !article.applicableScope || !article.limitations || article.contentModel !== 'CEBA' || !['editorially-reviewed', 'source-reviewed-ai-assisted'].includes(article.reviewStatus))) {
     fail('knowledge-index.json 缺少直接回答、适用范围、使用限制或内容复核信息');
   }
   if (!Array.isArray(knowledgeIndex.topicClusters) || knowledgeIndex.topicClusters.length !== insightClusters.length) fail(`knowledge-index.json 主题簇不完整: ${knowledgeIndex.topicClusters?.length || 0}/${insightClusters.length}`);

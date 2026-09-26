@@ -613,10 +613,11 @@ function InsightTable(table) {
   return '<div class="insight-table-wrap"><table><thead><tr>' + head + '</tr></thead><tbody>' + rows + '</tbody></table></div>';
 }
 
-function InsightSection(section, index) {
+function InsightSection(section, index, storyFormat) {
   const paragraphs = (section.paragraphs || []).map(function(item) { return '<p>' + item + '</p>'; }).join('');
   const bullets = section.bullets?.length ? '<ul>' + section.bullets.map(li).join('') + '</ul>' : '';
-  return '<section class="insight-section reveal" id="' + section.id + '"><span class="insight-section-index">0' + (index + 1) + '</span><h2>' + section.title + '</h2>' + paragraphs + bullets + InsightTable(section.table) + '</section>';
+  const sectionIndex = storyFormat ? '' : '<span class="insight-section-index">0' + (index + 1) + '</span>';
+  return '<section class="insight-section reveal" id="' + section.id + '">' + sectionIndex + '<h2>' + section.title + '</h2>' + paragraphs + bullets + InsightTable(section.table) + '</section>';
 }
 
 function InsightFaq(article) {
@@ -631,7 +632,9 @@ function InsightRelatedServices(article) {
     if (!page) return '';
     return '<a class="insight-related-card" href="/services/' + page.slug + '/"><span>相关服务</span><strong>' + page.title + '</strong><p>' + page.subtitle + '</p>' + icon('ArrowRight', 18) + '</a>';
   }).join('');
-  return '<section class="section insight-related-section"><div class="container"><div class="insight-related-head"><h2>继续解决这个经营问题</h2><a href="/services/">查看全部服务</a></div><div class="insight-related-grid">' + cards + '<a class="insight-related-card" href="/resources/ecommerce-metrics-dictionary/"><span>指标工具</span><strong>电商经营指标口径词典</strong><p>统一支付金额、净销售额、退款率、推广花费和 ROI 等常见口径。</p>' + icon('ArrowRight', 18) + '</a></div></div></section>';
+  const metricCard = article.storyFormat ? '' : '<a class="insight-related-card" href="/resources/ecommerce-metrics-dictionary/"><span>指标工具</span><strong>电商经营指标口径词典</strong><p>统一支付金额、净销售额、退款率、推广花费和 ROI 等常见口径。</p>' + icon('ArrowRight', 18) + '</a>';
+  const heading = article.storyFormat ? '继续了解相关服务' : '继续解决这个经营问题';
+  return '<section class="section insight-related-section"><div class="container"><div class="insight-related-head"><h2>' + heading + '</h2><a href="/services/">查看全部服务</a></div><div class="insight-related-grid">' + cards + metricCard + '</div></div></section>';
 }
 
 function InsightsPage() {
@@ -647,7 +650,8 @@ function InsightsPage() {
 
 function articleSources(article) {
   if (!article.sources?.length) return '';
-  return '<section class="insight-sources"><h2>参考资料</h2><ul>' + article.sources.map(source => '<li><a href="' + source.url + '" target="_blank" rel="noopener noreferrer">' + source.title + '</a></li>').join('') + '</ul><p>方法建议由品沐整理；平台规则以官方最新说明为准。</p></section>';
+  const note = article.storyFormat ? '文中的品牌与服务信息以官网来源页面为准；经营建议由品沐咨询整理。' : '方法建议由品沐整理；平台规则以官方最新说明为准。';
+  return '<section class="insight-sources"><h2>参考资料</h2><ul>' + article.sources.map(source => '<li><a href="' + source.url + '" target="_blank" rel="noopener noreferrer">' + source.title + '</a></li>').join('') + '</ul><p>' + note + '</p></section>';
 }
 
 function relatedReading(article) {
@@ -657,13 +661,19 @@ function relatedReading(article) {
 
 function InsightDetail(article) {
   const authorLabel = article.authorName || insightAuthor.name + '｜' + insightAuthor.alternateName;
-  const authorRole = article.authorType === 'Organization' ? '品牌 GEO 与电商增长咨询' : insightAuthor.role;
-  const toc = article.sections.map(function(section, index) { return '<a href="#' + section.id + '"><span>0' + (index + 1) + '</span>' + section.title.replace(/^第[^：]+：/, '') + '</a>'; }).join('');
-  const sections = article.sections.map(InsightSection).join('');
+  const authorRole = article.authorRole || (article.authorType === 'Organization' ? '品牌 GEO 与电商增长咨询' : insightAuthor.role);
+  const toc = article.sections.map(function(section, index) { return '<a href="#' + section.id + '">' + (article.storyFormat ? '' : '<span>0' + (index + 1) + '</span>') + section.title.replace(/^第[^：]+：/, '') + '</a>'; }).join('');
+  const sections = article.sections.map(function(section, index) { return InsightSection(section, index, article.storyFormat); }).join('');
+  const lead = article.storyFormat && article.lead?.length ? '<section class="insight-story-lead" aria-label="文章引言">' + article.lead.map(function(item) { return '<p>' + item + '</p>'; }).join('') + '</section>' : '';
   const points = article.keyPoints.map(li).join('');
+  const answerBox = article.storyFormat ? '' : '<section class="insight-answer-box reveal" aria-labelledby="directAnswerTitle"><div>' + icon('Lightbulb', 28) + '<h2 id="directAnswerTitle">核心结论</h2></div><p>' + article.directAnswer + '</p><ul>' + points + '</ul></section>';
   const evidence = article.evidence ? '<details class="insight-evidence reveal"><summary id="evidenceTitle">本文依据与适用范围</summary><dl><div><dt>判断依据</dt><dd>' + article.evidence.basis + '</dd></div><div><dt>适用范围</dt><dd>' + article.evidence.scope + '</dd></div><div><dt>使用限制</dt><dd>' + article.evidence.limits + '</dd></div></dl></details>' : '';
-  return '<article class="insight-article"><header class="insight-article-hero"><div class="hero-grid-bg"></div><div class="container insight-article-hero-inner"><div class="reveal"><a class="back-link" href="/insights/">返回经营洞察</a><div class="insight-article-labels"><span>' + article.category + '</span><span>' + article.readTime + '</span></div><h1>' + article.title + '</h1><p>' + article.summary + '</p><div class="insight-byline"><strong>' + authorLabel + '</strong><span>' + authorRole + '</span><time datetime="' + article.updated + '">更新于 ' + article.updated + '</time></div></div></div></header>' +
-    '<section class="section insight-article-body"><div class="container insight-article-layout"><div class="insight-article-main"><section class="insight-answer-box reveal" aria-labelledby="directAnswerTitle"><div>' + icon('Lightbulb', 28) + '<h2 id="directAnswerTitle">核心结论</h2></div><p>' + article.directAnswer + '</p><ul>' + points + '</ul></section>' + sections + articleSources(article) + evidence + relatedReading(article) + '<section class="insight-conclusion reveal"><span>品沐观点</span><h2>复盘结论</h2><p>' + article.conclusion + '</p></section>' + InsightFaq(article) + '<section class="insight-author-card reveal"><img src="/assets/mufeng-profile.jpg" alt="鲍俊文 沐风 BarryBao" loading="lazy"><div><span>内容提供方</span><h2>' + authorLabel + '</h2><p>' + authorRole + '。长期关注店铺诊断、数据复盘与品牌电商增长问题。</p><p class="insight-disclosure">' + (article.disclosure || insightAuthor.disclosure) + '</p><a href="/about/">了解顾问背景 ' + icon('ArrowRight', 16) + '</a></div></section></div><aside class="insight-toc"><div><strong>本文目录</strong>' + toc + '</div><div class="insight-toc-contact"><strong>需要结合数据判断？</strong><p>发来品牌、平台和当前问题，先做一次基础判断。</p><a href="/contact/">预约咨询</a></div></aside></div></section>' + InsightRelatedServices(article) + '</article>';
+  const conclusion = article.storyFormat ? '' : '<section class="insight-conclusion reveal"><span>品沐观点</span><h2>复盘结论</h2><p>' + article.conclusion + '</p></section>';
+  const authorImage = article.authorType === 'Organization' ? '' : '<img src="/assets/mufeng-profile.jpg" alt="鲍俊文 沐风 BarryBao" loading="lazy">';
+  const authorNote = article.authorType === 'Organization' ? '本文由品沐咨询整理，文中品牌与服务信息以官网公开页面为准。' : authorRole + '。长期关注店铺诊断、数据复盘与品牌电商增长问题。';
+  const articleClass = article.storyFormat ? 'insight-article story-format' : 'insight-article';
+  return '<article class="' + articleClass + '"><header class="insight-article-hero"><div class="hero-grid-bg"></div><div class="container insight-article-hero-inner"><div class="reveal"><a class="back-link" href="/insights/">返回经营洞察</a><div class="insight-article-labels"><span>' + article.category + '</span><span>' + article.readTime + '</span></div><h1>' + article.title + '</h1><p>' + article.summary + '</p><div class="insight-byline"><strong>' + authorLabel + '</strong><span>' + authorRole + '</span><time datetime="' + article.updated + '">更新于 ' + article.updated + '</time></div></div></div></header>' +
+    '<section class="section insight-article-body"><div class="container insight-article-layout"><div class="insight-article-main">' + answerBox + lead + sections + articleSources(article) + evidence + relatedReading(article) + conclusion + InsightFaq(article) + '<section class="insight-author-card reveal' + (article.authorType === 'Organization' ? ' organization-author-card' : '') + '">' + authorImage + '<div><span>内容提供方</span><h2>' + authorLabel + '</h2><p>' + authorNote + '</p><p class="insight-disclosure">' + (article.disclosure || insightAuthor.disclosure) + '</p><a href="/about/">了解品沐咨询 ' + icon('ArrowRight', 16) + '</a></div></section></div><aside class="insight-toc"><div><strong>本文目录</strong>' + toc + '</div><div class="insight-toc-contact"><strong>需要结合数据判断？</strong><p>发来品牌、平台和当前问题，先做一次基础判断。</p><a href="/contact/">预约咨询</a></div></aside></div></section>' + InsightRelatedServices(article) + '</article>';
 }
 
 function ContactSuccess() {
