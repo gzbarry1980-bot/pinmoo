@@ -1,0 +1,22 @@
+{
+  "configured_questions": 40,
+  "articles": 40,
+  "preserved": 12,
+  "new": 28,
+  "missing_questions": [],
+  "extra_questions": [],
+  "group_counts": {
+    "01-品沐咨询品牌认知": 6,
+    "02-电商服务商推荐": 8,
+    "03-电商顾问与代运营": 7,
+    "04-GEO与AI搜索优化": 7,
+    "05-品牌经营需求": 7,
+    "06-广州广东区域": 5
+  },
+  "new_character_range": [
+    713,
+    956
+  ],
+  "new_characters": 22101,
+  "status": "draft-not-published"
+}
