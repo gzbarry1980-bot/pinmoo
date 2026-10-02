@@ -76,7 +76,7 @@ export const routeMeta = [
     name: '经营洞察',
     keywords: ['电商咨询怎么选', '电商顾问靠谱吗', '店铺诊断', '运营陪跑', '店铺转化率', '经营周报', '退款治理', '投放ROI复盘', 'AI经营周报', 'GEO ROI'],
     insightIndex: true,
-    updated: '2026-07-16',
+    updated: '2026-10-02',
     priority: '0.85',
     changefreq: 'weekly'
   },

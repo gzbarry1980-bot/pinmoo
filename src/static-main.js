@@ -643,7 +643,7 @@ function InsightsPage() {
     return '<section class="insight-cluster" id="' + cluster.id + '"><div class="insight-cluster-heading reveal"><div><h2>' + cluster.title + '</h2></div><p>' + cluster.summary + '</p></div><div class="insight-card-grid">' + cards + '</div></section>';
   }).join('');
   const clusterNav = insightClusters.map(function(cluster) { return '<a href="#' + cluster.id + '">' + cluster.title + '</a>'; }).join('');
-  return PageHero('经营洞察', '针对品牌电商中的具体问题，先给直接答案，再说明数据口径、判断方法、适用边界和执行清单。', false, '', { key: 'insights', src: '/assets/visuals/insights-weekly-report.webp', alt: '电商经营周报、退款治理、流量质量和商品结构分析示意图' }) +
+  return PageHero('经营洞察', '从品牌经营中的真实问题出发，讨论服务选择、商品、内容、投放与客户体验，帮助团队看清下一步。', false, '', { key: 'insights', src: '/assets/visuals/insights-weekly-report.webp', alt: '电商经营周报、退款治理、流量质量和商品结构分析示意图' }) +
     '<section class="section insights-index-section"><div class="container"><div class="insights-index-intro reveal"><p class="section-eyebrow">PINMOO INSIGHTS</p><h2>从一个问题，找到下一步。</h2><p>服务选择、店铺经营、商品转化、数据复盘与品牌 GEO。把方法用在你正在面对的问题上。</p></div><form class="insight-search" role="search"><label for="insightSearch">搜索文章</label><input id="insightSearch" type="search" placeholder="例如：转化、退款、GEO" autocomplete="off"><output id="insightCount" aria-live="polite">' + insights.length + ' 篇文章</output></form><nav class="insight-cluster-nav reveal" aria-label="经营洞察主题"><a href="#all" data-cluster="all">全部</a>' + clusterNav + '</nav><p id="insightEmpty" hidden>暂无匹配文章，试试其他关键词。</p>' + clusters + '</div></section>' +
     CtaBand('带着一个真实经营问题，认识品沐', '无论是店铺增长、商品页面、投放复盘、会员复购还是 GEO，都可以发送品牌名称、主要平台和当前问题，先判断最值得处理的环节。', '咨询品牌电商增长');
 }
