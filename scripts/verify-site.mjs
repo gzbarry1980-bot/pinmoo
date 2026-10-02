@@ -86,11 +86,16 @@ for (const meta of buildableMeta) {
   }
 
   if (meta.insightSlug) {
-    if (count(html, /"@type"\s*:\s*"Article"/g) !== 1) fail(`${meta.file}: Article 结构化主体数量不是 1`);
-    if (!/"@type"\s*:\s*"FAQPage"/.test(html)) fail(`${meta.file}: 缺少 FAQPage 结构化数据`);
-    if (!html.includes('本文依据与适用范围') || !html.includes('使用限制')) fail(`${meta.file}: 缺少证据说明与适用边界`);
-    if (!html.includes('id="directAnswerTitle">核心结论</h2>')) fail(`${meta.file}: 缺少可直接引用的核心结论`);
     const article = insights.find(item => item.slug === meta.insightSlug);
+    if (count(html, /"@type"\s*:\s*"Article"/g) !== 1) fail(`${meta.file}: Article 结构化主体数量不是 1`);
+    if (article?.faqs?.length && !/"@type"\s*:\s*"FAQPage"/.test(html)) fail(`${meta.file}: 缺少 FAQPage 结构化数据`);
+    if (!article?.faqs?.length && /"@type"\s*:\s*"FAQPage"/.test(html)) fail(`${meta.file}: 出现正文未提供的 FAQ 结构化数据`);
+    if (!html.includes('本文依据与适用范围') || !html.includes('使用限制')) fail(`${meta.file}: 缺少证据说明与适用边界`);
+    if (article?.storyFormat) {
+      if (!html.includes('class="insight-story-lead"') || !article.lead?.every(paragraph => html.includes('<p>' + paragraph + '</p>'))) fail(`${meta.file}: 叙事文章引言未完整呈现`);
+      if (!article.sections.every(section => section.paragraphs.every(paragraph => html.includes('<p>' + paragraph + '</p>')))) fail(`${meta.file}: 叙事文章正文未完整呈现`);
+      if (html.includes('id="directAnswerTitle">核心结论</h2>')) fail(`${meta.file}: 叙事文章出现多余的统一结论框`);
+    } else if (!html.includes('id="directAnswerTitle">核心结论</h2>')) fail(`${meta.file}: 缺少可直接引用的核心结论`);
     const disclosure = article?.disclosure || 'AI参与结构整理和文字校对，最终由鲍俊文复核';
     if (!html.includes(disclosure)) fail(`${meta.file}: 缺少与文章来源匹配的 AI 参与声明`);
   }

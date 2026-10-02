@@ -4,6 +4,7 @@ import { verticalInsights } from './insights-vertical.js';
 import { geoInsights } from './insights-geo.js';
 import { geoBuyerInsights } from './insights-geo-buyers.js';
 import { pinmooInsights } from './insights-pinmoo.js';
+import { octoberPlatformInsights } from './insights-platform-october.js';
 
 export const insightAuthor = {
   name: '鲍俊文',
@@ -35,7 +36,7 @@ export const insightClusters = [
     id: 'operations',
     title: '店铺经营与增长诊断',
     summary: '围绕流量转化、商品结构、客服、直播、会员复购和生意参谋资料定位经营问题。',
-    categories: ['店铺转化', '商品结构', '客服承接', '直播复盘', '会员复购', '数据诊断']
+    categories: ['店铺转化', '商品结构', '客服承接', '直播复盘', '会员复购', '数据诊断', '内容种草']
   },
   {
     id: 'review',
@@ -58,6 +59,7 @@ export const insightClusters = [
 ];
 
 const insightEntries = [
+  ...octoberPlatformInsights,
   ...pinmooInsights,
   ...geoBuyerInsights,
   ...geoInsights,
