@@ -797,6 +797,14 @@ body.is-locked .preview-note { display: block; }
 .paywall-price span { font-size: 12px; color: var(--c-muted); }
 .paywall-pay { width: 100%; min-height: 48px; margin-top: 16px; color: #fff; background: var(--c-success); border: 1px solid transparent; border-radius: var(--r-md); font-size: 15px; font-weight: var(--fw-bold); cursor: pointer; box-shadow: 0 10px 24px rgba(17, 133, 91, .25); transition: filter .14s, box-shadow .14s; }
 .paywall-pay:hover { filter: brightness(.97); }
+.wechat-consult { margin-top: 16px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: #f7f9fb; }
+.wechat-consult summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; gap: 8px; color: var(--ink); font-weight: 700; }
+.wechat-consult summary::before { content: '＋'; }
+.wechat-consult[open] summary::before { content: '−'; }
+.wechat-consult p { margin: 10px 0; font-size: 13px; line-height: 1.6; }
+.wechat-consult img { display: block; width: 220px; max-width: 100%; height: auto; margin: 12px auto; border-radius: 8px; background: white; }
+.wechat-consult small { display: block; color: var(--muted); line-height: 1.6; }
+.wechat-consult a { display: inline-block; padding: 10px 0; min-height: 44px; box-sizing: border-box; }
 .paywall-pay:focus-visible { outline: none; box-shadow: var(--focus-ring); }
 .paywall-later { width: 100%; margin-top: 10px; padding: 8px; color: var(--c-muted); background: transparent; border: 0; font-size: 13px; cursor: pointer; }
 .paywall-later:hover { color: var(--c-ink); }

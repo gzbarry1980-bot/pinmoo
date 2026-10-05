@@ -114,6 +114,13 @@
           <li>序列号最多支持两台设备使用</li>
         </ul>
         <button class="paywall-pay" type="button">输入序列号解锁</button>
+        <details class="wechat-consult">
+          <summary>购买序列号，添加微信咨询</summary>
+          <p>使用微信扫描下方二维码，添加好友后咨询序列号购买与使用方式。</p>
+          <img src="/assets/wechat-serial-consult-20261005.png" alt="序列号购买咨询微信二维码：鲍 jw-沐风" width="220" height="281" style="display:block;width:220px;max-width:100%;height:auto;margin:12px auto" loading="lazy" />
+          <small>手机可长按保存图片，再用微信“扫一扫”从相册识别。</small>
+          <a href="/assets/wechat-serial-consult-20261005.png" download="品沐-序列号咨询微信.png">保存二维码</a>
+        </details>
         <button class="paywall-later" type="button">稍后再说</button>
       </div>`;
     document.body.appendChild(el);

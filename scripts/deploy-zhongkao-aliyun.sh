@@ -42,8 +42,8 @@ fi
 ln -sfn "$release_dir" "$deploy_root/current.next"
 mv -Tf "$deploy_root/current.next" "$current_link"
 
-healthcheck_body="$(curl --fail --silent --show-error --max-time 20 "$healthcheck_origin/")"
-if ! grep -q '广州中考志愿模拟助手' <<<"$healthcheck_body"; then
+healthcheck_body="$(curl --fail --silent --show-error --max-time 20 "$healthcheck_origin/" || true)"
+if ! grep -Eq '广州中考志愿(模拟)?助手' <<<"$healthcheck_body"; then
   if [ -n "$previous_target" ]; then
     ln -sfn "$previous_target" "$deploy_root/current.rollback"
     mv -Tf "$deploy_root/current.rollback" "$current_link"

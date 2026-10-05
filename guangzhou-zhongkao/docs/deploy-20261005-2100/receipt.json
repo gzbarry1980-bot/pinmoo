@@ -1,0 +1,85 @@
+{
+  "status": "published-and-verified",
+  "origin": "https://zhongkao.pinmooconsulting.com",
+  "release": "ui-20261005-2100",
+  "previousRelease": "20260726-school-details-nav",
+  "checkedAt": "2026-10-05T13:02:08.008Z",
+  "checks": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "sha256": "825c2252cb0cf306a9dd8bcf00e635482215c744f3a4875c141845790573f60f"
+    },
+    {
+      "file": "app.js",
+      "status": 200,
+      "sha256": "1eb1889ce1bfcaf9ce791842f7f71df3d7282809d2535c06f455974a94687ea2"
+    },
+    {
+      "file": "site-shell.js",
+      "status": 200,
+      "sha256": "aee51f58097f29051b97e92ba862bf714965daa515c6b5b0923213c148b8fe6a"
+    },
+    {
+      "file": "dynamic-ui.js",
+      "status": 200,
+      "sha256": "1d4832d02d58bf6cb5214e029d70a76ad96ee054929ac49333893d1d20885065"
+    },
+    {
+      "file": "motion-theme.css",
+      "status": 200,
+      "sha256": "3eb8428b49ecbf304051299049af6bff1b45d606950651a7ded0fb819813bec3"
+    },
+    {
+      "file": "form-layout.js",
+      "status": 200,
+      "sha256": "d89c0dc937a2177727772ac22adb562f461962a62766569131db1c679c9a7390"
+    },
+    {
+      "file": "school-service.js",
+      "status": 200,
+      "sha256": "e7e46ff5f99727a87628c9aaf7f746b05880ae051f96123520e17019aad1cfc4"
+    },
+    {
+      "file": "workflow-ui.js",
+      "status": 200,
+      "sha256": "583115fc3d3dc3c8cb9be02be9672ecd2cb986766dd08f15f7347235a6fda83e"
+    },
+    {
+      "file": "data/manifest.json",
+      "status": 200,
+      "sha256": "1a6c6d5f216faf6267866fd0742b28637a070452180d4dcd712652ce48326bb3"
+    },
+    {
+      "file": "data/allocations-2026.json",
+      "status": 200,
+      "sha256": "b30839e8d245ec8ab14ec252459c8149001bdf1b59d9f34bdc908f8a8691030c"
+    },
+    {
+      "file": "assets/family-planning-20261005.webp",
+      "status": 200,
+      "sha256": "6cb19e949509423485051d8a55449545d92436338fd0911d465e446174bb3ded"
+    },
+    {
+      "file": "verify/index.html",
+      "status": 200,
+      "sha256": "27638d114c219c79762698973f9bcca04d257477151d060198fef4001c1cee22"
+    },
+    {
+      "file": "unlock/index.html",
+      "status": 200,
+      "sha256": "55b417e9aaa216382962dab9661bd1ce7182df55826456d275e65bf0750b8118"
+    },
+    {
+      "check": "live anonymous serial gate and service",
+      "status": "passed"
+    },
+    {
+      "check": "live step 2 confirmation, step 3 evaluation and school preview",
+      "status": "passed",
+      "access": "isolated entitlement fixture; not a real serial activation"
+    }
+  ],
+  "errors": [],
+  "activation": "real serial activation not performed; live service and anonymous gate checked"
+}
