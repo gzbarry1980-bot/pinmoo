@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import { enrichSchoolProfiles } from './school-profile-data.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -121,6 +122,15 @@ for (const school of schoolMap.values()) {
   }
 }
 const schools = [...schoolMap.values()].sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'));
+// Carry official affiliation/designation metadata into each regenerated school profile.
+const profileControls = await fs.readFile(path.join(outputDir, 'quota-controls-2026.json'), 'utf8').then(JSON.parse).catch(() => null);
+if (profileControls) {
+  enrichSchoolProfiles(schools, profileControls);
+  const profileSources = await fs.readFile(path.join(outputDir, 'sources.json'), 'utf8').then(JSON.parse).catch(() => []);
+  for (const item of profileSources.filter(item => item.id === profileControls.sourceId)) {
+    if (!sources.some(source => source.id === item.id)) sources.push(item);
+  }
+}
 const sourceSchools = [...new Map(allocations.map((row) => [row.sourceSchoolId, {
   id: row.sourceSchoolId,
   name: row.sourceSchoolName,
