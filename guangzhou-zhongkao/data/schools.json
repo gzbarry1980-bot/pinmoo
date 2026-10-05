@@ -133,7 +133,7 @@
   {
     "id": "gz-db0000595127",
     "name": "广东广雅中学（本部校区）",
-    "district": "未核准",
+    "district": "荔湾区",
     "ownership": "公办",
     "category": "示范性或优质普通高中",
     "admissionScopes": [
@@ -147,16 +147,17 @@
       "official-2023-batch-3",
       "official-2021-batch-2-pdf",
       "official-2022-batch-2-pdf",
-      "official-2023-batch-2-pdf"
+      "official-2023-batch-2-pdf",
+      "official-2026-school-directory-pdf"
     ],
-    "campusDistrict": null,
-    "campusAddress": null,
-    "campusDistrictSourceId": null
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区广雅路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
   },
   {
     "id": "gz-8683cc839e3f",
     "name": "广东广雅中学（本部校区）（中外合作办学项目）",
-    "district": "未核准",
+    "district": "荔湾区",
     "ownership": "公办",
     "category": "示范性或优质普通高中",
     "admissionScopes": [
@@ -166,11 +167,12 @@
     "annualFee": null,
     "annualFeeSourceId": null,
     "sourceIds": [
-      "official-2023-batch-3"
+      "official-2023-batch-3",
+      "official-2026-school-directory-pdf"
     ],
-    "campusDistrict": null,
-    "campusAddress": null,
-    "campusDistrictSourceId": null
+    "campusDistrict": "荔湾区",
+    "campusAddress": "广州市荔湾区广雅路1号",
+    "campusDistrictSourceId": "official-2026-school-directory-pdf"
   },
   {
     "id": "gz-d88fc5845fdc",

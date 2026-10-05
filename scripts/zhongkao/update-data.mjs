@@ -106,7 +106,10 @@ for (const row of [...admissions, ...allocations]) {
   }
 }
 for (const school of schoolMap.values()) {
-  const location = schoolDirectoryById.get(school.id);
+  // 本部是荔湾校区的历史名称；仅补充校址，不拼接不同年度录取记录。
+  const directoryName = school.name.replace('广东广雅中学（本部校区）', '广东广雅中学（荔湾校区）');
+  const directorySchool = [...schoolMap.values()].find(item => item.name === directoryName);
+  const location = schoolDirectoryById.get(school.id) || (directorySchool && schoolDirectoryById.get(directorySchool.id));
   school.campusDistrict = location?.campusDistrict || null;
   school.campusAddress = location?.campusAddress || null;
   school.campusDistrictSourceId = location?.sourceId || null;

@@ -25,7 +25,11 @@ export function historyFor(data, id, filters = {}) {
 export function latestRecord(data, id, filters = {}) {
   return historyFor(data,id,filters)[0] || null;
 }
-export function schoolDistrict(school) { return school.campusDistrict || school.district || '区域待核对'; }
+export function schoolDistrict(school) {
+  const district = school.campusDistrict || school.district;
+  return district && !['未核准', '未标明', '全市', '老三区'].includes(district)
+    ? district : '校区区域暂未收录';
+}
 export function schoolLocation(school){
   const raw=school.campusAddress||'';
   const start=raw.search(/广州市|广东省|(?:越秀|荔湾|海珠|天河|白云|黄埔|番禺|花都|南沙|从化|增城)区/);
