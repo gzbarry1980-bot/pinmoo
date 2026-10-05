@@ -1,0 +1,1 @@
+<web-view wx:if="{{src}}" src="{{src}}" binderror="onWebError"></web-view><view wx:if="{{error}}" class="embed-error"><text>{{error}}</text><button bindtap="retry">重新打开</button></view>

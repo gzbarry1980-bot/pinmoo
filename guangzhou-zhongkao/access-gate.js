@@ -87,13 +87,9 @@
   function getState() { return Object.assign({}, state); }
 
   function openUnlock() {
-    const path = location.pathname || '';
-    // 已在解锁页：回首页
-    if (path.endsWith('/unlock/') || path.endsWith('/unlock/index.html')) { window.location.href = './'; return; }
-    // 站点根（首页）：同目录解锁页
-    if (path === '/' || path === '/index.html' || path === '') { window.location.href = './unlock/'; return; }
-    // 其余所有子目录页（/direction/、/target/、/verify/、/special/ 等）回退到上一级的解锁页
-    window.location.href = '../unlock/';
+    const path = location.pathname || '/';
+    if (path.startsWith('/unlock/')) { window.location.href='/'; return; }
+    window.location.href = `/unlock/?returnTo=${encodeURIComponent(path+location.search+location.hash)}`;
   }
 
   // ---- 付费引导弹层 ----

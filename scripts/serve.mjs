@@ -1,9 +1,11 @@
 import http from 'node:http';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import {proxyAccess,validateProxyOrigin} from './zhongkao/access-proxy.mjs';
 
 const root = path.resolve(process.argv[2] || '.');
 const port = Number(process.env.PORT || 5173);
+const accessOrigin=process.env.ZK_ACCESS_PROXY_ORIGIN?validateProxyOrigin(process.env.ZK_ACCESS_PROXY_ORIGIN):null;
 const types = new Map([
   ['.html', 'text/html; charset=utf-8'],
   ['.js', 'text/javascript; charset=utf-8'],
@@ -27,6 +29,7 @@ function safePath(urlPath) {
 
 const server = http.createServer(async (req, res) => {
   try {
+    if(await proxyAccess(req,res,accessOrigin))return;
     const decoded = decodeURIComponent((req.url || '/').split('?')[0]);
     let filePath = safePath(req.url || '/');
     if (!filePath) throw new Error('Invalid path');
@@ -53,6 +56,7 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(port, () => {
+server.listen(port, accessOrigin?'127.0.0.1':undefined, () => {
   console.log('PINMOO site running at http://localhost:' + port + '/');
+  if(accessOrigin)console.log('Serial access bridge connected to '+accessOrigin+' (loopback only)');
 });

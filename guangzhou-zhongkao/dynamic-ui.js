@@ -1,0 +1,71 @@
+import {loadSchoolData,historyFor,schoolDistrict,schoolURL} from './school-service.js';
+import {readWorkspace} from './workspace-store.js';
+const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+export function upgradeHome(){
+ const hero=document.querySelector('.batch-home-hero');if(!hero)return;
+ hero.className='launch-hero';hero.innerHTML=`<div class="launch-copy"><span class="eyebrow">品沐 · 广州中考志愿助手</span><h1>分数有范围，<br>志愿有方向。</h1><p>查学校、排志愿，看看这份方案是否适合孩子。</p><div class="toolbar"><a class="button-primary" href="/verify/?new=1">开始第三、第四批模拟 →</a><a class="hero-secondary" href="/schools/">先了解学校</a></div><small>依据公开历史资料模拟 · 仅供参考</small></div><figure class="launch-art"><img src="/assets/family-planning-20261005.webp" alt="家长与孩子一起讨论升学计划的示意插画" width="1536" height="1024" fetchpriority="high"><figcaption>一起了解学校，再安排适合孩子的志愿。</figcaption></figure>`;
+ const search=document.querySelector('.home-school-search');hero.after(search);search.querySelector('h2').textContent='心里有校名？直接搜。';
+ const entries=document.querySelectorAll('.batch-entry');
+ const visuals=[['项目','足球 · 篮球 · 艺术','选择项目 → 找到学校'],['来源初中','孩子所在初中','对应学校 · 对应历史记录']];
+ const drawings=[`<circle cx="48" cy="40" r="28" fill="#fff" stroke="#cb571e" stroke-width="2"/><path d="m48 27 12 9-5 14H41l-5-14zM20 38l16-2M34 16l14 11M70 23l-10 13M59 66l-4-16M26 57l15-7" fill="#f2b289" stroke="#cb571e" stroke-width="2"/><path d="M115 14v39m0-32 27-6v31" fill="none" stroke="#cb571e" stroke-width="4"/><ellipse cx="107" cy="54" rx="9" ry="6" fill="#cb571e"/><ellipse cx="134" cy="47" rx="9" ry="6" fill="#cb571e"/>`,`<rect x="8" y="19" width="45" height="42" rx="5" fill="#fff" stroke="#cb571e" stroke-width="2"/><path d="m8 20 23-13 22 13M20 33h9m8 0h7M20 44h9m8 0h7M66 40h21m-7-6 8 6-8 6" fill="none" stroke="#cb571e" stroke-width="2"/><rect x="103" y="8" width="44" height="18" rx="4" fill="#f2b289"/><rect x="103" y="31" width="44" height="18" rx="4" fill="#fff" stroke="#cb571e"/><rect x="103" y="54" width="44" height="18" rx="4" fill="#fff" stroke="#cb571e"/><path d="M90 40h8V17h5m-5 23h5m-5 0v23h5" stroke="#cb571e" fill="none"/>`];
+ visuals.forEach(([label,title,note],i)=>entries[i]?.insertAdjacentHTML('afterbegin',`<div class="batch-visual" aria-hidden="true"><svg viewBox="0 0 160 80" class="batch-drawing">${drawings[i]}</svg><span>${label}</span><div>${title}</div><i>${note}</i></div>`));
+ const main=entries[2];if(main){const copy=document.createElement('div');copy.className='batch-main-copy';while(main.firstChild)copy.append(main.firstChild);main.append(copy);main.insertAdjacentHTML('beforeend','<div class="plan-visual" aria-label="志愿表示意，不是生成结果"><span>志愿表 · 界面示意</span><div><b>01</b><i>冲刺学校</i><em>尝试更高目标</em></div><div><b>02</b><i>匹配学校</i><em>结合成绩与顺序</em></div><div><b>03</b><i>保底学校</i><em>愿意就读的选择</em></div><small>实际学校与机会需填写条件后计算。</small></div>');}
+ document.querySelector('.batch-entry-grid')?.insertAdjacentHTML('afterend',`<section class="editorial-section"><h2>三步，看懂自己的选择</h2><div class="flow-cards">${[['填写分数与条件','给出估分范围、考生类别和升学区域，选择自己的偏好。'],['生成并调整志愿','了解学校，调整到愿意就读的顺序。'],['看评分与可能去向','检查方案是否合理，查看风险和具体建议。']].map(([title,text],i)=>`<article><b>0${i+1}</b><h3>${title}</h3><p>${text}</p></article>`).join('')}</div></section>`);
+}
+function installWorkspace(){
+ const workspace=document.getElementById('verifyWorkspace');if(!workspace||workspace.dataset.dynamicReady||document.body.dataset.uiReady!=='true')return;
+ workspace.dataset.dynamicReady='true';
+ const guide=workspace.querySelector('.workflow-guide');const layout=document.createElement('div');layout.className='workspace-layout';const content=document.createElement('div');content.className='workspace-content';
+ for(const node of [...workspace.children])if(node!==guide)content.append(node);layout.append(content);workspace.append(layout);
+ const aside=document.createElement('aside');aside.className='workspace-summary';aside.setAttribute('aria-label','当前方案摘要');aside.innerHTML='<h3>孩子的当前条件</h3><dl id="liveProfileSummary"></dl><p>先排好愿意就读的学校，再结合机会与顺序评估。</p><a href="/schools/">查学校资料 →</a><a href="/#main">返回助手首页</a>';layout.append(aside);
+ const tabs=document.createElement('div');tabs.className='workspace-mode-tabs';tabs.setAttribute('role','group');tabs.setAttribute('aria-label','选择使用方式');tabs.innerHTML='<button type="button" data-start-mode="score" aria-pressed="true">只有大概分数</button><button type="button" data-start-mode="manual" aria-pressed="false">已有志愿计划</button><button type="button" data-start-mode="target" aria-pressed="false">已有目标学校</button>';guide.before(tabs);
+ tabs.addEventListener('click',event=>{const button=event.target.closest('[data-start-mode]');if(!button)return;tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));const mode=button.dataset.startMode;if(mode==='target'){const target=document.getElementById('targetPlanning');if(target){target.open=true;target.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('targetSchoolName')?.focus({preventScroll:true});}}else{document.getElementById(mode==='manual'?'manualUnified':'profile')?.scrollIntoView({behavior:'smooth',block:'start'});if(mode==='manual')document.getElementById('manualUnified')?.click();}});
+ for(const [id,html] of [['profile','<a href="#volunteerForm" data-scroll-target="#volunteerForm">已有计划？去调整志愿 →</a>'],['volunteerForm','<a href="#profile" data-scroll-target="#profile">← 修改分数与条件</a><button type="button" class="button-primary" data-confirm-plan>确认志愿，查看评估 →</button>'],['analysis','<a href="#volunteerForm" data-scroll-target="#volunteerForm">← 返回调整志愿</a><a href="/plans/">查看已保存方案</a>']])document.getElementById(id)?.insertAdjacentHTML('beforeend',`<div class="workflow-footer">${html}</div>`);
+ document.querySelector('.score-overview')?.insertAdjacentHTML('afterend','<div id="planChangeFeedback" class="change-feedback" role="status" hidden></div>');
+ if(new URLSearchParams(location.search).get('start')==='manual')tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.startMode==='manual')));
+}
+function field(id){return document.getElementById(id)?.value||'';}
+let summaryKey='',beforeAdjustment=null,resultKey='';
+function snapshot(){return {score:document.getElementById('totalScore')?.textContent,schools:[...document.querySelectorAll('.school-select')].map(el=>({key:el.dataset.key,id:el.value,name:el.selectedOptions[0]?.textContent}))};}
+function updateWorkspace(){
+ const summary=document.getElementById('liveProfileSummary');if(!summary)return;
+ const schools=document.querySelectorAll('.school-select');const count=[...schools].filter(el=>el.value).length;
+ const values=[`${field('scoreLow')}—${field('scoreHigh')}分`,field('candidateType'),field('admissionDistrict'),field('riskPreference'),`${count}个已填志愿`];const key=values.join('|');
+ if(key!==summaryKey){summaryKey=key;summary.innerHTML=['估分范围','考生类别','升学区域','方案偏好','填写情况'].map((label,i)=>`<dt>${label}</dt><dd>${esc(values[i])}</dd>`).join('');}
+ const analysis=document.getElementById('analysis');if(!analysis||analysis.dataset.stale!=='false')return;
+ const current=snapshot(),keyNow=JSON.stringify(current);if(keyNow===resultKey)return;resultKey=keyNow;
+ if(beforeAdjustment){const changes=current.schools.filter(row=>beforeAdjustment.schools.find(old=>old.key===row.key)?.id!==row.id);const feedback=document.getElementById('planChangeFeedback');const previous=Number(beforeAdjustment.score),next=Number(current.score);feedback.hidden=false;feedback.innerHTML=`<strong>${Number.isFinite(previous)&&Number.isFinite(next)?`方案合理度 ${previous} → ${next}分`:'方案已完成评估'}</strong><p>${changes.length?`本次调整了${changes.length}个志愿位置。`:'本次沿用学校，重新核对当前分数与条件。'}${changes.slice(0,3).map(row=>`${esc(row.key.replace('b3-','第三批第').replace('b4-','第四批第'))}志愿：${esc(row.name||'未填')}`).join('；')}</p><p>查看下方可能去向与具体建议；机会均为统计估计。</p>`;beforeAdjustment=null;}
+}
+async function schoolPreview(id,trigger){
+ let dialog=document.getElementById('quickSchoolPreview');if(!dialog){dialog=document.createElement('dialog');dialog.id='quickSchoolPreview';dialog.className='school-preview-dialog';dialog.setAttribute('aria-label','学校快速预览');document.body.append(dialog);dialog.addEventListener('click',e=>{if(e.target.closest('[data-close-preview]'))dialog.close();});}
+ dialog.innerHTML='<header><h2>学校资料</h2><button class="close-preview" data-close-preview aria-label="关闭学校预览">×</button></header><p>正在读取资料…</p>';dialog.showModal();
+ try{const data=await loadSchoolData(),school=data.schools.find(s=>s.id===id);if(!school)throw new Error('未找到学校资料');const records=historyFor(data,id).filter(r=>r.batch===3||r.batch===4).slice(0,8);const facts=[['校址区域',schoolDistrict(school)],['学校性质',school.ownership],['住宿',school.boarding===true?'提供住宿（名额另核实）':school.boarding===false?'不提供住宿':'待核实'],['年学费',school.annualFee==null?'待核实':`${school.annualFee}元`]];
+ dialog.innerHTML=`<header><div><small>学校快速预览</small><h2>${esc(school.name)}</h2></div><button class="close-preview" data-close-preview aria-label="关闭学校预览">×</button></header><p>${esc(school.category)}</p><dl class="preview-facts">${facts.map(([label,value])=>`<div><dt>${label}</dt><dd>${esc(value)}</dd></div>`).join('')}</dl><h3>近期公开录取记录</h3><div class="preview-history"><table class="data-table"><thead><tr><th>年度/批次</th><th>考生口径</th><th>最低分</th></tr></thead><tbody>${records.map(r=>`<tr><td>${r.year}年第${r.batch}批</td><td>${esc(r.candidateType)}</td><td>${r.cutoffScore??'未公布'}</td></tr>`).join('')}</tbody></table></div><p class="note">不同考生类别、批次的分数不能直接混用。住宿和收费缺项请向学校核实。</p><div class="preview-actions"><a class="button-primary" data-full-school href="${schoolURL(id)}">查看完整档案与招生资料 →</a><button class="button-secondary" data-close-preview>返回当前页面</button></div>`;
+ const batches=[...new Set(data.admissions.filter(r=>r.schoolId===id&&r.year===data.manifest.latestPolicyYear&&[3,4].includes(r.batch)).map(r=>r.batch))].sort();
+ if(batches.length){dialog.querySelector('.preview-actions').insertAdjacentHTML('beforebegin',`<details class="workflow-disclosure"><summary>将这所学校加入志愿</summary><form class="preview-add-form"><label>批次<select name="batch">${batches.map(b=>`<option value="${b}">第${b}批</option>`).join('')}</select></label><label>志愿位置<select name="position">${[1,2,3,4,5,6].map(p=>`<option value="${p}">第${p}志愿</option>`).join('')}</select></label><button type="submit" class="button-primary">放入方案并继续编辑</button><small>资格由方案再次核查；已有学校的位置会提示确认替换。</small></form></details>`);dialog.querySelector('.preview-add-form').addEventListener('submit',event=>{event.preventDefault();const values=new FormData(event.target);location.assign(`/verify/?resume=1&school=${encodeURIComponent(id)}&batch=${values.get('batch')}&position=${values.get('position')}#volunteerForm`);});}
+ }catch(error){dialog.querySelector('p').textContent=error.message;}
+ dialog.addEventListener('close',()=>trigger?.focus({preventScroll:true}),{once:true});
+}
+export function installDynamicUI(){
+ const style=document.createElement('link');style.rel='stylesheet';style.href='/motion-theme.css?v=20261005';document.head.append(style);
+ upgradeHome();
+ const observed=new WeakSet();const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('revealed');observer.unobserve(entry.target);}}),{threshold:.08});
+ let queued=false;const refresh=()=>{queued=false;installWorkspace();updateWorkspace();for(const el of document.querySelectorAll('.launch-copy,.launch-art,.batch-entry,.flow-cards article,.library-card'))if(!observed.has(el)){observed.add(el);el.classList.add('reveal-ready');observer.observe(el);}};
+ const schedule=()=>{if(!queued){queued=true;requestAnimationFrame(refresh);}};
+ new MutationObserver(schedule).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['data-ui-ready','data-stale','hidden']});schedule();
+ document.addEventListener('change',event=>{schedule();const row=event.target.closest('.volunteer-row');if(row){row.classList.add('updated-row');setTimeout(()=>row.classList.remove('updated-row'),1000);}});
+ document.addEventListener('input',schedule);
+ document.addEventListener('zk-school-preview',event=>schoolPreview(event.detail.id,event.detail.trigger));
+ document.addEventListener('click',event=>{const action=event.target.closest('#generateUnified,[data-unified-risk],[data-auto-improve],#analyzePlan');if(action&&(action.id!=='analyzePlan'||!beforeAdjustment))beforeAdjustment=snapshot();},true);
+ document.addEventListener('click',event=>{
+  if(event.target.closest('[data-confirm-plan]'))document.getElementById('analyzePlan')?.click();
+  const link=event.target.closest('a[href]');if(!link||event.ctrlKey||event.metaKey||event.shiftKey)return;
+  const url=new URL(link.href,location.href);if(url.origin!==location.origin||url.pathname!=='/schools/detail/')return;
+  try{sessionStorage.setItem('zk-school-return',JSON.stringify({url:location.pathname+location.search+location.hash,y:scrollY}));}catch{}
+  if(link.hasAttribute('data-full-school'))return;
+  event.preventDefault();schoolPreview(url.searchParams.get('id'),link);
+ });
+ if(location.pathname==='/schools/detail/'){
+  const returnLink=()=>{if(document.getElementById('returnSchoolContext'))return;let ctx;try{ctx=JSON.parse(sessionStorage.getItem('zk-school-return'));}catch{}if(!ctx?.url||!ctx.url.startsWith('/')||ctx.url.startsWith('//')||ctx.url.startsWith('/schools/detail/'))return;document.querySelector('.detail-head')?.insertAdjacentHTML('beforebegin',`<a id="returnSchoolContext" class="button-secondary" href="${esc(ctx.url)}">← 返回${ctx.url.startsWith('/verify/')?'当前志愿方案':'上次查看的位置'}</a>`);};new MutationObserver(returnLink).observe(document.getElementById('main'),{childList:true});returnLink();
+ }else{let ctx;try{ctx=JSON.parse(sessionStorage.getItem('zk-school-return'));}catch{}if(ctx?.url===location.pathname+location.search+location.hash&&ctx.y>0)setTimeout(()=>scrollTo(0,ctx.y),600);}
+}

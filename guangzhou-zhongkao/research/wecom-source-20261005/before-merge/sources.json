@@ -1,0 +1,272 @@
+[
+  {
+    "id": "official-2021-score-bands",
+    "year": 2021,
+    "kind": "score-bands",
+    "title": "2021年score-bands",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_7405010.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "3e7a0cd0410469a891b49d0f0eebd11b2e1a1a80a9928394d587fdbcdca792ad",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2021-batch-3",
+    "year": 2021,
+    "kind": "batch-3",
+    "title": "2021年batch-3",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_7411656.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "dd2b05d5b471b0d304e9bbd8cd4d5cfc0949f5a18ed434237edb551b8fcca14a",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2021-batch-4",
+    "year": 2021,
+    "kind": "batch-4",
+    "title": "2021年batch-4",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_7415208.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "48040d71434a5d31448c7c96010e92ef8d209d37da991ea1c938a0b1d846bae6",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2022-score-bands",
+    "year": 2022,
+    "kind": "score-bands",
+    "title": "2022年score-bands",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_8400943.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "85437b1771d72c6c0481251b2a76c2c814f27da2952118c06ac427bdea2fb5f8",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2022-batch-3",
+    "year": 2022,
+    "kind": "batch-3",
+    "title": "2022年batch-3",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_8424121.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "4c0e7bd71c0347e19f4846d83272d29b2ab79d2a6029748bf9181a01cf442312",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2022-batch-4",
+    "year": 2022,
+    "kind": "batch-4",
+    "title": "2022年batch-4",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_8426494.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "c290db001c95f14e73bfdf09d9300017e3ab2e9e93636886a1431ebca9be8320",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2023-score-bands",
+    "year": 2023,
+    "kind": "score-bands",
+    "title": "2023年score-bands",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_9099499.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "8a16ddb4bdc25ad769b24e7e508c2a11578dacf031749934da22bada3c527c38",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2023-batch-3",
+    "year": 2023,
+    "kind": "batch-3",
+    "title": "2023年batch-3",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_9108738.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "c0a28ff5cd1dfa802a8ac5e79e91c98d52f017c9c3b698816197335b478dbbff",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2023-batch-4",
+    "year": 2023,
+    "kind": "batch-4",
+    "title": "2023年batch-4",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_9110629.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "a21785f0d147b671d950093c64610a4bb6d1ed193e360b22bdd3f6a99110d2f0",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2024-score-bands",
+    "year": 2024,
+    "kind": "score-bands",
+    "title": "2024年score-bands",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_9768855.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "993e96197c584979dc1dffc2b47604702878858410bdec0af29bf872e7500f30",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2024-batch-3",
+    "year": 2024,
+    "kind": "batch-3",
+    "title": "2024年batch-3",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_9769647.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "bbe481c7a9e764eeaa77375a6d7d0a3ee5e1601cfb7386571d040d3f08c156d3",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2024-batch-4",
+    "year": 2024,
+    "kind": "batch-4",
+    "title": "2024年batch-4",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_9770323.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "a39ce149a416c388de333922683ffc22e4636925c0f19aa44368cb648d2e265e",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2025-score-bands",
+    "year": 2025,
+    "kind": "score-bands",
+    "title": "2025年score-bands",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_10362562.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "1897ec4e7df03145de7705d302b1134d732353624e26ef9cf40b18fc3dbae2c1",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2025-batch-3",
+    "year": 2025,
+    "kind": "batch-3",
+    "title": "2025年batch-3",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_10365138.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "8f9507556948ed62824fa78e0e0bb0769df803aaa7fd71cdfb74b4bffad8dd75",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2025-batch-4",
+    "year": 2025,
+    "kind": "batch-4",
+    "title": "2025年batch-4",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_10365556.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "8ed456905030bbf1f55c69e0df70f9a5ffcbd9c2ad6dd2c1caf3b33566e369df",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2026-score-bands",
+    "year": 2026,
+    "kind": "score-bands",
+    "title": "2026年score-bands",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_10907261.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "713419a458240b6f48b0b21222339230ce898dd02cb62cc53bd78518f054900c",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2026-batch-3",
+    "year": 2026,
+    "kind": "batch-3",
+    "title": "2026年batch-3",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_10909609.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "453366d5feaba66709638df5c8bbc540eba61356a15b714488e4deb5450600c0",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2026-batch-4",
+    "year": 2026,
+    "kind": "batch-4",
+    "title": "2026年batch-4",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_10910162.html",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "e388ddcf734e6dbbad4d9e7d9a9fbf013d4261dd624e991a08c779ca0c77fc08",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2021-batch-2-pdf",
+    "year": 2021,
+    "kind": "batch-2-pdf",
+    "title": "2021年第二批次名额分配录取分数",
+    "url": "https://gzzk.gz.gov.cn/attachment/6/6833/6833054/7409860.pdf",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "9729f41ebbe23a06d06dc06b0b317056fe2f22a0580147e2c4b5bdc553f2d23b",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2022-batch-2-pdf",
+    "year": 2022,
+    "kind": "batch-2-pdf",
+    "title": "2022年第二批次名额分配录取分数",
+    "url": "https://gzzk.gz.gov.cn/attachment/7/7132/7132846/8419233.pdf",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "ce617cd2a995c2931ff8203d14ddc0749beded7a4c19848a579fefed9c018d49",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2023-batch-2-pdf",
+    "year": 2023,
+    "kind": "batch-2-pdf",
+    "title": "2023年第二批次名额分配录取分数",
+    "url": "https://gzzk.gz.gov.cn/attachment/7/7391/7391064/9106619.pdf",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "c6a421ae0cedc3ade835eb43fd43e4c2be74d18e622a1ea6bfc1c682183a56d2",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2024-batch-2-pdf",
+    "year": 2024,
+    "kind": "batch-2-pdf",
+    "title": "2024年第二批次名额分配录取分数",
+    "url": "https://gzzk.gz.gov.cn/attachment/7/7637/7637799/9768847.pdf",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "bedc49a64e1a68865ee9426ec255a95725933c1980e2d38c08edd60470b29ea7",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2025-batch-2-pdf",
+    "year": 2025,
+    "kind": "batch-2-pdf",
+    "title": "2025年第二批次名额分配录取分数",
+    "url": "https://gzzk.gz.gov.cn/attachment/7/7848/7848251/10363933.pdf",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "c388a08a837462cdecfbe4bb20c484262788bac3e199d7d361704f25b818034a",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2026-batch-2-pdf",
+    "year": 2026,
+    "kind": "batch-2-pdf",
+    "title": "2026年第二批次名额分配录取分数",
+    "url": "https://gzzk.gz.gov.cn/attachment/8/8050/8050474/10908461.pdf",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "17ee1ab1d31a6729b95798b6e6e58ab080aebd28b17532724f3d550e8f67c946",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2026-school-directory-pdf",
+    "year": 2026,
+    "kind": "school-directory-pdf",
+    "title": "2026年广州市高中阶段学校招生报考指南",
+    "url": "https://gzzk.gz.gov.cn/attachment/8/8027/8027351/10816553.pdf",
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": "eae5a876f75d1feb4bdcb2777bf6c3abca7ae920b2147ec8f41e69c0eb8834d5",
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-index",
+    "kind": "index",
+    "title": "广州招考历年分数",
+    "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/index.html",
+    "year": 2026,
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": null,
+    "parserVersion": "1.1.1"
+  },
+  {
+    "id": "official-2026-qa",
+    "kind": "policy",
+    "title": "2026年广州市中考志愿填报问答",
+    "url": "https://gzzk.gz.gov.cn/gkmlpt/content/10/10811/post_10811628.html?jump=true",
+    "year": 2026,
+    "fetchedAt": "2026-07-22T03:42:52.407Z",
+    "sha256": null,
+    "parserVersion": "1.1.1"
+  }
+]

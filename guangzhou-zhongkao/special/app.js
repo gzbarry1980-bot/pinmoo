@@ -1,3 +1,6 @@
+import {simplifyVisibleCopy} from '../parent-copy.js';
+import {foldSpecialInformation} from '../workflow-ui.js';
+foldSpecialInformation();
 const DATA_URL = '../data/first-batch-2026.json';
 const EVENTS_URL = '../data/autonomous-school-events-2026.json';
 const RESULTS_URL = '../data/autonomous-results.json';
@@ -30,8 +33,10 @@ function setMode(mode) {
   $('#talentStatusField').hidden = !isTalent;
   $('#talentProjectPicker').hidden = !isTalent;
   $('#qualificationForm').classList.toggle('autonomous-mode', !isTalent);
-  $('#qualificationStepLabel').textContent = isTalent ? '第一步 · 特长生资料查询' : '可选 · 自主招生条件核对';
+  $('#qualificationStepLabel').textContent = isTalent ? '按特长找学校' : '通用条件核对（选填）';
   $('#qualificationTitle').textContent = isTalent ? '先按特长项目找对应学校' : '需要时再核对通用报考条件';
+  const qualificationCard=$('.qualification-card'),schoolSection=$('.school-section');
+  if(qualificationCard&&schoolSection){if(isTalent)schoolSection.before(qualificationCard);else schoolSection.after(qualificationCard);}
   $('#optionalCheckNote').textContent = isTalent
     ? '只想了解学校有哪些项目，可以直接往下查看；下面的通用条件自检是可选参考，不会替代专业测试、学校审核或官方资格名单。'
     : '只想了解目标学校，可以直接往下查看；下面的通用条件自检是可选参考，不会替代学校报名、资格审核、综合能力考核或官方资格名单。';
@@ -44,7 +49,7 @@ function setMode(mode) {
   $('#scopeFilter').value = '';
   $('#viewMatchedSchools').disabled = !isTalent || !$('#talentProject').value;
   $('#schoolTitle').textContent = isTalent ? '查找特长项目与对应学校' : '查看目标校开放日与往年自招成绩';
-  $('#schoolStepLabel').textContent = isTalent ? '第二步 · 特长项目学校查询' : '第二、三步 · 自主招生资料查询';
+  $('#schoolStepLabel').textContent = isTalent ? '对应学校' : '学校资料与历史参考';
   $('#schoolSearch').placeholder = isTalent ? '例如：培正、足球、民乐' : '例如：华附、执信、越秀';
   renderEligibilityPrompt();
   renderSchools();
@@ -227,7 +232,7 @@ function talentCard(row) {
   const guideUrl = state.data.sources.find((source) => source.id === row.sourceId)?.url || '#';
   const resultUrl = state.data.sources.find((source) => source.id === 'official-2026-first-batch-result')?.url || '#';
   return `<article class="school-card">
-    <div class="school-card-head"><div><h3>${escapeHtml(row.schoolName)}</h3><p>${escapeHtml(row.district)} · ${escapeHtml(row.ownership)}</p></div><span class="school-badge">特长生</span></div>
+    <div class="school-card-head"><div><h3><a href="/schools/detail/?id=${escapeHtml(row.schoolId)}">${escapeHtml(row.schoolName)}</a></h3><p>${escapeHtml(row.district)} · ${escapeHtml(row.ownership)}</p></div><span class="school-badge">特长生</span></div>
     <div class="school-card-body">
       <div class="fact-grid"><div class="fact"><span>招生范围</span><strong>${escapeHtml(row.scope)}</strong></div><div class="fact"><span>项目计划数</span><strong>${escapeHtml(plans)}</strong></div><div class="fact"><span>特长生总计划</span><strong>${escapeHtml(row.totalPlan ?? '见官方表')}</strong></div></div>
       <div class="score-reference-box" aria-label="文化课资格门槛与官方项目结果">
@@ -256,7 +261,7 @@ function autonomousResultReference(row) {
   const rows = records.map((record) => {
     const source = (state.results?.sources || []).find((item) => item.id === record.sourceId);
     const sourceLink = source ? `<a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">官方结果 ↗</a>` : '';
-    return `<div class="autonomous-history-row"><b>${record.year}</b><span>户籍生 <strong>${formatAutonomousComposite(record.householdCompositeScore)}</strong></span><span>非户籍生 <strong>${formatAutonomousComposite(record.nonHouseholdCompositeScore)}</strong></span>${sourceLink}</div>`;
+    return `<div class="autonomous-history-row"><b>${record.year}</b>${record.ownership==='民办'?`<span>民办统一口径 <strong>${formatAutonomousComposite(record.householdCompositeScore)}</strong></span>`:`<span>户籍生 <strong>${formatAutonomousComposite(record.householdCompositeScore)}</strong></span><span>非户籍生 <strong>${formatAutonomousComposite(record.nonHouseholdCompositeScore)}</strong></span>`}${sourceLink}</div>`;
   }).join('');
   return `<div class="autonomous-history-box" aria-label="往年自主招生末位合成成绩"><div class="autonomous-history-head"><span>往年自主招生末位合成成绩（100分制）</span><small>不是中考总分，先满足控制线和参考科目等级，再按合成成绩排序</small></div>${rows}<p>“—”表示该考生口径没有录取记录；历史门槛只用于了解竞争区间，不代表当年录取承诺。</p></div>`;
 }
@@ -273,7 +278,7 @@ function autonomousCard(row) {
     }).join('')
     : '<div class="school-event-item is-pending"><strong>暂未收录已核验的2026公开活动</strong><span>不代表学校没有开放日或校庆日；请留意学校官网、官微及2027年自主招生简章。</span></div>';
   return `<article class="school-card">
-    <div class="school-card-head"><div><h3>${escapeHtml(row.schoolName)}</h3><p>${escapeHtml(row.district)} · ${escapeHtml(row.affiliation)} · ${escapeHtml(row.ownership)}</p></div><span class="school-badge">自主招生</span></div>
+    <div class="school-card-head"><div><h3><a href="/schools/detail/?id=${escapeHtml(row.schoolId)}">${escapeHtml(row.schoolName)}</a></h3><p>${escapeHtml(row.district)} · ${escapeHtml(row.affiliation)} · ${escapeHtml(row.ownership)}</p></div><span class="school-badge">自主招生</span></div>
     <div class="school-card-body">
       <div class="fact-grid"><div class="fact"><span>招生范围</span><strong>${escapeHtml(row.scope)}</strong></div><div class="fact"><span>招生计划</span><strong>${escapeHtml(row.plan)}人</strong></div><div class="fact"><span>随迁子女上限</span><strong>${escapeHtml(row.migrantPlanCap ?? '—')}</strong></div></div>
       ${autonomousResultReference(row)}
@@ -327,6 +332,7 @@ function renderSchools() {
     : `显示${records.length}所目标学校；每所卡片提供公开活动、2025—2026年自招合成成绩和官方简章入口。`;
   $('#schoolGrid').innerHTML = records.map((row) => state.mode === 'talent' ? talentCard(row) : autonomousCard(row)).join('');
   $('#emptyState').hidden = records.length > 0;
+  simplifyVisibleCopy($('#schoolGrid'));
   document.querySelectorAll('[data-select-autonomous]').forEach((button) => button.addEventListener('click', () => selectAutonomousSchool(button.dataset.selectAutonomous)));
 }
 

@@ -20,7 +20,7 @@ expect(navigation.includes('window.location.assign(homeReturn.href)') && !naviga
 expect(verifyIndex.includes('id="schoolDetailDialog"') && mainApp.includes('openSchoolDetail'), '预计录取去向缺少学校详情入口');
 expect(index.includes('https://zhongkao.pinmooconsulting.com/'), 'canonical 或 og:url 不是 zhongkao.pinmooconsulting.com');
 expect(index.includes('本系统仅供参考'), '页面缺少完整免责声明');
-expect(index.includes('./app.js'), '页面缺少应用脚本');
+expect(index.includes('./home.js') && index.includes('data-school-search'), '首页缺少学校搜索及应用脚本');
 expect(styles.includes('[hidden] { display: none !important; }'), '隐藏字段缺少全局样式保护');
 expect(index.includes('./special/'), '主页面缺少第一批次资格查询入口');
 expect(specialIndex.includes('https://zhongkao.pinmooconsulting.com/special/'), '资格查询页 canonical 不正确');
@@ -75,6 +75,18 @@ try {
 for (const file of ['app.js', 'engine.js', 'navigation.js', 'styles.css', 'favicon.svg', 'assets/og-cover.png', 'assets/previews/direction-result.webp', 'assets/previews/target-result.webp', 'assets/previews/analysis-score.webp', 'special/index.html', 'special/app.js', 'special/special.css', 'unlock/index.html', 'unlock/unlock.js', 'unlock/unlock.css', 'data/first-batch-2026.json', 'data/schools.json', 'data/admissions.json', 'data/allocations-2026.json']) {
   const stat = await fs.stat(path.join(appDir, file)).catch(() => null);
   expect(Boolean(stat?.isFile()), `缺少 ${file}`);
+}
+for (const file of ['experience.css','experience.js','site-shell.js','school-service.js','workspace-store.js','parent-copy.js','region-preference.js','schools/index.html','schools/detail/index.html','schools/compare/index.html','plans/index.html','plans/compare/index.html','admissions/index.html','my/index.html','assets/campus-editorial-20261005.webp','unlock/validation.js']) {
+  const stat=await fs.stat(path.join(appDir,file)).catch(()=>null);
+  expect(Boolean(stat?.isFile()),`改版缺少 ${file}`);
+}
+const shell=await read('site-shell.js');
+expect(shell.includes('查学校')&&shell.includes('我的方案')&&shell.includes('我的')&&!shell.includes("['/admissions/','招生信息']"),'批次改版导航缺少主要入口');
+expect(index.includes('batch-entry-grid')&&index.includes('./quota/')&&mainApp.includes('generateUnifiedPlan'),'批次入口或统一志愿流程缺失');
+for(const file of ['workflow-ui.js','batch-layout.css','quota/index.html','quota/quota.js'])expect(Boolean(await fs.stat(path.join(appDir,file)).catch(()=>null)),`批次改版缺少 ${file}`);
+expect(mainApp.includes('invalidateResult')&&mainApp.includes('undoPlan')&&mainApp.includes('saveAsPlan'),'方案状态与撤销不完整');
+for(const privatePath of ['docs','research','qa','miniprogram','.workbuddy','handover-2026-07-25.md','serial-key/API.md']){
+  expect(!await fs.stat(path.join(appDir,privatePath)).catch(()=>null),`发布包泄漏内部资料：${privatePath}`);
 }
 
 if (failures.length) {

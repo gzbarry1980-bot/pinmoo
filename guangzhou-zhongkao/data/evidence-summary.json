@@ -1,0 +1,3425 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-10-05T11:32:19.181Z",
+  "officialSourceIds": [
+    "official-2024-batch-3",
+    "official-2024-batch-4",
+    "official-2024-score-bands",
+    "official-2025-batch-3",
+    "official-2025-batch-4",
+    "official-2025-score-bands",
+    "official-2026-batch-3",
+    "official-2026-batch-4",
+    "official-2026-score-bands",
+    "official-2026-batch-2-pdf",
+    "official-2026-quota-minimum-controls"
+  ],
+  "quota": {
+    "records": 7280,
+    "admitted": 6531,
+    "noAdmittedCandidate": 749
+  },
+  "admissionRefresh": {
+    "records": 1318,
+    "changed": 0,
+    "years": [
+      2024,
+      2025,
+      2026
+    ]
+  },
+  "referenceReview": {
+    "consistent": 464,
+    "needsReview": 21,
+    "unmatched": 283,
+    "note": "第三方资料只用于查漏。未确认的OCR、推测分段和不同口径的升学成绩不进入模型。"
+  },
+  "allocationSchools": [
+    {
+      "schoolId": "gz-198c01489912",
+      "admittedSourceSchools": 119,
+      "noAdmittedSourceSchools": 32
+    },
+    {
+      "schoolId": "gz-5424230557c2",
+      "admittedSourceSchools": 201,
+      "noAdmittedSourceSchools": 18
+    },
+    {
+      "schoolId": "gz-503814527dc3",
+      "admittedSourceSchools": 158,
+      "noAdmittedSourceSchools": 24
+    },
+    {
+      "schoolId": "gz-fd2a5311bae4",
+      "admittedSourceSchools": 150,
+      "noAdmittedSourceSchools": 13
+    },
+    {
+      "schoolId": "gz-6b8cf4e3bb80",
+      "admittedSourceSchools": 198,
+      "noAdmittedSourceSchools": 18
+    },
+    {
+      "schoolId": "gz-a356b84be321",
+      "admittedSourceSchools": 152,
+      "noAdmittedSourceSchools": 27
+    },
+    {
+      "schoolId": "gz-3a2e51774f57",
+      "admittedSourceSchools": 221,
+      "noAdmittedSourceSchools": 37
+    },
+    {
+      "schoolId": "gz-b610fbd1676b",
+      "admittedSourceSchools": 186,
+      "noAdmittedSourceSchools": 34
+    },
+    {
+      "schoolId": "gz-2d5bcaab3eb7",
+      "admittedSourceSchools": 119,
+      "noAdmittedSourceSchools": 24
+    },
+    {
+      "schoolId": "gz-a9afa174ddb3",
+      "admittedSourceSchools": 195,
+      "noAdmittedSourceSchools": 17
+    },
+    {
+      "schoolId": "gz-96a493c0f2d1",
+      "admittedSourceSchools": 176,
+      "noAdmittedSourceSchools": 64
+    },
+    {
+      "schoolId": "gz-0a2cc03d55ef",
+      "admittedSourceSchools": 107,
+      "noAdmittedSourceSchools": 32
+    },
+    {
+      "schoolId": "gz-39546db6ee78",
+      "admittedSourceSchools": 140,
+      "noAdmittedSourceSchools": 78
+    },
+    {
+      "schoolId": "gz-727b6d8ff167",
+      "admittedSourceSchools": 115,
+      "noAdmittedSourceSchools": 28
+    },
+    {
+      "schoolId": "gz-d88fc5845fdc",
+      "admittedSourceSchools": 139,
+      "noAdmittedSourceSchools": 35
+    },
+    {
+      "schoolId": "gz-284b2b772794",
+      "admittedSourceSchools": 201,
+      "noAdmittedSourceSchools": 32
+    },
+    {
+      "schoolId": "gz-9a6f1f35a825",
+      "admittedSourceSchools": 175,
+      "noAdmittedSourceSchools": 26
+    },
+    {
+      "schoolId": "gz-11fe9a9bc94f",
+      "admittedSourceSchools": 140,
+      "noAdmittedSourceSchools": 15
+    },
+    {
+      "schoolId": "gz-d1dab230f119",
+      "admittedSourceSchools": 107,
+      "noAdmittedSourceSchools": 32
+    },
+    {
+      "schoolId": "gz-e0c6a89c9e84",
+      "admittedSourceSchools": 148,
+      "noAdmittedSourceSchools": 24
+    },
+    {
+      "schoolId": "gz-27a6b9f3302f",
+      "admittedSourceSchools": 191,
+      "noAdmittedSourceSchools": 10
+    },
+    {
+      "schoolId": "gz-6030e3e82113",
+      "admittedSourceSchools": 21,
+      "noAdmittedSourceSchools": 2
+    },
+    {
+      "schoolId": "gz-f13c506ad0ce",
+      "admittedSourceSchools": 23,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-5c6ec516124f",
+      "admittedSourceSchools": 21,
+      "noAdmittedSourceSchools": 5
+    },
+    {
+      "schoolId": "gz-37ecf29eda89",
+      "admittedSourceSchools": 22,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-d93473f23283",
+      "admittedSourceSchools": 24,
+      "noAdmittedSourceSchools": 2
+    },
+    {
+      "schoolId": "gz-b24c8ca363ab",
+      "admittedSourceSchools": 13,
+      "noAdmittedSourceSchools": 6
+    },
+    {
+      "schoolId": "gz-d2d9695e0772",
+      "admittedSourceSchools": 21,
+      "noAdmittedSourceSchools": 3
+    },
+    {
+      "schoolId": "gz-044aabdc6232",
+      "admittedSourceSchools": 30,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-8310deb2ea5a",
+      "admittedSourceSchools": 28,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-3e42c44a3219",
+      "admittedSourceSchools": 26,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-ec1a75c75160",
+      "admittedSourceSchools": 30,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-b258dd7d2e26",
+      "admittedSourceSchools": 30,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-bc933f7f407e",
+      "admittedSourceSchools": 29,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-79a8dd8dc065",
+      "admittedSourceSchools": 30,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-81902b3f8aec",
+      "admittedSourceSchools": 31,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-7e4ccac84bc9",
+      "admittedSourceSchools": 28,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-3bff4a1a0881",
+      "admittedSourceSchools": 29,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-3ffdae4a2e72",
+      "admittedSourceSchools": 28,
+      "noAdmittedSourceSchools": 2
+    },
+    {
+      "schoolId": "gz-e46ea8053870",
+      "admittedSourceSchools": 29,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-0f05b24c70f2",
+      "admittedSourceSchools": 26,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-0ef96b413381",
+      "admittedSourceSchools": 29,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-697d83e2a6c6",
+      "admittedSourceSchools": 27,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-7d41f8668918",
+      "admittedSourceSchools": 28,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-c12b967bf504",
+      "admittedSourceSchools": 28,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-e19ef8b52141",
+      "admittedSourceSchools": 24,
+      "noAdmittedSourceSchools": 3
+    },
+    {
+      "schoolId": "gz-bb9a2a430342",
+      "admittedSourceSchools": 25,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-53982052dcc7",
+      "admittedSourceSchools": 29,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-89976c80ab47",
+      "admittedSourceSchools": 28,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-87a56f8ac023",
+      "admittedSourceSchools": 25,
+      "noAdmittedSourceSchools": 3
+    },
+    {
+      "schoolId": "gz-ad42ba26282e",
+      "admittedSourceSchools": 29,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-bcfe78433eae",
+      "admittedSourceSchools": 30,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-eff8e0690790",
+      "admittedSourceSchools": 29,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-4e608835ab75",
+      "admittedSourceSchools": 24,
+      "noAdmittedSourceSchools": 2
+    },
+    {
+      "schoolId": "gz-a049afd13d31",
+      "admittedSourceSchools": 28,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-763ca1aefe73",
+      "admittedSourceSchools": 25,
+      "noAdmittedSourceSchools": 2
+    },
+    {
+      "schoolId": "gz-36a40bf707ec",
+      "admittedSourceSchools": 56,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-8ee20499f631",
+      "admittedSourceSchools": 52,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-6304fc4cbefc",
+      "admittedSourceSchools": 61,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-915081bfe18f",
+      "admittedSourceSchools": 63,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-b38404ec3cef",
+      "admittedSourceSchools": 56,
+      "noAdmittedSourceSchools": 3
+    },
+    {
+      "schoolId": "gz-7631e9594f26",
+      "admittedSourceSchools": 58,
+      "noAdmittedSourceSchools": 2
+    },
+    {
+      "schoolId": "gz-304e78fe5897",
+      "admittedSourceSchools": 59,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-d0679fc04427",
+      "admittedSourceSchools": 51,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-209157ce7865",
+      "admittedSourceSchools": 48,
+      "noAdmittedSourceSchools": 2
+    },
+    {
+      "schoolId": "gz-97d31b62893d",
+      "admittedSourceSchools": 46,
+      "noAdmittedSourceSchools": 3
+    },
+    {
+      "schoolId": "gz-69ec77e6c53d",
+      "admittedSourceSchools": 34,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-edd407b925cc",
+      "admittedSourceSchools": 34,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-17ac15270cde",
+      "admittedSourceSchools": 32,
+      "noAdmittedSourceSchools": 2
+    },
+    {
+      "schoolId": "gz-68f2e691e9a0",
+      "admittedSourceSchools": 34,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-067c359b28a3",
+      "admittedSourceSchools": 35,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-ab655f2f177b",
+      "admittedSourceSchools": 31,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-601ef3343da5",
+      "admittedSourceSchools": 59,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-37d974269f94",
+      "admittedSourceSchools": 57,
+      "noAdmittedSourceSchools": 2
+    },
+    {
+      "schoolId": "gz-34e28db6dd52",
+      "admittedSourceSchools": 53,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-537a0a7b946c",
+      "admittedSourceSchools": 56,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-1f0447042a82",
+      "admittedSourceSchools": 33,
+      "noAdmittedSourceSchools": 17
+    },
+    {
+      "schoolId": "gz-deb7e9c9ac29",
+      "admittedSourceSchools": 49,
+      "noAdmittedSourceSchools": 8
+    },
+    {
+      "schoolId": "gz-a46d46a5295f",
+      "admittedSourceSchools": 55,
+      "noAdmittedSourceSchools": 3
+    },
+    {
+      "schoolId": "gz-b9a4407871a5",
+      "admittedSourceSchools": 53,
+      "noAdmittedSourceSchools": 5
+    },
+    {
+      "schoolId": "gz-2124ed968cfa",
+      "admittedSourceSchools": 44,
+      "noAdmittedSourceSchools": 8
+    },
+    {
+      "schoolId": "gz-ae239104e547",
+      "admittedSourceSchools": 51,
+      "noAdmittedSourceSchools": 5
+    },
+    {
+      "schoolId": "gz-5a61f83d1160",
+      "admittedSourceSchools": 52,
+      "noAdmittedSourceSchools": 4
+    },
+    {
+      "schoolId": "gz-0b4e52c00d90",
+      "admittedSourceSchools": 56,
+      "noAdmittedSourceSchools": 2
+    },
+    {
+      "schoolId": "gz-0b36f446a971",
+      "admittedSourceSchools": 43,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-b9a746e81797",
+      "admittedSourceSchools": 42,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-abeb3792c714",
+      "admittedSourceSchools": 43,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-3bc46d147e2a",
+      "admittedSourceSchools": 42,
+      "noAdmittedSourceSchools": 3
+    },
+    {
+      "schoolId": "gz-26538a2e0b47",
+      "admittedSourceSchools": 41,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-d3a78288b0fe",
+      "admittedSourceSchools": 44,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-92de2e2ddc8a",
+      "admittedSourceSchools": 27,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-91a1244c0567",
+      "admittedSourceSchools": 26,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-1269ff73ebf6",
+      "admittedSourceSchools": 24,
+      "noAdmittedSourceSchools": 2
+    },
+    {
+      "schoolId": "gz-524a67309dff",
+      "admittedSourceSchools": 26,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-5cc46321ec5e",
+      "admittedSourceSchools": 26,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-c5297257f160",
+      "admittedSourceSchools": 25,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-0eebefaa93e8",
+      "admittedSourceSchools": 35,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-05cb9dd5648e",
+      "admittedSourceSchools": 35,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-985849148729",
+      "admittedSourceSchools": 46,
+      "noAdmittedSourceSchools": 3
+    },
+    {
+      "schoolId": "gz-490f3ee0a366",
+      "admittedSourceSchools": 44,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-e06abc629a4f",
+      "admittedSourceSchools": 45,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-a8d49e4a3303",
+      "admittedSourceSchools": 46,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-7b23af080db1",
+      "admittedSourceSchools": 48,
+      "noAdmittedSourceSchools": 1
+    },
+    {
+      "schoolId": "gz-b96406c75756",
+      "admittedSourceSchools": 47,
+      "noAdmittedSourceSchools": 3
+    },
+    {
+      "schoolId": "gz-e63afeddbce1",
+      "admittedSourceSchools": 41,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-bbabf25e82e7",
+      "admittedSourceSchools": 26,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-802d6bb4ee0f",
+      "admittedSourceSchools": 25,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-b8335e527df9",
+      "admittedSourceSchools": 26,
+      "noAdmittedSourceSchools": 0
+    },
+    {
+      "schoolId": "gz-1de59867ff70",
+      "admittedSourceSchools": 25,
+      "noAdmittedSourceSchools": 0
+    }
+  ],
+  "rules": [
+    "录取数据以官方表为准；同一学校的校区、年份、批次、考生类别和来源初中分别处理。",
+    "资料中的推测版逐分排名不替换官方分数段数据。",
+    "高中出口成绩缺少明确年份、分母与独立来源时，不纳入学校排名或机会评分。"
+  ],
+  "quotaControls": [
+    {
+      "year": 2026,
+      "schoolId": "gz-198c01489912",
+      "schoolName": "华南师范大学附属中学（石牌校区）",
+      "district": "省属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 728
+        },
+        {
+          "year": 2024,
+          "score": 719
+        },
+        {
+          "year": 2025,
+          "score": 740
+        }
+      ],
+      "threeYearAverage": 729,
+      "publishedMinimum": 689,
+      "effectiveMinimum": 689,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-fd2a5311bae4",
+      "schoolName": "华南师范大学附属中学（知识城校区）",
+      "district": "省属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 728
+        },
+        {
+          "year": 2024,
+          "score": 693
+        },
+        {
+          "year": 2025,
+          "score": 727
+        }
+      ],
+      "threeYearAverage": 716,
+      "publishedMinimum": 676,
+      "effectiveMinimum": 676,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-5424230557c2",
+      "schoolName": "广东实验中学（荔湾校区）",
+      "district": "省属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 735
+        },
+        {
+          "year": 2024,
+          "score": 705
+        },
+        {
+          "year": 2025,
+          "score": 727
+        }
+      ],
+      "threeYearAverage": 722,
+      "publishedMinimum": 682,
+      "effectiveMinimum": 682,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-503814527dc3",
+      "schoolName": "广东实验中学（白云校区）",
+      "district": "省属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 735
+        },
+        {
+          "year": 2024,
+          "score": 715
+        },
+        {
+          "year": 2025,
+          "score": 729
+        }
+      ],
+      "threeYearAverage": 726,
+      "publishedMinimum": 686,
+      "effectiveMinimum": 686,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-6b8cf4e3bb80",
+      "schoolName": "广东广雅中学（荔湾校区）",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 731
+        },
+        {
+          "year": 2024,
+          "score": 698
+        },
+        {
+          "year": 2025,
+          "score": 719
+        }
+      ],
+      "threeYearAverage": 716,
+      "publishedMinimum": 676,
+      "effectiveMinimum": 676,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-d88fc5845fdc",
+      "schoolName": "广东广雅中学（花都校区）",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 718
+        },
+        {
+          "year": 2024,
+          "score": 716
+        },
+        {
+          "year": 2025,
+          "score": 718
+        }
+      ],
+      "threeYearAverage": 717,
+      "publishedMinimum": 677,
+      "effectiveMinimum": 677,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-a356b84be321",
+      "schoolName": "广州市执信中学（执信路校区）",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 730
+        },
+        {
+          "year": 2024,
+          "score": 720
+        },
+        {
+          "year": 2025,
+          "score": 723
+        }
+      ],
+      "threeYearAverage": 724,
+      "publishedMinimum": 684,
+      "effectiveMinimum": 684,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-284b2b772794",
+      "schoolName": "广州市执信中学（天河校区）",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 719
+        },
+        {
+          "year": 2024,
+          "score": 721
+        },
+        {
+          "year": 2025,
+          "score": 720
+        }
+      ],
+      "threeYearAverage": 720,
+      "publishedMinimum": 680,
+      "effectiveMinimum": 680,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-3a2e51774f57",
+      "schoolName": "广州市第二中学",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 730
+        },
+        {
+          "year": 2024,
+          "score": 729
+        },
+        {
+          "year": 2025,
+          "score": 724
+        }
+      ],
+      "threeYearAverage": 727,
+      "publishedMinimum": 687,
+      "effectiveMinimum": 687,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-b610fbd1676b",
+      "schoolName": "广州市第六中学（海珠校区）",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 721
+        },
+        {
+          "year": 2024,
+          "score": 716
+        },
+        {
+          "year": 2025,
+          "score": 712
+        }
+      ],
+      "threeYearAverage": 716,
+      "publishedMinimum": 676,
+      "effectiveMinimum": 676,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-d1dab230f119",
+      "schoolName": "广州市第六中学（从化校区）",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 721
+        },
+        {
+          "year": 2024,
+          "score": 662
+        },
+        {
+          "year": 2025,
+          "score": 677
+        }
+      ],
+      "threeYearAverage": 686,
+      "publishedMinimum": 646,
+      "effectiveMinimum": 646,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-e0c6a89c9e84",
+      "schoolName": "广州市第六中学（花都校区）",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 721
+        },
+        {
+          "year": 2024,
+          "score": 689
+        },
+        {
+          "year": 2025,
+          "score": 667
+        }
+      ],
+      "threeYearAverage": 692,
+      "publishedMinimum": 652,
+      "effectiveMinimum": 652,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-96a493c0f2d1",
+      "schoolName": "广州大学附属中学",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 736
+        },
+        {
+          "year": 2024,
+          "score": 726
+        },
+        {
+          "year": 2025,
+          "score": 732
+        }
+      ],
+      "threeYearAverage": 731,
+      "publishedMinimum": 691,
+      "effectiveMinimum": 691,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-a9afa174ddb3",
+      "schoolName": "广州协和学校",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 675
+        },
+        {
+          "year": 2024,
+          "score": 662
+        },
+        {
+          "year": 2025,
+          "score": 667
+        }
+      ],
+      "threeYearAverage": 668,
+      "publishedMinimum": 628,
+      "effectiveMinimum": 628,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-2d5bcaab3eb7",
+      "schoolName": "广东华侨中学",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 675
+        },
+        {
+          "year": 2024,
+          "score": 625
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 642,
+      "publishedMinimum": 602,
+      "effectiveMinimum": 602,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-0a2cc03d55ef",
+      "schoolName": "广州市铁一中学（越秀校区）",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 720
+        },
+        {
+          "year": 2024,
+          "score": 711
+        },
+        {
+          "year": 2025,
+          "score": 717
+        }
+      ],
+      "threeYearAverage": 716,
+      "publishedMinimum": 676,
+      "effectiveMinimum": 676,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-727b6d8ff167",
+      "schoolName": "广州市铁一中学（番禺校区）",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 724
+        },
+        {
+          "year": 2024,
+          "score": 683
+        },
+        {
+          "year": 2025,
+          "score": 708
+        }
+      ],
+      "threeYearAverage": 705,
+      "publishedMinimum": 665,
+      "effectiveMinimum": 665,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-9a6f1f35a825",
+      "schoolName": "广州市铁一中学（白云校区）",
+      "district": "市属",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 717
+        },
+        {
+          "year": 2024,
+          "score": 698
+        },
+        {
+          "year": 2025,
+          "score": 707
+        }
+      ],
+      "threeYearAverage": 707,
+      "publishedMinimum": 667,
+      "effectiveMinimum": 667,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-39546db6ee78",
+      "schoolName": "广州外国语学校",
+      "district": "市属",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 741
+        },
+        {
+          "year": 2024,
+          "score": 731
+        },
+        {
+          "year": 2025,
+          "score": 733
+        }
+      ],
+      "threeYearAverage": 735,
+      "publishedMinimum": 695,
+      "effectiveMinimum": 695,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-11fe9a9bc94f",
+      "schoolName": "清华附中湾区学校（智谷校区）",
+      "district": "市属",
+      "schoolCategory": "其他优质普通高中",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 680
+        },
+        {
+          "year": 2024,
+          "score": 698
+        },
+        {
+          "year": 2025,
+          "score": 698
+        }
+      ],
+      "threeYearAverage": 692,
+      "publishedMinimum": 652,
+      "effectiveMinimum": 652,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-27a6b9f3302f",
+      "schoolName": "清华附中湾区学校（智慧城校区）",
+      "district": "市属",
+      "schoolCategory": "其他优质普通高中",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 680
+        },
+        {
+          "year": 2024,
+          "score": 698
+        },
+        {
+          "year": 2025,
+          "score": 698
+        }
+      ],
+      "threeYearAverage": 692,
+      "publishedMinimum": 652,
+      "effectiveMinimum": 652,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-6030e3e82113",
+      "schoolName": "广州市第一中学",
+      "district": "荔湾区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 675
+        },
+        {
+          "year": 2024,
+          "score": 652
+        },
+        {
+          "year": 2025,
+          "score": 628
+        }
+      ],
+      "threeYearAverage": 651,
+      "publishedMinimum": 611,
+      "effectiveMinimum": 611,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-f13c506ad0ce",
+      "schoolName": "广州市第四中学",
+      "district": "荔湾区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 636
+        },
+        {
+          "year": 2024,
+          "score": 655
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 639,
+      "publishedMinimum": 599,
+      "effectiveMinimum": 599,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-d93473f23283",
+      "schoolName": "广州市真光中学",
+      "district": "荔湾区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 675
+        },
+        {
+          "year": 2024,
+          "score": 665
+        },
+        {
+          "year": 2025,
+          "score": 689
+        }
+      ],
+      "threeYearAverage": 676,
+      "publishedMinimum": 636,
+      "effectiveMinimum": 636,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-b24c8ca363ab",
+      "schoolName": "广州市真光中学（汾水校区）",
+      "district": "荔湾区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 623
+        },
+        {
+          "year": 2025,
+          "score": 631
+        }
+      ],
+      "threeYearAverage": 629,
+      "publishedMinimum": 589,
+      "effectiveMinimum": 589,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-d2d9695e0772",
+      "schoolName": "广州市真光中学（广钢校区）",
+      "district": "荔湾区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 655
+        },
+        {
+          "year": 2024,
+          "score": 644
+        },
+        {
+          "year": 2025,
+          "score": 667
+        }
+      ],
+      "threeYearAverage": 655,
+      "publishedMinimum": 615,
+      "effectiveMinimum": 615,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-5c6ec516124f",
+      "schoolName": "广州市南海中学",
+      "district": "荔湾区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 622
+        },
+        {
+          "year": 2025,
+          "score": 587
+        }
+      ],
+      "threeYearAverage": 614,
+      "publishedMinimum": 574,
+      "effectiveMinimum": 574,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-37ecf29eda89",
+      "schoolName": "广州市西关外国语学校",
+      "district": "荔湾区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 652
+        },
+        {
+          "year": 2025,
+          "score": 610
+        }
+      ],
+      "threeYearAverage": 632,
+      "publishedMinimum": 592,
+      "effectiveMinimum": 592,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-044aabdc6232",
+      "schoolName": "广州市第三中学",
+      "district": "越秀区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 675
+        },
+        {
+          "year": 2024,
+          "score": 662
+        },
+        {
+          "year": 2025,
+          "score": 663
+        }
+      ],
+      "threeYearAverage": 666,
+      "publishedMinimum": 626,
+      "effectiveMinimum": 626,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-8310deb2ea5a",
+      "schoolName": "广州市第七中学",
+      "district": "越秀区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 710
+        },
+        {
+          "year": 2024,
+          "score": 698
+        },
+        {
+          "year": 2025,
+          "score": 668
+        }
+      ],
+      "threeYearAverage": 692,
+      "publishedMinimum": 652,
+      "effectiveMinimum": 652,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-3bff4a1a0881",
+      "schoolName": "广州市第七中学（麓湖校区）",
+      "district": "越秀区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 710
+        },
+        {
+          "year": 2024,
+          "score": 698
+        },
+        {
+          "year": 2025,
+          "score": 629
+        }
+      ],
+      "threeYearAverage": 679,
+      "publishedMinimum": 639,
+      "effectiveMinimum": 639,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-ec1a75c75160",
+      "schoolName": "广州市第十六中学",
+      "district": "越秀区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 695
+        },
+        {
+          "year": 2024,
+          "score": 691
+        },
+        {
+          "year": 2025,
+          "score": 707
+        }
+      ],
+      "threeYearAverage": 697,
+      "publishedMinimum": 657,
+      "effectiveMinimum": 657,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-7e4ccac84bc9",
+      "schoolName": "广州市第十六中学（水荫校区）",
+      "district": "越秀区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 636
+        },
+        {
+          "year": 2024,
+          "score": 622
+        },
+        {
+          "year": 2025,
+          "score": 666
+        }
+      ],
+      "threeYearAverage": 641,
+      "publishedMinimum": 601,
+      "effectiveMinimum": 601,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-79a8dd8dc065",
+      "schoolName": "广州市培正中学",
+      "district": "越秀区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 698
+        },
+        {
+          "year": 2024,
+          "score": 672
+        },
+        {
+          "year": 2025,
+          "score": 689
+        }
+      ],
+      "threeYearAverage": 686,
+      "publishedMinimum": 646,
+      "effectiveMinimum": 646,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-81902b3f8aec",
+      "schoolName": "广州市育才中学",
+      "district": "越秀区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 675
+        },
+        {
+          "year": 2024,
+          "score": 661
+        },
+        {
+          "year": 2025,
+          "score": 628
+        }
+      ],
+      "threeYearAverage": 654,
+      "publishedMinimum": 614,
+      "effectiveMinimum": 614,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-b258dd7d2e26",
+      "schoolName": "广州市第十七中学",
+      "district": "越秀区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 622
+        },
+        {
+          "year": 2025,
+          "score": 616
+        }
+      ],
+      "threeYearAverage": 624,
+      "publishedMinimum": 584,
+      "effectiveMinimum": 584,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-bc933f7f407e",
+      "schoolName": "广东实验中学越秀学校",
+      "district": "越秀区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 630
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 630,
+      "publishedMinimum": 590,
+      "effectiveMinimum": 590,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-3e42c44a3219",
+      "schoolName": "广州市第十三中学",
+      "district": "越秀区",
+      "schoolCategory": "省一级",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 630
+        },
+        {
+          "year": 2024,
+          "score": 636
+        },
+        {
+          "year": 2025,
+          "score": 616
+        }
+      ],
+      "threeYearAverage": 627,
+      "publishedMinimum": 587,
+      "effectiveMinimum": 587,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-3ffdae4a2e72",
+      "schoolName": "广州市第五中学",
+      "district": "海珠区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 715
+        },
+        {
+          "year": 2024,
+          "score": 705
+        },
+        {
+          "year": 2025,
+          "score": 711
+        }
+      ],
+      "threeYearAverage": 710,
+      "publishedMinimum": 670,
+      "effectiveMinimum": 670,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-0ef96b413381",
+      "schoolName": "广州市第五中学（金碧校区）",
+      "district": "海珠区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 675
+        },
+        {
+          "year": 2024,
+          "score": 663
+        },
+        {
+          "year": 2025,
+          "score": 670
+        }
+      ],
+      "threeYearAverage": 669,
+      "publishedMinimum": 629,
+      "effectiveMinimum": 629,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-e46ea8053870",
+      "schoolName": "广州市南武中学",
+      "district": "海珠区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 690
+        },
+        {
+          "year": 2024,
+          "score": 634
+        },
+        {
+          "year": 2025,
+          "score": 673
+        }
+      ],
+      "threeYearAverage": 665,
+      "publishedMinimum": 625,
+      "effectiveMinimum": 625,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-c12b967bf504",
+      "schoolName": "广州市南武中学（岭南画派纪念校区）",
+      "district": "海珠区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 640
+        },
+        {
+          "year": 2024,
+          "score": 622
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 629,
+      "publishedMinimum": 589,
+      "effectiveMinimum": 589,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-0f05b24c70f2",
+      "schoolName": "广州市第九十七中学",
+      "district": "海珠区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 654
+        },
+        {
+          "year": 2024,
+          "score": 647
+        },
+        {
+          "year": 2025,
+          "score": 659
+        }
+      ],
+      "threeYearAverage": 653,
+      "publishedMinimum": 613,
+      "effectiveMinimum": 613,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-e19ef8b52141",
+      "schoolName": "广州市第九十七中学（江南新苑校区）",
+      "district": "海珠区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 654
+        },
+        {
+          "year": 2024,
+          "score": 647
+        },
+        {
+          "year": 2025,
+          "score": 589
+        }
+      ],
+      "threeYearAverage": 630,
+      "publishedMinimum": 590,
+      "effectiveMinimum": 590,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-697d83e2a6c6",
+      "schoolName": "广州市第四十一中学",
+      "district": "海珠区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 642
+        },
+        {
+          "year": 2024,
+          "score": 622
+        },
+        {
+          "year": 2025,
+          "score": 609
+        }
+      ],
+      "threeYearAverage": 624,
+      "publishedMinimum": 584,
+      "effectiveMinimum": 584,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-7d41f8668918",
+      "schoolName": "广州市海珠外国语实验中学",
+      "district": "海珠区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 674
+        },
+        {
+          "year": 2024,
+          "score": 657
+        },
+        {
+          "year": 2025,
+          "score": 667
+        }
+      ],
+      "threeYearAverage": 666,
+      "publishedMinimum": 626,
+      "effectiveMinimum": 626,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-bb9a2a430342",
+      "schoolName": "广州市海珠外国语实验中学（江海校区）",
+      "district": "海珠区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 674
+        },
+        {
+          "year": 2024,
+          "score": 657
+        },
+        {
+          "year": 2025,
+          "score": 626
+        }
+      ],
+      "threeYearAverage": 652,
+      "publishedMinimum": 612,
+      "effectiveMinimum": 612,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-53982052dcc7",
+      "schoolName": "广州中学",
+      "district": "天河区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 709
+        },
+        {
+          "year": 2024,
+          "score": 690
+        },
+        {
+          "year": 2025,
+          "score": 693
+        }
+      ],
+      "threeYearAverage": 697,
+      "publishedMinimum": 657,
+      "effectiveMinimum": 657,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-ad42ba26282e",
+      "schoolName": "广州市第八十九中学",
+      "district": "天河区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 642
+        },
+        {
+          "year": 2024,
+          "score": 637
+        },
+        {
+          "year": 2025,
+          "score": 639
+        }
+      ],
+      "threeYearAverage": 639,
+      "publishedMinimum": 599,
+      "effectiveMinimum": 599,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-bcfe78433eae",
+      "schoolName": "广州市天河中学",
+      "district": "天河区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 675
+        },
+        {
+          "year": 2024,
+          "score": 662
+        },
+        {
+          "year": 2025,
+          "score": 666
+        }
+      ],
+      "threeYearAverage": 667,
+      "publishedMinimum": 627,
+      "effectiveMinimum": 627,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-89976c80ab47",
+      "schoolName": "广州市第七十五中学",
+      "district": "天河区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 639
+        },
+        {
+          "year": 2024,
+          "score": 610
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 625,
+      "publishedMinimum": 585,
+      "effectiveMinimum": 585,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-87a56f8ac023",
+      "schoolName": "广州市第一一三中学（金融城校区）",
+      "district": "天河区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 675
+        },
+        {
+          "year": 2024,
+          "score": 662
+        },
+        {
+          "year": 2025,
+          "score": 667
+        }
+      ],
+      "threeYearAverage": 668,
+      "publishedMinimum": 628,
+      "effectiveMinimum": 628,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-763ca1aefe73",
+      "schoolName": "广州市第一一三中学（元岗校区）",
+      "district": "天河区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 675
+        },
+        {
+          "year": 2024,
+          "score": 662
+        },
+        {
+          "year": 2025,
+          "score": 667
+        }
+      ],
+      "threeYearAverage": 668,
+      "publishedMinimum": 628,
+      "effectiveMinimum": 628,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-eff8e0690790",
+      "schoolName": "广州奥林匹克中学",
+      "district": "天河区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 624
+        },
+        {
+          "year": 2024,
+          "score": 623
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 624,
+      "publishedMinimum": 584,
+      "effectiveMinimum": 584,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-4e608835ab75",
+      "schoolName": "广州市天河外国语学校（珠江新城校区）",
+      "district": "天河区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 705
+        },
+        {
+          "year": 2024,
+          "score": 702
+        },
+        {
+          "year": 2025,
+          "score": 714
+        }
+      ],
+      "threeYearAverage": 707,
+      "publishedMinimum": 667,
+      "effectiveMinimum": 667,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-a049afd13d31",
+      "schoolName": "广州市天河外国语学校（智慧城校区）",
+      "district": "天河区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 705
+        },
+        {
+          "year": 2024,
+          "score": 702
+        },
+        {
+          "year": 2025,
+          "score": 707
+        }
+      ],
+      "threeYearAverage": 704,
+      "publishedMinimum": 664,
+      "effectiveMinimum": 664,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-36a40bf707ec",
+      "schoolName": "广州市培英中学（白云新城校区）",
+      "district": "白云区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 691
+        },
+        {
+          "year": 2024,
+          "score": 686
+        },
+        {
+          "year": 2025,
+          "score": 707
+        }
+      ],
+      "threeYearAverage": 694,
+      "publishedMinimum": 654,
+      "effectiveMinimum": 654,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-d0679fc04427",
+      "schoolName": "广州市培英中学（鹤洞校区）",
+      "district": "白云区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 637
+        },
+        {
+          "year": 2024,
+          "score": 646
+        },
+        {
+          "year": 2025,
+          "score": 667
+        }
+      ],
+      "threeYearAverage": 650,
+      "publishedMinimum": 610,
+      "effectiveMinimum": 610,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-8ee20499f631",
+      "schoolName": "广州市第六十五中学（江高校区）",
+      "district": "白云区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 665
+        },
+        {
+          "year": 2024,
+          "score": 651
+        },
+        {
+          "year": 2025,
+          "score": 667
+        }
+      ],
+      "threeYearAverage": 661,
+      "publishedMinimum": 621,
+      "effectiveMinimum": 621,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-209157ce7865",
+      "schoolName": "广州市第六十五中学（同德校区）",
+      "district": "白云区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 622
+        },
+        {
+          "year": 2025,
+          "score": 631
+        }
+      ],
+      "threeYearAverage": 629,
+      "publishedMinimum": 589,
+      "effectiveMinimum": 589,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-97d31b62893d",
+      "schoolName": "广州市第六十五中学（江府校区）",
+      "district": "白云区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 650
+        },
+        {
+          "year": 2024,
+          "score": 636
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 637,
+      "publishedMinimum": 597,
+      "effectiveMinimum": 597,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-6304fc4cbefc",
+      "schoolName": "广州大同中学",
+      "district": "白云区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 636
+        },
+        {
+          "year": 2025,
+          "score": 635
+        }
+      ],
+      "threeYearAverage": 635,
+      "publishedMinimum": 595,
+      "effectiveMinimum": 595,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-915081bfe18f",
+      "schoolName": "广州市白云中学",
+      "district": "白云区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 621
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 627,
+      "publishedMinimum": 587,
+      "effectiveMinimum": 587,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-b38404ec3cef",
+      "schoolName": "广州彭加木纪念中学",
+      "district": "白云区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 595
+        },
+        {
+          "year": 2024,
+          "score": 588
+        },
+        {
+          "year": 2025,
+          "score": 601
+        }
+      ],
+      "threeYearAverage": 594,
+      "publishedMinimum": 554,
+      "effectiveMinimum": 554,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-7631e9594f26",
+      "schoolName": "广东外语外贸大学实验中学",
+      "district": "白云区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 622
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 628,
+      "publishedMinimum": 588,
+      "effectiveMinimum": 588,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-304e78fe5897",
+      "schoolName": "广州市白云区广州空港实验中学",
+      "district": "白云区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 595
+        },
+        {
+          "year": 2024,
+          "score": 610
+        },
+        {
+          "year": 2025,
+          "score": 587
+        }
+      ],
+      "threeYearAverage": 597,
+      "publishedMinimum": 557,
+      "effectiveMinimum": 557,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-69ec77e6c53d",
+      "schoolName": "广州市第八十六中学",
+      "district": "黄埔区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 688
+        },
+        {
+          "year": 2024,
+          "score": 690
+        },
+        {
+          "year": 2025,
+          "score": 697
+        }
+      ],
+      "threeYearAverage": 691,
+      "publishedMinimum": 651,
+      "effectiveMinimum": 651,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-0eebefaa93e8",
+      "schoolName": "广州市玉岩中学",
+      "district": "黄埔区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 713
+        },
+        {
+          "year": 2024,
+          "score": 702
+        },
+        {
+          "year": 2025,
+          "score": 705
+        }
+      ],
+      "threeYearAverage": 706,
+      "publishedMinimum": 666,
+      "effectiveMinimum": 666,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-05cb9dd5648e",
+      "schoolName": "广州科学城中学",
+      "district": "黄埔区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 636
+        },
+        {
+          "year": 2024,
+          "score": 649
+        },
+        {
+          "year": 2025,
+          "score": 645
+        }
+      ],
+      "threeYearAverage": 643,
+      "publishedMinimum": 603,
+      "effectiveMinimum": 603,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-17ac15270cde",
+      "schoolName": "北京师范大学广州实验学校",
+      "district": "黄埔区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 675
+        },
+        {
+          "year": 2024,
+          "score": 662
+        },
+        {
+          "year": 2025,
+          "score": 667
+        }
+      ],
+      "threeYearAverage": 668,
+      "publishedMinimum": 628,
+      "effectiveMinimum": 628,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-edd407b925cc",
+      "schoolName": "广州石化中学",
+      "district": "黄埔区",
+      "schoolCategory": "省一级",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 573
+        },
+        {
+          "year": 2024,
+          "score": 570
+        },
+        {
+          "year": 2025,
+          "score": 586
+        }
+      ],
+      "threeYearAverage": 576,
+      "publishedMinimum": 536,
+      "effectiveMinimum": 536,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-68f2e691e9a0",
+      "schoolName": "广州市黄埔区开元学校",
+      "district": "黄埔区",
+      "schoolCategory": "其他优质普通高中",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 653
+        },
+        {
+          "year": 2024,
+          "score": 654
+        },
+        {
+          "year": 2025,
+          "score": 652
+        }
+      ],
+      "threeYearAverage": 653,
+      "publishedMinimum": 613,
+      "effectiveMinimum": 613,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-067c359b28a3",
+      "schoolName": "广州实验中学",
+      "district": "黄埔区",
+      "schoolCategory": "其他优质普通高中",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": null
+        },
+        {
+          "year": 2024,
+          "score": 660
+        },
+        {
+          "year": 2025,
+          "score": 672
+        }
+      ],
+      "threeYearAverage": 666,
+      "publishedMinimum": 626,
+      "effectiveMinimum": 626,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-ab655f2f177b",
+      "schoolName": "广州市黄埔区苏元学校",
+      "district": "黄埔区",
+      "schoolCategory": "其他优质普通高中",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": null
+        },
+        {
+          "year": 2024,
+          "score": 631
+        },
+        {
+          "year": 2025,
+          "score": 667
+        }
+      ],
+      "threeYearAverage": 649,
+      "publishedMinimum": 609,
+      "effectiveMinimum": 609,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-601ef3343da5",
+      "schoolName": "广东仲元中学",
+      "district": "番禺区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 713
+        },
+        {
+          "year": 2024,
+          "score": 695
+        },
+        {
+          "year": 2025,
+          "score": 702
+        }
+      ],
+      "threeYearAverage": 703,
+      "publishedMinimum": 663,
+      "effectiveMinimum": 663,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-37d974269f94",
+      "schoolName": "广东番禺中学",
+      "district": "番禺区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 683
+        },
+        {
+          "year": 2024,
+          "score": 658
+        },
+        {
+          "year": 2025,
+          "score": 667
+        }
+      ],
+      "threeYearAverage": 669,
+      "publishedMinimum": 629,
+      "effectiveMinimum": 629,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-537a0a7b946c",
+      "schoolName": "广州市番禺区象贤中学",
+      "district": "番禺区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 675
+        },
+        {
+          "year": 2024,
+          "score": 634
+        },
+        {
+          "year": 2025,
+          "score": 651
+        }
+      ],
+      "threeYearAverage": 653,
+      "publishedMinimum": 613,
+      "effectiveMinimum": 613,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-a46d46a5295f",
+      "schoolName": "广州市禺山高级中学",
+      "district": "番禺区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 622
+        },
+        {
+          "year": 2025,
+          "score": 621
+        }
+      ],
+      "threeYearAverage": 626,
+      "publishedMinimum": 586,
+      "effectiveMinimum": 586,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-0b4e52c00d90",
+      "schoolName": "广东第二师范学院番禺附属中学",
+      "district": "番禺区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 623
+        },
+        {
+          "year": 2025,
+          "score": 587
+        }
+      ],
+      "threeYearAverage": 615,
+      "publishedMinimum": 575,
+      "effectiveMinimum": 575,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-34e28db6dd52",
+      "schoolName": "广州市番禺区实验中学",
+      "district": "番禺区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 651
+        },
+        {
+          "year": 2024,
+          "score": 622
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 633,
+      "publishedMinimum": 593,
+      "effectiveMinimum": 593,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-deb7e9c9ac29",
+      "schoolName": "广州市番禺区洛溪新城中学",
+      "district": "番禺区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 598
+        },
+        {
+          "year": 2024,
+          "score": 582
+        },
+        {
+          "year": 2025,
+          "score": 587
+        }
+      ],
+      "threeYearAverage": 589,
+      "publishedMinimum": 549,
+      "effectiveMinimum": 549,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-5a61f83d1160",
+      "schoolName": "广州市番禺区大龙中学",
+      "district": "番禺区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 627
+        },
+        {
+          "year": 2024,
+          "score": 582
+        },
+        {
+          "year": 2025,
+          "score": 587
+        }
+      ],
+      "threeYearAverage": 598,
+      "publishedMinimum": 558,
+      "effectiveMinimum": 558,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-1f0447042a82",
+      "schoolName": "广州市番禺区石碁中学",
+      "district": "番禺区",
+      "schoolCategory": "省一级",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 613
+        },
+        {
+          "year": 2024,
+          "score": 566
+        },
+        {
+          "year": 2025,
+          "score": 538
+        }
+      ],
+      "threeYearAverage": 572,
+      "publishedMinimum": 532,
+      "effectiveMinimum": 532,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-b9a4407871a5",
+      "schoolName": "广州市番禺区石北中学",
+      "district": "番禺区",
+      "schoolCategory": "省一级",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 578
+        },
+        {
+          "year": 2024,
+          "score": 552
+        },
+        {
+          "year": 2025,
+          "score": 527
+        }
+      ],
+      "threeYearAverage": 552,
+      "publishedMinimum": 512,
+      "effectiveMinimum": 512,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-2124ed968cfa",
+      "schoolName": "广州市番禺区石楼中学",
+      "district": "番禺区",
+      "schoolCategory": "省一级",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 555
+        },
+        {
+          "year": 2024,
+          "score": 542
+        },
+        {
+          "year": 2025,
+          "score": 520
+        }
+      ],
+      "threeYearAverage": 539,
+      "publishedMinimum": 499,
+      "effectiveMinimum": 499,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-ae239104e547",
+      "schoolName": "广州市番禺区南村中学",
+      "district": "番禺区",
+      "schoolCategory": "省一级",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 591
+        },
+        {
+          "year": 2024,
+          "score": 560
+        },
+        {
+          "year": 2025,
+          "score": 535
+        }
+      ],
+      "threeYearAverage": 562,
+      "publishedMinimum": 522,
+      "effectiveMinimum": 522,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-0b36f446a971",
+      "schoolName": "广州市花都区秀全中学",
+      "district": "花都区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 675
+        },
+        {
+          "year": 2024,
+          "score": 677
+        },
+        {
+          "year": 2025,
+          "score": 668
+        }
+      ],
+      "threeYearAverage": 673,
+      "publishedMinimum": 633,
+      "effectiveMinimum": 633,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-b9a746e81797",
+      "schoolName": "广州市花都区邝维煜纪念中学",
+      "district": "花都区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 647
+        },
+        {
+          "year": 2024,
+          "score": 643
+        },
+        {
+          "year": 2025,
+          "score": 646
+        }
+      ],
+      "threeYearAverage": 645,
+      "publishedMinimum": 605,
+      "effectiveMinimum": 605,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-d3a78288b0fe",
+      "schoolName": "广州市花都区邝维煜纪念中学（雅正校区）",
+      "district": "花都区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 622
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 628,
+      "publishedMinimum": 588,
+      "effectiveMinimum": 588,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-abeb3792c714",
+      "schoolName": "广州市花都区新华中学",
+      "district": "花都区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 595
+        },
+        {
+          "year": 2024,
+          "score": 611
+        },
+        {
+          "year": 2025,
+          "score": 600
+        }
+      ],
+      "threeYearAverage": 602,
+      "publishedMinimum": 562,
+      "effectiveMinimum": 562,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-26538a2e0b47",
+      "schoolName": "广州市花都区圆玄中学",
+      "district": "花都区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 595
+        },
+        {
+          "year": 2024,
+          "score": 582
+        },
+        {
+          "year": 2025,
+          "score": 587
+        }
+      ],
+      "threeYearAverage": 588,
+      "publishedMinimum": 548,
+      "effectiveMinimum": 548,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-3bc46d147e2a",
+      "schoolName": "广州市花都区第一中学",
+      "district": "花都区",
+      "schoolCategory": "省一级",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 566
+        },
+        {
+          "year": 2024,
+          "score": 587
+        },
+        {
+          "year": 2025,
+          "score": 578
+        }
+      ],
+      "threeYearAverage": 577,
+      "publishedMinimum": 537,
+      "effectiveMinimum": 537,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-92de2e2ddc8a",
+      "schoolName": "广州市南沙第一中学",
+      "district": "南沙区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 622
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 628,
+      "publishedMinimum": 588,
+      "effectiveMinimum": 588,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-91a1244c0567",
+      "schoolName": "广州市南沙东涌中学",
+      "district": "南沙区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 595
+        },
+        {
+          "year": 2024,
+          "score": 612
+        },
+        {
+          "year": 2025,
+          "score": 599
+        }
+      ],
+      "threeYearAverage": 602,
+      "publishedMinimum": 562,
+      "effectiveMinimum": 562,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-524a67309dff",
+      "schoolName": "华南师范大学附属南沙中学",
+      "district": "南沙区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 621
+        },
+        {
+          "year": 2024,
+          "score": 631
+        },
+        {
+          "year": 2025,
+          "score": 651
+        }
+      ],
+      "threeYearAverage": 634,
+      "publishedMinimum": 594,
+      "effectiveMinimum": 594,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-1269ff73ebf6",
+      "schoolName": "广州市南沙大岗中学",
+      "district": "南沙区",
+      "schoolCategory": "省一级",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 550
+        },
+        {
+          "year": 2024,
+          "score": 559
+        },
+        {
+          "year": 2025,
+          "score": 565
+        }
+      ],
+      "threeYearAverage": 558,
+      "publishedMinimum": 518,
+      "effectiveMinimum": 518,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-5cc46321ec5e",
+      "schoolName": "广州市第二中学南沙天元学校",
+      "district": "南沙区",
+      "schoolCategory": "其他优质普通高中",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 660
+        },
+        {
+          "year": 2024,
+          "score": 650
+        },
+        {
+          "year": 2025,
+          "score": 663
+        }
+      ],
+      "threeYearAverage": 657,
+      "publishedMinimum": 617,
+      "effectiveMinimum": 617,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-c5297257f160",
+      "schoolName": "广州大学附属中学南沙实验学校",
+      "district": "南沙区",
+      "schoolCategory": "其他优质普通高中",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 661
+        },
+        {
+          "year": 2024,
+          "score": 662
+        },
+        {
+          "year": 2025,
+          "score": 682
+        }
+      ],
+      "threeYearAverage": 668,
+      "publishedMinimum": 628,
+      "effectiveMinimum": 628,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-bbabf25e82e7",
+      "schoolName": "广州市从化区从化中学",
+      "district": "从化区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 621
+        },
+        {
+          "year": 2024,
+          "score": 597
+        },
+        {
+          "year": 2025,
+          "score": 609
+        }
+      ],
+      "threeYearAverage": 609,
+      "publishedMinimum": 569,
+      "effectiveMinimum": 569,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-1de59867ff70",
+      "schoolName": "广州市从化区流溪中学",
+      "district": "从化区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 595
+        },
+        {
+          "year": 2024,
+          "score": 609
+        },
+        {
+          "year": 2025,
+          "score": 587
+        }
+      ],
+      "threeYearAverage": 597,
+      "publishedMinimum": 557,
+      "effectiveMinimum": 557,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-b8335e527df9",
+      "schoolName": "广州市从化区第五中学",
+      "district": "从化区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 559
+        },
+        {
+          "year": 2024,
+          "score": 582
+        },
+        {
+          "year": 2025,
+          "score": 569
+        }
+      ],
+      "threeYearAverage": 570,
+      "publishedMinimum": 530,
+      "effectiveMinimum": 530,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-802d6bb4ee0f",
+      "schoolName": "广州市从化区第二中学",
+      "district": "从化区",
+      "schoolCategory": "省一级",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 545
+        },
+        {
+          "year": 2024,
+          "score": 559
+        },
+        {
+          "year": 2025,
+          "score": 520
+        }
+      ],
+      "threeYearAverage": 541,
+      "publishedMinimum": 501,
+      "effectiveMinimum": 501,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-985849148729",
+      "schoolName": "广州市增城区增城中学",
+      "district": "增城区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 642
+        },
+        {
+          "year": 2024,
+          "score": 647
+        },
+        {
+          "year": 2025,
+          "score": 665
+        }
+      ],
+      "threeYearAverage": 651,
+      "publishedMinimum": 611,
+      "effectiveMinimum": 611,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-e06abc629a4f",
+      "schoolName": "广州市增城区第一中学",
+      "district": "增城区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 635
+        },
+        {
+          "year": 2024,
+          "score": 600
+        },
+        {
+          "year": 2025,
+          "score": 608
+        }
+      ],
+      "threeYearAverage": 614,
+      "publishedMinimum": 574,
+      "effectiveMinimum": 574,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-7b23af080db1",
+      "schoolName": "广州市增城区新塘中学",
+      "district": "增城区",
+      "schoolCategory": "国家级示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 595
+        },
+        {
+          "year": 2024,
+          "score": 614
+        },
+        {
+          "year": 2025,
+          "score": 624
+        }
+      ],
+      "threeYearAverage": 611,
+      "publishedMinimum": 571,
+      "effectiveMinimum": 571,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-490f3ee0a366",
+      "schoolName": "广州市增城区郑中钧中学",
+      "district": "增城区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 634
+        },
+        {
+          "year": 2024,
+          "score": 601
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 620,
+      "publishedMinimum": 580,
+      "effectiveMinimum": 580,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-a8d49e4a3303",
+      "schoolName": "广州市增城区高级中学",
+      "district": "增城区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 595
+        },
+        {
+          "year": 2024,
+          "score": 582
+        },
+        {
+          "year": 2025,
+          "score": 587
+        }
+      ],
+      "threeYearAverage": 588,
+      "publishedMinimum": 548,
+      "effectiveMinimum": 548,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-b96406c75756",
+      "schoolName": "广州市增城区荔城中学",
+      "district": "增城区",
+      "schoolCategory": "市示范性",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 595
+        },
+        {
+          "year": 2024,
+          "score": 582
+        },
+        {
+          "year": 2025,
+          "score": 587
+        }
+      ],
+      "threeYearAverage": 588,
+      "publishedMinimum": 548,
+      "effectiveMinimum": 548,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    },
+    {
+      "year": 2026,
+      "schoolId": "gz-e63afeddbce1",
+      "schoolName": "广州市增城区应元学校",
+      "district": "增城区",
+      "schoolCategory": "其他优质普通高中",
+      "previousHouseholdCutoffs": [
+        {
+          "year": 2023,
+          "score": 647
+        },
+        {
+          "year": 2024,
+          "score": 624
+        },
+        {
+          "year": 2025,
+          "score": 627
+        }
+      ],
+      "threeYearAverage": 632,
+      "publishedMinimum": 592,
+      "effectiveMinimum": 592,
+      "sourceId": "official-2026-quota-minimum-controls",
+      "publicFloorSourceId": "official-2026-control-lines"
+    }
+  ]
+}

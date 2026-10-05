@@ -26,6 +26,13 @@ export function latestRecord(data, id, filters = {}) {
   return historyFor(data,id,filters)[0] || null;
 }
 export function schoolDistrict(school) { return school.campusDistrict || school.district || '区域待核对'; }
+export function schoolLocation(school){
+  const raw=school.campusAddress||'';
+  const start=raw.search(/广州市|广东省|(?:越秀|荔湾|海珠|天河|白云|黄埔|番禺|花都|南沙|从化|增城)区/);
+  const contactPart=start>0?raw.slice(0,start):'';
+  const phones=[...new Set(contactPart.match(/(?<!\d)(?:0\d{2,3}-?\d{7,8}|1[3-9]\d{9}|\d{8})(?!\d)/g)||[])];
+  return {address:start>0?raw.slice(start):raw,phones};
+}
 export function filterSchools(data, filters = {}) {
   const rows = data.schools.filter(s => matchesSchool(s,filters.query) &&
     (!filters.district || schoolDistrict(s) === filters.district) &&
@@ -40,8 +47,8 @@ export function filterSchools(data, filters = {}) {
       if(diff) return diff;
     }
     if(filters.sort === 'cutoff') {
-      const av=latestRecord(data,a.id,{batch:filters.batch,candidateType:filters.candidateType})?.cutoffScore;
-      const bv=latestRecord(data,b.id,{batch:filters.batch,candidateType:filters.candidateType})?.cutoffScore;
+      const av=latestRecord(data,a.id,{year:data.manifest?.latestPolicyYear,batch:filters.batch,candidateType:filters.candidateType})?.cutoffScore;
+      const bv=latestRecord(data,b.id,{year:data.manifest?.latestPolicyYear,batch:filters.batch,candidateType:filters.candidateType})?.cutoffScore;
       if(av!=null || bv!=null) return (bv??-1)-(av??-1);
     }
     return a.name.localeCompare(b.name,'zh');
@@ -55,8 +62,8 @@ export async function loadSchoolData() {
     if(!r.ok) throw new Error(`学校资料暂时读取失败（${r.status}）`);
     return r.json();
   };
-  cached=Promise.all(['schools.json','admissions.json','sources.json','manifest.json','first-batch-2026.json','autonomous-school-events-2026.json','autonomous-results.json'].map(read))
-    .then(([schools,admissions,sources,manifest,special,events,autonomous])=>({schools,admissions,sources:[...sources,...(special.sources||[]),...(events.sources||[]),...(autonomous.sources||[])],manifest,special,events,autonomous}))
+  cached=Promise.all([...['schools.json','admissions.json','sources.json','manifest.json','first-batch-2026.json','autonomous-school-events-2026.json','autonomous-results.json'].map(read),read('evidence-summary.json').catch(()=>null)])
+    .then(([schools,admissions,sources,manifest,special,events,autonomous,evidence])=>({schools,admissions,sources:[...sources,...(special.sources||[]),...(events.sources||[]),...(autonomous.sources||[])],manifest,special,events,autonomous,evidence}))
     .catch(error=>{cached=null;throw error;});
   return cached;
 }

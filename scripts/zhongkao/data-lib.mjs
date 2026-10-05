@@ -132,6 +132,18 @@ function joinColumn(items, minX, maxX, lowerY, upperY) {
     .replace(/\s+/g, '');
 }
 
+// PDF.js may combine the adjacent high-school and source-school name cells
+// into one text item. Preserve the document's explicit whitespace boundary.
+export function splitAdmissionNameItems(items) {
+  return items.flatMap(item => {
+    const parts=item.str.trim().split(/\s+/);
+    if(item.x<175 && parts.length===2 && /^(广州市|广东|广州|华南|清华|北京)/.test(parts[0]) && /学校|中学|校区|学院/.test(parts[1])) {
+      return [{...item,str:parts[0]},{...item,str:parts[1],x:188.65}];
+    }
+    return [item];
+  });
+}
+
 export async function parseBatch2Pdf(bytes, year, sourceId) {
   const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
   const loadingTask = pdfjs.getDocument({ data: bytes });
@@ -140,9 +152,9 @@ export async function parseBatch2Pdf(bytes, year, sourceId) {
   for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
     const page = await pdf.getPage(pageNumber);
     const content = await page.getTextContent();
-    const items = content.items
+    const items = splitAdmissionNameItems(content.items
       .filter((item) => item.str?.trim())
-      .map((item) => ({ str: item.str, x: item.transform[4], y: item.transform[5] }));
+      .map((item) => ({ str: item.str, x: item.transform[4], y: item.transform[5] })));
     const scoreItems = items
       .filter((item) => item.x >= 350 && item.x < 400 && /^\d{3}$/.test(item.str.trim()))
       .filter((item) => Number(item.str) >= 300 && Number(item.str) <= 810)

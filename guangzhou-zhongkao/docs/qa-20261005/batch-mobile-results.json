@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "completedAt": "2026-10-05T08:47:23.333Z",
+  "checks": [
+    "/ mobile layout",
+    "/quota/ mobile layout",
+    "/verify/?new=1 mobile layout",
+    "print disclosure restore",
+    "/special/?mode=autonomous mobile layout"
+  ]
+}

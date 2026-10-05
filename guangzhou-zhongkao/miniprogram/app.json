@@ -1,6 +1,9 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/schools/schools",
+    "pages/plans/plans",
+    "pages/my/my",
     "pages/direction/direction",
     "pages/target/target",
     "pages/special/special",
@@ -8,21 +11,22 @@
   ],
   "window": {
     "navigationBarTitleText": "广州中考志愿模拟助手",
-    "navigationBarBackgroundColor": "#102a43",
+    "navigationBarBackgroundColor": "#15283d",
     "navigationBarTextStyle": "white",
-    "backgroundColor": "#f4f7fb",
+    "backgroundColor": "#ffffff",
     "backgroundTextStyle": "light"
   },
   "tabBar": {
     "color": "#627d98",
-    "selectedColor": "#0b7285",
+    "selectedColor": "#15283d",
     "backgroundColor": "#ffffff",
     "borderStyle": "white",
     "list": [
       { "pagePath": "pages/home/home", "text": "首页" },
-      { "pagePath": "pages/direction/direction", "text": "按分数" },
-      { "pagePath": "pages/target/target", "text": "目标校" },
-      { "pagePath": "pages/special/special", "text": "专项" }
+      { "pagePath": "pages/schools/schools", "text": "查学校" },
+      { "pagePath": "pages/plans/plans", "text": "志愿方案" },
+      { "pagePath": "pages/special/special", "text": "招生信息" },
+      { "pagePath": "pages/my/my", "text": "我的" }
     ]
   },
   "style": "v2",

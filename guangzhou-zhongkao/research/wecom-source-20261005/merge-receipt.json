@@ -1,0 +1,18 @@
+{
+  "mergedAt": "2026-10-05T11:32:19.306Z",
+  "version": "20261005-defefb03",
+  "old2026Records": 5343,
+  "new2026Records": 6531,
+  "added": 1188,
+  "counts": {
+    "records": 7280,
+    "admitted": 6531,
+    "noAdmittedCandidate": 749
+  },
+  "unchangedOldRecords": 5343,
+  "independentParserAgreement": true,
+  "rawMemberContentPublished": false,
+  "scheduledDriftGateDisabled": false,
+  "allOriginalFieldsAndOrderPreserved": true,
+  "quotaControls": 109
+}

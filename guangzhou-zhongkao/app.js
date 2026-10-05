@@ -1,5 +1,10 @@
 import { BATCH_LIMITS, evaluatePlan, replayPlan, schoolFamilyKey, simulateOutcomes } from './engine.js?v=20260729b';
 import { simulateOutcomesRealistic } from './realistic-sim.js?v=20260729b';
+import { readWorkspace, updateWorkspace, savePlan, activatePlan, parseAnonymousPlan } from './workspace-store.js';
+import { matchesSchool, schoolURL } from './school-service.js';
+import {confidenceCopy,plainCopy,simplifyVisibleCopy,readingGuideHTML} from './parent-copy.js';
+import {installRegionControls,applyRegionControls,readRegionControls,regionSummary,preferredRegions,matchesRegion,prioritizeRegions,regionValidation} from './region-preference.js';
+import {prepareUnifiedWorkspace} from './workflow-ui.js';
 
 const DISCLAIMER = '本系统依据公开招生政策及历史数据进行模拟分析，所示评分、录取机会和学校建议均为统计估计，不代表官方录取结果或任何录取承诺。招生政策、计划、报考范围、成绩分布和志愿竞争每年可能变化，请以当年广州市教育局、广州市招生考试委员会办公室及中考服务平台最终公布的信息为准。名额分配、随迁子女、跨区及其他资格请向学校或招考部门核实。志愿选择由考生及监护人自行决定。本系统仅供参考。';
 
@@ -45,6 +50,19 @@ let targetDraft = null;
 let targetDraftProfile = null;
 let targetResultData = null;
 let pendingDraft = null;
+let undoSnapshot = null;
+function invalidateResult() {
+  latestScore = null; latestAnalysis = null;
+  const panel = $('#analysis');
+  if (panel && !panel.hidden) {
+    panel.dataset.stale = 'true';
+    let notice = $('#staleNotice');
+    if (!notice) { notice=document.createElement('div'); notice.id='staleNotice'; notice.className='stale-result'; panel.prepend(notice); }
+    notice.textContent='分数、条件或志愿已变化；下方是上次结果，请重新分析当前方案。';
+    notice.hidden=false;
+  }
+}
+function rememberPlan() { undoSnapshot = {profile:getProfile(),plan:structuredClone(plan)}; const button=$('#undoPlan'); if(button)button.disabled=false; }
 const allocationCache = new Map();
 
 function makePlan() {
@@ -59,7 +77,7 @@ function makePlan() {
 
 function toast(message) {
   const node = $('#toast');
-  node.textContent = message;
+  node.textContent = plainCopy(message);
   node.classList.add('show');
   clearTimeout(toast.timer);
   toast.timer = setTimeout(() => node.classList.remove('show'), 2800);
@@ -107,6 +125,7 @@ function setupSelectors() {
   setDistrict('directionHouseholdDistrict', '天河区');
   setDistrict('targetAdmissionDistrict', '天河区');
   setDistrict('targetHouseholdDistrict', '天河区');
+  ['', 'direction', 'target'].forEach(prefix=>installRegionControls(prefix,readWorkspace().profile||{}));
   if (document.getElementById('targetYear')) renderTargetYears();
   const sourceEl = document.getElementById('sourceSchoolId');
   if (sourceEl) sourceEl.innerHTML = '<option value="">请选择所在初中</option>' + dataset.sourceSchools
@@ -152,8 +171,8 @@ function getProfile() {
     ownershipPreference: form.get('ownershipPreference'),
     boardingPreference: form.get('boardingPreference'),
     maxAnnualFee: Number(form.get('maxAnnualFee')) || null,
-    preferredDistricts: String(form.get('preferredDistricts') || '').split(/[，,]/).map((item) => item.trim()).filter(Boolean),
-    excludedSchools: String(form.get('excludedSchools') || '').split(/[，,]/).map((item) => item.trim()).filter(Boolean),
+    ...readRegionControls(''),
+    excludedSchools: String(form.get('excludedSchools') || '').split(/[，,、]/).map((item) => item.trim()).filter(Boolean),
     crossDistrict: $('#crossDistrict').checked,
     quotaEligible: $('#quotaEligible').checked,
     notAdmittedFirstBatch: $('#notAdmittedFirstBatch').checked
@@ -177,6 +196,7 @@ function getDirectionProfile() {
   const high = Number($('#directionHigh').value);
   const district = $('#directionDistrict').value;
   const householdDistrict = $('#directionHouseholdDistrict').value;
+  const shared=readWorkspace().profile || {};
   return {
     mode: 'forecast',
     targetYear: dataset.manifest.latestPolicyYear + 1,
@@ -189,13 +209,13 @@ function getDirectionProfile() {
     householdDistrict,
     schoolDistrict: district,
     sourceSchoolId: '',
-    referenceGrade: 'C',
+    referenceGrade: shared.referenceGrade || 'unknown',
     riskPreference: $('#directionRisk').value,
     ownershipPreference: $('#directionOwnership').value,
-    boardingPreference: '不限',
-    maxAnnualFee: null,
-    preferredDistricts: [householdDistrict],
-    excludedSchools: [],
+    boardingPreference: shared.boardingPreference || '不限',
+    maxAnnualFee: shared.maxAnnualFee || null,
+    ...readRegionControls('direction'),
+    excludedSchools: shared.excludedSchools || [],
     crossDistrict: false,
     quotaEligible: false,
     notAdmittedFirstBatch: true
@@ -217,6 +237,17 @@ function directionPattern(risk, batch) {
 
 function escapeHtml(value) {
   return String(value ?? '').replace(/[&<>"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[character]);
+}
+function linkSchoolNames(container) {
+  if(!container||!dataset)return;
+  const names=[...dataset.schools].sort((a,b)=>b.name.length-a.name.length);
+  const walker=document.createTreeWalker(container,NodeFilter.SHOW_TEXT);
+  const nodes=[];while(walker.nextNode())if(!walker.currentNode.parentElement.closest('a,button,option,select,script,style'))nodes.push(walker.currentNode);
+  for(const node of nodes){let text=node.textContent;const fragment=document.createDocumentFragment();let changed=false;
+    while(text){let match=null,index=Infinity;for(const school of names){const found=text.indexOf(school.name);if(found>=0&&found<index){match=school;index=found;}}
+      if(!match){fragment.append(document.createTextNode(text));break;}changed=true;fragment.append(document.createTextNode(text.slice(0,index)));const link=document.createElement('a');link.href=schoolURL(match.id);link.textContent=match.name;fragment.append(link);text=text.slice(index+match.name.length);
+    }if(changed)node.replaceWith(fragment);
+  }
 }
 
 function isSchoolSelected(selected, source) {
@@ -264,8 +295,8 @@ function directionCandidates(batch, profile, strictPreferences = false) {
     records.sort((a, b) => {
       const aSchool = schoolPreferences(a.schoolId);
       const bSchool = schoolPreferences(b.schoolId);
-      const aPreferred = profile.preferredDistricts.includes(aSchool.campusDistrict || aSchool.district) ? 1 : 0;
-      const bPreferred = profile.preferredDistricts.includes(bSchool.campusDistrict || bSchool.district) ? 1 : 0;
+      const aPreferred = matchesRegion(aSchool,profile) ? 1 : 0;
+      const bPreferred = matchesRegion(bSchool,profile) ? 1 : 0;
       return bPreferred - aPreferred || (b.cutoffScore || 0) - (a.cutoffScore || 0);
     });
   }
@@ -288,11 +319,13 @@ function chooseDirectionSchool(records, tier, position, profile, selected) {
       const admissionRank = admissionRanks.get(record.schoolId) || records.length;
       const campusDistrict = school.campusDistrict || null;
       const sameHouseholdDistrict = campusDistrict === profile.householdDistrict;
-      const rank = admissionRank * 0.5 + Math.abs(screening.chance - chanceTarget) * 0.15 + metric.volatility * 0.16 + (screening.yearsWithData < 3 ? 12 : 0) - (sameHouseholdDistrict ? 20 : 0);
-      return { record, screening, rank, admissionRank, admissionTotal: records.length, schoolDistrict: campusDistrict, sameHouseholdDistrict };
+      const rank = admissionRank * 0.5 + Math.abs(screening.chance - chanceTarget) * 0.15 + metric.volatility * 0.16 + (screening.yearsWithData < 3 ? 12 : 0);
+      return { record, screening, rank, school, admissionRank, admissionTotal: records.length, schoolDistrict: campusDistrict, sameHouseholdDistrict };
     });
-  const preferred = candidates.filter((item) => item.screening.tier === tier).sort((a, b) => a.rank - b.rank);
-  return preferred[0] || candidates.sort((a, b) => a.rank - b.rank)[0] || null;
+  const preferred = candidates.filter((item) => item.screening.tier === tier);
+  const pool=preferred.length?preferred:candidates;
+  const confidenceRank={低:0,中:1,高:2};
+  return prioritizeRegions(pool,profile,{comparable:(a,b)=>a.screening.tier===b.screening.tier&&Math.abs(a.screening.chance-b.screening.chance)<=10&&confidenceRank[a.screening.confidence]>=confidenceRank[b.screening.confidence]})[0]||null;
 }
 
 function buildDirectionDraft(profile, { strictPreferences = false } = {}) {
@@ -323,7 +356,8 @@ function buildDirectionDraft(profile, { strictPreferences = false } = {}) {
         admissionRank,
         admissionTotal,
         schoolDistrict,
-        sameHouseholdDistrict
+        sameHouseholdDistrict,
+        regionPreferred: matchesRegion(choice.school,profile)
       }, schoolPreferences(record.schoolId));
     });
   }
@@ -338,7 +372,7 @@ function renderDirectionResult(profile) {
   const usableYears = directionAnalysis.usableYears?.join('、') || '现有可用年份';
   updateDirectionRiskSwitch(profile.riskPreference);
   $('#directionTitle').textContent = `${profile.scoreLow}—${profile.scoreHigh}分 · ${profile.riskPreference}方向草案`;
-  $('#directionSummary').textContent = `按中心估分${profile.score}分，以${dataset.manifest.latestPolicyYear}年规则和${usableYears}年可比历史情景生成。缺少完整批次或分数段的年份不再直接按落选处理；学校缺年时按同校最近年份位次折算并降低置信度。${useRealisticSim ? '已开启波动压力测试，额外加入发挥偏差、年际难度和压线不确定性。' : '当前使用标准历史情景。'}自动方案按学校体系去重，不重复推荐同一学校的其他校区或项目；最终去向按整组志愿顺序计算。${hasTierDeviation ? '个别学校的单校实测档位与策略目标不同，已在学校行中标注。' : ''}`;
+  $('#directionSummary').textContent = `正常发挥估分${profile.score}分 · 暂按${dataset.manifest.latestPolicyYear}年规则 · 参考年份：${usableYears}。${useRealisticSim?'已额外考虑发挥和考试难度的波动。':'按常规历史数据模拟。'}最终去向要看整份志愿的顺序，各校机会不能相加。${profile.referenceGrade==='unknown'?'参考科目等级未确认，本次先按符合要求模拟。':''}${hasTierDeviation?'与原定冲稳保目标不同的学校已标出。':''}缺失年份会借用同校记录补估，相关结果需更谨慎地看。仅供参考。`;
   $('#directionStats').innerHTML = `
     <div class="direction-stat"><span>估分中心</span><strong>${profile.score}分</strong><small>模拟同时考虑${profile.scoreLow}—${profile.scoreHigh}分波动</small></div>
     <div class="direction-stat"><span>志愿配置</span><strong>${directionTierText(configuredCounts)}</strong><small>${profile.riskPreference}策略 · 按单校模拟把握安排</small></div>
@@ -352,10 +386,14 @@ function renderDirectionResult(profile) {
       const targetTier = row.directionTier || singleTier;
       const tierLabel = targetTier === singleTier ? `配置${targetTier}` : `目标${targetTier} · 实测${singleTier}`;
       const singleConfidence = row.screeningConfidence || row.confidence;
-      return `<div class="direction-school"><span class="direction-position">第${row.position}志愿</span><div><strong>${row.schoolName}${row.sameHouseholdDistrict ? '<em class="same-district-badge">户籍同区</em>' : ''}</strong><small>${row.schoolDistrict || '区域待核'} · 录取门槛第${row.admissionRank}/${row.admissionTotal} · 最新${row.latestCutoff}分${row.lastVolunteerNo ? ` · 往年第${row.lastVolunteerNo}志愿完成` : ''}</small></div><div class="direction-chance"><b>单校 ${singleInterval[0]}%—${singleInterval[1]}%</b><span>${tierLabel} · ${singleConfidence}置信度</span><em>最终去向 ${row.outcomeProbability ?? 0}%</em></div></div>`;
+      return `<div class="direction-school"><span class="direction-position">第${row.position}志愿</span><div><strong>${row.schoolName}${row.sameHouseholdDistrict ? '<em class="same-district-badge">户籍同区</em>' : ''}</strong><small>${row.schoolDistrict || '区域待核'} · 录取门槛排序${row.admissionRank}/${row.admissionTotal} · 最新录取分${row.latestCutoff}分${row.lastVolunteerNo ? ` · 往年最后录到第${row.lastVolunteerNo}志愿` : ''}</small></div><div class="direction-chance"><b>学校机会 ${singleInterval[0]}%—${singleInterval[1]}%</b><span>${tierLabel} · ${confidenceCopy(singleConfidence).label}</span><em>最终录到该校 ${row.outcomeProbability ?? 0}%</em></div></div>`;
     }).join('')}</section>`;
   }).join('');
   $('#directionResult').hidden = false;
+  let regionNote=$('#directionRegionNote');if(!regionNote){regionNote=document.createElement('p');regionNote.id='directionRegionNote';regionNote.className='notice';$('#directionStats').before(regionNote);}const preferredCount=directionDraft.filter(s=>s.schoolId&&matchesRegion(s,profile)).length;regionNote.textContent=`区域偏好：${regionSummary(profile)}。${preferredRegions(profile).length?`本草案${preferredCount}/${directionDraft.filter(s=>s.schoolId).length}所学校位于偏好区；其他区域学校用于保留更合适的冲稳保选择。`:'本草案不因校址区域排序。'}区域偏好不代表报考资格。`;
+  if(!$('#directionResult .parent-reading-guide'))$('#directionResult').insertAdjacentHTML('beforeend',readingGuideHTML());
+  simplifyVisibleCopy($('#directionResult'));
+  linkSchoolNames($('#directionGroups'));linkSchoolNames($('#directionStats'));
   navigateTo($('#directionResult'));
   window.ZhongkaoAccess?.applyContentGating();
 }
@@ -374,10 +412,18 @@ async function switchDirectionRisk(riskPreference) {
     return;
   }
   const buttons = [...document.querySelectorAll('[data-direction-risk]')];
+  const before=directionDraft?structuredClone(directionDraft):null;
+  const previousRisk=directionAnalysis?getDirectionProfile().riskPreference:null;
+  const oldRisk=directionAnalysis?.noneProbability;
   $('#directionRisk').value = riskPreference;
   buttons.forEach((button) => { button.classList.add('is-loading'); button.disabled = true; });
   try {
     await generateDirection();
+    if(before&&directionDraft){
+      const changed=directionDraft.filter(r=>r.schoolId!==before.find(b=>b.key===r.key)?.schoolId);
+      let box=$('#directionChanges');if(!box){box=document.createElement('details');box.id='directionChanges';box.className='notice';$('#directionStats').after(box);}
+      box.innerHTML=`<summary>${previousRisk||'原方案'} → ${riskPreference}：调整${changed.length}个位置；未录取估算风险${oldRisk}% → ${directionAnalysis.noneProbability}%</summary><ul>${changed.map(r=>`<li>第${r.batch}批第${r.position}志愿：${escapeHtml(before.find(b=>b.key===r.key)?.schoolName||'未填')} → <a href="${schoolURL(r.schoolId)}">${escapeHtml(r.schoolName)}</a></li>`).join('')}</ul>`;
+    }
   } finally {
     buttons.forEach((button) => { button.classList.remove('is-loading'); button.disabled = false; });
   }
@@ -386,6 +432,7 @@ async function switchDirectionRisk(riskPreference) {
 async function generateDirection(event) {
   event?.preventDefault();
   const profile = getDirectionProfile();
+  if(regionValidation(profile))return toast(regionValidation(profile));
   if (!Number.isFinite(profile.scoreLow) || !Number.isFinite(profile.scoreHigh) || profile.scoreLow < 0 || profile.scoreHigh > 810 || profile.scoreLow > profile.scoreHigh) {
     return toast('估分区间应满足：0 ≤ 下限 ≤ 上限 ≤ 810。');
   }
@@ -394,8 +441,9 @@ async function generateDirection(event) {
   generateButton.disabled = true;
   generateButton.textContent = '正在生成…';
   try {
+    updateWorkspace(s=>{s.profile=profile;});
     dataset.allocations = [];
-    directionDraft = buildDirectionDraft(profile);
+    directionDraft = buildDirectionDraft(profile,{strictPreferences:true});
     if (directionDraft.filter((slot) => slot.schoolId).length < 8) throw new Error('当前条件下可核验学校不足，请放宽学校性质或区域条件');
     directionAnalysis = runSimulation(profile, directionDraft, dataset, 20260722, 10000);
     directionScore = evaluatePlan(profile, directionDraft, directionAnalysis);
@@ -413,6 +461,8 @@ async function generateDirection(event) {
 async function adoptDirection() {
   if (!directionDraft) return toast('请先生成填报方向。');
   const profile = getDirectionProfile();
+  try { savePlan(profile,directionDraft,{name:`${profile.scoreLow}—${profile.scoreHigh}分 · ${profile.riskPreference}`,forceNew:true}); }
+  catch { return toast('本机保存失败，请先检查浏览器存储。'); }
   if (!document.getElementById('verifyWorkspace')) {
     localStorage.setItem(storageKey, JSON.stringify({
       profile,
@@ -440,6 +490,8 @@ async function adoptDirection() {
 }
 
 function getTargetProfile() {
+  if($('#verifyWorkspace')){const profile=getProfile();return {...profile,currentScore:profile.score};}
+  const shared=readWorkspace().profile || {};
   const currentText = $('#targetCurrentScore').value.trim();
   const currentScore = currentText === '' ? null : Number(currentText);
   return {
@@ -455,13 +507,13 @@ function getTargetProfile() {
     householdDistrict: $('#targetHouseholdDistrict').value,
     schoolDistrict: $('#targetAdmissionDistrict').value,
     sourceSchoolId: '',
-    referenceGrade: 'C',
+    referenceGrade: shared.referenceGrade || 'unknown',
     riskPreference: '均衡',
     ownershipPreference: '不限',
-    boardingPreference: '不限',
-    maxAnnualFee: null,
-    preferredDistricts: [$('#targetHouseholdDistrict').value],
-    excludedSchools: [],
+    boardingPreference: shared.boardingPreference || '不限',
+    maxAnnualFee: shared.maxAnnualFee || null,
+    ...readRegionControls('target'),
+    excludedSchools: shared.excludedSchools || [],
     crossDistrict: false,
     quotaEligible: false,
     notAdmittedFirstBatch: true
@@ -491,7 +543,7 @@ function refreshTargetSchoolList() {
     const school = schoolPreferences(record.schoolId);
     return `<option value="${record.schoolName}">${school.campusDistrict || '校址待核'} · 第${record.batch}批 · 2026线${record.cutoffScore}分</option>`;
   }).join('');
-  if (current && !records.some((record) => record.schoolName === current)) nameEl.value = '';
+  // Conditions may change eligibility, but must not silently clear the chosen school.
   const resultEl = document.getElementById('targetResult');
   if (resultEl) resultEl.hidden = true;
   targetResultData = null;
@@ -503,7 +555,7 @@ function selectedTargetRecord(profile) {
   const records = targetEligibleRecords(profile);
   const exact = records.find((record) => record.schoolName === name);
   if (exact) return exact;
-  const partial = records.filter((record) => record.schoolName.includes(name));
+  const partial = records.filter((record) => matchesSchool({name:record.schoolName},name));
   return name && partial.length === 1 ? partial[0] : null;
 }
 
@@ -550,17 +602,16 @@ function targetVolunteerPosition(history) {
 }
 
 function targetSupportSchools(batch, profile, targetRecord, desiredCutoff, maximumCutoff, selected, count = 2) {
-  return uniqueSchools(recordsForBatch(batch, profile.targetYear, profile))
+  const candidates=uniqueSchools(recordsForBatch(batch, profile.targetYear, profile))
     .filter((record) => directionScopeEligible(profile, record))
     .filter((record) => record.schoolId !== targetRecord.schoolId && !isSchoolSelected(selected, record))
     .filter((record) => record.cutoffScore <= maximumCutoff)
     .map((record) => {
       const school = schoolPreferences(record.schoolId);
-      const sameDistrict = school.campusDistrict === profile.householdDistrict;
-      return { record, school, rank: Math.abs(record.cutoffScore - desiredCutoff) - (sameDistrict ? 12 : 0) + schoolMetric(record).volatility * 0.08 };
+      return { record, school, rank: Math.abs(record.cutoffScore - desiredCutoff) + schoolMetric(record).volatility * 0.08 };
     })
-    .sort((a, b) => a.rank - b.rank || b.record.cutoffScore - a.record.cutoffScore)
-    .slice(0, count)
+    .sort((a, b) => a.rank - b.rank || b.record.cutoffScore - a.record.cutoffScore);
+  return prioritizeRegions(candidates,profile,{tolerance:5}).slice(0, count)
     .map(({ record, school }) => ({ ...record, ...school }));
 }
 
@@ -696,18 +747,24 @@ function renderTargetResult(profile, data) {
     gapAdvice
   ].map((item) => `<li>${item}</li>`).join('');
   $('#targetResult').hidden = false;
+  $('#targetSummary').textContent+=` 配套学校区域偏好：${regionSummary(profile)}；不会替换你指定的目标学校。`;
+  simplifyVisibleCopy($('#targetResult'));
+  linkSchoolNames($('#targetAdvice'));
+  const targetProfileLink=document.getElementById('targetProfileLink')||document.createElement('a');targetProfileLink.id='targetProfileLink';targetProfileLink.className='button-secondary';targetProfileLink.href=schoolURL(record.schoolId);targetProfileLink.textContent='查看目标学校完整档案';$('#targetResult .direction-result-actions').append(targetProfileLink);
   navigateTo($('#targetResult'));
 }
 
 async function analyzeTarget(event) {
   event?.preventDefault();
   const profile = getTargetProfile();
+  if(regionValidation(profile))return toast(regionValidation(profile));
   if (profile.currentScore !== null && (!Number.isFinite(profile.currentScore) || profile.currentScore < 0 || profile.currentScore > 810)) return toast('当前估分应在0—810分之间。');
   const record = selectedTargetRecord(profile);
   if (!record) return toast('请从候选列表中选择一所符合当前升学区域和考生类别的目标学校。');
   $('#analyzeTarget').disabled = true;
   $('#analyzeTarget').textContent = '正在倒推分值…';
   try {
+    updateWorkspace(s=>{s.profile=profile;});
     const history = targetHistoryRows(record, profile);
     const chanceCache = new Map();
     const reachScore = scoreForTargetChance(profile, record, 35, chanceCache);
@@ -739,6 +796,17 @@ async function adoptTarget() {
   if (!targetResultData) return toast('请先完成目标学校分析。');
   targetDraft = buildTargetDraft(getTargetProfile(), targetResultData);
   if (!targetDraft || !targetDraftProfile) return toast('目标学校草案生成失败，请重新分析。');
+  if($('#verifyWorkspace')){
+    rememberPlan();const profile=getProfile();const quotaRows=plan.filter(s=>s.batch===2).map(s=>({...s}));
+    const quotaIds=new Set(quotaRows.filter(s=>s.schoolId).map(s=>s.schoolId));
+    if(quotaIds.has(targetResultData.record.schoolId))return toast('目标校已经放在第二批志愿中，请先调整第二批，或选择其他目标学校。');
+    targetDraft.forEach(s=>{if(s.batch!==2&&quotaIds.has(s.schoolId))clearSchoolAssignment(s);});
+    plan=targetDraft.map(s=>s.batch===2?quotaRows.find(q=>q.key===s.key):({...s}));
+    [3,4].forEach(compactBatch);
+    setProfile(profile);renderBatchForms();await refreshBatchOptions();saveDraft();$('#analysis').hidden=true;updateCoach();navigateTo($('#volunteerForm'));return;
+  }
+  try { savePlan(targetDraftProfile,targetDraft,{name:`目标校 · ${$('#targetSchoolName').value}`,forceNew:true}); }
+  catch { return toast('本机保存失败，请先检查浏览器存储。'); }
   if (!document.getElementById('verifyWorkspace')) {
     localStorage.setItem(storageKey, JSON.stringify({
       profile: targetDraftProfile,
@@ -765,8 +833,9 @@ function setProfile(profile = {}) {
     const field = document.getElementById(key);
     if (!field) continue;
     if (field.type === 'checkbox') field.checked = Boolean(value);
-    else field.value = value ?? '';
+    else field.value = Array.isArray(value) ? value.join('、') : value ?? '';
   }
+  applyRegionControls('',profile);
   renderTargetYears();
   const targetYearEl = $('#targetYear');
   if (profile.targetYear && targetYearEl) targetYearEl.value = String(profile.targetYear);
@@ -795,8 +864,16 @@ function syncQuotaInterface({ clearWhenDisabled = false } = {}) {
   }
 }
 
-function saveDraft() {
-  localStorage.setItem(storageKey, JSON.stringify({ profile: getProfile(), plan, savedAt: new Date().toISOString() }));
+function saveDraft({keepResult=false}={}) {
+  const profile=getProfile();
+  if(!keepResult) invalidateResult();
+  try {
+    localStorage.setItem(storageKey, JSON.stringify({ profile, plan, savedAt: new Date().toISOString() }));
+    // An empty new sheet must not silently overwrite a previous saved plan.
+    if (plan.some(row=>row.schoolId)) savePlan(profile,plan,{name:$('#planName')?.value.trim(),preserveResult:keepResult});
+    else updateWorkspace(s=>{s.profile=profile;});
+    if($('#saveStatus')) $('#saveStatus').textContent='已保存到当前浏览器';
+  } catch { if($('#saveStatus')) $('#saveStatus').textContent='本机保存失败，请导出方案备份'; toast('本机保存失败，请检查空间或导出匿名方案。'); }
 }
 
 function batchHasGap(batch) {
@@ -834,7 +911,7 @@ function updateWorkflowGuide(profile = getProfile()) {
   });
   const next = {
     profile: { target: '#profile', label: '下一步：填写考生信息', hint: '先填写必要的分数和区域信息，其他资格与偏好可以按需展开。' },
-    school: { target: '#schoolExplorer', label: '下一步：选择学校', hint: '必要信息已完成。下一步先选愿意就读的学校，系统会自动放进对应批次的首个空位。' },
+    school: { target: '#volunteerForm', label: '下一步：生成或填写志愿', hint: '可以生成一份方案，也可以直接填写自己选好的学校。' },
     plan: { target: '#volunteerForm', label: '下一步：排列志愿', hint: '已有学校进入志愿表。请确认顺序连续，并补足真正愿意就读的保底学校。' },
     analysis: { target: '#analysis', label: '下一步：查看分析与建议', hint: latestScore ? `当前方案${latestScore.total}分。重点查看未录取风险、逐志愿机会和一键补强建议。` : '完成分析后，可查看逐志愿机会、未录取风险和一键补强建议。' }
   }[activeStep];
@@ -943,12 +1020,11 @@ async function refreshBatchOptions() {
       .filter((record) => !profile.excludedSchools.some((name) => record.schoolName.includes(name)));
     const options = schools.map((record) => `<option value="${record.schoolId}" data-name="${record.schoolName}">${record.schoolName} · ${record.cutoffScore}分</option>`).join('');
     select.innerHTML = `<option value="">请选择学校</option>${options}`;
-    select.value = schools.some((record) => record.schoolId === slot.schoolId) ? slot.schoolId : '';
-    if (select.value) Object.assign(slot, schoolPreferences(slot.schoolId));
-    if (!select.value && slot.schoolId) {
-      slot.schoolId = '';
-      slot.schoolName = '';
+    if(slot.schoolId && !schools.some(record=>record.schoolId===slot.schoolId)) {
+      select.insertAdjacentHTML('beforeend', `<option value="${escapeHtml(slot.schoolId)}" data-name="${escapeHtml(slot.schoolName)}">${escapeHtml(slot.schoolName)} · 当前条件/口径待核对</option>`);
     }
+    select.value = slot.schoolId || '';
+    if (select.value) Object.assign(slot, schoolPreferences(slot.schoolId));
   }
   updateSlotMeta();
   renderSchoolTable();
@@ -965,6 +1041,7 @@ function renderBatchForms() {
         <select class="school-select" data-key="${slot.key}" data-batch="${batch}" aria-label="${batchNames[batch]}第${slot.position}志愿"><option value="">请选择学校</option></select>
         <span class="slot-meta" data-meta="${slot.key}">等待选择</span>
         <div class="row-actions">
+          <a class="compact-link slot-school-link" data-slot-school="${slot.key}" href="${slot.schoolId?schoolURL(slot.schoolId):'/schools/'}">查看学校</a>
           <button type="button" data-move="up" data-key="${slot.key}" aria-label="上移">↑</button>
           <button type="button" data-move="down" data-key="${slot.key}" aria-label="下移">↓</button>
           <button type="button" data-remove="${slot.key}" aria-label="清空">×</button>
@@ -984,6 +1061,7 @@ function moveSlot(key, direction) {
   const slot = plan.find((item) => item.key === key);
   const target = plan.find((item) => item.batch === slot.batch && item.position === slot.position + direction);
   if (!target) return;
+  rememberPlan();
   [slot.schoolId, target.schoolId] = [target.schoolId, slot.schoolId];
   [slot.schoolName, target.schoolName] = [target.schoolName, slot.schoolName];
   refreshBatchOptions();
@@ -998,6 +1076,7 @@ function bindPlanRows() {
       toast('该学校已在志愿表中，不能重复填写。');
       return;
     }
+    rememberPlan();
     slot.schoolId = select.value;
     slot.schoolName = select.selectedOptions[0]?.dataset.name || select.selectedOptions[0]?.textContent.split(' · ')[0] || '';
     Object.assign(slot, schoolPreferences(slot.schoolId));
@@ -1009,6 +1088,7 @@ function bindPlanRows() {
   }));
   document.querySelectorAll('[data-move]').forEach((button) => button.addEventListener('click', () => moveSlot(button.dataset.key, button.dataset.move === 'up' ? -1 : 1)));
   document.querySelectorAll('[data-remove]').forEach((button) => button.addEventListener('click', () => {
+    rememberPlan();
     const slot = plan.find((item) => item.key === button.dataset.remove);
     slot.schoolId = '';
     slot.schoolName = '';
@@ -1025,6 +1105,7 @@ function bindPlanRows() {
       const from = plan.find((item) => item.key === dragged);
       const to = plan.find((item) => item.key === row.dataset.key);
       if (!from || !to || from.batch !== to.batch) return;
+      rememberPlan();
       [from.schoolId, to.schoolId] = [to.schoolId, from.schoolId];
       [from.schoolName, to.schoolName] = [to.schoolName, from.schoolName];
       refreshBatchOptions();
@@ -1041,16 +1122,18 @@ function tierForSlot(batch, position) {
 function updateSlotMeta() {
   const profile = getProfile();
   for (const slot of plan) {
+    const link=document.querySelector(`[data-slot-school="${slot.key}"]`);
+    if(link) { link.href=slot.schoolId?schoolURL(slot.schoolId)+`&from=plan&slot=${slot.key}`:'/schools/'; link.textContent=slot.schoolId?'查看学校':'查学校'; }
     const meta = document.querySelector(`[data-meta="${slot.key}"]`);
     if (!meta) continue;
     const record = recordsForBatch(slot.batch, profile.targetYear, profile).find((row) => row.schoolId === slot.schoolId);
-    if (!record) { meta.textContent = slot.schoolId ? '当前口径暂无数据' : '等待选择'; continue; }
+    if (!record) { meta.textContent = slot.schoolId ? '所选考生类别和招生条件暂无记录' : '等待选择'; continue; }
     const difference = record.cutoffScore - profile.score;
-    const preliminary = difference > 5 ? '分差偏冲' : difference >= -15 ? '分差接近' : '分差偏稳';
-    const orderRisk = record.lastVolunteerNo && slot.position > record.lastVolunteerNo ? ` · 往年第${record.lastVolunteerNo}志愿完成` : '';
+    const preliminary = difference > 0 ? `比估分高${difference}分` : difference < 0 ? `比估分低${-difference}分` : '与估分相同';
+    const orderRisk = record.lastVolunteerNo && slot.position > record.lastVolunteerNo ? ` · 往年最后录到第${record.lastVolunteerNo}志愿` : '';
     const tier = tierForSlot(slot.batch, slot.position);
     const tierClass = tier === '冲刺' ? 'tier-reach' : tier === '匹配' ? 'tier-match' : tier === '保底' ? 'tier-safe' : '';
-    meta.innerHTML = (tier ? `<span class="tier-tag ${tierClass}">${tier}</span>` : '') + `${record.cutoffScore}分 · ${preliminary}${orderRisk}`;
+    meta.innerHTML = (tier ? `<span class="tier-tag ${tierClass}">${tier}</span>` : '') + `${record.year}年最低${record.cutoffScore}分 · ${preliminary}${orderRisk}`;
   }
 }
 
@@ -1070,7 +1153,7 @@ function renderSchoolTable() {
   const ownership = $('#schoolOwnership').value;
   const scopeFilter = $('#schoolScope').value;
   let records = uniqueSchools(recordsForBatch(batch, profile.targetYear, profile));
-  records = records.filter((row) => !search || row.schoolName.toLowerCase().includes(search));
+  records = records.filter((row) => matchesSchool({name:row.schoolName},search));
   records = records.filter((row) => ownership === '不限' || row.ownership === ownership);
   records = records.filter((row) => scopeFilter === '不限' || (scopeFilter === '全市' ? row.scope === '全市' : row.scope !== '全市'));
   records = records.filter((row) => !profile.excludedSchools.some((name) => row.schoolName.includes(name)));
@@ -1080,7 +1163,7 @@ function renderSchoolTable() {
     const metric = schoolMetric(record);
     const selectedSlot = plan.find((slot) => slot.schoolId === record.schoolId);
     const buttonLabel = selectedSlot ? `已在第${selectedSlot.batch}批第${selectedSlot.position}志愿` : `加入第${batch}批`;
-    return `<tr><td><strong>${record.schoolName}</strong></td><td>${record.ownership} · ${record.scope}</td><td>${record.cutoffScore}分</td><td>${metric.volatility}分</td><td>${metric.years}年</td><td><button class="add-school" data-add-school="${record.schoolId}" data-name="${record.schoolName}" data-batch="${batch}" type="button" ${selectedSlot ? 'disabled' : ''}>${buttonLabel}</button></td></tr>`;
+    return `<tr><td><a href="${schoolURL(record.schoolId)}">${escapeHtml(record.schoolName)}</a></td><td>${record.ownership} · ${record.scope}</td><td>${record.year}年 · ${record.candidateType}<br>${record.cutoffScore}分</td><td>${metric.volatility}分</td><td>${metric.years}年</td><td><button class="add-school" data-add-school="${record.schoolId}" data-name="${escapeHtml(record.schoolName)}" data-batch="${batch}" type="button" ${selectedSlot ? 'disabled' : ''}>${buttonLabel}</button></td></tr>`;
   }).join('') || '<tr><td colspan="6">当前筛选条件下暂无学校；第二批请先选择所在初中。</td></tr>';
   document.querySelectorAll('[data-add-school]').forEach((button) => button.addEventListener('click', () => addSchoolToPlan(Number(button.dataset.batch), button.dataset.addSchool, button.dataset.name)));
 }
@@ -1089,6 +1172,7 @@ function addSchoolToPlan(batch, schoolId, schoolName) {
   if (plan.some((slot) => slot.schoolId === schoolId)) return toast('该学校已在志愿表中，不能重复填写。');
   const target = plan.find((slot) => slot.batch === batch && !slot.schoolId);
   if (!target) return toast(`第${batch}批志愿已填满，请先清空一个位置。`);
+  rememberPlan();
   target.schoolId = schoolId;
   target.schoolName = schoolName;
   Object.assign(target, schoolPreferences(schoolId));
@@ -1127,6 +1211,7 @@ async function allAllocations() {
 
 function validateProfile(profile) {
   const failures = [];
+  if(regionValidation(profile))failures.push(regionValidation(profile));
   if (profile.score < 0 || profile.score > 810) failures.push('中心分值须在0—810分之间');
   if (profile.mode === 'forecast' && (profile.scoreLow > profile.score || profile.scoreHigh < profile.score)) failures.push('估分应满足：下限 ≤ 中心分值 ≤ 上限');
   if (!profile.notAdmittedFirstBatch) failures.push('本工具只能在“未被第一批录取”的前提下模拟第二至第四批');
@@ -1166,7 +1251,11 @@ async function analyze() {
     renderAnalysis(profile, latestAnalysis, latestScore);
     updateCoach();
     updateSlotMeta();
-    saveDraft();
+    saveDraft({keepResult:true});
+    try {updateWorkspace(s=>{const current=s.plans.find(p=>p.id===s.activePlanId);if(current)current.result={score:latestScore.total,label:latestScore.label,noneProbability:latestAnalysis.noneProbability??null,mostLikely:latestAnalysis.mode==='forecast'?latestAnalysis.outcomes.find(r=>r.slot)?.slot?.schoolName:latestAnalysis.admitted?.schoolName,dataVersion:dataset.manifest.version,analyzedAt:new Date().toISOString()};});}catch{}
+    try {sessionStorage.setItem('zk-analysis-cache',JSON.stringify({profile,plan,analysis:latestAnalysis,score:latestScore,version:dataset.manifest.version,realistic:useRealisticSim}));}catch{}
+    $('#analysis').dataset.stale='false';
+    if($('#staleNotice'))$('#staleNotice').hidden=true;
     $('#analysis').hidden = false;
     navigateTo($('#analysis'));
     window.ZhongkaoAccess?.applyContentGating();
@@ -1180,6 +1269,8 @@ async function analyze() {
 }
 
 function renderAnalysis(profile, analysis, score) {
+  let assumptions=$('#analysisAssumptions');if(!assumptions){assumptions=document.createElement('p');assumptions.id='analysisAssumptions';assumptions.className='notice';$('#analysis .panel-heading').after(assumptions);}
+  assumptions.textContent=`区域偏好：${regionSummary(profile)}，用于推荐与偏好匹配，不改变投档规则；“户籍同区优先”不会仅因外区校址扣分。${profile.referenceGrade==='unknown'?'参考科目等级尚未确认，本次结果以满足当年要求为前提。':''}学校收费、住宿缺少已核验数据时不会自动当作免费或可住宿，采用方案前须逐校确认。`;
   $('#totalScore').textContent = score.total;
   $('#scoreLabel').textContent = score.label;
   $('#scoreRing').style.setProperty('--score', score.total);
@@ -1191,9 +1282,9 @@ function renderAnalysis(profile, analysis, score) {
   if (analysis.mode === 'forecast') {
     const likely = analysis.outcomes.find((row) => row.key !== 'none');
     $('#mostLikely').textContent = likely?.slot ? `最可能去向：${likely.slot.schoolName}` : '当前方案未形成明确录取去向';
-    $('#noneRisk').textContent = `未被当前普通高中志愿录取的估算风险：${analysis.noneProbability}%`;
+    $('#noneRisk').textContent = `这份志愿都未录取的预测风险：${analysis.noneProbability}%（只针对已填志愿，不代表所有高中）`;
     $('#chanceList').innerHTML = analysis.slotResults.map((row) => `
-      <article class="chance-row"><div class="chance-row-head"><div><strong>第${row.batch}批第${row.position}志愿 · ${row.schoolName}</strong><small>${row.tier} · ${row.confidence}置信度 · ${row.yearsWithData}年直接同口径数据 · 最终去向${row.outcomeProbability ?? 0}%${row.notes?.length ? ` · ${row.notes.join('；')}` : ''}</small></div><span class="chance-value"><small>单校把握</small>${row.interval[0]}%—${row.interval[1]}%</span></div><div class="chance-track"><i style="--chance:${row.chance}"></i></div></article>`).join('');
+      <article class="chance-row"><div class="chance-row-head"><div><strong>第${row.batch}批第${row.position}志愿 · ${row.schoolName}</strong><small>${row.tier} · ${confidenceCopy(row.confidence).label} · 有${row.yearsWithData}年可直接比较的记录 · 最终录到该校${row.outcomeProbability ?? 0}%${row.notes?.length ? ` · ${escapeHtml(plainCopy(row.notes.join('；')))}` : ''}</small></div><span class="chance-value"><small>这所学校的机会</small>${row.interval[0]}%—${row.interval[1]}%</span></div><div class="chance-track"><i style="--chance:${row.chance}"></i></div></article>`).join('');
     $('#outcomeList').innerHTML = analysis.outcomes.slice(0, 8).map((row) => row.slot ? `
       <button type="button" class="outcome-row school-outcome-button" data-school-detail="${escapeHtml(row.slot.schoolId)}" data-slot-key="${escapeHtml(row.slot.key)}">
         <span class="outcome-row-main"><strong>${escapeHtml(row.slot.schoolName)}</strong><small>第${row.slot.batch}批第${row.slot.position}志愿</small></span>
@@ -1210,16 +1301,19 @@ function renderAnalysis(profile, analysis, score) {
         <span class="outcome-row-value"><b>按当年数据可投档</b><small>查看学校 ›</small></span>
       </button>` : '<div class="outcome-row"><span>未形成确定录取结果</span><b>请检查提示</b></div>';
   }
-  $('#adviceList').innerHTML = score.suggestions.map((item) => `<li>${item}</li>`).join('');
+  $('#adviceList').innerHTML = score.suggestions.map((item) => `<li>${escapeHtml(plainCopy(item))}</li>`).join('');
   const methodNotes = [
-    `预测模型v${analysis.modelVersion || '1.0'}使用固定随机种子和10,000次历史情景，结果可重复。`,
+    `模型v${analysis.modelVersion || '1.0'}按历史数据模拟10,000次。相同条件、数据和模拟设置会得到相同结果。`,
     `只使用同时具备分数段、梯度线和所选批次数据的年份（${analysis.usableYears?.join('、') || '按现有数据'}），避免把整批缺失误算为落选。`,
-    '分数先按官方分数段换算位次，再依次应用梯度、志愿序号和最低分规则；单校缺年时按最近同校记录的位次折算，并降低置信度、放宽区间。',
-    '系统同时检查近年等位门槛跨度和末位志愿分布；门槛波动较大或经常在第一志愿完成计划的学校，会放宽机会区间并降低置信度。',
+    '先参考官方成绩分布，把分数换成大致排名（位次），再按梯度、志愿顺序和录取分数模拟。学校缺少某年记录时，会借用本校邻近年份记录补估，并扩大预测范围。',
+    '也会参考学校历年录取门槛的变化，以及是否经常在第一志愿就录满。变化大、数据不足时，预测要更谨慎地看。',
     '冲刺/匹配/保底只是机会风险标签，不是平行志愿规则；广州仍按梯度投档、同梯度志愿优先录取。',
-    ...(useRealisticSim ? ['已启用波动压力测试：额外加入估分表现方差、年际难度抖动与压线不确定性。'] : [])
+    ...(useRealisticSim ? ['已额外考虑发挥波动、不同年份的考试难度，以及刚好接近录取门槛时的不确定性。'] : [])
   ];
   $('#methodText').innerHTML = `<ul>${methodNotes.map((item) => `<li>${item}</li>`).join('')}${dataset.manifest.limitations.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+  if(!$('#analysis .parent-reading-guide'))$('#analysis .analysis-grid').before(Object.assign(document.createElement('div'),{innerHTML:readingGuideHTML()}));
+  simplifyVisibleCopy($('#analysis'));
+  ['#chanceList','#adviceList','#mostLikely'].forEach(id=>linkSchoolNames($(id)));
 }
 
 function schoolRecordForYear(profile, slot, year) {
@@ -1248,62 +1342,9 @@ function latestThresholdRank(profile, slot, year) {
   return index >= 0 ? { rank: index + 1, total: ranked.length } : null;
 }
 
-function openSchoolDetail(schoolId, slotKey) {
-  const dialog = $('#schoolDetailDialog');
-  const content = $('#schoolDetailContent');
-  const school = dataset.schools.find((item) => item.id === schoolId);
-  const slot = plan.find((item) => item.key === slotKey && item.schoolId === schoolId)
-    || latestAnalysis?.slotResults?.find((item) => item.schoolId === schoolId);
-  if (!dialog || !content || !school || !slot) return;
-
-  const profile = getProfile();
-  const years = [...dataset.manifest.years].sort((a, b) => b - a);
-  const records = years.map((year) => schoolRecordForYear(profile, slot, year)).filter(Boolean);
-  const latest = records[0] || null;
-  const slotResult = latestAnalysis?.slotResults?.find((row) => row.key === slot.key);
-  const outcome = latestAnalysis?.outcomes?.find((row) => row.key === slot.key);
-  const thresholdRank = latest ? latestThresholdRank(profile, slot, latest.year) : null;
-  const cutoffs = records.map((row) => row.cutoffScore).filter(Number.isFinite);
-  const fluctuation = cutoffs.length > 1 ? Math.max(...cutoffs) - Math.min(...cutoffs) : null;
-  const sourceIds = new Set([
-    ...records.map((row) => row.sourceId),
-    ...(school.sourceIds || []),
-    school.campusDistrictSourceId,
-    school.annualFeeSourceId
-  ].filter(Boolean));
-  const sourceLinks = dataset.sources.filter((source) => sourceIds.has(source.id)).sort((a, b) => (b.year || 0) - (a.year || 0)).slice(0, 5);
-  const boarding = school.boarding === true ? '提供住宿（仍需向学校核实名额）' : school.boarding === false ? '公开资料显示不提供住宿' : '暂无已核验公开数据';
-  const fee = Number.isFinite(school.annualFee) ? `${school.annualFee.toLocaleString('zh-CN')}元/学年` : '暂无已核验公开数据';
-  const chanceText = slotResult?.interval ? `${slotResult.interval[0]}%—${slotResult.interval[1]}% · ${slotResult.tier}` : latestAnalysis?.mode === 'replay' ? '按所选历史年度复盘' : '暂无模拟结果';
-  const outcomeText = Number.isFinite(outcome?.probability) ? `${outcome.probability}%` : latestAnalysis?.admitted?.key === slot.key ? '历史复盘可投档' : '—';
-  const rankText = thresholdRank ? `第${thresholdRank.rank}/${thresholdRank.total}` : '暂无同口径数据';
-
-  const historyRows = records.map((record) => `
-    <tr><td>${record.year}</td><td>${record.cutoffScore ?? '—'}</td><td>${record.lastVolunteerNo ?? '—'}</td><td>${record.lastCandidateScore ?? '—'}</td><td>${record.quota ?? record.planCount ?? '—'}</td><td>${record.admittedCount ?? '—'}</td></tr>`).join('');
-  content.innerHTML = `
-    <p class="school-detail-lead">${escapeHtml(school.name)}为${escapeHtml(school.ownership || '性质待核验')}学校，校区位于${escapeHtml(school.campusDistrict || school.district || '区域待核验')}。以下内容用于判断“是否适合报、是否愿意去”，不以学校宣传成绩代替录取数据。</p>
-    <div class="school-detail-kpis">
-      <div class="school-detail-kpi"><span>本方案单校把握</span><strong>${escapeHtml(chanceText)}</strong></div>
-      <div class="school-detail-kpi"><span>最终预计去向</span><strong>${escapeHtml(outcomeText)}</strong></div>
-      <div class="school-detail-kpi"><span>${latest?.year || '最新'}同批同口径门槛位置</span><strong>${escapeHtml(rankText)}</strong></div>
-    </div>
-    <p class="school-detail-note">“门槛位置”只按公开录取最低分由高到低排列，不是学校质量排名；它不能代表师资、高考出口或适合程度。</p>
-    <section class="school-detail-section"><h3>家长先核对这些</h3><dl class="school-fact-list">
-      <div><dt>公民办 / 类型</dt><dd>${escapeHtml(school.ownership || '待核验')} · ${escapeHtml(school.category || '待核验')}</dd></div>
-      <div><dt>招生范围</dt><dd>${escapeHtml((school.admissionScopes || []).join('、') || latest?.scope || '待核验')}</dd></div>
-      <div><dt>校区地址</dt><dd>${escapeHtml(school.campusAddress || '暂无已核验公开地址')}</dd></div>
-      <div><dt>住宿</dt><dd>${escapeHtml(boarding)}</dd></div>
-      <div><dt>学费</dt><dd>${escapeHtml(fee)}</dd></div>
-      <div><dt>近年门槛波动</dt><dd>${fluctuation === null ? '同口径年份不足' : `${cutoffs.length}年最低分极差${fluctuation}分`}</dd></div>
-    </dl></section>
-    <section class="school-detail-section"><h3>为什么会出现在这里</h3><p class="school-detail-lead">位于第${slot.batch}批第${slot.position}志愿。${slotResult?.interval ? `模拟单校机会区间为${slotResult.interval[0]}%—${slotResult.interval[1]}%，置信度${slotResult.confidence}；最终去向概率还会受到前序志愿先录取的影响。` : '系统按所选年份的最低分、梯度及末位志愿序号复盘。'}</p></section>
-    <section class="school-detail-section"><h3>同口径历年录取依据</h3>${historyRows ? `<div class="school-history-wrap"><table class="school-history"><thead><tr><th>年份</th><th>最低分</th><th>末位志愿</th><th>末位考生分</th><th>计划/名额</th><th>实际录取</th></tr></thead><tbody>${historyRows}</tbody></table></div>` : '<p class="school-detail-lead">当前考生口径下暂无可核验的历年记录。</p>'}</section>
-    <section class="school-detail-section"><h3>官方来源</h3><div class="school-source-links">${sourceLinks.length ? sourceLinks.map((source) => `<a href="${escapeHtml(source.url)}" target="_blank" rel="noreferrer">${escapeHtml(sourceLabel(source))} ↗</a>`).join('') : '<span>暂无可直接链接的来源</span>'}</div></section>
-    <div class="school-detail-actions"><button type="button" class="ghost-button" data-close-school-detail>关闭</button><button type="button" class="primary-button" data-locate-slot="${escapeHtml(slot.key)}">返回该志愿调整</button></div>`;
-  $('#schoolDetailTitle').textContent = school.name;
-  dialog.showModal();
+function openSchoolDetail(schoolId) {
+  document.dispatchEvent(new CustomEvent('zk-school-preview',{detail:{id:schoolId,trigger:document.activeElement}}));
 }
-
 function locateVolunteerSlot(key) {
   const row = document.querySelector(`.volunteer-row[data-key="${CSS.escape(key)}"]`);
   if (!row) return;
@@ -1369,6 +1410,7 @@ function compactBatch(batch) {
 async function autoImprovePlan(key) {
   const improvement = latestScore?.improvements?.find((item) => item.key === key);
   if (!improvement || !latestAnalysis) return toast('请先重新分析当前方案。');
+  rememberPlan();
   const profile = getProfile();
   if (profile.mode !== 'forecast' && ['structure', 'order', 'safety'].includes(key)) return toast('该项需要切换到“未来预测”模式后才能自动选择。');
   const buttons = [...document.querySelectorAll('[data-auto-improve]')];
@@ -1496,19 +1538,21 @@ async function autoImprovePlan(key) {
       return;
     }
     const summary = changed.slice(0, 3).map((slot) => `第${slot.batch}批第${slot.position}志愿`).join('、');
+    let comparison=$('#adjustmentComparison');if(!comparison){comparison=document.createElement('details');comparison.id='adjustmentComparison';comparison.className='notice';$('#analysis .panel-heading').after(comparison);}
+    comparison.innerHTML=`<summary>本次补强：合理度 ${previousTotal} → ${latestScore.total}分 · 调整${changed.length}个位置</summary><ul>${changed.map(slot=>`<li>第${slot.batch}批第${slot.position}志愿：${escapeHtml(beforePlan.find(s=>s.key===slot.key)?.schoolName||'未填')} → <a href="${schoolURL(slot.schoolId)}">${escapeHtml(slot.schoolName||'未填')}</a></li>`).join('')}</ul><p>采用后已重新模拟。可使用顶部“撤销上次调整”恢复。</p>`;
     toast(`系统已自动调整${changed.length}个位置（${summary}${changed.length > 3 ? '等' : ''}），评分已更新。`);
   } catch (error) {
     console.error(error);
     toast(`自动补强失败：${error.message}`);
   } finally {
-    document.querySelectorAll('[data-auto-improve]').forEach((button) => { button.classList.remove('is-loading'); button.disabled = false; button.textContent = '系统自动补强'; });
+    document.querySelectorAll('[data-auto-improve]').forEach((button) => { button.classList.remove('is-loading'); button.disabled = false; button.textContent = '帮我自动调整'; });
   }
 }
 
 function renderImprovements(score) {
   const gap = Math.max(0, 100 - score.total);
   $('#scoreGap').textContent = gap ? `距100分还差${gap}分` : '当前100分';
-  $('#improvementTitle').textContent = gap ? '点击对应项目，系统直接选校或重排并自动更新' : '当前方案结构已达到模型满分';
+  $('#improvementTitle').textContent = gap ? '点一项建议，让系统帮你调整学校或顺序' : '按当前评分规则，方案已无扣分项';
   $('#scoreCaps').innerHTML = (score.caps || []).map((cap) => `<div class="score-cap"><b>${cap.limit}分封顶</b><span>${cap.reason}：${cap.action}</span></div>`).join('');
   if (!score.improvements?.length) {
     $('#improvementList').innerHTML = '<div class="improvement-complete"><b>已无结构性扣分项</b><span>仍请逐校核实当年招生范围、收费、住宿及最新政策。</span></div>';
@@ -1518,11 +1562,13 @@ function renderImprovements(score) {
     <article class="improvement-card">
       <div class="improvement-rank">${index + 1}</div>
       <div class="improvement-copy"><div><strong>${item.label}</strong><span>${item.current}/${item.maximum}分</span></div><p>${item.action || '按该维度提示调整后重新分析。'}</p></div>
-      <div class="improvement-points"><b>最高+${item.points}分</b><button type="button" data-auto-improve="${item.key}">系统自动补强</button></div>
+      <div class="improvement-points"><b>最高+${item.points}分</b><button type="button" data-auto-improve="${item.key}">帮我自动调整</button></div>
     </article>`).join('');
 }
 
 function exportPlan() {
+  if(!confirm('导出仅包含匿名考生条件、志愿、统计分析及免责声明，不含身份信息。继续？'))return;
+  if($('#analysis')?.dataset.stale==='true')return toast('方案已变化，请重新分析后再导出结果。');
   const payload = {
     schemaVersion: '1.0.0',
     exportedAt: new Date().toISOString(),
@@ -1543,8 +1589,8 @@ function exportPlan() {
 }
 
 async function importPlanFile(file) {
-  const parsed = JSON.parse(await file.text());
-  if (!parsed.profile || !Array.isArray(parsed.plan) || parsed.plan.length !== 15) throw new Error('不是有效的15志愿匿名方案文件');
+  if(file.size>2000000)throw new Error('方案文件过大');
+  const parsed = parseAnonymousPlan(JSON.parse(await file.text()),dataset.schools);
   setProfile(parsed.profile);
   plan = parsed.plan;
   renderBatchForms();
@@ -1585,8 +1631,37 @@ function handleAnalyzeTop() {
   toast('先确认分数和升学区域，再选择学校进入志愿表。');
 }
 
+function syncUnifiedRisk(){document.querySelectorAll('[data-unified-risk]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.unifiedRisk===$('#riskPreference').value)));}
+async function generateUnifiedPlan(){
+  if(window.ZhongkaoAccess&&!window.ZhongkaoAccess.guard())return;
+  const profile=getProfile(),failures=validateProfile(profile);
+  if(failures.length)return toast(failures.join('；'));
+  if(profile.mode!=='forecast')return toast('自动生成用于未来预测；历史复盘请直接填写学校。');
+  const button=$('#generateUnified');button.disabled=true;button.textContent='正在生成志愿…';
+  try{
+    rememberPlan();
+    const quota=plan.filter(s=>s.batch===2).map(s=>({...s}));
+    const generatorProfile={...profile,excludedSchools:[...profile.excludedSchools,...quota.filter(s=>s.schoolId).map(s=>s.schoolName)]};
+    const draft=buildDirectionDraft(generatorProfile,{strictPreferences:true});
+    if(draft.filter(s=>s.schoolId).length<4)throw new Error('可用学校较少，请核对报考条件或放宽偏好');
+    plan=draft.map(s=>s.batch===2?quota.find(q=>q.key===s.key):s);
+    renderBatchForms();await refreshBatchOptions();saveDraft();$('#analysis').hidden=true;updateCoach();navigateTo($('#volunteerForm'));
+    $('#generationStatus').textContent=`已生成${profile.riskPreference}方案。请先在第2步确认学校与顺序，再点击“确认志愿，查看评估”。区域偏好：${regionSummary(profile)}。`;
+  }catch(error){toast(`生成失败：${error.message}`);}
+  finally{button.disabled=false;button.textContent='重新生成志愿';}
+}
+
 function bindEvents() {
   loadRealisticPref();
+  $('#generateUnified')?.addEventListener('click',generateUnifiedPlan);
+  $('#manualUnified')?.addEventListener('click',()=>navigateTo($('#volunteerForm')));
+  document.querySelectorAll('[data-unified-risk]').forEach(button=>button.addEventListener('click',async()=>{
+    $('#riskPreference').value=button.dataset.unifiedRisk;syncUnifiedRisk();saveDraft();
+    if(plan.some(s=>s.batch!==2&&s.schoolId))await generateUnifiedPlan();
+  }));
+  $('#undoPlan')?.addEventListener('click',async()=>{if(!undoSnapshot)return;const previous=undoSnapshot;undoSnapshot=null;setProfile(previous.profile);plan=structuredClone(previous.plan);renderBatchForms();await refreshBatchOptions();saveDraft();$('#undoPlan').disabled=true;toast('已恢复调整前的方案，请重新分析。');});
+  $('#saveAsPlan')?.addEventListener('click',()=>{try{savePlan(getProfile(),plan,{name:$('#planName').value.trim()||'方案副本',forceNew:true});toast('已另存一份方案，原方案保留。');}catch{toast('保存失败，请导出匿名方案备份。');}});
+  $('#saveNamedPlan')?.addEventListener('click',()=>{saveDraft({keepResult:true});});
   const dirSim = $('#realisticSimDirection');
   if (dirSim) dirSim.addEventListener('change', async () => {
     setRealisticSim(dirSim.checked);
@@ -1601,9 +1676,19 @@ function bindEvents() {
   const homeReturn = $('#homeReturn');
   if (homeReturn && $('#landing')) homeReturn.addEventListener('click', (e) => { e.preventDefault(); setWorkspaceMode('home'); });
   $('#directionForm')?.addEventListener('submit', generateDirection);
+  $('#directionForm')?.addEventListener('change',event=>{
+    if(!event.target.closest('.region-picker')&&!['directionRegionPreference','directionHouseholdDistrict'].includes(event.target.id))return;
+    directionDraft=null;directionAnalysis=null;directionScore=null;$('#directionResult').hidden=true;
+    try{updateWorkspace(s=>{s.profile=getDirectionProfile();});}catch{toast('区域偏好保存失败，请检查浏览器存储。');}
+  });
   $('#adoptDirection')?.addEventListener('click', adoptDirection);
   document.querySelectorAll('[data-direction-risk]').forEach((button) => button.addEventListener('click', () => switchDirectionRisk(button.dataset.directionRisk)));
   $('#targetForm')?.addEventListener('submit', analyzeTarget);
+  $('#targetForm')?.addEventListener('change',event=>{
+    if(!event.target.closest('.region-picker')&&!['targetRegionPreference','targetHouseholdDistrict'].includes(event.target.id))return;
+    targetDraft=null;targetDraftProfile=null;targetResultData=null;$('#targetResult').hidden=true;
+    try{updateWorkspace(s=>{s.profile=getTargetProfile();});}catch{toast('区域偏好保存失败，请检查浏览器存储。');}
+  });
   $('#adoptTarget')?.addEventListener('click', adoptTarget);
   $('#improvementList')?.addEventListener('click', (event) => {
     const button = event.target.closest('[data-auto-improve]');
@@ -1641,14 +1726,19 @@ function bindEvents() {
     updateSlotMeta();
     updateCoach();
     saveDraft();
+    if($('#generateUnified')){syncUnifiedRisk();if($('#targetResult')){$('#targetResult').hidden=true;targetResultData=null;refreshTargetSchoolList();}}
   });
-  $('#profileForm')?.addEventListener('input', () => { latestScore = null; latestAnalysis = null; updateSlotMeta(); updateCoach(); saveDraft(); });
+  $('#profileForm')?.addEventListener('input', (event) => {
+    if($('#generateUnified')&&['scoreLow','scoreHigh'].includes(event.target.id))$('#score').value=Math.round((Number($('#scoreLow').value)+Number($('#scoreHigh').value))/2);
+    latestScore = null; latestAnalysis = null; updateSlotMeta(); updateCoach(); saveDraft();
+    if($('#targetResult')){$('#targetResult').hidden=true;targetResultData=null;}
+  });
   ['schoolSearch', 'schoolBatch', 'schoolOwnership', 'schoolScope'].forEach((id) => { const el = document.getElementById(id); if (el) el.addEventListener(id === 'schoolSearch' ? 'input' : 'change', renderSchoolTable); });
   $('#analyzePlan')?.addEventListener('click', analyze);
   // 顶部“分析当前方案”入口已移除（功能由 landing 进入求证版 + 内部分析按钮承担）
   $('#coachAnalyze')?.addEventListener('click', analyze);
   $('#viewPlan')?.addEventListener('click', toggleSelectedPreview);
-  $('#clearPlan')?.addEventListener('click', () => { plan = makePlan(); renderBatchForms(); refreshBatchOptions(); saveDraft(); toast('志愿表已清空。'); });
+  $('#clearPlan')?.addEventListener('click', () => { if(!confirm('清空当前志愿？可使用“撤销上次调整”恢复。'))return;rememberPlan();plan = makePlan(); renderBatchForms(); refreshBatchOptions(); saveDraft(); toast('志愿表已清空。'); });
   $('#loadSample')?.addEventListener('click', loadSample);
   $('#restoreDraft')?.addEventListener('click', restoreDraft);
   $('#exportPlan')?.addEventListener('click', exportPlan);
@@ -1680,9 +1770,24 @@ function bindEvents() {
 
 async function init() {
   try {
+    await prepareUnifiedWorkspace();
     plan = makePlan();
     await loadCoreData();
     setupSelectors();
+    const query=new URLSearchParams(location.search);
+    let shared=readWorkspace();
+    const explicitResume=query.get('plan')||query.get('resume')==='1'||['direction','target'].includes(query.get('draft'));
+    if(query.get('new')==='1'||($('#verifyWorkspace')&&!explicitResume)) {updateWorkspace(s=>s.activePlanId=null);shared=readWorkspace();}
+    if(query.get('plan')) {activatePlan(query.get('plan')); shared=readWorkspace();}
+    if(shared.profile) {
+      if($('#profileForm'))setProfile(shared.profile);
+      const map={directionLow:'scoreLow',directionHigh:'scoreHigh',directionCandidateType:'candidateType',directionDistrict:'admissionDistrict',directionHouseholdDistrict:'householdDistrict',directionRisk:'riskPreference',directionOwnership:'ownershipPreference',targetCandidateType:'candidateType',targetAdmissionDistrict:'admissionDistrict',targetHouseholdDistrict:'householdDistrict',targetCurrentScore:'score'};
+      Object.entries(map).forEach(([id,key])=>{if($('#'+id)&&shared.profile[key]!=null)$('#'+id).value=shared.profile[key];});
+      ['direction','target'].forEach(prefix=>applyRegionControls(prefix,shared.profile));
+    }
+    if($('#planName'))$('#planName').value=shared.plans.find(p=>p.id===shared.activePlanId)?.name||'我的志愿方案';
+    if(query.get('school')&&$('#targetSchoolName')) {const s=dataset.schools.find(s=>s.id===query.get('school'));if(s)$('#targetSchoolName').value=s.name;}
+    if(query.get('targetSchool')&&$('#targetSchoolName')){const school=dataset.schools.find(s=>s.id===query.get('targetSchool'));if(school){$('#targetSchoolName').value=school.name;$('#targetPlanning').open=true;}}
     syncQuotaInterface();
     prepareDraftRestore();
     bindEvents();
@@ -1698,7 +1803,7 @@ async function init() {
       renderBatchForms();
       const transferSource = new URLSearchParams(window.location.search).get('draft');
       // 从方向版或目标学校版进入时自动恢复刚生成的草案；普通访问仍由家长决定是否恢复旧草稿。
-      if (pendingDraft && ['direction', 'target'].includes(transferSource)) {
+      if (pendingDraft && (['direction', 'target'].includes(transferSource) || query.get('plan') || query.get('resume')==='1')) {
         setWorkspaceMode('verify');
         await restoreDraft();
       } else {
@@ -1719,8 +1824,25 @@ async function init() {
       }
     }
     if (isVerify) await refreshBatchOptions();
+    if(isVerify)syncUnifiedRisk();
+    if(isVerify && query.get('school')) {
+      const s=dataset.schools.find(s=>s.id===query.get('school'));
+      const slot=plan.find(r=>r.batch===Number(query.get('batch'))&&r.position===Number(query.get('position')));
+      if(s&&slot&&!plan.some(r=>r.schoolId===s.id)) {
+        if(!slot.schoolId||confirm(`用“${s.name}”替换第${slot.batch}批第${slot.position}志愿“${slot.schoolName}”？`)) {rememberPlan();Object.assign(slot,{schoolId:s.id,schoolName:s.name},schoolPreferences(s.id));await refreshBatchOptions();saveDraft();toast('学校已放入指定位置，请检查资格和连续志愿。');}
+      } else if(s)toast('该校已在方案中，或志愿位置无效。');
+    }
+    if(isVerify && (query.get('resume')==='1'||query.get('plan'))) {
+      try{const cached=JSON.parse(sessionStorage.getItem('zk-analysis-cache')||'null');
+        if(cached&&cached.version===dataset.manifest.version&&cached.realistic===useRealisticSim&&JSON.stringify(cached.profile)===JSON.stringify(getProfile())&&JSON.stringify(cached.plan)===JSON.stringify(plan)) {
+          latestAnalysis=cached.analysis;latestScore=cached.score;renderAnalysis(getProfile(),latestAnalysis,latestScore);$('#analysis').hidden=false;$('#analysis').dataset.stale='false';updateCoach();updateSlotMeta();
+          if(location.hash==='#analysis')navigateTo($('#analysis'));
+        }
+      }catch{}
+    }
     // 兜底：确保付费闸门打码已应用（access-gate 解析完成后会再触发，这里保证初次渲染即生效）
     window.ZhongkaoAccess?.applyContentGating?.();
+    if(isVerify){document.body.dataset.uiReady='true';$('#generateUnified').disabled=false;document.querySelectorAll('[data-unified-risk]').forEach(b=>b.disabled=false);}
   } catch (error) {
     console.error(error);
     $('#main').insertAdjacentHTML('afterbegin', `<div class="error-box">官方数据加载失败：${error.message}。请稍后刷新重试。</div>`);

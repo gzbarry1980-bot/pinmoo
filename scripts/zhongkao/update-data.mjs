@@ -18,7 +18,7 @@ import { BATCH2_PDFS, CONTROL_LINES, INDEX_URL, OFFICIAL_GUIDE_URL, OFFICIAL_QA_
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const outputDir = path.join(root, 'guangzhou-zhongkao', 'data');
 const fetchedAt = new Date().toISOString();
-const parserVersion = '1.1.1';
+const parserVersion = '1.2.0';
 const sources = [];
 const admissions = [];
 const allocations = [];
@@ -130,6 +130,19 @@ const metaSources = [
 ];
 for (const item of metaSources) sources.push({ ...item, year: 2026, fetchedAt, sha256: null, parserVersion });
 
+// Supplemental blank-result evidence must remain tied to the exact official
+// PDF. Never publish a stale supplemental table alongside a changed source.
+const outcomesEvidence=await fs.readFile(path.join(outputDir,'allocation-outcomes-2026.json'),'utf8').then(JSON.parse).catch(()=>null);
+if(outcomesEvidence){
+  const currentSource=sources.find(s=>s.id===outcomesEvidence.sourceId);
+  if(!outcomesEvidence.sourceSha256||currentSource?.sha256!==outcomesEvidence.sourceSha256)throw new Error('2026名额分配补充结果与官方PDF版本不一致，拒绝发布；请重新执行比对适配器。');
+  const sourceIds=new Set(sourceSchools.map(s=>s.id));
+  for(const row of outcomesEvidence.records)if(!sourceIds.has(row.sourceSchoolId)){sourceSchools.push({id:row.sourceSchoolId,name:row.sourceSchoolName,district:inferDistrict(row.sourceSchoolName,row.sourceSchoolName)});sourceIds.add(row.sourceSchoolId);}
+  const previousSources=await fs.readFile(path.join(outputDir,'sources.json'),'utf8').then(JSON.parse);
+  const quotaSource=previousSources.find(s=>s.id==='official-2026-quota-minimum-controls');
+  if(quotaSource)sources.push(quotaSource);
+}
+
 assertDataset({ admissions, allocations, bands, schools, lines });
 
 const coverage = Object.fromEntries([2021, 2022, 2023, 2024, 2025, 2026].map((year) => [year, {
@@ -155,6 +168,7 @@ const manifest = {
     '学校住宿、学费及高考表现缺少统一可比口径，未进入机会模型。'
   ]
 };
+if(outcomesEvidence){manifest.counts.allocationOutcomes2026=outcomesEvidence.records.length;manifest.evidenceSummary='evidence-summary.json';manifest.counts.quotaControls2026=109;}
 
 const previousManifest = await fs.readFile(path.join(outputDir, 'manifest.json'), 'utf8')
   .then((value) => JSON.parse(value))

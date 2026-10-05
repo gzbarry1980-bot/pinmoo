@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "checkedAt": "2026-10-05T03:20:14.647Z",
+  "base": "http://localhost:5174",
+  "checks": [
+    "real-service-read-only-health",
+    "invalid-format-no-binding",
+    "html-200-rejected",
+    "empty-json-rejected",
+    "third-device-denied",
+    "successful-redeem-without-session-stays-locked",
+    "confirmed-session"
+  ],
+  "errors": [],
+  "actualActivation": "none; only invalid syntax sent to live service; successful scenarios use isolated HTTP fixtures"
+}

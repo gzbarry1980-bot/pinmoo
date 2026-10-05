@@ -34,11 +34,6 @@
   }
 
   function goBack() {
-    const previous = scrollHistory.pop();
-    if (previous) {
-      window.scrollTo({ ...previous, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
-      return;
-    }
     if (sameOriginReferrer() && window.history.length > 1) {
       window.history.back();
       return;
@@ -87,4 +82,5 @@
   });
 
   window.ZhongkaoNavigation = { scrollTo: scrollToTarget, back: goBack };
+  import('./site-shell.js?v=20261005b').catch(error => console.error('导航加载失败', error));
 })();

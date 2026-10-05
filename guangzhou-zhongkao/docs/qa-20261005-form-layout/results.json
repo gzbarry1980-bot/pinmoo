@@ -1,0 +1,203 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "width": 1440,
+      "route": "/",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "route": "/special/?mode=talent",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "route": "/special/?mode=autonomous",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "route": "/quota/",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "route": "/verify/",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "route": "/direction/",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "route": "/target/",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "route": "/schools/",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "route": "/schools/detail/?id=gz-17ac15270cde",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "route": "/plans/",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "route": "/my/",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "route": "/unlock/",
+      "status": "passed"
+    },
+    {
+      "width": 1440,
+      "route": "/privacy/",
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "route": "/",
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "route": "/special/?mode=talent",
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "route": "/special/?mode=autonomous",
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "route": "/quota/",
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "route": "/verify/",
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "route": "/direction/",
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "route": "/target/",
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "route": "/schools/",
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "route": "/schools/detail/?id=gz-17ac15270cde",
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "route": "/plans/",
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "route": "/my/",
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "route": "/unlock/",
+      "status": "passed"
+    },
+    {
+      "width": 768,
+      "route": "/privacy/",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "route": "/",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "route": "/special/?mode=talent",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "route": "/special/?mode=autonomous",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "route": "/quota/",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "route": "/verify/",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "route": "/direction/",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "route": "/target/",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "route": "/schools/",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "route": "/schools/detail/?id=gz-17ac15270cde",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "route": "/plans/",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "route": "/my/",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "route": "/unlock/",
+      "status": "passed"
+    },
+    {
+      "width": 390,
+      "route": "/privacy/",
+      "status": "passed"
+    }
+  ],
+  "errors": [],
+  "access": "isolated fixture; no real serial activation",
+  "completedAt": "2026-10-05T12:43:32.382Z"
+}

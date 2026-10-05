@@ -1,0 +1,834 @@
+[
+  {
+    "sheet": "近4年第三批户籍生录取分数线",
+    "screenshot_count": 32,
+    "ocr_row_ranges": [
+      {
+        "file": "screenshots/s01-h0-p001.png",
+        "min": 33,
+        "max": 45
+      },
+      {
+        "file": "screenshots/s01-h0-p002.png",
+        "min": 55,
+        "max": 58
+      },
+      {
+        "file": "screenshots/s01-h0-p003.png",
+        "min": 75,
+        "max": 80
+      },
+      {
+        "file": "screenshots/s01-h0-p004.png",
+        "min": 112,
+        "max": 112
+      },
+      {
+        "file": "screenshots/s01-h0-p005.png",
+        "min": 112,
+        "max": 133
+      },
+      {
+        "file": "screenshots/s01-h0-p006.png",
+        "min": 133,
+        "max": 154
+      },
+      {
+        "file": "screenshots/s01-h0-p007.png",
+        "min": 151,
+        "max": 173
+      },
+      {
+        "file": "screenshots/s01-h0-p008.png",
+        "min": 173,
+        "max": 188
+      },
+      {
+        "file": "screenshots/s01-h0-p009.png",
+        "min": 210,
+        "max": 214
+      },
+      {
+        "file": "screenshots/s01-h0-p010.png",
+        "min": 21,
+        "max": 235
+      },
+      {
+        "file": "screenshots/s01-h0-p011.png",
+        "min": 233,
+        "max": 255
+      },
+      {
+        "file": "screenshots/s01-h0-p012.png",
+        "min": 253,
+        "max": 275
+      },
+      {
+        "file": "screenshots/s01-h0-p013.png",
+        "min": 273,
+        "max": 287
+      },
+      {
+        "file": "screenshots/s01-h0-p014.png",
+        "min": 275,
+        "max": 287
+      },
+      {
+        "file": "screenshots/s01-h0-p015.png",
+        "min": 275,
+        "max": 287
+      }
+    ],
+    "possible_gaps": [
+      [
+        46,
+        54
+      ],
+      [
+        59,
+        74
+      ],
+      [
+        81,
+        111
+      ],
+      [
+        189,
+        209
+      ]
+    ],
+    "note": "OCR row labels are approximate. Original screenshots remain authoritative; missing OCR labels do not prove missing source rows."
+  },
+  {
+    "sheet": "第四批次公办录取分数线",
+    "screenshot_count": 20,
+    "ocr_row_ranges": [
+      {
+        "file": "screenshots/s02-h0-p001.png",
+        "min": 4,
+        "max": 47
+      },
+      {
+        "file": "screenshots/s02-h0-p002.png",
+        "min": 4,
+        "max": 47
+      }
+    ],
+    "possible_gaps": [],
+    "note": "OCR row labels are approximate. Original screenshots remain authoritative; missing OCR labels do not prove missing source rows."
+  },
+  {
+    "sheet": "公费班及国际方向录取分数线",
+    "screenshot_count": 20,
+    "ocr_row_ranges": [],
+    "possible_gaps": [],
+    "note": "OCR row labels are approximate. Original screenshots remain authoritative; missing OCR labels do not prove missing source rows."
+  },
+  {
+    "sheet": "广州高中近三年出口成绩统计",
+    "screenshot_count": 20,
+    "ocr_row_ranges": [
+      {
+        "file": "screenshots/s04-h0-p000.png",
+        "min": 35,
+        "max": 35
+      },
+      {
+        "file": "screenshots/s04-h0-p002.png",
+        "min": 52,
+        "max": 52
+      },
+      {
+        "file": "screenshots/s04-h0-p005.png",
+        "min": 120,
+        "max": 120
+      }
+    ],
+    "possible_gaps": [
+      [
+        36,
+        51
+      ],
+      [
+        53,
+        119
+      ]
+    ],
+    "note": "OCR row labels are approximate. Original screenshots remain authoritative; missing OCR labels do not prove missing source rows."
+  },
+  {
+    "sheet": "24-26一分一段表",
+    "screenshot_count": 48,
+    "ocr_row_ranges": [
+      {
+        "file": "screenshots/s05-h0-p000.png",
+        "min": 20,
+        "max": 33
+      },
+      {
+        "file": "screenshots/s05-h0-p001.png",
+        "min": 4,
+        "max": 54
+      },
+      {
+        "file": "screenshots/s05-h0-p002.png",
+        "min": 4,
+        "max": 75
+      },
+      {
+        "file": "screenshots/s05-h0-p003.png",
+        "min": 52,
+        "max": 88
+      },
+      {
+        "file": "screenshots/s05-h0-p004.png",
+        "min": 83,
+        "max": 117
+      },
+      {
+        "file": "screenshots/s05-h0-p005.png",
+        "min": 122,
+        "max": 137
+      },
+      {
+        "file": "screenshots/s05-h0-p006.png",
+        "min": 124,
+        "max": 158
+      },
+      {
+        "file": "screenshots/s05-h0-p007.png",
+        "min": 145,
+        "max": 177
+      },
+      {
+        "file": "screenshots/s05-h0-p008.png",
+        "min": 165,
+        "max": 188
+      },
+      {
+        "file": "screenshots/s05-h0-p009.png",
+        "min": 21,
+        "max": 221
+      },
+      {
+        "file": "screenshots/s05-h0-p010.png",
+        "min": 21,
+        "max": 242
+      },
+      {
+        "file": "screenshots/s05-h0-p011.png",
+        "min": 228,
+        "max": 262
+      },
+      {
+        "file": "screenshots/s05-h0-p012.png",
+        "min": 250,
+        "max": 283
+      },
+      {
+        "file": "screenshots/s05-h0-p013.png",
+        "min": 270,
+        "max": 288
+      },
+      {
+        "file": "screenshots/s05-h0-p014.png",
+        "min": 31,
+        "max": 325
+      },
+      {
+        "file": "screenshots/s05-h0-p015.png",
+        "min": 31,
+        "max": 345
+      },
+      {
+        "file": "screenshots/s05-h0-p016.png",
+        "min": 325,
+        "max": 355
+      },
+      {
+        "file": "screenshots/s05-h0-p017.png",
+        "min": 325,
+        "max": 355
+      },
+      {
+        "file": "screenshots/s05-h0-p018.png",
+        "min": 325,
+        "max": 355
+      },
+      {
+        "file": "screenshots/s05-h0-p019.png",
+        "min": 325,
+        "max": 355
+      },
+      {
+        "file": "screenshots/s05-h0-p020.png",
+        "min": 325,
+        "max": 355
+      },
+      {
+        "file": "screenshots/s05-h0-p021.png",
+        "min": 325,
+        "max": 355
+      },
+      {
+        "file": "screenshots/s05-h0-p023.png",
+        "min": 20,
+        "max": 30
+      },
+      {
+        "file": "screenshots/s05-h0-p024.png",
+        "min": 324,
+        "max": 355
+      },
+      {
+        "file": "screenshots/s05-h0-p025.png",
+        "min": 324,
+        "max": 355
+      },
+      {
+        "file": "screenshots/s05-h0-p026.png",
+        "min": 325,
+        "max": 355
+      },
+      {
+        "file": "screenshots/s05-h0-p027.png",
+        "min": 325,
+        "max": 355
+      },
+      {
+        "file": "screenshots/s05-h0-p028.png",
+        "min": 325,
+        "max": 355
+      },
+      {
+        "file": "screenshots/s05-h0-p029.png",
+        "min": 325,
+        "max": 355
+      }
+    ],
+    "possible_gaps": [
+      [
+        118,
+        121
+      ]
+    ],
+    "note": "OCR row labels are approximate. Original screenshots remain authoritative; missing OCR labels do not prove missing source rows."
+  },
+  {
+    "sheet": "2026名额分配最低控制线",
+    "screenshot_count": 24,
+    "ocr_row_ranges": [],
+    "possible_gaps": [],
+    "note": "OCR row labels are approximate. Original screenshots remain authoritative; missing OCR labels do not prove missing source rows."
+  },
+  {
+    "sheet": "2026年名额分配录取分数",
+    "screenshot_count": 99,
+    "ocr_row_ranges": [
+      {
+        "file": "screenshots/s07-h0-p000.png",
+        "min": 4,
+        "max": 87
+      },
+      {
+        "file": "screenshots/s07-h0-p001.png",
+        "min": 11,
+        "max": 165
+      },
+      {
+        "file": "screenshots/s07-h0-p002.png",
+        "min": 21,
+        "max": 245
+      },
+      {
+        "file": "screenshots/s07-h0-p003.png",
+        "min": 31,
+        "max": 323
+      },
+      {
+        "file": "screenshots/s07-h0-p004.png",
+        "min": 31,
+        "max": 388
+      },
+      {
+        "file": "screenshots/s07-h0-p005.png",
+        "min": 4,
+        "max": 478
+      },
+      {
+        "file": "screenshots/s07-h0-p006.png",
+        "min": 51,
+        "max": 555
+      },
+      {
+        "file": "screenshots/s07-h0-p007.png",
+        "min": 5,
+        "max": 623
+      },
+      {
+        "file": "screenshots/s07-h0-p008.png",
+        "min": 22,
+        "max": 687
+      },
+      {
+        "file": "screenshots/s07-h0-p009.png",
+        "min": 7,
+        "max": 785
+      },
+      {
+        "file": "screenshots/s07-h0-p010.png",
+        "min": 7,
+        "max": 860
+      },
+      {
+        "file": "screenshots/s07-h0-p011.png",
+        "min": 8,
+        "max": 918
+      },
+      {
+        "file": "screenshots/s07-h0-p012.png",
+        "min": 4,
+        "max": 1016
+      },
+      {
+        "file": "screenshots/s07-h0-p013.png",
+        "min": 4,
+        "max": 1088
+      },
+      {
+        "file": "screenshots/s07-h0-p014.png",
+        "min": 11,
+        "max": 1158
+      },
+      {
+        "file": "screenshots/s07-h0-p015.png",
+        "min": 11,
+        "max": 1233
+      },
+      {
+        "file": "screenshots/s07-h0-p016.png",
+        "min": 4,
+        "max": 1305
+      },
+      {
+        "file": "screenshots/s07-h0-p017.png",
+        "min": 5,
+        "max": 1377
+      },
+      {
+        "file": "screenshots/s07-h0-p018.png",
+        "min": 8,
+        "max": 1448
+      },
+      {
+        "file": "screenshots/s07-h0-p019.png",
+        "min": 4,
+        "max": 1521
+      },
+      {
+        "file": "screenshots/s07-h0-p020.png",
+        "min": 4,
+        "max": 1590
+      },
+      {
+        "file": "screenshots/s07-h0-p021.png",
+        "min": 4,
+        "max": 1660
+      },
+      {
+        "file": "screenshots/s07-h0-p022.png",
+        "min": 4,
+        "max": 1734
+      },
+      {
+        "file": "screenshots/s07-h0-p023.png",
+        "min": 4,
+        "max": 1804
+      },
+      {
+        "file": "screenshots/s07-h0-p024.png",
+        "min": 4,
+        "max": 1874
+      },
+      {
+        "file": "screenshots/s07-h0-p025.png",
+        "min": 4,
+        "max": 1940
+      },
+      {
+        "file": "screenshots/s07-h0-p026.png",
+        "min": 4,
+        "max": 2014
+      },
+      {
+        "file": "screenshots/s07-h0-p027.png",
+        "min": 4,
+        "max": 2084
+      },
+      {
+        "file": "screenshots/s07-h0-p028.png",
+        "min": 211,
+        "max": 2155
+      },
+      {
+        "file": "screenshots/s07-h0-p029.png",
+        "min": 4,
+        "max": 2218
+      },
+      {
+        "file": "screenshots/s07-h0-p030.png",
+        "min": 4,
+        "max": 2290
+      },
+      {
+        "file": "screenshots/s07-h0-p031.png",
+        "min": 4,
+        "max": 2371
+      },
+      {
+        "file": "screenshots/s07-h0-p032.png",
+        "min": 4,
+        "max": 2446
+      },
+      {
+        "file": "screenshots/s07-h0-p033.png",
+        "min": 4,
+        "max": 2518
+      },
+      {
+        "file": "screenshots/s07-h0-p034.png",
+        "min": 4,
+        "max": 2584
+      },
+      {
+        "file": "screenshots/s07-h0-p035.png",
+        "min": 4,
+        "max": 2611
+      },
+      {
+        "file": "screenshots/s07-h0-p036.png",
+        "min": 4,
+        "max": 2733
+      },
+      {
+        "file": "screenshots/s07-h0-p037.png",
+        "min": 4,
+        "max": 2807
+      },
+      {
+        "file": "screenshots/s07-h0-p038.png",
+        "min": 4,
+        "max": 2884
+      },
+      {
+        "file": "screenshots/s07-h0-p039.png",
+        "min": 2874,
+        "max": 2959
+      },
+      {
+        "file": "screenshots/s07-h0-p040.png",
+        "min": 4,
+        "max": 3034
+      },
+      {
+        "file": "screenshots/s07-h0-p041.png",
+        "min": 4,
+        "max": 3111
+      },
+      {
+        "file": "screenshots/s07-h0-p042.png",
+        "min": 4,
+        "max": 3186
+      },
+      {
+        "file": "screenshots/s07-h0-p043.png",
+        "min": 4,
+        "max": 3263
+      },
+      {
+        "file": "screenshots/s07-h0-p044.png",
+        "min": 4,
+        "max": 3343
+      },
+      {
+        "file": "screenshots/s07-h0-p045.png",
+        "min": 4,
+        "max": 3418
+      },
+      {
+        "file": "screenshots/s07-h0-p046.png",
+        "min": 4,
+        "max": 3490
+      },
+      {
+        "file": "screenshots/s07-h0-p047.png",
+        "min": 4,
+        "max": 3571
+      },
+      {
+        "file": "screenshots/s07-h0-p048.png",
+        "min": 4,
+        "max": 3611
+      },
+      {
+        "file": "screenshots/s07-h0-p049.png",
+        "min": 7,
+        "max": 3726
+      },
+      {
+        "file": "screenshots/s07-h0-p050.png",
+        "min": 4,
+        "max": 3802
+      },
+      {
+        "file": "screenshots/s07-h0-p051.png",
+        "min": 4,
+        "max": 3881
+      },
+      {
+        "file": "screenshots/s07-h0-p052.png",
+        "min": 3871,
+        "max": 3950
+      },
+      {
+        "file": "screenshots/s07-h0-p053.png",
+        "min": 4,
+        "max": 4036
+      },
+      {
+        "file": "screenshots/s07-h0-p054.png",
+        "min": 4,
+        "max": 4114
+      },
+      {
+        "file": "screenshots/s07-h0-p055.png",
+        "min": 4,
+        "max": 4190
+      },
+      {
+        "file": "screenshots/s07-h0-p056.png",
+        "min": 4,
+        "max": 4261
+      },
+      {
+        "file": "screenshots/s07-h0-p057.png",
+        "min": 4,
+        "max": 4345
+      },
+      {
+        "file": "screenshots/s07-h0-p058.png",
+        "min": 4,
+        "max": 4423
+      },
+      {
+        "file": "screenshots/s07-h0-p059.png",
+        "min": 4,
+        "max": 4490
+      },
+      {
+        "file": "screenshots/s07-h0-p060.png",
+        "min": 8,
+        "max": 4557
+      },
+      {
+        "file": "screenshots/s07-h0-p061.png",
+        "min": 4,
+        "max": 4611
+      },
+      {
+        "file": "screenshots/s07-h0-p062.png",
+        "min": 4,
+        "max": 4724
+      },
+      {
+        "file": "screenshots/s07-h0-p063.png",
+        "min": 4,
+        "max": 4801
+      },
+      {
+        "file": "screenshots/s07-h0-p064.png",
+        "min": 4,
+        "max": 4877
+      },
+      {
+        "file": "screenshots/s07-h0-p065.png",
+        "min": 8,
+        "max": 4950
+      },
+      {
+        "file": "screenshots/s07-h0-p066.png",
+        "min": 4,
+        "max": 5031
+      },
+      {
+        "file": "screenshots/s07-h0-p067.png",
+        "min": 4,
+        "max": 5101
+      },
+      {
+        "file": "screenshots/s07-h0-p068.png",
+        "min": 4,
+        "max": 5176
+      },
+      {
+        "file": "screenshots/s07-h0-p069.png",
+        "min": 6,
+        "max": 5226
+      },
+      {
+        "file": "screenshots/s07-h0-p070.png",
+        "min": 4,
+        "max": 5290
+      },
+      {
+        "file": "screenshots/s07-h0-p071.png",
+        "min": 4,
+        "max": 5358
+      },
+      {
+        "file": "screenshots/s07-h0-p072.png",
+        "min": 4,
+        "max": 5424
+      },
+      {
+        "file": "screenshots/s07-h0-p073.png",
+        "min": 5,
+        "max": 5491
+      },
+      {
+        "file": "screenshots/s07-h0-p074.png",
+        "min": 55,
+        "max": 5557
+      },
+      {
+        "file": "screenshots/s07-h0-p075.png",
+        "min": 4,
+        "max": 5611
+      },
+      {
+        "file": "screenshots/s07-h0-p076.png",
+        "min": 4,
+        "max": 5701
+      },
+      {
+        "file": "screenshots/s07-h0-p077.png",
+        "min": 4,
+        "max": 5778
+      },
+      {
+        "file": "screenshots/s07-h0-p078.png",
+        "min": 5,
+        "max": 5855
+      },
+      {
+        "file": "screenshots/s07-h0-p079.png",
+        "min": 4,
+        "max": 5930
+      },
+      {
+        "file": "screenshots/s07-h0-p080.png",
+        "min": 4,
+        "max": 6007
+      },
+      {
+        "file": "screenshots/s07-h0-p081.png",
+        "min": 4,
+        "max": 6084
+      },
+      {
+        "file": "screenshots/s07-h0-p082.png",
+        "min": 4,
+        "max": 6154
+      },
+      {
+        "file": "screenshots/s07-h0-p083.png",
+        "min": 4,
+        "max": 6237
+      },
+      {
+        "file": "screenshots/s07-h0-p084.png",
+        "min": 4,
+        "max": 6313
+      },
+      {
+        "file": "screenshots/s07-h0-p085.png",
+        "min": 4,
+        "max": 6388
+      },
+      {
+        "file": "screenshots/s07-h0-p086.png",
+        "min": 4,
+        "max": 6458
+      },
+      {
+        "file": "screenshots/s07-h0-p087.png",
+        "min": 4,
+        "max": 6542
+      },
+      {
+        "file": "screenshots/s07-h0-p088.png",
+        "min": 4,
+        "max": 6599
+      },
+      {
+        "file": "screenshots/s07-h0-p089.png",
+        "min": 4,
+        "max": 6690
+      },
+      {
+        "file": "screenshots/s07-h0-p090.png",
+        "min": 4,
+        "max": 6772
+      },
+      {
+        "file": "screenshots/s07-h0-p091.png",
+        "min": 4,
+        "max": 6848
+      },
+      {
+        "file": "screenshots/s07-h0-p092.png",
+        "min": 4,
+        "max": 6911
+      },
+      {
+        "file": "screenshots/s07-h0-p093.png",
+        "min": 7,
+        "max": 7002
+      },
+      {
+        "file": "screenshots/s07-h0-p094.png",
+        "min": 4,
+        "max": 7078
+      },
+      {
+        "file": "screenshots/s07-h0-p095.png",
+        "min": 7,
+        "max": 7155
+      },
+      {
+        "file": "screenshots/s07-h0-p096.png",
+        "min": 4,
+        "max": 7231
+      },
+      {
+        "file": "screenshots/s07-h0-p097.png",
+        "min": 4,
+        "max": 7282
+      },
+      {
+        "file": "screenshots/s07-h0-p098.png",
+        "min": 4,
+        "max": 7282
+      }
+    ],
+    "possible_gaps": [],
+    "note": "OCR row labels are approximate. Original screenshots remain authoritative; missing OCR labels do not prove missing source rows."
+  },
+  {
+    "sheet": "2026自主招生录取分数",
+    "screenshot_count": 22,
+    "ocr_row_ranges": [],
+    "possible_gaps": [],
+    "note": "OCR row labels are approximate. Original screenshots remain authoritative; missing OCR labels do not prove missing source rows."
+  }
+]

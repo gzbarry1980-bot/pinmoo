@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "version": "20260722-d38b3ec0",
-  "generatedAt": "2026-07-22T03:42:52.407Z",
+  "version": "20261005-defefb03",
+  "generatedAt": "2026-10-05T11:32:19.229Z",
   "latestPolicyYear": 2026,
   "years": [
     2021,
@@ -43,7 +43,7 @@
       "scoreBands": 36
     },
     "2026": {
-      "batch2": 5343,
+      "batch2": 6531,
       "batch3": 355,
       "batch4": 126,
       "scoreBands": 36
@@ -52,15 +52,18 @@
   "counts": {
     "schools": 311,
     "schoolLocations": 257,
-    "sourceSchools": 675,
+    "sourceSchools": 692,
     "admissions": 1728,
-    "allocations": 27222,
+    "allocations": 28410,
     "scoreBands": 180,
-    "sources": 27
+    "sources": 28,
+    "allocationOutcomes2026": 7280,
+    "quotaControls2026": 109
   },
   "limitations": [
     "2021年第三、第四批及2022年第三批官方页面以图片发布，当前自动数据包仅保留其来源，未来预测对这些统招记录按缺失处理。",
     "官方录取分数表未统一提供每校实际录取人数；相关字段保持为空，不以招生计划推定。",
     "学校住宿、学费及高考表现缺少统一可比口径，未进入机会模型。"
-  ]
+  ],
+  "evidenceSummary": "evidence-summary.json"
 }

@@ -7,7 +7,7 @@
   </style>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>求证版｜广州中考志愿模拟助手</title>
+    <title>第三第四批志愿模拟｜广州中考志愿助手</title>
     <meta name="description" content="已经有填报计划？求证版帮你核对资格、模拟录取机会、给出方案评分与可执行调整建议，并支持一键补强。" />
     <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="../styles.css?v=20260726k" />
@@ -21,7 +21,7 @@
         广州中考志愿模拟
       </a>
       <div class="nav-links">
-        <a href="https://pinmooconsulting.com/zh/" target="_blank" rel="noreferrer">品沐咨询官网 ↗</a>
+        <a href="https://pinmooconsulting.com/" target="_blank" rel="noreferrer">品沐咨询官网 ↗</a>
         <a href="../direction/">方向版</a>
         <a href="../target/">目标校版</a>
         <a href="../verify/" class="is-current" aria-current="page">求证版</a>
@@ -39,6 +39,7 @@
       </div>
 
       <div id="verifyWorkspace" aria-labelledby="landingVerify">
+      <div class="savebar"><label>当前方案<input id="planName" value="我的志愿方案" maxlength="60" aria-label="当前方案名称"></label><div class="toolbar"><span id="saveStatus" class="note">仅保存在当前浏览器</span><button class="ghost-button" id="saveNamedPlan" type="button">保存</button><button class="ghost-button" id="saveAsPlan" type="button">另存一份</button><button class="ghost-button" id="undoPlan" type="button" disabled>撤销上次调整</button><a href="/my/">我的方案</a></div></div>
 
       <section class="workflow-guide" aria-labelledby="workflowGuideTitle">
         <div class="workflow-guide-head">
@@ -69,6 +70,7 @@
           <span class="privacy-chip">匿名 · 本地保存</span>
         </div>
         <form id="profileForm">
+          <p class="note">正常发挥估分是你最可能考到的分数；下限按发挥不理想估计，上限按发挥较好估计。不需要姓名或准考证号。</p>
           <div class="profile-grid profile-essentials">
           <label>分析模式
             <select name="mode" id="mode">
@@ -112,7 +114,7 @@
           </label>
           <label class="simulation-mode-card">
             <input type="checkbox" name="realisticSim" id="realisticSim" />
-            <span class="simulation-mode-copy"><strong>波动压力测试</strong><small>额外模拟发挥偏差、年际难度和压线不确定性，临界学校的机会区间或档位可能改变。</small></span>
+            <span class="simulation-mode-copy"><strong>额外考虑发挥波动</strong><small>开启后，会再考虑临场发挥、不同年份的考试难度，以及接近录取门槛时的不确定性；部分学校的预测范围或冲稳保档位会变化。</small></span>
             <em class="simulation-mode-state"></em>
           </label>
           </div>
@@ -128,7 +130,7 @@
             <summary><span><strong>补充资格与偏好</strong><small>学籍、参考等级、住宿、学费及排除学校</small></span><b>按需填写</b></summary>
             <div class="profile-grid advanced-profile-grid">
               <label>学籍所在区<select name="schoolDistrict" id="schoolDistrict"></select></label>
-              <label>参考科目等级<select name="referenceGrade" id="referenceGrade"><option value="C">4C及以上</option><option value="D">4D及以上</option><option value="unknown">暂不确定</option></select></label>
+              <label>参考科目等级<select name="referenceGrade" id="referenceGrade"><option value="C">4C及以上</option><option value="D">4D及以上</option><option value="unknown" selected>暂不确定</option></select></label>
               <label>学校性质偏好<select name="ownershipPreference" id="ownershipPreference"><option value="不限">不限</option><option value="公办">优先公办</option><option value="民办">可接受民办</option></select></label>
               <label>住宿偏好<select name="boardingPreference" id="boardingPreference"><option value="不限">不限</option><option value="需要住宿">需要住宿</option><option value="不住宿">不需要住宿</option></select></label>
               <label>年学费上限（元）<input name="maxAnnualFee" id="maxAnnualFee" type="number" min="0" step="100" placeholder="不填表示不限" /></label>
@@ -170,7 +172,7 @@
             <tbody id="schoolTableBody"></tbody>
           </table>
         </div>
-        <p class="table-note">"录取门槛"是公开录取数据排序，不代表学校教学质量排名。学校自报高考成绩因口径不统一，不参与本系统评分。</p>
+        <p class="table-note">当前列表用于按考生口径选校。想查看全部学校、收藏或对比，可进入<a href="/schools/">独立学校库</a>。“录取门槛”不代表学校教学质量排名。</p>
       </section>
 
       <section class="panel" id="volunteerForm" data-gate="volunteer">
@@ -194,7 +196,7 @@
         <div id="batchForms" class="batch-forms"></div>
         <div class="form-actions">
           <button id="clearPlan" class="danger-button" type="button">清空志愿</button>
-          <button id="analyzePlan" class="primary-button" type="button">分析当前方案</button>
+          <button id="analyzePlan" class="primary-button" type="button">确认志愿，查看评估</button>
         </div>
       </section>
 
@@ -226,8 +228,8 @@
         </section>
         </div>
         <div class="analysis-grid" data-gate="chance">
-          <section><h3>逐志愿机会</h3><div id="chanceList" class="chance-list"></div></section>
-          <section><h3>预计录取去向</h3><p class="section-hint">点击学校可查看校区、招生条件与历年录取门槛。</p><div id="outcomeList" class="outcome-list"></div></section>
+          <section><h3>每个志愿的机会</h3><p class="note">看这所学校与分数、报考条件是否匹配。“历史依据”说明数据是否充分，不是录取机会。保底也不代表保证录取。</p><div id="chanceList" class="chance-list"></div></section>
+          <section><h3>最终可能去哪些学校</h3><p class="section-hint">这里按整份志愿的先后顺序计算；后排学校机会低，可能是前面已经录取。点击校名可看学校档案。</p><div id="outcomeList" class="outcome-list"></div></section>
         </div>
         <section class="advice-section" data-gate="advice"><h3>可执行调整建议</h3><ol id="adviceList"></ol></section>
         <details class="method-details"><summary>模型口径与数据局限</summary><div id="methodText"></div></details>
@@ -253,8 +255,8 @@
     <footer><span>广州中考志愿模拟助手 · 由品沐提供</span><span><a href="../privacy/">隐私说明</a> · <a href="https://gzzk.gz.gov.cn/zkzz/" target="_blank" rel="noreferrer">广州招考官方入口</a></span></footer>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
-    <script src="../access-gate.js?v=20260726c"></script>
-    <script src="../navigation.js?v=20260726j"></script>
-  <script type="module" src="../app.js?v=20260729b"></script>
+    <script src="../access-gate.js?v=20261005a"></script>
+    <script src="../navigation.js?v=20261005a"></script>
+  <script type="module" src="../app.js?v=20261005e"></script>
   </body>
 </html>
