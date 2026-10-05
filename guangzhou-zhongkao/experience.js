@@ -65,7 +65,8 @@ function detail(){
   ['historyYear','historyBatch','historyPopulation'].forEach(key=>document.getElementById(key).addEventListener('change',updateHistory));updateHistory();
   document.getElementById('history').insertAdjacentHTML('beforeend','<details class="method-details"><summary>最低分、末位志愿和同分序号怎么看？</summary><p>最低录取分，是该年该批次、该类考生中被录取的最低分数；末位志愿序号，是最后一名被录取考生把学校填在第几个志愿。它们要结合梯度规则一起看，不能只凭“过线”就判断一定能进。同分序号用于区分同分考生的先后；招生计划是计划招多少人，不是实际录取人数。</p><p class="note">请先选择同一年度、批次和考生类别再比较学校。缺少记录不等于没有招生。</p></details>');
   const locationInfo=schoolLocation(s);
-  const addressValue=document.querySelector('#overview .fact-grid dd');if(addressValue)addressValue.textContent=locationInfo.address||'尚未收录';
+  const addressField=[...document.querySelectorAll('#overview .fact-grid > div')].find(field=>field.querySelector('dt')?.textContent==='校区地址');
+  const addressValue=addressField?.querySelector('dd');if(addressValue)addressValue.textContent=locationInfo.address||'尚未收录';
   if(locationInfo.phones.length&&s.campusDistrictSourceId){const contact=document.createElement('div');contact.className='notice';const title=document.createElement('strong');title.textContent='公开咨询电话（按所列指南核对有效期）';contact.append(title);const links=document.createElement('p');locationInfo.phones.forEach(phone=>{const a=document.createElement('a');a.href='tel:'+phone.replaceAll('-','');a.textContent=phone;links.append(a,document.createTextNode('  '));});contact.append(links);contact.insertAdjacentHTML('beforeend',source(s.campusDistrictSourceId,'查看电话与地址的原始依据'));document.getElementById('events').append(contact);}
   if(params.get('from')) {
     const back=document.createElement('a');back.className='button-secondary';
