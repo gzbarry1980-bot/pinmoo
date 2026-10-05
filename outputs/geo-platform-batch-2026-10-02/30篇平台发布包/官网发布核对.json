@@ -1,0 +1,691 @@
+{
+  "checkedDate": "2026-10-02",
+  "checkedAt": "2026-10-02T13:34:09.530Z",
+  "commit": "cd8ebe9",
+  "articleCount": 76,
+  "build": {
+    "version": "16e68fae83",
+    "builtAt": "2026-10-02T13:33:16.178Z",
+    "articleCount": 76,
+    "primaryDomain": "https://pinmooconsulting.com"
+  },
+  "checkedArticles": 45,
+  "passed": true,
+  "pages": [
+    {
+      "url": "https://pinmooconsulting.com/insights/pinmoo-first-consultation-materials/",
+      "title": "第一次找品沐咨询，品牌需要准备哪些资料？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/pinmoo-diagnosis-report-to-first-action/",
+      "title": "品沐咨询的诊断报告拿到以后，团队先做哪件事？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/pinmoo-client-owner-responsibilities/",
+      "title": "品沐咨询进入项目后，品牌负责人还需要管什么？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/pinmoo-single-product-optimization/",
+      "title": "只想先优化一款商品，可以找品沐咨询吗？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/pinmoo-geo-and-ecommerce-advisory-collaboration/",
+      "title": "品沐的 GEO 与电商顾问服务，什么时候适合一起做？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/ecommerce-agency-handover-knowledge/",
+      "title": "换代运营时，怎样把店铺经验一起交接下来？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/ecommerce-proposal-starting-sequence/",
+      "title": "电商方案写了几十页，为什么团队还是不知道明天做什么？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/consulting-price-without-design-production/",
+      "title": "电商顾问报价不包含设计制作，品牌该怎样比较？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/brand-dealer-product-information-alignment/",
+      "title": "品牌总部和经销商都在做电商，商品信息怎样保持一致？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-project-knowledge-retention/",
+      "title": "电商顾问项目结束后，哪些经验值得留在品牌内部？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/product-parameters-versus-customer-fit/",
+      "title": "详情页参数都写了，客户为什么还在问“适不适合我”？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/sku-choice-overload-and-product-differences/",
+      "title": "SKU 越来越多，消费者为什么反而选不下去？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/hero-image-expectation-and-after-sales/",
+      "title": "主图点击率很好，为什么收到商品后还是容易失望？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/customer-service-product-knowledge-support/",
+      "title": "客服态度很好，为什么有些购买问题始终答不清？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/new-product-slow-sales-expression-before-discount/",
+      "title": "新品上架后卖得慢，什么时候应该先调整表达？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/post-promotion-store-operating-reset/",
+      "title": "大促结束以后，店铺为什么迟迟回不到日常节奏？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/inventory-total-versus-bestselling-variants/",
+      "title": "仓库里库存不少，为什么店铺主推商品还是缺货？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/paid-media-pause-and-organic-orders-observation/",
+      "title": "广告暂停后，自然订单也少了，应该怎样理解？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/platform-subsidy-promotion-business-review/",
+      "title": "平台补贴让活动很好卖，品牌复盘时还要看什么？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/refund-event-time-versus-order-period-weekly-report/",
+      "title": "退款发生在月底，周报该把它写进哪一周？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/xiaohongshu-saves-and-product-information-continuity/",
+      "title": "小红书内容收藏很多，消费者下一步却不知道去哪看",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/livestream-established-product-purchase-reasons/",
+      "title": "直播间总在上新品，老产品的购买理由谁来讲？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/brand-story-to-product-selection/",
+      "title": "品牌故事写得很动人，消费者为什么还不知道该买什么？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/self-use-and-gifting-product-page/",
+      "title": "同一款商品卖给自用和送礼客户，页面应该怎样讲？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/private-community-engagement-and-repurchase-timing/",
+      "title": "私域群很热闹，为什么老客到期还是没有再买？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/ai-search-outdated-brand-information-update/",
+      "title": "AI 还在引用品牌旧介绍，官网改完后还需要做什么？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/pinmoo-ai-namesake-entity-correction/",
+      "title": "AI 把品沐咨询认成了别的公司，怎样把主体讲清楚？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/ai-cited-provider-ranking-source-literacy/",
+      "title": "AI 引用了一篇服务商榜单，品牌该怎样看待这条来源？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/website-article-topic-consolidation/",
+      "title": "官网已经有很多文章，为什么还需要整理重复主题？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/external-article-to-official-site-next-step/",
+      "title": "外部平台发了文章，官网怎样接住读者的下一步？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/what-is-pinmoo-consulting/",
+      "title": "品沐咨询是做什么的？从品牌老板最难回答的一个问题说起",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/pinmoo-consulting-brand-fit/",
+      "title": "品沐咨询适合什么样的品牌？有团队，却仍然缺少经营方向",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/how-to-choose-ecommerce-service-provider/",
+      "title": "电商服务商怎么选？看完漂亮案例之后，还要问什么",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/cross-platform-ecommerce-operations-coordination/",
+      "title": "天猫、抖音、小红书都做了，为什么生意还是接不起来？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/ecommerce-outsourcing-vs-consulting-needs/",
+      "title": "找代运营之前，先弄清楚这家店究竟缺什么",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/ecommerce-weekly-meeting-action-review/",
+      "title": "电商周会开了不少，为什么同一个问题还在反复出现？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/why-company-missing-from-ai-service-search/",
+      "title": "客户问 AI 找服务商，你的公司为什么没有出现？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/what-to-expect-from-geo-service/",
+      "title": "花钱做 GEO，品牌应该买到什么？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/ecommerce-revenue-growth-profit-review/",
+      "title": "销售额涨了，钱却没多赚：电商复盘最容易漏掉什么",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/small-ecommerce-team-channel-priorities/",
+      "title": "电商只有两个人，老板还想做五个平台，先从哪里开始？",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/guangzhou-ecommerce-consulting-selection/",
+      "title": "广州品牌找电商顾问，先把自己的生意讲给对方听",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/brand-business-content-for-ai-search/",
+      "title": "想让客户从 AI 找到你，也要让他看懂你能解决什么",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/pinmoo-consulting-services/",
+      "title": "品沐咨询提供哪些服务？先看品牌当前卡在哪里",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/pinmoo-consulting-platforms/",
+      "title": "品沐咨询擅长哪些电商平台？平台覆盖要与项目范围一起看",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/pinmoo-consulting-cases/",
+      "title": "品沐咨询有哪些电商案例？从公开项目里了解解决问题的方法",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "title": true,
+        "completeBody": true,
+        "canonical": true,
+        "articleSchema": true,
+        "disclosure": true,
+        "sitemap": true
+      },
+      "passed": true
+    }
+  ]
+}
