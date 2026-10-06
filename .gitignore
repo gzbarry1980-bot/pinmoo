@@ -16,5 +16,6 @@ tmp/
 
 # Local screenshot archive and deployment packages are not website source.
 guangzhou-zhongkao/research/wecom-source-20261005/full-screenshot-backup.pdf
+guangzhou-zhongkao/research/wecom-source-20261005/screenshots/
 workspace/*.tgz
 workspace/rewrite-large-file-20261006.cjs
