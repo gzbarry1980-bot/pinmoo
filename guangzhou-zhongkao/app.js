@@ -5,6 +5,7 @@ import { matchesSchool, schoolURL } from './school-service.js';
 import {confidenceCopy,plainCopy,simplifyVisibleCopy,readingGuideHTML} from './parent-copy.js';
 import {installRegionControls,applyRegionControls,readRegionControls,regionSummary,preferredRegions,matchesRegion,prioritizeRegions,regionValidation} from './region-preference.js';
 import {prepareUnifiedWorkspace} from './workflow-ui.js';
+import {buildIntentDraft,installIntentPlanner} from './intent-planner.js';
 
 const DISCLAIMER = '本系统依据公开招生政策及历史数据进行模拟分析，所示评分、录取机会和学校建议均为统计估计，不代表官方录取结果或任何录取承诺。招生政策、计划、报考范围、成绩分布和志愿竞争每年可能变化，请以当年广州市教育局、广州市招生考试委员会办公室及中考服务平台最终公布的信息为准。名额分配、随迁子女、跨区及其他资格请向学校或招考部门核实。志愿选择由考生及监护人自行决定。本系统仅供参考。';
 
@@ -1632,6 +1633,31 @@ function handleAnalyzeTop() {
 }
 
 function syncUnifiedRisk(){document.querySelectorAll('[data-unified-risk]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.unifiedRisk===$('#riskPreference').value)));}
+async function generateIntentPlan({selections,strategy,allowSupplement,status}){
+  if(window.ZhongkaoAccess&&!window.ZhongkaoAccess.guard()){status.textContent='输入序列号解锁后，可生成排序草案。';return;}
+  const profile=getProfile(),failures=validateProfile(profile);
+  if(failures.length)throw new Error(failures.join('；'));
+  if(profile.mode!=='forecast')throw new Error('意向排序用于未来预测；历史复盘请直接填写志愿。');
+  const quota=plan.filter(s=>s.batch===2).map(s=>({...s}));
+  if(quota.some(s=>s.schoolId))dataset.allocations=await allAllocations();
+  const records=[...directionCandidates(3,profile,true),...directionCandidates(4,profile,true)];
+  const invalid=selections.filter(s=>!records.some(r=>r.schoolId===s.id));
+  if(invalid.length)throw new Error(`${invalid.map(s=>dataset.schools.find(x=>x.id===s.id)?.name||s.id).join('、')}：当前考生类别、招生范围或公民办/学费/住宿/排除条件下没有可用记录。请调整条件或移除，系统不会偷偷替换。`);
+  const empty=makePlan().map(s=>s.batch===2?(quota.find(q=>q.key===s.key)||s):s);
+  const supplements=allowSupplement?buildDirectionDraft(profile,{strictPreferences:true}):[];
+  const output=buildIntentDraft({selections,records,emptyPlan:empty,strategy,supplements,
+    simulate:draft=>runSimulation(profile,draft,dataset,20261006,500)});
+  if(output.rejected.length)throw new Error('所选学校在同一批次超过6个位置，且无其他批次可安排。请减少学校或调整选择。');
+  rememberPlan();plan=output.draft.map(s=>s.schoolId?{...s,...schoolPreferences(s.schoolId)}:s);
+  renderBatchForms();await refreshBatchOptions();saveDraft();$('#analysis').hidden=true;updateCoach();
+  let box=$('#intentOrderExplanation');if(!box){box=document.createElement('details');box.id='intentOrderExplanation';box.className='workflow-disclosure';$('#volunteerForm').prepend(box);}
+  const safe=output.result.slotResults?.some(r=>r.screeningTier==='保底'||r.tier==='保底');
+  box.innerHTML=`<summary>意向学校排序依据 · 已填${output.reasons.length}个位置</summary><p>按同一组500次情景比较排序；最终机会请点击“确认志愿，查看评估”重新计算。${output.added.length?`补充${output.added.length}所学校，请逐一确认是否愿意就读。`:'只使用你选择的学校，未自动补充。'}</p><ul>${output.reasons.map(r=>`<li>第${r.batch}批第${r.position}志愿：<a href="${schoolURL(r.schoolId)}">${escapeHtml(r.schoolName)}</a>。${escapeHtml(r.text)}</li>`).join('')}</ul>${safe?'':'<p class="notice">目前没有模拟机会达到保底档的学校。可返回意向模块允许补充，或增加愿意就读、录取门槛更低的学校。</p>'}`;
+  box.open=true;
+  const names={priority:'优先意向',balanced:'兼顾风险',safe:'更稳妥'};
+  status.textContent=`已生成“${names[strategy]}”草案。请在第2步确认学校与顺序。`;
+  $('#generationStatus').textContent=status.textContent;navigateTo($('#volunteerForm'));
+}
 async function generateUnifiedPlan(){
   if(window.ZhongkaoAccess&&!window.ZhongkaoAccess.guard())return;
   const profile=getProfile(),failures=validateProfile(profile);
@@ -1842,7 +1868,7 @@ async function init() {
     }
     // 兜底：确保付费闸门打码已应用（access-gate 解析完成后会再触发，这里保证初次渲染即生效）
     window.ZhongkaoAccess?.applyContentGating?.();
-    if(isVerify){document.body.dataset.uiReady='true';$('#generateUnified').disabled=false;document.querySelectorAll('[data-unified-risk]').forEach(b=>b.disabled=false);}
+    if(isVerify){installIntentPlanner({dataset,getProfile,generate:generateIntentPlan});document.body.dataset.uiReady='true';$('#generateUnified').disabled=false;document.querySelectorAll('[data-unified-risk]').forEach(b=>b.disabled=false);}
   } catch (error) {
     console.error(error);
     $('#main').insertAdjacentHTML('afterbegin', `<div class="error-box">官方数据加载失败：${error.message}。请稍后刷新重试。</div>`);

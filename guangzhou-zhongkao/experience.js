@@ -24,6 +24,20 @@ const actions=id=>{const s=readWorkspace();return `<div class="card-actions"><a 
 const schoolOutcome=id=>data.outcomes?.records.find(r=>r.schoolId===id);
 function outcomeSummary(id){const r=schoolOutcome(id),y=r?.years[0];return y?`<p class="school-outcome-summary"><strong>${y.year}高考参考</strong><br>${y.score600?`600分指标 ${e(y.score600)} · `:''}特控线上线率 ${e(y.specialControl||'原表未提供')}<br><small>第三方整理 · ${e(r.campusScope)} · <a href="${schoolURL(id)}#outcomes">查看历年与口径</a></small></p>`:'';}
 function outcomeDetails(id){const r=schoolOutcome(id);if(!r)return '';return `<section class="detail-section" id="outcomes"><h2>高考升学表现 · 第三方参考</h2><p>原表名称：${e(r.sourceSchoolLabel)} · ${e(r.campusScope)}</p><div class="comparison-wrap"><table class="data-table"><thead><tr><th>年份</th><th>600分指标（保留原口径）</th><th>特控线上线率</th></tr></thead><tbody>${r.years.map(y=>`<tr><td>${y.year}</td><td>${e(y.score600||'原表未提供')}</td><td>${e(y.specialControl||'原表未提供')}</td></tr>`).join('')}</tbody></table></div><p>特控线上线率：高考成绩达到当年特殊类型招生录取控制线的比例，不等于被重点大学录取的比例。“90%+”按原表保留，表示超过90%；空白不是0。</p><p class="note">资料由第三方整理，学校原始公告、统计分母和是否包含特殊班型未提供；不能直接横向比较，也不能单独据此判断学校加工能力。不参与中考录取概率和方案评分。</p>${source(r.sourceId,'查看第三方原始资料（可能需要登录）')}</section>`;}
+function installSchoolSections(){
+  const nav=main.querySelector('.detail-tabs');if(!nav)return;
+  nav.setAttribute('aria-label','学校资料章节');
+  const links=[...nav.querySelectorAll('a[href^="#"]')];
+  const sections=links.map(link=>document.getElementById(link.hash.slice(1))).filter(Boolean).sort((a,b)=>a.offsetTop-b.offsetTop);
+  const select=id=>links.forEach(link=>{if(link.hash===`#${id}`)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});
+  let queued=false;
+  const refresh=()=>{queued=false;const edge=nav.getBoundingClientRect().bottom+70;let current=sections[0];for(const section of sections)if(section.getBoundingClientRect().top<=edge)current=section;if(current)select(current.id);};
+  addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(refresh);}},{passive:true});
+  addEventListener('hashchange',()=>{if(location.hash)select(location.hash.slice(1));});
+  nav.addEventListener('click',event=>{const link=event.target.closest('a');if(link)select(link.hash.slice(1));});
+  refresh();
+  if(location.hash){const target=document.getElementById(location.hash.slice(1));if(target){requestAnimationFrame(()=>{target.scrollIntoView({block:'start'});select(target.id);});}}
+}
 const card=(s,filters={})=>{const r=latestRecord(data,s.id,{candidateType:'户籍生',...filters}),aut=data.special.autonomous.some(x=>x.schoolId===s.id),tal=data.special.specialTalent.some(x=>x.schoolId===s.id);return `<article class="library-card"><div class="chips"><span class="chip">${e(schoolDistrict(s))}</span><span class="chip">${e(s.ownership||'性质待核对')}</span>${s.administrativeAffiliation?`<span class="chip">${e(s.administrativeAffiliation)}</span>`:''}${s.schoolDesignation?`<span class="chip">${e(s.schoolDesignation)}</span>`:''}${aut?'<span class="chip">自主招生</span>':''}${tal?'<span class="chip">特长项目</span>':''}</div><h3><a href="${schoolURL(s.id)}">${e(s.name)}</a></h3><p>${e(schoolLocation(s).address||'校区地址尚未收录')}</p><small>${r?`${r.year} · 第${r.batch}批 · ${e(r.candidateType)}<br>最低录取分 ${val(r.cutoffScore)} · 末位志愿 ${val(r.lastVolunteerNo)}`:'当前口径暂无户籍生统招记录；仍可查看学校资料'}</small>${outcomeSummary(s.id)}${actions(s.id)}</article>`;};
 function end(){
  const ws=readWorkspace();
@@ -87,7 +101,7 @@ function detail(){
   let ref;try{ref=new URL(document.referrer);}catch{}if(ref?.origin===location.origin&&ref.pathname==='/schools/')document.getElementById('returnToSchools').href=ref.pathname+ref.search;
   document.getElementById('addToPlan').addEventListener('click',()=>{if(!document.querySelector('#addPlanForm [name=batch]').options.length)return notify('本校暂无最新年度统招记录，请先核实招生计划。');document.getElementById('addPlanDialog').showModal();});
   document.getElementById('cancelAdd').addEventListener('click',()=>document.getElementById('addPlanDialog').close());
-  document.getElementById('addPlanForm').addEventListener('submit',event=>{event.preventDefault();const f=new FormData(event.target);location.assign(`/verify/?resume=1&school=${encodeURIComponent(id)}&batch=${f.get('batch')}&position=${f.get('position')}#volunteerForm`);});compareDock();end();
+  document.getElementById('addPlanForm').addEventListener('submit',event=>{event.preventDefault();const f=new FormData(event.target);location.assign(`/verify/?resume=1&school=${encodeURIComponent(id)}&batch=${f.get('batch')}&position=${f.get('position')}#volunteerForm`);});compareDock();end();installSchoolSections();
 }
 function comparison(){
   const ids=readWorkspace().compare,schools=ids.map(id=>data.schools.find(s=>s.id===id)).filter(Boolean);
