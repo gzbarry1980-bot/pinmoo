@@ -12,6 +12,8 @@ export function matchesSchool(school, query) {
   const q = normalize(query);
   if (!q) return true;
   const name = normalize(school.name);
+  if (['16中本部','十六中本部'].includes(q)) return school.id === 'gz-ec1a75c75160';
+  if (q === '16中') return name.includes('第十六中学');
   if (name.includes(q)) return true;
   return aliases.some(([short, full]) => q.startsWith(short) && name.includes(normalize(full)) && name.includes(q.slice(short.length)));
 }
@@ -66,8 +68,8 @@ export async function loadSchoolData() {
     if(!r.ok) throw new Error(`学校资料暂时读取失败（${r.status}）`);
     return r.json();
   };
-  cached=Promise.all([...['schools.json','admissions.json','sources.json','manifest.json','first-batch-2026.json','autonomous-school-events-2026.json','autonomous-results.json'].map(read),read('evidence-summary.json').catch(()=>null)])
-    .then(([schools,admissions,sources,manifest,special,events,autonomous,evidence])=>({schools,admissions,sources:[...sources,...(special.sources||[]),...(events.sources||[]),...(autonomous.sources||[])],manifest,special,events,autonomous,evidence}))
+  cached=Promise.all([...['schools.json','admissions.json','sources.json','manifest.json','first-batch-2026.json','autonomous-school-events-2026.json','autonomous-results.json'].map(read),read('evidence-summary.json').catch(()=>null),read('school-outcomes.json').catch(()=>({records:[],sources:[]}))])
+    .then(([schools,admissions,sources,manifest,special,events,autonomous,evidence,outcomes])=>({schools,admissions,sources:[...sources,...(special.sources||[]),...(events.sources||[]),...(autonomous.sources||[]),...(outcomes.sources||[])],manifest,special,events,autonomous,evidence,outcomes}))
     .catch(error=>{cached=null;throw error;});
   return cached;
 }

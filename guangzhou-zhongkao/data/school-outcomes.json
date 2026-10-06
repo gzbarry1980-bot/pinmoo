@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0.0",
+  "sources": [{
+    "id": "wecom-school-outcomes-20261005",
+    "title": "老胡侃升学789：广州高中近三年出口成绩统计",
+    "url": "https://doc.weixin.qq.com/sheet/e3_AfAADQZTAL0CNhjDFgOVxRmKenuj0",
+    "sourceType": "第三方整理",
+    "capturedAt": "2026-10-05",
+    "note": "按用户提供的可见表格逐项录入；学校原始公告与统计分母未提供，不能直接横向比较。"
+  }],
+  "records": [{
+    "schoolId": "gz-ec1a75c75160",
+    "sourceSchoolLabel": "16中本部",
+    "campusScope": "本部，不含水荫校区",
+    "sourceId": "wecom-school-outcomes-20261005",
+    "years": [
+      {"year": 2025, "score600": null, "specialControl": "90%+"},
+      {"year": 2024, "score600": null, "specialControl": "85.30%"},
+      {"year": 2023, "score600": "31.48%", "specialControl": "80.00%"}
+    ]
+  }]
+}
