@@ -1,0 +1,15 @@
+{
+  "date": "2026-10-10",
+  "status": "partial_not_accepted",
+  "scope": "source review, offline synthetic regression, read-only production inspection",
+  "offlineTests": {"total":5,"passed":0,"failed":5,"script":"server/test/codex-review-20261010.cjs"},
+  "findings": [
+    {"id":"R1","severity":"high","file":"server/src/wxpay.js","line":60,"issue":"nonce incorrectly base64 decoded","action":"use raw UTF-8 nonce and protocol-correct fixtures"},
+    {"id":"R2","severity":"high","file":"server/src/routes/access.js","line":24,"issue":"one-time code creates no browser session","action":"exchange for secure server-side session and clear URL"},
+    {"id":"R3","severity":"high","file":"server/src/routes/pay.js","line":166,"issue":"refund replay, interrupted grant and partial refund state defects","action":"transactional event/state processing and entitlement reconciliation"},
+    {"id":"R4","severity":"high","file":"production current/access-gate.js and unlock/unlock.js","issue":"production frontend differs from reviewed P0 source","action":"publish coherent fixed release and verify hashes and browser flow"},
+    {"id":"R5","severity":"high","file":"miniprogram/app.js","line":4,"issue":"payMock remains enabled against production origin","action":"isolate preview and fail unsafe production builds"}
+  ],
+  "skipped": ["full SAST and secrets scanner","full dependency npm audit","real WeChat payment","device UI acceptance","production entitlement writes"],
+  "report": "docs/Codex复验与WorkBuddy返工清单-2026-10-10.md"
+}

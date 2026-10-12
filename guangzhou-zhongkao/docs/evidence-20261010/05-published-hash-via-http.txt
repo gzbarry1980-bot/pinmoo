@@ -1,0 +1,21 @@
+﻿=== ls -l current ===
+lrwxrwxrwx 1 root root 57 Oct 10 15:16 /var/www/zhongkao.pinmoo.top/current -> /var/www/zhongkao.pinmoo.top/releases/ui-20261010-p0-r1r5
+=== readlink (涓嶈窡闅? ===
+/var/www/zhongkao.pinmoo.top/releases/ui-20261010-p0-r1r5
+=== readlink -f ===
+/var/www/zhongkao.pinmoo.top/releases/ui-20261009-layoutfix
+=== 娈嬬暀 tmp? ===
+no tmp
+=== 绾夸笂瀹為檯鍐呭 ===
+5fb125d8a9c7962b64b4f2b55dee1fc86c878a20ecfea1013155935f149afdbe  /var/www/zhongkao.pinmoo.top/current/access-gate.js
+2cc88901a45c32705453f9b6e8697bf89f47113dceda603661ab34269494ef50  /var/www/zhongkao.pinmoo.top/current/unlock/unlock.js
+=== 鏃?release 鍐呭锛堝鐓э級===
+5fb125d8a9c7962b64b4f2b55dee1fc86c878a20ecfea1013155935f149afdbe  /var/www/zhongkao.pinmoo.top/releases/ui-20261009-layoutfix/access-gate.js
+=== 閫氳繃 HTTP 鍙栫嚎涓?access-gate.js 鍝堝笇 ===
+5fb125d8a9c7962b64b4f2b55dee1fc86c878a20ecfea1013155935f149afdbe  -
+=== 閫氳繃 HTTP 鍙栫嚎涓?unlock.js 鍝堝笇 ===
+2cc88901a45c32705453f9b6e8697bf89f47113dceda603661ab34269494ef50  -
+=== 鍩熷悕鏍￠獙鏂囦欢鍙€氳繃 HTTP 璁块棶 ===
+HTTP 200
+60e231c694743be3d90fbc6b195cc33a
+END

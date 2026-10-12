@@ -7,7 +7,9 @@
     "pages/direction/direction",
     "pages/target/target",
     "pages/special/special",
-    "pages/webview/webview"
+    "pages/webview/webview",
+    "pages/pay/pay",
+    "pages/privacy/privacy"
   ],
   "window": {
     "navigationBarTitleText": "广州中考志愿模拟助手",
@@ -30,5 +32,6 @@
     ]
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "__usePrivacyCheck__": true
 }

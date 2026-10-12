@@ -1,0 +1,67 @@
+﻿=== TEST 1: p0.test.cjs ===
+server listening on http://127.0.0.1:43093
+
+[P0-2] 姝ｅ紡涓嬪崟韬唤涓庨噾棰?  鉁?鏃犱护鐗屼笅鍗曡鎷?401)
+  鉁?浼€犱护鐗屼笅鍗曡鎷?401)
+  鉁?鏈変护鐗屼笅鍗曡繘鍏ョ湡瀹炰笅鍗曡矾寰勶紙闈?mock 鐩撮€氾級status=502
+
+[P0-3] 鏀粯鍥炶皟涓庡璐?  [debug] notify resp: 200 {"code":"SUCCESS","message":"鎴愬姛"}
+  鉁?鍚堟硶鍥炶皟锛堢鍚?瑙ｅ瘑/鍏ㄥ瓧娈垫牳瀵归€氳繃锛夆啋 SUCCESS
+  鉁?璁㈠崟鏍囪涓?PAID
+  鉁?鍥炶皟鎴愬姛鍚庝細鍛樻潈鐩婂紑閫?  鉁?閲嶅鍥炶皟骞傜瓑锛堜粛 SUCCESS锛屼笉鎶ラ敊锛?[pay/notify] 鍥炶皟瀛楁鏍稿澶辫触锛屾嫆缁濆紑閫氾細 { out_trade_no: 'ZKTE***4585', fails: [ 'amount' ] }
+  鉁?閲戦涓嶇鍥炶皟琚嫆(FAIL)
+  鉁?閲戦涓嶇涓嶅紑鏀炬潈鐩?  鉁?鏈煡璁㈠崟鍥炶皟琚嫆(FAIL)
+  鉁?绛惧悕閿欒鍥炶皟琚嫆(FAIL)
+
+[P0-4] 鏃у簭鍒楀彿鏉冪泭缁熶竴鏌ヨ
+  鉁?鏃у簭鍒楀彿(cookie)浼氳瘽璇嗗埆涓哄凡鎺堟潈锛屾潵婧?serial
+  鉁?搴忓垪鍙锋潈鐩婂惈璁惧绾︽潫(deviceCount/maxDevices)
+  鉁?鏃犲嚟璇佷細璇濇湭鎺堟潈
+  鉁?鏂颁細鍛樹护鐗岃瘑鍒负宸叉巿鏉冿紝鏉ユ簮 membership
+
+[P0-5] 鐧诲綍鎬佷笌鐭湡鍗曟鍑瘉
+  鉁?membership/status 浠呭嚟 openid 鏌ヨ琚嫆(401)锛屾棤鍏滃簳
+  鉁?鏈夋晥浠ょ墝鐘舵€佹甯歌繑鍥?  鉁?绛惧彂涓€娆℃€т細璇濈爜
+  鉁?涓€娆℃€х爜娑堣垂鎴愬姛锛岄壌鏉冮€氳繃
+  鉁?涓€娆℃€х爜浜屾浣跨敤琚嫆锛堝凡浣滃簾锛?  鉁?杩囨湡浠ょ墝琚嫆(401)
+
+[P0-1] 鍏綉绂佺敤 mock / 婕旂ず闅旂
+  鉁?婕旂ず寮€鍏?demoEnabled=false锛堝叕缃戜笉鏆撮湶浼敮浠樻紨绀猴級
+  鉁?config 鏆撮湶鍥哄畾閲戦 990
+
+[楠屾敹] 鍏ㄩ儴 P0 鎬ц川鐢ㄤ緥鎵ц瀹屾瘯銆?P0_EXIT=0
+=== TEST 2: codex-review-20261010.cjs ===
+{
+  "scope": "offline, synthetic data only",
+  "results": [
+    {
+      "name": "Official-format raw UTF-8 nonce decrypts",
+      "pass": true
+    },
+    {
+      "name": "One-time exchange establishes renewable browser session",
+      "pass": true
+    },
+    {
+      "name": "Delayed payment callback cannot reactivate refunded order",
+      "pass": true
+    },
+    {
+      "name": "Payment retry repairs interrupted entitlement grant",
+      "pass": true
+    },
+    {
+      "name": "Partial refund does not silently apply full-refund rule",
+      "pass": true
+    }
+  ]
+}
+CODEX_EXIT=0
+=== TEST 3: regression-20261010.cjs ===
+  "total": 20,
+  "passed": 20,
+  "failed": 0,
+  "results": [
+    {
+REG_EXIT=0
+END

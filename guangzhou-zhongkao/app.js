@@ -4,15 +4,19 @@ import { readWorkspace, updateWorkspace, savePlan, activatePlan, parseAnonymousP
 import { matchesSchool, schoolURL } from './school-service.js';
 import {confidenceCopy,plainCopy,simplifyVisibleCopy,readingGuideHTML} from './parent-copy.js';
 import {installRegionControls,applyRegionControls,readRegionControls,regionSummary,preferredRegions,matchesRegion,prioritizeRegions,regionValidation} from './region-preference.js';
-import {prepareUnifiedWorkspace} from './workflow-ui.js';
-import {buildIntentDraft,installIntentPlanner} from './intent-planner.js';
+import {prepareUnifiedWorkspace} from './workflow-ui.js?v=20261012-minimal';
+import {buildIntentDraft,installIntentPlanner} from './intent-planner.js?v=20261012-minimal';
 
 const DISCLAIMER = '本系统依据公开招生政策及历史数据进行模拟分析，所示评分、录取机会和学校建议均为统计估计，不代表官方录取结果或任何录取承诺。招生政策、计划、报考范围、成绩分布和志愿竞争每年可能变化，请以当年广州市教育局、广州市招生考试委员会办公室及中考服务平台最终公布的信息为准。名额分配、随迁子女、跨区及其他资格请向学校或招考部门核实。志愿选择由考生及监护人自行决定。本系统仅供参考。';
 
 const $ = (selector) => document.querySelector(selector);
 const navigateTo = (target, options = {}) => {
-  if (window.ZhongkaoNavigation?.scrollTo(target, options)) return;
   const element = typeof target === 'string' ? document.querySelector(target) : target;
+  if (element && $('#verifyWorkspace')) {
+    const section = element.closest('#analysis, #volunteerForm, #schoolExplorer, #profile, #targetPlanning, #intentPlanning');
+    if (section) setWorkflowStep(section.id === 'analysis' ? 'analysis' : ['volunteerForm', 'schoolExplorer'].includes(section.id) ? 'plan' : 'profile');
+  }
+  if (window.ZhongkaoNavigation?.scrollTo(target, options)) return;
   element?.scrollIntoView({ behavior: 'smooth', block: options.block || 'start' });
 };
 const storageKey = 'pinmoo-guangzhou-zhongkao-draft-v1';
@@ -44,6 +48,7 @@ let dataset = null;
 let plan = [];
 let latestAnalysis = null;
 let latestScore = null;
+let workflowStep = 'profile';
 let directionDraft = null;
 let directionAnalysis = null;
 let directionScore = null;
@@ -148,7 +153,7 @@ function renderTargetYears() {
   document.querySelectorAll('.replay-only').forEach((node) => { node.hidden = !replay; });
   const policyBannerEl = document.getElementById('policyBanner');
   if (policyBannerEl) {
-    policyBannerEl.textContent = `${latestYear + 1}及以后尚未发布正式规则时，暂按${latestYear}年志愿结构和投档规则模拟。`;
+    policyBannerEl.textContent = `新年度规则未公布前，暂按${latestYear}规则模拟。`;
     policyBannerEl.hidden = replay;
   }
 }
@@ -890,35 +895,58 @@ function batchHasGap(batch) {
 function updateWorkflowGuide(profile = getProfile()) {
   if (!$('#workflowHint')) return;
   const selectedCount = plan.filter((slot) => slot.schoolId).length;
-  const batch3Filled = plan.filter((slot) => slot.batch === 3 && slot.schoolId).length;
-  const batch4Filled = plan.filter((slot) => slot.batch === 4 && slot.schoolId).length;
   const rangeReady = profile.mode !== 'forecast' || (profile.scoreLow <= profile.score && profile.score <= profile.scoreHigh);
   const profileReady = Number.isFinite(profile.score) && profile.score >= 0 && profile.score <= 810 && Boolean(profile.admissionDistrict) && rangeReady;
   const planReady = selectedCount > 0 && ![2, 3, 4].some((batch) => batchHasGap(batch));
-  const activeStep = !profileReady ? 'profile' : !selectedCount ? 'school' : !latestScore ? 'plan' : 'analysis';
+  const confirmAction = $('#analyzePlan');
+  if (confirmAction && !/正在|计算中/.test(confirmAction.textContent)) {
+    confirmAction.disabled = !profileReady || selectedCount === 0;
+    confirmAction.title = selectedCount ? '' : '请先选择至少一所学校';
+  }
+  // 三步模型：1 填写条件 / 2 调整志愿 / 3 查看结果（与 workflow-ui.js 移除 school 步后的 DOM 一致）
+  const steps = ['profile', 'plan', 'analysis'];
+  const stepIndex = { profile: 0, plan: 1, analysis: 2 };
+  const activeStep = workflowStep === 'analysis' && !latestScore ? 'plan' : workflowStep;
+  const activeIdx = stepIndex[activeStep];
   const states = {
-    profile: { done: profileReady, text: profileReady ? '必要信息已完成' : '待填写' },
-    school: { done: selectedCount > 0, text: selectedCount ? `已选${selectedCount}所` : '待选择' },
-    plan: { done: planReady, text: selectedCount ? `${batch3Filled}个第三批 · ${batch4Filled}个第四批` : '待填写' },
-    analysis: { done: Boolean(latestScore), text: latestScore ? `${latestScore.total}分 · ${latestScore.label}` : '待分析' }
+    profile: { done: profileReady, text: profileReady ? '条件已填写' : '待填写' },
+    plan: { done: planReady, text: selectedCount ? `已填${selectedCount}个志愿` : '待填写' },
+    analysis: { done: Boolean(latestScore), text: latestScore ? `${latestScore.total}分 · 已评估` : '待评估' }
   };
-  const stateIds = { profile: '#flowProfileState', school: '#flowSchoolState', plan: '#flowPlanState', analysis: '#flowAnalysisState' };
-  Object.entries(states).forEach(([key, state]) => {
+  const stateIds = { profile: '#flowProfileState', plan: '#flowPlanState', analysis: '#flowAnalysisState' };
+  const lockReason = { plan: '先核对条件', analysis: '先确认评估' };
+  steps.forEach((key) => {
     const button = document.querySelector(`[data-flow-step="${key}"]`);
-    button?.classList.toggle('done', state.done);
-    button?.classList.toggle('active', key === activeStep);
+    if (!button) return;
+    const isActive = key === activeStep;
+    const isComplete = key === 'profile' ? profileReady && activeIdx > 0 : key === 'plan' ? Boolean(latestScore) : false;
+    const isLocked = key === 'plan' ? !profileReady : key === 'analysis' ? !latestScore : false;
+    button.classList.toggle('active', isActive);
+    button.classList.toggle('done', states[key].done);
+    if (isActive) button.setAttribute('aria-current', 'step');
+    else button.removeAttribute('aria-current');
+    if (isComplete) button.setAttribute('data-complete', 'true');
+    else button.removeAttribute('data-complete');
+    if (isLocked) { button.setAttribute('data-locked', 'true'); button.disabled = true; button.title = lockReason[key]; }
+    else { button.removeAttribute('data-locked'); button.disabled = false; button.removeAttribute('title'); }
     const label = $(stateIds[key]);
-    if (label) label.textContent = state.text;
+    if (label) label.textContent = isLocked ? lockReason[key] : states[key].text;
   });
   const next = {
-    profile: { target: '#profile', label: '下一步：填写考生信息', hint: '先填写必要的分数和区域信息，其他资格与偏好可以按需展开。' },
-    school: { target: '#volunteerForm', label: '下一步：生成或填写志愿', hint: '可以生成一份方案，也可以直接填写自己选好的学校。' },
-    plan: { target: '#volunteerForm', label: '下一步：排列志愿', hint: '已有学校进入志愿表。请确认顺序连续，并补足真正愿意就读的保底学校。' },
+    profile: { target: '#profile', label: '下一步：填写考生信息', hint: '核对分数和区域，生成草案后先排志愿，再确认评估。' },
+    plan: { target: '#volunteerForm', label: '下一步：确认志愿，查看评估', hint: selectedCount ? '请确认学校与顺序，点击“确认志愿，查看评估”。' : '先选择学校并排好志愿，再确认评估。' },
     analysis: { target: '#analysis', label: '下一步：查看分析与建议', hint: latestScore ? `当前方案${latestScore.total}分。重点查看未录取风险、逐志愿机会和一键补强建议。` : '完成分析后，可查看逐志愿机会、未录取风险和一键补强建议。' }
   }[activeStep];
   $('#workflowHint').textContent = next.hint;
   $('#guideStart').dataset.nextTarget = next.target;
   $('#guideStart').textContent = next.label;
+  document.body.dataset.workflowStep = activeStep;
+}
+
+function setWorkflowStep(step) {
+  if (!['profile', 'plan', 'analysis'].includes(step)) return;
+  workflowStep = step;
+  if (dataset && $('#verifyWorkspace')) updateWorkflowGuide();
 }
 
 function updateCoach() {
@@ -947,7 +975,7 @@ function updateCoach() {
   else if (!filled) $('#coachHint').textContent = '建议先从第三批筛选：最想去的放前面，再逐步加入匹配和保底学校。';
   else if (!noGaps) $('#coachHint').textContent = '志愿中间有空档，请连续填写，避免浪费前面的志愿位置。';
   else if (batch4Filled < 2) $('#coachHint').textContent = '第四批保底还不完整，建议至少加入2所真正愿意就读的学校。';
-  else if (!latestScore) $('#coachHint').textContent = '已有可分析方案。点击“帮我检查”，查看机会区间和具体调整位置。';
+  else if (!latestScore) $('#coachHint').textContent = '请确认学校与顺序，再点击“确认志愿，查看评估”，查看机会与调整建议。';
   else $('#coachHint').textContent = `当前方案评为“${latestScore.label}”，请按下方具体建议继续调整。`;
   const selectedCount = plan.filter((slot) => slot.schoolId).length;
   $('#coachAnalyze').disabled = selectedCount === 0;
@@ -1283,7 +1311,7 @@ function renderAnalysis(profile, analysis, score) {
   if (analysis.mode === 'forecast') {
     const likely = analysis.outcomes.find((row) => row.key !== 'none');
     $('#mostLikely').textContent = likely?.slot ? `最可能去向：${likely.slot.schoolName}` : '当前方案未形成明确录取去向';
-    $('#noneRisk').textContent = `这份志愿都未录取的预测风险：${analysis.noneProbability}%（只针对已填志愿，不代表所有高中）`;
+    $('#noneRisk').textContent = `预测未录取风险：${analysis.noneProbability}%（仅此方案）`;
     $('#chanceList').innerHTML = analysis.slotResults.map((row) => `
       <article class="chance-row"><div class="chance-row-head"><div><strong>第${row.batch}批第${row.position}志愿 · ${row.schoolName}</strong><small>${row.tier} · ${confidenceCopy(row.confidence).label} · 有${row.yearsWithData}年可直接比较的记录 · 最终录到该校${row.outcomeProbability ?? 0}%${row.notes?.length ? ` · ${escapeHtml(plainCopy(row.notes.join('；')))}` : ''}</small></div><span class="chance-value"><small>这所学校的机会</small>${row.interval[0]}%—${row.interval[1]}%</span></div><div class="chance-track"><i style="--chance:${row.chance}"></i></div></article>`).join('');
     $('#outcomeList').innerHTML = analysis.outcomes.slice(0, 8).map((row) => row.slot ? `
@@ -1653,7 +1681,9 @@ async function generateIntentPlan({selections,strategy,allowSupplement,status}){
   let box=$('#intentOrderExplanation');if(!box){box=document.createElement('details');box.id='intentOrderExplanation';box.className='workflow-disclosure';$('#volunteerForm').prepend(box);}
   const safe=output.result.slotResults?.some(r=>r.screeningTier==='保底'||r.tier==='保底');
   box.innerHTML=`<summary>意向学校排序依据 · 已填${output.reasons.length}个位置</summary><p>按同一组500次情景比较排序；最终机会请点击“确认志愿，查看评估”重新计算。${output.added.length?`补充${output.added.length}所学校，请逐一确认是否愿意就读。`:'只使用你选择的学校，未自动补充。'}</p><ul>${output.reasons.map(r=>`<li>第${r.batch}批第${r.position}志愿：<a href="${schoolURL(r.schoolId)}">${escapeHtml(r.schoolName)}</a>。${escapeHtml(r.text)}</li>`).join('')}</ul>${safe?'':'<p class="notice">目前没有模拟机会达到保底档的学校。可返回意向模块允许补充，或增加愿意就读、录取门槛更低的学校。</p>'}`;
-  box.open=true;
+  box.open=false;
+  let safetyNotice=$('#intentSafetyNotice');if(!safetyNotice){safetyNotice=document.createElement('p');safetyNotice.id='intentSafetyNotice';safetyNotice.className='notice';$('#volunteerForm .panel-heading').after(safetyNotice);}
+  safetyNotice.hidden=safe;safetyNotice.textContent='生成时缺少保底，修改后请重新评估。';
   const names={priority:'优先意向',balanced:'兼顾风险',safe:'更稳妥'};
   status.textContent=`已生成“${names[strategy]}”草案。请在第2步确认学校与顺序。`;
   $('#generationStatus').textContent=status.textContent;navigateTo($('#volunteerForm'));
@@ -1672,9 +1702,9 @@ async function generateUnifiedPlan(){
     if(draft.filter(s=>s.schoolId).length<4)throw new Error('可用学校较少，请核对报考条件或放宽偏好');
     plan=draft.map(s=>s.batch===2?quota.find(q=>q.key===s.key):s);
     renderBatchForms();await refreshBatchOptions();saveDraft();$('#analysis').hidden=true;updateCoach();navigateTo($('#volunteerForm'));
-    $('#generationStatus').textContent=`已生成${profile.riskPreference}方案。请先在第2步确认学校与顺序，再点击“确认志愿，查看评估”。区域偏好：${regionSummary(profile)}。`;
+    $('#generationStatus').textContent=`已生成${profile.riskPreference}方案，可调整学校与顺序。`;
   }catch(error){toast(`生成失败：${error.message}`);}
-  finally{button.disabled=false;button.textContent='重新生成志愿';}
+  finally{button.disabled=false;button.textContent='重新生成';}
 }
 
 function bindEvents() {
@@ -1687,7 +1717,7 @@ function bindEvents() {
   }));
   $('#undoPlan')?.addEventListener('click',async()=>{if(!undoSnapshot)return;const previous=undoSnapshot;undoSnapshot=null;setProfile(previous.profile);plan=structuredClone(previous.plan);renderBatchForms();await refreshBatchOptions();saveDraft();$('#undoPlan').disabled=true;toast('已恢复调整前的方案，请重新分析。');});
   $('#saveAsPlan')?.addEventListener('click',()=>{try{savePlan(getProfile(),plan,{name:$('#planName').value.trim()||'方案副本',forceNew:true});toast('已另存一份方案，原方案保留。');}catch{toast('保存失败，请导出匿名方案备份。');}});
-  $('#saveNamedPlan')?.addEventListener('click',()=>{saveDraft({keepResult:true});});
+  $('#saveNamedPlan')?.addEventListener('click',()=>{saveDraft({keepResult:true});toast($('#saveStatus')?.textContent || '方案已保存到当前浏览器。');});
   const dirSim = $('#realisticSimDirection');
   if (dirSim) dirSim.addEventListener('change', async () => {
     setRealisticSim(dirSim.checked);
@@ -1792,6 +1822,7 @@ function bindEvents() {
     }
     navigateTo(target);
   }));
+  document.addEventListener('zk-workflow-navigate', event => setWorkflowStep(event.detail?.step));
 }
 
 async function init() {

@@ -1,0 +1,944 @@
+/* 广州中考志愿助手 UI 改版样式（2026-10-11 Codex 修复）
+ * 加载顺序：在 experience.css 之后由 site-shell.js 注入；motion-theme.css 在其后注入。
+ * 字号规范：标题 24 / 正文 16 / 备注 14，统一由 experience.css 与下方令牌落实，本文件不再引入其它字号。
+ */
+
+/* ===== 1. 设计令牌补充 ===== */
+:root {
+  --zk-orange: #cb571e;
+  --zk-orange-soft: #fff5ed;
+  --zk-navy: #15283d;
+  --zk-navy-strong: #0f2032;
+  --zk-muted: #57677a;
+  --zk-line: #dce2e7;
+  --zk-soft: #f4f6f7;
+  --zk-danger: #943c3c;
+  --zk-focus: #6686a0;
+  --zk-fs-title: var(--zk-font-title, 24px);
+  --zk-fs-body: var(--zk-font-body, 16px);
+  --zk-fs-note: var(--zk-font-note, 14px);
+}
+
+/* ===== 2. 按钮与触控目标 ===== */
+.button-primary,
+.primary-button,
+.guide-start-button,
+.generate-button,
+.access-submit,
+.btn-primary {
+  min-height: 48px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.button-secondary,
+.ghost-button,
+.add-school,
+.danger-button,
+.btn-secondary {
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 10px;
+}
+
+button,
+a.button-primary,
+a.button-secondary,
+a.ghost-button,
+a.danger-button {
+  min-height: 44px;
+}
+
+button:disabled,
+a.button-primary:disabled,
+a.button-secondary:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--zk-focus);
+  outline-offset: 3px;
+}
+
+/* 图标按钮最小 44×44 */
+.row-actions button,
+.card-actions button,
+.detail-head .toolbar button,
+.library-card .card-actions button {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* ===== 3. 首页入口卡（UI-01） ===== */
+.experience-shell .home-start-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 24px 0 16px;
+}
+
+.experience-shell .home-start-option,
+a.home-start-option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid var(--zk-line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--zk-navy);
+  text-decoration: none;
+  transition: border-color .15s, box-shadow .15s, transform .12s;
+}
+
+.experience-shell .home-start-option strong,
+a.home-start-option strong {
+  font-size: var(--zk-fs-body);
+  font-weight: 700;
+}
+
+.experience-shell .home-start-option span,
+a.home-start-option span {
+  font-size: var(--zk-fs-note);
+  color: var(--zk-muted);
+  line-height: 1.5;
+}
+
+.experience-shell .home-start-option::after,
+a.home-start-option::after {
+  content: '→';
+  margin-top: auto;
+  color: var(--zk-orange);
+  font-weight: 700;
+  font-size: var(--zk-fs-body);
+}
+
+.experience-shell .home-start-option:hover,
+a.home-start-option:hover,
+.experience-shell .home-start-option:focus-visible,
+a.home-start-option:focus-visible {
+  border-color: var(--zk-orange);
+  box-shadow: 0 6px 18px rgba(203, 87, 30, .12);
+  transform: translateY(-1px);
+}
+
+.experience-shell .home-start-option.home-start-target,
+a.home-start-option.home-start-target {
+  border-color: #f2bfa0;
+  background: var(--zk-orange-soft);
+}
+
+/* 继续上次方案横幅 */
+#continuePlan.savebar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 18px;
+  background: var(--zk-soft);
+  border: 1px solid var(--zk-line);
+  border-radius: 10px;
+  margin-bottom: 18px;
+}
+
+#continuePlan.savebar small {
+  display: block;
+  font-size: var(--zk-fs-note);
+  color: var(--zk-muted);
+}
+
+#continuePlan.savebar strong {
+  font-size: var(--zk-fs-body);
+  color: var(--zk-navy);
+}
+
+#continuePlan.savebar a.button-primary {
+  flex: 0 0 auto;
+}
+
+/* ===== 4. 批次入口卡（首页 / 统一整块可点） ===== */
+.batch-entry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.batch-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px;
+  border: 1px solid var(--zk-line);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--zk-navy);
+  text-decoration: none;
+  position: relative;
+  transition: border-color .15s, box-shadow .15s, transform .12s;
+}
+
+.batch-entry .eyebrow {
+  font-size: var(--zk-fs-note);
+  color: var(--zk-orange);
+  letter-spacing: 0;
+}
+
+.batch-entry h2 {
+  margin: 0;
+  font-size: var(--zk-fs-title);
+  line-height: 1.3;
+}
+
+.batch-entry p {
+  margin: 0;
+  font-size: var(--zk-fs-body);
+  color: var(--zk-muted);
+  flex: 1;
+}
+
+.batch-entry small {
+  font-size: var(--zk-fs-note);
+  color: var(--zk-muted);
+}
+
+.batch-single:hover {
+  border-color: var(--zk-orange);
+  box-shadow: 0 8px 22px rgba(203, 87, 30, .12);
+  transform: translateY(-1px);
+}
+
+.batch-entry:focus-visible {
+  outline: 3px solid var(--zk-focus);
+  outline-offset: 3px;
+}
+
+.batch-arrow {
+  position: absolute;
+  right: 18px;
+  bottom: 16px;
+  color: var(--zk-orange);
+  font-weight: 700;
+}
+
+/* 第一批：两个去向，拆成两个整块子入口 */
+.batch-dual .batch-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.batch-sublink {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--zk-line);
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--zk-navy);
+  background: #fff;
+  position: relative;
+  transition: border-color .15s, box-shadow .15s;
+}
+
+.batch-sublink:hover {
+  border-color: var(--zk-orange);
+  box-shadow: 0 4px 14px rgba(203, 87, 30, .12);
+}
+
+.batch-sublink:focus-visible {
+  outline: 3px solid var(--zk-focus);
+  outline-offset: 2px;
+}
+
+.batch-subtitle {
+  font-size: var(--zk-fs-body);
+  font-weight: 700;
+}
+
+.batch-subdesc {
+  font-size: var(--zk-fs-note);
+  color: var(--zk-muted);
+  line-height: 1.5;
+}
+
+.batch-sublink .batch-arrow {
+  position: static;
+  margin-top: 4px;
+  font-size: var(--zk-fs-body);
+}
+
+/* ===== 4b. 招生资料卡（/admissions/ 整块可点） ===== */
+.task-card.task-link {
+  border-top: 3px solid var(--zk-orange);
+  border-radius: 0 0 12px 12px;
+  padding: 20px 0 24px;
+  text-decoration: none;
+  color: var(--zk-navy);
+  position: relative;
+  transition: background-color .15s;
+}
+
+.task-card.task-link:hover {
+  background: var(--zk-orange-soft);
+}
+
+.task-card.task-link h3 {
+  color: var(--zk-navy);
+}
+
+.task-card.task-link .task-arrow {
+  position: absolute;
+  right: 0;
+  bottom: 22px;
+  color: var(--zk-orange);
+  font-weight: 700;
+  font-size: var(--zk-fs-body);
+}
+
+/* ===== 5. 三步工作区（UI-02） ===== */
+.workflow-steps {
+  display: flex;
+  gap: 0;
+  padding: 6px;
+  background: var(--zk-soft);
+  border-radius: 12px;
+  margin-bottom: 24px;
+}
+
+.workflow-steps button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 10px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--zk-muted);
+  font-size: var(--zk-fs-note);
+  cursor: pointer;
+}
+
+.workflow-steps button b {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--zk-line);
+  color: var(--zk-muted);
+  font-size: var(--zk-fs-note);
+}
+
+.workflow-steps button.active,
+.workflow-steps button[aria-current="step"] {
+  background: var(--zk-navy);
+  color: #fff;
+  font-weight: 700;
+}
+
+.workflow-steps button.active b,
+.workflow-steps button[aria-current="step"] b {
+  background: rgba(255, 255, 255, .25);
+  color: #fff;
+}
+
+.workflow-steps button[data-complete="true"] {
+  color: var(--zk-navy);
+}
+
+.workflow-steps button[data-complete="true"] b {
+  background: var(--zk-navy);
+  color: #fff;
+}
+
+.workflow-steps button[data-locked="true"] {
+  cursor: not-allowed;
+  opacity: .6;
+}
+
+.workflow-steps button strong,
+.workflow-steps button small {
+  display: block;
+  text-align: left;
+}
+
+.workflow-steps button small {
+  font-size: var(--zk-fs-note);
+  color: inherit;
+  opacity: .8;
+}
+
+/* 移除 plan-coach 中重复的主按钮，保留提示 */
+.plan-coach .primary-button#coachAnalyze {
+  display: none;
+}
+
+.plan-coach {
+  background: var(--zk-soft);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 20px;
+}
+
+.coach-summary strong {
+  font-size: var(--zk-fs-body);
+  color: var(--zk-navy);
+}
+
+/* 每个 panel 底部操作栏：左侧返回，右侧主 CTA */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  border-top: 1px solid var(--zk-line);
+  margin-top: 20px;
+}
+
+.form-actions .danger-button {
+  margin-right: auto;
+}
+
+.workflow-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 16px 0 0;
+  margin-top: 16px;
+  border-top: 1px solid var(--zk-line);
+}
+
+.workflow-footer a.button-primary,
+.workflow-footer button[data-confirm-plan] {
+  margin-left: auto;
+}
+
+/* ===== 6. 学校卡（UI-04） ===== */
+.library-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px;
+  border: 1px solid var(--zk-line);
+  border-radius: 12px;
+  background: #fff;
+}
+
+.library-card h3 {
+  margin: 0;
+  font-size: var(--zk-fs-body);
+}
+
+.library-card h3 a {
+  text-decoration: none;
+  color: var(--zk-navy);
+  padding: 4px 0;
+}
+
+.library-card h3 a:hover,
+.library-card h3 a:focus-visible {
+  text-decoration: underline;
+  color: var(--zk-orange);
+}
+
+.library-card p {
+  margin: 0;
+  font-size: var(--zk-fs-note);
+  color: var(--zk-muted);
+}
+
+.library-card .card-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+.library-card .card-actions button,
+.library-card .card-actions a {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--zk-line);
+  background: #fff;
+  color: var(--zk-navy);
+  font-size: var(--zk-fs-note);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.library-card .card-actions button[aria-pressed="true"] {
+  background: var(--zk-navy);
+  color: #fff;
+  border-color: var(--zk-navy);
+}
+
+.library-card .card-actions a {
+  background: var(--zk-navy);
+  color: #fff;
+  border-color: var(--zk-navy);
+}
+
+.library-card .school-card-main {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  margin: -18px;
+  padding: 18px;
+  border-radius: 12px;
+}
+
+.library-card .school-card-main:hover h3,
+.library-card .school-card-main:focus-visible h3 {
+  color: var(--zk-orange);
+  text-decoration: underline;
+}
+
+.library-card .school-card-main:focus-visible {
+  outline: 3px solid var(--zk-focus);
+  outline-offset: -3px;
+}
+
+/* ===== 7. 学校详情（UI-04） ===== */
+.detail-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 24px 0;
+}
+
+.detail-head h1 {
+  font-size: var(--zk-fs-title);
+  margin: 8px 0;
+}
+
+.detail-head .toolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.detail-head .toolbar button,
+.detail-head .toolbar a {
+  min-height: 44px;
+}
+
+.detail-tabs {
+  position: sticky;
+  top: 76px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px 0;
+  background: #fff;
+  border-bottom: 1px solid var(--zk-line);
+  z-index: 20;
+}
+
+.detail-tabs a {
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: var(--zk-fs-note);
+  text-decoration: none;
+  color: var(--zk-muted);
+  background: var(--zk-soft);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.detail-tabs a[aria-current="location"],
+.detail-tabs a.active {
+  background: var(--zk-navy);
+  color: #fff;
+  font-weight: 700;
+}
+
+#returnToSchools,
+#returnSchoolContext,
+.back-home,
+.compact-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--zk-line);
+  color: var(--zk-navy);
+  text-decoration: none;
+  font-size: var(--zk-fs-note);
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+#returnToSchools:hover,
+#returnSchoolContext:hover,
+.back-home:hover,
+.compact-back:hover {
+  border-color: var(--zk-orange);
+  color: var(--zk-orange);
+}
+
+/* ===== 8. 返回面包屑（site-shell.js 注入） ===== */
+.batch-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 0;
+  margin-bottom: 12px;
+  font-size: var(--zk-fs-note);
+}
+
+.batch-breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid var(--zk-line);
+  color: var(--zk-navy);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.batch-breadcrumb a:hover {
+  border-color: var(--zk-orange);
+  color: var(--zk-orange);
+}
+
+.batch-breadcrumb span {
+  color: var(--zk-muted);
+}
+
+/* ===== 9. 底部移动导航（仅手机浏览器显示，桌面与小程序隐藏） ===== */
+.mobile-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-top: 1px solid var(--zk-line);
+  padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+  z-index: 60;
+  display: none;
+}
+
+@media (max-width: 650px) {
+  .mobile-nav {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+.mobile-nav a {
+  flex: 1;
+  text-align: center;
+  font-size: var(--zk-fs-note);
+  color: var(--zk-muted);
+  text-decoration: none;
+  padding: 8px 0;
+  min-height: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.mobile-nav a[aria-current="page"] {
+  color: #fff;
+  background: var(--zk-navy);
+  font-weight: 700;
+}
+
+/* ===== 10. 学校列表筛选 ===== */
+#libraryFilters .button-secondary,
+#libraryFilters button[type="reset"],
+.filter-secondary button[type="reset"] {
+  min-height: 44px;
+}
+
+.library-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 14px 0;
+}
+
+.empty-state h3 {
+  font-size: var(--zk-fs-body);
+  margin-bottom: 8px;
+}
+
+.empty-state .button-secondary {
+  margin-top: 12px;
+}
+
+/* ===== 11. 评估页（UI-05） ===== */
+.analysis-panel .score-ring {
+  border-radius: 12px;
+}
+
+.analysis-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.analysis-actions .text-link-back {
+  margin-right: auto;
+}
+
+.outcome-list .school-card,
+.chance-list .chance-item {
+  border: 1px solid var(--zk-line);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.outcome-list .school-card a,
+.chance-list .chance-item a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--zk-navy);
+  color: #fff;
+  text-decoration: none;
+  font-size: var(--zk-fs-note);
+  font-weight: 500;
+}
+
+/* ===== 12. 目标校页（UI-03） ===== */
+.direction-submit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 18px;
+  background: var(--zk-soft);
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.direction-submit p {
+  flex: 1;
+  margin: 0;
+  color: var(--zk-muted);
+  font-size: var(--zk-fs-note);
+}
+
+.direction-submit .primary-button {
+  flex: 0 0 auto;
+}
+
+/* ===== 13. 折叠说明 ===== */
+details summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+details summary::-webkit-details-marker { display: none; }
+
+details summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  font-size: var(--zk-fs-body);
+  font-weight: 500;
+}
+
+details summary b {
+  font-weight: 500;
+  color: var(--zk-muted);
+  font-size: var(--zk-fs-note);
+}
+
+details summary::after {
+  content: '▾';
+  color: var(--zk-muted);
+  transition: transform .2s;
+}
+
+details[open] summary::after {
+  transform: rotate(180deg);
+}
+
+/* ===== 14. 解锁页 ===== */
+.access-shell .back-home,
+.unlock-shell .back-home {
+  margin-bottom: 16px;
+  display: inline-flex;
+}
+
+.access-step .button-primary,
+.unlock-step .button-primary {
+  width: 100%;
+  min-height: 52px;
+}
+
+/* ===== 15. 当前步骤操作栏：使用原按钮，不复制触发动作 ===== */
+#workflowActions[hidden] { display: none; }
+#workflowActions {
+  position: fixed;
+  inset: auto 0 var(--zk-mobile-nav-height, 61px);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  margin: 0;
+  padding: 12px 16px;
+  background: #fff;
+  border-top: 1px solid var(--zk-line);
+  box-shadow: 0 -6px 20px #15283d10;
+  z-index: 50;
+}
+#workflowActions small { color: var(--zk-muted); }
+.workflow-action-buttons { display: flex; align-items: stretch; gap: 8px; }
+#workflowPrimaryHost { flex: 1; min-width: 0; display: flex; }
+#workflowPrimaryHost > button { width: 100%; min-height: 48px; padding: 10px 12px; white-space: normal; }
+#workflowBack { flex: 0 0 auto; min-height: 48px; padding: 10px 12px; }
+@media (max-width: 650px) {
+  .unified-workspace .generate-actions .toolbar button {
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+  }
+  body[data-mobile-actions="true"] .app-shell {
+    padding-bottom: calc(var(--zk-step-actions-height, 110px) + var(--zk-mobile-nav-height, 61px) + 32px) !important;
+  }
+  body[data-keyboard-open="true"] .mobile-nav { display: none; }
+  .batch-dual .batch-split { grid-template-columns: 1fr; }
+}
+@media (min-width: 651px) { #workflowActions { display: none; } }
+@media print { #workflowActions { display: none; } }
+
+/* ===== 16. 响应式调整 ===== */
+@media (max-width: 1000px) {
+  .batch-entry-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .batch-dual {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 650px) {
+  .experience-shell {
+    padding: 20px 16px 80px;
+  }
+
+  /* 手机端恢复常规 2×2 入口布局，避免第 4 个入口被底栏遮住 */
+  .experience-shell .home-start-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .batch-entry-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .batch-dual {
+    grid-column: auto;
+  }
+
+  .workflow-steps button {
+    flex-direction: column;
+    gap: 4px;
+    font-size: var(--zk-fs-note);
+    padding: 10px 6px;
+  }
+
+  .workflow-steps button strong,
+  .workflow-steps button small {
+    text-align: center;
+  }
+
+  .form-actions .danger-button,
+  .form-actions .primary-button {
+    width: 100%;
+    margin: 0;
+  }
+
+  .form-actions .primary-button {
+    order: -1;
+  }
+
+  .detail-head {
+    flex-direction: column;
+  }
+
+  .detail-head .toolbar {
+    width: 100%;
+  }
+
+  .detail-head .toolbar button,
+  .detail-head .toolbar a {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .direction-submit {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .direction-submit .primary-button {
+    width: 100%;
+  }
+}
+
+/* 极窄屏 / 放大文字时单列，避免拥挤 */
+@media (max-width: 340px) {
+  .experience-shell .home-start-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 360px) {
+  .experience-shell .home-start-option,
+  .batch-entry,
+  .library-card,
+  .btn,
+  .button-primary,
+  .button-secondary {
+    border-radius: 8px;
+  }
+}

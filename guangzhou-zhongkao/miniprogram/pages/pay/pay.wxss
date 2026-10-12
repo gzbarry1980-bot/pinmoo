@@ -1,0 +1,43 @@
+.pay-page { padding: 32rpx 28rpx 60rpx; background: #f4f7fb; min-height: 100vh; box-sizing: border-box; }
+
+.hero { text-align: center; padding: 24rpx 0 32rpx; }
+.hero-badge { display: inline-block; font-size: 22rpx; color: #15283d; background: #e6edf5; padding: 6rpx 18rpx; border-radius: 999rpx; }
+.hero-title { font-size: 48rpx; font-weight: 700; color: #15283d; margin-top: 18rpx; }
+.hero-sub { font-size: 26rpx; color: #627d98; margin-top: 10rpx; }
+
+.card { background: #fff; border-radius: 20rpx; padding: 28rpx; margin-bottom: 22rpx; box-shadow: 0 4rpx 20rpx rgba(21,40,61,0.05); }
+
+.product { text-align: center; }
+.product-name { font-size: 28rpx; color: #15283d; font-weight: 600; }
+.product-price { margin-top: 12rpx; color: #e0512a; }
+.product-price .cur { font-size: 32rpx; vertical-align: 6rpx; }
+.product-price .num { font-size: 72rpx; font-weight: 800; letter-spacing: 1rpx; }
+.product-tag { margin-top: 8rpx; font-size: 24rpx; color: #8aa0b6; }
+
+.section-title { font-size: 28rpx; font-weight: 600; color: #15283d; margin-bottom: 16rpx; }
+.benefit { display: flex; align-items: flex-start; padding: 12rpx 0; }
+.benefit-dot { flex: none; width: 40rpx; height: 40rpx; line-height: 40rpx; text-align: center; border-radius: 50%; background: #eaf3ec; color: #2e9e5b; font-size: 24rpx; margin-right: 16rpx; }
+.benefit-text { display: flex; flex-direction: column; }
+.benefit-title { font-size: 28rpx; color: #15283d; font-weight: 600; }
+.benefit-desc { font-size: 24rpx; color: #8aa0b6; margin-top: 4rpx; }
+
+.privacy-note { font-size: 22rpx; color: #8aa0b6; text-align: center; margin: 8rpx 0 24rpx; }
+.privacy-note .link { color: #2f6fb0; }
+
+.pay-btn { background: linear-gradient(135deg, #e0512a, #f08a3c); color: #fff; font-size: 32rpx; font-weight: 700; border-radius: 999rpx; padding: 24rpx 0; box-shadow: 0 10rpx 24rpx rgba(224,81,42,0.28); }
+.pay-btn[disabled] { opacity: 0.7; }
+.pay-error { color: #e0512a; font-size: 24rpx; text-align: center; margin-top: 16rpx; }
+
+.mask { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 50; }
+.dialog { width: 80%; background: #fff; border-radius: 20rpx; padding: 32rpx; box-sizing: border-box; }
+.dialog-title { font-size: 30rpx; font-weight: 700; text-align: center; color: #15283d; }
+.dialog-body { max-height: 240rpx; font-size: 26rpx; color: #627d98; margin: 20rpx 0; line-height: 1.6; }
+.dialog-agree { background: #15283d; color: #fff; border-radius: 999rpx; font-size: 30rpx; margin-top: 8rpx; }
+.dialog-cancel { background: #f0f3f7; color: #627d98; border-radius: 999rpx; font-size: 28rpx; margin-top: 16rpx; }
+
+.success-card { width: 78%; background: #fff; border-radius: 24rpx; padding: 48rpx 32rpx; text-align: center; box-sizing: border-box; }
+.success-icon { width: 96rpx; height: 96rpx; line-height: 96rpx; margin: 0 auto; border-radius: 50%; background: #eaf3ec; color: #2e9e5b; font-size: 56rpx; }
+.success-title { font-size: 36rpx; font-weight: 700; color: #15283d; margin-top: 20rpx; }
+.success-sub { font-size: 26rpx; color: #8aa0b6; margin-top: 10rpx; }
+.success-primary { margin-top: 32rpx; background: #15283d; color: #fff; border-radius: 999rpx; font-size: 30rpx; }
+.success-ghost { margin-top: 16rpx; background: #f0f3f7; color: #627d98; border-radius: 999rpx; font-size: 28rpx; }

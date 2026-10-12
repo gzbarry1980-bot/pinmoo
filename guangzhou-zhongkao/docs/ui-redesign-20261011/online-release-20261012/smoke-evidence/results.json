@@ -1,0 +1,108 @@
+{
+  "at": "2026-10-12T01:22:01.945Z",
+  "origin": "https://zhongkao.pinmooconsulting.com",
+  "scope": "Public-domain UI; entitled flow uses isolated fixtures, anonymous flow uses real read-only session; no payment or serial activation",
+  "results": [
+    {
+      "name": "Mobile four entry cards visible",
+      "pass": true,
+      "details": [
+        425.15625,
+        425.15625,
+        565.9375,
+        565.9375
+      ]
+    },
+    {
+      "name": "Score draft opens step 2, not results",
+      "pass": true
+    },
+    {
+      "name": "Step 2 button visible above bottom navigation",
+      "pass": true,
+      "details": {
+        "bottom": 770,
+        "navTop": 783,
+        "unobstructed": true
+      }
+    },
+    {
+      "name": "Explicit confirmation produces evaluation",
+      "pass": true
+    },
+    {
+      "name": "Mobile local save confirms success",
+      "pass": true
+    },
+    {
+      "name": "Result returns to plan",
+      "pass": true
+    },
+    {
+      "name": "Plan returns to conditions without losing score range",
+      "pass": true
+    },
+    {
+      "name": "Intent schools form a unique draft at step 2",
+      "pass": true,
+      "details": [
+        "gz-79a8dd8dc065",
+        "gz-ec1a75c75160",
+        "gz-6b8cf4e3bb80"
+      ]
+    },
+    {
+      "name": "Target-school score appears",
+      "pass": true
+    },
+    {
+      "name": "Target draft opens step 2",
+      "pass": true
+    },
+    {
+      "name": "Manual mode confirms an existing plan",
+      "pass": true
+    },
+    {
+      "name": "School outcome card has one main link",
+      "pass": true
+    },
+    {
+      "name": "School card opens full school profile",
+      "pass": true
+    },
+    {
+      "name": "School profile keeps filtered return link",
+      "pass": true,
+      "details": "/schools/?q=16%E4%B8%AD%E6%9C%AC%E9%83%A8&sort=name"
+    },
+    {
+      "name": "School return restores keyword",
+      "pass": true
+    },
+    {
+      "name": "Desktop hides mobile navigation",
+      "pass": true
+    },
+    {
+      "name": "Desktop target-school entry opens correct mode",
+      "pass": true
+    },
+    {
+      "name": "Real anonymous session is not entitled",
+      "pass": true
+    },
+    {
+      "name": "Real anonymous generation opens unlock prompt",
+      "pass": true
+    },
+    {
+      "name": "No script errors or rate-limit responses",
+      "pass": true,
+      "details": {
+        "errors": [],
+        "limited": []
+      }
+    }
+  ]
+}

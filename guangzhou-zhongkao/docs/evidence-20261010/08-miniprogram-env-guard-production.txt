@@ -1,0 +1,13 @@
+﻿{
+  "buildEnv": "production",
+  "profile": {
+    "dataBaseUrl": "https://zhongkao.pinmooconsulting.com",
+    "webBaseUrl": "https://zhongkao.pinmooconsulting.com",
+    "payMock": false,
+    "storageNs": "prod"
+  },
+  "scanned": 41,
+  "problems": [],
+  "pass": true
+}
+EXIT=0

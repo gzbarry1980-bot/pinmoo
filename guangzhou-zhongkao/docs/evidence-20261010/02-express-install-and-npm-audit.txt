@@ -1,0 +1,63 @@
+﻿=== node/npm ===
+v22.23.1
+10.9.8
+=== 瀹夎 express 5锛堝啓 lockfile锛?==
+
+added 65 packages in 22s
+=== 瀹為檯瀹夎鐗堟湰 ===
+express 5.3.0
+=== npm audit ===
+found 0 vulnerabilities
+AUDIT_EXIT=0
+=== lockfile ===
+-rw-r--r-- 1 root root 29761 Oct 10 15:11 package-lock.json
+=== TEST 1: p0 ===
+server listening on http://127.0.0.1:34235
+
+[P0-2] 姝ｅ紡涓嬪崟韬唤涓庨噾棰?  鉁?鏃犱护鐗屼笅鍗曡鎷?401)
+  鉁?浼€犱护鐗屼笅鍗曡鎷?401)
+  鉁?鏈変护鐗屼笅鍗曡繘鍏ョ湡瀹炰笅鍗曡矾寰勶紙闈?mock 鐩撮€氾級status=502
+
+[P0-3] 鏀粯鍥炶皟涓庡璐?  [debug] notify resp: 200 {"code":"SUCCESS","message":"鎴愬姛"}
+  鉁?鍚堟硶鍥炶皟锛堢鍚?瑙ｅ瘑/鍏ㄥ瓧娈垫牳瀵归€氳繃锛夆啋 SUCCESS
+  鉁?璁㈠崟鏍囪涓?PAID
+  鉁?鍥炶皟鎴愬姛鍚庝細鍛樻潈鐩婂紑閫?  鉁?閲嶅鍥炶皟骞傜瓑锛堜粛 SUCCESS锛屼笉鎶ラ敊锛?[pay/notify] 鍥炶皟瀛楁鏍稿澶辫触锛屾嫆缁濆紑閫氾細 { out_trade_no: 'ZKTE***3400', fails: [ 'amount' ] }
+  鉁?閲戦涓嶇鍥炶皟琚嫆(FAIL)
+  鉁?閲戦涓嶇涓嶅紑鏀炬潈鐩?  鉁?鏈煡璁㈠崟鍥炶皟琚嫆(FAIL)
+  鉁?绛惧悕閿欒鍥炶皟琚嫆(FAIL)
+
+[P0-4] 鏃у簭鍒楀彿鏉冪泭缁熶竴鏌ヨ
+  鉁?鏃у簭鍒楀彿(cookie)浼氳瘽璇嗗埆涓哄凡鎺堟潈锛屾潵婧?serial
+  鉁?搴忓垪鍙锋潈鐩婂惈璁惧绾︽潫(deviceCount/maxDevices)
+  鉁?鏃犲嚟璇佷細璇濇湭鎺堟潈
+  鉁?FAIL: 鏂颁細鍛樹护鐗岃瘑鍒负宸叉巿鏉冿紝鏉ユ簮 membership
+娴嬭瘯寮傚父涓柇: Error: 鏂颁細鍛樹护鐗岃瘑鍒负宸叉巿鏉冿紝鏉ユ簮 membership
+    at assert (/opt/zhongkao-pay-server/test/p0.test.cjs:13:79)
+    at /opt/zhongkao-pay-server/test/p0.test.cjs:166:3
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+P0_EXIT=0
+=== TEST 2: codex ===
+node:internal/modules/cjs/loader:1433
+  throw err;
+  ^
+
+Error: Cannot find module '/opt/zhongkao-pay-server/test/codex-review-20261010.cjs'
+    at Function._resolveFilename (node:internal/modules/cjs/loader:1430:15)
+    at defaultResolveImpl (node:internal/modules/cjs/loader:1040:19)
+    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1045:22)
+    at Function._load (node:internal/modules/cjs/loader:1216:25)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.23.1
+CODEX_EXIT=0
+=== TEST 3: regression ===
+  "total": 20,
+  "passed": 20,
+  "failed": 0,
+REG_EXIT=0
+END

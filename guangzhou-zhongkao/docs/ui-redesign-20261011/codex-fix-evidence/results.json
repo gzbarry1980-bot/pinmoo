@@ -1,0 +1,1178 @@
+{
+  "at": "2026-10-12T04:42:05.778Z",
+  "origin": "http://127.0.0.1:8141",
+  "scope": "UI checks; isolated entitlement fixtures, no production business mutations",
+  "results": [
+    {
+      "name": "Four homepage entry cards",
+      "pass": true,
+      "details": [
+        {
+          "href": "/verify/?new=1",
+          "y": 181.1875,
+          "bottom": 303.96875,
+          "font": "16px"
+        },
+        {
+          "href": "/verify/?new=1&start=target#targetPlanning",
+          "y": 181.1875,
+          "bottom": 303.96875,
+          "font": "16px"
+        },
+        {
+          "href": "/verify/?new=1&start=intent#intentPlanning",
+          "y": 313.96875,
+          "bottom": 436.75,
+          "font": "16px"
+        },
+        {
+          "href": "/verify/?new=1&start=manual#volunteerForm",
+          "y": 313.96875,
+          "bottom": 436.75,
+          "font": "16px"
+        }
+      ]
+    },
+    {
+      "name": "Four entries visible in first mobile viewport",
+      "pass": true,
+      "details": {
+        "entries": [
+          {
+            "href": "/verify/?new=1",
+            "y": 181.1875,
+            "bottom": 303.96875,
+            "font": "16px"
+          },
+          {
+            "href": "/verify/?new=1&start=target#targetPlanning",
+            "y": 181.1875,
+            "bottom": 303.96875,
+            "font": "16px"
+          },
+          {
+            "href": "/verify/?new=1&start=intent#intentPlanning",
+            "y": 313.96875,
+            "bottom": 436.75,
+            "font": "16px"
+          },
+          {
+            "href": "/verify/?new=1&start=manual#volunteerForm",
+            "y": 313.96875,
+            "bottom": 436.75,
+            "font": "16px"
+          }
+        ],
+        "viewport": 844
+      }
+    },
+    {
+      "name": "Homepage mode 0",
+      "pass": true,
+      "details": {
+        "url": "/verify/?new=1",
+        "mode": "score",
+        "planTop": 0,
+        "intentOpen": false,
+        "targetOpen": false,
+        "active": [
+          "profile"
+        ]
+      }
+    },
+    {
+      "name": "Homepage mode 1",
+      "pass": true,
+      "details": {
+        "url": "/verify/?new=1&start=target#targetPlanning",
+        "mode": "target",
+        "planTop": 0,
+        "intentOpen": false,
+        "targetOpen": true,
+        "active": [
+          "profile"
+        ]
+      }
+    },
+    {
+      "name": "Homepage mode 2",
+      "pass": true,
+      "details": {
+        "url": "/verify/?new=1&start=intent#intentPlanning",
+        "mode": "intent",
+        "planTop": 0,
+        "intentOpen": true,
+        "targetOpen": false,
+        "active": [
+          "profile"
+        ]
+      }
+    },
+    {
+      "name": "Homepage mode 3",
+      "pass": true,
+      "details": {
+        "url": "/verify/?new=1&start=manual#volunteerForm",
+        "mode": "manual",
+        "planTop": 188.4375,
+        "intentOpen": false,
+        "targetOpen": false,
+        "active": [
+          "plan"
+        ]
+      }
+    },
+    {
+      "name": "Mobile batch cards use readable full-width rows",
+      "pass": true,
+      "details": [
+        350,
+        350,
+        350
+      ]
+    },
+    {
+      "name": "First batch talent title navigates",
+      "pass": true,
+      "details": {
+        "url": "http://127.0.0.1:8141/special/?mode=talent"
+      }
+    },
+    {
+      "name": "First batch autonomous title navigates",
+      "pass": true,
+      "details": {
+        "url": "http://127.0.0.1:8141/special/?mode=autonomous"
+      }
+    },
+    {
+      "name": "Batch card title navigates",
+      "pass": true,
+      "details": {
+        "before": "http://127.0.0.1:8141/",
+        "after": "http://127.0.0.1:8141/quota/"
+      }
+    },
+    {
+      "name": "Admissions card title navigates",
+      "pass": true,
+      "details": {
+        "before": "http://127.0.0.1:8141/admissions/",
+        "after": "http://127.0.0.1:8141/special/?mode=talent"
+      }
+    },
+    {
+      "name": "Current step is highlighted on empty plan",
+      "pass": true,
+      "details": [
+        {
+          "key": "profile",
+          "active": true,
+          "disabled": false,
+          "aria": "step"
+        },
+        {
+          "key": "plan",
+          "active": false,
+          "disabled": false,
+          "aria": null
+        },
+        {
+          "key": "analysis",
+          "active": false,
+          "disabled": true,
+          "locked": "true",
+          "aria": null
+        }
+      ]
+    },
+    {
+      "name": "Unavailable result step has disabled state/reason",
+      "pass": true,
+      "details": [
+        {
+          "key": "profile",
+          "active": true,
+          "disabled": false,
+          "aria": "step"
+        },
+        {
+          "key": "plan",
+          "active": false,
+          "disabled": false,
+          "aria": null
+        },
+        {
+          "key": "analysis",
+          "active": false,
+          "disabled": true,
+          "locked": "true",
+          "aria": null
+        }
+      ]
+    },
+    {
+      "name": "Intent generation stops at step 2",
+      "pass": true,
+      "details": {
+        "plan": [
+          "gz-79a8dd8dc065",
+          "gz-ec1a75c75160",
+          "gz-6b8cf4e3bb80"
+        ],
+        "analysisHidden": true
+      }
+    },
+    {
+      "name": "Visible action buttons at least 44px",
+      "pass": true,
+      "details": [
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "清空志愿",
+          "height": 45.1875,
+          "width": 308,
+          "font": "16px",
+          "background": "rgb(255, 255, 255)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "修改条件",
+          "height": 48,
+          "width": 90,
+          "font": "16px",
+          "background": "rgb(255, 255, 255)",
+          "borderRadius": "10px"
+        },
+        {
+          "text": "确认志愿，查看评估",
+          "height": 48,
+          "width": 260,
+          "font": "16px",
+          "background": "rgba(0, 0, 0, 0)",
+          "borderRadius": "10px"
+        }
+      ]
+    },
+    {
+      "name": "Explicit confirmation produces score",
+      "pass": true,
+      "details": "54"
+    },
+    {
+      "name": "Return to conditions preserves plan",
+      "pass": true,
+      "details": {
+        "low": "680",
+        "high": "700"
+      }
+    },
+    {
+      "name": "Reload preserves selected intent schools",
+      "pass": true,
+      "details": {
+        "count": 3
+      }
+    },
+    {
+      "name": "School card without outcome has one main link",
+      "pass": true,
+      "details": {
+        "mainLinks": 1,
+        "nestedOutcomeInside": false,
+        "html": "<a class=\"school-card-main\" href=\"/schools/detail/?id=gz-79a8dd8dc065\"><div class=\"chips\"><span class=\"chip\">越秀区</span><span class=\"chip\">公办</span><span class=\"chip\">越秀区属</span><span class=\"chip\">国家级示范性普通高中</span><span class=\"chip\">特长项目</span></div><h3>广州市培正中学</h3><p>越秀区培正路2号</p><small>2026 · 第3批 · 户籍生 · 最低录取分 690 · 末位志愿 1</small></a><div class=\"card-actions\"><button data-favorite=\"gz-79a8dd8dc065\" aria-pressed=\"false\">收藏</button><button data-compare=\"gz-79a8dd8dc065\" aria-pressed=\"false\">对比</button></div>"
+      }
+    },
+    {
+      "name": "Favorite does not open school preview",
+      "pass": true,
+      "details": {
+        "url": "http://127.0.0.1:8141/schools/?q=%E5%9F%B9%E6%AD%A3&sort=name"
+      }
+    },
+    {
+      "name": "Compare does not open school preview",
+      "pass": true,
+      "details": {
+        "pressed": "true"
+      }
+    },
+    {
+      "name": "School card opens full profile directly",
+      "pass": true,
+      "details": {
+        "url": "http://127.0.0.1:8141/schools/detail/?id=gz-79a8dd8dc065"
+      }
+    },
+    {
+      "name": "School detail returns to original filtered list",
+      "pass": true,
+      "details": {
+        "href": "/schools/?q=%E5%9F%B9%E6%AD%A3&sort=name"
+      }
+    },
+    {
+      "name": "Return restores list query",
+      "pass": true,
+      "details": {
+        "url": "http://127.0.0.1:8141/schools/?q=%E5%9F%B9%E6%AD%A3&sort=name",
+        "scrollY": 0
+      }
+    },
+    {
+      "name": "Cards with outcome have one valid main link",
+      "pass": true,
+      "details": [
+        {
+          "name": "广州市第十六中学",
+          "mainLinks": 1,
+          "hasOutcome": true,
+          "actionParents": [
+            "ARTICLE"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Score generation stops at step 2",
+      "pass": true,
+      "details": {
+        "filled": 12,
+        "planTop": 188.4375
+      }
+    },
+    {
+      "name": "Step 2 CTA has filled background",
+      "pass": true,
+      "details": {
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(201, 73, 11), rgb(169, 53, 5))",
+        "color": "rgb(255, 255, 255)",
+        "position": "fixed",
+        "bottom": 770,
+        "navTop": 783,
+        "unobstructed": true
+      }
+    },
+    {
+      "name": "Mobile current step actions docked",
+      "pass": true,
+      "details": {
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(201, 73, 11), rgb(169, 53, 5))",
+        "color": "rgb(255, 255, 255)",
+        "position": "fixed",
+        "bottom": 770,
+        "navTop": 783,
+        "unobstructed": true
+      }
+    },
+    {
+      "name": "Mobile primary button is not covered by navigation",
+      "pass": true,
+      "details": {
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(201, 73, 11), rgb(169, 53, 5))",
+        "color": "rgb(255, 255, 255)",
+        "position": "fixed",
+        "bottom": 770,
+        "navTop": 783,
+        "unobstructed": true
+      }
+    },
+    {
+      "name": "Target mode opens usable school form",
+      "pass": true,
+      "details": {
+        "options": 223
+      }
+    },
+    {
+      "name": "Target school analysis produces target score",
+      "pass": true,
+      "details": "广州市培正中学 · 建议冲刺分692分起"
+    },
+    {
+      "name": "Target school draft stops at step 2",
+      "pass": true,
+      "details": {
+        "filled": 12
+      }
+    },
+    {
+      "name": "Manual plan confirmation produces evaluation",
+      "pass": true,
+      "details": "95"
+    },
+    {
+      "name": "Result step has its own save action",
+      "pass": true,
+      "details": {
+        "step": "analysis"
+      }
+    },
+    {
+      "name": "Mobile save action confirms local saving",
+      "pass": true,
+      "details": "已保存到当前浏览器"
+    },
+    {
+      "name": "School list restores nonzero scroll position",
+      "pass": true,
+      "details": {
+        "savedY": 2178,
+        "restoredY": 2178
+      }
+    },
+    {
+      "name": "Simulated keyboard viewport does not retain overlays",
+      "pass": true,
+      "details": {
+        "barHidden": true,
+        "navDisplay": "none",
+        "realKeyboard": false
+      }
+    },
+    {
+      "name": "Step actions restore after simulated keyboard closes",
+      "pass": true
+    },
+    {
+      "name": "No page script errors",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "Desktop has no mobile bottom navigation",
+      "pass": true,
+      "details": {
+        "display": "none",
+        "height": 0
+      }
+    },
+    {
+      "name": "24/16/14 typography tokens applied",
+      "pass": true,
+      "details": {
+        "title": "24px",
+        "body": "16px",
+        "note": "14px",
+        "buttonRadius": "0px 10px 10px 0px"
+      }
+    },
+    {
+      "name": "Homepage entry works with keyboard Enter",
+      "pass": true
+    },
+    {
+      "name": "Keyboard tab has a visible focus indicator",
+      "pass": true,
+      "details": {
+        "tag": "INPUT",
+        "id": "scoreHigh",
+        "outline": "solid"
+      }
+    },
+    {
+      "name": "200% text-size layout /",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "width": 390,
+        "body": "32px"
+      }
+    },
+    {
+      "name": "200% text-size layout /verify/?new=1",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "width": 390,
+        "body": "32px"
+      }
+    },
+    {
+      "name": "200% text-size layout /schools/",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "width": 390,
+        "body": "32px"
+      }
+    },
+    {
+      "name": "200% text-size layout /my/",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "width": 390,
+        "body": "32px"
+      }
+    },
+    {
+      "name": "Locked generation shows access unlock dialog",
+      "pass": true,
+      "details": {
+        "dialog": "×\n广州中考志愿模拟助手\n开通会员，解锁完整志愿模拟\n\n部分方案详情已打码预览。支付 ¥9.9 开通会员后，可查看完整方向、志愿表、评分、录取机会与调整建议，长期有效。\n\n方向版 / 目标校版 / 求证版 完整生成与评分\n学校历史录取门槛、梯度保护与机会区间\nJSON 导入导出、打印 PDF 报告\n一次开通，多端通用\n立即开通 ¥9.9\n不在小程序内？搜索小程序开通\n稍后再说"
+      }
+    },
+    {
+      "name": "Entitlement refresh removes output mask",
+      "pass": true
+    },
+    {
+      "name": "Expired session returns to unlock prompt",
+      "pass": true,
+      "details": {
+        "realSession": false
+      }
+    },
+    {
+      "name": "Mini fixture has no duplicate H5 bottom nav",
+      "pass": true,
+      "details": {
+        "count": 0,
+        "realDevice": false
+      }
+    },
+    {
+      "name": "Responsive 360 /",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /verify/?new=1",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /schools/",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /my/",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /special/?mode=talent",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /special/?mode=autonomous",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /quota/",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /admissions/",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /unlock/",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /plans/",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /privacy/",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 390 /",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /verify/?new=1",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /schools/",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /my/",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /special/?mode=talent",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /special/?mode=autonomous",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /quota/",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /admissions/",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /unlock/",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /plans/",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /privacy/",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 430 /",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /verify/?new=1",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /schools/",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /my/",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /special/?mode=talent",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /special/?mode=autonomous",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /quota/",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /admissions/",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /unlock/",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /plans/",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /privacy/",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 1440 /",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /verify/?new=1",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /schools/",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /my/",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /special/?mode=talent",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /special/?mode=autonomous",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /quota/",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /admissions/",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /unlock/",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /plans/",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /privacy/",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    }
+  ]
+}

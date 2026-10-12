@@ -19,11 +19,18 @@
   function scrollToTarget(target, options = {}) {
     const element = resolveTarget(target);
     if (!element || element.hidden) return false;
+    const section = element.closest('#analysis, #volunteerForm, #schoolExplorer, #profile, #targetPlanning, #intentPlanning');
+    if (section) document.dispatchEvent(new CustomEvent('zk-workflow-navigate', {detail: {step: section.id === 'analysis' ? 'analysis' : ['volunteerForm', 'schoolExplorer'].includes(section.id) ? 'plan' : 'profile'}}));
     if (options.remember !== false) rememberPosition();
-    element.scrollIntoView({
-      behavior: options.behavior || (prefersReducedMotion ? 'auto' : 'smooth'),
-      block: options.block || 'start'
-    });
+    // Let the step bar move its original button before measuring the anchor.
+    // Otherwise the changed layout can put the section heading behind the bar.
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      if (!element.isConnected || element.hidden) return;
+      element.scrollIntoView({
+        behavior: options.behavior || (prefersReducedMotion ? 'auto' : 'smooth'),
+        block: options.block || 'start'
+      });
+    }));
     return true;
   }
 
@@ -82,5 +89,5 @@
   });
 
   window.ZhongkaoNavigation = { scrollTo: scrollToTarget, back: goBack };
-  import('./site-shell.js?v=20261005b').catch(error => console.error('导航加载失败', error));
+  import('./site-shell.js?v=20261012-minimal').catch(error => console.error('导航加载失败', error));
 })();

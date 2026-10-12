@@ -1,33 +1,62 @@
-# 广州中考志愿模拟助手｜微信小程序首版
+# 广州中考志愿模拟助手｜微信小程序
 
-这是当前 H5 系统的小程序体验版源码，目录可直接导入微信开发者工具。2026-10-05改为“首页、查学校、志愿方案、招生信息、我的”五个主入口，统一嵌入网页版完整页面；方向、目标校、编辑与最终评估仍保留在志愿工作区。小程序只负责壳、导航和业务域名承载。
+面向**初三学生家长**的广州中考志愿**模拟填报**小程序。核心志愿模拟能力沿用网页版（web-view 承载），并新增**原生会员与支付层**：用户支付 **¥9.9** 开通会员后解锁完整功能。
+
+> 志愿模拟、评分、录取机会等重逻辑运行在网页版（`webBaseUrl`），小程序负责壳、导航、登录态、支付与会员权益。
+
+## 目录
+
+```
+miniprogram/
+├── app.js / app.json / app.wxss      # 全局配置（含 payPriceFen 等）
+├── sitemap.json / project.config.json
+├── utils/embed.js                    # 为 web-view 注入一次性会话码（zk_code），长期令牌不进 URL
+├── scripts/assert-env.cjs            # 生产构建防呆：检出 payMock / mock 路径 / 长期令牌透传即失败
+├── services/membership.js            # 会员与微信支付服务（登录/下单/支付/激活/刷新）
+├── pages/
+│   ├── home/ schools/ plans/ special/ direction/ target/  # web-view 承载网页版
+│   ├── webview/                      # 通用 web-view 深链页
+│   ├── my/                           # 原生「我的」会员中心
+│   ├── pay/                          # 原生 9.9 元付费解锁流程
+│   └── privacy/                      # 原生隐私政策页
+└── README.md
+```
+
+## 付费解锁流程（9.9 元）
+
+1. 用户在「我的」或网页版付费墙点击「立即开通 ¥9.9」。
+2. 小程序 `wx.login` 换取 `openid` 与会员 `token`（后端 `/api/auth/login`）。
+3. 调用 `/api/pay/create` 创建 JSAPI 订单，拿到 `payParams`。
+4. 调起 `wx.requestPayment` 完成支付。
+5. 微信回调 `/api/pay/notify` 验签 + 解密，标记订单 `PAID` 并开通会员（`entitled=true`）。
+6. 前端支付成功后乐观激活并刷新状态；网页版 web-view 只注入**一次性会话码** `zk_code`，由 `/api/access/exchange`
+   消费并下发 HttpOnly 网页会话 Cookie，`/api/access/session` 认该 Cookie 后解除内容打码（刷新/跳页不丢权益）。
+
+## 环境分离（R5）
+
+`app.js` 顶部 `BUILD_ENV` 取值 `production | test | development`，三套 profile 互不复用：
+
+| 环境 | 后端 | 存储命名空间 | 支付 |
+|---|---|---|---|
+| production | `https://zhongkao.pinmooconsulting.com` | `zk_prod_*` | 仅真实 `wx.requestPayment` |
+| test / development | `http://127.0.0.1:8799`（独立后端） | `zk_test_*` / `zk_dev_*` | 仅真实 `wx.requestPayment` |
+
+- 任何环境都**没有** mock 支付通道；`/api/pay/mock-pay` 在正式后端返回 404。
+- 商户配置缺失时 `/api/pay/create` 返回 503，前端统一提示「暂未开放购买，请稍后再来」。
+- 上传前跑 `node scripts/assert-env.cjs`，检出 `payMock`、`mock` 路径或 `zk_token` 透传即以非 0 退出。
 
 ## 导入与本地体验
 
-1. 打开微信开发者工具，导入 `miniprogram/` 目录。
-2. `project.config.json` 使用的是 `touristappid`，仅用于本地体验；上线前替换为已认证的企业小程序 AppID。
-3. 开发工具中可暂时关闭“校验合法域名”，小程序会从 `app.js` 的 `dataBaseUrl` 读取公开数据。
-4. 正式上线前，在小程序后台配置 `dataBaseUrl` 对应的 HTTPS request 合法域名，以及 `webBaseUrl` 对应的业务域名。
+1. 微信开发者工具导入 `miniprogram/` 目录。
+2. `app.js` 的 `dataBaseUrl / webBaseUrl` 为已备案域名，需同时在小程序后台配置为 **request 合法域名** 与 **业务域名**。
+3. 本地无后端时，可在 `access-config.json` 将 `enforce` 设为 `false` 关闭闸门以便调试 UI；上线须保持 `true` 并由后端 `/api/access/*` 放行。
+4. 真实支付需部署 `../server/` 后端并填好微信支付配置（见 `server/README.md`）。
 
-## 当前已完成
+## 与网页版的关系
 
-- 首页入口：按分数、目标学校、专项方向，直接进入网页版完整流程。
-- 按分数：保留网页版的估分、15个普通高中志愿槽、方案评分、五项维度、逐志愿机会区间、最终去向概率、未录取风险和具体调整建议。
-- 目标学校：保留网页版关键词搜索、学校资料、近年门槛、末位志愿序号和历史变化。
-- 专项入口：保留特长生、自主招生、资格、开放日和学校资料等网页版内容。
-- `services/engine.js` 和 `services/evaluator.js` 仍保留原生迁移用的同口径引擎，但当前默认不再启用简化原生页面，避免两端功能不一致。
+- 网页版 `access-gate.js` 已改造：付费墙文案改为「9.9 元开通会员」，小程序内点击跳原生 `/pages/pay/pay`；`/api/access/exchange` 认 `zk_code` 并下发网页会话。
+- `engine.js`、`data/*.json` 为规则引擎禁区，本改造未改动。
 
-## 尚未接入正式权益
+## 上架准备
 
-未实现原生小程序权益服务。当前web-view会沿用网页自己的序列号验证与设备规则，并非`accessMode`配置就能绕过网页服务端权限。正式发布前须审核平台对实际服务及解锁方式的要求、业务域名与主体材料，并在真机核查会话、存储和设备绑定；本轮未提交或发布小程序。
-
-## 继续开发顺序
-
-1. 在网页版完整功能稳定后，再按页面拆分原生小程序，先迁移首页和估分页。
-2. 原生迁移时必须以网页版评分和机会结果做回归金标，不能另写一套简化逻辑。
-3. 在企业小程序主体下接入合规虚拟支付、权益恢复和客服入口。
-4. 经过开发版、体验版和审核版三轮回归后再公开发布。
-
-`services/engine.js` 由 `scripts/zhongkao/build-mini-engine.mjs` 从网页版 `engine.js` 生成，更新网页版规则引擎后应重新运行生成脚本，避免两端评分口径分叉。
-
-页面与数据均仅供参考，最终以当年广州市教育局、招考部门和学校发布的信息为准。
+见同目录 `上架清单.md`（类目、主体资质、隐私协议、支付商户、测试账号、提审截图、灰度发布）。

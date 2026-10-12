@@ -1,0 +1,804 @@
+{
+  "at": "2026-10-11T05:30:30.951Z",
+  "scope": "local UI; isolated entitlement fixtures, no production mutations",
+  "results": [
+    {
+      "name": "Four homepage entry cards",
+      "pass": true,
+      "details": [
+        {
+          "href": "/verify/?new=1",
+          "y": 303.5625,
+          "bottom": 434.34375,
+          "font": "16px"
+        },
+        {
+          "href": "/verify/?new=1&start=target#targetPlanning",
+          "y": 444.34375,
+          "bottom": 575.125,
+          "font": "16px"
+        },
+        {
+          "href": "/verify/?new=1&start=intent#intentPlanning",
+          "y": 585.125,
+          "bottom": 715.90625,
+          "font": "16px"
+        },
+        {
+          "href": "/verify/?new=1&start=manual#volunteerForm",
+          "y": 725.90625,
+          "bottom": 856.6875,
+          "font": "16px"
+        }
+      ]
+    },
+    {
+      "name": "Four entries visible in first mobile viewport",
+      "pass": false,
+      "details": {
+        "entries": [
+          {
+            "href": "/verify/?new=1",
+            "y": 303.5625,
+            "bottom": 434.34375,
+            "font": "16px"
+          },
+          {
+            "href": "/verify/?new=1&start=target#targetPlanning",
+            "y": 444.34375,
+            "bottom": 575.125,
+            "font": "16px"
+          },
+          {
+            "href": "/verify/?new=1&start=intent#intentPlanning",
+            "y": 585.125,
+            "bottom": 715.90625,
+            "font": "16px"
+          },
+          {
+            "href": "/verify/?new=1&start=manual#volunteerForm",
+            "y": 725.90625,
+            "bottom": 856.6875,
+            "font": "16px"
+          }
+        ],
+        "viewport": 844
+      }
+    },
+    {
+      "name": "Homepage mode 0",
+      "pass": true,
+      "details": {
+        "url": "/verify/?new=1",
+        "mode": "score",
+        "planTop": 2370.359375,
+        "intentOpen": false,
+        "targetOpen": false,
+        "active": []
+      }
+    },
+    {
+      "name": "Homepage mode 1",
+      "pass": true,
+      "details": {
+        "url": "/verify/?new=1&start=target#targetPlanning",
+        "mode": "target",
+        "planTop": 635.640625,
+        "intentOpen": false,
+        "targetOpen": true,
+        "active": []
+      }
+    },
+    {
+      "name": "Homepage mode 2",
+      "pass": true,
+      "details": {
+        "url": "/verify/?new=1&start=intent#intentPlanning",
+        "mode": "intent",
+        "planTop": 1061.640625,
+        "intentOpen": true,
+        "targetOpen": false,
+        "active": []
+      }
+    },
+    {
+      "name": "Homepage mode 3",
+      "pass": true,
+      "details": {
+        "url": "/verify/?new=1&start=manual#volunteerForm",
+        "mode": "manual",
+        "planTop": 91.359375,
+        "intentOpen": false,
+        "targetOpen": false,
+        "active": []
+      }
+    },
+    {
+      "name": "Batch card title navigates",
+      "pass": false,
+      "details": {
+        "before": "http://127.0.0.1:8141/",
+        "after": "http://127.0.0.1:8141/",
+        "tag": "ARTICLE"
+      }
+    },
+    {
+      "name": "Admissions card title navigates",
+      "pass": false,
+      "details": {
+        "before": "http://127.0.0.1:8141/admissions/",
+        "after": "http://127.0.0.1:8141/admissions/"
+      }
+    },
+    {
+      "name": "Current step is highlighted on empty plan",
+      "pass": false,
+      "details": [
+        {
+          "key": "profile",
+          "active": false,
+          "disabled": false,
+          "aria": null
+        },
+        {
+          "key": "plan",
+          "active": false,
+          "disabled": false,
+          "aria": null
+        },
+        {
+          "key": "analysis",
+          "active": false,
+          "disabled": false,
+          "aria": null
+        }
+      ]
+    },
+    {
+      "name": "Unavailable result step has disabled state/reason",
+      "pass": false,
+      "details": [
+        {
+          "key": "profile",
+          "active": false,
+          "disabled": false,
+          "aria": null
+        },
+        {
+          "key": "plan",
+          "active": false,
+          "disabled": false,
+          "aria": null
+        },
+        {
+          "key": "analysis",
+          "active": false,
+          "disabled": false,
+          "aria": null
+        }
+      ]
+    },
+    {
+      "name": "Intent generation stops at step 2",
+      "pass": true,
+      "details": {
+        "plan": [
+          "gz-79a8dd8dc065",
+          "gz-ec1a75c75160",
+          "gz-6b8cf4e3bb80"
+        ],
+        "analysisHidden": true
+      }
+    },
+    {
+      "name": "Visible action buttons at least 44px",
+      "pass": true,
+      "details": [
+        {
+          "text": "生成志愿，先排顺序",
+          "height": 49.1875,
+          "width": 308,
+          "font": "16px",
+          "background": "rgba(0, 0, 0, 0)",
+          "borderRadius": "10px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↑",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "↓",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "×",
+          "height": 44,
+          "width": 44,
+          "font": "16px",
+          "background": "rgb(241, 244, 248)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "清空志愿",
+          "height": 45.1875,
+          "width": 308,
+          "font": "16px",
+          "background": "rgb(255, 255, 255)",
+          "borderRadius": "2px"
+        },
+        {
+          "text": "确认志愿，查看评估",
+          "height": 49.1875,
+          "width": 308,
+          "font": "16px",
+          "background": "rgba(0, 0, 0, 0)",
+          "borderRadius": "10px"
+        }
+      ]
+    },
+    {
+      "name": "Explicit confirmation produces score",
+      "pass": true,
+      "details": "54"
+    },
+    {
+      "name": "Return to conditions preserves plan",
+      "pass": true,
+      "details": {
+        "low": "680",
+        "high": "700"
+      }
+    },
+    {
+      "name": "Reload preserves selected intent schools",
+      "pass": true,
+      "details": {
+        "count": 3
+      }
+    },
+    {
+      "name": "School card without outcome has one main link",
+      "pass": true,
+      "details": {
+        "mainLinks": 1,
+        "nestedOutcomeInside": false,
+        "html": "<a class=\"school-card-main\" href=\"/schools/detail/?id=gz-79a8dd8dc065\"><div class=\"chips\"><span class=\"chip\">越秀区</span><span class=\"chip\">公办</span><span class=\"chip\">越秀区属</span><span class=\"chip\">国家级示范性普通高中</span><span class=\"chip\">特长项目</span></div><h3>广州市培正中学</h3><p>越秀区培正路2号</p><small>2026 · 第3批 · 户籍生 · 最低录取分 690 · 末位志愿 1</small></a><div class=\"card-actions\"><button data-favorite=\"gz-79a8dd8dc065\" aria-pressed=\"false\">收藏</button><button data-compare=\"gz-79a8dd8dc065\" aria-pressed=\"false\">对比</button></div>"
+      }
+    },
+    {
+      "name": "Favorite does not open school preview",
+      "pass": true,
+      "details": {
+        "url": "http://127.0.0.1:8141/schools/?q=%E5%9F%B9%E6%AD%A3&sort=name"
+      }
+    },
+    {
+      "name": "Compare does not open school preview",
+      "pass": true,
+      "details": {
+        "pressed": "true"
+      }
+    },
+    {
+      "name": "School title opens quick preview",
+      "pass": true,
+      "details": {
+        "url": "http://127.0.0.1:8141/schools/?q=%E5%9F%B9%E6%AD%A3&sort=name"
+      }
+    },
+    {
+      "name": "School detail returns to original filtered list",
+      "pass": true,
+      "details": {
+        "href": "/schools/?q=%E5%9F%B9%E6%AD%A3&sort=name"
+      }
+    },
+    {
+      "name": "Return restores list query",
+      "pass": true,
+      "details": {
+        "url": "http://127.0.0.1:8141/schools/?q=%E5%9F%B9%E6%AD%A3&sort=name",
+        "scrollY": 0
+      }
+    },
+    {
+      "name": "Cards with outcome have one valid main link",
+      "pass": false,
+      "details": [
+        {
+          "name": "广州市第十六中学",
+          "mainLinks": 2,
+          "hasOutcome": true,
+          "actionParents": [
+            "ARTICLE"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Score generation stops at step 2",
+      "pass": true,
+      "details": {
+        "filled": 12,
+        "planTop": 188.953125
+      }
+    },
+    {
+      "name": "Step 2 CTA has filled background",
+      "pass": true,
+      "details": {
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(201, 73, 11), rgb(169, 53, 5))",
+        "color": "rgb(255, 255, 255)",
+        "position": "static",
+        "bottom": 495.21875
+      }
+    },
+    {
+      "name": "Mobile current step actions docked",
+      "pass": false,
+      "details": {
+        "background": "rgba(0, 0, 0, 0)",
+        "image": "linear-gradient(135deg, rgb(201, 73, 11), rgb(169, 53, 5))",
+        "color": "rgb(255, 255, 255)",
+        "position": "static",
+        "bottom": 495.21875
+      }
+    },
+    {
+      "name": "Target mode opens usable school form",
+      "pass": true,
+      "details": {
+        "options": 223
+      }
+    },
+    {
+      "name": "Target school analysis produces target score",
+      "pass": true,
+      "details": "广州市培正中学 · 建议冲刺分692分起"
+    },
+    {
+      "name": "Target school draft stops at step 2",
+      "pass": true,
+      "details": {
+        "filled": 12
+      }
+    },
+    {
+      "name": "Manual plan confirmation produces evaluation",
+      "pass": true,
+      "details": "95"
+    },
+    {
+      "name": "No page script errors",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "Desktop has no mobile bottom navigation",
+      "pass": false,
+      "details": {
+        "display": "flex",
+        "height": 61
+      }
+    },
+    {
+      "name": "24/16/14 typography tokens applied",
+      "pass": false,
+      "details": {
+        "title": "32px",
+        "body": "16px",
+        "note": "13px",
+        "buttonRadius": "0px 10px 10px 0px"
+      }
+    },
+    {
+      "name": "Mini fixture has no duplicate H5 bottom nav",
+      "pass": true,
+      "details": {
+        "count": 0,
+        "realDevice": false
+      }
+    },
+    {
+      "name": "Responsive 360 /",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /verify/?new=1",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /schools/",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /my/",
+      "pass": true,
+      "details": {
+        "viewport": 360,
+        "docWidth": 360
+      }
+    },
+    {
+      "name": "Responsive 390 /",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /verify/?new=1",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /schools/",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /my/",
+      "pass": true,
+      "details": {
+        "viewport": 390,
+        "docWidth": 390
+      }
+    },
+    {
+      "name": "Responsive 430 /",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /verify/?new=1",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /schools/",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /my/",
+      "pass": true,
+      "details": {
+        "viewport": 430,
+        "docWidth": 430
+      }
+    },
+    {
+      "name": "Responsive 1440 /",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /verify/?new=1",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /schools/",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /my/",
+      "pass": true,
+      "details": {
+        "viewport": 1440,
+        "docWidth": 1440
+      }
+    }
+  ]
+}

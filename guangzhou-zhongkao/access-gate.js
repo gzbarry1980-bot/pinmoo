@@ -42,6 +42,29 @@
     listeners.forEach((cb) => { try { cb(state); } catch (_) { /* 忽略单个订阅者异常 */ } });
   }
 
+  // 从小程序 web-view 透传的查询参数中读取一次性会话码（zk_code）。
+  // P0-5：不再读取/缓存长期令牌或 openid，避免敏感凭证进入 URL/日志/本地存储。
+  function readUrlToken() {
+    try {
+      const params = new URLSearchParams(location.search);
+      return params.get('zk_code') || '';
+    } catch (_) {
+      return '';
+    }
+  }
+
+  // R2：交换完成后立刻把 zk_code 从地址栏抹掉。
+  // 短码是一次性的，留在 URL 里既会被分享出去，也会进入浏览器历史与 referer。
+  function clearUrlToken() {
+    try {
+      const url = new URL(location.href);
+      if (!url.searchParams.has('zk_code')) return;
+      url.searchParams.delete('zk_code');
+      const next = url.pathname + (url.search ? url.search : '') + (url.hash || '');
+      if (history && typeof history.replaceState === 'function') history.replaceState({}, '', next);
+    } catch (_) { /* 不支持时忽略，短码本身 60 秒后也会失效 */ }
+  }
+
   async function fetchJson(url, timeout = 2500) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeout);
@@ -62,6 +85,14 @@
       const cfg = await fetchJson('/api/access/config');
       state.backend = cfg;
       if (cfg && cfg.accessMode === 'enforce') {
+        // R2：web-view 注入的是一次性会话码（zk_code）。先用专用交换接口换成服务端
+        // 网页会话（HttpOnly Cookie），刷新 / 跳页 / 返回都靠它保持权益；
+        // 随后清理 URL，再由普通 session 接口查询该会话。
+        const code = readUrlToken();
+        if (code) {
+          await fetchJson('/api/access/exchange?code=' + encodeURIComponent(code));
+          clearUrlToken();
+        }
         const sess = await fetchJson('/api/access/session');
         state.entitled = Boolean(sess && sess.authenticated && sess.entitled);
       } else if (cfg) {
@@ -92,34 +123,79 @@
     window.location.href = `/unlock/?returnTo=${encodeURIComponent(path+location.search+location.hash)}`;
   }
 
-  // ---- 付费引导弹层 ----
+  // ---- 付费引导弹层（9.9 元会员付费解锁） ----
   let overlayEl = null;
+
+  // 是否运行在微信小程序 web-view 内：优先认我们自己注入的 URL 标记（最可靠，
+  // 兼容开发者工具模拟器里 wx 对象缺失的情况），再退化为 wx 对象探测。
+  function isInMiniProgram() {
+    try {
+      const params = new URLSearchParams(location.search);
+      if (params.get('zk_inmini') === '1') return true;
+    } catch (_) {}
+    try {
+      if (typeof wx !== 'undefined' && wx && wx.miniProgram) {
+        if (typeof wx.miniProgram.navigateTo === 'function') return true;
+        if (window.__wxjs_environment === 'miniprogram') return true;
+      }
+    } catch (_) {}
+    return false;
+  }
+
+  // 跳转到小程序原生支付页；失败时尝试 redirectTo，最后才放弃
+  function goNativePay() {
+    try {
+      const mp = wx && wx.miniProgram;
+      if (!mp || typeof mp.navigateTo !== 'function') return false;
+      mp.navigateTo({
+        url: '/pages/pay/pay',
+        fail: (err) => {
+          try {
+            if (mp.redirectTo) mp.redirectTo({ url: '/pages/pay/pay' });
+          } catch (_) {
+            console.warn('wx.miniProgram redirectTo pay failed', err);
+          }
+        }
+      });
+      return true;
+    } catch (_) {}
+    return false;
+  }
+
+  // 点击“立即开通”的统一入口：小程序内走原生支付（不再回退到序列号页），否则回退到解锁页
+  function handleUnlockClick() {
+    if (isInMiniProgram()) {
+      goNativePay();
+      return; // 即使在极端情况下 wx 不可用，也不要掉回旧序列号页
+    }
+    openUnlock();
+  }
+
   function buildOverlay() {
     if (overlayEl) return overlayEl;
     const el = document.createElement('div');
     el.className = 'paywall-overlay';
     el.setAttribute('role', 'dialog');
     el.setAttribute('aria-modal', 'true');
-    el.setAttribute('aria-label', '解锁完整功能');
+    el.setAttribute('aria-label', '开通会员解锁完整功能');
     el.innerHTML = `
       <div class="paywall-card">
         <button class="paywall-close" type="button" aria-label="关闭">×</button>
         <span class="paywall-eyebrow">广州中考志愿模拟助手</span>
-        <h2 class="paywall-title">解锁完整志愿模拟</h2>
-        <p class="paywall-sub">部分方案详情已打码预览。输入品沐提供的有效序列号后，可查看完整方向、志愿表、评分、录取机会与调整建议。</p>
+        <h2 class="paywall-title">开通会员，解锁完整志愿模拟</h2>
+        <p class="paywall-sub">部分方案详情已打码预览。支付 <strong>¥9.9</strong> 开通会员后，可查看完整方向、志愿表、评分、录取机会与调整建议，长期有效。</p>
         <ul class="paywall-benefits">
           <li>方向版 / 目标校版 / 求证版 完整生成与评分</li>
           <li>学校历史录取门槛、梯度保护与机会区间</li>
           <li>JSON 导入导出、打印 PDF 报告</li>
-          <li>序列号最多支持两台设备使用</li>
+          <li>一次开通，多端通用</li>
         </ul>
-        <button class="paywall-pay" type="button">输入序列号解锁</button>
+        <button class="paywall-pay" type="button">立即开通 ¥9.9</button>
         <details class="wechat-consult">
-          <summary>购买序列号，添加微信咨询</summary>
-          <p>使用微信扫描下方二维码，添加好友后咨询序列号购买与使用方式。</p>
-          <img src="/assets/wechat-serial-consult-20261005.png" alt="序列号购买咨询微信二维码：鲍 jw-沐风" width="220" height="281" style="display:block;width:220px;max-width:100%;height:auto;margin:12px auto" loading="lazy" />
-          <small>手机可长按保存图片，再用微信“扫一扫”从相册识别。</small>
-          <a href="/assets/wechat-serial-consult-20261005.png" download="品沐-序列号咨询微信.png">保存二维码</a>
+          <summary>不在小程序内？搜索小程序开通</summary>
+          <p>微信搜索「广州中考志愿模拟助手」小程序，或在微信中扫描下方小程序码开通会员。</p>
+          <img src="/assets/miniprogram-qrcode.png" alt="广州中考志愿模拟助手小程序码" width="200" height="200" style="display:block;width:200px;max-width:100%;height:auto;margin:12px auto" loading="lazy" onerror="this.style.display='none'" />
+          <small>若二维码未显示，请在微信搜索小程序名称开通。</small>
         </details>
         <button class="paywall-later" type="button">稍后再说</button>
       </div>`;
@@ -127,7 +203,7 @@
     el.querySelector('.paywall-close').addEventListener('click', hidePaywall);
     el.querySelector('.paywall-later').addEventListener('click', hidePaywall);
     el.addEventListener('click', (event) => { if (event.target === el) hidePaywall(); });
-    el.querySelector('.paywall-pay').addEventListener('click', openUnlock);
+    el.querySelector('.paywall-pay').addEventListener('click', handleUnlockClick);
     overlayEl = el;
     return el;
   }
@@ -165,7 +241,7 @@
         </span>
         <strong>${meta.title}</strong>
         <span class="gate-desc">${meta.desc}</span>
-        <span class="gate-price">输入序列号解锁查看</span>
+        <span class="gate-price">开通会员后查看</span>
       </div>`;
     const trigger = () => showPaywall();
     el.addEventListener('click', trigger);
@@ -213,5 +289,23 @@
 
   // 自动解析权益（页面加载即开始，不阻塞渲染）；每次权益变化自动重算打码
   onChange(() => applyContentGating());
+
+  // 页面自身脚本（如 app.js 生成志愿方向时）会重写 [data-gate] 节点的 innerHTML，
+  // 把已注入的 .gate-veil 整块抹掉。用 MutationObserver 在内容变动后自动重新打码，
+  // 保证「生成后模糊 + 点击解锁浮层」始终生效（app.js 为禁区，不可改，只能在此侧兜底）。
+  let _gatingScheduled = false;
+  function scheduleGating() {
+    if (_gatingScheduled) return;
+    _gatingScheduled = true;
+    Promise.resolve().then(() => {
+      _gatingScheduled = false;
+      applyContentGating();
+    });
+  }
+  if (typeof MutationObserver !== 'undefined' && typeof document !== 'undefined' && document.documentElement) {
+    const gatingObserver = new MutationObserver(scheduleGating);
+    gatingObserver.observe(document.documentElement, { childList: true, subtree: true });
+  }
+
   resolve();
 })();

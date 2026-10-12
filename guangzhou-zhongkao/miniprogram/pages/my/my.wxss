@@ -1,1 +1,32 @@
-.embed-error{padding:40rpx;color:#15283d;background:#fff;line-height:1.7}
+.my-page { padding: 0 28rpx 60rpx; background: #f4f7fb; min-height: 100vh; box-sizing: border-box; }
+
+.my-header { text-align: center; padding: 44rpx 0 32rpx; }
+.my-avatar { width: 110rpx; height: 110rpx; line-height: 110rpx; margin: 0 auto; border-radius: 50%; background: #15283d; color: #fff; font-size: 52rpx; font-weight: 700; }
+.my-title { font-size: 36rpx; font-weight: 700; color: #15283d; margin-top: 16rpx; }
+.my-sub { font-size: 24rpx; color: #8aa0b6; margin-top: 6rpx; }
+
+.loading { text-align: center; color: #8aa0b6; padding: 80rpx 0; font-size: 28rpx; }
+
+.card { background: #fff; border-radius: 20rpx; padding: 28rpx; margin-bottom: 22rpx; box-shadow: 0 4rpx 20rpx rgba(21,40,61,0.05); }
+.member-card { text-align: center; }
+.member-card.on { background: linear-gradient(135deg, #15283d, #284a6b); color: #fff; }
+.member-status { font-size: 34rpx; font-weight: 700; }
+.member-expire { font-size: 24rpx; margin-top: 10rpx; opacity: 0.85; }
+
+.section-title { font-size: 28rpx; font-weight: 600; color: #15283d; margin-bottom: 16rpx; }
+.benefit { display: flex; align-items: flex-start; padding: 12rpx 0; }
+.benefit-dot { flex: none; width: 40rpx; height: 40rpx; line-height: 40rpx; text-align: center; border-radius: 50%; background: #eaf3ec; color: #2e9e5b; font-size: 24rpx; margin-right: 16rpx; }
+.benefit-text { display: flex; flex-direction: column; }
+.benefit-title { font-size: 28rpx; color: #15283d; font-weight: 600; }
+.benefit-desc { font-size: 24rpx; color: #8aa0b6; margin-top: 4rpx; }
+
+.primary-btn { background: linear-gradient(135deg, #e0512a, #f08a3c); color: #fff; font-size: 32rpx; font-weight: 700; border-radius: 999rpx; padding: 22rpx 0; box-shadow: 0 10rpx 24rpx rgba(224,81,42,0.28); }
+.ghost-btn { background: #15283d; color: #fff; font-size: 32rpx; border-radius: 999rpx; padding: 22rpx 0; }
+
+.tools { margin-top: 12rpx; background: #fff; border-radius: 20rpx; overflow: hidden; box-shadow: 0 4rpx 20rpx rgba(21,40,61,0.05); }
+.tool { display: flex; justify-content: space-between; align-items: center; padding: 30rpx 28rpx; font-size: 28rpx; color: #15283d; border-bottom: 1rpx solid #f0f3f7; }
+.tool:last-child { border-bottom: none; }
+.tool .arrow { color: #c2cdd8; font-size: 36rpx; }
+
+.my-tip { color: #e0512a; font-size: 24rpx; text-align: center; margin: 18rpx 0; }
+.my-foot { text-align: center; font-size: 22rpx; color: #aab8c6; margin-top: 20rpx; }

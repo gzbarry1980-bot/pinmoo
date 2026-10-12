@@ -1,0 +1,14 @@
+{
+  "port": 8787,
+  "appid": "wxf61dc39381805fe7",
+  "appSecret": "你的小程序AppSecret",
+  "mchid": "你的商户号",
+  "serialNo": "你的API证书序列号",
+  "privateKey": "-----BEGIN PRIVATE KEY-----\n...apiclient_key.pem 内容...\n-----END PRIVATE KEY-----",
+  "apiV3Key": "你的32位APIv3密钥",
+  "platformPublicKey": "-----BEGIN PUBLIC KEY-----\n...微信支付公钥内容...\n-----END PUBLIC KEY-----",
+  "jwtSecret": "请替换为随机长字符串",
+  "baseUrl": "https://zhongkao.pinmooconsulting.com",
+  "productName": "广州中考志愿模拟会员",
+  "priceFen": 990
+}

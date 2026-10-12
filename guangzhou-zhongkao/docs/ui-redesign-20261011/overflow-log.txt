@@ -1,0 +1,21 @@
+响应式溢出检查结果
+时间: 2026-10-11T04:39:38.391Z
+
+360px /: viewport=360 docWidth=360 ✓ 正常
+360px /verify/?new=1: viewport=360 docWidth=360 ✓ 正常
+360px /schools/: viewport=360 docWidth=360 ✓ 正常
+360px /my/: viewport=360 docWidth=360 ✓ 正常
+390px /: viewport=390 docWidth=390 ✓ 正常
+390px /verify/?new=1: viewport=390 docWidth=390 ✓ 正常
+390px /schools/: viewport=390 docWidth=390 ✓ 正常
+390px /my/: viewport=390 docWidth=390 ✓ 正常
+430px /: viewport=430 docWidth=430 ✓ 正常
+430px /verify/?new=1: viewport=430 docWidth=430 ✓ 正常
+430px /schools/: viewport=430 docWidth=430 ✓ 正常
+430px /my/: viewport=430 docWidth=430 ✓ 正常
+1440px /: viewport=1440 docWidth=1440 ✓ 正常
+1440px /verify/?new=1: viewport=1440 docWidth=1440 ✓ 正常
+1440px /schools/: viewport=1440 docWidth=1440 ✓ 正常
+1440px /my/: viewport=1440 docWidth=1440 ✓ 正常
+
+所有宽度无横向溢出。

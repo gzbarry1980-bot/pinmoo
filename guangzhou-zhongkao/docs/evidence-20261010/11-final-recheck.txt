@@ -1,0 +1,32 @@
+﻿=== 浠ｇ爜涓庤繍琛屽疄渚嬩竴鑷存€?===
+service pid:
+143869
+=== 涓夊娴嬭瘯锛堥€€鍑虹爜锛?==
+p0=0
+codex=0
+regression=0
+--- codex 鏄庣粏 ---
+      "name": "Official-format raw UTF-8 nonce decrypts",
+      "pass": true
+      "name": "One-time exchange establishes renewable browser session",
+      "pass": true
+      "name": "Delayed payment callback cannot reactivate refunded order",
+      "pass": true
+      "name": "Payment retry repairs interrupted entitlement grant",
+      "pass": true
+      "name": "Partial refund does not silently apply full-refund rule",
+      "pass": true
+--- regression 姹囨€?---
+  "total": 20,
+  "passed": 20,
+  "failed": 0,
+--- p0 鏈€鍚庝竴琛?---
+[楠屾敹] 鍏ㄩ儴 P0 鎬ц川鐢ㄤ緥鎵ц瀹屾瘯銆?=== nginx 搴忓垪鍙疯矾鐢变粛鍦?===
+42:    # 淇濈暀鐜版湁搴忓垪鍙风敤鎴峰厬鎹㈣兘鍔涳紙unlock.js 鐨?/api/access/serial/redeem锛夈€?43:    location ^~ /api/access/serial/ {
+=== 鏈嶅姟鐘舵€?===
+active
+LISTEN 0      511        127.0.0.1:8787      0.0.0.0:*    users:(("node",pid=627,fd=24))                                                    
+LISTEN 0      511        127.0.0.1:8799      0.0.0.0:*    users:(("node",pid=143869,fd=21))                                                 
+=== 绾夸笂 healthz ===
+{"ok":true,"paymentConfigured":false}
+END

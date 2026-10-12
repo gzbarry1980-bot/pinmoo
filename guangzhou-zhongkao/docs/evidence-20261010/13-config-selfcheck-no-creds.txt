@@ -1,0 +1,20 @@
+﻿=== 寰俊鏀粯閰嶇疆鑷 ===
+鏃堕棿: 2026-10-10T12:18:18.112Z  妯″紡: offline
+[FAIL] 瀛樺湪 WX_APPID 鈥?鏈彁渚涳紝paymentConfigured 灏嗕负 false锛屼笅鍗曡繑鍥?503
+[FAIL] 瀛樺湪 WX_APPSECRET 鈥?鏈彁渚涳紝paymentConfigured 灏嗕负 false锛屼笅鍗曡繑鍥?503
+[FAIL] 瀛樺湪 WX_MCHID 鈥?鏈彁渚涳紝paymentConfigured 灏嗕负 false锛屼笅鍗曡繑鍥?503
+[FAIL] 瀛樺湪 WX_MCH_SERIAL 鈥?鏈彁渚涳紝paymentConfigured 灏嗕负 false锛屼笅鍗曡繑鍥?503
+[FAIL] 瀛樺湪 WX_MCH_PRIVATE_KEY 鈥?鏈彁渚涳紝paymentConfigured 灏嗕负 false锛屼笅鍗曡繑鍥?503
+[FAIL] 瀛樺湪 WX_API_V3_KEY 鈥?鏈彁渚涳紝paymentConfigured 灏嗕负 false锛屼笅鍗曡繑鍥?503
+[FAIL] 瀛樺湪 WX_PLATFORM_PUBLIC_KEY 鈥?鏈彁渚涳紝paymentConfigured 灏嗕负 false锛屼笅鍗曡繑鍥?503
+[FAIL] paymentConfigured 鈥?涓嶅叏锛氫笅鍗曟帴鍙ｅ皢杩斿洖 503銆屾敮浠樻湇鍔℃湭閰嶇疆銆?[FAIL] appid 鏍煎紡
+[FAIL] mchid 鏍煎紡
+[FAIL] 鍟嗘埛璇佷功搴忓垪鍙锋牸寮?[FAIL] APIv3 瀵嗛挜闀垮害 32 瀛楄妭
+[WARN] 閲戦 PAY_PRICE_FEN 鈥?褰撳墠=990 鍒嗭紙姝ｅ紡搴斾负 990锛涜仈璋冩湡鍙复鏃惰 1 鍒嗭紝鑱旇皟鍚庡繀椤绘敼鍥烇級
+[PASS] DEMO_ENABLED 涓?false锛堟寮忕幆澧冿級 鈥?褰撳墠=false
+[PASS] 灏忕▼搴忕敓浜ч厤缃?payMock 涓?false
+[PASS] 灏忕▼搴忎笉娉ㄥ叆闀挎湡浠ょ墝 zk_token
+[PASS] PUBLIC_BASE_URL 涓庡皬绋嬪簭涓氬姟鍩熷悕涓€鑷?鈥?baseUrl=https://zhongkao.pinmooconsulting.com锛屽皬绋嬪簭=zhongkao.pinmooconsulting.com
+--- 姹囨€? 17 椤癸紝FAIL 12锛學ARN 0 ---
+缁撹锛氶厤缃湭灏辩华锛岀湡瀹炴敮浠樿仈璋冧笉鑳藉紑濮嬨€?
+RUN_EXIT=1

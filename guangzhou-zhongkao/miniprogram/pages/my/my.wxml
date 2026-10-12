@@ -1,1 +1,42 @@
-<web-view wx:if="{{src}}" src="{{src}}" binderror="onWebError"></web-view><view wx:if="{{error}}" class="embed-error"><text>{{error}}</text><button bindtap="retry">重新打开</button></view>
+<view class="my-page">
+  <view class="my-header">
+    <view class="my-avatar">沐</view>
+    <view class="my-title">我的会员</view>
+    <view class="my-sub">广州中考志愿模拟助手</view>
+  </view>
+
+  <block wx:if="{{stage==='loading'}}">
+    <view class="loading">会员状态加载中…</view>
+  </block>
+
+  <block wx:else>
+    <view class="card member-card {{isMember?'on':''}}">
+      <view class="member-status">{{isMember?'会员已开通':'未开通会员'}}</view>
+      <view class="member-expire" wx:if="{{isMember}}">有效期：{{expireText}}</view>
+      <view class="member-expire" wx:else>开通后解锁完整志愿模拟与评估</view>
+    </view>
+
+    <view class="card benefits" wx:if="{{!isMember}}">
+      <view class="section-title">开通后即可使用</view>
+      <view class="benefit" wx:for="{{benefits}}" wx:key="title">
+        <text class="benefit-dot">✓</text>
+        <view class="benefit-text">
+          <text class="benefit-title">{{item.title}}</text>
+          <text class="benefit-desc">{{item.desc}}</text>
+        </view>
+      </view>
+    </view>
+
+    <button class="primary-btn" wx:if="{{!isMember}}" bindtap="goPay">开通会员 ¥9.9</button>
+    <button class="ghost-btn" wx:if="{{isMember}}" bindtap="goSimulate">进入志愿模拟</button>
+
+    <view class="tools">
+      <view class="tool" bindtap="restore"><text>恢复购买 / 同步</text><text class="arrow">›</text></view>
+      <view class="tool" bindtap="openPrivacy"><text>隐私政策</text><text class="arrow">›</text></view>
+      <view class="tool" bindtap="contact"><text>联系客服</text><text class="arrow">›</text></view>
+    </view>
+
+    <view class="my-tip" wx:if="{{errorMsg}}">{{errorMsg}}</view>
+    <view class="my-foot">本系统为模拟参考，最终结果以官方公布为准</view>
+  </block>
+</view>

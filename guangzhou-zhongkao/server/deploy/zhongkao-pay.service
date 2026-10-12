@@ -1,0 +1,24 @@
+[Unit]
+Description=Zhongkao Pay Server (127.0.0.1:8799)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/zhongkao-pay-server
+Environment=PORT=8799
+Environment=HOST=127.0.0.1
+Environment=NODE_ENV=production
+Environment=DEMO_ENABLED=false
+Environment=SERIAL_BACKEND_URL=http://127.0.0.1:8787
+Environment=DATA_DIR=/opt/zhongkao-pay-server/data
+# 真实支付凭证（权限 600）。前缀 "-" 表示文件缺失时也能启动，
+# 此时 paymentConfigured=false，下单接口返回 503，不会出现伪支付。
+EnvironmentFile=-/etc/zhongkao-pay/env
+ExecStart=/usr/bin/node src/index.js
+Restart=always
+RestartSec=3
+StandardOutput=append:/var/log/zhongkao-pay-server.log
+StandardError=append:/var/log/zhongkao-pay-server.log
+
+[Install]
+WantedBy=multi-user.target

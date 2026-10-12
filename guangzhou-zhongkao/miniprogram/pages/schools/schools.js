@@ -1,1 +1,2 @@
-Page({data:{src:'',error:''},onLoad(){this.open();},open(){const base=String(getApp().globalData.webBaseUrl||'').replace(/\/$/,'');this.setData({src:base+'/schools/',error:''});},onWebError(){this.setData({error:'完整版页面暂时无法打开，请核对小程序业务域名。'});},retry(){this.open();}});
+const { createWebPage } = require('../../utils/webpage.js');
+Page(createWebPage(() => '/schools/', '完整版页面暂时无法打开，请核对小程序业务域名。'));

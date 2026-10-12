@@ -1,5 +1,5 @@
 import {simplifyVisibleCopy} from '../parent-copy.js';
-import {foldSpecialInformation} from '../workflow-ui.js';
+import {foldSpecialInformation} from '../workflow-ui.js?v=20261012-minimal';
 foldSpecialInformation();
 const DATA_URL = '../data/first-batch-2026.json';
 const EVENTS_URL = '../data/autonomous-school-events-2026.json';
@@ -34,12 +34,12 @@ function setMode(mode) {
   $('#talentProjectPicker').hidden = !isTalent;
   $('#qualificationForm').classList.toggle('autonomous-mode', !isTalent);
   $('#qualificationStepLabel').textContent = isTalent ? '按特长找学校' : '通用条件核对（选填）';
-  $('#qualificationTitle').textContent = isTalent ? '先按特长项目找对应学校' : '需要时再核对通用报考条件';
+  $('#qualificationTitle').textContent = isTalent ? '选择特长项目' : '通用资格自检（选填）';
   const qualificationCard=$('.qualification-card'),schoolSection=$('.school-section');
   if(qualificationCard&&schoolSection){if(isTalent)schoolSection.before(qualificationCard);else schoolSection.after(qualificationCard);}
   $('#optionalCheckNote').textContent = isTalent
-    ? '只想了解学校有哪些项目，可以直接往下查看；下面的通用条件自检是可选参考，不会替代专业测试、学校审核或官方资格名单。'
-    : '只想了解目标学校，可以直接往下查看；下面的通用条件自检是可选参考，不会替代学校报名、资格审核、综合能力考核或官方资格名单。';
+    ? '资格自检仅供参考，以官方审核与测试为准。'
+    : '资格自检仅供参考，不替代报名、审核与考核。';
   state.selectedAutonomousSchoolId = null;
   $('#autonomousSchoolChecker').hidden = true;
   $('#autonomousCheckerForm').hidden = true;

@@ -1,0 +1,86 @@
+﻿=== 0. 鏄惁鏈?git 浠撳簱 ===
+no .git
+=== 1. 鍏跺畠 release 閲屾槸鍚﹁繕瀛樻湁鏃у墠绔瓧鑺傦紙cc784a40 / b969f5c9锛?==
+ade3054999f864ff  20260725-gate1
+5fb04ac2069d3e22  20260725-mosaic1
+c0ab0b52da845ede  20260725-pages1
+5fb04ac2069d3e22  20260725-refresh1
+0653e939b25ea378  20260726-manager-session
+0653e939b25ea378  20260726-nav-center
+0653e939b25ea378  20260726-plan-rationality
+0653e939b25ea378  20260726-public-launch
+0653e939b25ea378  20260726-public-launch-2
+0653e939b25ea378  20260726-school-details-nav
+0653e939b25ea378  20260726-score-model
+0653e939b25ea378  20260726-serial-header
+0653e939b25ea378  20260726-serial-header2
+0653e939b25ea378  20260726-serial-unlock
+0653e939b25ea378  20260726-stress-toggle
+0653e939b25ea378  20260726-support-note
+0653e939b25ea378  20260726-unlock-status
+0653e939b25ea378  20260726-video-flow
+c703c788a49c78b0  ui-20261005-2100
+f94b441629418d83  ui-20261005-2115-wechat
+5b1476158438943a  ui-20261005-outcomes16
+5b1476158438943a  ui-20261005-qr-small
+5b1476158438943a  ui-20261005-school-profiles
+5b1476158438943a  ui-20261005-school-region
+5b1476158438943a  ui-20261006-home-target
+5b1476158438943a  ui-20261006-intent
+5b1476158438943a  ui-20261006-section-nav
+5fb125d8a9c7962b  ui-20261009-layoutfix
+cc784a40439bca25  ui-20261009-zkpay
+5fb125d8a9c7962b  ui-20261010-p0-r1r5
+--- unlock.js ---
+7cff9257b4b7a9b6  20260723-172903-web-payment-preview
+7cff9257b4b7a9b6  20260724-004653-navigation
+7cff9257b4b7a9b6  20260724-012806-visual-ui
+7cff9257b4b7a9b6  20260724-1802-domain-move
+7cff9257b4b7a9b6  20260725-0920-gz
+7cff9257b4b7a9b6  20260725-fix3
+998e3415fcaa3424  20260725-gate1
+998e3415fcaa3424  20260725-mosaic1
+998e3415fcaa3424  20260725-pages1
+998e3415fcaa3424  20260725-refresh1
+0dab53075b04e9b0  20260726-manager-session
+0dab53075b04e9b0  20260726-nav-center
+0dab53075b04e9b0  20260726-plan-rationality
+0dab53075b04e9b0  20260726-public-launch
+0dab53075b04e9b0  20260726-public-launch-2
+0dab53075b04e9b0  20260726-school-details-nav
+0dab53075b04e9b0  20260726-score-model
+eaca1ce01f300d0b  20260726-serial-header
+eaca1ce01f300d0b  20260726-serial-header2
+eaca1ce01f300d0b  20260726-serial-unlock
+0dab53075b04e9b0  20260726-stress-toggle
+0dab53075b04e9b0  20260726-support-note
+0dab53075b04e9b0  20260726-unlock-status
+0dab53075b04e9b0  20260726-video-flow
+a6c2cdf9d2fa871e  ui-20261005-2100
+a6c2cdf9d2fa871e  ui-20261005-2115-wechat
+a6c2cdf9d2fa871e  ui-20261005-outcomes16
+a6c2cdf9d2fa871e  ui-20261005-qr-small
+a6c2cdf9d2fa871e  ui-20261005-school-profiles
+a6c2cdf9d2fa871e  ui-20261005-school-region
+a6c2cdf9d2fa871e  ui-20261006-home-target
+a6c2cdf9d2fa871e  ui-20261006-intent
+a6c2cdf9d2fa871e  ui-20261006-section-nav
+2cc88901a45c3270  ui-20261009-layoutfix
+5173cb508e25f629  ui-20261009-zkpay
+2cc88901a45c3270  ui-20261010-p0-r1r5
+=== 2. 鍒犻櫎璇缓鐨勮蒋閾撅紙鍙垹閾炬帴鏈韩锛?==
+lrwxrwxrwx 1 root root 59 Oct  9 22:55 /var/www/zhongkao.pinmoo.top/releases/ui-20261010-p0-r1r5 -> /var/www/zhongkao.pinmoo.top/releases/ui-20261009-layoutfix
+symlink removed
+=== 3. 寤虹珛鐪熷疄鐩綍 release ===
+copied
+drwxrwxrwx 17 root root 4096 Oct  9 22:55 /var/www/zhongkao.pinmoo.top/releases/ui-20261010-p0-r1r5
+-rw-r--r-- 1 root root 32 Oct  9 22:55 /var/www/zhongkao.pinmoo.top/releases/ui-20261010-p0-r1r5/1KnDJHz96q.txt
+=== 4. 鍒囨崲 current 鍒扮湡瀹炵洰褰?===
+lrwxrwxrwx 1 root root 57 Oct 10 15:18 /var/www/zhongkao.pinmoo.top/current -> /var/www/zhongkao.pinmoo.top/releases/ui-20261010-p0-r1r5
+readlink -f:
+/var/www/zhongkao.pinmoo.top/releases/ui-20261010-p0-r1r5
+=== 5. 绾夸笂鍝堝笇澶嶆牳 ===
+5fb125d8a9c7962b64b4f2b55dee1fc86c878a20ecfea1013155935f149afdbe  /var/www/zhongkao.pinmoo.top/current/access-gate.js
+2cc88901a45c32705453f9b6e8697bf89f47113dceda603661ab34269494ef50  /var/www/zhongkao.pinmoo.top/current/unlock/unlock.js
+ac5c05f6d42a974035008e517a4ebf85cb9d849d16694c113e6e042d969a9d3f  /var/www/zhongkao.pinmoo.top/current/engine.js
+END

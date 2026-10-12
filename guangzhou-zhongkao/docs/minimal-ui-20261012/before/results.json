@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-12T04:00:22.484Z",
+  "scope": "Local UI only; isolated entitlement, no server mutations",
+  "metrics": {
+    "home": 133,
+    "profile": 138
+  },
+  "results": []
+}

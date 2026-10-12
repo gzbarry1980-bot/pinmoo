@@ -1,0 +1,265 @@
+{
+  "at": "2026-10-12T04:49:41.680Z",
+  "scope": "Local UI only; isolated entitlement, no server mutations",
+  "metrics": {
+    "home": 86,
+    "profile": 64,
+    "plan": 137,
+    "result": 132
+  },
+  "results": [
+    {
+      "name": "Profile stage hides the volunteer table",
+      "pass": true
+    },
+    {
+      "name": "Advanced settings remain available",
+      "pass": true
+    },
+    {
+      "name": "Custom region choices remain reachable",
+      "pass": true
+    },
+    {
+      "name": "Quota checkbox still opens source-school controls",
+      "pass": true
+    },
+    {
+      "name": "Quota cancellation still clears and hides controls",
+      "pass": true
+    },
+    {
+      "name": "Range still sets the estimate center",
+      "pass": true
+    },
+    {
+      "name": "Generated draft focuses only on step 2",
+      "pass": true
+    },
+    {
+      "name": "Filling checks default to collapsed",
+      "pass": true
+    },
+    {
+      "name": "Step 3 shows score, not the whole input form",
+      "pass": true
+    },
+    {
+      "name": "Score remains a real output",
+      "pass": true
+    },
+    {
+      "name": "Result heading is readable",
+      "pass": true
+    },
+    {
+      "name": "Export tools are not a wall of buttons above the score",
+      "pass": true
+    },
+    {
+      "name": "Qualification caps keep their original output container",
+      "pass": true
+    },
+    {
+      "name": "Assumptions remain reachable in collapsed disclosure",
+      "pass": true
+    },
+    {
+      "name": "Full disclaimer is retained",
+      "pass": true
+    },
+    {
+      "name": "Result back button opens the table",
+      "pass": true
+    },
+    {
+      "name": "Table back button retains inputs",
+      "pass": true
+    },
+    {
+      "name": "Intent explanation does not precede the table as a long article",
+      "pass": true
+    },
+    {
+      "name": "Missing safety warning stays visible",
+      "pass": true
+    },
+    {
+      "name": "Target mode still computes a target score",
+      "pass": true
+    },
+    {
+      "name": "Manual mode still reaches a result",
+      "pass": true
+    },
+    {
+      "name": "Print retains inputs, volunteer table and results",
+      "pass": true
+    },
+    {
+      "name": "Responsive 360 /",
+      "pass": true,
+      "details": {
+        "width": 360,
+        "scroll": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /verify/?new=1",
+      "pass": true,
+      "details": {
+        "width": 360,
+        "scroll": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /special/?mode=talent",
+      "pass": true,
+      "details": {
+        "width": 360,
+        "scroll": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /special/?mode=autonomous",
+      "pass": true,
+      "details": {
+        "width": 360,
+        "scroll": 360
+      }
+    },
+    {
+      "name": "Responsive 360 /schools/",
+      "pass": true,
+      "details": {
+        "width": 360,
+        "scroll": 360
+      }
+    },
+    {
+      "name": "Responsive 390 /",
+      "pass": true,
+      "details": {
+        "width": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /verify/?new=1",
+      "pass": true,
+      "details": {
+        "width": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /special/?mode=talent",
+      "pass": true,
+      "details": {
+        "width": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /special/?mode=autonomous",
+      "pass": true,
+      "details": {
+        "width": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "Responsive 390 /schools/",
+      "pass": true,
+      "details": {
+        "width": 390,
+        "scroll": 390
+      }
+    },
+    {
+      "name": "Responsive 430 /",
+      "pass": true,
+      "details": {
+        "width": 430,
+        "scroll": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /verify/?new=1",
+      "pass": true,
+      "details": {
+        "width": 430,
+        "scroll": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /special/?mode=talent",
+      "pass": true,
+      "details": {
+        "width": 430,
+        "scroll": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /special/?mode=autonomous",
+      "pass": true,
+      "details": {
+        "width": 430,
+        "scroll": 430
+      }
+    },
+    {
+      "name": "Responsive 430 /schools/",
+      "pass": true,
+      "details": {
+        "width": 430,
+        "scroll": 430
+      }
+    },
+    {
+      "name": "Responsive 1440 /",
+      "pass": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /verify/?new=1",
+      "pass": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /special/?mode=talent",
+      "pass": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /special/?mode=autonomous",
+      "pass": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440
+      }
+    },
+    {
+      "name": "Responsive 1440 /schools/",
+      "pass": true,
+      "details": {
+        "width": 1440,
+        "scroll": 1440
+      }
+    },
+    {
+      "name": "No script errors",
+      "pass": true,
+      "details": []
+    }
+  ]
+}

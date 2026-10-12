@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>中考志愿助手 · 电脑稿（首页+工作区）</title>
+  <style>
+    :root {
+      --navy:#15283d; --navy-strong:#0f2032; --orange:#cb571e; --orange-soft:#fff5ed;
+      --muted:#57677a; --line:#dce2e7; --soft:#f4f6f7; --danger:#943c3c; --paper:#fff;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #e9eef3; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; color: var(--navy); }
+    h1 { text-align: center; font-size: 24px; margin-top: 28px; }
+    .subtitle { text-align: center; color: var(--muted); margin-bottom: 24px; font-size: 14px; }
+    .wrap { display: grid; grid-template-columns: 1fr; gap: 28px; padding: 0 24px 60px; max-width: 1480px; margin: 0 auto; }
+    .monitor { background: #fff; border: 10px solid #1a2533; border-radius: 16px; overflow: hidden; box-shadow: 0 22px 60px rgba(0,0,0,.16); position: relative; }
+    .viewport { padding: 0; min-height: 720px; }
+    .site-nav { display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 64px; border-bottom: 1px solid var(--line); }
+    .site-nav .brand { font-weight: 700; }
+    .site-nav .links { display: flex; gap: 24px; }
+    .site-nav a { color: var(--navy); text-decoration: none; font-size: 15px; padding: 20px 0; }
+    .site-nav a.active { border-bottom: 2px solid var(--navy); font-weight: 700; }
+
+    .btn { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; padding: 12px 20px; border-radius: 10px; font-size: 16px; font-weight: 700; border: none; cursor: pointer; text-decoration: none; }
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-secondary { background: #fff; color: var(--navy); border: 1px solid var(--line); min-height: 44px; font-weight: 500; }
+
+    .hero { padding: 40px 32px 30px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: center; }
+    .hero h2 { font-size: 36px; margin: 0 0 12px; }
+    .hero p { color: var(--muted); font-size: 17px; margin: 0 0 18px; }
+    .entry-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; padding: 0 32px 30px; }
+    .entry-card { display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--line); border-radius: 12px; padding: 18px; background: #fff; text-decoration: none; color: var(--navy); min-height: 150px; transition: .15s; }
+    .entry-card:hover { border-color: var(--orange); box-shadow: 0 6px 18px rgba(203,87,30,.12); }
+    .entry-card strong { font-size: 17px; }
+    .entry-card span { font-size: 14px; color: var(--muted); }
+    .entry-card .arrow { margin-top: auto; color: var(--orange); font-weight: 700; }
+    .entry-card.target { background: var(--orange-soft); border-color: #f2bfa0; }
+
+    .search-band { padding: 0 32px 40px; }
+    .search-box { display: flex; max-width: 600px; }
+    .search-box input { flex: 1; min-height: 52px; border: 1px solid var(--line); border-radius: 10px 0 0 10px; padding: 0 16px; font-size: 16px; }
+    .search-box .btn { border-radius: 0 10px 10px 0; min-height: 52px; }
+
+    .workspace { display: grid; grid-template-columns: 1fr 300px; gap: 24px; padding: 24px 32px 40px; }
+    .stepper { display: flex; gap: 0; margin-bottom: 24px; background: var(--soft); border-radius: 10px; padding: 8px; }
+    .step { flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border-radius: 8px; font-size: 15px; color: var(--muted); }
+    .step.current { background: var(--navy); color: #fff; font-weight: 700; }
+    .step.done { color: var(--navy); }
+    .step .num { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; background: var(--line); }
+    .step.current .num { background: rgba(255,255,255,.25); }
+    .step.done .num { background: var(--navy); color: #fff; }
+
+    .panel { border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: #fff; margin-bottom: 20px; }
+    .panel h3 { margin: 0 0 16px; font-size: 20px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .field label { display: block; font-size: 14px; margin-bottom: 6px; }
+    .field input, .field select { width: 100%; min-height: 48px; border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; font-size: 16px; }
+    .choice-row { display: flex; align-items: flex-start; gap: 10px; background: var(--soft); padding: 14px; border-radius: 10px; margin-bottom: 10px; }
+
+    .bottom-bar { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-top: 1px solid var(--line); background: #fff; position: sticky; bottom: 0; }
+    .bottom-bar .left { display: flex; gap: 12px; }
+
+    .summary { border: 1px solid var(--line); border-radius: 12px; padding: 20px; background: #fff; height: fit-content; }
+    .summary h4 { margin: 0 0 12px; }
+    .summary dl { margin: 0; font-size: 14px; }
+    .summary dt { color: var(--muted); margin-top: 10px; }
+    .summary dd { margin: 4px 0 0; font-weight: 600; }
+
+    .annotation { position: absolute; border: 2px dashed #e11d48; background: rgba(225,29,72,.08); border-radius: 8px; pointer-events: none; }
+    .annotation .tag { position: absolute; top: -20px; left: 0; background: #e11d48; color: #fff; font-size: 12px; padding: 3px 8px; border-radius: 4px; white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <h1>中考志愿助手 · 电脑高保真稿</h1>
+  <p class="subtitle">首页 4 入口 + 工作区三步流程；红色虚线框标注改动要点。</p>
+
+  <div class="wrap">
+    <!-- Desktop Home -->
+    <div class="monitor">
+      <div class="site-nav">
+        <div class="brand">品沐 · 广州中考志愿助手</div>
+        <div class="links">
+          <a href="#" class="active">首页</a>
+          <a href="#">查学校</a>
+          <a href="#">方向版</a>
+          <a href="#">求证版</a>
+          <a href="#">我的方案</a>
+          <a href="#">我的</a>
+        </div>
+      </div>
+      <div class="viewport">
+        <div class="hero">
+          <div>
+            <h2>孩子的志愿，<br>从这里开始</h2>
+            <p>第一、第二批按需了解。多数家庭可直接进入第三、第四批模拟志愿。</p>
+            <div class="search-box">
+              <input placeholder="输入校名，如培正、华附">
+              <button class="btn btn-primary">查学校</button>
+            </div>
+          </div>
+          <div style="background:var(--soft); border-radius:12px; padding:24px; min-height:220px; display:flex; align-items:center; justify-content:center; color:var(--muted);">
+            插画：家长与孩子一起看志愿资料
+          </div>
+        </div>
+        <div class="entry-grid">
+          <a class="entry-card" href="#"><strong>我只有大概分数</strong><span>生成第三、第四批志愿草案</span><span class="arrow">开始模拟 →</span></a>
+          <a class="entry-card target" href="#"><strong>我有心仪学校</strong><span>看看需要冲到多少分</span><span class="arrow">查目标分 →</span></a>
+          <a class="entry-card" href="#"><strong>我选了几所学校</strong><span>帮我安排志愿顺序</span><span class="arrow">排序志愿 →</span></a>
+          <a class="entry-card" href="#"><strong>我已有志愿计划</strong><span>检查方案是否合理</span><span class="arrow">验证方案 →</span></a>
+        </div>
+      </div>
+      <div class="annotation" style="left:32px; top:245px; width:1170px; height:165px;"><span class="tag">首页四入口：整张卡可点，标题/说明/箭头去向一致</span></div>
+    </div>
+
+    <!-- Desktop Verify -->
+    <div class="monitor">
+      <div class="site-nav">
+        <div class="brand">品沐 · 广州中考志愿助手</div>
+        <div class="links">
+          <a href="#">首页</a>
+          <a href="#">查学校</a>
+          <a href="#">求证版</a>
+          <a href="#" class="active">我的方案</a>
+          <a href="#">我的</a>
+        </div>
+      </div>
+      <div class="viewport">
+        <div class="workspace">
+          <div>
+            <div class="stepper">
+              <div class="step done"><div class="num">✓</div><span>1 填写条件</span></div>
+              <div class="step current"><div class="num">2</div><span>2 排列志愿</span></div>
+              <div class="step"><div class="num">3</div><span>3 看评估</span></div>
+            </div>
+            <div class="panel">
+              <h3>2 排列志愿</h3>
+              <p style="color:var(--muted); margin-top:-8px;">第三批 6 个志愿 · 第四批 6 个志愿</p>
+              <div class="grid-2">
+                <div class="field"><label>第三批 · 第1志愿</label><select><option>请选择学校</option></select></div>
+                <div class="field"><label>第三批 · 第2志愿</label><select><option>华南师范大学附属中学（石牌）</option></select></div>
+                <div class="field"><label>第三批 · 第3志愿</label><select><option>请选择学校</option></select></div>
+                <div class="field"><label>第三批 · 第4志愿</label><select><option>请选择学校</option></select></div>
+              </div>
+              <label class="choice-row" style="margin-top:10px;">
+                <input type="checkbox" checked>
+                <span><strong>带入第二批名额分配结果</strong><small>如已在第二批被录取，第三、四批不再投档</small></span>
+              </label>
+            </div>
+            <div class="bottom-bar">
+              <div class="left">
+                <button class="btn btn-secondary">← 返回修改条件</button>
+                <button class="btn btn-secondary" style="color:var(--danger); border-color:var(--danger);">清空志愿</button>
+              </div>
+              <button class="btn btn-primary">确认志愿，查看评估</button>
+            </div>
+          </div>
+          <aside class="summary">
+            <h4>孩子的当前条件</h4>
+            <dl>
+              <dt>估分范围</dt><dd>700—720 分</dd>
+              <dt>考生类别</dt><dd>户籍生</dd>
+              <dt>升学区域</dt><dd>天河区</dd>
+              <dt>填写情况</dt><dd>1 个志愿</dd>
+            </dl>
+            <div style="margin-top:16px; display:flex; flex-direction:column; gap:8px;">
+              <a class="btn btn-secondary" href="#" style="width:100%;">查学校资料 →</a>
+              <a class="btn btn-secondary" href="#" style="width:100%;">← 返回助手首页</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+      <div class="annotation" style="left:42px; top:100px; width:920px; height:56px;"><span class="tag">步骤栏：当前高亮，已完成可返回</span></div>
+      <div class="annotation" style="left:42px; bottom:24px; width:920px; height:70px;"><span class="tag">底部固定操作栏：左侧返回+危险操作，右侧单一主 CTA</span></div>
+    </div>
+  </div>
+</body>
+</html>

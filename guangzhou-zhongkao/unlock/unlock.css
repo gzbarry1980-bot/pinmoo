@@ -76,6 +76,12 @@
   .code-row button { width: 100%; }
 }
 
+.pay-entry-card { margin-top: 18px; padding: 22px; border: 1px solid var(--line); border-radius: 16px; background: #f8fbff; }
+.pay-entry-card h2 { margin: 8px 0 14px; color: var(--navy); font-size: 26px; }
+.pay-entry-card h2::before { content: ' '; display: inline-block; margin-right: 6px; }
+.pay-entry-card ul { margin: 0 0 20px; padding-left: 18px; color: var(--ink); line-height: 1.85; }
+.pay-entry-card .full-button { margin-top: 4px; }
+
 .access-test { margin-top: 16px; padding: 20px 22px; border: 1px dashed #aebfd8; border-radius: 15px; background: #fbfdff; }
 .access-test h2 { margin: 4px 0 8px; color: var(--navy); font-size: 18px; }
 .access-test p { margin: 0; color: var(--c-muted); font-size: 12.5px; line-height: 1.65; }

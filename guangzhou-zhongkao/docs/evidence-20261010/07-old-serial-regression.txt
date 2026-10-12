@@ -1,0 +1,28 @@
+﻿SECRET_LEN=64/64
+(Use `node --trace-warnings ...` to show where the warning was created)
+zhongkao-access listening on http://127.0.0.1:8802 mode=enforce
+=== 1. 鐢熸垚搴忓垪鍙?===
+{"records":[{"code":"CEN2FY4A8A","status":"active","maxDevices":2,"deviceCount":0,"createdAt":"2026-10-10T07:20:05.771Z","invalidatedAt":null}]}
+CODE=CEN2FY4A8A
+=== 2. 璁惧1鍏戞崲 ===
+{"ok":true,"entitled":true,"deviceCount":1,"maxDevices":2,"expiresInDays":180}
+COOKIE_LEN=43
+=== 3. 璁惧2鍏戞崲 ===
+{"ok":true,"entitled":true,"deviceCount":2,"maxDevices":2,"expiresInDays":180}
+=== 4. 璁惧3锛堝簲 409 涓ゅ彴璁惧涓婇檺锛?==
+HTTP 409 
+{"error":"璇ュ簭鍒楀彿宸茬粦瀹氫袱鍙拌澶囷紱绗?3 鍙拌澶囬渶瑕佷娇鐢ㄦ柊鐨勫簭鍒楀彿銆?,"code":"SERIAL_DEVICE_LIMIT","maxDevices":2,"deviceCount":2}
+=== 5. 鐩磋繛 8787 鐨?session ===
+{"authenticated":true,"entitled":true,"accessSource":"serial","entitlement":{"source":"serial","status":"active","startsAt":"2026-10-10T07:20:05.802Z","expiresAt":"2027-04-08T07:20:05.802Z"},"serial":{"deviceCount":2,"maxDevices":2,"remainingDevices":0}}
+=== 6. 缁忔柊鏀粯鏈嶅姟浠ｇ悊锛堝埛鏂?x3 + 璺抽〉 x1锛?==
+鍒锋柊#1: {"authenticated":true,"entitled":true,"accessSource":"serial","source":"serial","sessionKind":"serial","serial":{"deviceCount":2,"maxDevices":2,"remainingDevices":0}}
+鍒锋柊#2: {"authenticated":true,"entitled":true,"accessSource":"serial","source":"serial","sessionKind":"serial","serial":{"deviceCount":2,"maxDevices":2,"remainingDevices":0}}
+鍒锋柊#3: {"authenticated":true,"entitled":true,"accessSource":"serial","source":"serial","sessionKind":"serial","serial":{"deviceCount":2,"maxDevices":2,"remainingDevices":0}}
+璺抽〉(甯﹂〉闈㈣矾寰勬棤鍏筹紝浠呴噸澶嶆煡璇?: {"authenticated":true,"entitled":true,"accessSource":"serial","source":"serial","sessionKind":"serial","serial":{"deviceCount":2,"maxDevices":2,"remainingDevices":0}}
+鏃?Cookie 瀵圭収: {"authenticated":false,"entitled":false}
+鏃犳晥 Cookie 瀵圭収: {"authenticated":false,"entitled":false}
+=== 7. 浣滃簾搴忓垪鍙峰悗鏉冪泭搴斿け鏁?===
+{"ok":true}
+浣滃簾鍚? {"authenticated":false,"entitled":false}
+=== cleanup ===
+END

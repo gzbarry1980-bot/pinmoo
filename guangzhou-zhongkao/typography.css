@@ -1,8 +1,8 @@
 /* 全站仅保留三档字号：标题、正文、备注。字重、颜色和留白用于表达层级。 */
 :root {
-  --zk-font-title: 22px;
-  --zk-font-body: 14px;
-  --zk-font-note: 12px;
+  --zk-font-title: 24px;
+  --zk-font-body: 16px;
+  --zk-font-note: 14px;
   --zk-font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
 }
 
@@ -21,7 +21,7 @@ body :where(h1, h2, h3, .home-title, .home-preview-title, .page-hero h1, .direct
   line-height: 1.35 !important;
 }
 
-body :where(small, .eyebrow, .secondary-eyebrow, .step-label, .guide-kicker, .page-eyebrow, .home-source-note, .home-data-version, .home-byline, .inline-back, .quick-return button, .quick-return a, .site-nav .brand, .site-nav .nav-links a, label, .fact span, .score-reference-box span, .score-reference-box small, .score-reference-note, .school-event-box > span, .school-event-item small, .school-event-item a, .admission-route-note, .school-badge, .school-card-head p, .school-link, .legend, .table-note, .tier-badge, .tier-tag, .same-district-badge, .privacy-chip, .muted, .disclaimer p, footer, .serial-status, .access-test p) {
+body :where(small, .eyebrow, .secondary-eyebrow, .step-label, .guide-kicker, .page-eyebrow, .home-source-note, .home-data-version, .home-byline, .inline-back, .quick-return button, .quick-return a, .fact span, .score-reference-box span, .score-reference-box small, .score-reference-note, .school-event-box > span, .school-event-item small, .admission-route-note, .school-badge, .school-card-head p, .legend, .table-note, .tier-badge, .tier-tag, .same-district-badge, .privacy-chip, .muted, .note, .disclaimer p, footer, .serial-status, .access-test p) {
   font-size: var(--zk-font-note) !important;
 }
 

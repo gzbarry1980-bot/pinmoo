@@ -1,0 +1,37 @@
+﻿=== A. 鍥炴粴鍩虹嚎鍙敤鎬э紙ui-20261009-zkpay锛?==
+-rw-r--r-- 1 root root 32 Oct  9 22:09 /var/www/zhongkao.pinmoo.top/releases/ui-20261009-zkpay/1KnDJHz96q.txt
+cc784a40439bca25011509c1cbd654dc59af08ec797897ac8a7579df73a079ea  /var/www/zhongkao.pinmoo.top/releases/ui-20261009-zkpay/access-gate.js
+5173cb508e25f62971f4bf0d5df34412806669421dfee0cbd882a3863b9b5cb4  /var/www/zhongkao.pinmoo.top/releases/ui-20261009-zkpay/unlock/unlock.js
+=== B. 绾夸笂椤甸潰璇佹嵁锛圚TTP 200 + 鏂扮増鏈彿锛?==
+/ -> HTTP 200  
+/direction/ -> HTTP 200  access-gate.js?v=20261010-r2session
+/target/ -> HTTP 200  access-gate.js?v=20261010-r2session
+/verify/ -> HTTP 200  access-gate.js?v=20261010-r2session
+/unlock/ -> HTTP 200  access-gate.js?v=20261010-r2session
+/quota/ -> HTTP 200  access-gate.js?v=20261010-r2session
+=== C. 绾夸笂 JS 鍐呭鍝堝笇锛堝簲涓烘柊鍊硷級===
+5fb125d8a9c7962b64b4f2b55dee1fc86c878a20ecfea1013155935f149afdbe  -
+2cc88901a45c32705453f9b6e8697bf89f47113dceda603661ab34269494ef50  -
+=== D. 鍏抽敭琛屼负锛氬墠绔凡涓嶅啀璇?zk_token锛屾敼涓?exchange ===
+93:          await fetchJson('/api/access/exchange?code=' + encodeURIComponent(code));
+--- unlock.js 鏄惁浠嶇敤 accessMode 鍒ゆ紨绀?---
+150:  // 鏈В閿?+ 闈炲皬绋嬪簭锛氫繚鐣欏簭鍒楀彿鍏ュ彛锛涗粎褰撳悗绔槑纭紑鍚紨绀哄紑鍏筹紙demoEnabled锛夋椂鏄剧ず妯℃嫙鏀粯婕旂ず鍏ュ彛銆?151:  // P0-1锛氫笉鍐嶄互 accessMode==='enforce' 鎺ㄦ柇婕旂ず鍏ュ彛锛涙寮忕幆澧?demoEnabled 蹇呴』涓?false锛屾潨缁濆叕缃戜吉鏀粯婕旂ず銆?153:  if (config && config.demoEnabled === true) {
+=== E. 鍩熷悕鏍￠獙鏂囦欢浠嶅彲璁块棶 ===
+HTTP 200
+=== F. 鍚庣浠ｇ爜蹇収锛堝洖婊氬熀绾匡紝涓嶅惈 mock锛?==
+SNAP=/opt/zhongkao-pay-server.snapshot-20261010
+config.example.json
+mock.js
+nginx-zhongkao-pinmooconsulting-com.conf
+package.json
+package-lock.json
+README.md
+src
+test
+--- 蹇収涓‘璁ゆ棤 mock 寮€閫氭帴鍙?---
+src 涓棤 mock 鏀粯鎺ュ彛
+=== G. 鏈嶅姟涓庣鍙?===
+active
+LISTEN 0      511        127.0.0.1:8787      0.0.0.0:*    users:(("node",pid=627,fd=24))                                                    
+LISTEN 0      511        127.0.0.1:8799      0.0.0.0:*    users:(("node",pid=143869,fd=21))                                                 
+END

@@ -1,0 +1,27 @@
+<scroll-view scroll-y class="privacy-page">
+  <view class="privacy-h1">隐私政策</view>
+  <view class="privacy-update">最近更新日期：2026-10-09</view>
+
+  <view class="privacy-h2">一、我们收集的信息</view>
+  <view class="privacy-p">在您使用“广州中考志愿模拟助手”小程序时，我们仅收集为提供会员服务所必需的信息：</view>
+  <view class="privacy-li">· 微信 openid：用于识别会员身份、关联订单与权益；</view>
+  <view class="privacy-li">· 会员与订单信息：开通记录、支付金额、订单号（由微信支付与我们的服务留存）；</view>
+  <view class="privacy-li">· 您主动填写的估分、志愿偏好等模拟数据，仅存储于您本机，不会上传。</view>
+
+  <view class="privacy-h2">二、信息的使用</view>
+  <view class="privacy-p">上述信息仅用于会员身份校验、权益开通与恢复、订单核对与客服支持，不会用于广告推送或向第三方出售。</view>
+
+  <view class="privacy-h2">三、信息的存储与安全</view>
+  <view class="privacy-p">会员与订单信息存放于我们受控的服务器，采用传输加密与访问控制。您可随时在“我的”中联系客服申请注销与删除。</view>
+
+  <view class="privacy-h2">四、第三方服务</view>
+  <view class="privacy-p">支付由微信支付提供，相关信息的处理遵循《微信支付隐私协议》。除法律法规或本政策要求外，我们不向其他第三方提供您的个人信息。</view>
+
+  <view class="privacy-h2">五、未成年人保护</view>
+  <view class="privacy-p">本小程序面向初三学生家长使用。我们不建议未成年人独立进行支付，家长应在知情同意下代为操作。</view>
+
+  <view class="privacy-h2">六、联系方式</view>
+  <view class="privacy-p">如对本政策有疑问，可通过小程序内“联系客服”与我们沟通。</view>
+
+  <view class="privacy-foot">本系统为模拟参考工具，招生政策与录取结果以广州市教育主管部门及学校当年公布信息为准。</view>
+</scroll-view>

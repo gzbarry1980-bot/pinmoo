@@ -1,0 +1,107 @@
+/* Choose first, then read. Keep warnings and full printed reports. */
+.minimal-home .launch-hero { padding: 40px; gap: 32px; }
+.minimal-home .launch-copy h1 { margin: 0 0 12px; text-shadow: none; }
+.minimal-home .launch-copy p { margin: 0 0 20px; }
+.minimal-home .home-start-options { margin: 0 0 16px; }
+.minimal-home .home-start-option { min-height: 100px; padding: 16px 20px; }
+.minimal-home .launch-art img { height: 260px; }
+.minimal-home .home-school-search { grid-template-columns: auto minmax(0,1fr); margin-bottom: 24px; }
+.minimal-home .home-school-search h2 { margin: 0; }
+.minimal-home .home-school-search > .note { display: none; }
+.minimal-home .batch-entry-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+.minimal-home .batch-entry { gap: 8px !important; padding: 20px !important; }
+.minimal-home .batch-dual { grid-column: auto; }
+.minimal-home .batch-entry-main { display: flex !important; grid-column: auto; }
+.minimal-home .batch-entry > p, .minimal-home .batch-entry > small,
+.minimal-home .batch-subdesc { display: none; }
+.minimal-home .batch-split { width: 100%; gap: 8px; }
+.minimal-home .batch-sublink { display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 8px; padding: 12px; }
+.minimal-home .home-quick-help { padding: 12px 0; }
+.minimal-home .home-quick-help > summary { cursor: pointer; min-height: 44px; }
+.minimal-workspace .batch-breadcrumb { margin-bottom: 12px; }
+.minimal-workspace .page-hero { margin: 0 0 12px !important; padding: 0 !important; }
+.minimal-workspace .page-hero h1 { margin: 0; }
+.minimal-workspace .page-hero > p, .minimal-workspace .batch-breadcrumb > span,
+.minimal-workspace #workflowHint, .minimal-workspace #profile .step-label,
+.minimal-workspace #profileForm > p.note, .minimal-workspace #targetForm > p.note,
+.minimal-workspace #targetForm > label > small { display: none; }
+.minimal-workspace .workspace-mode-tabs { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)) !important; gap: 6px; margin: 12px 0; }
+.minimal-workspace .workspace-mode-tabs button { min-width: 0; padding: 10px 4px; }
+.minimal-workspace .workflow-steps button small { display: none; }
+.minimal-workspace .workflow-steps button:disabled small { display: block; }
+.minimal-workspace .workflow-guide { margin: 0 0 12px !important; }
+.minimal-workspace .workspace-layout { display: grid; grid-template-columns: minmax(0,1fr) !important; gap: 12px; }
+.minimal-workspace .workspace-summary { position: static; padding: 0; border: 0; background: transparent !important; display: block; }
+.minimal-workspace .workspace-summary details { width: 100%; }
+.minimal-workspace .workspace-summary summary { padding: 8px 0; color: var(--muted); cursor: pointer; }
+.minimal-workspace .workspace-summary dl { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 6px 16px; }
+.minimal-workspace .workspace-summary dd { margin: 0 0 8px; }
+.minimal-workspace .workspace-content { min-width: 0; }
+.minimal-workspace:not([data-workflow-step="profile"]) #profile,
+.minimal-workspace:not([data-workflow-step="profile"]) #targetPlanning,
+.minimal-workspace:not([data-workflow-step="profile"]) #intentPlanning,
+.minimal-workspace:not([data-workflow-step="plan"]) #volunteerForm,
+.minimal-workspace:not([data-workflow-step="plan"]) .school-search-disclosure,
+.minimal-workspace:not([data-workflow-step="analysis"]) #analysis { display: none !important; }
+.minimal-workspace[data-workflow-step="profile"] .workspace-summary,
+.minimal-workspace[data-workflow-step="profile"] .workspace-save-options { display: none !important; }
+.minimal-workspace:not([data-entry-mode="target"]) #targetPlanning,
+.minimal-workspace:not([data-entry-mode="intent"]) #intentPlanning { display: none !important; }
+.minimal-workspace:not([data-entry-mode="score"]) .generate-actions { display: none; }
+.minimal-workspace .generate-actions #manualUnified { display: none; }
+.minimal-workspace .strategy-switch { margin: 12px 0; }
+.minimal-workspace .compact-details { margin: 12px 0; padding: 12px 16px; }
+.minimal-workspace .compact-details > summary { padding: 0; min-height: 44px; }
+.minimal-workspace .compact-details .plan-coach { margin: 0; }
+.minimal-workspace #analysis > .panel-heading { margin-bottom: 16px; }
+.minimal-workspace #analysis > .panel-heading > h2 { margin: 0; }
+.minimal-workspace #analysis .analysis-actions { width: auto; }
+.minimal-workspace #analysis .step-label { display: none; }
+.minimal-workspace .compact-result-note { margin: 8px 0 16px; }
+body.minimal-workspace #analysis .score-overview { display: grid !important; grid-template-columns: 96px minmax(0,1fr) !important; gap: 16px !important; align-items: center; }
+.minimal-workspace #analysis .score-ring { width: 96px; height: auto; min-height: 104px; margin: 0; padding: 12px 8px; box-sizing: border-box; }
+.minimal-workspace #analysis .score-summary { min-width: 0; }
+.minimal-workspace #analysis .score-summary h3 { font-size: var(--zk-font-body) !important; line-height: 1.5 !important; margin: 8px 0; }
+.minimal-workspace #analysis .score-summary p { margin: 0; }
+.minimal-workspace #analysis .analysis-grid { display: flex !important; flex-direction: column; gap: 12px !important; }
+.minimal-workspace #analysis .analysis-grid > details { order: 2; }
+.minimal-workspace #analysis .analysis-grid > section { order: 1; }
+.minimal-workspace .compact-details > #analysisAssumptions { margin: 12px 0 0; }
+.minimal-workspace [data-compact-fold="changes"]:has(#planChangeFeedback[hidden]) { display: none; }
+.minimal-workspace #intentOrderExplanation { margin: 12px 0; }
+.minimal-workspace #intentSafetyNotice { margin: 12px 0; }
+.minimal-workspace .intent-panel > h2 { display: none; }
+.minimal-workspace .intent-panel > p { margin: 8px 0 16px; }
+.minimal-workspace .intent-help { margin: 12px 0; }
+.minimal-workspace .mode-condition-summary { color: var(--muted); margin: 8px 0 16px; }
+.minimal-workspace .mode-condition-summary a { display: inline-block; padding: 8px; color: var(--accent-dark); }
+.special-shell .special-hero .eyebrow,
+.special-shell .qualification-card .step-label,
+.special-shell .talent-project-insight { display: none; }
+@media(max-width:650px){
+ .minimal-home .launch-hero { padding: 24px 20px; gap: 0; }
+ .minimal-home .launch-art { display: none; }
+ .minimal-home .home-start-option { min-height: 90px; padding: 14px 16px; }
+ .minimal-home .home-school-search { grid-template-columns: 1fr; gap: 10px; padding: 16px !important; }
+ .minimal-home .batch-entry-grid { grid-template-columns: 1fr; }
+ .minimal-home .batch-dual .batch-split { grid-template-columns: repeat(2,minmax(0,1fr)); }
+ .minimal-workspace .workspace-summary { padding: 0; }
+ .minimal-workspace .workflow-guide { margin-bottom: 12px; }
+ .minimal-workspace .workflow-steps button { padding: 8px 4px !important; }
+ .minimal-workspace .profile-essentials { gap: 12px !important; }
+ .minimal-workspace #profile > .panel-heading { margin-bottom: 12px; }
+ .minimal-workspace .privacy-chip { display: none; }
+}
+@media print{
+ body.minimal-workspace[data-workflow-step] #profile,
+ body.minimal-workspace[data-workflow-step] #volunteerForm,
+ body.minimal-workspace[data-workflow-step] #analysis:not([hidden]) { display: block !important; }
+ .minimal-workspace .workspace-save-options,
+ .minimal-workspace .workspace-mode-tabs,
+ .minimal-workspace .workspace-summary,
+ .minimal-workspace #targetPlanning,
+ .minimal-workspace #intentPlanning,
+ .minimal-workspace .school-search-disclosure { display: none !important; }
+ .minimal-workspace #analysis .step-label { display: block; }
+ .minimal-workspace .compact-details { break-inside: avoid; }
+}

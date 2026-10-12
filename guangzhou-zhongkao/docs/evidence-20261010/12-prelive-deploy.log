@@ -1,0 +1,82 @@
+=== 1. 备份并应用 nginx 配置 ===
+backup done
+copied
+--- 回调精确路由是否存在（期望 2 行 location = /api/pay/...）---
+29:    location = /api/pay/notify {
+41:    location = /api/pay/refund-notify {
+--- nginx -t ---
+2026/10/10 20:17:04 [warn] 145349#145349: conflicting server name "zhongkao.pinmooconsulting.com" on 0.0.0.0:80, ignored
+2026/10/10 20:17:04 [warn] 145349#145349: conflicting server name "zhongkao.pinmooconsulting.com" on [::]:80, ignored
+2026/10/10 20:17:04 [warn] 145349#145349: conflicting server name "zhongkao.pinmooconsulting.com" on 0.0.0.0:443, ignored
+2026/10/10 20:17:04 [warn] 145349#145349: conflicting server name "zhongkao.pinmooconsulting.com" on [::]:443, ignored
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+--- reload ---
+2026/10/10 20:17:04 [warn] 145350#145350: conflicting server name "zhongkao.pinmooconsulting.com" on 0.0.0.0:80, ignored
+2026/10/10 20:17:04 [warn] 145350#145350: conflicting server name "zhongkao.pinmooconsulting.com" on [::]:80, ignored
+2026/10/10 20:17:04 [warn] 145350#145350: conflicting server name "zhongkao.pinmooconsulting.com" on 0.0.0.0:443, ignored
+2026/10/10 20:17:04 [warn] 145350#145350: conflicting server name "zhongkao.pinmooconsulting.com" on [::]:443, ignored
+2026/10/10 20:17:04 [notice] 145350#145350: signal process started
+
+=== 2. 重启支付服务（pay.js 已更新）===
+active
+{"ok":true,"paymentConfigured":false}
+
+=== 3. 回调路由 exempt 限流验证（连续 20 次，期望全部 200，不得出现 429）===
+codes: 200 200 200 200 200 200 200 200 200 200 200 200 200 200 200 200 200 200 200 200
+429 次数: 0
+200 次数: 20
+
+=== 4. 退款回调路由（期望 200）===
+refund-notify HTTP 200
+
+=== 5. 其他接口仍受限流保护（下单 25 次，应出现 429）===
+create codes: 401 401 401 401 401 401 401 401 401 401 401 429 429 429 429 429 429 429 429 429 429 429 429 429 429
+create 429 次数: 14
+
+=== 6. 三套测试回归 ===
+--- p0 ---
+  ✓ 一次性码二次使用被拒（已作废）
+  ✓ 过期令牌被拒(401)
+
+[P0-1] 公网禁用 mock / 演示隔离
+  ✓ 演示开关 demoEnabled=false（公网不暴露伪支付演示）
+  ✓ config 暴露固定金额 990
+
+[验收] 全部 P0 性质用例执行完毕。
+--- codex (5 项) ---
+      "pass": true
+    },
+    {
+      "name": "Payment retry repairs interrupted entitlement grant",
+      "pass": true
+    },
+    {
+      "name": "Partial refund does not silently apply full-refund rule",
+      "pass": true
+    }
+  ]
+}
+--- regression ---
+    {
+      "name": "并发下单：占位记录使并发请求复用同一订单",
+      "pass": true
+    }
+  ]
+}
+
+=== 7. 配置自检（离线部分）===
+[FAIL] mchid 格式
+[FAIL] 商户证书序列号格式
+[FAIL] APIv3 密钥长度 32 字节
+[WARN] 金额 PAY_PRICE_FEN — 当前=990 分（正式应为 990；联调期可临时设 1 分，联调后必须改回）
+[PASS] DEMO_ENABLED 为 false（正式环境） — 当前=false
+[WARN] 小程序侧一致性检查 — 读取失败：ENOENT: no such file or directory, open '/opt/miniprogram/app.js'
+--- 汇总: 15 项，FAIL 12，WARN 1 ---
+结论：配置未就绪，真实支付联调不能开始。
+
+=== 8. 联调脚本防呆（未设 LIVE=1 应跳过）===
+SKIP: 未设置 LIVE=1，真实联调脚本不执行（不会产生任何真实请求）。
+live_exit=0
+
+=== DONE ===

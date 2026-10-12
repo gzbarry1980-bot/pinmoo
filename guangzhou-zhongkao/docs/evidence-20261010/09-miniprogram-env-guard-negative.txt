@@ -1,0 +1,17 @@
+﻿{
+  "buildEnv": "production",
+  "profile": {
+    "dataBaseUrl": "https://zhongkao.pinmooconsulting.com",
+    "webBaseUrl": "https://zhongkao.pinmooconsulting.com",
+    "payMock": true,
+    "storageNs": "prod"
+  },
+  "scanned": 41,
+  "problems": [
+    "app.js: payMock 琚疆涓?true",
+    "utils/embed.js: 浠嶅湪閫忎紶闀挎湡浠ょ墝 zk_token",
+    "鐢熶骇 profile 鐨?payMock 蹇呴』涓?false"
+  ],
+  "pass": false
+}
+EXIT=1

@@ -1,0 +1,97 @@
+{
+  "at": "2026-10-12T01:17:55.496Z",
+  "origin": "https://zhongkao.pinmooconsulting.com",
+  "scope": "UI checks; isolated entitlement fixtures, no production business mutations",
+  "results": [
+    {
+      "name": "Four homepage entry cards",
+      "pass": true,
+      "details": [
+        {
+          "href": "/verify/?new=1",
+          "y": 270.375,
+          "bottom": 425.15625,
+          "font": "16px"
+        },
+        {
+          "href": "/verify/?new=1&start=target#targetPlanning",
+          "y": 270.375,
+          "bottom": 425.15625,
+          "font": "16px"
+        },
+        {
+          "href": "/verify/?new=1&start=intent#intentPlanning",
+          "y": 435.15625,
+          "bottom": 565.9375,
+          "font": "16px"
+        },
+        {
+          "href": "/verify/?new=1&start=manual#volunteerForm",
+          "y": 435.15625,
+          "bottom": 565.9375,
+          "font": "16px"
+        }
+      ]
+    },
+    {
+      "name": "Four entries visible in first mobile viewport",
+      "pass": true,
+      "details": {
+        "entries": [
+          {
+            "href": "/verify/?new=1",
+            "y": 270.375,
+            "bottom": 425.15625,
+            "font": "16px"
+          },
+          {
+            "href": "/verify/?new=1&start=target#targetPlanning",
+            "y": 270.375,
+            "bottom": 425.15625,
+            "font": "16px"
+          },
+          {
+            "href": "/verify/?new=1&start=intent#intentPlanning",
+            "y": 435.15625,
+            "bottom": 565.9375,
+            "font": "16px"
+          },
+          {
+            "href": "/verify/?new=1&start=manual#volunteerForm",
+            "y": 435.15625,
+            "bottom": 565.9375,
+            "font": "16px"
+          }
+        ],
+        "viewport": 844
+      }
+    },
+    {
+      "name": "Homepage mode 0",
+      "pass": true,
+      "details": {
+        "url": "/verify/?new=1",
+        "mode": "score",
+        "planTop": 2325.9375,
+        "intentOpen": false,
+        "targetOpen": false,
+        "active": [
+          "profile"
+        ]
+      }
+    },
+    {
+      "name": "Audit execution",
+      "pass": false,
+      "details": {
+        "message": "page.waitForFunction: Timeout 60000ms exceeded.",
+        "stack": "page.waitForFunction: Timeout 60000ms exceeded.\n    at E:\\pinmoo\\guangzhou-zhongkao\\docs\\ui-redesign-20261011\\codex-ui-fix-audit.mjs:38:11",
+        "screen": {
+          "url": "https://zhongkao.pinmooconsulting.com/verify/?new=1&start=target#targetPlanning",
+          "ready": "false",
+          "text": "官方数据加载失败：读取失败：/data/manifest.json (429)。请稍后刷新重试。\n← 返回首页第三、第四批 · 普通高中志愿\n排好普通高中志愿\n\n填估分生成方案，调整后查看评分与可能去向。\n\n1\n填写条件\n待填写\n2\n调整志愿\n待填写\n3\n查看结果\n待分析\n\n先填写必要的分数和区域信息，其他资格与偏好可以按需展开。\n\nSTEP 1\n1 · 分数与条件\n匿名 · 本地保存\n\n下限按发挥不理想估计，上限按发挥较好估计。\n\n正常发挥估分\n估分下限\n估分上限\n考生类别\n户籍生\n符合公办高中条件的随迁子女\n升学区域\n户籍所在区\n未被第一批录取\n第一批录取后不会再参加后续批次投档\n更多条件与模拟设置\n年度、历史复盘、公民办、住宿、学费与资格\n按需填写\n第二批名额分配（按需带入）\n2027及以后尚未发布正式规则时，暂按2026年志愿结构和投档规则模拟。\n生成志愿，先排顺序\n我已有计划，直接填写\n方案偏好\n进取\n均衡\n稳健\n\n生成后先确认学校与顺序，再查看评估。\n\n撤销上次调整\n想自己挑学校？展开筛选与添加\n我有心仪学校，看看需要冲到多少分\n第三、第四批各6个志愿\n2 · 排列志愿\n查找学校\n冲刺\n匹配\n保底\n填写进度\n准备填写志愿\n建议先完成考生信息，再从第三批学校开始筛选。\n确认志愿，查看评估\n清空志愿\n确认志愿，查看评估\n方案管理：保存、另存与命名\n免责声明\n\n本系统依据公开招生政策及历史数据进行模拟分析，所示评分、录取机会和学校建议均为统计估计，不代表官方录取结果或任何录取承诺。招生政策、计划、报考范围、成绩分布和志愿竞争每年可能变化，请以当年广州市教育局、广州市招生考试委员会办公室及中考服务平台最终公布的信息为准。名额分配、随迁子女、跨区及其他资格请向学校或招考部门核实。志愿选择由考生及监护人自行决定。本系统仅供参考。"
+        }
+      }
+    }
+  ]
+}

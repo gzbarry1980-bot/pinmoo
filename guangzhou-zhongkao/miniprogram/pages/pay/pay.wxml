@@ -1,0 +1,58 @@
+<view class="pay-page">
+  <view class="hero">
+    <view class="hero-badge">中考志愿模拟</view>
+    <view class="hero-title">9.9 元开通会员</view>
+    <view class="hero-sub">解锁完整志愿模拟填报与智能评估</view>
+  </view>
+
+  <view class="card product">
+    <view class="product-name">{{productName}}</view>
+    <view class="product-price"><text class="cur">¥</text><text class="num">{{priceText}}</text></view>
+    <view class="product-tag">一次开通，长期有效</view>
+  </view>
+
+  <view class="card benefits">
+    <view class="section-title">会员权益</view>
+    <view class="benefit" wx:for="{{benefits}}" wx:key="title">
+      <text class="benefit-dot">✓</text>
+      <view class="benefit-text">
+        <text class="benefit-title">{{item.title}}</text>
+        <text class="benefit-desc">{{item.desc}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="privacy-note">
+    开通即代表同意<text class="link" bindtap="openPrivacy">《隐私政策》</text>，支付由微信支付提供。
+  </view>
+
+  <button class="pay-btn" bindtap="onPay" disabled="{{stage==='paying'||stage==='ordering'||stage==='logging'}}">
+    <block wx:if="{{stage==='idle'||stage==='fail'}}">立即支付 ¥{{priceText}}</block>
+    <block wx:elif="{{stage==='success'}}">已开通</block>
+    <block wx:else>处理中…</block>
+  </button>
+  <view class="pay-error" wx:if="{{errorMsg}}">{{errorMsg}}</view>
+
+  <!-- 隐私二次确认（平台要求时） -->
+  <view class="mask" wx:if="{{showPrivacy}}" catchtap="cancelPrivacy">
+    <view class="dialog" catchtap="noop">
+      <view class="dialog-title">隐私政策授权</view>
+      <scroll-view scroll-y class="dialog-body">
+        <text>我们仅收集微信 openid 用于会员身份识别与订单关联。点击“同意并继续”即表示你已阅读并同意《隐私政策》。</text>
+      </scroll-view>
+      <button class="dialog-agree" bindtap="confirmPrivacy">同意并继续</button>
+      <button class="dialog-cancel" bindtap="cancelPrivacy">暂不</button>
+    </view>
+  </view>
+
+  <!-- 支付成功 -->
+  <view class="mask" wx:if="{{stage==='success'}}">
+    <view class="success-card">
+      <view class="success-icon">✓</view>
+      <view class="success-title">开通成功</view>
+      <view class="success-sub">会员权益已生效，去模拟填报吧</view>
+      <button class="success-primary" bindtap="goSimulate">去模拟填报</button>
+      <button class="success-ghost" bindtap="goMy">查看我的会员</button>
+    </view>
+  </view>
+</view>

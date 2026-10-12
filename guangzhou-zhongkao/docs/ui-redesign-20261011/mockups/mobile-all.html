@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中考志愿助手 · 手机高保真稿（6屏）</title>
+  <style>
+    :root {
+      --navy:#15283d; --navy-strong:#0f2032; --orange:#cb571e; --orange-soft:#fff5ed;
+      --muted:#57677a; --line:#dce2e7; --soft:#f4f6f7; --danger:#943c3c; --paper:#fff;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #e9eef3; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; color: var(--navy); line-height: 1.6; }
+    h1.page-title { text-align: center; font-size: 24px; margin: 32px 0 12px; }
+    .subtitle { text-align: center; color: var(--muted); margin-bottom: 28px; font-size: 14px; }
+    .artboards { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 28px; padding: 0 24px 60px; justify-items: center; }
+    .phone {
+      width: 390px; min-height: 844px; background: var(--paper); border: 12px solid #1a2533; border-radius: 46px; overflow: hidden; position: relative;
+      box-shadow: 0 22px 60px rgba(0,0,0,.18);
+    }
+    .phone-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 150px; height: 28px; background: #1a2533; border-radius: 0 0 18px 18px; z-index: 50; }
+    .screen { padding: 48px 16px 90px; min-height: 844px; }
+    .screen-title { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+
+    /* Top nav */
+    .topbar { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
+    .topbar .brand { font-weight: 700; font-size: 16px; }
+    .topbar .back { color: var(--navy); text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 4px; min-height: 44px; }
+
+    /* Buttons */
+    .btn { display: inline-flex; justify-content: center; align-items: center; min-height: 48px; padding: 12px 20px; border-radius: 10px; font-size: 16px; font-weight: 700; border: none; cursor: pointer; width: 100%; text-decoration: none; }
+    .btn-primary { background: var(--navy); color: #fff; }
+    .btn-secondary { background: #fff; color: var(--navy); border: 1px solid var(--line); min-height: 44px; font-weight: 500; }
+    .btn-danger { background: #fff; color: var(--danger); border: 1px solid var(--danger); min-height: 44px; }
+    .btn-orange { background: var(--orange); color: #fff; }
+    .link-action { color: var(--navy); text-decoration: underline; text-underline-offset: 4px; font-size: 16px; min-height: 44px; display: inline-flex; align-items: center; }
+
+    /* Cards */
+    .card { border: 1px solid var(--line); border-radius: 12px; padding: 16px; background: #fff; margin-bottom: 12px; }
+    .entry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 18px 0; }
+    .entry-card { display: flex; flex-direction: column; gap: 6px; border: 1px solid var(--line); border-radius: 12px; padding: 14px; background: #fff; text-decoration: none; color: var(--navy); min-height: 110px; position: relative; }
+    .entry-card strong { font-size: 16px; }
+    .entry-card span { font-size: 13px; color: var(--muted); line-height: 1.45; }
+    .entry-card .arrow { margin-top: auto; color: var(--orange); font-weight: 700; }
+    .entry-card.target { background: var(--orange-soft); border-color: #f2bfa0; }
+    .entry-card:active { transform: scale(.99); }
+    .batch-card { display: grid; gap: 8px; }
+    .batch-card h3 { margin: 0; font-size: 18px; }
+    .batch-card p { margin: 0; font-size: 14px; color: var(--muted); }
+    .batch-card .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+    /* Home specific */
+    .hero { margin-bottom: 18px; }
+    .hero .eyebrow { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+    .hero h2 { font-size: 24px; margin: 6px 0 10px; line-height: 1.3; }
+    .hero p { color: var(--muted); font-size: 16px; margin: 0 0 16px; }
+    .search-box { display: flex; gap: 0; margin: 12px 0; }
+    .search-box input { flex: 1; min-height: 48px; border: 1px solid var(--line); border-radius: 10px 0 0 10px; padding: 0 12px; font-size: 16px; }
+    .search-box .btn { width: auto; border-radius: 0 10px 10px 0; min-height: 48px; }
+    .continue-banner { background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .continue-banner span { font-size: 14px; }
+
+    /* Stepper */
+    .stepper { display: flex; justify-content: space-between; margin-bottom: 20px; position: relative; }
+    .stepper::before { content: ''; position: absolute; top: 14px; left: 16px; right: 16px; height: 2px; background: var(--line); z-index: 0; }
+    .step { display: flex; flex-direction: column; align-items: center; gap: 6px; position: relative; z-index: 1; background: #fff; padding: 0 4px; }
+    .step .num { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; border: 2px solid var(--line); background: #fff; }
+    .step.done .num { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .step.current .num { background: var(--navy); color: #fff; border-color: var(--navy); }
+    .step.locked .num { color: var(--muted); border-color: var(--line); }
+    .step span { font-size: 12px; color: var(--muted); }
+    .step.current span { color: var(--navy); font-weight: 700; }
+
+    /* Forms */
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-size: 14px; margin-bottom: 6px; font-weight: 500; }
+    .field input, .field select { width: 100%; min-height: 48px; border: 1px solid var(--line); border-radius: 10px; padding: 0 12px; font-size: 16px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .choice-row { display: flex; align-items: flex-start; gap: 10px; background: var(--soft); padding: 12px; border-radius: 10px; margin-bottom: 10px; }
+    .choice-row input { width: 22px; height: 22px; margin-top: 2px; }
+    .choice-row strong { display: block; font-size: 16px; }
+    .choice-row small { display: block; font-size: 13px; color: var(--muted); }
+
+    /* Bottom action bar */
+    .action-bar { position: absolute; bottom: 0; left: 0; right: 0; background: #fff; border-top: 1px solid var(--line); padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); display: flex; gap: 10px; z-index: 40; }
+    .action-bar .btn-secondary { flex: 0 0 auto; }
+    .action-bar .btn-primary { flex: 1 1 auto; }
+
+    /* School card */
+    .school-card { border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+    .school-card h3 { margin: 0 0 6px; font-size: 18px; color: var(--navy); }
+    .school-card p { margin: 0 0 10px; font-size: 14px; color: var(--muted); }
+    .school-card .tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .chip { font-size: 12px; background: var(--soft); color: var(--muted); padding: 3px 8px; border-radius: 4px; }
+    .school-card .actions { display: flex; gap: 8px; }
+    .school-card .actions .btn-secondary { flex: 1; }
+
+    /* Detail */
+    .detail-hero { margin-bottom: 16px; }
+    .detail-hero h1 { font-size: 24px; margin: 6px 0; }
+    .detail-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 16px; }
+    .detail-tabs a { white-space: nowrap; padding: 8px 12px; border-radius: 20px; font-size: 14px; text-decoration: none; color: var(--muted); background: var(--soft); }
+    .detail-tabs a.active { background: var(--navy); color: #fff; }
+    .fact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+    .fact { background: var(--soft); padding: 10px; border-radius: 8px; }
+    .fact dt { font-size: 12px; color: var(--muted); }
+    .fact dd { margin: 4px 0 0; font-size: 15px; font-weight: 600; }
+
+    /* Tab bar */
+    .tabbar { position: absolute; bottom: 0; left: 0; right: 0; display: flex; justify-content: space-around; background: #fff; border-top: 1px solid var(--line); padding: 6px 0 calc(6px + env(safe-area-inset-bottom)); z-index: 40; }
+    .tabbar a { flex: 1; text-align: center; font-size: 12px; color: var(--muted); text-decoration: none; padding: 6px 0; }
+    .tabbar a.active { color: var(--navy); font-weight: 700; background: var(--soft); }
+
+    /* Annotation overlay */
+    .annotation { position: absolute; border: 2px dashed #e11d48; background: rgba(225,29,72,.08); border-radius: 8px; pointer-events: none; }
+    .annotation .tag { position: absolute; top: -18px; left: 0; background: #e11d48; color: #fff; font-size: 11px; padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+
+    /* Utility */
+    .muted { color: var(--muted); font-size: 14px; }
+    .panel-title { font-size: 20px; font-weight: 700; margin: 0 0 12px; }
+    .section { margin-bottom: 18px; }
+    .empty-state { text-align: center; padding: 40px 20px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <h1 class="page-title">中考志愿助手 · 手机高保真稿（6屏）</h1>
+  <p class="subtitle">红色虚线框为改动说明/点击区域标注；每张卡为单一入口，按钮满足 44–48px 触控目标。</p>
+
+  <div class="artboards">
+    <!-- 1. 首页 -->
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="screen">
+        <div class="screen-title">UI-01 首页</div>
+        <div class="topbar"><span class="brand">品沐 · 广州中考志愿助手</span></div>
+        <div class="hero">
+          <div class="eyebrow">广州中考 · 按批次了解与填报</div>
+          <h2>孩子的志愿，<br>从这里开始</h2>
+          <p>第一、第二批按需了解。多数家庭可直接进入第三、第四批模拟志愿。</p>
+        </div>
+        <div class="continue-banner">
+          <span>上次做到：排列志愿（3/6）</span>
+          <a class="btn-secondary" href="#" style="width:auto; padding:8px 12px; font-size:14px;">继续上次</a>
+        </div>
+        <div class="entry-grid">
+          <a class="entry-card" href="#">
+            <strong>我只有大概分数</strong>
+            <span>生成第三、第四批志愿草案</span>
+            <span class="arrow">开始模拟 →</span>
+          </a>
+          <a class="entry-card target" href="#">
+            <strong>我有心仪学校</strong>
+            <span>看看需要冲到多少分</span>
+            <span class="arrow">查目标分 →</span>
+          </a>
+          <a class="entry-card" href="#">
+            <strong>我选了几所学校</strong>
+            <span>帮我安排志愿顺序</span>
+            <span class="arrow">排序志愿 →</span>
+          </a>
+          <a class="entry-card" href="#">
+            <strong>我已有志愿计划</strong>
+            <span>检查方案是否合理</span>
+            <span class="arrow">验证方案 →</span>
+          </a>
+        </div>
+        <div class="card" style="margin-top:8px;">
+          <strong style="font-size:16px;">只想了解一所学校？</strong>
+          <div class="search-box"><input placeholder="输入校名，如培正、华附"><button class="btn btn-primary" style="width:auto;">查学校</button></div>
+        </div>
+        <div class="card batch-card">
+          <h3>按录取批次查看资料</h3>
+          <p>第一批特长/自主招生 · 第二批名额分配</p>
+          <div class="actions">
+            <a class="btn-secondary" href="#" style="width:auto; padding:8px 12px; font-size:14px;">第一批资料</a>
+            <a class="btn-secondary" href="#" style="width:auto; padding:8px 12px; font-size:14px;">第二批资料</a>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <a href="#">首页</a><a href="#">查学校</a><a href="#">我的方案</a><a href="#" class="active">我的</a>
+      </div>
+      <div class="annotation" style="left:14px; top:250px; width:170px; height:120px;"><span class="tag">整卡可点</span></div>
+      <div class="annotation" style="left:14px; top:385px; width:360px; height:56px;"><span class="tag">继续上次方案</span></div>
+    </div>
+
+    <!-- 2. 求证版 step1 -->
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="screen">
+        <div class="screen-title">UI-02 求证版 · 第1步</div>
+        <a class="back" href="#">← 返回首页</a>
+        <div class="stepper">
+          <div class="step current"><div class="num">1</div><span>条件</span></div>
+          <div class="step locked"><div class="num">2</div><span>志愿</span></div>
+          <div class="step locked"><div class="num">3</div><span>评估</span></div>
+        </div>
+        <div class="section">
+          <h2 class="panel-title">1 填写考生信息与估分</h2>
+          <p class="muted">正常发挥估分是你最可能考到的分数；不需要姓名或准考证号。</p>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label>中心分值</label><input value="710"></div>
+          <div class="field"><label>估分下限</label><input value="700"></div>
+          <div class="field"><label>估分上限</label><input value="720"></div>
+          <div class="field"><label>考生类别</label><select><option>户籍生</option></select></div>
+          <div class="field"><label>升学区域</label><select><option>天河区</option></select></div>
+          <div class="field"><label>风险偏好</label><select><option>均衡</option></select></div>
+        </div>
+        <label class="choice-row">
+          <input type="checkbox" checked>
+          <span><strong>未被第一批录取</strong><small>第一批录取后不会再参加后续批次投档</small></span>
+        </label>
+        <label class="choice-row">
+          <input type="checkbox">
+          <span><strong>参加第二批名额分配</strong><small>勾选后选择所在初中</small></span>
+        </label>
+      </div>
+      <div class="action-bar">
+        <a class="btn btn-secondary" href="#">← 返回首页</a>
+        <button class="btn btn-primary">生成志愿草案</button>
+      </div>
+      <div class="annotation" style="left:16px; top:100px; width:358px; height:50px;"><span class="tag">步骤栏：当前/已完成/未解锁</span></div>
+      <div class="annotation" style="left:16px; bottom:12px; width:358px; height:58px;"><span class="tag">底部单一主 CTA</span></div>
+    </div>
+
+    <!-- 3. 求证版 step2 -->
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="screen">
+        <div class="screen-title">UI-02 求证版 · 第2步</div>
+        <a class="back" href="#">← 返回修改条件</a>
+        <div class="stepper">
+          <div class="step done"><div class="num">✓</div><span>条件</span></div>
+          <div class="step current"><div class="num">2</div><span>志愿</span></div>
+          <div class="step locked"><div class="num">3</div><span>评估</span></div>
+        </div>
+        <div class="section">
+          <h2 class="panel-title">2 排列志愿</h2>
+          <p class="muted">第三批 6 个志愿 · 第四批 6 个志愿。系统按冲稳保给出提示。</p>
+        </div>
+        <div class="card">
+          <strong>第三批 · 第1志愿</strong>
+          <div class="field" style="margin-top:8px;"><select><option>请选择学校</option></select></div>
+          <p class="muted" style="font-size:13px;">建议：冲刺学校，录取机会统计估计</p>
+        </div>
+        <div class="card">
+          <strong>第三批 · 第2志愿</strong>
+          <div class="field" style="margin-top:8px;"><select><option>华南师范大学附属中学（石牌）</option></select></div>
+          <p class="muted" style="font-size:13px;">匹配学校 · 末位志愿 1</p>
+        </div>
+        <div class="card">
+          <strong>第三批 · 第3志愿</strong>
+          <div class="field" style="margin-top:8px;"><select><option>请选择学校</option></select></div>
+        </div>
+        <a class="link-action" href="#">+ 添加第四批志愿</a>
+      </div>
+      <div class="action-bar">
+        <a class="btn btn-secondary" href="#">← 返回修改条件</a>
+        <button class="btn btn-primary">确认志愿，查看评估</button>
+      </div>
+      <div class="annotation" style="left:16px; top:100px; width:358px; height:50px;"><span class="tag">已完成步骤可返回</span></div>
+      <div class="annotation" style="left:16px; bottom:12px; width:358px; height:58px;"><span class="tag">底部单一主 CTA，无重复按钮</span></div>
+    </div>
+
+    <!-- 4. 求证版 step3 评估 -->
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="screen">
+        <div class="screen-title">UI-05 评估页</div>
+        <a class="back" href="#">← 返回调整志愿</a>
+        <div class="stepper">
+          <div class="step done"><div class="num">✓</div><span>条件</span></div>
+          <div class="step done"><div class="num">✓</div><span>志愿</span></div>
+          <div class="step current"><div class="num">3</div><span>评估</span></div>
+        </div>
+        <div class="card" style="background:var(--navy); color:#fff; text-align:center;">
+          <div style="font-size:48px; font-weight:700;">78</div>
+          <div style="font-size:14px; opacity:.9;">方案合理度</div>
+          <div style="margin-top:8px; font-size:16px;">良好 · 可执行 3 条调整建议</div>
+        </div>
+        <div class="section">
+          <h2 class="panel-title">可能去向</h2>
+          <div class="school-card">
+            <h3>华南师范大学附属中学（石牌）</h3>
+            <p>第三批第2志愿 · 匹配</p>
+            <a class="btn btn-secondary" href="#" style="width:auto; padding:8px 14px; font-size:14px;">查看学校</a>
+          </div>
+        </div>
+        <div class="section">
+          <h2 class="panel-title">调整建议</h2>
+          <div class="card" style="border-left:4px solid var(--orange);">
+            <strong>建议 1：第三批第5志愿缺少保底</strong>
+            <p class="muted">建议补充一所录取门槛低于下限 10–15 分的学校。</p>
+            <a class="link-action" href="#" style="font-size:14px;">→ 回到第三批第5志愿</a>
+          </div>
+        </div>
+      </div>
+      <div class="action-bar">
+        <a class="btn btn-secondary" href="#">← 返回调整志愿</a>
+        <button class="btn btn-primary">保存方案</button>
+      </div>
+      <div class="annotation" style="left:16px; top:160px; width:358px; height:110px;"><span class="tag">先看结论，再看依据</span></div>
+      <div class="annotation" style="left:16px; bottom:12px; width:358px; height:58px;"><span class="tag">导出/打印放入次级工具栏</span></div>
+    </div>
+
+    <!-- 5. 学校列表 -->
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="screen">
+        <div class="screen-title">UI-04 学校列表</div>
+        <a class="back" href="#">← 返回首页</a>
+        <h2 class="panel-title">先了解学校，再做选择</h2>
+        <div class="search-box"><input placeholder="输入校名"><button class="btn btn-primary" style="width:auto;">查学校</button></div>
+        <div class="card" style="padding:10px;">
+          <div class="grid-2" style="gap:8px;">
+            <select><option>所有区域</option></select>
+            <select><option>全部性质</option></select>
+          </div>
+          <button class="btn btn-secondary" style="margin-top:8px; min-height:36px; font-size:14px;">清除筛选</button>
+        </div>
+        <div class="school-card">
+          <div class="tags"><span class="chip">黄埔区</span><span class="chip">公办</span></div>
+          <h3>北京师范大学广州实验学校</h3>
+          <p>2026 · 第三批 · 户籍生 · 最低录取分 670</p>
+          <div class="actions">
+            <button class="btn btn-secondary" style="flex:0 0 auto; padding:8px 12px;">收藏</button>
+            <button class="btn btn-secondary" style="flex:0 0 auto; padding:8px 12px;">对比</button>
+            <button class="btn btn-secondary">加入志愿</button>
+          </div>
+        </div>
+        <div class="school-card">
+          <div class="tags"><span class="chip">天河区</span><span class="chip">公办</span></div>
+          <h3>华南师范大学附属中学（石牌）</h3>
+          <p>2026 · 第三批 · 户籍生 · 最低录取分 728</p>
+          <div class="actions">
+            <button class="btn btn-secondary" style="flex:0 0 auto; padding:8px 12px;">收藏</button>
+            <button class="btn btn-secondary" style="flex:0 0 auto; padding:8px 12px;">对比</button>
+            <button class="btn btn-secondary">加入志愿</button>
+          </div>
+        </div>
+      </div>
+      <div class="tabbar">
+        <a href="#">首页</a><a href="#" class="active">查学校</a><a href="#">我的方案</a><a href="#">我的</a>
+      </div>
+      <div class="annotation" style="left:14px; top:185px; width:362px; height:130px;"><span class="tag">主资料区进详情；操作按钮独立</span></div>
+    </div>
+
+    <!-- 6. 学校详情 -->
+    <div class="phone">
+      <div class="phone-notch"></div>
+      <div class="screen">
+        <div class="screen-title">UI-04 学校详情</div>
+        <a class="btn btn-secondary" href="#" style="width:auto; padding:8px 12px; font-size:14px; margin-bottom:12px;">← 返回学校列表</a>
+        <div class="detail-hero">
+          <div class="eyebrow">学校档案</div>
+          <h1>北京师范大学广州实验学校</h1>
+          <div class="tags"><span class="chip">黄埔区</span><span class="chip">公办</span></div>
+        </div>
+        <div class="detail-tabs">
+          <a href="#" class="active">概况</a><a href="#">历年录取</a><a href="#">特长自招</a><a href="#">开放日</a>
+        </div>
+        <div class="fact-grid">
+          <div class="fact"><dt>校区地址</dt><dd>黄埔区</dd></div>
+          <div class="fact"><dt>住宿</dt><dd>提供住宿</dd></div>
+          <div class="fact"><dt>年学费</dt><dd>公办标准</dd></div>
+          <div class="fact"><dt>招生范围</dt><dd>全市</dd></div>
+        </div>
+        <div class="section">
+          <h2 class="panel-title">历年统招录取</h2>
+          <div class="card"><p class="muted">2026 · 第三批 · 户籍生 · 670 分 · 末位志愿 6</p></div>
+        </div>
+      </div>
+      <div class="action-bar">
+        <button class="btn btn-secondary">收藏</button>
+        <button class="btn btn-secondary">加入志愿</button>
+        <button class="btn btn-primary">作为目标校分析</button>
+      </div>
+      <div class="annotation" style="left:14px; top:85px; width:150px; height:36px;"><span class="tag">明确返回按钮</span></div>
+      <div class="annotation" style="left:14px; top:150px; width:362px; height:42px;"><span class="tag">当前 tab 高亮</span></div>
+    </div>
+  </div>
+</body>
+</html>

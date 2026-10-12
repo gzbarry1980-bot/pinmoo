@@ -1,0 +1,31 @@
+﻿=== service ===
+active
+=== 鐩戝惉 ===
+LISTEN 0      511        127.0.0.1:8799      0.0.0.0:*    users:(("node",pid=143869,fd=21))                                                 
+=== 鏃ュ織 ===
+[zk-pay] listening on :8799 (appid=鏈厤缃? payment=NOT configured)
+[zk-pay] listening on 127.0.0.1:8799 (appid=鏈厤缃? payment=NOT configured)
+[zk-pay] listening on 127.0.0.1:8799 (appid=鏈厤缃? payment=NOT configured)
+=== config ===
+{"accessMode":"enforce","priceFen":990,"productName":"骞垮窞涓€冨織鎰挎ā鎷熶細鍛?,"demoEnabled":false}
+=== session(鏃犲嚟璇? ===
+{"authenticated":false,"entitled":false}
+=== exchange(鏃犵爜 -> 400) ===
+HTTP 400
+=== exchange(浼爜 -> 401) ===
+HTTP 401
+=== logout ===
+{"ok":true}
+=== serial/redeem(搴斿懡涓?787) ===
+{"error":"璇锋眰鏉ユ簮鏍￠獙澶辫触","code":"SERVER_ERROR"}
+=== mock-pay(搴?04) ===
+HTTP 404
+=== pay/create(鏃犱护鐗?-> 401) ===
+HTTP 401
+=== auth/login(->503) ===
+HTTP 503
+=== membership/status(openid 鍏滃簳 -> 401) ===
+HTTP 401
+=== healthz ===
+{"ok":true,"paymentConfigured":false}
+END

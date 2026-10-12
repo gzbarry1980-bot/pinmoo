@@ -1,0 +1,16 @@
+UI 改版回归验证结果
+时间: 2026-10-11T04:39:22.969Z
+页面错误/控制台错误: 1
+CONSOLE: Failed to load resource: the server responded with a status of 404 (Not Found)
+
+检查项:
+✓ 首页 4 张入口卡
+✓ 首页入口卡有 href
+✓ 求证版步骤数为 3
+✓ 志愿表只有一个主 CTA
+✓ 学校列表有学校卡
+✓ 学校卡主资料区可点击
+✓ 学校详情有返回按钮
+✓ 底部导航有高亮当前页
+
+通过: 8 / 8

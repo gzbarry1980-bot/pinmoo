@@ -1,0 +1,18 @@
+{
+  "name": "zhongkao-pay-server",
+  "version": "1.0.0",
+  "description": "广州中考志愿模拟助手 · 微信支付 v3 与会员服务（小程序 9.9 元付费解锁后端）",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node src/index.js",
+    "test": "node test/p0.test.cjs && node test/codex-review-20261010.cjs && node test/regression-20261010.cjs",
+    "audit": "npm audit --omit=dev"
+  },
+  "dependencies": {
+    "express": "^5.3.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
