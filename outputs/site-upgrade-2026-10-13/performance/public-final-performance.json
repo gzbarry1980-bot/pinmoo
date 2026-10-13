@@ -1,0 +1,96 @@
+{
+  "origin": "https://pinmooconsulting.com",
+  "conditions": "Lighthouse mobile simulated throttling; laboratory data, not field INP",
+  "scores": [
+    {
+      "route": "/",
+      "run": 1,
+      "performance": 100,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 1514.8635,
+      "cls": 0,
+      "tbt": 6
+    },
+    {
+      "route": "/",
+      "run": 2,
+      "performance": 100,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 1515.23,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "route": "/",
+      "run": 3,
+      "performance": 93,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 2058.4806,
+      "cls": 0,
+      "tbt": 285
+    },
+    {
+      "route": "/services/",
+      "run": 1,
+      "performance": 95,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 1813.8784,
+      "cls": 0,
+      "tbt": 251
+    },
+    {
+      "route": "/services/",
+      "run": 2,
+      "performance": 96,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 1779.3401,
+      "cls": 0,
+      "tbt": 215
+    },
+    {
+      "route": "/services/",
+      "run": 3,
+      "performance": 100,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 1512.5482,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "route": "/contact/",
+      "run": 1,
+      "performance": 100,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 1513.2948999999999,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "route": "/contact/",
+      "run": 2,
+      "performance": 99,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 1512.5046,
+      "cls": 0,
+      "tbt": 100
+    },
+    {
+      "route": "/contact/",
+      "run": 3,
+      "performance": 99,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 1815.6612999999998,
+      "cls": 0,
+      "tbt": 104
+    }
+  ]
+}
