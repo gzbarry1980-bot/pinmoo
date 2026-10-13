@@ -6,6 +6,7 @@ import { routeMeta } from '../src/data/seo.js';
 import { insights } from '../src/data/insights.js';
 import { insightPractice } from '../src/data/insight-practice.js';
 import { practicalResources, resourceLibrary } from '../src/data/practical-resources.js';
+import { cases } from '../src/data/cases.js';
 
 const root = path.resolve('dist');
 const pages = routeMeta.filter(meta => !meta.duplicate && !meta.aiTool);
@@ -46,6 +47,16 @@ for (const item of enhanced) {
 }
 
 const home = await fs.readFile(path.join(root, 'index.html'), 'utf8');
+assert.equal(new Set(cases.map(item => item.image)).size, cases.length, 'Each case needs its own image');
+for (const item of cases) {
+  assert.ok(item.image.startsWith('/assets/cases/' + item.slug + '.'), item.slug + ': case image must match the case, not a page hero');
+  for (const lang of ['', 'en/']) {
+    const html = await fs.readFile(path.join(root, lang, 'cases', item.slug, 'index.html'), 'utf8');
+    assert.ok(html.includes(item.image), item.slug + ': detail image binding mismatch');
+    assert.ok(!html.includes('/assets/visuals/contact-diagnosis-flow.webp'), item.slug + ': contact image leaked into a case');
+  }
+}
+assert.ok(home.includes('/assets/cases/chenpi-brand-geo-diagnosis.webp'));
 assert.ok(home.includes('data-event="consult_open"'));
 assert.ok(home.includes('确认范围与交付'));
 assert.ok(home.includes(resourceLibrary.path));

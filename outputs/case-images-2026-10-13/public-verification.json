@@ -1,0 +1,147 @@
+{
+  "checkedAt": "2026-10-13T15:08:26.810Z",
+  "origin": "https://pinmooconsulting.com",
+  "pages": [
+    {
+      "url": "https://pinmooconsulting.com/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/cases/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/cases/chenpi-brand-geo-diagnosis/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/cases/personal-care-device-positioning/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/cases/tea-brand-platform-synergy/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/cases/children-nutrition-compliance/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/cases/traditional-enterprise-ecommerce-launch/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/cases/wine-store-diagnosis/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/cases/consumer-goods-membership-growth/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/cases/camping-local-life-operation/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/en/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/en/cases/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/en/cases/chenpi-brand-geo-diagnosis/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/en/cases/womenswear-refund-optimization/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/en/cases/personal-care-device-positioning/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/en/cases/tea-brand-platform-synergy/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/en/cases/children-nutrition-compliance/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/en/cases/traditional-enterprise-ecommerce-launch/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/en/cases/wine-store-diagnosis/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/en/cases/consumer-goods-membership-growth/",
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/en/cases/camping-local-life-operation/",
+      "passed": true
+    }
+  ],
+  "images": [
+    {
+      "slug": "chenpi-brand-geo-diagnosis",
+      "image": "/assets/cases/chenpi-brand-geo-diagnosis.webp",
+      "hashMatched": true
+    },
+    {
+      "slug": "womenswear-refund-optimization",
+      "image": "/assets/cases/womenswear-refund-optimization.webp",
+      "hashMatched": true
+    },
+    {
+      "slug": "personal-care-device-positioning",
+      "image": "/assets/cases/personal-care-device-positioning.webp",
+      "hashMatched": true
+    },
+    {
+      "slug": "tea-brand-platform-synergy",
+      "image": "/assets/cases/tea-brand-platform-synergy.webp",
+      "hashMatched": true
+    },
+    {
+      "slug": "children-nutrition-compliance",
+      "image": "/assets/cases/children-nutrition-compliance.webp",
+      "hashMatched": true
+    },
+    {
+      "slug": "traditional-enterprise-ecommerce-launch",
+      "image": "/assets/cases/traditional-enterprise-ecommerce-launch.webp",
+      "hashMatched": true
+    },
+    {
+      "slug": "wine-store-diagnosis",
+      "image": "/assets/cases/wine-store-diagnosis.webp",
+      "hashMatched": true
+    },
+    {
+      "slug": "consumer-goods-membership-growth",
+      "image": "/assets/cases/consumer-goods-membership-growth.webp",
+      "hashMatched": true
+    },
+    {
+      "slug": "camping-local-life-operation",
+      "image": "/assets/cases/camping-local-life-operation.webp",
+      "hashMatched": true
+    }
+  ],
+  "build": {
+    "version": "3ab04bccbf",
+    "builtAt": "2026-10-13T15:04:32.620Z",
+    "articleCount": 76,
+    "primaryDomain": "https://pinmooconsulting.com"
+  }
+}

@@ -334,6 +334,7 @@ body:has(.studio-hero) .geo-process-section { background:#eeeef0; }
 .case-detail-hero-inner>.reveal:first-child { position:relative; z-index:2; max-width:780px; }
 .case-detail-hero h1 { color:#fff; font-size:40px; }
 .case-detail-hero p,.case-detail-hero .back-link { color:#e0e2e4; }
+.case-detail-hero .case-image-notice { font-size:12px; line-height:1.5; opacity:.8; }
 .case-detail-image { position:absolute; inset:0; z-index:0; opacity:.8; border:0; border-radius:0; background:transparent; box-shadow:none; }
 .case-detail-image img { width:100%; height:100%; object-fit:cover; border-radius:0; }
 .case-detail-aside .aside-card { border-radius:0; border:0; border-top:2px solid #c43a30; background:#f4f4f5; box-shadow:none; }

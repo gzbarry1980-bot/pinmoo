@@ -39,6 +39,7 @@ export function CaseDetail({ item }) {
             <Reveal className="case-privacy-note">
               <strong>匿名案例说明</strong>
               <p>本案例来自真实项目，现有公开内容已经核对；依据客户资料保密与公开授权边界，客户名称及可识别细节已隐去。</p>
+              {item.imageIllustration && <p>配图为 AI 生成的品类场景示意，并非客户产品或项目现场实拍。</p>}
             </Reveal>
             {item.evidence && (
               <Reveal className="insight-evidence case-evidence">
