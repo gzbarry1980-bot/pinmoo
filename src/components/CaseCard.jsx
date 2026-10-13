@@ -8,13 +8,14 @@ export function CaseCard({ item, featured = false }) {
         <img src={item.image} alt={item.industry + '项目经验示意图'} loading="lazy" />
       </a>
       <div className="case-card-body">
+        <span className="case-stage">{item.slug === 'chenpi-brand-geo-diagnosis' ? '诊断与实施规划' : '定性项目经验'}</span>
         <div className="tag-row">
           <span>{item.industry}</span>
           <span>{item.platform}</span>
         </div>
         <h3><a href={href}>{item.title}</a></h3>
         <p>{item.summary}</p>
-        <a className="outline-link" href={href}>查看详情 <Icon name="ArrowRight" size={16} /></a>
+        <a className="outline-link" href={href}>查看问题与行动 <Icon name="ArrowRight" size={16} /></a>
       </div>
     </article>
   );

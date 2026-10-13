@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const source = path.join(root, 'guangzhou-zhongkao');
 const target = path.join(root, 'dist', 'zhongkao');
-const publicDirectories=new Set(['assets','data','direction','target','verify','special','quota','unlock','serial-key','privacy','schools','plans','my','admissions']);
+const publicDirectories=new Set(['assets','data','direction','target','verify','special','quota','unlock','serial-key','privacy','schools','plans','my','admissions','resources']);
 const publicExtensions=new Set(['.html','.js','.css','.json','.xml','.txt','.svg','.png','.webp','.jpg','.jpeg','.gif','.ico','.woff','.woff2']);
 
 const sourceStat = await fs.stat(source).catch(() => null);

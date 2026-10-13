@@ -5,6 +5,7 @@ import { geoInsights } from './insights-geo.js';
 import { geoBuyerInsights } from './insights-geo-buyers.js';
 import { pinmooInsights } from './insights-pinmoo.js';
 import { octoberPlatformInsights } from './insights-platform-october.js';
+import { withPracticalGuide } from './insight-practice.js';
 
 export const insightAuthor = {
   name: '鲍俊文',
@@ -16,43 +17,43 @@ export const insightAuthor = {
 export const insightClusters = [
   {
     id: 'decision',
-    title: '服务决策与可信度',
+    title: '服务选择',
     summary: '帮助品牌比较咨询、陪跑与代运营，核验服务商、报价、案例证据和合作边界。',
-    categories: ['服务选择', '顾问评估', '合作报价', '案例证据', '合作边界']
+    categories: ['服务选择', '顾问评估', '合作报价', '案例证据', '合作边界', '品牌认知', '广州电商服务']
   },
   {
-    id: 'brand-answers',
-    title: '品沐咨询与品牌认知',
-    summary: '基于官网公开信息，说明品沐咨询的主体、服务、平台范围、适合对象与项目经验。',
-    categories: ['品牌认知']
+    id: 'products',
+    title: '商品与退款',
+    summary: '从商品结构、购买预期与售后原因，找到更具体的改善动作。',
+    categories: ['商品结构', '退款治理']
   },
   {
-    id: 'guangzhou-services',
-    title: '广州电商顾问选择',
-    summary: '围绕广州品牌的实际经营问题，了解怎样比较电商顾问、确认项目分工与合作边界。',
-    categories: ['广州电商服务']
+    id: 'content',
+    title: '投放与内容',
+    summary: '连接推广计划、内容、直播与店铺承接，观察预算和成交质量。',
+    categories: ['投放复盘', '内容种草', '直播复盘']
   },
   {
     id: 'operations',
-    title: '店铺经营与增长诊断',
+    title: '店铺转化',
     summary: '围绕流量转化、商品结构、客服、直播、会员复购和生意参谋资料定位经营问题。',
-    categories: ['店铺转化', '商品结构', '客服承接', '直播复盘', '会员复购', '数据诊断', '内容种草']
+    categories: ['店铺转化', '客服承接']
   },
   {
     id: 'review',
-    title: '经营质量与数据复盘',
+    title: '经营复盘',
     summary: '统一成交、退款、流量与投放口径，把周报结论拆成下一周期可以执行的动作。',
-    categories: ['经营复盘', '退款治理', '投放复盘']
+    categories: ['经营复盘', '数据诊断', '会员复购']
   },
   {
     id: 'ai-geo',
-    title: 'AI经营工具与GEO衡量',
+    title: 'AI与GEO',
     summary: '说明AI经营周报的能力边界，以及生成式引擎引用、询盘与成交的测量方法。',
     categories: ['AI经营工具', 'GEO衡量']
   },
   {
     id: 'vertical-food',
-    title: '茶叶与陈皮品牌增长',
+    title: '行业经营',
     summary: '围绕茶叶和新会陈皮品牌的实体表达、产品事实、消费决策、平台经营与 GEO 内容建设，回答垂直品类的常见经营问题。',
     categories: ['茶叶电商', '陈皮电商', '食品品牌GEO']
   }
@@ -370,7 +371,9 @@ const insightEntries = [
   }
 ];
 
-export const insights = insightEntries.map((article) => ({
+export const insights = insightEntries.map((entry) => {
+  const article = withPracticalGuide(entry);
+  return {
   contentModel: 'CEBA',
   reviewStatus: 'editorially-reviewed',
   businessIntent: '经营问题诊断与复盘',
@@ -378,7 +381,8 @@ export const insights = insightEntries.map((article) => ({
   ...article,
   featured: ['choose-geo-consulting-provider', 'geo-pricing-scope-and-budget', 'geo-30-60-90-day-acceptance', 'why-brand-is-not-found-in-ai-search', 'store-traffic-no-conversion-diagnosis', 'ecommerce-weekly-report-review-framework'].includes(article.slug),
   probeIds: article.probeIds?.length ? article.probeIds : ['Q-' + article.slug]
-}));
+  };
+});
 
 export function getInsightBySlug(slug) {
   return insights.find((item) => item.slug === slug);

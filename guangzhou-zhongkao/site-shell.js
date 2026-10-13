@@ -1,7 +1,7 @@
 import {readWorkspace,migrateDraft} from './workspace-store.js';
 import {simplifyVisibleCopy} from './parent-copy.js';
 import {installFormLayout} from './form-layout.js';
-import {installDynamicUI} from './dynamic-ui.js?v=20261012-minimal';
+import {installDynamicUI} from './dynamic-ui.js?v=20261013-flow';
 export const disclaimer='本系统依据公开招生政策及历史数据进行模拟分析，所示评分、录取机会和学校建议均为统计估计，不代表官方录取结果或任何录取承诺。招生政策、计划、报考范围、成绩分布和志愿竞争每年可能变化，请以当年广州市教育局、广州市招生考试委员会办公室及中考服务平台最终公布的信息为准。名额分配、随迁子女、跨区及其他资格请向学校或招考部门核实。志愿选择由考生及监护人自行决定。本系统仅供参考。';
 
 // 检测当前是否运行在微信小程序 web-view 内。
@@ -42,7 +42,7 @@ const entries=[['/','首页'],['/schools/','查学校'],['/plans/','我的方案
 function loadSiteStyle(file,marker){
   let css=[...document.querySelectorAll('link[rel="stylesheet"]')].find(link=>new URL(link.href,location.href).pathname===`/${file}`);
   if(!css){css=document.createElement('link');css.rel='stylesheet';}
-  css.href=`/${file}?v=20261012-minimal`;css.dataset[marker]='';document.head.append(css);
+  css.href=`/${file}?v=20261013-flow`;css.dataset[marker]='';document.head.append(css);
 }
 export function initShell(){
   if(location.pathname.includes('/serial-key/')) return;
@@ -51,6 +51,7 @@ export function initShell(){
   loadSiteStyle('ui-redesign-20261011.css','uiRedesignStyle');
   const path=location.pathname;
   loadSiteStyle('batch-layout.css','batchLayout');
+  loadSiteStyle('resource-library.css','resourceLibraryStyle');
   const section=path.includes('/schools/')?'/schools/':/\/(direction|target|verify|plans)\//.test(path)?'/plans/':/\/(my|unlock)\//.test(path)?'/my/':'/';
   const inMini=isMiniProgram();
   document.body.dataset.inMini=String(inMini);
@@ -71,7 +72,7 @@ export function initShell(){
   // Direction and target already have a descriptive heading in their working form.
   if(/\/(direction|target)\//.test(path)) document.querySelector('.page-hero')?.remove();
   if(!document.querySelector('.disclaimer')) document.querySelector('main')?.insertAdjacentHTML('beforeend',`<section class="disclaimer"><strong>免责声明</strong><p>${disclaimer}</p></section>`);
-  if(!document.querySelector('footer'))document.body.insertAdjacentHTML('beforeend','<footer><span>广州中考志愿模拟助手 · 由品沐提供</span><span><a href="/privacy/">隐私说明</a> · <a href="/unlock/">序列号与解锁状态</a> · <a href="https://gzzk.gz.gov.cn/zkzz/" target="_blank" rel="noreferrer">广州招考官方入口</a></span></footer>');
+  if(!document.querySelector('footer'))document.body.insertAdjacentHTML('beforeend','<footer><span>广州中考志愿模拟助手 · 由品沐提供</span><span><a href="/resources/">中考资料库</a> · <a href="/privacy/">隐私说明</a> · <a href="/unlock/">序列号与解锁状态</a> · <a href="https://gzzk.gz.gov.cn/zkzz/" target="_blank" rel="noreferrer">广州招考官方入口</a></span></footer>');
   try{migrateDraft();}catch{notify('本机存储不可用，收藏和方案可能无法保存。');}
   document.querySelectorAll('[data-school-search]').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();const q=new FormData(form).get('q');location.assign(`/schools/?q=${encodeURIComponent(q||'')}`);}));
   refreshContinuePlan();

@@ -20,7 +20,7 @@ export async function prepareUnifiedWorkspace(){
  const undo=document.getElementById('undoPlan');undo.className='compact-link';actions.append(undo);
  const savebar=document.querySelector('#verifyWorkspace>.savebar'),saveOptions=document.createElement('details');saveOptions.className='workflow-disclosure workspace-save-options';saveOptions.innerHTML='<summary>方案管理：保存、另存与命名</summary>';document.getElementById('volunteerForm').after(saveOptions);saveOptions.append(savebar);
  const explorer=document.getElementById('schoolExplorer'),search=document.createElement('details');search.className='workflow-disclosure school-search-disclosure';search.innerHTML='<summary>想自己挑学校？展开筛选与添加</summary>';explorer.before(search);search.append(explorer);
- const form=document.getElementById('volunteerForm');form.querySelector('h2').textContent='2 · 排列志愿';form.querySelector('.step-label').textContent='第三、第四批各6个志愿';form.querySelector('.text-link-back').textContent='查找学校';form.querySelector('.text-link-back').addEventListener('click',()=>{search.open=true;});
+ const form=document.getElementById('volunteerForm');form.removeAttribute('data-gate');document.getElementById('batchForms').dataset.gate='volunteer';form.querySelector('h2').textContent='2 · 排列志愿';form.querySelector('.step-label').textContent='第三、第四批各6个志愿';form.querySelector('.text-link-back').textContent='查找学校';form.querySelector('.text-link-back').addEventListener('click',()=>{search.open=true;});
  document.querySelector('#analysis h2').textContent='评分与去向';document.querySelector('#analysis .step-label').textContent='调整后可重新评估';
  const improvement=document.getElementById('improvementSection'),improveDetails=document.createElement('details');improveDetails.className='workflow-disclosure';improveDetails.innerHTML='<summary>查看评分明细与一键调整</summary>';improvement.before(improveDetails);improveDetails.append(document.getElementById('dimensionGrid'),improvement);
  const chance=document.getElementById('chanceList').parentElement,chances=document.createElement('details');chances.className='workflow-disclosure';chances.innerHTML='<summary>查看每个志愿的机会与历史依据</summary>';chance.before(chances);chances.append(chance);
@@ -51,6 +51,7 @@ export function installStepActions(){
  bar.setAttribute('aria-label','当前步骤操作');
  bar.innerHTML='<small id="workflowActionHint"></small><div class="workflow-action-buttons"><button type="button" class="button-secondary" id="workflowBack">返回首页</button><span id="workflowPrimaryHost"></span></div>';
  document.body.append(bar);
+ const unlockAction=document.createElement('button');unlockAction.id='workflowUnlock';unlockAction.type='button';unlockAction.className='primary-button';unlockAction.textContent='解锁完整分析';unlockAction.hidden=true;unlockAction.onclick=()=>window.ZhongkaoAccess?.showPaywall();bar.append(unlockAction);
  const host=bar.querySelector('#workflowPrimaryHost'),back=bar.querySelector('#workflowBack'),hint=bar.querySelector('#workflowActionHint');
  const mobile=matchMedia('(max-width: 650px)'),places=new Map();let current=null,queued=false,scrollLock=0,maxViewportHeight=innerHeight,viewportWidth=innerWidth;
  const step=()=>document.body.dataset.workflowStep||'profile';
@@ -72,7 +73,8 @@ export function installStepActions(){
   const ready=document.body.dataset.uiReady==='true';
   if(!mobile.matches||!ready){restore();if(!bar.hidden)bar.hidden=true;document.body.dataset.mobileActions='false';return;}
   const active=step(),selectedMode=mode();
-  const id=active==='plan'?'analyzePlan':active==='analysis'?'saveNamedPlan':selectedMode==='intent'?'generateIntent':selectedMode==='target'?(document.getElementById('targetResult')?.hidden===false?'adoptTarget':'analyzeTarget'):selectedMode==='manual'?'manualUnified':'generateUnified';
+  const lockedResult=active==='analysis'&&!window.ZhongkaoAccess?.isEntitled();unlockAction.hidden=!lockedResult;
+  const id=active==='plan'?'analyzePlan':active==='analysis'?(lockedResult?'workflowUnlock':'saveNamedPlan'):selectedMode==='intent'?'generateIntent':selectedMode==='target'?(document.getElementById('targetResult')?.hidden===false?'adoptTarget':'analyzeTarget'):selectedMode==='manual'?'manualUnified':'generateUnified';
   const button=document.getElementById(id);if(!button)return;
   if(current!==button){
    restore();if(!places.has(button)){const marker=document.createComment('mobile action original position');button.before(marker);places.set(button,{marker,className:button.className,form:button.getAttribute('form')});}
@@ -102,6 +104,7 @@ export function installStepActions(){
  mobile.addEventListener('change',schedule);addEventListener('resize',schedule);window.visualViewport?.addEventListener('resize',schedule);
  document.addEventListener('input',schedule);document.addEventListener('change',schedule);document.addEventListener('focusin',schedule);document.addEventListener('focusout',schedule);
  document.addEventListener('zk-workflow-navigate',()=>{scrollLock=performance.now()+650;schedule();});
+ window.ZhongkaoAccess?.onChange(schedule);
  let scrollQueued=false;
  addEventListener('scroll',()=>{
   if(scrollQueued)return;scrollQueued=true;

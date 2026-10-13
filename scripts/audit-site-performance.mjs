@@ -8,12 +8,12 @@ const { launch } = await import(pathToFileURL(path.join(packages, 'chrome-launch
 const origin = process.argv[2] || 'http://localhost:5188';
 const label = process.argv[3] || 'local';
 const runs = Number(process.argv[4] || 3);
-const output = path.resolve('.qa/2026-09-07');
+const output = path.resolve(process.env.PINMOO_QA_DIR || 'outputs/site-upgrade-2026-10-13/performance');
 await fs.mkdir(output, { recursive: true });
 const chrome = await launch({ chromeFlags: ['--headless', '--no-sandbox'], logLevel: 'error' });
 const scores = [];
 try {
-  for (const route of ['/', '/services/geo-consulting/', '/contact/']) {
+  for (const route of ['/', '/services/', '/contact/']) {
     for (let i = 0; i < runs; i++) {
       const result = await lighthouse(origin + route, { port: chrome.port, logLevel: 'error', onlyCategories: ['performance', 'accessibility', 'seo'], formFactor: 'mobile', throttlingMethod: 'simulate' });
       const name = route.replace(/\W+/g, '-') || 'home';

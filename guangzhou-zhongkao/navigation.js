@@ -89,5 +89,5 @@
   });
 
   window.ZhongkaoNavigation = { scrollTo: scrollToTarget, back: goBack };
-  import('./site-shell.js?v=20261012-minimal').catch(error => console.error('导航加载失败', error));
+  import('./site-shell.js?v=20261013-flow').catch(error => console.error('导航加载失败', error));
 })();

@@ -6,6 +6,7 @@ import { absolute, routeMeta, jsonLdForRoute, metaTagsForRoute, imageForRoute } 
 import { SITE } from '../src/data/site.js';
 import { insightAuthor, insightClusters, insights } from '../src/data/insights.js';
 import { nginxEvents } from './event-schema.mjs';
+import { practicalResources, resourceLibrary } from '../src/data/practical-resources.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -245,6 +246,12 @@ const topLevel = isInternationalBuild
   ? ['index.html', 'public']
   : ['index.html', 'services', 'cases', 'about', 'contact', 'ai-diagnosis', 'guangzhou-zhongkao', 'public'];
 for (const item of topLevel) await copy(path.join(root, item), path.join(dist, item === 'public' ? '' : item));
+await fs.mkdir(path.join(dist, 'downloads'), { recursive: true });
+for (const resource of practicalResources) {
+  const csvCell = value => '"' + String(value).replaceAll('"', '""') + '"';
+  const csv = '\uFEFF' + [resource.headers, ...resource.rows].map(row => row.map(csvCell).join(',')).join('\r\n') + '\r\n';
+  await fs.writeFile(path.join(dist, 'downloads', resource.filename), csv, 'utf8');
+}
 for (const staleAsset of ['assets/cases/generated-case-sheet.png']) {
   await fs.rm(path.join(dist, staleAsset), { force: true });
 }
@@ -260,6 +267,11 @@ for (const filename of domainAwareFiles) {
   const localized = source
     .replaceAll('https://pinmoo.top', SITE.primaryDomain);
   await fs.writeFile(target, localized, 'utf8');
+}
+for (const filename of ['llms.txt', 'llms-full.txt']) {
+  const target = path.join(dist, filename);
+  const content = await fs.readFile(target, 'utf8');
+  if (!content.includes(resourceLibrary.path)) await fs.writeFile(target, content.trimEnd() + '\n\n## Practical operating resources\n- [' + resourceLibrary.title + '](' + SITE.primaryDomain + resourceLibrary.path + '): ' + resourceLibrary.description + '\n', 'utf8');
 }
 const assetVersion = createHash('sha256')
   .update(await fs.readFile(path.join(root, 'src', 'styles.css')))

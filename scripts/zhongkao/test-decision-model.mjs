@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {estimatePercentile,estimateScore} from '../../guangzhou-zhongkao/score-distribution.js';
+import {simulateOutcomes} from '../../guangzhou-zhongkao/engine.js';
+import {simulateOutcomesRealistic} from '../../guangzhou-zhongkao/realistic-sim.js';
+import {primaryOutcome} from '../../guangzhou-zhongkao/decision-experience.js';
+const bands=[{year:2026,score:710,cumulativeRatio:.1},{year:2026,score:700,cumulativeRatio:.2},{year:2026,score:690,cumulativeRatio:.3}];
+test('Official band estimates preserve anchors, interpolate monotonically and round-trip',()=>{assert.equal(estimatePercentile(710,bands),.1);assert.equal(estimatePercentile(700,bands),.2);assert.ok(Math.abs(estimatePercentile(705,bands)-.15)<1e-10);for(let s=690;s<=710;s++){assert.ok(Math.abs(estimateScore(estimatePercentile(s,bands),bands)-s)<1e-9);if(s>690)assert.ok(estimatePercentile(s,bands)<estimatePercentile(s-1,bands));}assert.equal(estimatePercentile(705,[]),null);});
+const profile={mode:'forecast',targetYear:2027,score:705,scoreLow:705,scoreHigh:705,candidateType:'户籍生',admissionDistrict:'天河区'};
+const plan=[{key:'b3-1',batch:3,position:1,schoolId:'a',schoolName:'A'}];
+const data={admissions:[{year:2026,batch:3,schoolId:'a',candidateType:'随迁子女',scope:'全市',cutoffScore:700,lastVolunteerNo:1,lastCandidateScore:700}],allocations:[],bands,lines:{2026:{gradients:[707,667],publicMinimum:492}},manifest:{years:[2026],latestPolicyYear:2026}};
+for(const [label,simulate] of [['standard',()=>simulateOutcomes(profile,plan,data,13,100)],['extra variability',()=>simulateOutcomesRealistic(profile,plan,data,{seed:13,iterations:100})]])test(label+' does not count another candidate category as direct evidence or fake a 5% chance',()=>{const result=simulate();assert.equal(result.slotResults[0].yearsWithData,0);assert.equal(result.slotResults[0].state,'no-data');assert.equal(result.slotResults[0].chance,undefined);assert.equal(result.dataInsufficient,true);assert.equal(primaryOutcome(result),'资料不足，暂不能判断');});
+test('Most likely scenario includes non-admission instead of picking any school',()=>{assert.equal(primaryOutcome({mode:'forecast',usableYears:[2026],outcomes:[{key:'none',probability:80},{key:'a',slot:{schoolName:'A'},probability:20}]}),'未被当前所填志愿录取');});

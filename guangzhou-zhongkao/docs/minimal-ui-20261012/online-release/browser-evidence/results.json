@@ -1,0 +1,115 @@
+{
+  "at": "2026-10-12T14:21:49.312Z",
+  "origin": "https://zhongkao.pinmooconsulting.com",
+  "scope": "Public UI read-only; licensed interactions use isolated browser fixtures; anonymous guard uses real session; no payment or serial/device mutation",
+  "results": [
+    {
+      "name": "Live minimal homepage title",
+      "pass": true
+    },
+    {
+      "name": "Four compact entry cards",
+      "pass": true
+    },
+    {
+      "name": "School search is present",
+      "pass": true
+    },
+    {
+      "name": "Minimal stylesheet loaded",
+      "pass": true
+    },
+    {
+      "name": "Mobile has no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "Step 1 shows conditions, not table",
+      "pass": true
+    },
+    {
+      "name": "Advanced settings initially collapsed",
+      "pass": true
+    },
+    {
+      "name": "Generated plan lands in step 2",
+      "pass": true
+    },
+    {
+      "name": "Volunteer slots are populated",
+      "pass": true
+    },
+    {
+      "name": "Result shows actual score",
+      "pass": true
+    },
+    {
+      "name": "Result focuses on step 3",
+      "pass": true
+    },
+    {
+      "name": "Result heading readable",
+      "pass": true
+    },
+    {
+      "name": "Safety disclaimer preserved",
+      "pass": true
+    },
+    {
+      "name": "Back returns to step 2",
+      "pass": true
+    },
+    {
+      "name": "Back to conditions retains score range",
+      "pass": true
+    },
+    {
+      "name": "Target mode computes suggested score",
+      "pass": true
+    },
+    {
+      "name": "Intended-school mode generates a table",
+      "pass": true
+    },
+    {
+      "name": "Manual mode exposes the table",
+      "pass": true
+    },
+    {
+      "name": "Specialty school project selector visible",
+      "pass": true
+    },
+    {
+      "name": "School cards load",
+      "pass": true
+    },
+    {
+      "name": "Desktop homepage fits screen",
+      "pass": true
+    },
+    {
+      "name": "Real anonymous session remains locked",
+      "pass": true,
+      "details": {
+        "entitled": false,
+        "resolved": true
+      }
+    },
+    {
+      "name": "Unlock prompt still opens",
+      "pass": true
+    },
+    {
+      "name": "No production script errors",
+      "pass": true,
+      "details": []
+    },
+    {
+      "name": "No failed or rate-limited resource requests",
+      "pass": true,
+      "details": []
+    }
+  ],
+  "errors": [],
+  "badResponses": []
+}

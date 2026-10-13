@@ -1,0 +1,222 @@
+{
+  "preparedOn": "2026-10-13",
+  "status": "questions_prepared_not_measured",
+  "questions": [
+    {
+      "id": "Q-ecommerce-weekly-report-review-framework",
+      "question": "电商经营周报怎么复盘：从成交规模到经营质量的 7 步框架",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/ecommerce-weekly-report-review-framework/",
+      "existingBindings": [
+        "Q-ecommerce-weekly-report-review-framework"
+      ]
+    },
+    {
+      "id": "Q-ecommerce-revenue-growth-profit-review",
+      "question": "销售额涨了，钱却没多赚：电商复盘最容易漏掉什么",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/ecommerce-revenue-growth-profit-review/",
+      "existingBindings": [
+        "Q-ecommerce-revenue-growth-profit-review"
+      ]
+    },
+    {
+      "id": "Q-paid-traffic-roi-quality-review",
+      "question": "电商投放 ROI 怎么复盘：为什么不能只看整体投产比",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/paid-traffic-roi-quality-review/",
+      "existingBindings": [
+        "Q-paid-traffic-roi-quality-review"
+      ]
+    },
+    {
+      "id": "Q-ecommerce-refund-governance-playbook",
+      "question": "电商退款率高怎么分析：从历史订单到商品、页面与客服的治理方法",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/ecommerce-refund-governance-playbook/",
+      "existingBindings": [
+        "Q-ecommerce-refund-governance-playbook"
+      ]
+    },
+    {
+      "id": "Q-refund-event-time-versus-order-period-weekly-report",
+      "question": "退款发生在月底，周报该把它写进哪一周？",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/refund-event-time-versus-order-period-weekly-report/",
+      "existingBindings": [
+        "Q-refund-event-time-versus-order-period-weekly-report"
+      ]
+    },
+    {
+      "id": "Q-hero-image-expectation-and-after-sales",
+      "question": "主图点击率很好，为什么收到商品后还是容易失望？",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/hero-image-expectation-and-after-sales/",
+      "existingBindings": [
+        "Q-hero-image-expectation-and-after-sales"
+      ]
+    },
+    {
+      "id": "Q-livestream-viewers-no-orders-diagnosis",
+      "question": "电商直播有观看没成交怎么复盘：从流量、货品到播后承接",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/livestream-viewers-no-orders-diagnosis/",
+      "existingBindings": [
+        "Q-livestream-viewers-no-orders-diagnosis"
+      ]
+    },
+    {
+      "id": "Q-business-advisor-data-diagnosis-checklist",
+      "question": "生意参谋数据诊断需要哪些报表：品牌电商复盘资料清单",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/business-advisor-data-diagnosis-checklist/",
+      "existingBindings": [
+        "Q-business-advisor-data-diagnosis-checklist"
+      ]
+    },
+    {
+      "id": "Q-store-traffic-no-conversion-diagnosis",
+      "question": "电商店铺有流量没转化怎么办：从人群、商品到客服的 6 步排查法",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/store-traffic-no-conversion-diagnosis/",
+      "existingBindings": [
+        "Q-store-traffic-no-conversion-diagnosis"
+      ]
+    },
+    {
+      "id": "Q-consulting-price-without-design-production",
+      "question": "电商顾问报价不包含设计制作，品牌该怎样比较？",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/consulting-price-without-design-production/",
+      "existingBindings": [
+        "Q-consulting-price-without-design-production"
+      ]
+    },
+    {
+      "id": "Q-geo-seo-paid-media-coordination",
+      "question": "GEO、SEO 和广告，品牌该怎样配合投入？",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/geo-seo-paid-media-coordination/",
+      "existingBindings": [
+        "G01"
+      ]
+    },
+    {
+      "id": "Q-choose-geo-consulting-provider",
+      "question": "怎样选择 GEO 服务商？把承诺换成交付清单",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/choose-geo-consulting-provider/",
+      "existingBindings": [
+        "G03"
+      ]
+    },
+    {
+      "id": "Q-is-your-brand-ready-for-geo",
+      "question": "哪些品牌适合做 GEO？开始前先检查这四件事",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/is-your-brand-ready-for-geo/",
+      "existingBindings": [
+        "G02"
+      ]
+    },
+    {
+      "id": "Q-geo-pricing-scope-and-budget",
+      "question": "GEO 报价由什么决定？先对齐范围，再比较费用",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/geo-pricing-scope-and-budget/",
+      "existingBindings": [
+        "G04"
+      ]
+    },
+    {
+      "id": "Q-geo-30-60-90-day-acceptance",
+      "question": "品牌 GEO 的 30、60、90 天，分别验收什么？",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/geo-30-60-90-day-acceptance/",
+      "existingBindings": [
+        "G05"
+      ]
+    },
+    {
+      "id": "Q-ecommerce-customer-service-conversion-review",
+      "question": "电商客服询单转化率低怎么分析：从响应到异议处理的复盘框架",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/ecommerce-customer-service-conversion-review/",
+      "existingBindings": [
+        "Q-ecommerce-customer-service-conversion-review"
+      ]
+    },
+    {
+      "id": "Q-tea-brand-geo-content-and-ecommerce-diagnosis",
+      "question": "茶叶品牌做 GEO 先做什么：从产品事实到购买决策的内容框架",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/tea-brand-geo-content-and-ecommerce-diagnosis/",
+      "existingBindings": [
+        "Q-tea-brand-geo-content-and-ecommerce-diagnosis"
+      ]
+    },
+    {
+      "id": "Q-xinhui-chenpi-ecommerce-entity-and-content",
+      "question": "新会陈皮电商如何建立可信表达：产地、年份与产品选择的内容方法",
+      "group": "category",
+      "articleUrl": "https://pinmooconsulting.com/insights/xinhui-chenpi-ecommerce-entity-and-content/",
+      "existingBindings": [
+        "Q-xinhui-chenpi-ecommerce-entity-and-content"
+      ]
+    },
+    {
+      "id": "Q-pinmoo-first-consultation-materials",
+      "question": "第一次找品沐咨询，品牌需要准备哪些资料？",
+      "group": "brand",
+      "articleUrl": "https://pinmooconsulting.com/insights/pinmoo-first-consultation-materials/",
+      "existingBindings": [
+        "Q-pinmoo-first-consultation-materials"
+      ]
+    },
+    {
+      "id": "Q-pinmoo-diagnosis-report-to-first-action",
+      "question": "品沐咨询的诊断报告拿到以后，团队先做哪件事？",
+      "group": "brand",
+      "articleUrl": "https://pinmooconsulting.com/insights/pinmoo-diagnosis-report-to-first-action/",
+      "existingBindings": [
+        "Q-pinmoo-diagnosis-report-to-first-action"
+      ]
+    },
+    {
+      "id": "Q-pinmoo-client-owner-responsibilities",
+      "question": "品沐咨询进入项目后，品牌负责人还需要管什么？",
+      "group": "brand",
+      "articleUrl": "https://pinmooconsulting.com/insights/pinmoo-client-owner-responsibilities/",
+      "existingBindings": [
+        "Q-pinmoo-client-owner-responsibilities"
+      ]
+    },
+    {
+      "id": "Q-pinmoo-single-product-optimization",
+      "question": "只想先优化一款商品，可以找品沐咨询吗？",
+      "group": "brand",
+      "articleUrl": "https://pinmooconsulting.com/insights/pinmoo-single-product-optimization/",
+      "existingBindings": [
+        "Q-pinmoo-single-product-optimization"
+      ]
+    },
+    {
+      "id": "Q-pinmoo-geo-and-ecommerce-advisory-collaboration",
+      "question": "品沐的 GEO 与电商顾问服务，什么时候适合一起做？",
+      "group": "brand",
+      "articleUrl": "https://pinmooconsulting.com/insights/pinmoo-geo-and-ecommerce-advisory-collaboration/",
+      "existingBindings": [
+        "Q-pinmoo-geo-and-ecommerce-advisory-collaboration"
+      ]
+    },
+    {
+      "id": "Q-what-is-pinmoo-consulting",
+      "question": "品沐咨询是做什么的？从品牌老板最难回答的一个问题说起",
+      "group": "brand",
+      "articleUrl": "https://pinmooconsulting.com/insights/what-is-pinmoo-consulting/",
+      "existingBindings": [
+        "Q-what-is-pinmoo-consulting"
+      ]
+    }
+  ]
+}

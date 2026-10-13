@@ -7,6 +7,8 @@ import { metricDictionary } from './data/resources.js';
 import { getInsightBySlug, insightAuthor, insightClusters, insights } from './data/insights.js';
 import { geoHero, geoReportPreview, geoProcess, consultingOverview } from './components/geo-experience.js';
 import { pageVisual } from './components/page-visual.js';
+import { homePage, servicesContent, contactContent, resourceCards, resourceLibraryContent, insightCardMarkup, aboutContent } from './components/consulting-upgrade.js';
+import { resourceLibrary, resourceForId } from './data/practical-resources.js';
 
 const root = document.getElementById('root');
 const internationalHost = window.location.hostname === 'pinmooconsulting.com' || window.location.hostname === 'www.pinmooconsulting.com';
@@ -78,12 +80,12 @@ function currentPathForLang(lang) {
     }
     if (pathname === '/china-ecommerce-consulting') return SITE.domain + '/china-ecommerce-consulting/';
     if (pathname.indexOf('/services/') === 0 && getLeadPageBySlug(pathname.split('/')[2])) return SITE.domain + '/china-ecommerce-consulting/';
-    if (pathname.indexOf('/insights') === 0 || pathname.indexOf('/resources') === 0) return SITE.domain + '/';
+    if (pathname.indexOf('/insights') === 0 || pathname.indexOf('/resources') === 0) return SITE.domain + '/en/';
     return SITE.domain + (pathname === '/' ? '/en/' : '/en' + pathname + '/');
   }
   const isLeadLanding = pathname.indexOf('/services/') === 0 && getLeadPageBySlug(pathname.split('/')[2]);
   if (lang === 'en' && isLeadLanding) return '/china-ecommerce-consulting/';
-  if (lang === 'en' && pathname.indexOf('/insights') === 0) return '/en/';
+  if (lang === 'en' && (pathname.indexOf('/insights') === 0 || pathname.indexOf('/resources') === 0)) return '/en/';
   if (pathname === '/china-ecommerce-consulting') return lang === 'en' ? '/china-ecommerce-consulting/' : '/';
   if (pathname.indexOf('/resources/') === 0) return pathname + '/';
   if (lang === 'en') return pathname === '/' ? '/en/' : '/en' + pathname + '/';
@@ -163,15 +165,16 @@ function ResponsiveImage(src, alt, loading, attrs) {
 }
 
 function Header() {
-  const language = '<div class="language-switch" aria-label="Language switch"><a class="' + (!isEn() ? 'active' : '') + '" href="' + currentPathForLang('zh') + '">中文</a><a class="' + (isEn() ? 'active' : '') + '" href="' + currentPathForLang('en') + '">EN</a></div>';
+  const overview = !isEn() && (pathname.startsWith('/insights') || pathname.startsWith('/resources') || pathname.startsWith('/services/'));
+  const language = '<div class="language-switch" aria-label="Language switch"><a class="' + (!isEn() ? 'active' : '') + '" href="' + currentPathForLang('zh') + '">中文</a><a class="' + (isEn() ? 'active' : '') + '" href="' + currentPathForLang('en') + '"' + (overview ? ' aria-label="English overview"' : '') + '>' + (overview ? 'EN overview' : 'EN') + '</a></div>';
   const nav = NAV_ITEMS.filter(function(item) { return !item.zhOnly || !isEn(); }).map(function(item) { const active = isActive(item); return '<a class="' + (active ? 'active' : '') + '"' + (active ? ' aria-current="page"' : '') + ' href="' + localizeHref(item.href) + '">' + (isEn() ? (EN_TEXT[item.label] || item.label) : item.label) + '</a>'; }).join('') + language;
   const headerHref = '/contact/';
-  return '<header class="site-header"><div class="container header-shell"><a class="brand-link" href="' + localizeHref('/') + '" aria-label="PINMOO 品沐咨询首页">' + logo('logo-frame-header') + '</a><nav class="desktop-nav" aria-label="主导航">' + nav + '</nav><div class="header-actions"><a class="header-cta" href="' + localizeHref(headerHref) + '">' + (isEn() ? 'Book' : '预约咨询') + '</a></div><button class="mobile-menu-btn" type="button" aria-label="打开导航" aria-expanded="false">' + icon('Menu', 24) + '</button></div><div class="mobile-nav-panel"><nav aria-label="移动端导航">' + nav + '<a class="mobile-nav-cta" href="' + localizeHref(headerHref) + '">' + (isEn() ? 'Book a Consultation' : '预约品牌电商咨询') + '</a></nav></div></header>';
+  return '<header class="site-header"><div class="container header-shell"><a class="brand-link" href="' + localizeHref('/') + '" aria-label="' + (isEn() ? 'PINMOO home' : 'PINMOO 品沐咨询首页') + '">' + logo('logo-frame-header') + '</a><nav class="desktop-nav" aria-label="' + (isEn() ? 'Main navigation' : '主导航') + '">' + nav + '</nav><div class="header-actions"><a class="header-cta" data-event="consult_open" href="' + localizeHref(headerHref) + '">' + (isEn() ? 'Discuss a project' : '咨询经营问题') + '</a></div><button class="mobile-menu-btn" type="button" aria-label="' + (isEn() ? 'Open navigation' : '打开导航') + '" aria-expanded="false">' + icon('Menu', 24) + '</button></div><div class="mobile-nav-panel"><nav aria-label="' + (isEn() ? 'Mobile navigation' : '移动端导航') + '">' + nav + '<a class="mobile-nav-cta" href="' + localizeHref(headerHref) + '">' + (isEn() ? 'Discuss your project' : '咨询经营问题') + '</a></nav></div></header>';
 }
 
 function Footer() {
   const resourceLink = internationalHost
-    ? (isEn() ? '<a href="/china-ecommerce-consulting/">China e-commerce guide</a>' : '<a href="/resources/ecommerce-metrics-dictionary/">\u7ecf\u8425\u6307\u6807\u8bcd\u5178</a>')
+    ? (isEn() ? '<a href="/china-ecommerce-consulting/">China e-commerce guide</a>' : '<a href="/resources/ecommerce-metrics-dictionary/">经营指标词典</a><a href="/resources/operating-templates/">实用资料</a>')
     : '<a href="/resources/ecommerce-metrics-dictionary/">' + (isEn() ? 'Metric glossary' : '经营指标词典') + '</a>';
   const links = NAV_ITEMS.filter(function(item) { return !item.zhOnly || !isEn(); }).map(function(item) { return '<a href="' + localizeHref(item.href) + '">' + (isEn() ? (EN_TEXT[item.label] || item.label) : item.label) + '</a>'; }).join('') + resourceLink;
   const navTitle = isEn() ? 'Explore' : '导航链接';
@@ -290,13 +293,13 @@ function CaseCard(item) {
   const imageAlt = isEn()
     ? view.industry + ' ' + view.serviceType + ' case study'
     : item.industry + '品牌在' + item.platform + '平台的' + item.serviceType + '项目案例';
-  const cta = isEn() ? 'View ' + view.industry + ' case study' : '查看' + item.industry + '电商优化案例';
-  return '<article class="case-card"><a class="case-image" href="' + href + '" aria-label="' + (isEn() ? 'View ' + view.title : '查看' + item.title) + '">' + ResponsiveImage(item.image, imageAlt, 'lazy', 'width="1200" height="800" decoding="async"') + '</a><div class="case-card-body"><div class="tag-row"><span>' + view.industry + '</span><span>' + view.platform + '</span></div><h3><a href="' + href + '">' + view.title + '</a></h3><p>' + view.summary + '</p><a class="outline-link" href="' + href + '">' + cta + ' ' + icon('ArrowRight', 16) + '</a></div></article>';
+  const cta = isEn() ? 'Read the project' : '查看问题与行动';
+  const stage = item.slug === 'chenpi-brand-geo-diagnosis' ? (isEn() ? 'Diagnosis and roadmap' : '诊断与实施规划') : (isEn() ? 'Qualitative project experience' : '定性项目经验');
+  return '<article class="case-card"><a class="case-image" href="' + href + '" aria-label="' + (isEn() ? 'View ' + view.title : '查看' + item.title) + '">' + ResponsiveImage(item.image, imageAlt, 'lazy', 'width="1200" height="800" decoding="async"') + '</a><div class="case-card-body"><span class="case-stage">' + stage + '</span><div class="tag-row"><span>' + view.industry + '</span><span>' + view.platform + '</span></div><h3><a href="' + href + '">' + view.title + '</a></h3><p>' + view.summary + '</p><a class="outline-link" href="' + href + '">' + cta + ' ' + icon('ArrowRight', 16) + '</a></div></article>';
 }
 
 function InsightCard(article) {
-  const href = '/insights/' + article.slug + '/';
-  return '<article class="insight-card reveal"><div class="insight-card-meta"><span>' + article.category + '</span><time datetime="' + article.updated + '">' + article.updated + '</time></div><h3><a href="' + href + '">' + article.shortTitle + '</a></h3><p>' + article.summary + '</p><div class="insight-card-footer"><span>' + article.readTime + '</span><a class="outline-link" href="' + href + '">阅读' + article.shortTitle + ' ' + icon('ArrowRight', 16) + '</a></div></article>';
+  return insightCardMarkup(article);
 }
 
 function HomeInsightsSection() {
@@ -348,13 +351,9 @@ function GeoEvidenceSection() {
 }
 
 function Home() {
-  const serviceGrid = services.filter(service => ['strategy-diagnosis', 'operation-coaching', 'conversion-optimization', 'data-review'].includes(service.id)).map(service => '<div class="reveal">' + ServiceCard(service) + '</div>').join('');
-  const cta = isEn()
-    ? CtaBand('Tell us which e-commerce problem matters most right now', 'Start with store growth, product pages, content, data review or GEO. PINMOO will help you identify the priority before discussing a larger engagement.', 'Book a Brand Consultation')
-    : CtaBand('说说你现在最想解决的电商问题', '可以从店铺增长、商品页面、内容投放、数据复盘或 GEO 开始。品沐会先帮你判断优先级，再确认是否需要进一步合作。', '预约品牌电商咨询');
-  return geoHero(isEn()) + consultingOverview(isEn()) +
-    '<section class="section cases-preview" id="cases"><div class="container">' + SectionIntro(isEn() ? 'Recognise the problem. See the approach.' : '相似的问题，具体的解法。', isEn() ? 'Anonymised project experience.' : '从项目背景、诊断发现到实际行动，了解我们的工作方式。案例依据客户资料保密与公开授权边界匿名呈现。') + '<div class="home-case-grid home-case-grid-featured">' + cases.slice(0, 2).map(CaseCard).join('') + '</div><div class="center-actions">' + ButtonLink(isEn() ? 'Explore projects' : '查看项目经验', '/cases/', 'secondary') + '</div></div></section>' +
-    AiWeeklyReportSection() + geoReportPreview(isEn()) + geoProcess(isEn()) + HomeInsightsSection() + HomeFaqSection() + GeoEvidenceSection() + cta;
+  const selected = ['store-traffic-no-conversion-diagnosis', 'ecommerce-weekly-report-review-framework', 'geo-seo-paid-media-coordination'];
+  const cards = selected.map(slug => getInsightBySlug(slug)).filter(Boolean).map(InsightCard).join('');
+  return homePage(isEn(), cards);
 }
 
 function localizeServiceValue(value) {
@@ -393,37 +392,12 @@ const englishGeoConsultingService = {
   ]
 };
 
-function Services() {
-  const model = serviceModel.map(function(item, index) { const names = ['Target','MapPinned','PackageCheck','Image','LineChart']; return '<div class="reveal model-card"><span>' + item.code + '</span>' + icon(names[index], 30) + '<small>' + item.title + '</small><h3>' + item.name + '</h3><p>' + item.text + '</p></div>'; }).join('');
-  const serviceOrder = ['strategy-diagnosis', 'operation-coaching', 'conversion-optimization', 'content-seeding', 'data-review', 'membership-private-domain', 'geo-consulting'];
-  const orderedServices = serviceOrder.map(function(id) { return services.find(function(service) { return service.id === id; }); }).filter(Boolean);
-  const details = orderedServices.map(function(service, index) {
-    const value = localizeServiceValue;
-    const serviceView = isEn() && service.id === 'geo-consulting' ? Object.assign({}, service, englishGeoConsultingService) : service;
-    return '<div class="reveal service-detail-shell"><details class="service-detail-card"' + (index === 0 ? ' open' : '') + '><summary class="service-detail-summary"><div class="service-detail-head"><div class="card-icon">' + icon(serviceView.icon, 30) + '</div><div><h2>' + value(serviceView.title) + '</h2><p>' + value(serviceView.short) + '</p></div></div>' + icon('ChevronDown', 22) + '</summary><div class="service-detail-body"><div class="service-detail-columns"><div><h3>' + value('适合谁') + '</h3><ul>' + serviceView.fit.map(value).map(li).join('') + '</ul></div><div><h3>' + value('解决什么问题') + '</h3><ul>' + serviceView.problems.map(value).map(li).join('') + '</ul></div><div><h3>' + value('主要服务内容') + '</h3><ul>' + serviceView.content.map(value).map(li).join('') + '</ul></div><div><h3>' + value('交付成果') + '</h3><ul>' + serviceView.deliverables.map(value).map(li).join('') + '</ul></div></div><div class="service-fee"><strong>' + value('合作范围') + '</strong><p>' + value(serviceView.fee) + '</p><span>' + value(pricingNote) + '</span></div><div class="detail-cta">' + ButtonLink(isEn() ? 'Book a Consultation' : '预约咨询', '/contact/', 'primary', true) + '</div></div></details></div>';
-  }).join('');
-  const process = serviceProcess.map(function(item, index) { return '<div class="reveal process-card"><span>0' + (index + 1) + '</span>' + icon(item.icon, 30) + '<h3>' + localizeServiceValue(item.title) + '</h3><p>' + localizeServiceValue(item.text) + '</p></div>'; }).join('');
-  const faqData = isEn() ? [
-    { q: 'Is PINMOO an agency or a consulting firm?', a: 'PINMOO is closer to e-commerce consulting and operation coaching. We provide strategic diagnosis and practical execution advice for specific platforms and projects.' },
-    { q: 'What stage of brand is suitable?', a: 'Traditional companies starting from zero, brands with existing online stores but weak growth, and teams that need external consulting support.' },
-    { q: 'Do you guarantee sales growth?', a: 'E-commerce growth depends on product, budget, team, supply chain and platform environment. PINMOO does not make irresponsible guarantees; we improve growth certainty through diagnosis, strategy, execution rhythm and review.' },
-    { q: 'What materials are needed before cooperation?', a: 'Store backend data, product materials, campaign history, advertising data, customer service and refund data, and current team setup are recommended.' },
-    { q: 'Can we start with one diagnosis?', a: 'Yes. Contact us via WeChat or phone, explain your brand and current problems, and we can arrange an initial discussion.' },
-    { q: 'Does GEO guarantee AI recommendations or search rankings?', a: 'No. GEO improves crawlability, fact consistency, evidence and repeatable measurement. Actual mentions and citations still depend on the question, time, region, model and external sources.' },
-    { q: 'What should we prepare before GEO work?', a: 'Prepare the brand name, company entity, official website or store links, main platforms, target market, public content and authorized case materials. Unverified numbers are not published as facts.' }
-  ] : serviceFaqs;
-  const faqs = faqData.map(function(item, index) { return '<div class="faq-item ' + (index === 0 ? 'open' : '') + '"><button type="button"><span>' + item.q + '</span>' + icon('ChevronDown', 18) + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>'; }).join('');
-  const heroTitle = isEn() ? 'Brand e-commerce growth consulting' : '品牌电商增长咨询服务';
-  const heroSubtitle = isEn() ? 'From discovery and understanding to purchase, repeat purchase and operating efficiency. PINMOO combines strategy diagnosis, operation coaching, product pages, content, paid-media review, membership and GEO around your brand\'s current question.' : '从被发现、被理解，到成交、复购与经营提效。品沐按品牌当前问题组合战略诊断、运营陪跑、商品页面、内容投放、数据复盘、会员运营与 GEO 服务。';
-  const detailTitle = isEn() ? 'Choose the next step for your needs' : '按当前需求，选择下一步';
-  const detailText = isEn() ? 'Each service defines fit, work and deliverables. GEO is one part of a broader e-commerce growth system.' : '每项服务明确适合对象、主要工作与交付成果；GEO 是七项服务中的一项。';
-  const processTitle = isEn() ? 'How We Work with Brands' : '我们如何陪品牌一起解决问题？';
-  const ctaTitle = isEn() ? 'Want to know what your brand should optimize first?' : '想知道你的品牌下一步该先优化哪里？';
-  const ctaText = isEn() ? 'Start with a professional diagnosis to find the growth opening.' : '从专业诊断开始，帮你找到增长突破口。';
-  return PageHero(heroTitle, heroSubtitle, false, '', { key: 'services', src: '/assets/visuals/service-growth-path.webp', alt: 'Brand e-commerce growth path from diagnosis to review' }) + LeadEntrySection() + '<section class="section service-detail-section" id="core-services"><div class="container">' + SectionIntro(detailTitle, detailText) + '<div class="service-detail-list">' + details + '</div></div></section>' + GeoServiceModulesSection() + ProofSection() + '<section class="section process-section"><div class="container">' + SectionIntro(processTitle) + '<div class="process-grid">' + process + '</div></div></section><section class="section faq-section"><div class="container narrow-container">' + SectionIntro(isEn() ? 'FAQ' : '常见问题') + '<div class="faq-list">' + faqs + '</div></div></section>' + CtaBand(ctaTitle, ctaText, isEn() ? 'Book a Consultation' : '预约品牌电商咨询');
-}
 
 function li(item) { return '<li>' + item + '</li>'; }
+
+function Services() {
+  return PageHero(isEn() ? 'Brand e-commerce growth consulting' : '品牌电商增长咨询服务', isEn() ? 'Strategy, product conversion, paid-media review and brand discovery. Start with the question your team needs to resolve.' : '经营诊断、商品转化、投放复盘与品牌发现。从一个具体问题开始，确定适合的工作范围。') + servicesContent(isEn());
+}
 
 function GeoServiceModulesSection() {
   const source = isEn() ? [
@@ -450,7 +424,7 @@ function LeadPageCard(page) {
 
 function LeadEntrySection() {
   if (isEn()) {
-    return '<section class="section lead-entry-section"><div class="container">' + SectionIntro('Enter by Search Intent', 'For overseas or cross-border brands, the clearest entry point is to evaluate how your products should be sold in China.') + '<div class="lead-card-grid lead-card-grid-single"><article class="lead-card reveal"><span>China e-commerce entry</span><h3>How to Sell Products in China</h3><p>Clarify platform priority, product messaging, content seeding, store conversion and next-step actions for China e-commerce.</p><a class="outline-link" href="' + localizeHref('/china-ecommerce-consulting/') + '">View China Entry Page ' + icon('ArrowRight', 16) + '</a></article></div></div></section>';
+    return '<section class="section lead-entry-section"><div class="container">' + SectionIntro('Plan your China market entry', 'For overseas or cross-border brands, start by evaluating how your products should be sold in China.') + '<div class="lead-card-grid lead-card-grid-single"><article class="lead-card reveal"><span>China e-commerce entry</span><h3>How to Sell Products in China</h3><p>Clarify platform priority, product messaging, content seeding, store conversion and next-step actions for China e-commerce.</p><a class="outline-link" href="' + localizeHref('/china-ecommerce-consulting/') + '">View China Entry Page ' + icon('ArrowRight', 16) + '</a></article></div></div></section>';
   }
   const prioritySlugs = ['ecommerce-diagnosis', 'store-diagnosis', 'tmall-jd-consultant', 'page-conversion-optimization', 'ecommerce-roi-review', 'geo-consulting'];
   const cards = prioritySlugs.map(function(slug) { return leadPages.find(function(page) { return page.slug === slug; }); }).filter(Boolean).map(LeadPageCard).join('');
@@ -642,9 +616,9 @@ function InsightsPage() {
     const cards = insights.filter(function(article) { return cluster.categories.includes(article.category); }).map(InsightCard).join('');
     return '<section class="insight-cluster" id="' + cluster.id + '"><div class="insight-cluster-heading reveal"><div><h2>' + cluster.title + '</h2></div><p>' + cluster.summary + '</p></div><div class="insight-card-grid">' + cards + '</div></section>';
   }).join('');
-  const clusterNav = insightClusters.map(function(cluster) { return '<a href="#' + cluster.id + '">' + cluster.title + '</a>'; }).join('');
+  const clusterNav = insightClusters.map(function(cluster) { return '<a href="?topic=' + cluster.id + '#' + cluster.id + '" data-cluster="' + cluster.id + '">' + cluster.title + '</a>'; }).join('');
   return PageHero('经营洞察', '从品牌经营中的真实问题出发，讨论服务选择、商品、内容、投放与客户体验，帮助团队看清下一步。', false, '', { key: 'insights', src: '/assets/visuals/insights-weekly-report.webp', alt: '电商经营周报、退款治理、流量质量和商品结构分析示意图' }) +
-    '<section class="section insights-index-section"><div class="container"><div class="insights-index-intro reveal"><p class="section-eyebrow">PINMOO INSIGHTS</p><h2>从一个问题，找到下一步。</h2><p>服务选择、店铺经营、商品转化、数据复盘与品牌 GEO。把方法用在你正在面对的问题上。</p></div><form class="insight-search" role="search"><label for="insightSearch">搜索文章</label><input id="insightSearch" type="search" placeholder="例如：转化、退款、GEO" autocomplete="off"><output id="insightCount" aria-live="polite">' + insights.length + ' 篇文章</output></form><nav class="insight-cluster-nav reveal" aria-label="经营洞察主题"><a href="#all" data-cluster="all">全部</a>' + clusterNav + '</nav><p id="insightEmpty" hidden>暂无匹配文章，试试其他关键词。</p>' + clusters + '</div></section>' +
+    '<section class="section insights-index-section"><div class="container"><div class="insights-index-intro"><p class="section-eyebrow">PINMOO INSIGHTS</p><h2>从一个问题，找到下一步。</h2><p>搜索经营问题，或按主题浏览。常用工作表与指标解释也在这里。</p><a class="text-link" href="' + resourceLibrary.path + '">查看实用资料与模板 ↗</a></div><form class="insight-search" role="search"><label for="insightSearch">搜索文章</label><input id="insightSearch" name="q" type="search" placeholder="例如：转化、退款、GEO" autocomplete="off"><button type="button" id="insightReset" class="search-reset" hidden>清空筛选</button><output id="insightCount" aria-live="polite">' + insights.length + ' 篇文章</output></form><nav class="insight-cluster-nav" aria-label="经营洞察主题"><a href="/insights/" data-cluster="all">全部</a>' + clusterNav + '</nav><div id="insightEmpty" class="insight-empty" hidden><h2>暂时没有找到匹配文章。</h2><p>试试“退款”“投放”或“页面”，也可以清空筛选重新浏览。</p><button type="button" class="btn btn-secondary" data-reset-insights>清空筛选</button></div>' + clusters + '<section class="insights-resource-preview"><h2>复盘时，可以直接用这些表。</h2><div class="practical-resource-grid">' + resourceCards() + '</div></section></div></section>' +
     CtaBand('带着一个真实经营问题，认识品沐', '无论是店铺增长、商品页面、投放复盘、会员复购还是 GEO，都可以发送品牌名称、主要平台和当前问题，先判断最值得处理的环节。', '咨询品牌电商增长');
 }
 
@@ -663,8 +637,11 @@ function InsightDetail(article) {
   const authorLabel = article.authorName || insightAuthor.name + '｜' + insightAuthor.alternateName;
   const authorRole = article.authorRole || (article.authorType === 'Organization' ? '品牌 GEO 与电商增长咨询' : insightAuthor.role);
   const toc = article.sections.map(function(section, index) { return '<a href="#' + section.id + '">' + (article.storyFormat ? '' : '<span>0' + (index + 1) + '</span>') + section.title.replace(/^第[^：]+：/, '') + '</a>'; }).join('');
-  const sections = article.sections.map(function(section, index) { return InsightSection(section, index, article.storyFormat); }).join('');
+  const resource = resourceForId(article.practicalResource);
+  const resourceEntry = resource ? '<div class="article-resource-entry"><strong>' + resource.title + '</strong><p>' + resource.description + '</p><a class="text-link" href="' + resourceLibrary.path + '#' + resource.id + '">查看填写方法 ↗</a><a class="text-link" href="/downloads/' + resource.filename + '" download data-event="resource_download">下载表格 ↓</a></div>' : '';
+  const sections = article.sections.map(function(section, index) { return InsightSection(section, index, article.storyFormat); }).join('') + resourceEntry;
   const lead = article.storyFormat && article.lead?.length ? '<section class="insight-story-lead" aria-label="文章引言">' + article.lead.map(function(item) { return '<p>' + item + '</p>'; }).join('') + '</section>' : '';
+  const mobileToc = '<details class="insight-mobile-toc"><summary>本文目录</summary><nav aria-label="本文目录">' + toc + '</nav></details>';
   const points = article.keyPoints.map(li).join('');
   const answerBox = article.storyFormat ? '' : '<section class="insight-answer-box reveal" aria-labelledby="directAnswerTitle"><div>' + icon('Lightbulb', 28) + '<h2 id="directAnswerTitle">核心结论</h2></div><p>' + article.directAnswer + '</p><ul>' + points + '</ul></section>';
   const evidence = article.evidence ? '<details class="insight-evidence reveal"><summary id="evidenceTitle">本文依据与适用范围</summary><dl><div><dt>判断依据</dt><dd>' + article.evidence.basis + '</dd></div><div><dt>适用范围</dt><dd>' + article.evidence.scope + '</dd></div><div><dt>使用限制</dt><dd>' + article.evidence.limits + '</dd></div></dl></details>' : '';
@@ -673,7 +650,7 @@ function InsightDetail(article) {
   const authorNote = article.authorType === 'Organization' ? '本文由品沐咨询整理，文中品牌与服务信息以官网公开页面为准。' : authorRole + '。长期关注店铺诊断、数据复盘与品牌电商增长问题。';
   const articleClass = article.storyFormat ? 'insight-article story-format' : 'insight-article';
   return '<article class="' + articleClass + '"><header class="insight-article-hero"><div class="hero-grid-bg"></div><div class="container insight-article-hero-inner"><div class="reveal"><a class="back-link" href="/insights/">返回经营洞察</a><div class="insight-article-labels"><span>' + article.category + '</span><span>' + article.readTime + '</span></div><h1>' + article.title + '</h1><p>' + article.summary + '</p><div class="insight-byline"><strong>' + authorLabel + '</strong><span>' + authorRole + '</span><time datetime="' + article.updated + '">更新于 ' + article.updated + '</time></div></div></div></header>' +
-    '<section class="section insight-article-body"><div class="container insight-article-layout"><div class="insight-article-main">' + answerBox + lead + sections + articleSources(article) + evidence + relatedReading(article) + conclusion + InsightFaq(article) + '<section class="insight-author-card reveal' + (article.authorType === 'Organization' ? ' organization-author-card' : '') + '">' + authorImage + '<div><span>内容提供方</span><h2>' + authorLabel + '</h2><p>' + authorNote + '</p><p class="insight-disclosure">' + (article.disclosure || insightAuthor.disclosure) + '</p><a href="/about/">了解品沐咨询 ' + icon('ArrowRight', 16) + '</a></div></section></div><aside class="insight-toc"><div><strong>本文目录</strong>' + toc + '</div><div class="insight-toc-contact"><strong>需要结合数据判断？</strong><p>发来品牌、平台和当前问题，先做一次基础判断。</p><a href="/contact/">预约咨询</a></div></aside></div></section>' + InsightRelatedServices(article) + '</article>';
+    '<section class="section insight-article-body"><div class="container insight-article-layout"><div class="insight-article-main">' + answerBox + lead + mobileToc + sections + articleSources(article) + evidence + relatedReading(article) + conclusion + InsightFaq(article) + '<section class="insight-author-card reveal' + (article.authorType === 'Organization' ? ' organization-author-card' : '') + '">' + authorImage + '<div><span>内容提供方</span><h2>' + authorLabel + '</h2><p>' + authorNote + '</p><p class="insight-disclosure">' + (article.disclosure || insightAuthor.disclosure) + '</p><a href="/about/">了解品沐咨询 ' + icon('ArrowRight', 16) + '</a></div></section></div><aside class="insight-toc"><div><strong>本文目录</strong>' + toc + '</div><div class="insight-toc-contact"><strong>需要结合数据判断？</strong><p>发来品牌、平台和当前问题，先做一次基础判断。</p><a href="/contact/">预约咨询</a></div></aside></div></section>' + InsightRelatedServices(article) + '</article>';
 }
 
 function ContactSuccess() {
@@ -726,103 +703,17 @@ function CaseDetail(item) {
   return '<section class="case-detail-hero"><div class="hero-grid-bg"></div><div class="container case-detail-hero-inner"><div class="reveal"><a class="back-link" href="' + localizeHref('/cases/') + '">' + (isEn() ? 'Back to Case Studies' : '返回项目经验') + '</a><h1>' + view.title + '</h1><p>' + view.summary + '</p>' + chips + '</div><div class="reveal case-detail-image">' + ResponsiveImage(item.image, detailImageAlt, '', 'decoding="async" fetchpriority="high"') + '</div></div></section><section class="section case-detail-section"><div class="container case-detail-layout"><div class="case-detail-main">' + main + '</div><aside class="case-detail-aside"><div class="reveal aside-card"><h2>' + (isEn() ? 'Project Overview' : '项目概览') + '</h2><dl><div><dt>' + (isEn() ? 'Industry' : '行业') + '</dt><dd>' + view.industry + '</dd></div><div><dt>' + (isEn() ? 'Platform' : '平台') + '</dt><dd>' + view.platform + '</dd></div><div><dt>' + (isEn() ? 'Core Problem' : '核心问题') + '</dt><dd>' + view.serviceType + '</dd></div>' + caseId + '</dl></div><div class="reveal aside-card highlight-card"><h2>' + (isEn() ? 'Service Highlights' : '服务亮点') + '</h2>' + highlights + '</div><div class="reveal aside-card"><p>' + view.cta + '</p>' + ButtonLink(isEn() ? 'Book a Consultation' : '预约咨询', '/contact/', 'primary', false) + '</div></aside></div></section>' + CtaBand(isEn() ? 'If your brand faces a similar problem, start with a basic diagnosis.' : '如果你的品牌也面临类似问题，可以预约一次基础诊断。', view.cta, isEn() ? 'Book a Consultation' : '预约品牌电商咨询');
 }
 
-function AboutEnglish() {
-  const belief = [
-    ['Data as Evidence', 'Use data to see the real business situation', 'ShieldCheck'],
-    ['Strategy as the Core', 'Find growth opportunities and create executable strategies', 'Layers'],
-    ['Execution as the Key', 'Break ideas into executable actions and drive coordination', 'Target'],
-    ['Results as the Direction', 'Track and review continuously to form a positive growth loop', 'TrendingUp']
-  ].map(function(item) { return '<div class="belief-card">' + icon(item[2], 26) + '<strong>' + item[0] + '</strong><span>' + item[1] + '</span></div>'; }).join('');
-  const exp = [
-    ['Core team experience spans more than 10 years in brand e-commerce operations and consulting', 'BadgeCheck'],
-    ['E-commerce growth consulting for consumer brands', 'GraduationCap'],
-    ['Coverage across Tmall, JD and content-commerce operations', 'Layers'],
-    ['Real projects presented anonymously within public-authorization boundaries', 'ShoppingBag'],
-    ['Specialized in store diagnosis, page optimization, ad review, membership, content seeding and omni-channel planning', 'Image'],
-    ['Long-term content on brand growth, e-commerce operations and agency pitfalls', 'FilePenLine']
-  ].map(function(item) { return '<div class="reveal experience-card">' + icon(item[1], 30) + '<p>' + item[0] + '</p></div>'; }).join('');
-  const steps = [
-    ['Read Data', 'Analyze the store, platform, product, traffic, conversion, refunds and customer feedback.', 'BarChart3'],
-    ['Find Problems', 'Identify whether the constraint sits in product mix, page, traffic, content, service, price or execution.', 'Search'],
-    ['Define Actions', 'Turn recommendations into executable tasks with priority, owner and review cycle.', 'Target'],
-    ['Coach and Review', 'Track results through weekly reports, meetings and focused optimization.', 'RefreshCw']
-  ].map(function(item, index) { return '<div class="reveal work-step"><span>0' + (index + 1) + '</span>' + icon(item[2], 28) + '<h3>' + item[0] + '</h3><p>' + item[1] + '</p></div>'; }).join('');
-  const fits = [
-    'Brands already online but facing growth bottlenecks',
-    'Traditional companies preparing to build e-commerce from zero',
-    'Teams with products but lacking platform playbooks and content strategy',
-    'Brands with an operating team but lacking external consulting and review mechanisms',
-    'Projects seeking to improve refund rate, conversion, paid-media efficiency and member repurchase'
-  ].map(function(item) { return '<p>' + icon('CheckCircle2', 18) + item + '</p>'; }).join('');
-  const entitySection = '<section class="section entity-section"><div class="container entity-grid"><div class="reveal entity-card"><p class="section-eyebrow">OFFICIAL ENTITY</p><h2>Guangzhou Pinmoo Consulting Co., Ltd. / PINMOO</h2><p>PINMOO is the brand e-commerce growth consulting practice of Guangzhou Pinmoo Consulting Co., Ltd., led by Bao Junwen (Mufeng, BarryBao). Services include e-commerce diagnosis, operation coaching, GEO and AI business tools.</p><dl><div><dt>English name</dt><dd>' + SITE.companyEn + '</dd></div><div><dt>Official domain</dt><dd>https://pinmooconsulting.com/</dd></div><div><dt>Public contact</dt><dd>' + SITE.phoneDisplay + '</dd></div><div><dt>Office</dt><dd>Zhonghua International Plaza, Yuexiu District, Guangzhou, Guangdong, China</dd></div><div><dt>ICP filing</dt><dd>' + SITE.icpNumber + '</dd></div></dl></div><div class="reveal entity-card entity-disambiguation"><p class="section-eyebrow">NAME DISAMBIGUATION</p><h2>How to identify the official PINMOO Consulting?</h2><p>Online search results may contain other entities with similar Chinese names. This website refers specifically to PINMOO, the brand of Guangzhou Pinmoo Consulting Co., Ltd. Company, service, case and contact information should be verified against this official domain and the public contact details listed here.</p><p>Public cases are anonymised within confidentiality boundaries. Claims about origin, year, grade, testing, efficacy, qualifications or growth require authorized and verifiable materials. PINMOO does not promise absolute growth or AI recommendations.</p></div></div></section>';
-  return PageHero('About PINMOO Consulting', 'Brand e-commerce growth consulting that turns the complex path from discovery to repeat purchase into practical next steps.', false, '', { key: 'about', src: '/assets/visuals/about-consulting-system.webp', alt: 'PINMOO brand e-commerce consulting team' }) + '<section class="section about-brand-section"><div class="container about-brand-grid"><div class="reveal brand-showcase">' + logo('about-logo-frame') + '<h2>Who is PINMOO Consulting?</h2><p>PINMOO is the e-commerce growth consulting name of Guangzhou Pinmoo Consulting Co., Ltd. We help consumer brands clarify priorities across platform, product, content, paid media, conversion and retention.</p></div><div class="reveal"><h2>We believe e-commerce growth is not driven by isolated actions, but by system coordination.</h2><p>Many brands work hard on e-commerce without connecting platform choice, product mix, content messaging, page conversion, advertising, customer service and review mechanisms. PINMOO helps clarify complex problems, prioritize key actions and push execution through continuous coaching.</p><div class="belief-grid">' + belief + '</div></div></div></section>' + entitySection + '<section class="section principal-section"><div class="container principal-card"><div class="reveal principal-info"><div class="profile-mark profile-photo"><img src="/assets/mufeng-profile.jpg" alt="Bao Junwen, Mufeng, BarryBao" loading="lazy"></div><div><h2>Bao Junwen (Mufeng, BarryBao)</h2><p class="role-lines">Principal of PINMOO Consulting</p><p>Bao Junwen leads PINMOO Consulting and provides consumer brands with e-commerce diagnosis, operation coaching, page optimization, advertising review and AI business tools.</p></div></div><div class="experience-grid">' + exp + '</div></div></section><section class="section work-style-section"><div class="container">' + SectionIntro('How We Work with Brands') + '<div class="work-steps">' + steps + '</div></div></section><section class="section fit-section"><div class="container fit-grid"><div class="reveal"><h2>What Brands Are Suitable for PINMOO?</h2></div><div class="reveal fit-list">' + fits + '</div></div></section>' + CtaBand('Want to know how PINMOO can help your brand?', 'Book a consultation and we will discuss your brand status and the most important issue to solve first.', 'Book a Consultation');
+
+
+
+
+
+function Contact() {
+  return PageHero(isEn() ? 'Let’s talk about your brand.' : '聊聊你的品牌，和当前最想解决的问题。', isEn() ? 'E-commerce strategy, product conversion, paid media, retention or GEO. Start with your brand, platform and one question.' : '店铺增长、商品转化、投放、复购或GEO，都可以从一个具体问题开始。', true) + contactContent(isEn());
 }
 
 function About() {
-  if (isEn()) return AboutEnglish();
-  const belief = [['以数据为依据','数据驱动决策，看清真实业务状况','ShieldCheck'],['以策略为核心','找准增长机会点，制定可落地的策略','Layers'],['以执行为关键','拆解到可执行动作，推动落地与协同','Target'],['以结果为导向','持续跟踪与复盘，实现正向增长闭环','TrendingUp']].map(function(item) { return '<div class="belief-card">' + icon(item[2], 26) + '<strong>' + item[0] + '</strong><span>' + item[1] + '</span></div>'; }).join('');
-  const exp = [['核心团队具备10年以上品牌电商运营与顾问经验','BadgeCheck'],['面向消费品牌提供电商增长咨询服务','GraduationCap'],['覆盖天猫、京东与内容电商经营问题','Layers'],['现有案例均为真实项目，并按公开授权边界匿名呈现','ShoppingBag'],['擅长店铺诊断、主图详情页优化、投放复盘、会员运营、内容种草与全域电商规划','Image'],['长期输出品牌增长、电商运营和代运营避坑相关内容','FilePenLine']].map(function(item) { return '<div class="reveal experience-card">' + icon(item[1], 30) + '<p>' + item[0] + '</p></div>'; }).join('');
-  const steps = [['看数据','分析店铺、平台、商品、流量、转化、退款和用户反馈。','BarChart3'],['找问题','判断问题发生在货盘、页面、流量、内容、客服、价格还是团队执行。','Search'],['定动作','把建议拆成可执行事项，明确优先级、负责人和复盘周期。','Target'],['陪跑复盘','通过周报、月报、会议和专项优化，持续跟进结果。','RefreshCw']].map(function(item, index) { return '<div class="reveal work-step"><span>0' + (index + 1) + '</span>' + icon(item[2], 28) + '<h3>' + item[0] + '</h3><p>' + item[1] + '</p></div>'; }).join('');
-  const fits = ['已经在线上经营，但增长遇到瓶颈的品牌','准备从0到1搭建电商业务的传统企业','有产品但缺少平台打法和内容策略的团队','有运营团队，但缺少外部顾问和复盘机制的品牌','想优化退款率、转化率、投放效率和会员复购的项目'].map(function(item) { return '<p>' + icon('CheckCircle2', 18) + item + '</p>'; }).join('');
-  const entitySection = '<section class="section entity-section"><div class="container entity-grid"><div class="reveal entity-card"><p class="section-eyebrow">OFFICIAL ENTITY</p><h2>广州品沐咨询有限公司 / PINMOO</h2><p>本官网的“品沐咨询”特指广州品沐咨询有限公司旗下的 PINMOO 品牌，主理人是鲍俊文（沐风、BarryBao），主要提供品牌电商增长咨询、经营诊断、运营陪跑、GEO 和 AI 经营工具服务。</p><dl><div><dt>中文主体</dt><dd>' + SITE.company + '</dd></div><div><dt>English name</dt><dd>' + SITE.companyEn + '</dd></div><div><dt>官方域名</dt><dd>https://pinmooconsulting.com/</dd></div><div><dt>公开联系</dt><dd>' + SITE.phoneDisplay + '</dd></div><div><dt>办公地址</dt><dd>' + SITE.address + '</dd></div><div><dt>备案信息</dt><dd>' + SITE.icpNumber + '</dd></div></dl></div><div class="reveal entity-card entity-disambiguation"><p class="section-eyebrow">NAME DISAMBIGUATION</p><h2>如何识别正确的品沐咨询？</h2><p>网络上可能存在“品沐家居”“品沐瑜伽”或其他近似名称。本官网不代表这些主体，也不能据此推断与其存在隶属关系。涉及品沐咨询的公司、服务、案例和联系方式，请以本页列出的主体、官方域名和公开联系方式为准。</p><p>公开案例按保密边界匿名呈现；产地、年份、等级、检测、功效、资质和增长数字等信息，需要以品牌授权和可核验资料为依据。品沐不承诺绝对增长或 AI 推荐结果。</p></div></div></section>';
-  return PageHero('关于品沐咨询', '专注品牌电商增长，把从被发现到持续复购的复杂问题拆成可执行的下一步。', false, '', { key: 'about', src: '/assets/visuals/about-consulting-system.webp', alt: '品沐咨询以数据、策略、执行和结果构建电商增长协同体系示意图' }) + '<section class="section about-brand-section"><div class="container about-brand-grid"><div class="reveal brand-showcase">' + logo('about-logo-frame') + '<h2>品沐咨询是谁？</h2><p>' + SITE.positioning + '</p></div><div class="reveal"><h2>我们相信，电商增长不是靠单点动作，而是靠系统协同。</h2><p>很多品牌不是没有努力做电商，而是平台选择、货盘结构、内容表达、页面转化、广告投放、客服承接和复盘机制之间没有形成闭环。品沐咨询的价值，就是帮助品牌把复杂问题拆清楚，把关键动作排出优先级，并通过持续陪跑推动落地。</p><div class="belief-grid">' + belief + '</div></div></div></section>' + entitySection + '<section class="section principal-section"><div class="container principal-card"><div class="reveal principal-info"><div class="profile-mark profile-photo"><img src="/assets/mufeng-profile.jpg" alt="' + SITE.principal.displayName + '个人照片" loading="lazy"></div><div><h2>' + SITE.principal.displayName + '</h2><p class="role-lines">' + SITE.principal.title + '</p><p>鲍俊文，公开别名沐风、BarryBao，主理品沐咨询，面向消费品牌提供电商经营诊断、运营陪跑、页面优化、投放复盘和AI经营工具服务。</p></div></div><div class="experience-grid">' + exp + '</div></div></section><section class="section work-style-section"><div class="container">' + SectionIntro('我们如何陪品牌一起解决问题？') + '<div class="work-steps">' + steps + '</div></div></section><section class="section fit-section"><div class="container fit-grid"><div class="reveal"><h2>什么样的品牌适合找品沐？</h2></div><div class="reveal fit-list">' + fits + '</div></div></section>' + CtaBand('想进一步了解品沐如何帮你的品牌？', '预约咨询，我们会尽快与你沟通品牌现状和当前最值得优先解决的问题。');
-}
-
-function ContactForm() {
-  if (isEn()) {
-    const intents = ['Brand GEO Report', 'GEO Technical Audit', 'AI Search Visibility', 'E-commerce Consulting', 'Website Inquiry'].map(function(item) { return '<span>' + item + '</span>'; }).join('');
-    const servicesList = [
-      ['GEO and AI search visibility', 'Leaf'],
-      ['E-commerce Strategy Diagnosis', 'Target'],
-      ['Platform Operation Coaching', 'Layers'],
-      ['Product and Page Optimization', 'PackageCheck'],
-      ['Content and Seeding Strategy', 'FilePenLine'],
-      ['Advertising and Data Review', 'BarChart3'],
-      ['Membership and Private Domain Operations', 'Users']
-    ].map(function(item) { return '<li>' + icon(item[1], 20) + '<span>' + item[0] + '</span></li>'; }).join('');
-    const templates = [
-      ['Brand GEO Report', 'Brand name: ___; official website or store: ___; primary platforms: Tmall/JD/Douyin/Xiaohongshu; target market: ___; first review requested: brand GEO visibility and content.'],
-      ['Operating Review', 'We have operating, paid-media and refund data and need a management-ready review focused on net sales, refunds, traffic mix and next-cycle actions.'],
-      ['Operation Coaching', 'Our brand has an operating team but needs an external review and clearer priorities. We would like to understand the monthly consulting model.']
-    ].map(function(item, index) {
-      return '<article><strong>' + item[0] + '</strong><p id="inquiryTemplate' + index + '">' + item[1] + '</p><button type="button" class="copy-template-button" data-copy-target="inquiryTemplate' + index + '">' + icon('Copy', 16) + '<span>Copy this message</span></button></article>';
-    }).join('');
-    return '<section class="contact-direct-panel" aria-labelledby="wechatConsultTitle"><div class="form-heading">' + icon('MessageCircle', 26) + '<h2 id="wechatConsultTitle">Scan to Add WeChat for Brand E-commerce Growth</h2></div><div class="direct-qr-block"><div class="wechat-qr-crop direct-qr"><img src="/assets/wechat-qr-mufeng.jpg" alt="Add PINMOO Consulting on WeChat" loading="lazy"></div><div><strong>WeChat / Mobile: ' + SITE.phoneDisplay + '</strong><p>Send your brand name, official website or store link, primary platforms and current question. For a basic GEO report, mention “brand GEO report” to receive a free public-information review.</p><div class="direct-intents">' + intents + '</div><a class="direct-phone-link" href="tel:' + SITE.phone + '">' + icon('Phone', 18) + 'Call</a><button type="button" class="btn btn-secondary geo-copy-button" data-copy-wechat="' + SITE.phone + '">Copy WeChat</button></div></div><div class="direct-service-box"><h3>What the free brand GEO report reviews first</h3><ul>' + servicesList + '</ul></div><details class="inquiry-template-box"><summary><span><strong>Not sure how to start?</strong><small>Open and copy a ready-to-send message</small></span>' + icon('ChevronDown', 20) + '</summary><div>' + templates + '</div></details><p class="direct-note">After adding WeChat, send your brand name, official website or store link, primary platforms and the one question you most want to solve.</p></section>';
-  }
-  const intents = ['电商战略诊断', '运营陪跑', '商品页面优化', '投放数据复盘', '品牌GEO报告'].map(function(item) { return '<span>' + item + '</span>'; }).join('');
-  const servicesList = services.map(function(service) { return '<li>' + icon(service.icon, 20) + '<span>' + service.title + '</span></li>'; }).join('');
-  const templates = [
-    ['品牌GEO报告', '品牌名称：___；官网或店铺链接：___；主要平台：天猫/京东/抖音/小红书；目标市场：___；希望先看：品牌 GEO 可见度与内容优化。'],
-    ['经营周报', '我们有生意参谋/推广/退款数据，想生成一版品牌方可读的经营周报，重点看净销售额、退款、流量结构和下周期动作。'],
-    ['运营陪跑', '品牌目前有运营团队，但缺少外部复盘和优先级判断，想了解月度顾问陪跑如何合作。']
-  ].map(function(item, index) {
-    return '<article><strong>' + item[0] + '</strong><p id="inquiryTemplate' + index + '">' + item[1] + '</p><button type="button" class="copy-template-button" data-copy-target="inquiryTemplate' + index + '">' + icon('Copy', 16) + '<span>复制这段话</span></button></article>';
-  }).join('');
-  return '<section class="contact-direct-panel" aria-labelledby="wechatConsultTitle"><div class="form-heading">' + icon('MessageCircle', 26) + '<h2 id="wechatConsultTitle">扫码添加微信，咨询品牌电商增长</h2></div><div class="direct-qr-block"><div class="wechat-qr-crop direct-qr"><img src="/assets/wechat-qr-mufeng.jpg" alt="添加品沐咨询微信，咨询品牌电商增长" loading="lazy"></div><div><strong>微信 / 手机同号：' + SITE.phoneDisplay + '</strong><p>发送品牌名称、官网或店铺链接、主要平台和当前问题。需要 GEO 基础报告时，备注“品牌GEO报告”，可免费获取公开信息版基础判断。</p><div class="direct-intents">' + intents + '</div><a class="direct-phone-link" href="tel:' + SITE.phone + '">' + icon('Phone', 18) + '拨打电话</a><button type="button" class="btn btn-secondary geo-copy-button" data-copy-wechat="' + SITE.phone + '">复制微信号</button></div></div><div class="direct-service-box"><h3>免费品牌 GEO 报告会先看什么</h3><ul>' + servicesList + '</ul></div><details class="inquiry-template-box"><summary><span><strong>不知道怎么开口？</strong><small>展开并复制常用咨询话术</small></span>' + icon('ChevronDown', 20) + '</summary><div>' + templates + '</div></details><p class="direct-note">建议添加微信后，至少发送：品牌名称、官网或店铺链接、主要平台，以及当前最想解决的一个问题。</p></section>';
-}
-
-function ContactEnglish() {
-  const contactItems = [
-    ['Company Name', SITE.companyEn, 'Building2'],
-    ['Company Address', 'Zhonghua International Plaza, Yuexiu District, Guangzhou, Guangdong, China', 'MapPinned'],
-    ['WeChat / Mobile', SITE.phoneDisplay, 'Phone'],
-    ['Contact Note', 'When adding WeChat or calling, mention your brand, website or store, primary platform and the current question.', 'MessageCircle'],
-    ['Working Hours', 'Weekdays 9:00-18:00', 'Clock'],
-    ['Response Time', 'Usually reply within 24 hours', 'Send']
-  ].map(function(item) {
-    const content = item[0] === 'WeChat / Mobile' ? '<a href="tel:' + SITE.phone + '">' + item[1] + '</a>' : item[0] === 'Company Address' ? '<a href="' + SITE.mapUrl + '" target="_blank" rel="noopener">' + item[1] + '</a><p class="map-hint">Tap to open map location</p>' : '<p>' + item[1] + '</p>';
-    return '<div class="contact-info-row"><span>' + icon(item[2], 26) + '</span><div><h2>' + item[0] + '</h2>' + content + '</div></div>';
-  }).join('');
-  return PageHero('Contact PINMOO Consulting', 'Start with one concrete question: e-commerce strategy, operation coaching, product pages, content, data review, membership or brand GEO. Send your brand name, primary platform and current challenge.', true, '', { key: 'contact', src: '/assets/visuals/about-consulting-system.webp', alt: 'PINMOO consulting team discussing brand growth' }) + '<section class="section contact-section"><div class="container contact-grid"><div class="reveal contact-info-panel">' + contactItems + '</div><div class="reveal contact-primary-panel">' + ContactForm() + '</div></div></section><section class="section contact-bottom-section"><div class="container two-question-grid"><div class="reveal question-card">' + icon('CircleUserRound', 32) + '<h2>What Brands Is This For?</h2><p>Suitable for consumer brands entering e-commerce, facing a growth bottleneck, working with an internal team that needs an external advisor, or seeking a stronger path from discovery and understanding to purchase and repeat purchase.</p></div><div class="reveal question-card">' + icon('FilePenLine', 32) + '<h2>How Should We Start?</h2><p>Describe the business problem you are facing. If you want to understand your brand\'s AI search presence first, mention “brand GEO report” to receive a free public-information assessment.</p></div></div></section>';
-}
-
-function Contact() {
-  if (isEn()) return ContactEnglish();
-  const contactItems = [['公司名称', SITE.company, 'Building2'], ['公司地址', SITE.address, 'MapPinned'], ['微信 / 手机同号', SITE.phoneDisplay, 'Phone'], ['联系说明', SITE.contactNoteWithSite, 'MessageCircle'], ['工作时间', SITE.workTime, 'Clock'], ['响应说明', SITE.responseTime, 'Send']].map(function(item) {
-    const content = item[0].indexOf('手机') >= 0 ? '<a href="tel:' + SITE.phone + '">' + item[1] + '</a>' : item[0] === '公司地址' ? '<a href="' + SITE.mapUrl + '" target="_blank" rel="noopener">' + item[1] + '</a><p class="map-hint">点击查看地图定位</p>' : '<p>' + item[1] + '</p>';
-    return '<div class="contact-info-row"><span>' + icon(item[2], 26) + '</span><div><h2>' + item[0] + '</h2>' + content + '</div></div>';
-  }).join('');
-  return PageHero('联系品沐咨询', '从一个具体问题开始：电商战略、运营陪跑、商品页面、内容投放、数据复盘、会员复购或品牌 GEO。发送品牌名称、主要平台和当前问题即可。', true, '', { key: 'contact', src: '/assets/visuals/about-consulting-system.webp', alt: '品沐咨询以数据、策略、执行和复盘协同品牌电商增长' }) + '<section class="section contact-section"><div class="container contact-grid"><div class="reveal contact-info-panel">' + contactItems + '</div><div class="reveal contact-primary-panel">' + ContactForm() + '</div></div></section><section class="section contact-bottom-section"><div class="container two-question-grid"><div class="reveal question-card">' + icon('CircleUserRound', 32) + '<h2>适合什么品牌咨询？</h2><p>适合正在进入电商、增长遇到瓶颈、已有团队需要外部顾问，或希望系统提升品牌被发现、被理解、被购买与复购能力的消费品牌。</p></div><div class="reveal question-card">' + icon('FilePenLine', 32) + '<h2>如何开始更合适？</h2><p>可以直接描述当前经营问题；如果暂时只想了解品牌在 AI 搜索中的表现，备注“品牌GEO报告”，先领取一份基于公开信息的基础报告。</p></div></div></section>';
+  return PageHero(isEn() ? 'Meet PINMOO Consulting.' : '认识品沐，认识与你一起做判断的顾问。', isEn() ? 'Practical support for consumer brands, from e-commerce priorities to regular review.' : '面向消费品牌，把经营问题拆清楚，把关键动作推进到团队的日常工作。') + aboutContent(isEn());
 }
 
 function FloatingContact() {
@@ -835,6 +726,7 @@ function FloatingContact() {
 }
 
 function renderPage() {
+  if (pathname === '/resources/operating-templates') return PageHero(resourceLibrary.title, resourceLibrary.description, true) + resourceLibraryContent();
   if (pathname === '/') return Home();
   if (pathname === '/contact/success') return ContactSuccess();
   if (pathname === '/china-ecommerce-consulting') return ChinaEcommercePage();

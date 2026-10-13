@@ -1,6 +1,6 @@
 import { routeMeta } from '../src/data/seo.js';
 
-export const events = ['page_view', 'report_open', 'wechat_copy', 'phone_click'];
+export const events = ['page_view', 'report_open', 'wechat_copy', 'phone_click', 'consult_open', 'resource_download'];
 export const placements = ['body', 'header', 'hero', 'footer', 'mobile'];
 export const pageIds = [...new Set(routeMeta.filter(route => !route.aiTool && !route.duplicate).map(route => route.path === '/' ? 'home' : route.path.replace(/^\/+|\/+$/g, '').replace(/\//g, '-')))];
 

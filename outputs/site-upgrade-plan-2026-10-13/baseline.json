@@ -1,0 +1,49 @@
+{
+  "checkedOn": "2026-10-13",
+  "timezone": "Asia/Shanghai",
+  "origin": "https://pinmooconsulting.com",
+  "status": "planning_only_no_live_changes",
+  "siteBuild": {
+    "version": "16e68fae83",
+    "builtAt": "2026-10-02T13:33:16.178Z",
+    "articleCount": 76
+  },
+  "localInventory": {
+    "articles": 76,
+    "caseContentRecords": 9,
+    "geoMeasurementCategoryArticles": 21,
+    "caseRecordCountIsNotVerifiedOutcomeCount": true
+  },
+  "checks": {
+    "existingLiveVerificationScript": "passed_limited_scope",
+    "primaryRoutesCheckedByScript": ["/", "/about/", "/insights/"],
+    "otherChecksInScript": ["homepage_security_headers", "sample_true_404_and_noindex", "robots_and_sitemap_basics"],
+    "insightRefundSearchResults": 8,
+    "filteredArticleReadLinkNavigation": "passed",
+    "englishServicesVisibleCopy": "sampled",
+    "fullRouteCrawl": "not_run",
+    "lighthouse": "not_run",
+    "fieldCoreWebVitals": "not_collected",
+    "searchConsoleData": "not_collected",
+    "baiduIndexingData": "not_collected",
+    "realAiAnswerBaseline": "not_collected",
+    "certificateAutoRenewal": "not_verified"
+  },
+  "snapshotObservations": {
+    "desktopViewportWidth": 1280,
+    "homeDocumentHeightPx": 7849,
+    "servicesDocumentHeightPx": 6761,
+    "mobileViewportWidth": 390,
+    "mobileArticleToc": "after_main_content",
+    "mobileInsightCard": "long_title_repeated_in_read_link",
+    "contactPage": "geo_report_scope_heading_contains_general_service_list",
+    "insightsEnglishSwitchTarget": "https://pinmooconsulting.com/"
+  },
+  "changes": {
+    "production": false,
+    "dns": false,
+    "netlify": false,
+    "toolSubdomains": false,
+    "siteSource": false
+  }
+}

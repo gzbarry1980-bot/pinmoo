@@ -59,7 +59,7 @@
               <li>方向版 / 目标校版 / 求证版 完整生成与评分</li>
               <li>学校历史录取门槛、梯度保护与机会区间</li>
               <li>JSON 导入导出、打印 PDF 报告</li>
-              <li>一次开通，长期有效，多端通用</li>
+              <li>使用范围与期限以开通页面说明为准</li>
             </ul>
             <button id="miniPayBtn" class="primary-button full-button" type="button">立即支付 ¥9.9</button>
             <p class="serial-support-note">支付由微信小程序原生完成，无需输入序列号。</p>
@@ -77,6 +77,7 @@
           </form>
           <div id="serialStatus" class="serial-status" role="status" aria-live="polite">验证成功后将绑定当前设备，并写入服务端使用权。</div>
           <p class="serial-support-note">如遇序列号无法验证或设备绑定异常，请联系原购买平台客服协助核查；为保护使用权，请勿向无关人员提供完整序列号。</p>
+          <details class="device-help"><summary>以后怎么继续使用？</summary><p>建议使用同一设备、同一浏览器进入，系统会自动检查解锁状态。两台设备的方案暂不自动同步，可用“保存备份”和“导入方案”转移。</p><p>更换浏览器、使用无痕模式或清除网站数据，可能被识别为新的使用设备。遇到绑定次数异常，请联系客服核查恢复方式。</p><p>使用期限以序列号权益为准，第三台设备需新的序列号。</p></details>
           <details class="wechat-consult">
             <summary>还没有序列号？添加微信咨询购买</summary>
             <p>使用微信扫描下方二维码，添加好友后咨询序列号购买与使用方式。</p>
@@ -110,8 +111,8 @@
       <button type="button" data-scroll-top>↑ 回到顶部</button>
     </nav>
     <div id="accessToast" class="access-toast" role="status" aria-live="polite"></div>
-    <script src="../navigation.js?v=20261012-minimal"></script>
-    <script src="../access-gate.js?v=20261010-r2session"></script>
-    <script type="module" src="./unlock.js?v=20261010b"></script>
+    <script src="../navigation.js?v=20261013-flow"></script>
+    <script src="../access-gate.js?v=20261013-flow"></script>
+    <script type="module" src="./unlock.js?v=20261013-flow"></script>
   </body>
 </html>

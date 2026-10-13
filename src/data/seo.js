@@ -5,6 +5,7 @@ import { CASE_EN, EN_TEXT } from './en-text.js';
 import { chinaEcommercePage, leadPages } from './lead-pages.js';
 import { metricDictionary } from './resources.js';
 import { insightAuthor, insights } from './insights.js';
+import { practicalResources, resourceLibrary } from './practical-resources.js';
 
 const ORIGIN = SITE.primaryDomain;
 const logoUrl = ORIGIN + SITE.logo;
@@ -20,7 +21,7 @@ export const routeMeta = [
     description: '品沐咨询为消费品牌提供电商战略诊断、运营陪跑、商品页面优化、内容投放、数据复盘、会员复购、AI经营工具与GEO服务，帮助品牌从被发现走向成交和持续增长。',
     keywords: ['广州电商咨询公司', '品牌电商增长顾问', '电商战略诊断', '运营陪跑', '天猫店铺诊断', '商品页面优化', '投放复盘', '品牌GEO优化', 'AI经营周报'],
     name: '首页',
-    updated: '2026-07-16',
+    updated: '2026-10-13',
     priority: '1.0',
     changefreq: 'weekly'
   },
@@ -42,7 +43,7 @@ export const routeMeta = [
     title: '品牌电商增长咨询服务｜战略诊断、运营陪跑与GEO｜品沐咨询',
     description: '品沐咨询提供电商战略诊断、平台运营陪跑、商品与页面优化、内容种草、投放数据复盘、会员私域、AI工具与GEO服务，明确工作范围与交付成果。',
     name: '服务介绍',
-    updated: '2026-07-16',
+    updated: '2026-10-13',
     priority: '0.9',
     changefreq: 'monthly'
   },
@@ -69,6 +70,17 @@ export const routeMeta = [
     changefreq: 'monthly'
   },
   {
+    path: resourceLibrary.path,
+    file: 'resources/operating-templates/index.html',
+    title: '电商经营实用资料｜周会、退款、投放与GEO自查表｜品沐咨询',
+    description: resourceLibrary.description,
+    name: resourceLibrary.title,
+    templateLibrary: true,
+    updated: resourceLibrary.updated,
+    priority: '0.75',
+    changefreq: 'monthly'
+  },
+  {
     path: '/insights/',
     file: 'insights/index.html',
     title: '电商经营与品牌增长洞察｜店铺、投放、复购与GEO｜品沐咨询',
@@ -76,7 +88,7 @@ export const routeMeta = [
     name: '经营洞察',
     keywords: ['电商咨询怎么选', '电商顾问靠谱吗', '店铺诊断', '运营陪跑', '店铺转化率', '经营周报', '退款治理', '投放ROI复盘', 'AI经营周报', 'GEO ROI'],
     insightIndex: true,
-    updated: '2026-10-02',
+    updated: '2026-10-13',
     priority: '0.85',
     changefreq: 'weekly'
   },
@@ -108,7 +120,7 @@ export const routeMeta = [
     title: '关于品沐咨询｜鲍俊文 沐风｜广州品沐咨询有限公司',
     description: SITE.positioning,
     name: '关于品沐',
-    updated: '2026-07-17',
+    updated: '2026-10-13',
     priority: '0.8',
     changefreq: 'monthly'
   },
@@ -118,7 +130,7 @@ export const routeMeta = [
     title: '联系品沐咨询｜品牌电商增长、运营陪跑与GEO咨询',
     description: '联系广州品沐咨询有限公司，咨询电商战略、运营陪跑、商品页面、内容投放、数据复盘、会员复购或品牌GEO。微信 / 手机同号：13600008584。',
     name: '联系我们',
-    updated: '2026-07-17',
+    updated: '2026-10-13',
     priority: '0.8',
     changefreq: 'monthly'
   },
@@ -564,7 +576,7 @@ function faqNode(meta) {
     return {
       '@type': 'FAQPage',
       '@id': absolute(meta.path) + '#faq',
-      mainEntity: HOME_FAQS.slice(0, 4).map((item) => ({
+      mainEntity: HOME_FAQS.map((item) => ({
         '@type': 'Question',
         name: item.q,
         acceptedAnswer: { '@type': 'Answer', text: item.a }
@@ -745,7 +757,7 @@ function webPageNode(meta) {
   const resourcePage = resourcePageForMeta(meta);
   const insight = insightForMeta(meta);
   const node = {
-    '@type': resourcePage || meta.insightIndex ? 'CollectionPage' : meta.path === '/contact/' ? 'ContactPage' : meta.path === '/about/' ? 'AboutPage' : meta.path === '/cases/' ? 'CollectionPage' : 'WebPage',
+    '@type': resourcePage || meta.insightIndex || meta.templateLibrary ? 'CollectionPage' : /\/(?:en\/)?contact\/$/.test(meta.path) ? 'ContactPage' : /\/(?:en\/)?about\/$/.test(meta.path) ? 'AboutPage' : /\/(?:en\/)?cases\/$/.test(meta.path) ? 'CollectionPage' : 'WebPage',
     '@id': absolute(meta.path) + '#webpage',
     url: absolute(meta.path),
     name: meta.title,
@@ -769,6 +781,7 @@ function webPageNode(meta) {
     node.mainEntity = { '@id': absolute(meta.path) + '#terms' };
     node.mentions = resourcePage.terms.map((term) => term.name);
   }
+  if (meta.templateLibrary) node.mainEntity = { '@id': absolute(meta.path) + '#templates' };
   return node;
 }
 
@@ -777,6 +790,13 @@ export function jsonLdForRoute(meta) {
   if (meta.path === '/' || meta.path === '/services/') graph.push(...serviceNodes());
   const optional = [itemListNode(meta), leadServiceNode(meta), faqNode(meta), personNode(meta), caseArticleNode(meta), insightArticleNode(meta), contactNode(meta), softwareApplicationNode(meta), definedTermSetNode(meta)].filter(Boolean);
   graph.push(...optional);
+  if (meta.templateLibrary) graph.push({
+    '@type': 'ItemList', '@id': absolute(meta.path) + '#templates', numberOfItems: practicalResources.length,
+    itemListElement: practicalResources.map((item, index) => ({
+      '@type': 'ListItem', position: index + 1,
+      item: { '@type': 'CreativeWork', name: item.title, description: item.description, url: absolute(meta.path) + '#' + item.id, inLanguage: 'zh-CN', isAccessibleForFree: true, publisher: { '@id': ORIGIN + '/#organization' }, encoding: { '@type': 'MediaObject', contentUrl: ORIGIN + '/downloads/' + item.filename, encodingFormat: 'text/csv' } }
+    }))
+  });
   return { '@context': 'https://schema.org', '@graph': graph };
 }
 

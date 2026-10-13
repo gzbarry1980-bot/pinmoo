@@ -27,14 +27,14 @@ function initHeader() {
   const closeMenu = function() {
     panel.classList.remove('open');
     button.setAttribute('aria-expanded', 'false');
-    button.setAttribute('aria-label', '打开导航');
+    button.setAttribute('aria-label', document.documentElement.lang.startsWith('en') ? 'Open navigation' : '打开导航');
     button.innerHTML = menuIcon(false);
     document.body.classList.remove('menu-open');
   };
   button.addEventListener('click', function() {
     const open = panel.classList.toggle('open');
     button.setAttribute('aria-expanded', String(open));
-    button.setAttribute('aria-label', open ? '关闭导航' : '打开导航');
+    button.setAttribute('aria-label', document.documentElement.lang.startsWith('en') ? (open ? 'Close navigation' : 'Open navigation') : (open ? '关闭导航' : '打开导航'));
     button.innerHTML = menuIcon(open);
     document.body.classList.toggle('menu-open', open);
   });
@@ -61,6 +61,7 @@ function initCaseFilters() {
   const row = document.querySelector('.filter-row');
   const grid = document.getElementById('casesGrid');
   if (!row || !grid) return;
+  row.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.classList.contains('active'))));
 
   row.addEventListener('click', function(event) {
     const button = event.target.closest('button[data-filter]');
@@ -68,6 +69,7 @@ function initCaseFilters() {
     const filter = button.dataset.filter || '';
     row.querySelectorAll('button').forEach(function(item) {
       item.classList.toggle('active', item === button);
+      item.setAttribute('aria-pressed', String(item === button));
     });
     grid.querySelectorAll(':scope > [data-case-filters]').forEach(function(card) {
       const values = (card.dataset.caseFilters || '').split('|');
@@ -122,14 +124,15 @@ function initTemplateCopy() {
         input.remove();
         if (!copied) {
           const label = button.querySelector('span');
-          if (label) label.textContent = '请选中文字手动复制';
+          if (label) label.textContent = document.documentElement.lang.startsWith('en') ? 'Select the message to copy' : '请选择文字手动复制';
           return;
         }
       }
       const label = button.querySelector('span');
       if (!label) return;
-      label.textContent = '已复制，可粘贴到微信';
-      window.setTimeout(function() { label.textContent = '复制这段话'; }, 2400);
+      const original = label.textContent;
+      label.textContent = document.documentElement.lang.startsWith('en') ? 'Copied' : '已复制，可粘贴到微信';
+      window.setTimeout(function() { label.textContent = original; }, 2400);
     });
   });
 }
@@ -157,6 +160,8 @@ function initConversion() {
     if (!link) return;
     if (link.getAttribute('href')?.startsWith('tel:')) trackEvent('phone_click', eventPlacement(link));
     else if (link.dataset.event === 'report_open' || link.href.includes('service=geo-report')) trackEvent('report_open', eventPlacement(link));
+    else if (link.dataset.event === 'resource_download') trackEvent('resource_download', eventPlacement(link));
+    else if (link.dataset.event === 'consult_open' || /\/(?:en\/)?contact\/$/.test(new URL(link.href).pathname)) trackEvent('consult_open', eventPlacement(link));
   });
   document.querySelectorAll('[data-copy-wechat]').forEach(button => {
     button.addEventListener('click', async () => {
@@ -166,8 +171,10 @@ function initConversion() {
         button.textContent = document.documentElement.lang.startsWith('en') ? 'Copied' : '已复制微信号';
         trackEvent('wechat_copy', eventPlacement(button));
       } catch {
-        button.textContent = button.dataset.copyWechat;
-        button.setAttribute('aria-label', '微信号 ' + button.dataset.copyWechat);
+        const status = button.closest('.contact-conversation')?.querySelector('.copy-status');
+        if (status) status.textContent = document.documentElement.lang.startsWith('en') ? 'Copy unavailable. Select the WeChat number above.' : '复制未成功，请选中上方微信号手动复制。';
+        else button.textContent = button.dataset.copyWechat;
+        button.setAttribute('aria-label', (document.documentElement.lang.startsWith('en') ? 'WeChat number ' : '微信号 ') + button.dataset.copyWechat);
       }
       window.setTimeout(() => { button.textContent = original; }, 3000);
     });
@@ -208,8 +215,19 @@ function initInsightSearch() {
   if (!input) return;
   const clusters = [...document.querySelectorAll('.insight-cluster')];
   const links = [...document.querySelectorAll('.insight-cluster-nav a')];
+  const topics = new Set(['all', ...clusters.map(cluster => cluster.id)]);
+  const reset = document.getElementById('insightReset');
   let category = 'all';
-  const update = () => {
+  let departingScroll;
+  const readUrl = () => {
+    const query = new URLSearchParams(location.search);
+    input.value = query.get('q') || '';
+    const aliases = { 'brand-answers': 'decision', 'guangzhou-services': 'decision' };
+    const requested = query.get('topic') || location.hash.slice(1);
+    const topic = aliases[requested] || requested;
+    category = topics.has(topic) ? topic : 'all';
+  };
+  const update = (save = true) => {
     const words = input.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
     let count = 0;
     clusters.forEach(cluster => {
@@ -224,12 +242,53 @@ function initInsightSearch() {
     });
     document.getElementById('insightCount').textContent = count + ' 篇文章';
     document.getElementById('insightEmpty').hidden = count !== 0;
-    links.forEach(link => link.setAttribute('aria-current', String(link.hash.slice(1) === category)));
+    links.forEach(link => {
+      if (link.dataset.cluster === category) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    });
+    reset.hidden = !input.value && category === 'all';
+    if (save) {
+      const url = new URL(location.href);
+      url.search = '';
+      url.hash = '';
+      if (input.value.trim()) url.searchParams.set('q', input.value.trim());
+      if (category !== 'all') url.searchParams.set('topic', category);
+      history.replaceState(history.state, '', url);
+      try { sessionStorage.setItem('pinmoo-insights-return', url.pathname + url.search); } catch {}
+    }
   };
   input.form.addEventListener('submit', event => event.preventDefault());
-  input.addEventListener('input', update);
-  links.forEach(link => link.addEventListener('click', event => { event.preventDefault(); category = link.hash.slice(1); update(); }));
-  update();
+  input.addEventListener('input', () => update());
+  links.forEach(link => link.addEventListener('click', event => { event.preventDefault(); category = link.dataset.cluster; update(); }));
+  const clear = () => { input.value = ''; category = 'all'; update(); input.focus(); };
+  reset.addEventListener('click', clear);
+  document.querySelector('[data-reset-insights]')?.addEventListener('click', clear);
+  window.addEventListener('popstate', () => { readUrl(); update(false); });
+  window.addEventListener('pagehide', () => {
+    try { sessionStorage.setItem('pinmoo-insights-scroll', String(departingScroll ?? window.scrollY)); } catch {}
+  });
+  document.addEventListener('click', event => {
+    const link = event.target.closest('.insight-card a');
+    if (link) departingScroll = window.scrollY;
+  });
+  readUrl();
+  update(false);
+  if (new URLSearchParams(location.search).has('resume')) {
+    try { window.scrollTo(0, Number(sessionStorage.getItem('pinmoo-insights-scroll')) || 0); } catch {}
+  }
+}
+
+function initInsightReturn() {
+  const back = document.querySelector('.insight-article .back-link');
+  if (!back) return;
+  try {
+    const saved = sessionStorage.getItem('pinmoo-insights-return');
+    if (!saved) return;
+    const url = new URL(saved, location.origin);
+    if (url.origin !== location.origin || url.pathname !== '/insights/') return;
+    url.searchParams.set('resume', '1');
+    back.href = url.pathname + url.search;
+  } catch {}
 }
 
 function initMotion() {
@@ -258,5 +317,6 @@ initFloatingContact();
 initTemplateCopy();
 initReportTabs();
 initInsightSearch();
+initInsightReturn();
 initMotion();
 initConversion();

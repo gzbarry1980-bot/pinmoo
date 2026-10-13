@@ -1,3 +1,4 @@
+import {estimatePercentile,estimateScore} from './score-distribution.js';
 export const YEAR_WEIGHTS = { 2021: 0.05, 2022: 0.08, 2023: 0.12, 2024: 0.2, 2025: 0.25, 2026: 0.3 };
 export const BATCH_LIMITS = { 2: 3, 3: 6, 4: 6 };
 
@@ -57,17 +58,11 @@ export function gradientIndex(score, line) {
 }
 
 function percentileForScore(score, bands) {
-  if (!bands?.length) return null;
-  const sorted = [...bands].sort((a, b) => b.score - a.score);
-  const exact = sorted.find((row) => score >= row.score);
-  if (exact) return exact.cumulativeRatio;
-  return sorted.at(-1)?.cumulativeRatio ?? null;
+  return estimatePercentile(score,bands);
 }
 
 function scoreForPercentile(percentile, bands) {
-  if (percentile === null || !bands?.length) return null;
-  const sorted = [...bands].sort((a, b) => a.cumulativeRatio - b.cumulativeRatio);
-  return sorted.find((row) => row.cumulativeRatio >= percentile)?.score ?? sorted.at(-1)?.score ?? null;
+  return estimateScore(percentile,bands);
 }
 
 function scopeEligible(profile, record) {
@@ -283,6 +278,7 @@ export function simulateOutcomes(profile, plan, dataset, seed = 20260722, iterat
   const yearHits = new Map(slots.map((slot) => [slot.key, new Map()]));
   const outcomes = new Map();
   const imputedCounts = new Map(slots.map((slot) => [slot.key, 0]));
+  const uncertainCounts = new Map(slots.map((slot) => [slot.key, 0]));
   const low = Number(profile.scoreLow || profile.score);
   const mode = Number(profile.score);
   const high = Number(profile.scoreHigh || profile.score);
@@ -299,6 +295,7 @@ export function simulateOutcomes(profile, plan, dataset, seed = 20260722, iterat
       const scenarioRecord = scenarioRecordFor(index, profile, slot, year, dataset, bandsByYear);
       if (scenarioRecord.imputed) imputedCounts.set(slot.key, imputedCounts.get(slot.key) + 1);
       const outcome = evaluateRecord(profile, slot, scenarioRecord.record, mappedScore, dataset.lines, null);
+      if(outcome.state==='uncertain')uncertainCounts.set(slot.key,uncertainCounts.get(slot.key)+1);
       const viable = outcome.state === 'pass' || (outcome.state === 'uncertain' && random() < 0.5);
       if (viable) {
         hits.set(slot.key, hits.get(slot.key) + 1);
@@ -317,15 +314,16 @@ export function simulateOutcomes(profile, plan, dataset, seed = 20260722, iterat
     let upper = weightedQuantile(yearly, 0.8);
     if (lower === null || upper === null) [lower, upper] = [chance - 15, chance + 15];
     if (Math.abs(upper - lower) < 8) [lower, upper] = [chance - 5, chance + 5];
-    const yearsWithData = index.yearsBySlot.get(slot.key)?.size || 0;
     const imputedRatio = imputedCounts.get(slot.key) / iterations;
     const historicalEvidence = historicalEvidenceFor(index, profile, slot, availableYears, bandsByYear, dataset.manifest.latestPolicyYear);
+    const yearsWithData = historicalEvidence.directYears.length;
+    if(!yearsWithData)return {...slot,state:'no-data',reason:'缺少符合考生类别和招生范围的历史记录，暂不显示机会',yearsWithData:0,confidence:'低',historicalEvidence};
     if (imputedRatio > 0.4) [lower, upper] = [lower - 10, upper + 10];
     else if (imputedRatio > 0.1) [lower, upper] = [lower - 6, upper + 6];
     if (historicalEvidence.cutoffSpan >= 30) [lower, upper] = [lower - 10, upper + 10];
     else if (historicalEvidence.cutoffSpan >= 18) [lower, upper] = [lower - 6, upper + 6];
     const interval = [clamp(Math.round(lower), 5, 95), clamp(Math.round(upper), 5, 95)].sort((a, b) => a - b);
-    const confidence = yearsWithData >= 4 && imputedRatio <= 0.1 && interval[1] - interval[0] <= 20 && historicalEvidence.cutoffSpan < 18
+    const confidence = yearsWithData >= 5 && imputedRatio <= 0.1 && interval[1] - interval[0] <= 20 && historicalEvidence.cutoffSpan < 18
       ? '高'
       : yearsWithData >= 3 && imputedRatio <= 0.4 && historicalEvidence.cutoffSpan < 30 ? '中' : '低';
     const outcomeProbability = Math.round(((outcomes.get(slot.key) || 0) / iterations) * 1000) / 10;
@@ -334,7 +332,9 @@ export function simulateOutcomes(profile, plan, dataset, seed = 20260722, iterat
     if (yearsWithData < 3) notes.push('直接同口径历史不足3年');
     if (historicalEvidence.cutoffSpan >= 18) notes.push(`近年等位门槛跨度${historicalEvidence.cutoffSpan}分，已放宽区间`);
     if (historicalEvidence.firstChoiceOnlyRate >= 50 && slot.position > 1) notes.push(`近年${historicalEvidence.firstChoiceOnlyRate}%记录在第一志愿完成计划`);
-    return { ...slot, state: 'forecast', chance, interval, tier: chanceTier(chance), outcomeProbability, confidence, yearsWithData, imputedRatio, historicalEvidence, notes: notes.length ? notes : undefined };
+    const uncertainRatio=uncertainCounts.get(slot.key)/iterations;
+    if(uncertainRatio>0.05)notes.push(`约${Math.round(uncertainRatio*100)}%情景缺少同分或末位信息；当前按中性假设处理，结果需谨慎参考`);
+    return { ...slot, state: 'forecast', chance, interval, tier: chanceTier(chance), outcomeProbability, confidence:uncertainRatio>0.4?'低':confidence, yearsWithData, imputedRatio, uncertainRatio, historicalEvidence, notes: notes.length ? notes : undefined };
   });
 
   const outcomeRows = [...outcomes.entries()].map(([key, count]) => ({
@@ -347,9 +347,10 @@ export function simulateOutcomes(profile, plan, dataset, seed = 20260722, iterat
     slotResults,
     outcomes: outcomeRows,
     noneProbability: outcomeRows.find((row) => row.key === 'none')?.probability || 0,
+    dataInsufficient:slotResults.every(row=>row.state==='no-data'),
     iterations,
     seed,
-    modelVersion: '2.1',
+    modelVersion: '2.2',
     usableYears: availableYears,
     excludedYears: dataset.manifest.years.filter((year) => !availableYears.includes(year))
   };

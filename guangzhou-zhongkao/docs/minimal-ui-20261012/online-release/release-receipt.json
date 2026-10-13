@@ -1,0 +1,44 @@
+{
+  "status": "deployed",
+  "version": "ui-20261012-minimal",
+  "previous": "/var/www/zhongkao.pinmoo.top/releases/ui-20261012-codex-ui",
+  "current": "/var/www/zhongkao.pinmoo.top/releases/ui-20261012-minimal",
+  "verifiedUIFiles": 32,
+  "protectedFiles": 70,
+  "accessConfigUnchanged": true,
+  "health": [
+    {
+      "route": "/",
+      "bytes": 4854
+    },
+    {
+      "route": "/verify/",
+      "bytes": 20628
+    },
+    {
+      "route": "/schools/",
+      "bytes": 824
+    },
+    {
+      "route": "/special/?mode=talent",
+      "bytes": 15363
+    },
+    {
+      "route": "/special/?mode=autonomous",
+      "bytes": 15363
+    },
+    {
+      "route": "/quota/",
+      "bytes": 2475
+    },
+    {
+      "route": "/my/",
+      "bytes": 838
+    },
+    {
+      "route": "/unlock/",
+      "bytes": 7326
+    }
+  ],
+  "published_at": "2026-10-12T22:14:54.735433+08:00"
+}

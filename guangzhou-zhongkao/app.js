@@ -1,11 +1,12 @@
-import { BATCH_LIMITS, evaluatePlan, replayPlan, schoolFamilyKey, simulateOutcomes } from './engine.js?v=20260729b';
-import { simulateOutcomesRealistic } from './realistic-sim.js?v=20260729b';
+import { BATCH_LIMITS, evaluatePlan, replayPlan, schoolFamilyKey, simulateOutcomes } from './engine.js?v=20261013-model';
+import { simulateOutcomesRealistic } from './realistic-sim.js?v=20261013-model';
 import { readWorkspace, updateWorkspace, savePlan, activatePlan, parseAnonymousPlan } from './workspace-store.js';
 import { matchesSchool, schoolURL } from './school-service.js';
 import {confidenceCopy,plainCopy,simplifyVisibleCopy,readingGuideHTML} from './parent-copy.js';
 import {installRegionControls,applyRegionControls,readRegionControls,regionSummary,preferredRegions,matchesRegion,prioritizeRegions,regionValidation} from './region-preference.js';
-import {prepareUnifiedWorkspace} from './workflow-ui.js?v=20261012-minimal';
-import {buildIntentDraft,installIntentPlanner} from './intent-planner.js?v=20261012-minimal';
+import {prepareUnifiedWorkspace} from './workflow-ui.js?v=20261013-flow';
+import {buildIntentDraft,installIntentPlanner} from './intent-planner.js?v=20261013-flow';
+import {renderPlanPreview,renderDecisionSummary,primaryOutcome,decisionRisks,confirmAdjustment} from './decision-experience.js?v=20261013-flow';
 
 const DISCLAIMER = '本系统依据公开招生政策及历史数据进行模拟分析，所示评分、录取机会和学校建议均为统计估计，不代表官方录取结果或任何录取承诺。招生政策、计划、报考范围、成绩分布和志愿竞争每年可能变化，请以当年广州市教育局、广州市招生考试委员会办公室及中考服务平台最终公布的信息为准。名额分配、随迁子女、跨区及其他资格请向学校或招考部门核实。志愿选择由考生及监护人自行决定。本系统仅供参考。';
 
@@ -872,6 +873,7 @@ function syncQuotaInterface({ clearWhenDisabled = false } = {}) {
 
 function saveDraft({keepResult=false}={}) {
   const profile=getProfile();
+  renderPlanPreview(profile,plan);
   if(!keepResult) invalidateResult();
   try {
     localStorage.setItem(storageKey, JSON.stringify({ profile, plan, savedAt: new Date().toISOString() }));
@@ -1281,7 +1283,7 @@ async function analyze() {
     updateCoach();
     updateSlotMeta();
     saveDraft({keepResult:true});
-    try {updateWorkspace(s=>{const current=s.plans.find(p=>p.id===s.activePlanId);if(current)current.result={score:latestScore.total,label:latestScore.label,noneProbability:latestAnalysis.noneProbability??null,mostLikely:latestAnalysis.mode==='forecast'?latestAnalysis.outcomes.find(r=>r.slot)?.slot?.schoolName:latestAnalysis.admitted?.schoolName,dataVersion:dataset.manifest.version,analyzedAt:new Date().toISOString()};});}catch{}
+    try {updateWorkspace(s=>{const current=s.plans.find(p=>p.id===s.activePlanId);if(current)current.result={score:latestScore.total,label:latestScore.label,noneProbability:latestAnalysis.mode==='forecast'&&(latestAnalysis.dataInsufficient||!latestAnalysis.usableYears?.length)?null:latestAnalysis.noneProbability??null,mostLikely:primaryOutcome(latestAnalysis),majorRisk:decisionRisks(profile,latestAnalysis,latestScore)[0]||'采用前请核对当年条件',modelVersion:latestAnalysis.modelVersion||'replay',dataVersion:dataset.manifest.version,analyzedAt:new Date().toISOString()};});}catch{}
     try {sessionStorage.setItem('zk-analysis-cache',JSON.stringify({profile,plan,analysis:latestAnalysis,score:latestScore,version:dataset.manifest.version,realistic:useRealisticSim}));}catch{}
     $('#analysis').dataset.stale='false';
     if($('#staleNotice'))$('#staleNotice').hidden=true;
@@ -1309,12 +1311,11 @@ function renderAnalysis(profile, analysis, score) {
   renderImprovements(score);
 
   if (analysis.mode === 'forecast') {
-    const likely = analysis.outcomes.find((row) => row.key !== 'none');
-    $('#mostLikely').textContent = likely?.slot ? `最可能去向：${likely.slot.schoolName}` : '当前方案未形成明确录取去向';
-    $('#noneRisk').textContent = `预测未录取风险：${analysis.noneProbability}%（仅此方案）`;
-    $('#chanceList').innerHTML = analysis.slotResults.map((row) => `
+    $('#mostLikely').textContent = `主要模拟情景：${primaryOutcome(analysis)}`;
+    $('#noneRisk').textContent = analysis.usableYears?.length&&!analysis.dataInsufficient ? `未被当前志愿录取的模拟比例：${analysis.noneProbability}%` : '历史资料不足，暂不显示比例';
+    $('#chanceList').innerHTML = analysis.slotResults.map((row) => row.state==='no-data'?`<article class="chance-row"><strong>第${row.batch}批第${row.position}志愿 · ${escapeHtml(row.schoolName)}</strong><p>${escapeHtml(row.reason)}</p></article>`:`
       <article class="chance-row"><div class="chance-row-head"><div><strong>第${row.batch}批第${row.position}志愿 · ${row.schoolName}</strong><small>${row.tier} · ${confidenceCopy(row.confidence).label} · 有${row.yearsWithData}年可直接比较的记录 · 最终录到该校${row.outcomeProbability ?? 0}%${row.notes?.length ? ` · ${escapeHtml(plainCopy(row.notes.join('；')))}` : ''}</small></div><span class="chance-value"><small>这所学校的机会</small>${row.interval[0]}%—${row.interval[1]}%</span></div><div class="chance-track"><i style="--chance:${row.chance}"></i></div></article>`).join('');
-    $('#outcomeList').innerHTML = analysis.outcomes.slice(0, 8).map((row) => row.slot ? `
+    $('#outcomeList').innerHTML = analysis.dataInsufficient||!analysis.usableYears?.length ? '<p class="notice">资料不足，暂不展示录取去向比例。</p>' : analysis.outcomes.slice(0, 8).map((row) => row.slot ? `
       <button type="button" class="outcome-row school-outcome-button" data-school-detail="${escapeHtml(row.slot.schoolId)}" data-slot-key="${escapeHtml(row.slot.key)}">
         <span class="outcome-row-main"><strong>${escapeHtml(row.slot.schoolName)}</strong><small>第${row.slot.batch}批第${row.slot.position}志愿</small></span>
         <span class="outcome-row-value"><b>${row.probability}%</b><small>查看学校 ›</small></span>
@@ -1335,6 +1336,7 @@ function renderAnalysis(profile, analysis, score) {
     `模型v${analysis.modelVersion || '1.0'}按历史数据模拟10,000次。相同条件、数据和模拟设置会得到相同结果。`,
     `只使用同时具备分数段、梯度线和所选批次数据的年份（${analysis.usableYears?.join('、') || '按现有数据'}），避免把整批缺失误算为落选。`,
     '先参考官方成绩分布，把分数换成大致排名（位次），再按梯度、志愿顺序和录取分数模拟。学校缺少某年记录时，会借用本校邻近年份记录补估，并扩大预测范围。',
+    '官方分数段之间按线性分布估算位次，不是实际一分一位排名。同分或末位信息缺失时使用估计假设，并提示资料局限。',
     '也会参考学校历年录取门槛的变化，以及是否经常在第一志愿就录满。变化大、数据不足时，预测要更谨慎地看。',
     '冲刺/匹配/保底只是机会风险标签，不是平行志愿规则；广州仍按梯度投档、同梯度志愿优先录取。',
     ...(useRealisticSim ? ['已额外考虑发挥波动、不同年份的考试难度，以及刚好接近录取门槛时的不确定性。'] : [])
@@ -1343,6 +1345,7 @@ function renderAnalysis(profile, analysis, score) {
   if(!$('#analysis .parent-reading-guide'))$('#analysis .analysis-grid').before(Object.assign(document.createElement('div'),{innerHTML:readingGuideHTML()}));
   simplifyVisibleCopy($('#analysis'));
   ['#chanceList','#adviceList','#mostLikely'].forEach(id=>linkSchoolNames($(id)));
+  renderDecisionSummary(profile,plan,analysis,score,dataset,runSimulation);
 }
 
 function schoolRecordForYear(profile, slot, year) {
@@ -1447,6 +1450,7 @@ async function autoImprovePlan(key) {
   const beforePlan = plan.map((slot) => ({ ...slot }));
   const before = new Map(plan.map((slot) => [slot.key, slot.schoolId]));
   const previousTotal = latestScore.total;
+  const previousAnalysis = latestAnalysis;
   const previousDimension = latestScore.dimensions[key];
   const previousCapCount = latestScore.caps?.length || 0;
   try {
@@ -1547,6 +1551,11 @@ async function autoImprovePlan(key) {
 
     const changed = plan.filter((slot) => before.get(slot.key) !== slot.schoolId);
     if (!changed.length) return toast('当前限制下暂无可自动替换的合资格学校，请检查偏好或资格信息。');
+    const proposedAnalysis=profile.mode==='replay'?replayPlan(profile,plan,dataset):runSimulation(profile,plan,dataset,20260722,10000);
+    const proposedScore=evaluatePlan(profile,plan,proposedAnalysis);
+    if(!await confirmAdjustment(beforePlan,plan,previousTotal,proposedScore.total,previousAnalysis,proposedAnalysis)){
+      plan=beforePlan.map(slot=>({...slot}));renderBatchForms();await refreshBatchOptions();await analyze();toast('已保留原方案。');return;
+    }
     latestScore = null;
     latestAnalysis = null;
     renderBatchForms();
@@ -1662,7 +1671,6 @@ function handleAnalyzeTop() {
 
 function syncUnifiedRisk(){document.querySelectorAll('[data-unified-risk]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.unifiedRisk===$('#riskPreference').value)));}
 async function generateIntentPlan({selections,strategy,allowSupplement,status}){
-  if(window.ZhongkaoAccess&&!window.ZhongkaoAccess.guard()){status.textContent='输入序列号解锁后，可生成排序草案。';return;}
   const profile=getProfile(),failures=validateProfile(profile);
   if(failures.length)throw new Error(failures.join('；'));
   if(profile.mode!=='forecast')throw new Error('意向排序用于未来预测；历史复盘请直接填写志愿。');
@@ -1689,7 +1697,6 @@ async function generateIntentPlan({selections,strategy,allowSupplement,status}){
   $('#generationStatus').textContent=status.textContent;navigateTo($('#volunteerForm'));
 }
 async function generateUnifiedPlan(){
-  if(window.ZhongkaoAccess&&!window.ZhongkaoAccess.guard())return;
   const profile=getProfile(),failures=validateProfile(profile);
   if(failures.length)return toast(failures.join('；'));
   if(profile.mode!=='forecast')return toast('自动生成用于未来预测；历史复盘请直接填写学校。');
@@ -1891,11 +1898,17 @@ async function init() {
     }
     if(isVerify && (query.get('resume')==='1'||query.get('plan'))) {
       try{const cached=JSON.parse(sessionStorage.getItem('zk-analysis-cache')||'null');
-        if(cached&&cached.version===dataset.manifest.version&&cached.realistic===useRealisticSim&&JSON.stringify(cached.profile)===JSON.stringify(getProfile())&&JSON.stringify(cached.plan)===JSON.stringify(plan)) {
+        if(cached&&cached.version===dataset.manifest.version&&(cached.analysis.mode==='replay'||cached.analysis.modelVersion==='2.2')&&cached.realistic===useRealisticSim&&JSON.stringify(cached.profile)===JSON.stringify(getProfile())&&JSON.stringify(cached.plan)===JSON.stringify(plan)) {
           latestAnalysis=cached.analysis;latestScore=cached.score;renderAnalysis(getProfile(),latestAnalysis,latestScore);$('#analysis').hidden=false;$('#analysis').dataset.stale='false';updateCoach();updateSlotMeta();
           if(location.hash==='#analysis')navigateTo($('#analysis'));
         }
       }catch{}
+    }
+    if(isVerify){
+      renderPlanPreview(getProfile(),plan);
+      const requestedStep=query.get('step');
+      if(requestedStep==='analysis'&&latestScore)navigateTo($('#analysis'));
+      else if(['analysis','plan'].includes(requestedStep)&&plan.some(r=>r.schoolId))navigateTo($('#volunteerForm'));
     }
     // 兜底：确保付费闸门打码已应用（access-gate 解析完成后会再触发，这里保证初次渲染即生效）
     window.ZhongkaoAccess?.applyContentGating?.();

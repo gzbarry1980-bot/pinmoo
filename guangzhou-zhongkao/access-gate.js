@@ -120,7 +120,17 @@
   function openUnlock() {
     const path = location.pathname || '/';
     if (path.startsWith('/unlock/')) { window.location.href='/'; return; }
-    window.location.href = `/unlock/?returnTo=${encodeURIComponent(path+location.search+location.hash)}`;
+    const back=new URL(location.href);
+    if(path.startsWith('/verify/')) {
+      try {
+        const workspace=JSON.parse(localStorage.getItem('pinmoo-zk-workspace-v2')||'null');
+        if(workspace?.activePlanId&&workspace.plans?.some(p=>p.id===workspace.activePlanId)) {
+          back.searchParams.delete('new');back.searchParams.set('plan',workspace.activePlanId);
+        }
+      } catch (_) {}
+      back.searchParams.set('step',document.body.dataset.workflowStep||'profile');
+    }
+    window.location.href = `/unlock/?returnTo=${encodeURIComponent(back.pathname+back.search+back.hash)}`;
   }
 
   // ---- 付费引导弹层（9.9 元会员付费解锁） ----
@@ -177,25 +187,24 @@
     el.className = 'paywall-overlay';
     el.setAttribute('role', 'dialog');
     el.setAttribute('aria-modal', 'true');
-    el.setAttribute('aria-label', '开通会员解锁完整功能');
+    el.setAttribute('aria-label', '解锁完整志愿分析');
+    const mini=isInMiniProgram();
     el.innerHTML = `
       <div class="paywall-card">
         <button class="paywall-close" type="button" aria-label="关闭">×</button>
         <span class="paywall-eyebrow">广州中考志愿模拟助手</span>
-        <h2 class="paywall-title">开通会员，解锁完整志愿模拟</h2>
-        <p class="paywall-sub">部分方案详情已打码预览。支付 <strong>¥9.9</strong> 开通会员后，可查看完整方向、志愿表、评分、录取机会与调整建议，长期有效。</p>
+        <h2 class="paywall-title">解锁完整志愿分析</h2>
+        <p class="paywall-sub">${mini?'查看小程序开通方式，解锁完整分析。':'输入有效序列号，可查看整份志愿与分析。每个序列号最多绑定两台设备，使用期限以序列号权益为准。'}</p>
         <ul class="paywall-benefits">
-          <li>方向版 / 目标校版 / 求证版 完整生成与评分</li>
-          <li>学校历史录取门槛、梯度保护与机会区间</li>
-          <li>JSON 导入导出、打印 PDF 报告</li>
-          <li>一次开通，多端通用</li>
+          <li>完整学校顺序与方案合理度</li>
+          <li>历史依据、模拟去向与具体调整建议</li>
+          <li>发挥变化对比、保存方案与打印报告</li>
         </ul>
-        <button class="paywall-pay" type="button">立即开通 ¥9.9</button>
+        <button class="paywall-pay" type="button">${mini?'查看开通方式':'输入序列号解锁'}</button>
         <details class="wechat-consult">
-          <summary>不在小程序内？搜索小程序开通</summary>
-          <p>微信搜索「广州中考志愿模拟助手」小程序，或在微信中扫描下方小程序码开通会员。</p>
-          <img src="/assets/miniprogram-qrcode.png" alt="广州中考志愿模拟助手小程序码" width="200" height="200" style="display:block;width:200px;max-width:100%;height:auto;margin:12px auto" loading="lazy" onerror="this.style.display='none'" />
-          <small>若二维码未显示，请在微信搜索小程序名称开通。</small>
+          <summary>需要了解使用方式？联系品沐</summary>
+          <p>可通过原咨询渠道联系客服，或扫描下方微信二维码。</p>
+          <img src="/assets/wechat-serial-consult-20261005.png" alt="品沐使用咨询微信二维码" width="180" height="230" style="display:block;width:180px;max-width:100%;height:auto;margin:12px auto" loading="lazy" />
         </details>
         <button class="paywall-later" type="button">稍后再说</button>
       </div>`;
@@ -210,13 +219,16 @@
 
   function showPaywall() {
     if (isEntitled()) return;
+    previousFocus=document.activeElement;
     buildOverlay().classList.add('show');
     document.body.classList.add('paywall-open');
+    overlayEl.querySelector('.paywall-pay').focus();
   }
 
   function hidePaywall() {
     if (overlayEl) overlayEl.classList.remove('show');
     document.body.classList.remove('paywall-open');
+    previousFocus?.focus?.({preventScroll:true});
   }
 
   /** 单点拦截（保留接口，当前内容级打码为主路径）：已授权返回 true，否则弹付费引导并返回 false。 */
@@ -225,6 +237,18 @@
     showPaywall();
     return false;
   }
+
+  let previousFocus=null;
+  document.addEventListener('keydown',event=>{
+    if(!overlayEl?.classList.contains('show'))return;
+    if(event.key==='Escape'){event.preventDefault();hidePaywall();}
+    if(event.key==='Tab'){
+      const items=[...overlayEl.querySelectorAll('button,summary,a[href]')].filter(e=>e.getClientRects().length);
+      const first=items[0],last=items.at(-1);
+      if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}
+      else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}
+    }
+  });
 
   // ---- 内容级马赛克 ----
   function buildVeil(gate) {

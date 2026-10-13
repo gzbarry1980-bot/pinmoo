@@ -1,0 +1,62 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import XLSX from 'xlsx';
+import { routeMeta } from '../src/data/seo.js';
+import { insights } from '../src/data/insights.js';
+import { insightPractice } from '../src/data/insight-practice.js';
+import { practicalResources, resourceLibrary } from '../src/data/practical-resources.js';
+
+const root = path.resolve('dist');
+const pages = routeMeta.filter(meta => !meta.duplicate && !meta.aiTool);
+let images = 0;
+for (const meta of pages) {
+  const html = await fs.readFile(path.join(root, meta.file), 'utf8');
+  for (const match of html.matchAll(/<(?:img|script|source)[^>]+(?:src|srcset)="([^"]+)"/g)) {
+    const url = new URL(match[1], 'https://pinmooconsulting.com');
+    if (url.origin !== 'https://pinmooconsulting.com') continue;
+    const file = path.join(root, decodeURIComponent(url.pathname));
+    assert.ok((await fs.stat(file)).isFile(), meta.path + ': missing resource ' + url.pathname);
+    images++;
+  }
+  if (meta.insightSlug) {
+    assert.ok(html.indexOf('insight-mobile-toc') < html.indexOf('class="insight-section'), meta.path + ': mobile table of contents should precede body');
+  }
+}
+
+for (const item of practicalResources) {
+  const data = await fs.readFile(path.join(root, 'downloads', item.filename));
+  assert.equal(data.subarray(0, 3).toString('hex'), 'efbbbf', 'CSV must include UTF-8 BOM for Chinese spreadsheet readers');
+  const book = XLSX.read(data, { type: 'buffer' });
+  const rows = XLSX.utils.sheet_to_json(book.Sheets[book.SheetNames[0]], { header: 1, defval: '' });
+  assert.deepEqual(rows[0], item.headers, item.id + ': CSV header mismatch');
+  assert.deepEqual(rows.slice(1), item.rows, item.id + ': CSV rows mismatch');
+}
+
+const enhanced = insights.filter(item => item.practicalResource);
+assert.equal(enhanced.length, Object.keys(insightPractice).length);
+assert.equal(enhanced.length, 12);
+for (const item of enhanced) {
+  assert.equal(item.updated, '2026-10-13');
+  assert.ok(item.published <= item.updated);
+  assert.equal(item.sections.filter(section => section.id === 'practical-next-step').length, 1);
+  assert.ok(practicalResources.some(resource => resource.id === item.practicalResource));
+}
+
+const home = await fs.readFile(path.join(root, 'index.html'), 'utf8');
+assert.ok(home.includes('data-event="consult_open"'));
+assert.ok(home.includes('确认范围与交付'));
+assert.ok(home.includes(resourceLibrary.path));
+assert.ok(!home.includes('先拿到公开信息版基础报告，再一起确认'));
+const faqGraph = [...home.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)].flatMap(match => JSON.parse(match[1])['@graph'] || []);
+for (const item of faqGraph.find(node => node['@type'] === 'FAQPage').mainEntity) {
+  assert.ok(home.includes(item.name) && home.includes(item.acceptedAnswer.text), 'FAQ schema must match visible content');
+}
+const index = await fs.readFile(path.join(root, 'insights/index.html'), 'utf8');
+assert.ok(index.includes('href="https://pinmooconsulting.com/en/" aria-label="English overview"'));
+assert.ok(index.includes('insightReset'));
+const contact = await fs.readFile(path.join(root, 'contact/index.html'), 'utf8');
+assert.ok(contact.indexOf('contact-actions') < contact.indexOf('contact-wechat'));
+assert.ok(contact.includes('公司与品牌事实是否一致'));
+
+console.log(`升级检查通过：${pages.length} 个页面资源，${images} 条资源引用，4 份CSV解析，12 篇内容增强与关键路径检查。`);

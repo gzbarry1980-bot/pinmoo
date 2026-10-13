@@ -1,0 +1,75 @@
+{
+  "at": "2026-10-12T14:44:04.005Z",
+  "scope": "Local resource UI; no authentication, serial or membership mutations",
+  "results": [
+    {
+      "name": "Homepage retains four task entries",
+      "pass": true
+    },
+    {
+      "name": "Homepage resource link is reachable",
+      "pass": true
+    },
+    {
+      "name": "All ten entries render",
+      "pass": true
+    },
+    {
+      "name": "Cards are direct links with no nested controls",
+      "pass": true
+    },
+    {
+      "name": "School filter shows two entries",
+      "pass": true
+    },
+    {
+      "name": "Keyword search works",
+      "pass": true
+    },
+    {
+      "name": "No-result state is clear",
+      "pass": true
+    },
+    {
+      "name": "Original membership boundary is clear",
+      "pass": true
+    },
+    {
+      "name": "School overview offers reference directory",
+      "pass": true
+    },
+    {
+      "name": "General directory is not labeled a verified school article",
+      "pass": true
+    },
+    {
+      "name": "Resource layout fits 360",
+      "pass": true
+    },
+    {
+      "name": "Resource layout fits 390",
+      "pass": true
+    },
+    {
+      "name": "Resource layout fits 430",
+      "pass": true
+    },
+    {
+      "name": "Resource layout fits 1440",
+      "pass": true
+    },
+    {
+      "name": "Category deep link restores filtering",
+      "pass": true
+    },
+    {
+      "name": "Disclaimer remains present",
+      "pass": true
+    },
+    {
+      "name": "No script errors",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

@@ -15,7 +15,8 @@
 //
 // 输出结构与 engine.simulateOutcomes 完全一致，app.js 渲染层无需改动。
 
-import { evaluateRecord, gradientIndex } from './engine.js?v=20260729b';
+import { evaluateRecord, gradientIndex } from './engine.js?v=20261013-model';
+import {estimatePercentile,estimateScore} from './score-distribution.js';
 
 /* ---------- 以下为从 engine.js 复制的纯函数（不修改 engine.js） ---------- */
 
@@ -69,17 +70,11 @@ function scenarioYearsForPlan(dataset, records, slots) {
 }
 
 function percentileForScore(score, bands) {
-  if (!bands?.length) return null;
-  const sorted = [...bands].sort((a, b) => b.score - a.score);
-  const exact = sorted.find((row) => score >= row.score);
-  if (exact) return exact.cumulativeRatio;
-  return sorted.at(-1)?.cumulativeRatio ?? null;
+  return estimatePercentile(score,bands);
 }
 
 function scoreForPercentile(percentile, bands) {
-  if (percentile === null || !bands?.length) return null;
-  const sorted = [...bands].sort((a, b) => a.cumulativeRatio - b.cumulativeRatio);
-  return sorted.find((row) => row.cumulativeRatio >= percentile)?.score ?? sorted.at(-1)?.score ?? null;
+  return estimateScore(percentile,bands);
 }
 
 function scopeEligible(profile, record) {
@@ -306,15 +301,16 @@ export function simulateOutcomesRealistic(profile, plan, dataset, { seed = 20260
     let upper = weightedQuantile(yearly, 0.8);
     if (lower === null || upper === null) [lower, upper] = [chance - 15, chance + 15];
     if (Math.abs(upper - lower) < 8) [lower, upper] = [chance - 5, chance + 5];
-    const yearsWithData = index.yearsBySlot.get(slot.key)?.size || 0;
     const stat = anomalies.get(slot.key);
     const imputedRatio = (stat.imputed || 0) / iterations;
     const historicalEvidence = historicalEvidenceFor(index, profile, slot, availableYears, bandsByYear, dataset.manifest.latestPolicyYear);
+    const yearsWithData=historicalEvidence.directYears.length;
+    if(!yearsWithData)return {...slot,state:'no-data',reason:'缺少符合考生类别和招生范围的历史记录，暂不显示机会',yearsWithData:0,confidence:'低',historicalEvidence};
     if (imputedRatio > 0.4) [lower, upper] = [lower - 12, upper + 12];
     else if (imputedRatio > 0.1) [lower, upper] = [lower - 7, upper + 7];
     if (historicalEvidence.cutoffSpan >= 30) [lower, upper] = [lower - 12, upper + 12];
     else if (historicalEvidence.cutoffSpan >= 18) [lower, upper] = [lower - 7, upper + 7];
-    const confidence = yearsWithData >= 4 && imputedRatio <= 0.1 && upper - lower <= 20 && historicalEvidence.cutoffSpan < 18
+    const confidence = yearsWithData >= 5 && imputedRatio <= 0.1 && upper - lower <= 20 && historicalEvidence.cutoffSpan < 18
       ? '高'
       : yearsWithData >= 3 && imputedRatio <= 0.4 && historicalEvidence.cutoffSpan < 30 ? '中' : '低';
     const notes = [];
@@ -324,6 +320,7 @@ export function simulateOutcomesRealistic(profile, plan, dataset, { seed = 20260
     if (yearsWithData < 3) notes.push('历史数据较少，区间偏宽');
     if (historicalEvidence.cutoffSpan >= 18) notes.push(`近年等位门槛跨度${historicalEvidence.cutoffSpan}分，已放宽区间`);
     if (historicalEvidence.firstChoiceOnlyRate >= 50 && slot.position > 1) notes.push(`近年${historicalEvidence.firstChoiceOnlyRate}%记录在第一志愿完成计划`);
+    if(stat.uncertain/iterations>0.05)notes.push(`约${Math.round(stat.uncertain/iterations*100)}%情景缺少同分或末位信息，使用了估计假设`);
     return {
       ...slot,
       state: 'forecast',
@@ -331,7 +328,7 @@ export function simulateOutcomesRealistic(profile, plan, dataset, { seed = 20260
       interval: [clamp(Math.round(lower), 5, 95), clamp(Math.round(upper), 5, 95)].sort((a, b) => a - b),
       tier: chanceTier(chance),
       outcomeProbability: Math.round(((outcomes.get(slot.key) || 0) / iterations) * 1000) / 10,
-      confidence,
+      confidence:stat.uncertain/iterations>0.4?'低':confidence,
       yearsWithData,
       imputedRatio,
       historicalEvidence,
@@ -350,10 +347,11 @@ export function simulateOutcomesRealistic(profile, plan, dataset, { seed = 20260
     slotResults,
     outcomes: outcomeRows,
     noneProbability: outcomeRows.find((row) => row.key === 'none')?.probability || 0,
+    dataInsufficient:slotResults.every(row=>row.state==='no-data'),
     iterations,
     seed,
     realistic: true,
-    modelVersion: '2.1',
+    modelVersion: '2.2',
     usableYears: availableYears,
     excludedYears: dataset.manifest.years.filter((year) => !availableYears.includes(year))
   };

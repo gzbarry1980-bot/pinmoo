@@ -1,7 +1,7 @@
 import {loadSchoolData,historyFor,schoolDistrict,schoolURL} from './school-service.js';
 import {readWorkspace} from './workspace-store.js';
-import {installStepActions} from './workflow-ui.js?v=20261012-minimal';
-import {installMinimalWorkspace} from './minimal-ui.js?v=20261012-minimal';
+import {installStepActions} from './workflow-ui.js?v=20261013-flow';
+import {installMinimalWorkspace} from './minimal-ui.js?v=20261013-flow';
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function upgradeHome(){
  const hero=document.querySelector('.batch-home-hero');if(!hero)return;
@@ -49,7 +49,7 @@ async function schoolPreview(id,trigger){
  dialog.addEventListener('close',()=>trigger?.focus({preventScroll:true}),{once:true});
 }
 export function installDynamicUI(){
- const style=document.createElement('link');style.rel='stylesheet';style.href='/motion-theme.css?v=20261012-minimal';document.head.append(style);
+ const style=document.createElement('link');style.rel='stylesheet';style.href='/motion-theme.css?v=20261013-flow';document.head.append(style);
  upgradeHome();
  const observed=new WeakSet();const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('revealed');observer.unobserve(entry.target);}}),{threshold:.08});
  let queued=false;const refresh=()=>{queued=false;installWorkspace();updateWorkspace();for(const el of document.querySelectorAll('.launch-copy,.launch-art,.batch-entry,.flow-cards article,.library-card'))if(!observed.has(el)){observed.add(el);el.classList.add('reveal-ready');observer.observe(el);}};

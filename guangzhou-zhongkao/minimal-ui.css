@@ -105,3 +105,28 @@ body.minimal-workspace #analysis .score-overview { display: grid !important; gri
  .minimal-workspace #analysis .step-label { display: block; }
  .minimal-workspace .compact-details { break-inside: avoid; }
 }
+
+.decision-card { background:#f3f7f5; border:1px solid #d7e5dd; border-radius:12px; padding:18px; margin:12px 0 18px; }
+.decision-card h3,.decision-card p { margin:8px 0; }
+.decision-card ol,.decision-card ul { padding-left:22px; }
+.decision-card li { margin:8px 0; line-height:1.6; }
+.decision-card summary,.plan-more summary,.device-help summary { cursor:pointer; min-height:44px; display:flex; align-items:center; }
+.decision-card .toolbar { margin:12px 0; flex-wrap:wrap; }
+.decision-card button { min-height:44px; }
+.is-locked #batchForms.gated { max-height:220px; overflow:hidden; }
+.is-locked #analysisMore>[data-gate].gated { min-height:120px; }
+.saved-result { border-left:3px solid var(--accent); padding:10px 14px; margin:12px 0; background:#f5f7f9; }
+.saved-result p { margin:6px 0; }
+.plan-more { position:relative; }
+.plan-more[open]>.toolbar { padding:12px; border:1px solid var(--border); border-radius:8px; }
+.scenario-results { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:12px; }
+.scenario-results article { padding:12px; border:1px solid var(--border); border-radius:8px; }
+.scenario-results>p { grid-column:1/-1; }
+.adjustment-preview { width:min(600px,calc(100vw - 32px)); max-height:85vh; padding:24px; border:1px solid var(--border); border-radius:14px; overflow:auto; }
+.adjustment-preview::backdrop { background:rgba(16,28,38,.5); }
+.adjustment-preview ol { padding-left:22px; max-height:40vh; overflow:auto; }
+.adjustment-preview li { padding:8px 0; line-height:1.6; }
+.adjustment-preview .toolbar { display:flex; gap:12px; flex-wrap:wrap; }
+.adjustment-preview button { min-height:44px; }
+@media(max-width:650px){.scenario-results{grid-template-columns:1fr}.decision-card{padding:14px}.decision-card .toolbar>*{flex:1;min-width:140px}.plan-summary .toolbar{align-items:start}}
+@media print{#decisionSummary .toolbar,#scoreScenarios>button{display:none!important}.decision-card{break-inside:avoid}}

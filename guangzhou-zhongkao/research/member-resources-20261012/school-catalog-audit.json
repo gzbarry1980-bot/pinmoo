@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-12T14:28:28.191Z",
+  "scope": "Normal UI navigation of public directory only; no login or membership bypass",
+  "results": [
+    {
+      "step": "school-directory",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/decorate/more/eyJpZCI6MjM3OTYyODQsImZyb21fdGFnIjoxfQ",
+      "title": "非常详细的高中学校介绍",
+      "text": "初中&高中饭团(VIP)\n个人中心\n专栏\n\n每日一校汇总\n\n专栏\n\n学校汇总信息\n\n专栏\n\n省市属高中\n\n专栏\n\n越秀区区属高中\n\n专栏\n\n海珠区区属高中\n\n专栏\n\n荔湾区区属高中\n\n专栏\n\n天河区区属高中\n\n专栏\n\n白云区区属高中\n\n专栏\n\n黄埔区区属高中\n\n专栏\n\n从化区区属高中\n\n店铺主页\n个人中心\n关注我们\n店铺信息\n意见反馈"
+    },
+    {
+      "step": "province-city-directory",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/t/free/v1/basic-platform/h5_basic/login/auth?redirect_url=https%3A%2F%2Fapp0vjwwvpz3722.h5.xet.pomoho.com%2Fp%2Fcourse%2Fmiddle_page%2Fp_695f6d1ee4b0694ca168c72f%3Fchannel_id%3D%26resource_type%3D6%26type%3D3",
+      "title": "",
+      "text": " 返回前一页\n验证码登录\n未注册的手机号验证后将自动注册\n获取验证码\n登录\n继续即表示您同意 服务条款 、 隐私政策 和 商家隐私协议\n或\n微信\nQQ\n首次登录即完成注册\n拖动下方拼图完成验证\n安全验证",
+      "links": [
+        {
+          "text": "服务条款",
+          "href": "https://admin.xiaoe-tech.com/charge_protocol_page"
+        },
+        {
+          "text": "隐私政策",
+          "href": "https://admin.xiaoe-tech.com/privacy_protocol_page"
+        },
+        {
+          "text": "商家隐私协议",
+          "href": "https://admin.xiaoe-tech.com/merchant_privacy_protocol_page/app0vjwwvpz3722"
+        }
+      ]
+    }
+  ]
+}
