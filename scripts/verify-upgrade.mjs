@@ -60,5 +60,9 @@ assert.ok(index.includes('insightReset'));
 const contact = await fs.readFile(path.join(root, 'contact/index.html'), 'utf8');
 assert.ok(contact.indexOf('contact-actions') < contact.indexOf('contact-wechat'));
 assert.ok(contact.includes('公司与品牌事实是否一致'));
+const geo = await fs.readFile(path.join(root, 'services/geo-consulting/index.html'), 'utf8');
+const serviceIndex = await fs.readFile(path.join(root, 'services/index.html'), 'utf8');
+assert.equal((geo.match(/class="geo-service-card/g) || []).length, 6, 'GEO modules belong on the specific service page');
+assert.ok(!serviceIndex.includes('class="geo-service-card'), 'General services should not duplicate all GEO modules');
 
 console.log(`升级检查通过：${pages.length} 个页面资源，${images} 条资源引用，4 份CSV解析，12 篇内容增强与关键路径检查。`);

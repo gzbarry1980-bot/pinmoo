@@ -532,7 +532,7 @@ function LandingPage(page) {
     RelatedLeadSection(page) +
     '<div class="reveal detail-block"><div class="detail-title">' + icon('ShieldCheck', 24) + '<h2>合作边界说明</h2></div><p>品沐不做“保证增长”“百分百提升”这类绝对承诺。我们更重视诊断依据、行动优先级、执行节奏和复盘机制，帮助品牌提高增长决策的清晰度和确定性。</p></div>' +
     '</div><aside class="landing-aside"><div class="aside-card reveal"><h2>适合先做什么？</h2><p>' + page.proof + '</p><a class="btn btn-primary" href="' + localizeHref('/contact/?service=' + serviceParam) + '"><span>预约基础诊断</span></a></div><div class="aside-card reveal"><h2>联系方式</h2><p>' + SITE.contactLabel + '</p><p>' + SITE.contactNote + '</p></div></aside></div></section>' +
-    ProofSection() +
+    (page.slug === 'geo-consulting' ? GeoServiceModulesSection() + geoReportPreview() : '') + ProofSection() +
     '<section class="section cases-preview"><div class="container">' + SectionIntro('相关项目经验', '先看相似问题如何被拆解，再判断是否适合预约一次基础诊断。') + '<div class="home-case-grid">' + related + '</div></div></section>' +
     '<section class="section faq-section"><div class="container narrow-container">' + SectionIntro('常见问题') + '<div class="faq-list">' + faqs + '</div></div></section>' +
     CtaBand('想判断这个问题是否值得优先解决？', '预约一次基础诊断，我们会从平台、商品、流量、转化和团队执行五个维度先帮你看清楚。', '预约基础诊断');

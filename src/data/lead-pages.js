@@ -2,6 +2,7 @@ export const leadPages = [
   {
     slug: 'geo-consulting',
     serviceId: 'geo-consulting',
+    updated: '2026-10-13',
     title: 'GEO 服务：让 AI 搜索看见、理解并引用你的品牌',
     eyebrow: '适合官网能访问，但 AI 搜索提不到、引错或不引用的品牌',
     subtitle: '从技术可抓取性、品牌事实库、AI 探测题库、证据化内容、平台分发到持续监测，建立一套可解释、可复测的生成式引擎优化路径。',
