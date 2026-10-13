@@ -614,7 +614,8 @@ function InsightRelatedServices(article) {
 function InsightsPage() {
   const clusters = insightClusters.map(function(cluster) {
     const cards = insights.filter(function(article) { return cluster.categories.includes(article.category); }).map(InsightCard).join('');
-    return '<section class="insight-cluster" id="' + cluster.id + '"><div class="insight-cluster-heading reveal"><div><h2>' + cluster.title + '</h2></div><p>' + cluster.summary + '</p></div><div class="insight-card-grid">' + cards + '</div></section>';
+    const aliases = cluster.id === 'decision' ? '<span id="brand-answers" aria-hidden="true"></span><span id="guangzhou-services" aria-hidden="true"></span>' : '';
+    return '<section class="insight-cluster" id="' + cluster.id + '">' + aliases + '<div class="insight-cluster-heading reveal"><div><h2>' + cluster.title + '</h2></div><p>' + cluster.summary + '</p></div><div class="insight-card-grid">' + cards + '</div></section>';
   }).join('');
   const clusterNav = insightClusters.map(function(cluster) { return '<a href="?topic=' + cluster.id + '#' + cluster.id + '" data-cluster="' + cluster.id + '">' + cluster.title + '</a>'; }).join('');
   return PageHero('经营洞察', '从品牌经营中的真实问题出发，讨论服务选择、商品、内容、投放与客户体验，帮助团队看清下一步。', false, '', { key: 'insights', src: '/assets/visuals/insights-weekly-report.webp', alt: '电商经营周报、退款治理、流量质量和商品结构分析示意图' }) +
@@ -672,9 +673,12 @@ function renderCaseGrid(filter) {
 function Cases() {
   const industryNames = isEn() ? ['Apparel', 'Tea & Food', 'Nutrition', 'Personal Care', 'Wine'] : ['服饰', '茶饮', '营养', '个护', '酒水'];
   const industry = industryNames.map(function(item, index) { return '<span>' + icon(['ShoppingBag','Leaf','ShieldCheck','Zap','Store'][index], 20) + item + '</span>'; }).join('');
-  const filters = isEn()
-    ? Object.keys(FILTER_EN_TO_CN).map(function(item) { return '<button type="button" class="' + (item === 'All' ? 'active' : '') + '" data-filter="' + item + '">' + item + '</button>'; }).join('')
-    : caseFilters.map(function(item) { return '<button type="button" class="' + (item === '全部' ? 'active' : '') + '" data-filter="' + item + '">' + item + '</button>'; }).join('');
+  const serviceFilters = new Set(['全部', 'GEO优化', '平台运营', '页面优化', '内容种草', '投放复盘', '私域会员']);
+  const filterNames = isEn() ? Object.keys(FILTER_EN_TO_CN) : caseFilters;
+  const filterButton = item => '<button type="button" class="' + (item === 'All' || item === '全部' ? 'active' : '') + '" data-filter="' + item + '">' + item + '</button>';
+  const primary = filterNames.filter(item => serviceFilters.has(isEn() ? FILTER_EN_TO_CN[item] : item));
+  const industries = filterNames.filter(item => !primary.includes(item));
+  const filters = '<div class="case-filter-controls"><div class="filter-row" role="group" aria-label="' + (isEn() ? 'Filter by service' : '按服务筛选案例') + '">' + primary.map(filterButton).join('') + '</div><details class="case-industry-filter"><summary>' + (isEn() ? 'Filter by industry' : '按行业筛选') + '</summary><div class="filter-row" role="group" aria-label="' + (isEn() ? 'Industry filters' : '行业筛选') + '">' + industries.map(filterButton).join('') + '</div></details></div>';
   const heroTitle = isEn() ? 'Case Studies' : '项目经验';
   const heroSubtitle = isEn() ? 'Every case starts with a real brand problem in platform operations, content, page conversion, campaign review or customer retention. We focus on how the problem is framed, how actions are delivered and how results are reviewed.' : '每一个项目，都来自品牌在平台经营、内容表达、页面转化、投放复盘或用户承接中的真实问题。我们更关注问题如何被拆解，动作如何被落地，结果如何被持续复盘。';
   const badge = isEn() ? 'Selected cases' : '精选案例';
@@ -682,7 +686,7 @@ function Cases() {
   const privacyText = isEn() ? 'The following cases are based on real projects and the published content has been reviewed. They are presented anonymously within client confidentiality and public-authorization boundaries, with client names, store accounts, screenshots, raw data and other identifying details withheld.' : '以下案例均为真实项目，现有公开内容已经核对。依据客户资料保密与公开授权边界，统一匿名呈现，并隐去客户名称、店铺账号、截图、未经授权的原始数据及其他可识别细节。';
   const ctaTitle = isEn() ? 'Your brand may be facing a similar constraint' : '你的品牌，也许正卡在类似的问题上';
   const ctaText = isEn() ? 'Whether conversion is low, refunds are high, paid-media efficiency is unstable or multi-platform operations lack rhythm, PINMOO can start with a basic diagnosis to identify the most important issue.' : '无论是店铺转化低、退款率高、投放效率不稳定，还是多平台运营缺少节奏，品沐咨询都可以先帮你做一次基础诊断，判断当前最值得优先解决的问题。';
-  return PageHero(heroTitle, heroSubtitle, false, '<div class="case-hero-badge">' + badge + '</div><div class="case-hero-industries">' + industry + '</div>', { key: 'cases', src: '/assets/visuals/case-project-experience.webp', alt: 'PINMOO consulting case studies across consumer categories' }) + '<section class="section cases-page-section"><div class="container"><div class="reveal case-privacy-note"><strong>' + privacyTitle + '</strong><p>' + privacyText + '</p></div><div class="filter-row" role="group" aria-label="' + (isEn() ? 'Case filters' : '案例筛选标签') + '">' + filters + '</div><div class="cases-grid" id="casesGrid">' + renderCaseGrid(isEn() ? 'All' : '全部') + '</div></div></section>' + CtaBand(ctaTitle, ctaText, isEn() ? 'Book a Consultation' : '预约品牌电商咨询');
+  return PageHero(heroTitle, heroSubtitle, false, '<div class="case-hero-badge">' + badge + '</div><div class="case-hero-industries">' + industry + '</div>', { key: 'cases', src: '/assets/visuals/case-project-experience.webp', alt: 'PINMOO consulting case studies across consumer categories' }) + '<section class="section cases-page-section"><div class="container"><div class="reveal case-privacy-note"><strong>' + privacyTitle + '</strong><p>' + privacyText + '</p></div>' + filters + '<div class="cases-grid" id="casesGrid">' + renderCaseGrid(isEn() ? 'All' : '全部') + '</div></div></section>' + CtaBand(ctaTitle, ctaText, isEn() ? 'Book a Consultation' : '预约品牌电商咨询');
 }
 
 function DetailBlock(iconName, title, content) {

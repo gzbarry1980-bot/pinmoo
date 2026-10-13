@@ -58,7 +58,7 @@ function initFaq() {
 }
 
 function initCaseFilters() {
-  const row = document.querySelector('.filter-row');
+  const row = document.querySelector('.case-filter-controls') || document.querySelector('.filter-row');
   const grid = document.getElementById('casesGrid');
   if (!row || !grid) return;
   row.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.classList.contains('active'))));
@@ -88,19 +88,19 @@ function initFloatingContact() {
     const open = panel.hidden;
     panel.hidden = !open;
     button.setAttribute('aria-expanded', String(open));
-    button.setAttribute('aria-label', open ? '关闭微信咨询' : '打开微信咨询');
+    button.setAttribute('aria-label', document.documentElement.lang.startsWith('en') ? (open ? 'Close WeChat contact' : 'Open WeChat contact') : (open ? '关闭微信咨询' : '打开微信咨询'));
   });
   document.addEventListener('pointerdown', function(event) {
     if (wrap.contains(event.target)) return;
     panel.hidden = true;
     button.setAttribute('aria-expanded', 'false');
-    button.setAttribute('aria-label', '打开微信咨询');
+    button.setAttribute('aria-label', document.documentElement.lang.startsWith('en') ? 'Open WeChat contact' : '打开微信咨询');
   });
   document.addEventListener('keydown', function(event) {
     if (event.key !== 'Escape') return;
     panel.hidden = true;
     button.setAttribute('aria-expanded', 'false');
-    button.setAttribute('aria-label', '打开微信咨询');
+    button.setAttribute('aria-label', document.documentElement.lang.startsWith('en') ? 'Open WeChat contact' : '打开微信咨询');
   });
 }
 
@@ -169,6 +169,8 @@ function initConversion() {
       try {
         await navigator.clipboard.writeText(button.dataset.copyWechat);
         button.textContent = document.documentElement.lang.startsWith('en') ? 'Copied' : '已复制微信号';
+        const status = button.closest('.contact-conversation')?.querySelector('.copy-status');
+        if (status) status.textContent = document.documentElement.lang.startsWith('en') ? 'WeChat number copied.' : '已复制微信号，可粘贴到微信。';
         trackEvent('wechat_copy', eventPlacement(button));
       } catch {
         const status = button.closest('.contact-conversation')?.querySelector('.copy-status');
@@ -176,7 +178,7 @@ function initConversion() {
         else button.textContent = button.dataset.copyWechat;
         button.setAttribute('aria-label', (document.documentElement.lang.startsWith('en') ? 'WeChat number ' : '微信号 ') + button.dataset.copyWechat);
       }
-      window.setTimeout(() => { button.textContent = original; }, 3000);
+      window.setTimeout(() => { button.textContent = original; const status = button.closest('.contact-conversation')?.querySelector('.copy-status'); if (status) status.textContent = ''; }, 3000);
     });
   });
 }

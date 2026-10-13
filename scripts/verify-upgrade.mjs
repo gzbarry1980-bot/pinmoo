@@ -20,7 +20,9 @@ for (const meta of pages) {
     images++;
   }
   if (meta.insightSlug) {
-    assert.ok(html.indexOf('insight-mobile-toc') < html.indexOf('class="insight-section'), meta.path + ': mobile table of contents should precede body');
+    const toc = html.indexOf('insight-mobile-toc');
+    const body = html.indexOf('class="insight-section');
+    assert.ok(toc >= 0 && body >= 0 && toc < body, meta.path + ': mobile table of contents should precede body');
   }
 }
 

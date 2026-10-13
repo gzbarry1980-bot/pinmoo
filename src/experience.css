@@ -521,6 +521,11 @@ body:has(.studio-hero) .problem-path-section { padding-top:32px; }
 .home-case-grid-featured { grid-template-columns:repeat(3,minmax(0,1fr)); }
 .case-image-link { display:block; }
 .case-stage { display:block; color:#176f65; font-size:13px; margin-bottom:12px; }
+.case-filter-controls .filter-row { flex-wrap:wrap; overflow:visible; justify-content:flex-start; margin-bottom:16px; gap:8px; }
+.case-filter-controls .filter-row button { min-width:0; min-height:44px; padding:9px 14px; border-radius:4px; font-weight:500; }
+.case-industry-filter { margin:0 0 28px; }
+.case-industry-filter summary { cursor:pointer; min-height:40px; font-weight:600; }
+.case-industry-filter .filter-row { margin-top:14px; }
 .reading-resource-entry { display:flex; flex-wrap:wrap; align-items:center; gap:18px; border-top:1px solid #d5d8db; margin-top:32px; padding-top:28px; }
 .reading-resource-entry>div { flex:1 1 300px; }
 .reading-resource-entry h3 { font-size:23px; margin:0 0 10px; }

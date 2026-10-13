@@ -4,7 +4,7 @@ import { CtaBand } from '../components/CtaBand.jsx';
 import { Icon } from '../components/Icon.jsx';
 import { PageHero } from '../components/PageHero.jsx';
 import { Reveal } from '../components/Reveal.jsx';
-import { caseFilters, cases, reservedCases } from '../data/cases.js';
+import { caseFilters, cases } from '../data/cases.js';
 
 export function Cases() {
   const [filter, setFilter] = useState('全部');
@@ -26,17 +26,17 @@ export function Cases() {
             <strong>案例公开边界</strong>
             <p>以下案例均为真实项目，现有公开内容已经核对。依据客户资料保密与公开授权边界，统一匿名呈现，并隐去客户名称、店铺账号、截图、未经授权的原始数据及其他可识别细节。</p>
           </Reveal>
-          <div className="filter-row" role="group" aria-label="案例筛选标签">
-            {caseFilters.map((item) => <button type="button" key={item} className={filter === item ? 'active' : ''} onClick={() => setFilter(item)}>{item}</button>)}
+          <div className="case-filter-controls">
+            <div className="filter-row" role="group" aria-label="按服务筛选案例">
+              {caseFilters.filter(item => ['全部', 'GEO优化', '平台运营', '页面优化', '内容种草', '投放复盘', '私域会员'].includes(item)).map(item => <button type="button" key={item} aria-pressed={filter === item} className={filter === item ? 'active' : ''} onClick={() => setFilter(item)}>{item}</button>)}
+            </div>
+            <details className="case-industry-filter"><summary>按行业筛选</summary><div className="filter-row" role="group" aria-label="行业筛选">
+              {caseFilters.filter(item => !['全部', 'GEO优化', '平台运营', '页面优化', '内容种草', '投放复盘', '私域会员'].includes(item)).map(item => <button type="button" key={item} aria-pressed={filter === item} className={filter === item ? 'active' : ''} onClick={() => setFilter(item)}>{item}</button>)}
+            </div></details>
           </div>
           <div className="cases-grid">
             {filtered.map((item, index) => <Reveal key={item.slug} delay={index * 70}><CaseCard item={item} /></Reveal>)}
           </div>
-          <Reveal className="reserved-card">
-            <h2>二期案例预留</h2>
-            <p>后续只增加完成事实核对与保密边界审查的匿名案例。</p>
-            <div>{reservedCases.map((item) => <span key={item}>{item}</span>)}</div>
-          </Reveal>
         </div>
       </section>
       <div className="container"><CtaBand title="你的品牌，也许正卡在类似的问题上" text="无论是店铺转化低、退款率高、投放效率不稳定，还是多平台运营缺少节奏，品沐咨询都可以先帮你做一次基础诊断，判断当前最值得优先解决的问题。" /></div>

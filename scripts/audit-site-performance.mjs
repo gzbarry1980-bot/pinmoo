@@ -15,7 +15,7 @@ const scores = [];
 try {
   for (const route of ['/', '/services/', '/contact/']) {
     for (let i = 0; i < runs; i++) {
-      const result = await lighthouse(origin + route, { port: chrome.port, logLevel: 'error', onlyCategories: ['performance', 'accessibility', 'seo'], formFactor: 'mobile', throttlingMethod: 'simulate' });
+      const result = await lighthouse(origin + route, { port: chrome.port, logLevel: 'error', onlyCategories: ['performance', 'accessibility', 'seo'], formFactor: 'mobile', throttlingMethod: 'simulate', extraHeaders: { DNT: '1' } });
       const name = route.replace(/\W+/g, '-') || 'home';
       await fs.writeFile(path.join(output, `${label}-${name}-${i}.lighthouse.json`), JSON.stringify(result.lhr));
       const row = { route, run: i + 1, ...Object.fromEntries(Object.entries(result.lhr.categories).map(([key,value]) => [key, Math.round(value.score * 100)])), lcp: result.lhr.audits['largest-contentful-paint'].numericValue, cls: result.lhr.audits['cumulative-layout-shift'].numericValue, tbt: result.lhr.audits['total-blocking-time'].numericValue };

@@ -57,7 +57,7 @@ export const insightClusters = [
     summary: '围绕茶叶和新会陈皮品牌的实体表达、产品事实、消费决策、平台经营与 GEO 内容建设，回答垂直品类的常见经营问题。',
     categories: ['茶叶电商', '陈皮电商', '食品品牌GEO']
   }
-];
+].sort((a, b) => ['operations', 'products', 'review', 'content', 'ai-geo', 'decision', 'vertical-food'].indexOf(a.id) - ['operations', 'products', 'review', 'content', 'ai-geo', 'decision', 'vertical-food'].indexOf(b.id));
 
 const insightEntries = [
   ...octoberPlatformInsights,
@@ -377,7 +377,6 @@ export const insights = insightEntries.map((entry) => {
   contentModel: 'CEBA',
   reviewStatus: 'editorially-reviewed',
   businessIntent: '经营问题诊断与复盘',
-  probeIds: ['Q-' + article.slug],
   ...article,
   featured: ['choose-geo-consulting-provider', 'geo-pricing-scope-and-budget', 'geo-30-60-90-day-acceptance', 'why-brand-is-not-found-in-ai-search', 'store-traffic-no-conversion-diagnosis', 'ecommerce-weekly-report-review-framework'].includes(article.slug),
   probeIds: article.probeIds?.length ? article.probeIds : ['Q-' + article.slug]
