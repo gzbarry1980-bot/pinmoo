@@ -274,9 +274,15 @@ function initInsightSearch() {
     if (link) departingScroll = window.scrollY;
   });
   readUrl();
-  update(false);
-  if (new URLSearchParams(location.search).has('resume')) {
-    try { window.scrollTo(0, Number(sessionStorage.getItem('pinmoo-insights-scroll')) || 0); } catch {}
+  const resume = new URLSearchParams(location.search).has('resume');
+  update();
+  if (resume) {
+    try {
+      const position = Number(sessionStorage.getItem('pinmoo-insights-scroll')) || 0;
+      const restore = () => window.scrollTo(0, position);
+      window.addEventListener('pageshow', restore, { once: true });
+      window.requestAnimationFrame(restore);
+    } catch {}
   }
 }
 
