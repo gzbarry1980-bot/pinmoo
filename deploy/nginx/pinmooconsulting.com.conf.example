@@ -54,6 +54,7 @@ server {
     }
 
     location / {
+        expires -1;
         try_files $uri $uri/ =404;
         limit_except GET {
             deny all;
