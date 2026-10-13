@@ -1,0 +1,96 @@
+{
+  "origin": "http://localhost:5194",
+  "conditions": "Lighthouse mobile simulated throttling; laboratory data, not field INP",
+  "scores": [
+    {
+      "route": "/",
+      "run": 1,
+      "performance": 91,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 3383.6238215814697,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "route": "/",
+      "run": 2,
+      "performance": 90,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 3529.6490314198836,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "route": "/",
+      "run": 3,
+      "performance": 90,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 3531.7778,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "route": "/services/",
+      "run": 1,
+      "performance": 95,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 2555.8736367798365,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "route": "/services/",
+      "run": 2,
+      "performance": 94,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 2707.6931,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "route": "/services/",
+      "run": 3,
+      "performance": 95,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 2707.2787,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "route": "/contact/",
+      "run": 1,
+      "performance": 95,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 2705.8632,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "route": "/contact/",
+      "run": 2,
+      "performance": 95,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 2704.6955,
+      "cls": 0,
+      "tbt": 0
+    },
+    {
+      "route": "/contact/",
+      "run": 3,
+      "performance": 95,
+      "accessibility": 100,
+      "seo": 100,
+      "lcp": 2703.7822,
+      "cls": 0,
+      "tbt": 0
+    }
+  ]
+}
