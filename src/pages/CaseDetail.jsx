@@ -2,6 +2,8 @@ import { ButtonLink } from '../components/ButtonLink.jsx';
 import { CtaBand } from '../components/CtaBand.jsx';
 import { Icon } from '../components/Icon.jsx';
 import { Reveal } from '../components/Reveal.jsx';
+import { SharedMarkup } from '../components/SharedMarkup.jsx';
+import { caseDeliverableMarkup } from '../components/case-deliverable.js';
 
 function DetailBlock({ icon, title, children }) {
   return (
@@ -43,20 +45,22 @@ export function CaseDetail({ item }) {
             </Reveal>
             {item.evidence && (
               <Reveal className="insight-evidence case-evidence">
-                <span>证据与公开边界</span>
-                <h2>这项案例依据什么公开？</h2>
+                <details>
+                <summary>项目依据与公开范围</summary>
                 <dl>
                   <div><dt>数据截止</dt><dd>{item.evidence.asOf}</dd></div>
                   <div><dt>证据状态</dt><dd>{item.evidence.level}</dd></div>
                   <div><dt>判断依据</dt><dd>{item.evidence.basis}</dd></div>
                   <div><dt>公开边界</dt><dd>{item.evidence.boundary}</dd></div>
                 </dl>
+                </details>
               </Reveal>
             )}
             <DetailBlock icon="BookOpen" title="项目背景"><p>{item.background}</p></DetailBlock>
             <DetailBlock icon="ShieldCheck" title="核心问题"><ul>{item.problems.map((problem) => <li key={problem}>{problem}</li>)}</ul></DetailBlock>
             <DetailBlock icon="Search" title="诊断发现"><p>{item.diagnosis}</p></DetailBlock>
             <DetailBlock icon="Target" title="解决方向"><ul>{item.solutions.map((solution) => <li key={solution}>{solution}</li>)}</ul></DetailBlock>
+            <SharedMarkup html={caseDeliverableMarkup(item.slug)} />
             <DetailBlock icon="TrendingUp" title="阶段成果"><p>{item.result}</p></DetailBlock>
             <DetailBlock icon="Lightbulb" title="项目启发"><p>{item.insight}</p></DetailBlock>
           </div>

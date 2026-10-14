@@ -1,3 +1,5 @@
+import { copyText } from './components/copy-text.js';
+
 function menuIcon(open) {
   const path = open
     ? '<path d="M6 6l12 12M18 6 6 18"/>'
@@ -110,29 +112,15 @@ function initTemplateCopy() {
       const target = document.getElementById(button.dataset.copyTarget || '');
       const text = target?.textContent?.trim();
       if (!text) return;
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch {
-        const input = document.createElement('textarea');
-        input.value = text;
-        input.setAttribute('readonly', '');
-        input.style.position = 'fixed';
-        input.style.opacity = '0';
-        document.body.appendChild(input);
-        input.select();
-        const copied = document.execCommand('copy');
-        input.remove();
-        if (!copied) {
-          const label = button.querySelector('span');
-          if (label) label.textContent = document.documentElement.lang.startsWith('en') ? 'Select the message to copy' : '请选择文字手动复制';
-          return;
-        }
-      }
       const label = button.querySelector('span');
       if (!label) return;
       const original = label.textContent;
-      label.textContent = document.documentElement.lang.startsWith('en') ? 'Copied' : '已复制，可粘贴到微信';
-      window.setTimeout(function() { label.textContent = original; }, 2400);
+      const en = document.documentElement.lang.startsWith('en');
+      const copied = await copyText(text);
+      const status = button.closest('.contact-conversation')?.querySelector('.copy-status');
+      label.textContent = copied ? (en ? 'Copied' : '已复制，可粘贴到微信') : (en ? 'Select the message to copy' : '请选择文字手动复制');
+      if (status) status.textContent = copied ? (en ? 'Message copied.' : '咨询说明已复制。') : (en ? 'Copy unavailable. Select the message above.' : '复制未成功，请选中上方咨询说明手动复制。');
+      window.setTimeout(function() { label.textContent = original; if (status) status.textContent = ''; }, 3000);
     });
   });
 }
@@ -166,19 +154,25 @@ function initConversion() {
   document.querySelectorAll('[data-copy-wechat]').forEach(button => {
     button.addEventListener('click', async () => {
       const original = button.textContent;
-      try {
-        await navigator.clipboard.writeText(button.dataset.copyWechat);
+      const originalLabel = button.getAttribute('aria-label');
+      const copied = await copyText(button.dataset.copyWechat);
+      if (copied) {
         button.textContent = document.documentElement.lang.startsWith('en') ? 'Copied' : '已复制微信号';
         const status = button.closest('.contact-conversation')?.querySelector('.copy-status');
         if (status) status.textContent = document.documentElement.lang.startsWith('en') ? 'WeChat number copied.' : '已复制微信号，可粘贴到微信。';
         trackEvent('wechat_copy', eventPlacement(button));
-      } catch {
+      } else {
         const status = button.closest('.contact-conversation')?.querySelector('.copy-status');
         if (status) status.textContent = document.documentElement.lang.startsWith('en') ? 'Copy unavailable. Select the WeChat number above.' : '复制未成功，请选中上方微信号手动复制。';
         else button.textContent = button.dataset.copyWechat;
         button.setAttribute('aria-label', (document.documentElement.lang.startsWith('en') ? 'WeChat number ' : '微信号 ') + button.dataset.copyWechat);
       }
-      window.setTimeout(() => { button.textContent = original; const status = button.closest('.contact-conversation')?.querySelector('.copy-status'); if (status) status.textContent = ''; }, 3000);
+      window.setTimeout(() => {
+        button.textContent = original;
+        if (originalLabel === null) button.removeAttribute('aria-label'); else button.setAttribute('aria-label', originalLabel);
+        const status = button.closest('.contact-conversation')?.querySelector('.copy-status');
+        if (status) status.textContent = '';
+      }, 3000);
     });
   });
 }

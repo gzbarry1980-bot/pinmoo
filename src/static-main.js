@@ -9,6 +9,8 @@ import { geoHero, geoReportPreview, geoProcess, consultingOverview } from './com
 import { pageVisual } from './components/page-visual.js';
 import { homePage, servicesContent, contactContent, resourceCards, resourceLibraryContent, insightCardMarkup, aboutContent } from './components/consulting-upgrade.js';
 import { resourceLibrary, resourceForId } from './data/practical-resources.js';
+import { relatedInsights } from './data/reading-paths.js';
+import { caseDeliverableMarkup } from './components/case-deliverable.js';
 
 const root = document.getElementById('root');
 const internationalHost = window.location.hostname === 'pinmooconsulting.com' || window.location.hostname === 'www.pinmooconsulting.com';
@@ -630,7 +632,7 @@ function articleSources(article) {
 }
 
 function relatedReading(article) {
-  const related = insights.filter(item => item.slug !== article.slug && item.category === article.category).slice(0, 3);
+  const related = relatedInsights(article);
   return '<section class="insight-related-reading"><h2>延伸阅读</h2><ul>' + related.map(item => '<li><a href="/insights/' + item.slug + '/">' + item.title + '</a></li>').join('') + '</ul></section>';
 }
 
@@ -698,8 +700,8 @@ function CaseDetail(item) {
   const evidenceData = isEn() && CASE_EN[item.slug]?.evidence ? CASE_EN[item.slug].evidence : item.evidence;
   const illustrationNotice = item.imageIllustration ? '<p class="case-image-notice">' + (isEn() ? 'AI-generated category illustration, not a photograph of the client\'s products or project.' : '配图为 AI 生成的品类场景示意，并非客户产品或项目现场实拍。') + '</p>' : '';
   const chips = '<div class="case-meta-chips"><span>' + view.industry + '</span><span>' + view.platform + '</span><span>' + view.serviceType + '</span></div>' + illustrationNotice;
-  const evidence = evidenceData ? '<section class="insight-evidence case-evidence reveal"><span>' + (isEn() ? 'Evidence and Public Boundary' : '证据与公开边界') + '</span><h2>' + (isEn() ? 'What evidence supports this public case?' : '这项案例依据什么公开？') + '</h2><dl><div><dt>' + (isEn() ? 'Evidence as of' : '数据截止') + '</dt><dd>' + evidenceData.asOf + '</dd></div><div><dt>' + (isEn() ? 'Evidence status' : '证据状态') + '</dt><dd>' + evidenceData.level + '</dd></div><div><dt>' + (isEn() ? 'Basis' : '判断依据') + '</dt><dd>' + evidenceData.basis + '</dd></div><div><dt>' + (isEn() ? 'Public boundary' : '公开边界') + '</dt><dd>' + evidenceData.boundary + '</dd></div></dl></section>' : '';
-  const main = '<div class="reveal case-privacy-note"><strong>' + (isEn() ? 'Anonymous Case Notice' : '匿名案例说明') + '</strong><p>' + (isEn() ? 'This case comes from a real project and the published content has been reviewed. The client name and identifying details are withheld within confidentiality and public-authorization boundaries.' : '本案例来自真实项目，现有公开内容已经核对；依据客户资料保密与公开授权边界，客户名称及可识别细节已隐去。') + '</p></div>' + evidence + DetailBlock('BookOpen', isEn() ? 'Project Background' : '项目背景', '<p>' + view.background + '</p>') + DetailBlock('ShieldCheck', isEn() ? 'Core Problems' : '核心问题', '<ul>' + view.problems.map(li).join('') + '</ul>') + DetailBlock('Search', isEn() ? 'Diagnosis Findings' : '诊断发现', '<p>' + view.diagnosis + '</p>') + DetailBlock('Target', isEn() ? 'Action Direction' : '解决方向', '<ul>' + view.solutions.map(li).join('') + '</ul>') + DetailBlock('TrendingUp', isEn() ? 'Stage Result' : '阶段成果', '<p>' + view.result + '</p>') + DetailBlock('Lightbulb', isEn() ? 'Project Insight' : '项目启发', '<p>' + view.insight + '</p>');
+  const evidence = evidenceData ? '<details class="insight-evidence case-evidence"><summary>' + (isEn() ? 'Project evidence and disclosure scope' : '项目依据与公开范围') + '</summary><dl><div><dt>' + (isEn() ? 'Evidence as of' : '数据截止') + '</dt><dd>' + evidenceData.asOf + '</dd></div><div><dt>' + (isEn() ? 'Evidence status' : '证据状态') + '</dt><dd>' + evidenceData.level + '</dd></div><div><dt>' + (isEn() ? 'Basis' : '判断依据') + '</dt><dd>' + evidenceData.basis + '</dd></div><div><dt>' + (isEn() ? 'Public boundary' : '公开边界') + '</dt><dd>' + evidenceData.boundary + '</dd></div></dl></details>' : '';
+  const main = '<div class="reveal case-privacy-note"><strong>' + (isEn() ? 'Anonymous Case Notice' : '匿名案例说明') + '</strong><p>' + (isEn() ? 'This case comes from a real project and the published content has been reviewed. The client name and identifying details are withheld within confidentiality and public-authorization boundaries.' : '本案例来自真实项目，现有公开内容已经核对；依据客户资料保密与公开授权边界，客户名称及可识别细节已隐去。') + '</p></div>' + evidence + DetailBlock('BookOpen', isEn() ? 'Project Background' : '项目背景', '<p>' + view.background + '</p>') + DetailBlock('ShieldCheck', isEn() ? 'Core Problems' : '核心问题', '<ul>' + view.problems.map(li).join('') + '</ul>') + DetailBlock('Search', isEn() ? 'Diagnosis Findings' : '诊断发现', '<p>' + view.diagnosis + '</p>') + DetailBlock('Target', isEn() ? 'Action Direction' : '解决方向', '<ul>' + view.solutions.map(li).join('') + '</ul>') + caseDeliverableMarkup(item.slug, isEn()) + DetailBlock('TrendingUp', isEn() ? 'Stage Result' : '阶段成果', '<p>' + view.result + '</p>') + DetailBlock('Lightbulb', isEn() ? 'Project Insight' : '项目启发', '<p>' + view.insight + '</p>');
   const highlights = view.highlights.map(function(h, index) { return '<div class="highlight-row"><span>' + (index + 1) + '</span><p>' + h + '</p></div>'; }).join('');
   const detailImageAlt = isEn()
     ? (view.industry + ' ' + view.serviceType + ' consulting case study')

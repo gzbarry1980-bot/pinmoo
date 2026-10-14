@@ -335,6 +335,15 @@ body:has(.studio-hero) .geo-process-section { background:#eeeef0; }
 .case-detail-hero h1 { color:#fff; font-size:40px; }
 .case-detail-hero p,.case-detail-hero .back-link { color:#e0e2e4; }
 .case-detail-hero .case-image-notice { font-size:12px; line-height:1.5; opacity:.8; }
+.case-detail-main { min-width:0; grid-template-columns:minmax(0,1fr); }
+.case-evidence summary { cursor:pointer; font-weight:700; line-height:1.6; }
+.case-evidence dl { margin-top:18px; }
+.case-deliverable-example { margin:32px 0; padding:28px 0; border-block:1px solid #d5dadd; }
+.case-deliverable-example h2 { font-size:26px; line-height:1.5; }
+.case-deliverable-example h3 { font-size:20px; margin-top:24px; }
+.case-deliverable-example table { width:100%; min-width:580px; border-collapse:collapse; }
+.case-deliverable-example th,.case-deliverable-example td { padding:14px; text-align:left; vertical-align:top; border:1px solid #d5dadd; }
+.case-deliverable-example thead { background:#eef3f1; }
 .case-detail-image { position:absolute; inset:0; z-index:0; opacity:.8; border:0; border-radius:0; background:transparent; box-shadow:none; }
 .case-detail-image img { width:100%; height:100%; object-fit:cover; border-radius:0; }
 .case-detail-aside .aside-card { border-radius:0; border:0; border-top:2px solid #c43a30; background:#f4f4f5; box-shadow:none; }

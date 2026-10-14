@@ -4,6 +4,8 @@ import { createHash } from 'node:crypto';
 import { cases } from '../src/data/cases.js';
 
 const origin = 'https://pinmooconsulting.com';
+const output = process.env.PINMOO_QA_DIR || 'outputs/case-images-2026-10-13';
+await fs.mkdir(output, { recursive: true });
 const headers = { DNT: '1' };
 const receipt = { checkedAt: new Date().toISOString(), origin, pages: [], images: [] };
 const expected = JSON.parse(await fs.readFile('dist/site-build.json', 'utf8'));
@@ -40,5 +42,5 @@ for (const item of cases) {
   assert.equal(hash(actual), hash(local), image + ': published image differs');
   receipt.images.push({ slug: item.slug, image, hashMatched: true });
 }
-await fs.writeFile('outputs/case-images-2026-10-13/public-verification.json', JSON.stringify(receipt, null, 2));
+await fs.writeFile(output + (process.env.PINMOO_QA_DIR ? '/case-images-public.json' : '/public-verification.json'), JSON.stringify(receipt, null, 2));
 console.log(`Case images verified: ${receipt.pages.length} pages, ${receipt.images.length} distinct images, release ${receipt.build.version}.`);

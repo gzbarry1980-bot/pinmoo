@@ -1,0 +1,72 @@
+[
+  {
+    "route": "/cases/chenpi-brand-geo-diagnosis/",
+    "closed": true,
+    "outline": true,
+    "overflow": false,
+    "width": 360
+  },
+  {
+    "route": "/en/cases/chenpi-brand-geo-diagnosis/",
+    "closed": true,
+    "outline": true,
+    "overflow": false,
+    "width": 360
+  },
+  {
+    "route": "/cases/chenpi-brand-geo-diagnosis/",
+    "closed": true,
+    "outline": true,
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "route": "/en/cases/chenpi-brand-geo-diagnosis/",
+    "closed": true,
+    "outline": true,
+    "overflow": false,
+    "width": 390
+  },
+  {
+    "route": "/cases/chenpi-brand-geo-diagnosis/",
+    "closed": true,
+    "outline": true,
+    "overflow": false,
+    "width": 768
+  },
+  {
+    "route": "/en/cases/chenpi-brand-geo-diagnosis/",
+    "closed": true,
+    "outline": true,
+    "overflow": false,
+    "width": 768
+  },
+  {
+    "route": "/cases/chenpi-brand-geo-diagnosis/",
+    "closed": true,
+    "outline": true,
+    "overflow": false,
+    "width": 1440
+  },
+  {
+    "route": "/en/cases/chenpi-brand-geo-diagnosis/",
+    "closed": true,
+    "outline": true,
+    "overflow": false,
+    "width": 1440
+  },
+  {
+    "route": "/cases/chenpi-brand-geo-diagnosis/",
+    "closed": true,
+    "outline": true,
+    "overflow": false,
+    "width": 1920
+  },
+  {
+    "route": "/en/cases/chenpi-brand-geo-diagnosis/",
+    "closed": true,
+    "outline": true,
+    "overflow": false,
+    "width": 1920
+  }
+]

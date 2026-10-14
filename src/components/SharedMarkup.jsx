@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { copyText } from './copy-text.js';
 
 export function SharedMarkup({ html }) {
   const root = useRef(null);
@@ -8,15 +9,12 @@ export function SharedMarkup({ html }) {
     const text = button.dataset.copyWechat || root.current.querySelector('#' + button.dataset.copyTarget)?.textContent?.trim();
     if (!text) return;
     const original = button.textContent;
-    try {
-      await navigator.clipboard.writeText(text);
-      button.textContent = '已复制';
-    } catch {
-      const status = root.current.querySelector('.copy-status');
-      if (status) status.textContent = '复制未成功，请选中文字手动复制。';
-      else button.textContent = '请选择文字手动复制';
-    }
-    window.setTimeout(() => { if (button.isConnected) button.textContent = original; }, 2400);
+    const en = document.documentElement.lang.startsWith('en');
+    const copied = await copyText(text);
+    const status = root.current.querySelector('.copy-status');
+    button.textContent = copied ? (en ? 'Copied' : '已复制') : (en ? 'Select the text to copy' : '请选择文字手动复制');
+    if (status) status.textContent = copied ? (en ? 'Copied successfully.' : '已复制，可粘贴发送。') : (en ? 'Copy unavailable. Select the text above.' : '复制未成功，请选中上方文字手动复制。');
+    window.setTimeout(() => { if (button.isConnected) button.textContent = original; if (status) status.textContent = ''; }, 3000);
   }
   return <div ref={root} onClick={onClick} dangerouslySetInnerHTML={{ __html: html }} />;
 }

@@ -1,0 +1,352 @@
+[
+  {
+    "route": "/contact/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 360
+  },
+  {
+    "route": "/en/contact/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 360
+  },
+  {
+    "route": "/cases/womenswear-refund-optimization/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 360
+  },
+  {
+    "route": "/cases/personal-care-device-positioning/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 360
+  },
+  {
+    "route": "/cases/chenpi-brand-geo-diagnosis/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 360
+  },
+  {
+    "route": "/en/cases/chenpi-brand-geo-diagnosis/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 360
+  },
+  {
+    "route": "/insights/ecommerce-weekly-report-review-framework/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 360
+  },
+  {
+    "route": "/insights/business-advisor-data-diagnosis-checklist/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 360
+  },
+  {
+    "route": "/insights/xinhui-chenpi-ecommerce-entity-and-content/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 360
+  },
+  {
+    "route": "/en/services/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 360
+  },
+  {
+    "route": "/contact/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 390
+  },
+  {
+    "route": "/en/contact/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 390
+  },
+  {
+    "route": "/cases/womenswear-refund-optimization/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 390
+  },
+  {
+    "route": "/cases/personal-care-device-positioning/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 390
+  },
+  {
+    "route": "/cases/chenpi-brand-geo-diagnosis/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 390
+  },
+  {
+    "route": "/en/cases/chenpi-brand-geo-diagnosis/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 390
+  },
+  {
+    "route": "/insights/ecommerce-weekly-report-review-framework/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 390
+  },
+  {
+    "route": "/insights/business-advisor-data-diagnosis-checklist/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 390
+  },
+  {
+    "route": "/insights/xinhui-chenpi-ecommerce-entity-and-content/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 390
+  },
+  {
+    "route": "/en/services/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 390
+  },
+  {
+    "route": "/contact/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 768
+  },
+  {
+    "route": "/en/contact/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 768
+  },
+  {
+    "route": "/cases/womenswear-refund-optimization/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 768
+  },
+  {
+    "route": "/cases/personal-care-device-positioning/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 768
+  },
+  {
+    "route": "/cases/chenpi-brand-geo-diagnosis/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 768
+  },
+  {
+    "route": "/en/cases/chenpi-brand-geo-diagnosis/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 768
+  },
+  {
+    "route": "/insights/ecommerce-weekly-report-review-framework/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 768
+  },
+  {
+    "route": "/insights/business-advisor-data-diagnosis-checklist/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 768
+  },
+  {
+    "route": "/insights/xinhui-chenpi-ecommerce-entity-and-content/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 768
+  },
+  {
+    "route": "/en/services/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 768
+  },
+  {
+    "route": "/contact/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 1440
+  },
+  {
+    "route": "/en/contact/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 1440
+  },
+  {
+    "route": "/cases/womenswear-refund-optimization/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 1440
+  },
+  {
+    "route": "/cases/personal-care-device-positioning/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 1440
+  },
+  {
+    "route": "/cases/chenpi-brand-geo-diagnosis/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 1440
+  },
+  {
+    "route": "/en/cases/chenpi-brand-geo-diagnosis/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 1440
+  },
+  {
+    "route": "/insights/ecommerce-weekly-report-review-framework/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 1440
+  },
+  {
+    "route": "/insights/business-advisor-data-diagnosis-checklist/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 1440
+  },
+  {
+    "route": "/insights/xinhui-chenpi-ecommerce-entity-and-content/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 1440
+  },
+  {
+    "route": "/en/services/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 1440
+  },
+  {
+    "route": "/contact/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 1920
+  },
+  {
+    "route": "/en/contact/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 1920
+  },
+  {
+    "route": "/cases/womenswear-refund-optimization/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 1920
+  },
+  {
+    "route": "/cases/personal-care-device-positioning/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 1920
+  },
+  {
+    "route": "/cases/chenpi-brand-geo-diagnosis/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 1920
+  },
+  {
+    "route": "/en/cases/chenpi-brand-geo-diagnosis/",
+    "outline": true,
+    "overflow": false,
+    "related": 0,
+    "width": 1920
+  },
+  {
+    "route": "/insights/ecommerce-weekly-report-review-framework/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 1920
+  },
+  {
+    "route": "/insights/business-advisor-data-diagnosis-checklist/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 1920
+  },
+  {
+    "route": "/insights/xinhui-chenpi-ecommerce-entity-and-content/",
+    "outline": false,
+    "overflow": false,
+    "related": 3,
+    "width": 1920
+  },
+  {
+    "route": "/en/services/",
+    "outline": false,
+    "overflow": false,
+    "related": 0,
+    "width": 1920
+  }
+]

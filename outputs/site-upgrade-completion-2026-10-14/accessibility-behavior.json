@@ -1,0 +1,16 @@
+{
+  "noScript": {
+    "contactLink": true,
+    "outlinePresent": true,
+    "outlineText": true
+  },
+  "noScriptContact": {
+    "url": "http://localhost:5196/contact/",
+    "title": "联系品沐咨询｜品牌电商增长、运营陪跑与GEO咨询"
+  },
+  "reducedMotion": {
+    "animation": "none",
+    "motionReady": false,
+    "preference": true
+  }
+}

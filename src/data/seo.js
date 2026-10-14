@@ -6,6 +6,7 @@ import { chinaEcommercePage, leadPages } from './lead-pages.js';
 import { metricDictionary } from './resources.js';
 import { insightAuthor, insights } from './insights.js';
 import { practicalResources, resourceLibrary } from './practical-resources.js';
+import { caseDeliverables } from './case-deliverables.js';
 
 const ORIGIN = SITE.primaryDomain;
 const logoUrl = ORIGIN + SITE.logo;
@@ -164,7 +165,7 @@ export const routeMeta = [
     description: item.summary,
     name: item.title,
     caseSlug: item.slug,
-    updated: '2026-07-16',
+    updated: caseDeliverables[item.slug]?.updated || '2026-07-16',
     priority: '0.7',
     changefreq: 'monthly'
   }))
@@ -268,7 +269,7 @@ routeMeta.push(
       description: en.summary || item.summary,
       name: en.title || item.title,
       caseSlug: item.slug,
-      updated: '2026-07-16',
+      updated: caseDeliverables[item.slug]?.updated || '2026-07-16',
       priority: '0.7',
       changefreq: 'monthly',
       lang: 'en',

@@ -256,6 +256,7 @@ for (const staleAsset of ['assets/cases/generated-case-sheet.png']) {
   await fs.rm(path.join(dist, staleAsset), { force: true });
 }
 await copy(path.join(root, 'src/site-runtime.js'), path.join(dist, 'src/site-runtime.js'));
+await copy(path.join(root, 'src/components/copy-text.js'), path.join(dist, 'src/components/copy-text.js'));
 await fs.writeFile(path.join(dist, 'src/styles.css'), (await fs.readFile(path.join(root, 'src/styles.css'), 'utf8')) + '\n' + (await fs.readFile(path.join(root, 'src/experience.css'), 'utf8')));
 
 const domainAwareFiles = ['robots.txt', 'llms.txt', 'llms-full.txt', 'ai.txt', 'ai-context.json', 'pinmoo-profile.json'];
@@ -274,10 +275,12 @@ for (const filename of ['llms.txt', 'llms-full.txt']) {
   if (!content.includes(resourceLibrary.path)) await fs.writeFile(target, content.trimEnd() + '\n\n## Practical operating resources\n- [' + resourceLibrary.title + '](' + SITE.primaryDomain + resourceLibrary.path + '): ' + resourceLibrary.description + '\n', 'utf8');
 }
 const dataFiles = (await fs.readdir(path.join(root, 'src/data'))).filter(name => name.endsWith('.js')).sort().map(name => 'src/data/' + name);
-const versionFiles = ['src/styles.css', 'src/experience.css', 'src/site-runtime.js', 'src/static-main.js', 'src/components/geo-experience.js', 'src/components/consulting-upgrade.js', 'src/components/page-visual.js', ...dataFiles];
+const versionFiles = ['src/styles.css', 'src/experience.css', 'src/site-runtime.js', 'src/static-main.js', 'src/components/geo-experience.js', 'src/components/consulting-upgrade.js', 'src/components/page-visual.js', 'src/components/case-deliverable.js', 'src/components/copy-text.js', ...dataFiles];
 const versionHash = createHash('sha256');
 for (const file of versionFiles) versionHash.update(file).update(await fs.readFile(path.join(root, file)));
 const assetVersion = versionHash.digest('hex').slice(0, 10);
+const runtime = await fs.readFile(path.join(root, 'src/site-runtime.js'), 'utf8');
+await fs.writeFile(path.join(dist, 'src/site-runtime.js'), runtime.replace("from './components/copy-text.js'", "from './components/copy-text.js?v=" + assetVersion + "'"));
 await fs.writeFile(path.join(dist, 'site-build.json'), JSON.stringify({ version: assetVersion, builtAt: new Date().toISOString(), articleCount: insights.length, primaryDomain: SITE.primaryDomain }, null, 2) + '\n');
 const siteTemplate = (await fs.readFile(path.join(root, 'index.html'), 'utf8'))
   .replace(/\/src\/styles\.css(?:\?v=[a-f0-9]+)?/g, '/src/styles.css?v=' + assetVersion)

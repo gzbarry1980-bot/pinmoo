@@ -1,0 +1,22 @@
+{
+  "checkedOn": "2026-10-14",
+  "build": {
+    "version": "f510ceac8f",
+    "builtAt": "2026-10-14T14:51:15.636Z",
+    "articleCount": 76,
+    "primaryDomain": "https://pinmooconsulting.com"
+  },
+  "status": "passed",
+  "pages": 127,
+  "intentRows": 125,
+  "relatedReadingArticles": 76,
+  "caseOutlines": 3,
+  "checks": [
+    "unique titles and descriptions",
+    "reciprocal language links",
+    "visible FAQ matches schema",
+    "related reading targets",
+    "case illustration boundaries",
+    "versioned clipboard helper"
+  ]
+}
