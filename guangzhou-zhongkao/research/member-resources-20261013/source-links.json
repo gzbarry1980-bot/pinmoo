@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-10-12",
+  "scope": "user-provided-external-membership-links",
+  "notice": "需要原平台相应账号与会员权限；本系统解锁不包含原平台会员权限。第三方资料仅作补充参考，招生规则以当年官方公布为准。",
+  "records": [
+    {"id":"member-home","title":"会员资料库入口","category":"综合","description":"进入原平台资料目录","url":"https://app0vjwwvpz3722.h5.xiaoecloud.com","contentStatus":"link_only","schoolIds":[]},
+    {"id":"member-school-profiles","title":"高中学校介绍","category":"选学校","description":"了解学校与校区情况","url":"https://khs1y.xetslk.com/s/2QQ0dZ","contentStatus":"link_only","schoolIds":[]},
+    {"id":"member-volunteer-database","title":"志愿填报数据库","category":"填志愿","description":"补充查阅填报资料","url":"https://khs1y.xetslk.com/s/2KO8U2","contentStatus":"link_only","schoolIds":[]},
+    {"id":"member-policy","title":"中考政策科普","category":"填志愿","description":"帮助理解招生规则","url":"https://khs1y.xetslk.com/s/444mGx","contentStatus":"link_only","schoolIds":[]},
+    {"id":"member-signing","title":"25—26签约信息","category":"选学校","description":"含2025签约情况，仅作历史参考","url":"https://khs1y.xetslk.com/s/4mpZSJ","contentStatus":"link_only","schoolIds":[]},
+    {"id":"member-highlights","title":"会员群聊热点精华","category":"综合","description":"查阅家长关注的话题","url":"https://khs1y.xetslk.com/s/3oTbBZ","contentStatus":"link_only","schoolIds":[]},
+    {"id":"member-replays","title":"直播回放","category":"综合","description":"按主题回看讲解","url":"https://khs1y.xetslk.com/s/419QRU","contentStatus":"link_only","schoolIds":[]},
+    {"id":"member-exams","title":"试卷与学习资料","category":"备考","description":"7—9年级及中考试卷","url":"https://khs1y.xetslk.com/s/4kb3SH","contentStatus":"link_only","schoolIds":[]},
+    {"id":"member-international","title":"国际方向资料","category":"其他方向","description":"了解国际方向的选择","url":"https://khs1y.xetslk.com/s/4zJnvt","contentStatus":"link_only","schoolIds":[]},
+    {"id":"member-competition","title":"竞赛方向资料","category":"其他方向","description":"了解竞赛路径与资料","url":"https://khs1y.xetslk.com/s/3UAfEO","contentStatus":"link_only","schoolIds":[]}
+  ]
+}
+

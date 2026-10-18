@@ -1,0 +1,44 @@
+{
+  "status": "deployed",
+  "version": "ui-20261013-decision",
+  "previous": "/var/www/zhongkao.pinmoo.top/releases/ui-20261012-minimal",
+  "current": "/var/www/zhongkao.pinmoo.top/releases/ui-20261013-decision",
+  "verifiedUIFiles": 34,
+  "protectedFiles": 75,
+  "accessConfigUnchanged": true,
+  "health": [
+    {
+      "route": "/",
+      "bytes": 4871
+    },
+    {
+      "route": "/verify/",
+      "bytes": 20617
+    },
+    {
+      "route": "/schools/",
+      "bytes": 818
+    },
+    {
+      "route": "/special/?mode=talent",
+      "bytes": 15357
+    },
+    {
+      "route": "/special/?mode=autonomous",
+      "bytes": 15357
+    },
+    {
+      "route": "/quota/",
+      "bytes": 2467
+    },
+    {
+      "route": "/my/",
+      "bytes": 832
+    },
+    {
+      "route": "/unlock/",
+      "bytes": 7866
+    }
+  ],
+  "published_at": "2026-10-13T21:51:55.701383+08:00"
+}

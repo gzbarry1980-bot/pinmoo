@@ -1,0 +1,45 @@
+{
+  "status": "deployed",
+  "version": "ui-20261015-member-school-references",
+  "previous": "/var/www/zhongkao.pinmoo.top/releases/ui-20261013-school-integration",
+  "current": "/var/www/zhongkao.pinmoo.top/releases/ui-20261015-member-school-references",
+  "verifiedUIFiles": 12,
+  "protectedFiles": 95,
+  "removedPublicArtifacts": [],
+  "accessConfigUnchanged": true,
+  "health": [
+    {
+      "route": "/",
+      "bytes": 4777
+    },
+    {
+      "route": "/verify/",
+      "bytes": 20623
+    },
+    {
+      "route": "/schools/",
+      "bytes": 829
+    },
+    {
+      "route": "/special/?mode=talent",
+      "bytes": 15361
+    },
+    {
+      "route": "/special/?mode=autonomous",
+      "bytes": 15361
+    },
+    {
+      "route": "/quota/",
+      "bytes": 2471
+    },
+    {
+      "route": "/my/",
+      "bytes": 843
+    },
+    {
+      "route": "/unlock/",
+      "bytes": 7872
+    }
+  ],
+  "published_at": "2026-10-15T13:24:56.727532+08:00"
+}

@@ -1,4 +1,4 @@
-import {initShell,escapeHTML,disclaimer} from '../site-shell.js?v=20261013-flow';
+import {initShell,escapeHTML,disclaimer} from '../site-shell.js?v=20261013-school';
 import {renderResourceLibrary} from '../resource-library.js?v=20261012-resources';
 initShell();
 const main=document.getElementById('main');

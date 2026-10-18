@@ -1,9 +1,9 @@
-import {loadSchoolData,filterSchools,historyFor,latestRecord,schoolDistrict,schoolLocation,schoolURL,DISTRICTS,sourceURL} from './school-service.js';
+import {loadSchoolData,filterSchools,historyFor,latestRecord,schoolDistrict,schoolLocation,schoolURL,DISTRICTS,sourceURL} from './school-service.js?v=20261015-member';
 import {readWorkspace,updateWorkspace,toggleFavorite,toggleCompare,savePlan,LEGACY_KEY,parseAnonymousPlan} from './workspace-store.js';
-import {escapeHTML as e,notify,disclaimer,refreshContinuePlan} from './site-shell.js?v=20261013-flow';
+import {escapeHTML as e,notify,disclaimer,refreshContinuePlan} from './site-shell.js?v=20261013-school';
 import {simplifyVisibleCopy} from './parent-copy.js';
 import {regionSummary} from './region-preference.js';
-import {installSchoolReferences} from './resource-library.js?v=20261012-resources';
+import {schoolReference,renderSchoolReference} from './school-reference-view.js';
 const main=document.getElementById('main'), page=document.body.dataset.experiencePage;
 const params=new URLSearchParams(location.search);
 let data,shown=24;
@@ -32,7 +32,7 @@ function installSchoolSections(){
   const sections=links.map(link=>document.getElementById(link.hash.slice(1))).filter(Boolean).sort((a,b)=>a.offsetTop-b.offsetTop);
   const select=id=>links.forEach(link=>{if(link.hash===`#${id}`)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});
   let queued=false;
-  const refresh=()=>{queued=false;const edge=nav.getBoundingClientRect().bottom+70;let current=sections[0];for(const section of sections)if(section.getBoundingClientRect().top<=edge)current=section;if(current)select(current.id);};
+  const refresh=()=>{queued=false;const anchorMargin=Math.max(70,...sections.map(s=>parseFloat(getComputedStyle(s).scrollMarginTop)||0));const edge=nav.getBoundingClientRect().bottom+anchorMargin;let current=sections[0];for(const section of sections)if(section.getBoundingClientRect().top<=edge)current=section;if(current)select(current.id);};
   addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(refresh);}},{passive:true});
   addEventListener('hashchange',()=>{if(location.hash)select(location.hash.slice(1));});
   nav.addEventListener('click',event=>{const link=event.target.closest('a');if(link)select(link.hash.slice(1));});
@@ -42,7 +42,6 @@ function installSchoolSections(){
 const card=(s,filters={})=>{const r=latestRecord(data,s.id,{candidateType:'户籍生',...filters}),aut=data.special.autonomous.some(x=>x.schoolId===s.id),tal=data.special.specialTalent.some(x=>x.schoolId===s.id);return `<article class="library-card"><a class="school-card-main" href="${schoolURL(s.id)}"><div class="chips"><span class="chip">${e(schoolDistrict(s))}</span><span class="chip">${e(s.ownership||'性质待核对')}</span>${s.administrativeAffiliation?`<span class="chip">${e(s.administrativeAffiliation)}</span>`:''}${s.schoolDesignation?`<span class="chip">${e(s.schoolDesignation)}</span>`:''}${aut?'<span class="chip">自主招生</span>':''}${tal?'<span class="chip">特长项目</span>':''}</div><h3>${e(s.name)}</h3><p>${e(schoolLocation(s).address||'校区地址尚未收录')}</p><small>${r?`${r.year} · 第${r.batch}批 · ${e(r.candidateType)} · 最低录取分 ${val(r.cutoffScore)} · 末位志愿 ${val(r.lastVolunteerNo)}`:'当前口径暂无户籍生统招记录；仍可查看学校资料'}</small>${outcomeSummary(s.id)}</a>${actions(s.id)}</article>`;};
 function end(){
  const ws=readWorkspace();
- if(['library','my','admissions'].includes(page)&&!main.querySelector('.resource-entry')){const entry=document.createElement('div');entry.className='resource-entry';entry.innerHTML='<a class="button-secondary" href="/resources/">中考资料库 →</a><span class="note">学校介绍、政策与备考资料</span>';main.querySelector('.page-hero')?.append(entry);}
  main.querySelectorAll('a[href^="/target/"]').forEach(link=>{const url=new URL(link.href);link.href=`/verify/?new=1&targetSchool=${encodeURIComponent(url.searchParams.get('school')||'')}#targetPlanning`;});
  if(page==='my'&&ws.profile)main.querySelector('.editorial-section').insertAdjacentHTML('beforeend',`<p class="note">区域偏好：${e(regionSummary(ws.profile))}</p>`);
  if(page==='planCompare'){
@@ -85,6 +84,7 @@ function detail(){
   document.getElementById('history').insertAdjacentHTML('beforeend','<details class="method-details"><summary>最低分、末位志愿和同分序号怎么看？</summary><p>最低录取分，是该年该批次、该类考生中被录取的最低分数；末位志愿序号，是最后一名被录取考生把学校填在第几个志愿。它们要结合梯度规则一起看，不能只凭“过线”就判断一定能进。同分序号用于区分同分考生的先后；招生计划是计划招多少人，不是实际录取人数。</p><p class="note">请先选择同一年度、批次和考生类别再比较学校。缺少记录不等于没有招生。</p></details>');
   const locationInfo=schoolLocation(s);
   const outcome=schoolOutcome(id);
+  const lifeReference=schoolReference(data,id);
   const overview=document.getElementById('overview'),latest=latestRecord(data,id,{year:data.manifest.latestPolicyYear,candidateType:'户籍生'});
   const quick=document.createElement('aside');quick.className='decision-card school-quick-facts';quick.innerHTML=`<h3>先看这6件事</h3><dl class="fact-grid"><div><dt>在哪里？</dt><dd>${e(schoolDistrict(s))} · ${e(locationInfo.address||'地址待补充')}</dd></div><div><dt>哪些考生可报？</dt><dd>${e(latest?.scope||'需查看当年招生范围')} · <a href="#history">按考生类别查看</a></dd></div><div><dt>往年门槛？</dt><dd>${latest?`${latest.year}年第${latest.batch}批户籍生 ${latest.cutoffScore}分 · 末位志愿${latest.lastVolunteerNo??'未公布'}`:'本年度该类别暂无记录'}</dd></div><div><dt>学费与住宿？</dt><dd>${s.annualFee==null?'学费待核对':`${s.annualFee}元/年`} · ${s.boarding==null?'住宿待核对':s.boarding?'提供住宿':'不提供住宿'}</dd></div><div><dt>有什么特色？</dt><dd>${e(data.special.specialTalent.filter(r=>r.schoolId===id).map(r=>r.projectSummary).join('；')||'项目资料待补充')} · <a href="#special">看特长与自招</a></dd></div><div><dt>毕业成绩怎样？</dt><dd>${outcome?'<a href="#outcomes">查看分年份升学参考</a>':'尚未收录有明确口径的参考'}</dd></div></dl><small>最低分不是承诺录取线；费用、住宿和项目请以当年官方资料为准。</small>`;overview.prepend(quick);
   if(outcome){
@@ -92,6 +92,15 @@ function detail(){
     if(field)field.querySelector('dd').innerHTML=`${outcomeSummary(id)}<a href="#outcomes">展开历年高考参考</a>`;
     document.getElementById('overview').insertAdjacentHTML('afterend',outcomeDetails(id));
     main.querySelector('.detail-tabs').insertAdjacentHTML('beforeend','<a href="#outcomes">高考升学表现</a>');
+  }
+  if(lifeReference){
+    overview.insertAdjacentHTML('afterend',renderSchoolReference(lifeReference,data.sources));
+    main.querySelector('.detail-tabs').insertAdjacentHTML('beforeend','<a href="#schoolLife">校园与班型</a>');
+    const quickFields=[...quick.querySelectorAll('dl>div')];
+    const room=quickFields.find(f=>f.querySelector('dt')?.textContent==='学费与住宿？');
+    if(room)room.querySelector('dd').insertAdjacentHTML('beforeend',`<br><a href="#schoolLife">历史住宿：${e(lifeReference.boarding.rooms)}</a>`);
+    const features=quickFields.find(f=>f.querySelector('dt')?.textContent==='有什么特色？');
+    if(features)features.querySelector('dd').insertAdjacentHTML('beforeend','<br><a href="#schoolLife">查看班型与校园介绍</a>');
   }
   const addressField=[...document.querySelectorAll('#overview .fact-grid > div')].find(field=>field.querySelector('dt')?.textContent==='校区地址');
   const addressValue=addressField?.querySelector('dd');if(addressValue)addressValue.textContent=locationInfo.address||'尚未收录';
@@ -105,7 +114,7 @@ function detail(){
   let ref;try{ref=new URL(document.referrer);}catch{}if(ref?.origin===location.origin&&ref.pathname==='/schools/')document.getElementById('returnToSchools').href=ref.pathname+ref.search;
   document.getElementById('addToPlan').addEventListener('click',()=>{if(!document.querySelector('#addPlanForm [name=batch]').options.length)return notify('本校暂无最新年度统招记录，请先核实招生计划。');document.getElementById('addPlanDialog').showModal();});
   document.getElementById('cancelAdd').addEventListener('click',()=>document.getElementById('addPlanDialog').close());
-  document.getElementById('addPlanForm').addEventListener('submit',event=>{event.preventDefault();const f=new FormData(event.target);location.assign(`/verify/?resume=1&school=${encodeURIComponent(id)}&batch=${f.get('batch')}&position=${f.get('position')}#volunteerForm`);});compareDock();end();installSchoolSections();installSchoolReferences(s);
+  document.getElementById('addPlanForm').addEventListener('submit',event=>{event.preventDefault();const f=new FormData(event.target);location.assign(`/verify/?resume=1&school=${encodeURIComponent(id)}&batch=${f.get('batch')}&position=${f.get('position')}#volunteerForm`);});compareDock();end();installSchoolSections();
 }
 function comparison(){
   const ids=readWorkspace().compare,schools=ids.map(id=>data.schools.find(s=>s.id===id)).filter(Boolean);

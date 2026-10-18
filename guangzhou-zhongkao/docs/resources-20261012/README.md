@@ -1,6 +1,8 @@
 # 会员资料入口整合
 
-日期：2026-10-12（北京时间）。状态：本地完成入口与页面关联，尚未发布正式站；会员正文尚未完成逐篇收录。
+> 2026-10-13用户纠正产品方向：不建立独立资料库，会员资料仅作学校事实整理的内部来源。以下为历史实现记录；当前修正见 `../school-integration-20261013/README.md`。
+
+日期：2026-10-12（北京时间），2026-10-13补充发布状态。10类入口与页面关联已随 ui-20261013-decision 发布正式站；会员正文尚未完成逐篇收录。
 
 ## 已完成
 
@@ -26,4 +28,4 @@
 - `ui-results.json`、`resources-mobile.png`、`school-reference-mobile.png` 为本地UI证据。
 - 原站公开目录检查位于 `research/member-resources-20261012/access-audit.json` 和 `school-catalog-audit.json`；研究目录不进入发布包。
 
-未发布正式站，未提交／推送Git，未支付、未激活序列号、未新增设备绑定。
+入口已发布正式站，回执见 `../decision-upgrade-20261013/online-release/release-receipt.json`；未提交／推送Git，未支付、未激活序列号、未新增设备绑定。

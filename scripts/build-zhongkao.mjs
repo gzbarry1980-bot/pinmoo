@@ -18,6 +18,8 @@ await fs.mkdir(path.dirname(target), { recursive: true });
 await fs.cp(source, target, { recursive: true, force: true, filter: async input => {
   const relative=path.relative(source,input);
   if(!relative)return true;
+  // Member directories are internal research sources, not a public module.
+  if(new Set(['data/member-resources.json','resource-library.js','resource-library.css','resources/resources.js']).has(relative.replaceAll(path.sep,'/')))return false;
   const parts=relative.split(path.sep);
   if(parts.some(part=>part.startsWith('.')))return false;
   const stat=await fs.stat(input);

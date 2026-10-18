@@ -1,0 +1,51 @@
+{
+  "origin": "https://zhongkao.pinmooconsulting.com",
+  "at": "2026-10-13T15:15:42.756Z",
+  "results": [
+    {
+      "name": "No separate resource entry at /",
+      "pass": true
+    },
+    {
+      "name": "No separate resource entry at /schools/",
+      "pass": true
+    },
+    {
+      "name": "No separate resource entry at /my/",
+      "pass": true
+    },
+    {
+      "name": "No separate resource entry at /admissions/",
+      "pass": true
+    },
+    {
+      "name": "School information remains integrated",
+      "pass": true
+    },
+    {
+      "name": "School outcome reference remains in this school",
+      "pass": true
+    },
+    {
+      "name": "No generic external school directory panel",
+      "pass": true
+    },
+    {
+      "name": "Mobile school page fits",
+      "pass": true
+    },
+    {
+      "name": "Old bookmark goes directly to school search",
+      "pass": true
+    },
+    {
+      "name": "Public build excludes external membership directory",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

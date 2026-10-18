@@ -1,0 +1,25 @@
+{
+  "createdAt": "2026-10-15T05:27:08.635Z",
+  "catalogEntries": 23,
+  "schoolCampusArticles": 20,
+  "specialArticles": 3,
+  "textCharacters": 73128,
+  "imageCopies": 390,
+  "uniqueImages": 336,
+  "ocrResults": 336,
+  "ocrFailures": 0,
+  "ocrCharacters": 255585,
+  "ocrManualReview": "pending_except_selected_2025_class_table",
+  "publicSchoolReferences": 20,
+  "publicClassReferences": 17,
+  "productionUpdated": true,
+  "publishedAt": "2026-10-15T13:24:56.727532+08:00",
+  "publishedVersion": "ui-20261015-member-school-references",
+  "scope": "Only the province/city school column, not all membership categories or all Guangzhou schools.",
+  "limitations": [
+    "OCR is unreviewed and not official data.",
+    "Raw membership articles and images are excluded from public builds and Git.",
+    "Admission tables and performance claims require field-by-field verification before model use.",
+    "The separate 2025 class table original and OCR are preserved at the research root and ocr directory."
+  ]
+}

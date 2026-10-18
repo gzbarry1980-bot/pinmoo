@@ -1,0 +1,212 @@
+{
+  "planningDate": "2026-10-18",
+  "timezone": "Asia/Shanghai",
+  "scope": "Read-only current-state checks for the official-site next-stage plan; no production changes or submissions.",
+  "public": {
+    "checkedAt": "2026-10-18T13:37:07.072Z",
+    "pages": [
+      {
+        "url": "https://pinmooconsulting.com/",
+        "status": 200,
+        "location": null
+      },
+      {
+        "url": "https://pinmooconsulting.com/services/",
+        "status": 200,
+        "location": null
+      },
+      {
+        "url": "https://pinmooconsulting.com/services/geo-consulting/",
+        "status": 200,
+        "location": null
+      },
+      {
+        "url": "https://pinmooconsulting.com/cases/",
+        "status": 200,
+        "location": null
+      },
+      {
+        "url": "https://pinmooconsulting.com/cases/chenpi-brand-geo-diagnosis/",
+        "status": 200,
+        "location": null
+      },
+      {
+        "url": "https://pinmooconsulting.com/insights/",
+        "status": 200,
+        "location": null
+      },
+      {
+        "url": "https://pinmooconsulting.com/resources/operating-templates/",
+        "status": 200,
+        "location": null
+      },
+      {
+        "url": "https://pinmooconsulting.com/contact/",
+        "status": 200,
+        "location": null
+      },
+      {
+        "url": "https://pinmooconsulting.com/en/services/",
+        "status": 200,
+        "location": null
+      },
+      {
+        "url": "https://pinmooconsulting.com/site-build.json",
+        "status": 200,
+        "location": null
+      },
+      {
+        "url": "https://pinmooconsulting.com/robots.txt",
+        "status": 200,
+        "location": null
+      },
+      {
+        "url": "https://pinmooconsulting.com/sitemap.xml",
+        "status": 200,
+        "location": null
+      },
+      {
+        "url": "https://pinmooconsulting.com/baidu_verify_codeva-uekB8QgVKv.html",
+        "status": 200,
+        "location": null
+      },
+      {
+        "url": "https://pinmoo.top/",
+        "status": 301,
+        "location": "https://pinmooconsulting.com/"
+      },
+      {
+        "url": "https://pinmoo.top/ai-diagnosis/",
+        "status": 301,
+        "location": "https://agent.pinmoo.top/"
+      },
+      {
+        "url": "https://pinmoo.top/robots.txt",
+        "status": 301,
+        "location": "https://pinmooconsulting.com/robots.txt"
+      },
+      {
+        "url": "https://pinmoo.top/sitemap.xml",
+        "status": 301,
+        "location": "https://pinmooconsulting.com/sitemap.xml"
+      },
+      {
+        "url": "https://pinmoo.top/baidu_verify_codeva-GmqoIhJMNV.html",
+        "status": 200,
+        "location": null
+      }
+    ],
+    "build": {
+      "version": "f510ceac8f",
+      "builtAt": "2026-10-14T14:51:15.636Z",
+      "articleCount": 76,
+      "primaryDomain": "https://pinmooconsulting.com"
+    }
+  },
+  "basicVerifier": {
+    "command": "node scripts/verify-live.mjs https://pinmooconsulting.com",
+    "exitCode": 0,
+    "scope": "Homepage, about, insights, canonical, security headers, real 404, robots and sitemap; not a new full-route or visual acceptance."
+  },
+  "localPending": {
+    "probeRows": 144,
+    "probeStatuses": {
+      "NOT_COLLECTED": 144
+    },
+    "testers": 5,
+    "testerStatuses": {
+      "NOT_RUN": 5
+    },
+    "inquiryLedgerRows": 0,
+    "externalDraftRows": 30,
+    "externalStatus": "Local checklist says prepared and unpublished; actual external-account state has not been checked.",
+    "note": "Blank local records do not prove no testing, publishing or enquiries occurred outside these records."
+  },
+  "eventSummary": {
+    "window": [
+      "2026-10-13",
+      "2026-10-18"
+    ],
+    "asOf": "2026-10-18T13:36:40.578Z",
+    "filesRead": 30,
+    "totals": {
+      "page_view": 304,
+      "report_open": 0,
+      "wechat_copy": 0,
+      "phone_click": 0,
+      "consult_open": 5,
+      "resource_download": 0
+    },
+    "daily": {
+      "2026-10-18": {
+        "page_view": 54,
+        "report_open": 0,
+        "wechat_copy": 0,
+        "phone_click": 0,
+        "consult_open": 0,
+        "resource_download": 0
+      },
+      "2026-10-13": {
+        "page_view": 70,
+        "report_open": 0,
+        "wechat_copy": 0,
+        "phone_click": 0,
+        "consult_open": 4,
+        "resource_download": 0
+      },
+      "2026-10-14": {
+        "page_view": 49,
+        "report_open": 0,
+        "wechat_copy": 0,
+        "phone_click": 0,
+        "consult_open": 0,
+        "resource_download": 0
+      },
+      "2026-10-15": {
+        "page_view": 58,
+        "report_open": 0,
+        "wechat_copy": 0,
+        "phone_click": 0,
+        "consult_open": 1,
+        "resource_download": 0
+      },
+      "2026-10-16": {
+        "page_view": 42,
+        "report_open": 0,
+        "wechat_copy": 0,
+        "phone_click": 0,
+        "consult_open": 0,
+        "resource_download": 0
+      },
+      "2026-10-17": {
+        "page_view": 31,
+        "report_open": 0,
+        "wechat_copy": 0,
+        "phone_click": 0,
+        "consult_open": 0,
+        "resource_download": 0
+      }
+    },
+    "malformed": 0,
+    "excluded": 0,
+    "limitation": "Recorded actions only; current day is partial; may include prior QA; no visitor or enquiry attribution."
+  },
+  "historicalAcceptance": {
+    "date": "2026-10-14",
+    "version": "f510ceac8f",
+    "publicRoutes": 127,
+    "sitemapUrls": 125,
+    "articles": 76,
+    "englishPages": 16,
+    "responsiveCombinations": 50,
+    "lighthouse": "Three mobile lab runs each for home/services/contact; not rerun today and not field data."
+  },
+  "references": [
+    "outputs/site-upgrade-plan-2026-10-13/官网升级规划.md",
+    "outputs/site-upgrade-2026-10-13/官网升级执行记录.md",
+    "outputs/site-upgrade-completion-2026-10-14/补齐验收记录.md",
+    "outputs/site-upgrade-completion-2026-10-14/人工验收与数据补齐.md",
+    "https://developers.google.com/search/docs/appearance/ai-features",
+    "https://developers.google.com/search/docs/fundamentals/creating-helpful-content"
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "at": "2026-10-13T13:53:59.192Z",
+  "scope": "Public anonymous browser + isolated licensed API fixtures; no payment, serial activation or device binding",
+  "results": [
+    {
+      "name": "Anonymous generation lands in step 2",
+      "pass": true
+    },
+    {
+      "name": "Personal draft preview shows three ordered schools",
+      "pass": true
+    },
+    {
+      "name": "Generation does not force a paywall",
+      "pass": true
+    },
+    {
+      "name": "Full table remains gated",
+      "pass": true
+    },
+    {
+      "name": "Personal basic analysis is readable",
+      "pass": true
+    },
+    {
+      "name": "Full score remains gated",
+      "pass": true
+    },
+    {
+      "name": "One explanation is complete",
+      "pass": true
+    },
+    {
+      "name": "Mobile result action clearly offers full analysis",
+      "pass": true
+    },
+    {
+      "name": "Web paywall uses serial wording",
+      "pass": true
+    },
+    {
+      "name": "Escape closes paywall",
+      "pass": true
+    },
+    {
+      "name": "Unlock return restores saved plan and analysis step",
+      "pass": true
+    },
+    {
+      "name": "Device continuity help is present",
+      "pass": true
+    },
+    {
+      "name": "Original analysis returns without refill",
+      "pass": true
+    },
+    {
+      "name": "Saved card includes conclusion and next action",
+      "pass": true
+    },
+    {
+      "name": "Secondary management is collapsed",
+      "pass": true
+    },
+    {
+      "name": "Licensed score is visible and ungated",
+      "pass": true
+    },
+    {
+      "name": "Three score scenarios use same plan",
+      "pass": true
+    },
+    {
+      "name": "Back from result preserves all school slots",
+      "pass": true
+    },
+    {
+      "name": "Target mode retains suggested-score analysis",
+      "pass": true
+    },
+    {
+      "name": "Intended-school mode retains step 2 confirmation",
+      "pass": true
+    },
+    {
+      "name": "Adjustment is shown before adopting",
+      "pass": true
+    },
+    {
+      "name": "Cancel adjustment retains original selections",
+      "pass": true
+    },
+    {
+      "name": "Adopt applies proposal and recalculates",
+      "pass": true
+    },
+    {
+      "name": "School six-question card fits 360",
+      "pass": true
+    },
+    {
+      "name": "School six-question card fits 390",
+      "pass": true
+    },
+    {
+      "name": "School six-question card fits 430",
+      "pass": true
+    },
+    {
+      "name": "School six-question card fits 1440",
+      "pass": true
+    },
+    {
+      "name": "No browser script errors",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

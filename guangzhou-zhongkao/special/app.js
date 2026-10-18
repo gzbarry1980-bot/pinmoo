@@ -1,5 +1,5 @@
 import {simplifyVisibleCopy} from '../parent-copy.js';
-import {foldSpecialInformation} from '../workflow-ui.js?v=20261013-flow';
+import {foldSpecialInformation} from '../workflow-ui.js?v=20261013-school';
 foldSpecialInformation();
 const DATA_URL = '../data/first-batch-2026.json';
 const EVENTS_URL = '../data/autonomous-school-events-2026.json';

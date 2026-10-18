@@ -1,0 +1,105 @@
+{
+  "at": "2026-10-14T08:03:22.576Z",
+  "checks": [
+    {
+      "schoolId": "gz-5424230557c2",
+      "name": "广东实验中学（荔湾校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-503814527dc3",
+      "name": "广东实验中学（白云校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-198c01489912",
+      "name": "华南师范大学附属中学（石牌校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-fd2a5311bae4",
+      "name": "华南师范大学附属中学（知识城校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-3a2e51774f57",
+      "name": "广州市第二中学",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-96a493c0f2d1",
+      "name": "广州大学附属中学",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-6b8cf4e3bb80",
+      "name": "广东广雅中学（荔湾校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-d88fc5845fdc",
+      "name": "广东广雅中学（花都校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-a356b84be321",
+      "name": "广州市执信中学（执信路校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-284b2b772794",
+      "name": "广州市执信中学（天河校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-39546db6ee78",
+      "name": "广州外国语学校",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-b610fbd1676b",
+      "name": "广州市第六中学（海珠校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-e0c6a89c9e84",
+      "name": "广州市第六中学（花都校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-d1dab230f119",
+      "name": "广州市第六中学（从化校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-0a2cc03d55ef",
+      "name": "广州市铁一中学（越秀校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-727b6d8ff167",
+      "name": "广州市铁一中学（番禺校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-9a6f1f35a825",
+      "name": "广州市铁一中学（白云校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-11fe9a9bc94f",
+      "name": "清华附中湾区学校（智谷校区）",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-a9afa174ddb3",
+      "name": "广州协和学校",
+      "pass": true
+    },
+    {
+      "schoolId": "gz-2d5bcaab3eb7",
+      "name": "广东华侨中学",
+      "pass": true
+    }
+  ]
+}

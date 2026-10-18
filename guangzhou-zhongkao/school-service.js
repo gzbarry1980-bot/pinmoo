@@ -68,8 +68,8 @@ export async function loadSchoolData() {
     if(!r.ok) throw new Error(`学校资料暂时读取失败（${r.status}）`);
     return r.json();
   };
-  cached=Promise.all([...['schools.json','admissions.json','sources.json','manifest.json','first-batch-2026.json','autonomous-school-events-2026.json','autonomous-results.json'].map(read),read('evidence-summary.json').catch(()=>null),read('school-outcomes.json').catch(()=>({records:[],sources:[]}))])
-    .then(([schools,admissions,sources,manifest,special,events,autonomous,evidence,outcomes])=>({schools,admissions,sources:[...sources,...(special.sources||[]),...(events.sources||[]),...(autonomous.sources||[]),...(outcomes.sources||[])],manifest,special,events,autonomous,evidence,outcomes}))
+  cached=Promise.all([...['schools.json','admissions.json','sources.json','manifest.json','first-batch-2026.json','autonomous-school-events-2026.json','autonomous-results.json'].map(read),read('evidence-summary.json').catch(()=>null),read('school-outcomes.json').catch(()=>({records:[],sources:[]})),read('school-references.json').catch(()=>({records:[],sources:[]}))])
+    .then(([schools,admissions,sources,manifest,special,events,autonomous,evidence,outcomes,references])=>({schools,admissions,sources:[...sources,...(special.sources||[]),...(events.sources||[]),...(autonomous.sources||[]),...(outcomes.sources||[]),...(references.sources||[])],manifest,special,events,autonomous,evidence,outcomes,references}))
     .catch(error=>{cached=null;throw error;});
   return cached;
 }

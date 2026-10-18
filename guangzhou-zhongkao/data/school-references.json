@@ -1,0 +1,896 @@
+{
+  "version": "school-reference-20261014",
+  "capturedDate": "2026-10-14",
+  "scope": "省市属高中栏目：20所学校/校区；不是广州所有高中",
+  "note": "学校生活与培养方向参考，不改变报考资格、学费筛选、录取机会或方案评分。全文和原图不公开。",
+  "sources": [
+    {
+      "id": "member-school-01-20261014",
+      "title": "省实荔湾校区",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_67b57765e4b0694ca062d3ae?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2025-02-19",
+      "capturedAt": "2026-10-14T00:29:27.713Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "693720676f665a1871da73f759d104290ac897f8c67d6bdc7b60ccb365efb0fd",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-02-20261014",
+      "title": "省实白云校区",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_68ac50efe4b0694c5b1ea6a4?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2025-08-25",
+      "capturedAt": "2026-10-14T00:33:35.723Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "99b2ff6ff06f38b0e31c25d2ee65358d4fae1749d48095db2f2478c39c236c75",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-03-20261014",
+      "title": "华附石牌校区",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_67b576fee4b0694ca062d341?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2026-01-08",
+      "capturedAt": "2026-10-14T00:33:38.609Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "478e2f0c95e3c6195910f630db08db78a04ea5299aae2816f66f21d15260e26e",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-04-20261014",
+      "title": "华附知识城校区",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_6888756de4b0694c5b0d095a?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2026-01-08",
+      "capturedAt": "2026-10-14T00:33:41.576Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "2a038fd1f9e5bafb069635253397fa6c6e2be3c57fb7c9d48c75381f31c2b909",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-05-20261014",
+      "title": "二中",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_67b58b1ae4b0694ca062fb40?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2026-01-08",
+      "capturedAt": "2026-10-14T00:33:31.933Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "fbbc48881dafa1e298edc1c3971fca317a65bfdcf0a7a176cfd55832303cc25c",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-06-20261014",
+      "title": "广州大学附属中学",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_67b58b77e4b0694c5a95a0ea?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2025-02-19",
+      "capturedAt": "2026-10-14T00:34:32.718Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "1239cfe94a581c553de5125f011ca01069505b210c391db91e20355b393900dd",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-07-20261014",
+      "title": "广雅荔湾校区",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_67b5895fe4b0694c5a959ceb?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2026-01-08",
+      "capturedAt": "2026-10-14T00:34:35.944Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "81ef7bce675877e0a254a3731bfca1e72c8c4592a966af8fd2cd8023ef227c5d",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-08-20261014",
+      "title": "广雅花都校区",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_6889bc9ce4b0694ca0f13002?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2026-01-08",
+      "capturedAt": "2026-10-14T00:35:57.423Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "81c454fdc66286bcd9396038cac1fc54adaea962b191f84ee1adafefbe3e9ae2",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-09-20261014",
+      "title": "越秀执信",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_67b58a1be4b0694ca062f92c?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2026-01-08",
+      "capturedAt": "2026-10-14T00:36:01.732Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "e64dc75091aac99769776c09a147dd59650f4f95f14abe5be626b2ad8e7c4f76",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-10-20261014",
+      "title": "天河执信",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_68e1f09ee4b0694c5b36dcc1?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2026-01-08",
+      "capturedAt": "2026-10-14T00:36:05.363Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "a9e062b41112c8fc8993c2bca74f02e04d76aa49a1bf48975207c4b760b72bb3",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-11-20261014",
+      "title": "广州外国语学校",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_68467a32e4b0694c5ae52c4d?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2025-06-09",
+      "capturedAt": "2026-10-14T00:36:09.242Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "240420f8139a3dbd878e21872f4af55a37ac335d76b81ac84805e9d8add29c0d",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-12-20261014",
+      "title": "六中海珠校区",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_67b5886fe4b0694ca062f5a8?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2026-01-08",
+      "capturedAt": "2026-10-14T00:36:12.951Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "470acb3c0c0b4e7a70272b805c361faf90690e2b08ffdf5f2f0e231ccafd09a0",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-13-20261014",
+      "title": "六中花都校区",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_68aee2b8e4b0694c5b200461?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2025-08-27",
+      "capturedAt": "2026-10-14T00:37:24.466Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "eb2b0a770637e0980ab0d9b73011789539caeecede2db893de51528f22d38cf9",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-14-20261014",
+      "title": "六中从化校区",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_68aee38be4b0694ca1095e4b?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2025-08-27",
+      "capturedAt": "2026-10-14T00:37:28.072Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "4a98e15a80f8c9d9171a5d00ddd066822725d5f9f43dfee7173c53ec9c025a81",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-15-20261014",
+      "title": "铁一越秀校区",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_67b588e0e4b0694c5a959c31?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2025-02-19",
+      "capturedAt": "2026-10-14T00:37:31.610Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "77d66e0db73b95ff55e7aa3fecff8ff40a705d934adaadc32d4fa2dbff08145c",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-16-20261014",
+      "title": "铁一番禺校区",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_68aee8cce4b0694ca10961c8?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2025-08-27",
+      "capturedAt": "2026-10-14T00:38:19.990Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "fe322de5e28fcdd50d95d75cf3ccc069d577f6f2a83b8cdfd94e32802b5035ee",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-17-20261014",
+      "title": "铁一白云校区",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_68aee982e4b0694c5b2008a3?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2025-08-27",
+      "capturedAt": "2026-10-14T00:38:25.455Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "1ecee77f3fa23786aa854c78a982a03d6cc6e8107290fc99b947e33444627318",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-18-20261014",
+      "title": "清湾",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_67b5867de4b0694ca062f18a?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2025-02-19",
+      "capturedAt": "2026-10-14T00:39:11.559Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "9caa21965dc1cbb7599893d6445954e10a55f3ac4d4ed6d252cc494d7d4d34de",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-19-20261014",
+      "title": "协和",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_67b58718e4b0694c5a95988c?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2025-02-19",
+      "capturedAt": "2026-10-14T00:39:15.151Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "13ec31ee51ec51a652e9b7164105ccdc58122b6dfd292b2b718550a3597ff745",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-school-20-20261014",
+      "title": "华侨中学",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_67b585afe4b0694c5a9595b5?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2025-02-19",
+      "capturedAt": "2026-10-14T00:39:18.884Z",
+      "kind": "third-party-member-article",
+      "contentSHA256": "2f053feefd9f5b966f018f7ec608c5aed3398a981f8fc9de7ddb0b5c362391c1",
+      "verification": "extracted_not_officially_verified"
+    },
+    {
+      "id": "member-class-table-2025-20261014",
+      "title": "2025前九所分班情况",
+      "url": "https://app0vjwwvpz3722.h5.xet.pomoho.com/p/course/text/i_68b96678e4b0694ca10ff713?product_id=p_695f6d1ee4b0694ca168c72f",
+      "publishedAt": "2025-09-04",
+      "capturedAt": "2026-10-14T07:01:57.658Z",
+      "kind": "third-party-member-image",
+      "imageSHA256": "536ebd78cbda3816f9507943b593d4d4d80e7786e51facd543ef6504df31be71",
+      "verification": "visually_transcribed_not_officially_verified"
+    }
+  ],
+  "records": [
+    {
+      "schoolId": "gz-5424230557c2",
+      "schoolName": "广东实验中学（荔湾校区）",
+      "sourceLabel": "省实荔湾校区",
+      "campusScope": "广东实验中学（荔湾校区）",
+      "sourceId": "member-school-01-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "6—7人间",
+        "semesterFee": 650,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "独立卫浴、阳台、空调；资料提及洗衣与烘干设施",
+        "sourceId": "member-school-01-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "南山、格致和平行班；资料介绍人文与科学素养融合课程",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 18,
+        "summary": "南山6、格致4，其余平行",
+        "issues": [
+          "文章另列面向广州计划约670人；招生范围与计划口径不同，未合并人数"
+        ],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-503814527dc3",
+      "schoolName": "广东实验中学（白云校区）",
+      "sourceLabel": "省实白云校区",
+      "campusScope": "广东实验中学（白云校区）",
+      "sourceId": "member-school-02-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "4—6人间",
+        "semesterFee": 650,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "独立卫浴、空调",
+        "sourceId": "member-school-02-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "南山、格致和平行班；与荔湾校区之间有教师交流安排",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 12,
+        "summary": "南山4、格致2，其余平行",
+        "issues": [],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-198c01489912",
+      "schoolName": "华南师范大学附属中学（石牌校区）",
+      "sourceLabel": "华附石牌校区",
+      "campusScope": "华南师范大学附属中学（石牌校区）",
+      "sourceId": "member-school-03-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "6人间",
+        "semesterFee": 700,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "独立卫浴、阳台、空调；公共自习与洗衣设施",
+        "sourceId": "member-school-03-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "奥班、大先强基、大先数理和平行班",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 12,
+        "summary": "奥班2、大先强基3、大先数理3、平行4",
+        "issues": [],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-fd2a5311bae4",
+      "schoolName": "华南师范大学附属中学（知识城校区）",
+      "sourceLabel": "华附知识城校区",
+      "campusScope": "华南师范大学附属中学（知识城校区）",
+      "sourceId": "member-school-04-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "4人间",
+        "semesterFee": 700,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "双卫生间、阳台、空调及洗衣设施",
+        "sourceId": "member-school-04-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "丘班、中科大创新、大先数理、人文、海航等培养方向",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 11,
+        "summary": "丘班1、中科大创新1、大先数理2、大先人文1、海航1、平行5",
+        "issues": [],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-3a2e51774f57",
+      "schoolName": "广州市第二中学",
+      "sourceLabel": "二中",
+      "campusScope": "广州市第二中学",
+      "sourceId": "member-school-05-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "高一、高二6人间；高三4人间",
+        "semesterFee": 650,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "独立卫浴、空调；热水按用量另计",
+        "sourceId": "member-school-05-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "应元课程体系涵盖基础课程、人文数理阅读和竞赛培优",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 19,
+        "summary": "表中应元8，其余平行",
+        "issues": [
+          "同年学校文章记应元7；两条资料有差异，当前班数需向学校核对"
+        ],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-96a493c0f2d1",
+      "schoolName": "广州大学附属中学",
+      "sourceLabel": "广州大学附属中学",
+      "campusScope": "广州大学附属中学",
+      "sourceId": "member-school-06-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "6—8人间",
+        "semesterFee": 650,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "空调、双卫浴、阳台；公共洗衣与浴室设施",
+        "sourceId": "member-school-06-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "大学城校区；资料介绍奥班、国防班、创新班等不同培养方向",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 15,
+        "summary": "奥、00、0、重点、国防、创新、平行等班型",
+        "issues": [
+          "表中分项相加与总班数不一致，文章明细也存在重复；不推定各班实际人数"
+        ],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-6b8cf4e3bb80",
+      "schoolName": "广东广雅中学（荔湾校区）",
+      "sourceLabel": "广雅荔湾校区",
+      "campusScope": "广东广雅中学（荔湾校区）",
+      "sourceId": "member-school-07-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "6—8人间",
+        "semesterFee": 650,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "独立卫浴、阳台、空调",
+        "sourceId": "member-school-07-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "竞赛、科创、综合等岭南特色培养方向",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 13,
+        "summary": "竞赛方向特色班1、科创1、综合5，其余平行",
+        "issues": [
+          "原文特色班名称有文字混排，按培养方向概括"
+        ],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-d88fc5845fdc",
+      "schoolName": "广东广雅中学（花都校区）",
+      "sourceLabel": "广雅花都校区",
+      "campusScope": "广东广雅中学（花都校区）",
+      "sourceId": "member-school-08-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "7人间",
+        "semesterFee": 650,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "公共洗衣房、热水、自习室及视频电话",
+        "sourceId": "member-school-08-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "岭南特色班；按竞赛、科创、综合方向组织课程",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 11,
+        "summary": "强基1、科创1、综合6，其余平行",
+        "issues": [],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-a356b84be321",
+      "schoolName": "广州市执信中学（执信路校区）",
+      "sourceLabel": "越秀执信",
+      "campusScope": "广州市执信中学（执信路校区）",
+      "sourceId": "member-school-09-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "6—8人间",
+        "semesterFee": 450,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "独立卫生间与洗浴间、空调、热水",
+        "sourceId": "member-school-09-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "元培班和平行班；入学分班与选科后调整分开进行",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 10,
+        "summary": "元培7、平行3",
+        "issues": [],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-284b2b772794",
+      "schoolName": "广州市执信中学（天河校区）",
+      "sourceLabel": "天河执信",
+      "campusScope": "广州市执信中学（天河校区）",
+      "sourceId": "member-school-10-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "6—8人间",
+        "semesterFee": 450,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "独立卫浴、空调、热水；资料提及洗衣服务",
+        "sourceId": "member-school-10-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "元培班和平行班；与执信路校区分开记录",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 14,
+        "summary": "元培8、平行6",
+        "issues": [],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-39546db6ee78",
+      "schoolName": "广州外国语学校",
+      "sourceLabel": "广州外国语学校",
+      "campusScope": "广州外国语学校",
+      "sourceId": "member-school-11-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "4—6人间",
+        "semesterFee": 650,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "寄宿生活设施；国际课程收费与普通高中方向不同",
+        "sourceId": "member-school-11-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "外语培养特色；普通高考与国际课程方向需分别了解",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 16,
+        "summary": "重点4、次重点4，其余班型未逐项说明",
+        "issues": [],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-b610fbd1676b",
+      "schoolName": "广州市第六中学（海珠校区）",
+      "sourceLabel": "六中海珠校区",
+      "campusScope": "广州市第六中学（海珠校区）",
+      "sourceId": "member-school-12-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "4—6人间",
+        "semesterFee": 650,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "住宿人数另有家长描述为6人，具体安排需询校",
+        "sourceId": "member-school-12-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "奥班、黄埔班、黄埔风班和平行班",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 16,
+        "summary": "奥班1、黄埔6、黄埔风4，其余平行",
+        "issues": [],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-e0c6a89c9e84",
+      "schoolName": "广州市第六中学（花都校区）",
+      "sourceLabel": "六中花都校区",
+      "campusScope": "广州市第六中学（花都校区）",
+      "sourceId": "member-school-13-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "4—6人间；资料称首年安排4人间",
+        "semesterFee": 650,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "首年住宿安排不能自动沿用至新年级",
+        "sourceId": "member-school-13-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "2025年首届高中招生；黄埔三航班、黄埔风班和平行班",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 8,
+        "summary": "黄埔三航2、黄埔风1，其余平行",
+        "issues": [],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-d1dab230f119",
+      "schoolName": "广州市第六中学（从化校区）",
+      "sourceLabel": "六中从化校区",
+      "campusScope": "广州市第六中学（从化校区）",
+      "sourceId": "member-school-14-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "4—6人间；资料称首年安排4人间",
+        "semesterFee": 650,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "首年住宿安排不能自动沿用至新年级",
+        "sourceId": "member-school-14-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "黄埔班、黄埔风班和平行班",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 10,
+        "summary": "黄埔2、黄埔风2，其余平行",
+        "issues": [],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-0a2cc03d55ef",
+      "schoolName": "广州市铁一中学（越秀校区）",
+      "sourceLabel": "铁一越秀校区",
+      "campusScope": "广州市铁一中学（越秀校区）",
+      "sourceId": "member-school-15-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "正文记8人间，家长答疑另记6人间",
+        "semesterFee": 650,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "空调、卫浴等住宿设施；人数口径不一致，需核对年级与楼栋",
+        "sourceId": "member-school-15-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "铁英、重点和平行班；资料介绍三个校区有联考和课程协同",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 7,
+        "summary": "铁英3、重点3，其余平行",
+        "issues": [],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-727b6d8ff167",
+      "schoolName": "广州市铁一中学（番禺校区）",
+      "sourceLabel": "铁一番禺校区",
+      "campusScope": "广州市铁一中学（番禺校区）",
+      "sourceId": "member-school-16-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "家长答疑描述为6人间",
+        "semesterFee": null,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "空调、独立卫浴、储物柜与热水；具体年级未明确",
+        "sourceId": "member-school-16-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "寄宿安排与走读申请需询校；铁英、重点和平行班",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 8,
+        "summary": "铁英2、重点2，其余平行",
+        "issues": [],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-9a6f1f35a825",
+      "schoolName": "广州市铁一中学（白云校区）",
+      "sourceLabel": "铁一白云校区",
+      "campusScope": "广州市铁一中学（白云校区）",
+      "sourceId": "member-school-17-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "4—6人间",
+        "semesterFee": 650,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "上床下桌、独立卫浴、阳台、空调；楼层自习与洗衣设施",
+        "sourceId": "member-school-17-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "2022年开始高中招生；铁英、重点和平行班",
+      "classes": {
+        "year": 2025,
+        "totalClasses": 14,
+        "summary": "铁英4、重点5，其余平行",
+        "issues": [
+          "原表括号另提13—16班，与总班数有差异；不采用该班号范围"
+        ],
+        "sourceId": "member-class-table-2025-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-11fe9a9bc94f",
+      "schoolName": "清华附中湾区学校（智谷校区）",
+      "sourceLabel": "清湾",
+      "campusScope": "智谷校区 · 2023年历史问答",
+      "sourceId": "member-school-18-20261014",
+      "referenceYear": 2023,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "2023年答疑描述为6人间",
+        "semesterFee": 650,
+        "feeUnit": "元/学期",
+        "referenceYear": 2023,
+        "facilities": "仅对应历史智谷校区资料，不沿用为智慧城校区条件",
+        "sourceId": "member-school-18-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "2023年资料介绍数信英才、体艺特色方向",
+      "classes": {
+        "year": 2023,
+        "totalClasses": 6,
+        "summary": "家长答疑介绍零壹、数信与成志等班型",
+        "issues": [
+          "历史班型；不用于判断当前年级分班"
+        ],
+        "sourceId": "member-school-18-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "原资料同时介绍两个校区规划，生活与收费仅采用明确年份的智谷校区历史问答，未写入智慧城校区。"
+    },
+    {
+      "schoolId": "gz-a9afa174ddb3",
+      "schoolName": "广州协和学校",
+      "sourceLabel": "协和",
+      "campusScope": "广州协和学校",
+      "sourceId": "member-school-19-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "资料描述改造后为6人间",
+        "semesterFee": null,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "双独立卫浴、空调、热水与储物设施；改造年份未明确",
+        "sourceId": "member-school-19-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "2023年资料介绍创新班与实验班；园林式校园",
+      "classes": {
+        "year": 2023,
+        "totalClasses": 12,
+        "summary": "资料介绍创新班1、实验班4；当年按成绩安排分班",
+        "issues": [
+          "不沿用往年分班门槛"
+        ],
+        "sourceId": "member-school-19-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    },
+    {
+      "schoolId": "gz-2d5bcaab3eb7",
+      "schoolName": "广东华侨中学",
+      "sourceLabel": "华侨中学",
+      "campusScope": "广东华侨中学",
+      "sourceId": "member-school-20-20261014",
+      "referenceYear": null,
+      "verification": "third_party_reference",
+      "useInModel": false,
+      "boarding": {
+        "rooms": "资料称可住宿或走读；未说明人数",
+        "semesterFee": null,
+        "feeUnit": "元/学期",
+        "referenceYear": null,
+        "facilities": "高中部位于白云区金沙洲；住宿详情需询校",
+        "sourceId": "member-school-20-20261014",
+        "verifiedForCurrentYear": false
+      },
+      "features": "空天智能、理科创新、文史实验等方向；普高与港澳子弟班口径不同",
+      "classes": {
+        "year": 2023,
+        "totalClasses": null,
+        "summary": "理科创新、文史实验及空天智能等培养方向",
+        "issues": [
+          "普通高中、港澳子弟和国际方向不能混成同一口径"
+        ],
+        "sourceId": "member-school-20-20261014"
+      },
+      "questions": [
+        "当年能否保证宿位，具体住哪个楼栋？",
+        "特色班如何选拔，选科后是否重新分班？",
+        "收费是否包含热水、洗衣和其他生活费用？"
+      ],
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+    }
+  ]
+}

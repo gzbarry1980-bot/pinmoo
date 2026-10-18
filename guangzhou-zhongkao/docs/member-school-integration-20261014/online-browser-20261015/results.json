@@ -1,0 +1,87 @@
+{
+  "origin": "https://zhongkao.pinmooconsulting.com",
+  "at": "2026-10-15T05:26:35.903Z",
+  "checks": [
+    {
+      "name": "HTTP 200 /schools/detail/?id=gz-5424230557c2",
+      "pass": true
+    },
+    {
+      "name": "School facts rendered gz-5424230557c2",
+      "pass": true
+    },
+    {
+      "name": "Versioned frontend loaded gz-5424230557c2",
+      "pass": true
+    },
+    {
+      "name": "School section navigation gz-5424230557c2",
+      "pass": true
+    },
+    {
+      "name": "HTTP 200 /schools/detail/?id=gz-3a2e51774f57",
+      "pass": true
+    },
+    {
+      "name": "School facts rendered gz-3a2e51774f57",
+      "pass": true
+    },
+    {
+      "name": "Versioned frontend loaded gz-3a2e51774f57",
+      "pass": true
+    },
+    {
+      "name": "School section navigation gz-3a2e51774f57",
+      "pass": true
+    },
+    {
+      "name": "HTTP 200 /schools/detail/?id=gz-11fe9a9bc94f",
+      "pass": true
+    },
+    {
+      "name": "School facts rendered gz-11fe9a9bc94f",
+      "pass": true
+    },
+    {
+      "name": "Versioned frontend loaded gz-11fe9a9bc94f",
+      "pass": true
+    },
+    {
+      "name": "School section navigation gz-11fe9a9bc94f",
+      "pass": true
+    },
+    {
+      "name": "HTTP 200 /schools/detail/?id=gz-d88fc5845fdc",
+      "pass": true
+    },
+    {
+      "name": "Mobile school content fits",
+      "pass": true
+    },
+    {
+      "name": "Mobile exact campus content",
+      "pass": true
+    },
+    {
+      "name": "20 campus references published",
+      "pass": true
+    },
+    {
+      "name": "17 historical class references published",
+      "pass": true
+    },
+    {
+      "name": "Historical references do not become model inputs",
+      "pass": true
+    },
+    {
+      "name": "No generic membership directory entry",
+      "pass": true
+    },
+    {
+      "name": "No browser errors",
+      "pass": true
+    }
+  ],
+  "errors": []
+}
