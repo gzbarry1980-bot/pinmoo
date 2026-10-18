@@ -1,12 +1,13 @@
-import { BATCH_LIMITS, evaluatePlan, replayPlan, schoolFamilyKey, simulateOutcomes } from './engine.js?v=20261013-model';
-import { simulateOutcomesRealistic } from './realistic-sim.js?v=20261013-model';
+import { BATCH_LIMITS, evaluatePlan, replayPlan, schoolFamilyKey, simulateOutcomes } from './engine.js?v=20261018-policy';
+import { simulateOutcomesRealistic } from './realistic-sim.js?v=20261018-policy';
+import {latestAdmissionYear,defaultForecastYear,policyContext,MODEL_VERSION} from './policy-context.js';
 import { readWorkspace, updateWorkspace, savePlan, activatePlan, parseAnonymousPlan } from './workspace-store.js';
-import { matchesSchool, schoolURL } from './school-service.js';
-import {confidenceCopy,plainCopy,simplifyVisibleCopy,readingGuideHTML} from './parent-copy.js';
+import { matchesSchool, schoolURL } from './school-service.js?v=20261018-policy';
+import {confidenceCopy,plainCopy,simplifyVisibleCopy,readingGuideHTML} from './parent-copy.js?v=20261018-policy';
 import {installRegionControls,applyRegionControls,readRegionControls,regionSummary,preferredRegions,matchesRegion,prioritizeRegions,regionValidation} from './region-preference.js';
 import {prepareUnifiedWorkspace} from './workflow-ui.js?v=20261013-school';
-import {buildIntentDraft,installIntentPlanner} from './intent-planner.js?v=20261013-school';
-import {renderPlanPreview,renderDecisionSummary,primaryOutcome,decisionRisks,confirmAdjustment} from './decision-experience.js?v=20261013-school';
+import {buildIntentDraft,installIntentPlanner} from './intent-planner.js?v=20261018-policy';
+import {renderPlanPreview,renderDecisionSummary,primaryOutcome,decisionRisks,confirmAdjustment} from './decision-experience.js?v=20261018-policy';
 
 const DISCLAIMER = '本系统依据公开招生政策及历史数据进行模拟分析，所示评分、录取机会和学校建议均为统计估计，不代表官方录取结果或任何录取承诺。招生政策、计划、报考范围、成绩分布和志愿竞争每年可能变化，请以当年广州市教育局、广州市招生考试委员会办公室及中考服务平台最终公布的信息为准。名额分配、随迁子女、跨区及其他资格请向学校或招考部门核实。志愿选择由考生及监护人自行决定。本系统仅供参考。';
 
@@ -112,7 +113,7 @@ async function loadCoreData() {
 }
 
 async function allocationsForYear(year) {
-  const actualYear = Math.min(Number(year), dataset.manifest.latestPolicyYear);
+  const actualYear = Math.min(Number(year), latestAdmissionYear(dataset.manifest));
   if (!allocationCache.has(actualYear)) {
     allocationCache.set(actualYear, json(`/data/allocations-${actualYear}.json`));
   }
@@ -145,16 +146,19 @@ function renderTargetYears() {
   if (!targetYearEl) return;
   const modeEl = document.getElementById('mode');
   const replay = modeEl ? modeEl.value === 'replay' : false;
-  const latestYear = dataset.manifest.latestPolicyYear;
-  const years = replay ? dataset.manifest.years : [latestYear + 1, latestYear + 2, latestYear + 3];
+  const latestYear = latestAdmissionYear(dataset.manifest);
+  const firstForecast = defaultForecastYear(dataset.manifest);
+  const years = replay ? dataset.manifest.years : [firstForecast, firstForecast + 1, firstForecast + 2];
   const current = Number(targetYearEl.value);
   targetYearEl.innerHTML = years.map((year) => `<option value="${year}">${year}年${replay ? '' : '（预测）'}</option>`).join('');
-  targetYearEl.value = years.includes(current) ? String(current) : String(replay ? latestYear : latestYear + 1);
+  targetYearEl.value = years.includes(current) ? String(current) : String(replay ? latestYear : firstForecast);
   document.querySelectorAll('.forecast-only').forEach((node) => { node.hidden = replay; });
   document.querySelectorAll('.replay-only').forEach((node) => { node.hidden = !replay; });
   const policyBannerEl = document.getElementById('policyBanner');
   if (policyBannerEl) {
-    policyBannerEl.textContent = `新年度规则未公布前，暂按${latestYear}规则模拟。`;
+    const context=policyContext({targetYear: Number(targetYearEl.value), mode: replay ? 'replay' : 'forecast'}, dataset.manifest);
+    policyBannerEl.textContent = context.notice;
+    if(!replay&&context.sourceURL)policyBannerEl.append(' ',Object.assign(document.createElement('a'),{href:context.sourceURL,target:'_blank',rel:'noreferrer',textContent:'查看政策原文'}));
     policyBannerEl.hidden = replay;
   }
 }
@@ -206,7 +210,7 @@ function getDirectionProfile() {
   const shared=readWorkspace().profile || {};
   return {
     mode: 'forecast',
-    targetYear: dataset.manifest.latestPolicyYear + 1,
+    targetYear: defaultForecastYear(dataset.manifest),
     score: Math.round((low + high) / 2),
     scoreLow: low,
     scoreHigh: high,
@@ -379,7 +383,7 @@ function renderDirectionResult(profile) {
   const usableYears = directionAnalysis.usableYears?.join('、') || '现有可用年份';
   updateDirectionRiskSwitch(profile.riskPreference);
   $('#directionTitle').textContent = `${profile.scoreLow}—${profile.scoreHigh}分 · ${profile.riskPreference}方向草案`;
-  $('#directionSummary').textContent = `正常发挥估分${profile.score}分 · 暂按${dataset.manifest.latestPolicyYear}年规则 · 参考年份：${usableYears}。${useRealisticSim?'已额外考虑发挥和考试难度的波动。':'按常规历史数据模拟。'}最终去向要看整份志愿的顺序，各校机会不能相加。${profile.referenceGrade==='unknown'?'参考科目等级未确认，本次先按符合要求模拟。':''}${hasTierDeviation?'与原定冲稳保目标不同的学校已标出。':''}缺失年份会借用同校记录补估，相关结果需更谨慎地看。仅供参考。`;
+  $('#directionSummary').textContent = `正常发挥估分${profile.score}分 · ${policyContext(profile,dataset.manifest).notice}参考年份：${usableYears}。${useRealisticSim?'已额外考虑发挥和考试难度的波动。':'按常规历史数据模拟。'}最终去向要看整份志愿的顺序，各校机会不能相加。${profile.referenceGrade==='unknown'?'参考科目等级未确认，本次先按符合要求模拟。':''}${hasTierDeviation?'与原定冲稳保目标不同的学校已标出。':''}缺失年份会借用同校记录补估，相关结果需更谨慎地看。仅供参考。`;
   $('#directionStats').innerHTML = `
     <div class="direction-stat"><span>估分中心</span><strong>${profile.score}分</strong><small>模拟同时考虑${profile.scoreLow}—${profile.scoreHigh}分波动</small></div>
     <div class="direction-stat"><span>志愿配置</span><strong>${directionTierText(configuredCounts)}</strong><small>${profile.riskPreference}策略 · 按单校模拟把握安排</small></div>
@@ -503,7 +507,7 @@ function getTargetProfile() {
   const currentScore = currentText === '' ? null : Number(currentText);
   return {
     mode: 'forecast',
-    targetYear: dataset.manifest.latestPolicyYear + 1,
+    targetYear: defaultForecastYear(dataset.manifest),
     score: currentScore || 700,
     scoreLow: currentScore ? Math.max(0, currentScore - 5) : 695,
     scoreHigh: currentScore ? Math.min(810, currentScore + 5) : 705,
@@ -1012,7 +1016,7 @@ async function restoreDraft() {
 }
 
 function recordsForBatch(batch, year, profile) {
-  const actualYear = Math.min(year, dataset.manifest.latestPolicyYear);
+  const actualYear = Math.min(year, latestAdmissionYear(dataset.manifest));
   if (batch === 2) {
     return dataset.allocations.filter((row) => row.year === actualYear && row.sourceSchoolId === profile.sourceSchoolId);
   }
@@ -1333,6 +1337,7 @@ function renderAnalysis(profile, analysis, score) {
   }
   $('#adviceList').innerHTML = score.suggestions.map((item) => `<li>${escapeHtml(plainCopy(item))}</li>`).join('');
   const methodNotes = [
+    policyContext(profile,dataset.manifest).notice,
     `模型v${analysis.modelVersion || '1.0'}按历史数据模拟10,000次。相同条件、数据和模拟设置会得到相同结果。`,
     `只使用同时具备分数段、梯度线和所选批次数据的年份（${analysis.usableYears?.join('、') || '按现有数据'}），避免把整批缺失误算为落选。`,
     '先参考官方成绩分布，把分数换成大致排名（位次），再按梯度、志愿顺序和录取分数模拟。学校缺少某年记录时，会借用本校邻近年份记录补估，并扩大预测范围。',
@@ -1342,6 +1347,7 @@ function renderAnalysis(profile, analysis, score) {
     ...(useRealisticSim ? ['已额外考虑发挥波动、不同年份的考试难度，以及刚好接近录取门槛时的不确定性。'] : [])
   ];
   $('#methodText').innerHTML = `<ul>${methodNotes.map((item) => `<li>${item}</li>`).join('')}${dataset.manifest.limitations.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+  if(profile.mode==='forecast'&&analysis.policyContext?.sourceURL)$('#methodText').append(Object.assign(document.createElement('a'),{href:analysis.policyContext.sourceURL,target:'_blank',rel:'noreferrer',textContent:'查看本年度适用政策依据'}));
   if(!$('#analysis .parent-reading-guide'))$('#analysis .analysis-grid').before(Object.assign(document.createElement('div'),{innerHTML:readingGuideHTML()}));
   simplifyVisibleCopy($('#analysis'));
   ['#chanceList','#adviceList','#mostLikely'].forEach(id=>linkSchoolNames($(id)));
@@ -1647,7 +1653,7 @@ function renderSources() {
 }
 
 function loadSample() {
-  setProfile({ mode: 'forecast', targetYear: dataset.manifest.latestPolicyYear + 1, score: 710, scoreLow: 700, scoreHigh: 720, candidateType: '户籍生', admissionDistrict: '天河区', referenceGrade: 'C', riskPreference: '均衡', ownershipPreference: '不限', quotaEligible: false, notAdmittedFirstBatch: true });
+  setProfile({ mode: 'forecast', targetYear: defaultForecastYear(dataset.manifest), score: 710, scoreLow: 700, scoreHigh: 720, candidateType: '户籍生', admissionDistrict: '天河区', referenceGrade: 'C', riskPreference: '均衡', ownershipPreference: '不限', quotaEligible: false, notAdmittedFirstBatch: true });
   plan = makePlan();
   const names = ['华南师范大学附属中学（石牌校区）', '广州市第二中学', '广州市第六中学（海珠校区）', '广东华侨中学', '广州市第十六中学（水荫校区）', '广州市天河中学'];
   const slots = plan.filter((slot) => slot.batch === 3);
@@ -1773,6 +1779,7 @@ function bindEvents() {
   $('#targetCurrentScore')?.addEventListener('input', () => { $('#targetResult').hidden = true; targetDraft = null; targetResultData = null; });
   $('#mode')?.addEventListener('change', async () => { renderTargetYears(); await refreshBatchOptions(); saveDraft(); });
   $('#profileForm')?.addEventListener('change', async (event) => {
+    if (event.target.id === 'targetYear') renderTargetYears();
     latestScore = null;
     latestAnalysis = null;
     if (event.target.id === 'quotaEligible') {
@@ -1898,7 +1905,7 @@ async function init() {
     }
     if(isVerify && (query.get('resume')==='1'||query.get('plan'))) {
       try{const cached=JSON.parse(sessionStorage.getItem('zk-analysis-cache')||'null');
-        if(cached&&cached.version===dataset.manifest.version&&(cached.analysis.mode==='replay'||cached.analysis.modelVersion==='2.2')&&cached.realistic===useRealisticSim&&JSON.stringify(cached.profile)===JSON.stringify(getProfile())&&JSON.stringify(cached.plan)===JSON.stringify(plan)) {
+        if(cached&&cached.version===dataset.manifest.version&&(cached.analysis.mode==='replay'||cached.analysis.modelVersion===MODEL_VERSION)&&cached.realistic===useRealisticSim&&JSON.stringify(cached.profile)===JSON.stringify(getProfile())&&JSON.stringify(cached.plan)===JSON.stringify(plan)) {
           latestAnalysis=cached.analysis;latestScore=cached.score;renderAnalysis(getProfile(),latestAnalysis,latestScore);$('#analysis').hidden=false;$('#analysis').dataset.stale='false';updateCoach();updateSlotMeta();
           if(location.hash==='#analysis')navigateTo($('#analysis'));
         }

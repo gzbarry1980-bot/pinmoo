@@ -1,4 +1,5 @@
 import { resourceLibrary } from './practical-resources.js';
+import { phaseTwoPractice } from './insight-practice-phase2.js';
 
 const practice = (title, paragraphs, headers, rows, resource) => ({
   resource,
@@ -108,13 +109,16 @@ export const insightPractice = {
     ['将具体改变什么', '事实库、页面与内容清单', '每项动作对应真实问题'],
     ['怎样判断有变化', '固定题库和真实回答记录', '时间、平台、模式与引用完整'],
     ['谁配合执行', '分工、时间与公开权限', '内容与执行责任明确']
-  ], 'geo-facts')
+  ], 'geo-facts'),
+  ...phaseTwoPractice
 };
 
 export function withPracticalGuide(article) {
   const guide = insightPractice[article.slug];
   if (!guide) return article;
-  const sources = [...(article.sources || []), { title: '品沐咨询电商经营实用资料与填写说明', url: 'https://pinmooconsulting.com' + resourceLibrary.path + '#' + guide.resource }];
+  const sources = [...(article.sources || []), { title: '品沐咨询电商经营实用资料与填写说明', url: 'https://pinmooconsulting.com' + resourceLibrary.path + '#' + guide.resource }, ...(guide.sources || [])]
+    .filter((source, index, all) => all.findIndex(candidate => candidate.url === source.url) === index);
   if (article.slug === 'geo-seo-paid-media-coordination') sources.push({ title: 'Google Search Central：AI features and your website', url: 'https://developers.google.com/search/docs/appearance/ai-features' });
-  return { ...article, sections: [...article.sections, guide.section], sources, practicalResource: guide.resource, updated: '2026-10-13', authorType: 'Organization', authorName: '品沐咨询', authorRole: '品牌电商增长咨询', reviewStatus: 'source-reviewed-ai-assisted', disclosure: '本文由品沐咨询整理，AI参与资料组织与文字编写；经营方法需结合品牌实际数据判断。', readTime: article.readTime.replace(/\d+/, n => String(Number(n) + 1)) };
+  const sections = guide.sections || [guide.section];
+  return { ...article, sections: [...article.sections, ...sections], sources, practicalResource: guide.resource, updated: guide.updated || '2026-10-13', authorType: 'Organization', authorName: '品沐咨询', authorRole: '品牌电商增长咨询', reviewStatus: 'source-reviewed-ai-assisted', disclosure: '本文由品沐咨询整理，AI参与资料组织与文字编写；经营方法需结合品牌实际数据判断。', readTime: article.readTime.replace(/\d+/, n => String(Number(n) + sections.length)) };
 }

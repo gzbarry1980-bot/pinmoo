@@ -1,4 +1,5 @@
 import {estimatePercentile,estimateScore} from './score-distribution.js';
+import {applyPolicyContext,latestScoreDistributionYear} from './policy-context.js';
 export const YEAR_WEIGHTS = { 2021: 0.05, 2022: 0.08, 2023: 0.12, 2024: 0.2, 2025: 0.25, 2026: 0.3 };
 export const BATCH_LIMITS = { 2: 3, 3: 6, 4: 6 };
 
@@ -263,6 +264,10 @@ function chanceTier(value) {
 }
 
 export function simulateOutcomes(profile, plan, dataset, seed = 20260722, iterations = 10000) {
+  return applyPolicyContext(simulateHistoricalOutcomes(profile, plan, dataset, seed, iterations), profile, dataset);
+}
+
+function simulateHistoricalOutcomes(profile, plan, dataset, seed, iterations) {
   const slots = orderedSlots(plan);
   const records = [...dataset.admissions, ...(dataset.allocations || [])];
   const random = mulberry32(seed);
@@ -272,7 +277,9 @@ export function simulateOutcomes(profile, plan, dataset, seed = 20260722, iterat
   }
   const index = buildSimulationIndex(records, slots, availableYears);
   const bandsByYear = new Map(availableYears.map((year) => [year, dataset.bands.filter((row) => row.year === year)]));
-  const latestBands = bandsByYear.get(dataset.manifest.latestPolicyYear) || [];
+  const referenceYear = latestScoreDistributionYear(dataset);
+  const latestBands = dataset.bands.filter(row => row.year === referenceYear);
+  bandsByYear.set(referenceYear, latestBands);
   const hits = new Map(slots.map((slot) => [slot.key, 0]));
   const yearTotals = new Map();
   const yearHits = new Map(slots.map((slot) => [slot.key, new Map()]));
@@ -315,7 +322,7 @@ export function simulateOutcomes(profile, plan, dataset, seed = 20260722, iterat
     if (lower === null || upper === null) [lower, upper] = [chance - 15, chance + 15];
     if (Math.abs(upper - lower) < 8) [lower, upper] = [chance - 5, chance + 5];
     const imputedRatio = imputedCounts.get(slot.key) / iterations;
-    const historicalEvidence = historicalEvidenceFor(index, profile, slot, availableYears, bandsByYear, dataset.manifest.latestPolicyYear);
+    const historicalEvidence = historicalEvidenceFor(index, profile, slot, availableYears, bandsByYear, referenceYear);
     const yearsWithData = historicalEvidence.directYears.length;
     if(!yearsWithData)return {...slot,state:'no-data',reason:'缺少符合考生类别和招生范围的历史记录，暂不显示机会',yearsWithData:0,confidence:'低',historicalEvidence};
     if (imputedRatio > 0.4) [lower, upper] = [lower - 10, upper + 10];

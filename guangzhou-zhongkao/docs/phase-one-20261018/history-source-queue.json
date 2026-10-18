@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-10-18",
+  "status": "official_pages_reconfirmed_images_not_transcribed",
+  "recordsPromoted": 0,
+  "items": [
+    {"year":2021,"kind":"batch3","url":"https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_7411656.html","imageTables":2,"next":"取得公办及民办原图，逐行核对学校代码、考生类别、末位志愿及同分信息"},
+    {"year":2021,"kind":"batch4","url":"https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_7415208.html","imageTables":2,"next":"取得公办及民办原图，建立历史校区对照后转录"},
+    {"year":2022,"kind":"batch3","url":"https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_8424121.html","imageTables":2,"next":"公办与民办／中外合作分别录入，不能合并项目口径"},
+    {"year":2021,"kind":"scoreBands","url":"https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_7405010.html","imageTables":1,"next":"转录分数段及累计人数，确认分母和单调性后再进入模型"}
+  ],
+  "reconciliation": {"sourceReportDate":"2026-10-05","needsReview":21,"unmatched":283,"status":"pending_row_review"}
+}

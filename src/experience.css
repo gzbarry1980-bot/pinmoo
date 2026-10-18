@@ -634,6 +634,15 @@ body:has(.studio-hero) .problem-path-section { padding-top:32px; }
 .resource-guidance p { font-size:17px; line-height:1.9; }
 .resource-fields { margin:20px 0; font-size:16px; }
 .resource-fields summary { cursor:pointer; min-height:40px; }
+.resource-example { margin:28px 0; padding:20px 0; border-top:1px solid #cbd4db; border-bottom:1px solid #cbd4db; }
+.resource-example summary { cursor:pointer; min-height:44px; font-size:18px; font-weight:700; color:#176d61; }
+.resource-example h3 { font-size:21px; line-height:1.6; margin:20px 0; }
+.resource-example p { max-width:760px; line-height:1.9; }
+.resource-example-label { color:#58656a; font-size:14px; }
+.resource-example-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px 32px; margin:24px 0; }
+.resource-example-fields>div { display:block; min-width:0; padding:0 0 16px; }
+.resource-example-fields dt { font-size:14px; font-weight:600; color:#58656a; margin-bottom:6px; }
+.resource-example-fields dd { margin:0; font-size:17px; font-weight:400; line-height:1.8; overflow-wrap:anywhere; }
 .resource-fields ul { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px 20px; line-height:1.8; padding-left:22px; }
 :where(a,button,summary,input):focus-visible { outline:3px solid #176f65; outline-offset:4px; }
 @media(max-width:1100px) {
@@ -683,6 +692,7 @@ body:has(.studio-hero) .problem-path-section { padding-top:32px; }
   .resource-detail-heading { flex-direction:column; align-items:start; gap:16px; }
   .resource-detail-heading h2 { font-size:25px; }
   .resource-fields ul { grid-template-columns:1fr 1fr; }
+  .resource-example-fields { grid-template-columns:minmax(0,1fr); gap:18px; }
   .about-principal-layout,.about-fit-layout { grid-template-columns:1fr; gap:28px; }
   .about-principal-layout img { width:240px; }
   .about-principal-layout h2 { font-size:26px; }

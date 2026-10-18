@@ -1,0 +1,16 @@
+{
+  "reviewedAt": "2026-10-18",
+  "schoolRecords": 63,
+  "aggregateRecords": 1,
+  "yearRows": 132,
+  "modelInputsChanged": false,
+  "officialVerification": "not_verified",
+  "pendingLabels": [
+    "海实（待精确学校身份确认）",
+    "广外外校（待精确学校身份确认）",
+    "为明（多校区未明）",
+    "广理实验（待精确学校身份确认）",
+    "海珠中学（待历史学校名称确认）"
+  ],
+  "blankCellsNotImputed": true
+}

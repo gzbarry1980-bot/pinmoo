@@ -27,7 +27,8 @@ async function checkPages() {
   }
 }
 await checkPages();
-for (const item of practicalResources) {
+const downloads = practicalResources.flatMap(item => [item, ...(item.example ? [item.example] : [])]);
+for (const item of downloads) {
   const response = await fetch(origin + '/downloads/' + item.filename, { headers });
   assert.equal(response.status, 200);
   const published = Buffer.from(await response.arrayBuffer());
@@ -53,4 +54,4 @@ assert.equal(await copyResponse.text(), await fs.readFile('dist/src/components/c
 const checkedOn = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Shanghai' }).format(new Date());
 const receipt = { checkedOn, status: 'published_verified', build: actual, pages: results.sort((a, b) => a.path.localeCompare(b.path)), events: 'consult_open and resource_download returned 204; invalid event returned 400; DNT excluded these tests from event logging', wwwRedirect: 'passed', copyModule: 'versioned module matches local file' };
 await fs.writeFile(output + '/public-verification.json', JSON.stringify(receipt, null, 2));
-console.log(`Public verification passed: version ${actual.version}, ${pages.length} pages, 4 matching downloads, event allowlist and HTTPS www redirect.`);
+console.log(`Public verification passed: version ${actual.version}, ${pages.length} pages, ${downloads.length} matching downloads, event allowlist and HTTPS www redirect.`);

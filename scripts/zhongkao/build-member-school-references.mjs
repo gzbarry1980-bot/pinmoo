@@ -48,7 +48,7 @@ const classRows=[
  [8,550,11,'强基1、科创1、综合6，其余平行',[]],
  [12,650,16,'奥班1、黄埔6、黄埔风4，其余平行',[]],
  [14,400,10,'黄埔2、黄埔风2，其余平行',[]],
- [13,350,8,'黄埔三航2、黄埔风1，其余平行',[]],
+ [13,350,8,'黄埔三航2、黄埔风1，其余平行',['同年文章写招生300人，分班表写350人；未采用该人数作为招生计划或实际录取人数']],
  [15,300,7,'铁英3、重点3，其余平行',[]],
  [16,330,8,'铁英2、重点2，其余平行',[]],
  [17,600,14,'铁英4、重点5，其余平行',['原表括号另提13—16班，与总班数有差异；不采用该班号范围']],
@@ -63,7 +63,7 @@ const records=rows.map(([i,schoolId,rooms,semesterFee,facilities,features])=>{
  const src=sourceByIndex.get(i),c=classRows.find(r=>r[0]===i);
  const referenceYear=i===18?2023:null;
  return{schoolId,schoolName:s.name,sourceLabel:byIndex(i).title,campusScope:i===18?'智谷校区 · 2023年历史问答':s.name,sourceId:src.id,referenceYear,verification:'third_party_reference',useInModel:false,
-  boarding:{rooms,semesterFee,feeUnit:'元/学期',referenceYear,facilities,sourceId:src.id,verifiedForCurrentYear:false},
+  boarding:{rooms,semesterFee,feeUnit:'元/学期',referenceYear,facilities,sourceId:src.id,verifiedForCurrentYear:false,issues:i===8?['同一文章同时出现标准7人间与特色4人间，适用楼栋和年级未明确；不能视作可自由选择。']:i===15?['正文8人间与家长答疑6人间口径不同；不据此承诺具体宿位。']:[]},
   features,classes:c?{year:2025,totalClasses:c[2],summary:c[3],issues:c[4],sourceId:tableSource.id}:i===18?{year:2023,totalClasses:6,summary:'家长答疑介绍零壹、数信与成志等班型',issues:['历史班型；不用于判断当前年级分班'],sourceId:src.id}:i===19?{year:2023,totalClasses:12,summary:'资料介绍创新班1、实验班4；当年按成绩安排分班',issues:['不沿用往年分班门槛'],sourceId:src.id}:i===20?{year:2023,totalClasses:null,summary:'理科创新、文史实验及空天智能等培养方向',issues:['普通高中、港澳子弟和国际方向不能混成同一口径'],sourceId:src.id}:null,
   questions:['当年能否保证宿位，具体住哪个楼栋？','特色班如何选拔，选科后是否重新分班？','收费是否包含热水、洗衣和其他生活费用？'],
   caution:i===18?'原资料同时介绍两个校区规划，生活与收费仅采用明确年份的智谷校区历史问答，未写入智慧城校区。':'资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。'};

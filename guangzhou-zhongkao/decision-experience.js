@@ -16,6 +16,7 @@ export function confirmAdjustment(beforePlan,nextPlan,beforeScore,nextScore,befo
 }
 export function decisionRisks(profile,analysis,score){
  const risks=[];
+ if(analysis.policyContext?.structuralChange)risks.push('2027起科目分值调整：当前仍参考2026及以前成绩分布，机会尚未经新政策录取结果校准。');
  for(const row of analysis.slotResults||[])if(['ineligible','no-data'].includes(row.state))risks.push(`第${row.batch}批第${row.position}志愿 · ${row.schoolName}：${row.reason}`);
  if(profile.referenceGrade==='unknown')risks.push('参考科目等级未确认：当前结果以符合报考要求为前提。');
  risks.push(...(score.suggestions||[]));

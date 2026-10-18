@@ -1,22 +1,1950 @@
 {
-  "schemaVersion": "1.0.0",
-  "sources": [{
-    "id": "wecom-school-outcomes-20261005",
-    "title": "老胡侃升学789：广州高中近三年出口成绩统计",
-    "url": "https://doc.weixin.qq.com/sheet/e3_AfAADQZTAL0CNhjDFgOVxRmKenuj0",
-    "sourceType": "第三方整理",
-    "capturedAt": "2026-10-05",
-    "note": "按用户提供的可见表格逐项录入；学校原始公告与统计分母未提供，不能直接横向比较。"
-  }],
-  "records": [{
-    "schoolId": "gz-ec1a75c75160",
-    "sourceSchoolLabel": "16中本部",
-    "campusScope": "本部，不含水荫校区",
-    "sourceId": "wecom-school-outcomes-20261005",
-    "years": [
-      {"year": 2025, "score600": null, "specialControl": "90%+"},
-      {"year": 2024, "score600": null, "specialControl": "85.30%"},
-      {"year": 2023, "score600": "31.48%", "specialControl": "80.00%"}
-    ]
-  }]
+  "schemaVersion": "1.1.0",
+  "version": "school-outcomes-20261018",
+  "reviewedAt": "2026-10-18",
+  "note": "历史第三方统计，仅核对转录。人数、比例、重点班和校区合计保留原口径；不进入录取模型或学校质量排名。",
+  "sources": [
+    {
+      "id": "wecom-outcomes-p0-20261018",
+      "title": "广州高中近三年出口成绩统计（第三方整理）",
+      "url": "https://doc.weixin.qq.com/sheet/e3_AfAADQZTAL0CNhjDFgOVxRmKenuj0",
+      "sourceType": "第三方整理",
+      "capturedAt": "2026-10-05",
+      "transcriptionReviewedAt": "2026-10-18",
+      "imageSHA256": "84986e6ee151e595ef38b44c9d5125d6789ce88abcca79798600493a29ca57c1",
+      "verification": "visually_checked_transcription",
+      "officialVerification": "not_verified",
+      "note": "核对的是原表转录；学校原始公告、分母和特殊班型口径尚未核实。"
+    },
+    {
+      "id": "wecom-outcomes-p1-20261018",
+      "title": "广州高中近三年出口成绩统计（第三方整理）",
+      "url": "https://doc.weixin.qq.com/sheet/e3_AfAADQZTAL0CNhjDFgOVxRmKenuj0",
+      "sourceType": "第三方整理",
+      "capturedAt": "2026-10-05",
+      "transcriptionReviewedAt": "2026-10-18",
+      "imageSHA256": "9b48db863910d733cb63383204a228137129176f816b5a34ebee5bc95271f195",
+      "verification": "visually_checked_transcription",
+      "officialVerification": "not_verified",
+      "note": "核对的是原表转录；学校原始公告、分母和特殊班型口径尚未核实。"
+    },
+    {
+      "id": "wecom-outcomes-p2-20261018",
+      "title": "广州高中近三年出口成绩统计（第三方整理）",
+      "url": "https://doc.weixin.qq.com/sheet/e3_AfAADQZTAL0CNhjDFgOVxRmKenuj0",
+      "sourceType": "第三方整理",
+      "capturedAt": "2026-10-05",
+      "transcriptionReviewedAt": "2026-10-18",
+      "imageSHA256": "a3ee2a88b33ba484ecfd0854d028d5017aac542f2b5f6118bbedc5ff77b1f2af",
+      "verification": "visually_checked_transcription",
+      "officialVerification": "not_verified",
+      "note": "核对的是原表转录；学校原始公告、分母和特殊班型口径尚未核实。"
+    },
+    {
+      "id": "wecom-outcomes-p3-20261018",
+      "title": "广州高中近三年出口成绩统计（第三方整理）",
+      "url": "https://doc.weixin.qq.com/sheet/e3_AfAADQZTAL0CNhjDFgOVxRmKenuj0",
+      "sourceType": "第三方整理",
+      "capturedAt": "2026-10-05",
+      "transcriptionReviewedAt": "2026-10-18",
+      "imageSHA256": "5f49b8704e3e5a0d7d9596c4d6a7a9629db60317c0c4c44d857715921b2e2d7a",
+      "verification": "visually_checked_transcription",
+      "officialVerification": "not_verified",
+      "note": "核对的是原表转录；学校原始公告、分母和特殊班型口径尚未核实。"
+    },
+    {
+      "id": "wecom-outcomes-p4-20261018",
+      "title": "广州高中近三年出口成绩统计（第三方整理）",
+      "url": "https://doc.weixin.qq.com/sheet/e3_AfAADQZTAL0CNhjDFgOVxRmKenuj0",
+      "sourceType": "第三方整理",
+      "capturedAt": "2026-10-05",
+      "transcriptionReviewedAt": "2026-10-18",
+      "imageSHA256": "8a2f2ff3db9fa7877caf439fecc7f9dc569cd114d6b1923f041a55659d2434f0",
+      "verification": "visually_checked_transcription",
+      "officialVerification": "not_verified",
+      "note": "核对的是原表转录；学校原始公告、分母和特殊班型口径尚未核实。"
+    },
+    {
+      "id": "wecom-outcomes-p5-20261018",
+      "title": "广州高中近三年出口成绩统计（第三方整理）",
+      "url": "https://doc.weixin.qq.com/sheet/e3_AfAADQZTAL0CNhjDFgOVxRmKenuj0",
+      "sourceType": "第三方整理",
+      "capturedAt": "2026-10-05",
+      "transcriptionReviewedAt": "2026-10-18",
+      "imageSHA256": "4f0f17f3be0714cc402514e58a8d5f2cc4418ce376225c300e5d18bd6e3afe30",
+      "verification": "visually_checked_transcription",
+      "officialVerification": "not_verified",
+      "note": "核对的是原表转录；学校原始公告、分母和特殊班型口径尚未核实。"
+    }
+  ],
+  "records": [
+    {
+      "schoolId": "gz-198c01489912",
+      "schoolName": "华南师范大学附属中学（石牌校区）",
+      "sourceSchoolLabel": "华附石牌",
+      "campusScope": "石牌校区",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "81.90%",
+          "specialControl": null,
+          "score600Kind": "rate",
+          "specialControlKind": null,
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "75%+",
+          "specialControl": null,
+          "score600Kind": "rate",
+          "specialControlKind": null,
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "80%+",
+          "specialControl": "99.50%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-5424230557c2",
+      "schoolName": "广东实验中学（荔湾校区）",
+      "sourceSchoolLabel": "省实荔湾",
+      "campusScope": "荔湾校区",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "81%",
+          "specialControl": "超90%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "80%+",
+          "specialControl": null,
+          "score600Kind": "rate",
+          "specialControlKind": null,
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "82.94%",
+          "specialControl": "96.00%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": [
+        "第三方文章2025年写接近83%、原表写81%；2024年文章写82.94%、原表写80%+，数据有差异，尚未取得学校原始公告。"
+      ]
+    },
+    {
+      "schoolId": "gz-3a2e51774f57",
+      "schoolName": "广州市第二中学",
+      "sourceSchoolLabel": "二中",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "71%+",
+          "specialControl": null,
+          "score600Kind": "rate",
+          "specialControlKind": null,
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "60%",
+          "specialControl": null,
+          "score600Kind": "rate",
+          "specialControlKind": null,
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "69.20%",
+          "specialControl": "97%+",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": [
+        "第三方文章2023年写特控率95.5%、原表写97%+；原始公告及统计范围待核对。"
+      ]
+    },
+    {
+      "schoolId": "gz-96a493c0f2d1",
+      "schoolName": "广州大学附属中学",
+      "sourceSchoolLabel": "广附",
+      "campusScope": "原表未细分校区",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "65%",
+          "specialControl": "96%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "60%+",
+          "specialControl": null,
+          "score600Kind": "rate",
+          "specialControlKind": null,
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "59.90%",
+          "specialControl": "96%+",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": [
+        "第三方文章2025年写600分以上占比62.5%、原表写65%；未按任一数字认定学校真实表现。"
+      ]
+    },
+    {
+      "schoolId": "gz-a356b84be321",
+      "schoolName": "广州市执信中学（执信路校区）",
+      "sourceSchoolLabel": "执信越秀",
+      "campusScope": "原表标注越秀；是否合并其他校区尚未确认",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "55%",
+          "specialControl": "94%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "55%+",
+          "specialControl": "95%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "60%+",
+          "specialControl": "90%+",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": [
+        "会员文章的2025年55%指标提及两校区合计；原表却标越秀，校区范围存在冲突，不能据此评价单一校区。"
+      ]
+    },
+    {
+      "schoolId": "gz-6b8cf4e3bb80",
+      "schoolName": "广东广雅中学（荔湾校区）",
+      "sourceSchoolLabel": "广雅荔湾",
+      "campusScope": "荔湾校区",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "400人左右",
+          "specialControl": "超90%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "57%",
+          "specialControl": "95%+",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "60%",
+          "specialControl": "96%+",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-d88fc5845fdc",
+      "schoolName": "广东广雅中学（花都校区）",
+      "sourceSchoolLabel": "广雅花都",
+      "campusScope": "花都校区",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "近30%",
+          "specialControl": "超90%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "100人",
+          "specialControl": "90%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-b610fbd1676b",
+      "schoolName": "广州市第六中学（海珠校区）",
+      "sourceSchoolLabel": "六中海珠",
+      "campusScope": "海珠校区",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "51.80%",
+          "specialControl": "93.30%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "41%",
+          "specialControl": null,
+          "score600Kind": "rate",
+          "specialControlKind": null,
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "41.21%",
+          "specialControl": "90%+",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-39546db6ee78",
+      "schoolName": "广州外国语学校",
+      "sourceSchoolLabel": "广外",
+      "campusScope": "广州外国语学校，不是天河外国语",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "65%+",
+          "specialControl": "98%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "74%",
+          "specialControl": "99.60%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "60%+",
+          "specialControl": "96%+",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-a9afa174ddb3",
+      "schoolName": "广州协和学校",
+      "sourceSchoolLabel": "协和",
+      "campusScope": "仅有重点班数据，不能代表全校",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": null,
+          "specialControl": "重点班96%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": [
+        "2025数据仅为重点班，不能作为全校特控率。"
+      ]
+    },
+    {
+      "schoolId": "gz-2d5bcaab3eb7",
+      "schoolName": "广东华侨中学",
+      "sourceSchoolLabel": "侨中",
+      "campusScope": "原表未说明是否含港澳班",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "30%左右",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-3ffdae4a2e72",
+      "schoolName": "广州市第五中学",
+      "sourceSchoolLabel": "5中本部",
+      "campusScope": "本部，不含金碧校区",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "178人",
+          "specialControl": "91.20%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "24%",
+          "specialControl": "85%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "182人",
+          "specialControl": "84%左右",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-0ef96b413381",
+      "schoolName": "广州市第五中学（金碧校区）",
+      "sourceSchoolLabel": "5中金碧",
+      "campusScope": "金碧校区",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "21人",
+          "specialControl": "51.60%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-0f05b24c70f2",
+      "schoolName": "广州市第九十七中学",
+      "sourceSchoolLabel": "97中",
+      "campusScope": "原表未细分校区，不自动沿用至其他校区",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": null,
+          "specialControl": "38%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "26%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-e46ea8053870",
+      "schoolName": "广州市南武中学",
+      "sourceSchoolLabel": "南武本部",
+      "campusScope": "本部，不含岭南画派校区",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "59人",
+          "specialControl": "71.10%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "42人",
+          "specialControl": "72.30%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "65.00%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-c12b967bf504",
+      "schoolName": "广州市南武中学（岭南画派纪念校区）",
+      "sourceSchoolLabel": "南武岭南画派",
+      "campusScope": "岭南画派纪念校区",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "12人",
+          "specialControl": null,
+          "score600Kind": "count",
+          "specialControlKind": null,
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-8310deb2ea5a",
+      "schoolName": "广州市第七中学",
+      "sourceSchoolLabel": "7中本部",
+      "campusScope": "本部，不含其他校区",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "180人+",
+          "specialControl": "90%左右",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "180人+",
+          "specialControl": "90%左右",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "30.73%",
+          "specialControl": "90.39%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-ec1a75c75160",
+      "schoolName": "广州市第十六中学",
+      "sourceSchoolLabel": "16中本部",
+      "campusScope": "本部，不含水荫校区",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": null,
+          "specialControl": "90%+",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "85.30%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "31.48%",
+          "specialControl": "80.00%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-79a8dd8dc065",
+      "schoolName": "广州市培正中学",
+      "sourceSchoolLabel": "培正",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "68.00%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "16.80%",
+          "specialControl": "60.00%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-044aabdc6232",
+      "schoolName": "广州市第三中学",
+      "sourceSchoolLabel": "3中",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": null,
+          "specialControl": "近60%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "37人",
+          "specialControl": "55.15%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "46.50%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-81902b3f8aec",
+      "schoolName": "广州市育才中学",
+      "sourceSchoolLabel": "育才",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "15人",
+          "specialControl": "42.60%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "38.20%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "44.80%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-7e4ccac84bc9",
+      "schoolName": "广州市第十六中学（水荫校区）",
+      "sourceSchoolLabel": "16中水荫",
+      "campusScope": "水荫校区，不含本部",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "40%左右",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-d93473f23283",
+      "schoolName": "广州市真光中学",
+      "sourceSchoolLabel": "真光本部",
+      "campusScope": "本部，不含其他校区",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "168人",
+          "specialControl": "73%左右",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "122人",
+          "specialControl": "72.40%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "160人+",
+          "specialControl": "70.00%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-f13c506ad0ce",
+      "schoolName": "广州市第四中学",
+      "sourceSchoolLabel": "4中",
+      "campusScope": "原表未细分校区",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "36%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "36人+",
+          "specialControl": "33%左右",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-6030e3e82113",
+      "schoolName": "广州市第一中学",
+      "sourceSchoolLabel": "1中",
+      "campusScope": "原表未细分校区",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": null,
+          "specialControl": "37.60%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "30人+",
+          "specialControl": "27%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-37ecf29eda89",
+      "schoolName": "广州市西关外国语学校",
+      "sourceSchoolLabel": "西关外国语",
+      "campusScope": "普通高中方向，原表未说明分母",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "43%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-b24c8ca363ab",
+      "schoolName": "广州市真光中学（汾水校区）",
+      "sourceSchoolLabel": "真光汾水",
+      "campusScope": "汾水校区",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "7%左右",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-5c6ec516124f",
+      "schoolName": "广州市南海中学",
+      "sourceSchoolLabel": "南海中学",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "7%左右",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-5b1c632c0aea",
+      "schoolName": "广州市西关培英中学",
+      "sourceSchoolLabel": "西关培英",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "7%左右",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-bebacfbd3819",
+      "schoolName": "广州市天河外国语学校",
+      "sourceSchoolLabel": "天外",
+      "campusScope": "原表未细分校区，不移植至新校区",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "50%+",
+          "specialControl": "96.20%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "61.60%",
+          "specialControl": "95%+",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "51%",
+          "specialControl": "90%+",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-53982052dcc7",
+      "schoolName": "广州中学",
+      "sourceSchoolLabel": "广中",
+      "campusScope": "原表未细分校区",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "194人",
+          "specialControl": "85.20%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "29.41%",
+          "specialControl": "85%左右",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "214人",
+          "specialControl": "80%+",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-bcfe78433eae",
+      "schoolName": "广州市天河中学",
+      "sourceSchoolLabel": "天中",
+      "campusScope": "原表未细分校区",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "105人",
+          "specialControl": "71.89%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "61人",
+          "specialControl": "48.59%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-61981727b151",
+      "schoolName": "广州市第一一三中学",
+      "sourceSchoolLabel": "113中",
+      "campusScope": "原表未细分校区，不移植至其他校区",
+      "sourceId": "wecom-outcomes-p1-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "33人",
+          "specialControl": "48%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "19人",
+          "specialControl": "48.86%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "51人",
+          "specialControl": "48.19%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-ad42ba26282e",
+      "schoolName": "广州市第八十九中学",
+      "sourceSchoolLabel": "89中",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p2-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "37%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-eff8e0690790",
+      "schoolName": "广州奥林匹克中学",
+      "sourceSchoolLabel": "奥林匹克中学",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p2-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "17人",
+          "specialControl": "40.50%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "36.70%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-89976c80ab47",
+      "schoolName": "广州市第七十五中学",
+      "sourceSchoolLabel": "75中",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p2-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "32%左右",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-0eebefaa93e8",
+      "schoolName": "广州市玉岩中学",
+      "sourceSchoolLabel": "玉岩",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p2-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "150人+",
+          "specialControl": null,
+          "score600Kind": "count",
+          "specialControlKind": null,
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "80%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "21.34%",
+          "specialControl": "72%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-69ec77e6c53d",
+      "schoolName": "广州市第八十六中学",
+      "sourceSchoolLabel": "86中",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p2-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "70人+",
+          "specialControl": "接近70%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "62.50%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "60%左右",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-17ac15270cde",
+      "schoolName": "北京师范大学广州实验学校",
+      "sourceSchoolLabel": "北师大广实",
+      "campusScope": "北京师范大学广州实验学校",
+      "sourceId": "wecom-outcomes-p2-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "19人",
+          "specialControl": "44.60%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "30%左右",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "49.33%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-68f2e691e9a0",
+      "schoolName": "广州市黄埔区开元学校",
+      "sourceSchoolLabel": "黄埔开元",
+      "campusScope": "黄埔区开元学校",
+      "sourceId": "wecom-outcomes-p2-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "6人",
+          "specialControl": null,
+          "score600Kind": "count",
+          "specialControlKind": null,
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "24.30%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-05cb9dd5648e",
+      "schoolName": "广州科学城中学",
+      "sourceSchoolLabel": "科学城中学",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p2-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "11人",
+          "specialControl": null,
+          "score600Kind": "count",
+          "specialControlKind": null,
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "25%左右",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-36a40bf707ec",
+      "schoolName": "广州市培英中学（白云新城校区）",
+      "sourceSchoolLabel": "培英云城",
+      "campusScope": "白云新城校区；原表简称云城",
+      "sourceId": "wecom-outcomes-p2-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "近70%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-6304fc4cbefc",
+      "schoolName": "广州大同中学",
+      "sourceSchoolLabel": "大同中学",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p2-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": null,
+          "specialControl": "28.60%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "35%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-601ef3343da5",
+      "schoolName": "广东仲元中学",
+      "sourceSchoolLabel": "仲元",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p3-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "150人+",
+          "specialControl": "89%左右",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "150人+",
+          "specialControl": "85%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "22.22%",
+          "specialControl": "82%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-37d974269f94",
+      "schoolName": "广东番禺中学",
+      "sourceSchoolLabel": "番禺中学",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p3-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "41%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "12%",
+          "specialControl": "37%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-537a0a7b946c",
+      "schoolName": "广州市番禺区象贤中学",
+      "sourceSchoolLabel": "象贤",
+      "campusScope": "普通高中方向",
+      "sourceId": "wecom-outcomes-p3-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "25%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-5a61f83d1160",
+      "schoolName": "广州市番禺区大龙中学",
+      "sourceSchoolLabel": "大龙",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p3-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": null,
+          "specialControl": "8.10%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-ae239104e547",
+      "schoolName": "广州市番禺区南村中学",
+      "sourceSchoolLabel": "南村中学",
+      "campusScope": "原表特控列为人数，不是比例",
+      "sourceId": "wecom-outcomes-p3-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "29人",
+          "score600Kind": null,
+          "specialControlKind": "count",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-c5297257f160",
+      "schoolName": "广州大学附属中学南沙实验学校",
+      "sourceSchoolLabel": "南沙广附",
+      "campusScope": "南沙实验学校，不是大学城校区",
+      "sourceId": "wecom-outcomes-p3-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "53人",
+          "specialControl": "52.60%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "12.80%",
+          "specialControl": "57.30%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "8.33%",
+          "specialControl": "36%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-5cc46321ec5e",
+      "schoolName": "广州市第二中学南沙天元学校",
+      "sourceSchoolLabel": "南沙天元",
+      "campusScope": "南沙天元学校",
+      "sourceId": "wecom-outcomes-p3-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "54人",
+          "specialControl": "接近45%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "55%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "6.25%",
+          "specialControl": "35%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-524a67309dff",
+      "schoolName": "华南师范大学附属南沙中学",
+      "sourceSchoolLabel": "南沙华附",
+      "campusScope": "华南师范大学附属南沙中学，不是石牌／知识城",
+      "sourceId": "wecom-outcomes-p3-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": null,
+          "specialControl": "80人",
+          "score600Kind": null,
+          "specialControlKind": "count",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "32%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "27%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-91a1244c0567",
+      "schoolName": "广州市南沙东涌中学",
+      "sourceSchoolLabel": "东涌中学",
+      "campusScope": "原表特控列为人数，不是比例",
+      "sourceId": "wecom-outcomes-p4-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "42人",
+          "score600Kind": null,
+          "specialControlKind": "count",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-0b36f446a971",
+      "schoolName": "广州市花都区秀全中学",
+      "sourceSchoolLabel": "秀全",
+      "campusScope": "秀全中学",
+      "sourceId": "wecom-outcomes-p4-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "57人",
+          "specialControl": "57%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "60%+",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-985849148729",
+      "schoolName": "广州市增城区增城中学",
+      "sourceSchoolLabel": "增城中学",
+      "campusScope": "增城中学",
+      "sourceId": "wecom-outcomes-p4-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": null,
+          "specialControl": "54.10%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "54.50%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "69人",
+          "specialControl": "41%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-ef96f6edf9cc",
+      "schoolName": "广大附中增城实验中学",
+      "sourceSchoolLabel": "增城广附",
+      "campusScope": "广大附中增城实验中学",
+      "sourceId": "wecom-outcomes-p4-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": null,
+          "specialControl": "47.50%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-e06abc629a4f",
+      "schoolName": "广州市增城区第一中学",
+      "sourceSchoolLabel": "增城一中",
+      "campusScope": "增城区第一中学",
+      "sourceId": "wecom-outcomes-p4-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "13.20%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-7b23af080db1",
+      "schoolName": "广州市增城区新塘中学",
+      "sourceSchoolLabel": "新塘中学",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p4-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "3人",
+          "specialControl": null,
+          "score600Kind": "count",
+          "specialControlKind": null,
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-e4d08e5bef11",
+      "schoolName": "广州市增城区永和中学",
+      "sourceSchoolLabel": "永和中学",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p4-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "3人",
+          "specialControl": "12%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-fa0f6a7cb5a2",
+      "schoolName": "广州市黄广中学",
+      "sourceSchoolLabel": "黄广",
+      "campusScope": "原表未拆分公费、普通及国际方向",
+      "sourceId": "wecom-outcomes-p5-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "56%",
+          "specialControl": "96%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "93%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "98%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-502edaee8019",
+      "schoolName": "广州市黄广附属学校",
+      "sourceSchoolLabel": "黄广附属",
+      "campusScope": "原表未拆分公费与普通方向",
+      "sourceId": "wecom-outcomes-p5-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": null,
+          "specialControl": "81%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": null,
+          "specialControl": "70%+",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "80.30%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-b372e6724412",
+      "schoolName": "广州天省实验学校",
+      "sourceSchoolLabel": "天省实验",
+      "campusScope": "原表未拆分公费与普通方向",
+      "sourceId": "wecom-outcomes-p5-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "82.23%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-d80042199eeb",
+      "schoolName": "广州市华美英语实验学校（普通高中）",
+      "sourceSchoolLabel": "华美",
+      "campusScope": "原表未说明是否含国际与港澳方向",
+      "sourceId": "wecom-outcomes-p5-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2024,
+          "score600": "19人",
+          "specialControl": "54%",
+          "score600Kind": "count",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": null,
+          "specialControl": "20.91%",
+          "score600Kind": null,
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": []
+    },
+    {
+      "schoolId": "gz-cc5c0129cd54",
+      "schoolName": "广州市庆丰实验学校",
+      "sourceSchoolLabel": "庆丰实验",
+      "campusScope": "原表未说明班型与分母",
+      "sourceId": "wecom-outcomes-p5-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "10人左右",
+          "specialControl": null,
+          "score600Kind": "count",
+          "specialControlKind": null,
+          "denominator": null
+        }
+      ],
+      "issues": []
+    }
+  ],
+  "aggregateRecords": [
+    {
+      "id": "tieyi-three-campuses-2023-2025",
+      "schoolId": null,
+      "schoolIds": [
+        "gz-0a2cc03d55ef",
+        "gz-727b6d8ff167",
+        "gz-9a6f1f35a825"
+      ],
+      "sourceSchoolLabel": "铁一（三校）",
+      "campusScope": "原表三校合计；不代表任一单校区，也不证明新校区当年已有毕业生",
+      "scopeType": "multiple_campuses",
+      "sourceId": "wecom-outcomes-p0-20261018",
+      "verification": "third_party_transcription_reviewed",
+      "useInModel": false,
+      "years": [
+        {
+          "year": 2025,
+          "score600": "30%左右",
+          "specialControl": "90%+",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2024,
+          "score600": "30%左右",
+          "specialControl": "90%左右",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        },
+        {
+          "year": 2023,
+          "score600": "30%",
+          "specialControl": "92%",
+          "score600Kind": "rate",
+          "specialControlKind": "rate",
+          "denominator": null
+        }
+      ],
+      "issues": [
+        "原表把三校作为一行，不拆算各校区人数或比例。"
+      ]
+    }
+  ]
 }

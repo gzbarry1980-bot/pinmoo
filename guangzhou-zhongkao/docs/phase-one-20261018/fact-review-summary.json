@@ -1,0 +1,89 @@
+{
+  "reviewedAt": "2026-10-18",
+  "schoolCampusRecords": 20,
+  "roomsAndHistoricalClassesReviewed": 20,
+  "feesWithTextEvidence": 17,
+  "feesUnspecified": 3,
+  "campusesWithConflicts": [
+    {
+      "schoolId": "gz-5424230557c2",
+      "schoolName": "广东实验中学（荔湾校区）",
+      "issues": [
+        "文章另列面向广州计划约670人；招生范围与计划口径不同，未合并人数"
+      ]
+    },
+    {
+      "schoolId": "gz-3a2e51774f57",
+      "schoolName": "广州市第二中学",
+      "issues": [
+        "同年学校文章记应元7；两条资料有差异，当前班数需向学校核对"
+      ]
+    },
+    {
+      "schoolId": "gz-96a493c0f2d1",
+      "schoolName": "广州大学附属中学",
+      "issues": [
+        "表中分项相加与总班数不一致，文章明细也存在重复；不推定各班实际人数"
+      ]
+    },
+    {
+      "schoolId": "gz-6b8cf4e3bb80",
+      "schoolName": "广东广雅中学（荔湾校区）",
+      "issues": [
+        "原文特色班名称有文字混排，按培养方向概括"
+      ]
+    },
+    {
+      "schoolId": "gz-d88fc5845fdc",
+      "schoolName": "广东广雅中学（花都校区）",
+      "issues": [
+        "同一文章同时出现标准7人间与特色4人间，适用楼栋和年级未明确；不能视作可自由选择。"
+      ]
+    },
+    {
+      "schoolId": "gz-e0c6a89c9e84",
+      "schoolName": "广州市第六中学（花都校区）",
+      "issues": [
+        "同年文章写招生300人，分班表写350人；未采用该人数作为招生计划或实际录取人数"
+      ]
+    },
+    {
+      "schoolId": "gz-0a2cc03d55ef",
+      "schoolName": "广州市铁一中学（越秀校区）",
+      "issues": [
+        "正文8人间与家长答疑6人间口径不同；不据此承诺具体宿位。"
+      ]
+    },
+    {
+      "schoolId": "gz-9a6f1f35a825",
+      "schoolName": "广州市铁一中学（白云校区）",
+      "issues": [
+        "原表括号另提13—16班，与总班数有差异；不采用该班号范围"
+      ]
+    },
+    {
+      "schoolId": "gz-11fe9a9bc94f",
+      "schoolName": "清华附中湾区学校（智谷校区）",
+      "issues": [
+        "历史班型；不用于判断当前年级分班"
+      ]
+    },
+    {
+      "schoolId": "gz-a9afa174ddb3",
+      "schoolName": "广州协和学校",
+      "issues": [
+        "不沿用往年分班门槛"
+      ]
+    },
+    {
+      "schoolId": "gz-2d5bcaab3eb7",
+      "schoolName": "广东华侨中学",
+      "issues": [
+        "普通高中、港澳子弟和国际方向不能混成同一口径"
+      ]
+    }
+  ],
+  "officialCurrentYearFeesVerified": 0,
+  "admissionRecordsPromoted": 0,
+  "privateEvidenceExcludedFromPublicBuild": true
+}

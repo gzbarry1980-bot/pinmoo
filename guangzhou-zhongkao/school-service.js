@@ -1,4 +1,5 @@
 // Shared, read-only school index. Missing data is never converted to zero.
+import {latestAdmissionYear} from './policy-context.js';
 export const DISTRICTS = ['荔湾区','越秀区','海珠区','天河区','白云区','黄埔区','番禺区','花都区','南沙区','从化区','增城区'];
 export const POPULATIONS = { '户籍生':'户籍生', '随迁子女':'随迁子女', '外区生':'外区生' };
 export const normalize = value => String(value || '').replace(/[\s（）()·]/g,'').toLowerCase();
@@ -53,8 +54,8 @@ export function filterSchools(data, filters = {}) {
       if(diff) return diff;
     }
     if(filters.sort === 'cutoff') {
-      const av=latestRecord(data,a.id,{year:data.manifest?.latestPolicyYear,batch:filters.batch,candidateType:filters.candidateType})?.cutoffScore;
-      const bv=latestRecord(data,b.id,{year:data.manifest?.latestPolicyYear,batch:filters.batch,candidateType:filters.candidateType})?.cutoffScore;
+      const av=latestRecord(data,a.id,{year:latestAdmissionYear(data.manifest),batch:filters.batch,candidateType:filters.candidateType})?.cutoffScore;
+      const bv=latestRecord(data,b.id,{year:latestAdmissionYear(data.manifest),batch:filters.batch,candidateType:filters.candidateType})?.cutoffScore;
       if(av!=null || bv!=null) return (bv??-1)-(av??-1);
     }
     return a.name.localeCompare(b.name,'zh');

@@ -1,5 +1,5 @@
 {
-  "version": "school-reference-20261014",
+  "version": "school-reference-20261018",
   "capturedDate": "2026-10-14",
   "scope": "省市属高中栏目：20所学校/校区；不是广州所有高中",
   "note": "学校生活与培养方向参考，不改变报考资格、学费筛选、录取机会或方案评分。全文和原图不公开。",
@@ -12,7 +12,8 @@
       "capturedAt": "2026-10-14T00:29:27.713Z",
       "kind": "third-party-member-article",
       "contentSHA256": "693720676f665a1871da73f759d104290ac897f8c67d6bdc7b60ccb365efb0fd",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-02-20261014",
@@ -22,7 +23,8 @@
       "capturedAt": "2026-10-14T00:33:35.723Z",
       "kind": "third-party-member-article",
       "contentSHA256": "99b2ff6ff06f38b0e31c25d2ee65358d4fae1749d48095db2f2478c39c236c75",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-03-20261014",
@@ -32,7 +34,8 @@
       "capturedAt": "2026-10-14T00:33:38.609Z",
       "kind": "third-party-member-article",
       "contentSHA256": "478e2f0c95e3c6195910f630db08db78a04ea5299aae2816f66f21d15260e26e",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-04-20261014",
@@ -42,7 +45,8 @@
       "capturedAt": "2026-10-14T00:33:41.576Z",
       "kind": "third-party-member-article",
       "contentSHA256": "2a038fd1f9e5bafb069635253397fa6c6e2be3c57fb7c9d48c75381f31c2b909",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-05-20261014",
@@ -52,7 +56,8 @@
       "capturedAt": "2026-10-14T00:33:31.933Z",
       "kind": "third-party-member-article",
       "contentSHA256": "fbbc48881dafa1e298edc1c3971fca317a65bfdcf0a7a176cfd55832303cc25c",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-06-20261014",
@@ -62,7 +67,8 @@
       "capturedAt": "2026-10-14T00:34:32.718Z",
       "kind": "third-party-member-article",
       "contentSHA256": "1239cfe94a581c553de5125f011ca01069505b210c391db91e20355b393900dd",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-07-20261014",
@@ -72,7 +78,8 @@
       "capturedAt": "2026-10-14T00:34:35.944Z",
       "kind": "third-party-member-article",
       "contentSHA256": "81ef7bce675877e0a254a3731bfca1e72c8c4592a966af8fd2cd8023ef227c5d",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-08-20261014",
@@ -82,7 +89,8 @@
       "capturedAt": "2026-10-14T00:35:57.423Z",
       "kind": "third-party-member-article",
       "contentSHA256": "81c454fdc66286bcd9396038cac1fc54adaea962b191f84ee1adafefbe3e9ae2",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-09-20261014",
@@ -92,7 +100,8 @@
       "capturedAt": "2026-10-14T00:36:01.732Z",
       "kind": "third-party-member-article",
       "contentSHA256": "e64dc75091aac99769776c09a147dd59650f4f95f14abe5be626b2ad8e7c4f76",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-10-20261014",
@@ -102,7 +111,8 @@
       "capturedAt": "2026-10-14T00:36:05.363Z",
       "kind": "third-party-member-article",
       "contentSHA256": "a9e062b41112c8fc8993c2bca74f02e04d76aa49a1bf48975207c4b760b72bb3",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-11-20261014",
@@ -112,7 +122,8 @@
       "capturedAt": "2026-10-14T00:36:09.242Z",
       "kind": "third-party-member-article",
       "contentSHA256": "240420f8139a3dbd878e21872f4af55a37ac335d76b81ac84805e9d8add29c0d",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-12-20261014",
@@ -122,7 +133,8 @@
       "capturedAt": "2026-10-14T00:36:12.951Z",
       "kind": "third-party-member-article",
       "contentSHA256": "470acb3c0c0b4e7a70272b805c361faf90690e2b08ffdf5f2f0e231ccafd09a0",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-13-20261014",
@@ -132,7 +144,8 @@
       "capturedAt": "2026-10-14T00:37:24.466Z",
       "kind": "third-party-member-article",
       "contentSHA256": "eb2b0a770637e0980ab0d9b73011789539caeecede2db893de51528f22d38cf9",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-14-20261014",
@@ -142,7 +155,8 @@
       "capturedAt": "2026-10-14T00:37:28.072Z",
       "kind": "third-party-member-article",
       "contentSHA256": "4a98e15a80f8c9d9171a5d00ddd066822725d5f9f43dfee7173c53ec9c025a81",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-15-20261014",
@@ -152,7 +166,8 @@
       "capturedAt": "2026-10-14T00:37:31.610Z",
       "kind": "third-party-member-article",
       "contentSHA256": "77d66e0db73b95ff55e7aa3fecff8ff40a705d934adaadc32d4fa2dbff08145c",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-16-20261014",
@@ -162,7 +177,8 @@
       "capturedAt": "2026-10-14T00:38:19.990Z",
       "kind": "third-party-member-article",
       "contentSHA256": "fe322de5e28fcdd50d95d75cf3ccc069d577f6f2a83b8cdfd94e32802b5035ee",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-17-20261014",
@@ -172,7 +188,8 @@
       "capturedAt": "2026-10-14T00:38:25.455Z",
       "kind": "third-party-member-article",
       "contentSHA256": "1ecee77f3fa23786aa854c78a982a03d6cc6e8107290fc99b947e33444627318",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-18-20261014",
@@ -182,7 +199,8 @@
       "capturedAt": "2026-10-14T00:39:11.559Z",
       "kind": "third-party-member-article",
       "contentSHA256": "9caa21965dc1cbb7599893d6445954e10a55f3ac4d4ed6d252cc494d7d4d34de",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-19-20261014",
@@ -192,7 +210,8 @@
       "capturedAt": "2026-10-14T00:39:15.151Z",
       "kind": "third-party-member-article",
       "contentSHA256": "13ec31ee51ec51a652e9b7164105ccdc58122b6dfd292b2b718550a3597ff745",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-school-20-20261014",
@@ -202,7 +221,8 @@
       "capturedAt": "2026-10-14T00:39:18.884Z",
       "kind": "third-party-member-article",
       "contentSHA256": "2f053feefd9f5b966f018f7ec608c5aed3398a981f8fc9de7ddb0b5c362391c1",
-      "verification": "extracted_not_officially_verified"
+      "verification": "extracted_not_officially_verified",
+      "factualSummaryReviewedAt": "2026-10-18"
     },
     {
       "id": "member-class-table-2025-20261014",
@@ -232,7 +252,8 @@
         "referenceYear": null,
         "facilities": "独立卫浴、阳台、空调；资料提及洗衣与烘干设施",
         "sourceId": "member-school-01-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "南山、格致和平行班；资料介绍人文与科学素养融合课程",
       "classes": {
@@ -249,7 +270,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_with_conflicts",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 1
+      }
     },
     {
       "schoolId": "gz-503814527dc3",
@@ -267,7 +300,8 @@
         "referenceYear": null,
         "facilities": "独立卫浴、空调",
         "sourceId": "member-school-02-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "南山、格致和平行班；与荔湾校区之间有教师交流安排",
       "classes": {
@@ -282,7 +316,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_historical_reference",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 0
+      }
     },
     {
       "schoolId": "gz-198c01489912",
@@ -300,7 +346,8 @@
         "referenceYear": null,
         "facilities": "独立卫浴、阳台、空调；公共自习与洗衣设施",
         "sourceId": "member-school-03-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "奥班、大先强基、大先数理和平行班",
       "classes": {
@@ -315,7 +362,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_historical_reference",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 0
+      }
     },
     {
       "schoolId": "gz-fd2a5311bae4",
@@ -333,7 +392,8 @@
         "referenceYear": null,
         "facilities": "双卫生间、阳台、空调及洗衣设施",
         "sourceId": "member-school-04-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "丘班、中科大创新、大先数理、人文、海航等培养方向",
       "classes": {
@@ -348,7 +408,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_historical_reference",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 0
+      }
     },
     {
       "schoolId": "gz-3a2e51774f57",
@@ -366,7 +438,8 @@
         "referenceYear": null,
         "facilities": "独立卫浴、空调；热水按用量另计",
         "sourceId": "member-school-05-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "应元课程体系涵盖基础课程、人文数理阅读和竞赛培优",
       "classes": {
@@ -383,7 +456,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_with_conflicts",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 1
+      }
     },
     {
       "schoolId": "gz-96a493c0f2d1",
@@ -401,7 +486,8 @@
         "referenceYear": null,
         "facilities": "空调、双卫浴、阳台；公共洗衣与浴室设施",
         "sourceId": "member-school-06-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "大学城校区；资料介绍奥班、国防班、创新班等不同培养方向",
       "classes": {
@@ -418,7 +504,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_with_conflicts",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 1
+      }
     },
     {
       "schoolId": "gz-6b8cf4e3bb80",
@@ -436,7 +534,8 @@
         "referenceYear": null,
         "facilities": "独立卫浴、阳台、空调",
         "sourceId": "member-school-07-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "竞赛、科创、综合等岭南特色培养方向",
       "classes": {
@@ -453,7 +552,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_with_conflicts",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 1
+      }
     },
     {
       "schoolId": "gz-d88fc5845fdc",
@@ -471,7 +582,10 @@
         "referenceYear": null,
         "facilities": "公共洗衣房、热水、自习室及视频电话",
         "sourceId": "member-school-08-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": [
+          "同一文章同时出现标准7人间与特色4人间，适用楼栋和年级未明确；不能视作可自由选择。"
+        ]
       },
       "features": "岭南特色班；按竞赛、科创、综合方向组织课程",
       "classes": {
@@ -486,7 +600,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_with_conflicts",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 1
+      }
     },
     {
       "schoolId": "gz-a356b84be321",
@@ -504,7 +630,8 @@
         "referenceYear": null,
         "facilities": "独立卫生间与洗浴间、空调、热水",
         "sourceId": "member-school-09-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "元培班和平行班；入学分班与选科后调整分开进行",
       "classes": {
@@ -519,7 +646,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_historical_reference",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 0
+      }
     },
     {
       "schoolId": "gz-284b2b772794",
@@ -537,7 +676,8 @@
         "referenceYear": null,
         "facilities": "独立卫浴、空调、热水；资料提及洗衣服务",
         "sourceId": "member-school-10-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "元培班和平行班；与执信路校区分开记录",
       "classes": {
@@ -552,7 +692,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_historical_reference",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 0
+      }
     },
     {
       "schoolId": "gz-39546db6ee78",
@@ -570,7 +722,8 @@
         "referenceYear": null,
         "facilities": "寄宿生活设施；国际课程收费与普通高中方向不同",
         "sourceId": "member-school-11-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "外语培养特色；普通高考与国际课程方向需分别了解",
       "classes": {
@@ -585,7 +738,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_historical_reference",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 0
+      }
     },
     {
       "schoolId": "gz-b610fbd1676b",
@@ -603,7 +768,8 @@
         "referenceYear": null,
         "facilities": "住宿人数另有家长描述为6人，具体安排需询校",
         "sourceId": "member-school-12-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "奥班、黄埔班、黄埔风班和平行班",
       "classes": {
@@ -618,7 +784,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_historical_reference",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 0
+      }
     },
     {
       "schoolId": "gz-e0c6a89c9e84",
@@ -636,14 +814,17 @@
         "referenceYear": null,
         "facilities": "首年住宿安排不能自动沿用至新年级",
         "sourceId": "member-school-13-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "2025年首届高中招生；黄埔三航班、黄埔风班和平行班",
       "classes": {
         "year": 2025,
         "totalClasses": 8,
         "summary": "黄埔三航2、黄埔风1，其余平行",
-        "issues": [],
+        "issues": [
+          "同年文章写招生300人，分班表写350人；未采用该人数作为招生计划或实际录取人数"
+        ],
         "sourceId": "member-class-table-2025-20261014"
       },
       "questions": [
@@ -651,7 +832,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_with_conflicts",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 1
+      }
     },
     {
       "schoolId": "gz-d1dab230f119",
@@ -669,7 +862,8 @@
         "referenceYear": null,
         "facilities": "首年住宿安排不能自动沿用至新年级",
         "sourceId": "member-school-14-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "黄埔班、黄埔风班和平行班",
       "classes": {
@@ -684,7 +878,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_historical_reference",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 0
+      }
     },
     {
       "schoolId": "gz-0a2cc03d55ef",
@@ -702,7 +908,10 @@
         "referenceYear": null,
         "facilities": "空调、卫浴等住宿设施；人数口径不一致，需核对年级与楼栋",
         "sourceId": "member-school-15-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": [
+          "正文8人间与家长答疑6人间口径不同；不据此承诺具体宿位。"
+        ]
       },
       "features": "铁英、重点和平行班；资料介绍三个校区有联考和课程协同",
       "classes": {
@@ -717,7 +926,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_with_conflicts",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 1
+      }
     },
     {
       "schoolId": "gz-727b6d8ff167",
@@ -735,7 +956,8 @@
         "referenceYear": null,
         "facilities": "空调、独立卫浴、储物柜与热水；具体年级未明确",
         "sourceId": "member-school-16-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "寄宿安排与走读申请需询校；铁英、重点和平行班",
       "classes": {
@@ -750,7 +972,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_historical_reference",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 0
+      }
     },
     {
       "schoolId": "gz-9a6f1f35a825",
@@ -768,7 +1002,8 @@
         "referenceYear": null,
         "facilities": "上床下桌、独立卫浴、阳台、空调；楼层自习与洗衣设施",
         "sourceId": "member-school-17-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "2022年开始高中招生；铁英、重点和平行班",
       "classes": {
@@ -785,7 +1020,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_with_conflicts",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 1
+      }
     },
     {
       "schoolId": "gz-11fe9a9bc94f",
@@ -803,7 +1050,8 @@
         "referenceYear": 2023,
         "facilities": "仅对应历史智谷校区资料，不沿用为智慧城校区条件",
         "sourceId": "member-school-18-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "2023年资料介绍数信英才、体艺特色方向",
       "classes": {
@@ -820,7 +1068,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "原资料同时介绍两个校区规划，生活与收费仅采用明确年份的智谷校区历史问答，未写入智慧城校区。"
+      "caution": "原资料同时介绍两个校区规划，生活与收费仅采用明确年份的智谷校区历史问答，未写入智慧城校区。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_with_conflicts",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 1
+      }
     },
     {
       "schoolId": "gz-a9afa174ddb3",
@@ -838,7 +1098,8 @@
         "referenceYear": null,
         "facilities": "双独立卫浴、空调、热水与储物设施；改造年份未明确",
         "sourceId": "member-school-19-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "2023年资料介绍创新班与实验班；园林式校园",
       "classes": {
@@ -855,7 +1116,19 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_with_conflicts",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 1
+      }
     },
     {
       "schoolId": "gz-2d5bcaab3eb7",
@@ -873,7 +1146,8 @@
         "referenceYear": null,
         "facilities": "高中部位于白云区金沙洲；住宿详情需询校",
         "sourceId": "member-school-20-20261014",
-        "verifiedForCurrentYear": false
+        "verifiedForCurrentYear": false,
+        "issues": []
       },
       "features": "空天智能、理科创新、文史实验等方向；普高与港澳子弟班口径不同",
       "classes": {
@@ -890,7 +1164,20 @@
         "特色班如何选拔，选科后是否重新分班？",
         "收费是否包含热水、洗衣和其他生活费用？"
       ],
-      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。"
+      "caution": "资料为第三方整理；文章发布日期不代表每项信息的适用年份。宿位、收费、班型须核对当年安排。",
+      "review": {
+        "reviewedAt": "2026-10-18",
+        "method": "saved_article_text_and_previous_class_table_crosscheck",
+        "status": "reviewed_with_conflicts",
+        "officialCurrentYearVerification": "pending",
+        "fields": [
+          "住宿人数原文",
+          "住宿费及学期单位",
+          "历史班型与校区范围"
+        ],
+        "issueCount": 1
+      }
     }
-  ]
+  ],
+  "reviewedAt": "2026-10-18"
 }

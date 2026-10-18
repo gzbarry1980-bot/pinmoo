@@ -3,6 +3,12 @@
   "version": "20261005-defefb03",
   "generatedAt": "2026-10-05T11:32:19.229Z",
   "latestPolicyYear": 2026,
+  "latestAnnualRulesYear": 2026,
+  "latestPublishedFrameworkYear": 2027,
+  "latestAdmissionYear": 2026,
+  "latestScoreDistributionYear": 2026,
+  "defaultForecastYear": 2027,
+  "policyReviewVersion": "20261018-policy",
   "years": [
     2021,
     2022,

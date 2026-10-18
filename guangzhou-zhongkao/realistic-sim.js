@@ -15,7 +15,8 @@
 //
 // 输出结构与 engine.simulateOutcomes 完全一致，app.js 渲染层无需改动。
 
-import { evaluateRecord, gradientIndex } from './engine.js?v=20261013-model';
+import { evaluateRecord, gradientIndex } from './engine.js?v=20261018-policy';
+import {applyPolicyContext,latestScoreDistributionYear} from './policy-context.js';
 import {estimatePercentile,estimateScore} from './score-distribution.js';
 
 /* ---------- 以下为从 engine.js 复制的纯函数（不修改 engine.js） ---------- */
@@ -215,6 +216,10 @@ function chanceTier(value) {
 /* ---------------------------- 波动压力测试主体 ---------------------------- */
 
 export function simulateOutcomesRealistic(profile, plan, dataset, { seed = 20260722, iterations = 10000 } = {}) {
+  return applyPolicyContext(simulateHistoricalRealistic(profile, plan, dataset, {seed, iterations}), profile, dataset);
+}
+
+function simulateHistoricalRealistic(profile, plan, dataset, {seed, iterations}) {
   const slots = [...plan].filter((slot) => slot.schoolId).sort((a, b) => a.batch - b.batch || a.position - b.position);
   if (!slots.length) {
     return { mode: 'forecast', slotResults: [], outcomes: [{ key: 'none', probability: 100, slot: null }], noneProbability: 100, iterations, seed };
@@ -228,7 +233,9 @@ export function simulateOutcomesRealistic(profile, plan, dataset, { seed = 20260
   }
   const index = buildSimulationIndex(records, slots, availableYears);
   const bandsByYear = new Map(availableYears.map((year) => [year, dataset.bands.filter((row) => row.year === year)]));
-  const latestBands = bandsByYear.get(dataset.manifest.latestPolicyYear) || [];
+  const referenceYear = latestScoreDistributionYear(dataset);
+  const latestBands = dataset.bands.filter(row => row.year === referenceYear);
+  bandsByYear.set(referenceYear, latestBands);
 
   const hits = new Map(slots.map((slot) => [slot.key, 0]));
   const yearTotals = new Map();
@@ -303,7 +310,7 @@ export function simulateOutcomesRealistic(profile, plan, dataset, { seed = 20260
     if (Math.abs(upper - lower) < 8) [lower, upper] = [chance - 5, chance + 5];
     const stat = anomalies.get(slot.key);
     const imputedRatio = (stat.imputed || 0) / iterations;
-    const historicalEvidence = historicalEvidenceFor(index, profile, slot, availableYears, bandsByYear, dataset.manifest.latestPolicyYear);
+    const historicalEvidence = historicalEvidenceFor(index, profile, slot, availableYears, bandsByYear, referenceYear);
     const yearsWithData=historicalEvidence.directYears.length;
     if(!yearsWithData)return {...slot,state:'no-data',reason:'缺少符合考生类别和招生范围的历史记录，暂不显示机会',yearsWithData:0,confidence:'低',historicalEvidence};
     if (imputedRatio > 0.4) [lower, upper] = [lower - 12, upper + 12];

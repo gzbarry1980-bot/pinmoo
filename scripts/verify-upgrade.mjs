@@ -34,13 +34,20 @@ for (const item of practicalResources) {
   const rows = XLSX.utils.sheet_to_json(book.Sheets[book.SheetNames[0]], { header: 1, defval: '' });
   assert.deepEqual(rows[0], item.headers, item.id + ': CSV header mismatch');
   assert.deepEqual(rows.slice(1), item.rows, item.id + ': CSV rows mismatch');
+  if (item.example) {
+    assert.ok(item.example.rows.every(row => row.length === item.headers.length), item.id + ': example fields must match the blank template');
+    const exampleData = await fs.readFile(path.join(root, 'downloads', item.example.filename));
+    const exampleBook = XLSX.read(exampleData, { type: 'buffer' });
+    const exampleRows = XLSX.utils.sheet_to_json(exampleBook.Sheets[exampleBook.SheetNames[0]], { header: 1, defval: '' });
+    assert.deepEqual(exampleRows, [item.headers, ...item.example.rows], item.id + ': downloadable example must match the displayed source');
+  }
 }
 
 const enhanced = insights.filter(item => item.practicalResource);
 assert.equal(enhanced.length, Object.keys(insightPractice).length);
-assert.equal(enhanced.length, 12);
+assert.equal(enhanced.length, 18);
 for (const item of enhanced) {
-  assert.equal(item.updated, '2026-10-13');
+  assert.equal(item.updated, insightPractice[item.slug].updated || '2026-10-13');
   assert.ok(item.published <= item.updated);
   assert.equal(item.sections.filter(section => section.id === 'practical-next-step').length, 1);
   assert.ok(practicalResources.some(resource => resource.id === item.practicalResource));
@@ -76,4 +83,4 @@ const serviceIndex = await fs.readFile(path.join(root, 'services/index.html'), '
 assert.equal((geo.match(/class="geo-service-card/g) || []).length, 6, 'GEO modules belong on the specific service page');
 assert.ok(!serviceIndex.includes('class="geo-service-card'), 'General services should not duplicate all GEO modules');
 
-console.log(`升级检查通过：${pages.length} 个页面资源，${images} 条资源引用，4 份CSV解析，12 篇内容增强与关键路径检查。`);
+console.log(`升级检查通过：${pages.length} 个页面资源，${images} 条资源引用，4 份空白表及4份示范CSV解析，18 篇内容增强与关键路径检查。`);

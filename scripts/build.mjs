@@ -249,8 +249,12 @@ for (const item of topLevel) await copy(path.join(root, item), path.join(dist, i
 await fs.mkdir(path.join(dist, 'downloads'), { recursive: true });
 for (const resource of practicalResources) {
   const csvCell = value => '"' + String(value).replaceAll('"', '""') + '"';
-  const csv = '\uFEFF' + [resource.headers, ...resource.rows].map(row => row.map(csvCell).join(',')).join('\r\n') + '\r\n';
-  await fs.writeFile(path.join(dist, 'downloads', resource.filename), csv, 'utf8');
+  const sheets = [{ filename: resource.filename, rows: resource.rows }];
+  if (resource.example) sheets.push(resource.example);
+  for (const sheet of sheets) {
+    const csv = '\uFEFF' + [resource.headers, ...sheet.rows].map(row => row.map(csvCell).join(',')).join('\r\n') + '\r\n';
+    await fs.writeFile(path.join(dist, 'downloads', sheet.filename), csv, 'utf8');
+  }
 }
 for (const staleAsset of ['assets/cases/generated-case-sheet.png']) {
   await fs.rm(path.join(dist, staleAsset), { force: true });

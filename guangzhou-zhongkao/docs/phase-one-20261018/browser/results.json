@@ -1,0 +1,144 @@
+{
+  "origin": "http://127.0.0.1:5174",
+  "at": "2026-10-18T15:34:00.308Z",
+  "entitlementTest": "isolated responses only; no real code activation, account, payment or device binding",
+  "checks": [
+    {
+      "name": "Local HTTP 200 /",
+      "pass": true
+    },
+    {
+      "name": "Home distinguishes published policy and observed data",
+      "pass": true
+    },
+    {
+      "name": "Local HTTP 200 /verify/?new=1",
+      "pass": true
+    },
+    {
+      "name": "2027 is default forecast target",
+      "pass": true
+    },
+    {
+      "name": "Published reform is visible",
+      "pass": true
+    },
+    {
+      "name": "Banner follows selected year",
+      "pass": true
+    },
+    {
+      "name": "Replay keeps actual 2025 year",
+      "pass": true
+    },
+    {
+      "name": "Generated draft stops at step 2",
+      "pass": true
+    },
+    {
+      "name": "Anonymous preview still has 3 choices",
+      "pass": true
+    },
+    {
+      "name": "Local HTTP 200 /verify/?new=1",
+      "pass": true
+    },
+    {
+      "name": "Complete assessment remains visible with isolated test entitlement",
+      "pass": true
+    },
+    {
+      "name": "Reform uncertainty is in actual results",
+      "pass": true
+    },
+    {
+      "name": "Model 2.3 is disclosed",
+      "pass": true
+    },
+    {
+      "name": "Mobile assessment has no page overflow",
+      "pass": true
+    },
+    {
+      "name": "Local HTTP 200 /schools/detail/?id=gz-524a67309dff",
+      "pass": true
+    },
+    {
+      "name": "School reference rendered gz-524a67309dff",
+      "pass": true
+    },
+    {
+      "name": "School detail fits 390px gz-524a67309dff",
+      "pass": true
+    },
+    {
+      "name": "80 people is not relabelled as a rate",
+      "pass": true
+    },
+    {
+      "name": "Local HTTP 200 /schools/detail/?id=gz-9a6f1f35a825",
+      "pass": true
+    },
+    {
+      "name": "School reference rendered gz-9a6f1f35a825",
+      "pass": true
+    },
+    {
+      "name": "School detail fits 390px gz-9a6f1f35a825",
+      "pass": true
+    },
+    {
+      "name": "Local HTTP 200 /schools/detail/?id=gz-79a8dd8dc065",
+      "pass": true
+    },
+    {
+      "name": "School reference rendered gz-79a8dd8dc065",
+      "pass": true
+    },
+    {
+      "name": "School detail fits 390px gz-79a8dd8dc065",
+      "pass": true
+    },
+    {
+      "name": "Local HTTP 200 /schools/detail/?id=gz-d88fc5845fdc",
+      "pass": true
+    },
+    {
+      "name": "School reference rendered gz-d88fc5845fdc",
+      "pass": true
+    },
+    {
+      "name": "School detail fits 390px gz-d88fc5845fdc",
+      "pass": true
+    },
+    {
+      "name": "Local HTTP 200 /schools/detail/?id=gz-e0c6a89c9e84",
+      "pass": true
+    },
+    {
+      "name": "School reference rendered gz-e0c6a89c9e84",
+      "pass": true
+    },
+    {
+      "name": "School detail fits 390px gz-e0c6a89c9e84",
+      "pass": true
+    },
+    {
+      "name": "Local HTTP 200 /schools/?sort=name",
+      "pass": true
+    },
+    {
+      "name": "School list contains outcome summaries",
+      "pass": true
+    },
+    {
+      "name": "School list fits mobile",
+      "pass": true
+    },
+    {
+      "name": "No page script errors",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

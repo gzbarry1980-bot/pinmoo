@@ -1,0 +1,17 @@
+{
+  "checkedDate": "2026-10-18",
+  "timezone": "Asia/Shanghai",
+  "url": "https://pinmooconsulting.com/site-build.json",
+  "method": "PowerShell Invoke-RestMethod; direct public endpoint read",
+  "result": {
+    "version": "f510ceac8f",
+    "builtAt": "2026-10-14T14:51:15.636Z",
+    "articleCount": 76,
+    "primaryDomain": "https://pinmooconsulting.com"
+  },
+  "notes": [
+    "Current article count is verified directly; no production mutation occurred in this planning turn.",
+    "Search tool returned an older cached 31-article index; that cache was not used as current production evidence.",
+    "The previous 2026-10-02 receipt checked 45 article bodies; this planning turn did not repeat all route checks."
+  ]
+}

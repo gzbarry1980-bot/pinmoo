@@ -1,6 +1,7 @@
+import {latestAdmissionYear,defaultForecastYear} from '../policy-context.js';
 import {readWorkspace,updateWorkspace,savePlan,LEGACY_KEY} from '../workspace-store.js';
 import {escapeHTML as e,notify} from '../site-shell.js';
-import {schoolURL,matchesSchool} from '../school-service.js';
+import {schoolURL,matchesSchool} from '../school-service.js?v=20261018-policy';
 const $=id=>document.getElementById(id);let manifest,sources,quotaControls=[],allRows=[],rows=[],request=0;
 const slots=[1,2,3];
 const blankPlan=()=>[2,3,4].flatMap(batch=>Array.from({length:batch===2?3:6},(_,i)=>({key:`b${batch}-${i+1}`,batch,position:i+1,schoolId:'',schoolName:''})));
@@ -39,7 +40,7 @@ $('saveQuota').addEventListener('click',()=>{
  if(selected.some((v,i)=>v&&selected.slice(0,i).some(x=>!x)))return notify('请从第一志愿开始连续填写。');
  const ws=readWorkspace(),active=ws.plans.find(p=>p.id===ws.activePlanId);const base=active?.profile||ws.profile||{};
  if(base.candidateType==='随迁子女')return notify('名额分配须核对户籍生资格，请先修改考生类别或咨询学校。');
- const profile={mode:'forecast',targetYear:manifest.latestPolicyYear+1,score:690,scoreLow:680,scoreHigh:700,candidateType:'户籍生',admissionDistrict:'天河区',householdDistrict:'天河区',schoolDistrict:'天河区',referenceGrade:'unknown',riskPreference:'均衡',ownershipPreference:'不限',boardingPreference:'不限',maxAnnualFee:null,preferredDistricts:[],regionPreference:'household',excludedSchools:[],crossDistrict:false,notAdmittedFirstBatch:true,...base,quotaEligible:true,sourceSchoolId:$('quotaSource').value};
+ const profile={mode:'forecast',targetYear:defaultForecastYear(manifest),score:690,scoreLow:680,scoreHigh:700,candidateType:'户籍生',admissionDistrict:'天河区',householdDistrict:'天河区',schoolDistrict:'天河区',referenceGrade:'unknown',riskPreference:'均衡',ownershipPreference:'不限',boardingPreference:'不限',maxAnnualFee:null,preferredDistricts:[],regionPreference:'household',excludedSchools:[],crossDistrict:false,notAdmittedFirstBatch:true,...base,quotaEligible:true,sourceSchoolId:$('quotaSource').value};
  const plan=structuredClone(active?.plan||blankPlan());if(plan.some(r=>r.batch!==2&&filled.includes(r.schoolId)))return notify('所选学校已在第三或第四批方案中，请调整后再保存，避免重复。');
  for(const i of slots){const slot=plan.find(r=>r.batch===2&&r.position===i),record=rows.find(r=>r.schoolId===selected[i-1]);Object.assign(slot,{schoolId:record?.schoolId||'',schoolName:record?.schoolName||''});}
  try{savePlan(profile,plan,{name:active?.name||'名额分配与普通高中方案'});localStorage.setItem(LEGACY_KEY,JSON.stringify({profile,plan}));sessionStorage.removeItem('zk-analysis-cache');location.assign('/verify/?resume=1#volunteerForm');}catch(error){notify('保存失败：'+error.message);}

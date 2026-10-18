@@ -11,7 +11,15 @@ export const practicalResources = [
     ],
     use: '周会前填写变化与依据；会上只确认优先事项、负责人和时间；下周在原行补充复测结果。',
     boundary: '访客不能跨来源直接相加；净销售额不等于利润。缺少成本时，不给利润结论。',
-    article: 'ecommerce-weekly-report-review-framework'
+    article: 'ecommerce-weekly-report-review-framework',
+    example: {
+      filename: 'pinmoo-weekly-review-example.csv',
+      summary: '模拟周会：支付增长了，先核对净销售与退款归属，再把规格说明交给具体负责人。',
+      previewColumns: [2, 3, 4, 5, 7, 8, 9, 10],
+      rows: [['模拟第1周', '模拟经营汇总及退款明细', '支付增长，净销售增长较小', '支付12万元；平台净销售9万元', '支付10万元；平台净销售8.6万元', '同一平台、同周期字段；净销售不是支付减当期退款的代算值', '退款对应的原订单周期尚待核对', '核对主推款退款订单期，补充规格适配说明', '商品负责人（示例）', '示例下周二', '同口径净销售及规格相关售后', '待复测，暂不填写改善结果']],
+      reading: '先把“看到的变化”和“已经证实的原因”分开。两期净销售采用同一平台字段；成本未齐，不推导利润。',
+      next: '下次周会回到这一行，记录规格说明是否上线、观察窗口和同类售后变化；未完成时写明卡点。'
+    }
   },
   {
     id: 'refund-review', title: '商品退款排查表', description: '从售后原话找到商品、页面、客服与履约之间的预期偏差。',
@@ -25,7 +33,15 @@ export const practicalResources = [
     ],
     use: '先按商品和原因分类，再抽样核对购买前页面与售后原话。将处理动作交给对应的商品、页面、客服或履约负责人。',
     boundary: '当期退款可能来自历史订单，不能把当期退款金额全部归因于当期成交或投放。',
-    article: 'ecommerce-refund-governance-playbook'
+    article: 'ecommerce-refund-governance-playbook',
+    example: {
+      filename: 'pinmoo-refund-review-example.csv',
+      summary: '模拟售后：本周退款来自上月订单，规格误解应交给商品与页面负责人处理。',
+      previewColumns: [0, 1, 2, 3, 4, 5, 8, 11],
+      rows: [['模拟本周', '模拟上月订单', '示例商品A／标准规格', '2000元（模拟）', '未计算退款率：缺少同批订单分母', '收到后发现尺寸不适合原使用位置（模拟摘要）', '商品适配', '页面有尺寸参数，但没有购买前测量提示', '增加尺寸参照、测量步骤和不适用情况', '商品与页面负责人（示例）', '示例调整后第2周', '待复测；继续区分原订单期']],
+      reading: '2000元只用于说明退款金额的记录方式。它来自历史订单，不能据此认定本周投放质量变差，也不能除以本周支付金额冒充同批订单退款率。',
+      next: '保存调整前后的页面版本，在约定窗口观察相同原因的售后，并核对成交结构、价格和库存变化。'
+    }
   },
   {
     id: 'media-review', title: '投放计划复盘表', description: '逐个计划比较获客、页面承接和退款质量，安排保量、优化、测试或暂停。',
@@ -34,7 +50,15 @@ export const practicalResources = [
     rows: [['', '', '', '', '', '', '', '', '', '', '', '保量 / 优化 / 测试 / 暂停', '', '', '', '']],
     use: '一次只比较相同口径与窗口的计划。预算判断要同时看样本量、承接变化和退款，不只看整体ROI。',
     boundary: '计划归因成交不一定能与全店成交相加。成本和退款分摊不完整时，不计算利润ROI。',
-    article: 'paid-traffic-roi-quality-review'
+    article: 'paid-traffic-roi-quality-review',
+    example: {
+      filename: 'pinmoo-media-review-example.csv',
+      summary: '模拟计划：花费1200元、归因支付4800元，支付ROI为4，仍需核对退款和商品承接。',
+      previewColumns: [0, 2, 4, 6, 7, 8, 9, 11],
+      rows: [['模拟7天；同一平台同一归因窗口', '示例平台', '示例计划A', '示例商品A／已确认的目标人群', '1200元（模拟）', '600次（模拟）', '4800元（模拟）', '归因支付金额÷花费＝4；不等于利润ROI', '600元退款（模拟）；原订单及计划归属待核对', '待核对；暂不从归因支付直接扣除退款代算', '咨询反复集中在规格适配', '优化：维持约定测试上限，先改承接再复测', '补规格选择说明并统一客服答复', '投放与页面负责人（示例）', '示例下一观察周期结束', '待复测；不预填增长结论']],
+      reading: '支付ROI只表达这组模拟花费与归因支付的关系。退款是否属于该计划尚未确认，商品成本也未提供，因此不计算净利润或利润ROI。',
+      next: '使用相同归因窗口复看计划表现，记录页面版本与预算变化；不要把多个重复归因计划的支付额直接相加。'
+    }
   },
   {
     id: 'geo-facts', title: '品牌 GEO 事实自查表', description: '统一公司、品牌、服务与官方入口，留下每条公开信息的来源和边界。',
@@ -49,7 +73,15 @@ export const practicalResources = [
     ],
     use: '从官网与品牌已授权材料开始，每一条事实保存来源。后续测试分别记录品牌提及、事实准确性和引用链接。',
     boundary: '公开信息自查不等于已完成AI效果测试。留空的回答和指标代表未采集，不能填入估算提升率。',
-    article: 'geo-seo-paid-media-coordination'
+    article: 'geo-seo-paid-media-coordination',
+    example: {
+      filename: 'pinmoo-geo-facts-example.csv',
+      summary: '填写示范：把标准主体、原始来源、待处理事项与AI实测记录分开。',
+      previewColumns: [0, 1, 2, 5, 6, 8, 9, 10],
+      rows: [['公司与品牌关系（填写示范）', '品沐咨询／PINMOO；公司为广州品沐咨询有限公司', 'https://pinmooconsulting.com/about/', '示例待办：逐一核对品牌自有账号简介', '待实际核对时填写', '示例检查项，不代表已发现某账号有错误', '官网已公开的主体与业务信息', '品牌资料负责人（示例）', '核对账号简介与官网是否一致；有差异时记录实际页面', '品沐咨询是做什么的？', '未采集；不填写提及率或提升结果']],
+      reading: '公司与品牌名称采用官网已公开信息，其余维护步骤为填写示范。来源可访问、已修改资料与AI已经引用是三件需要分别记录的事。',
+      next: '实际采样时保存问题原文、平台、模式、时间、完整回答与引用链接，再判断品牌是否被正确描述。'
+    }
   }
 ];
 
@@ -57,7 +89,7 @@ export const resourceLibrary = {
   path: '/resources/operating-templates/',
   title: '电商经营实用资料',
   description: '品沐咨询提供经营周会、商品退款、投放计划和品牌GEO事实自查模板，配套指标口径和使用方法，可直接阅读和下载。',
-  updated: '2026-10-13'
+  updated: '2026-10-18'
 };
 
 export function resourceForId(id) {

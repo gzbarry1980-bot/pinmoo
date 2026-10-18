@@ -1,4 +1,5 @@
-import { matchesSchool } from './school-service.js';
+import {latestAdmissionYear,defaultForecastYear} from './policy-context.js';
+import { matchesSchool } from './school-service.js?v=20261018-policy';
 import { readWorkspace } from './workspace-store.js';
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const storageKey='zk-intent-schools-v1';
@@ -73,7 +74,7 @@ export function installIntentPlanner({dataset,getProfile,generate}){
   container.innerHTML=`<summary>选学校</summary><div class="intent-panel"><h2>先选愿意就读的学校</h2><p>先选学校，再由系统排序。</p><div class="toolbar"><button type="button" class="button-secondary" id="intentFavorites">从收藏带入</button><button type="button" class="button-secondary" id="intentCompare">从对比带入</button></div><label>搜索学校<input type="search" id="intentSearch" placeholder="校名，如培正、广雅"></label><div id="intentSearchResults" class="intent-search-results"></div><h3>已选学校 <small id="intentCount"></small></h3><div id="intentSelected"></div><label>排序偏好<select id="intentStrategy"><option value="priority">优先意向</option><option value="balanced" selected>兼顾风险</option><option value="safe">更稳妥</option></select></label><label class="intent-supplement"><input type="checkbox" id="intentSupplement">允许系统补充学校</label><details class="intent-help"><summary>排序说明</summary><p>勾选“优先想去”，并按喜好上下移动；电脑也可拖动。最多12所。</p><p>默认只排列已选学校。未选保底时会指出缺口；系统补充的学校也需确认是否愿意就读。</p><p>优先意向保留喜好顺序；兼顾风险比较整份方案的去向；更稳妥更重视减少未录取风险。</p></details><button type="button" class="button-primary" id="generateIntent">生成排序</button><p id="intentStatus" role="status"></p></div>`;
   document.getElementById('volunteerForm').before(container);
   let selections=[];try{const saved=JSON.parse(localStorage.getItem(storageKey)||'[]');if(Array.isArray(saved))selections=saved.filter(s=>dataset.schools.some(x=>x.id===s.id)).slice(0,12).map(s=>({id:s.id,priority:!!s.priority}));}catch{}
-  const schools=dataset.schools.filter(s=>dataset.admissions.some(r=>r.schoolId===s.id&&r.year===dataset.manifest.latestPolicyYear&&[3,4].includes(r.batch)));
+  const schools=dataset.schools.filter(s=>dataset.admissions.some(r=>r.schoolId===s.id&&r.year===latestAdmissionYear(dataset.manifest)&&[3,4].includes(r.batch)));
   const school=id=>dataset.schools.find(s=>s.id===id);
   // The mobile step bar temporarily hosts the same action button, not a duplicate.
   const q=s=>container.querySelector(s)||(s==='#generateIntent'?document.getElementById('generateIntent'):null);

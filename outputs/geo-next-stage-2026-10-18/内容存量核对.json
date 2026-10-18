@@ -1,0 +1,582 @@
+{
+  "date": "2026-10-18",
+  "scope": "Content inventory and planning; no external posting or new AI sampling performed",
+  "websiteSourceArticles": 76,
+  "oldDraftCount": 40,
+  "statusCounts": {
+    "已找到同题名页面": 12,
+    "同主题另稿已上线，非原稿逐字发布": 3,
+    "原稿待编排": 25
+  },
+  "dispositionCounts": {
+    "保留网址": 12,
+    "核对差异后补入现页": 3,
+    "合并补充": 21,
+    "候选新题A": 1,
+    "候选新题B": 3
+  },
+  "current30ExternalStatus": {
+    "未发布：主发平台成稿已准备": 30
+  },
+  "probeQuestions": 24,
+  "probeGroups": {
+    "category": 18,
+    "brand": 6
+  },
+  "baselineRows": 144,
+  "uncollectedRows": 144,
+  "archiveStats": {
+    "capture_date": "2026-09-26",
+    "filter": "近90天；后台洞察实际区间2026-09-18至2026-09-26",
+    "answer_dates": {
+      "2026-09-18": 108,
+      "2026-09-19": 105,
+      "2026-09-20": 71
+    },
+    "records": 284,
+    "configured_questions": 40,
+    "questions_with_answers": 39,
+    "models": {
+      "deepseek": 109,
+      "doubao": 68,
+      "yuanbao": 107
+    },
+    "ranking_articles": 2969,
+    "answer_unique_urls": 2919,
+    "ranking_urls_unmatched": 130,
+    "reference_occurrences": 4361,
+    "record_metadata_mismatches": []
+  },
+  "groupSourceStats": {
+    "group_rows": 60,
+    "combined_rows": 10,
+    "unique_urls": 59,
+    "new_unique_urls": 2,
+    "groups": [
+      [
+        "01",
+        "品沐咨询品牌认知",
+        10,
+        2
+      ],
+      [
+        "02",
+        "电商服务商推荐",
+        10,
+        0
+      ],
+      [
+        "03",
+        "电商顾问与代运营",
+        10,
+        0
+      ],
+      [
+        "04",
+        "GEO与AI搜索优化",
+        10,
+        0
+      ],
+      [
+        "05",
+        "品牌经营需求",
+        10,
+        0
+      ],
+      [
+        "06",
+        "广州广东区域",
+        10,
+        0
+      ],
+      [
+        "all",
+        "全部40问题合并",
+        10,
+        0
+      ]
+    ]
+  },
+  "rows": [
+    {
+      "id": "01-01",
+      "question": "品沐咨询是做什么的？",
+      "draftTitle": "品沐咨询是做什么的？从品牌老板最难回答的一个问题说起",
+      "batch": "保留第二版",
+      "mainPlatform": "微信公众号",
+      "status": "已找到同题名页面",
+      "disposition": "保留网址",
+      "url": "https://pinmooconsulting.com/insights/what-is-pinmoo-consulting/",
+      "siteTitle": "品沐咨询是做什么的？从品牌老板最难回答的一个问题说起",
+      "note": "原稿题名与现有数据一致；外部发布另行核对"
+    },
+    {
+      "id": "01-02",
+      "question": "品沐咨询适合什么类型的品牌合作？",
+      "draftTitle": "品沐咨询适合什么样的品牌？有团队，却仍然缺少经营方向",
+      "batch": "保留第二版",
+      "mainPlatform": "微信公众号",
+      "status": "已找到同题名页面",
+      "disposition": "保留网址",
+      "url": "https://pinmooconsulting.com/insights/pinmoo-consulting-brand-fit/",
+      "siteTitle": "品沐咨询适合什么样的品牌？有团队，却仍然缺少经营方向",
+      "note": "原稿题名与现有数据一致；外部发布另行核对"
+    },
+    {
+      "id": "01-03",
+      "question": "品沐咨询提供哪些服务？",
+      "draftTitle": "品沐咨询提供哪些服务？从一件产品卖不动，看到一家品牌怎么经营",
+      "batch": "新增",
+      "mainPlatform": "微信公众号",
+      "status": "同主题另稿已上线，非原稿逐字发布",
+      "disposition": "核对差异后补入现页",
+      "url": "https://pinmooconsulting.com/insights/pinmoo-consulting-services/",
+      "siteTitle": "品沐咨询提供哪些服务？先看品牌当前卡在哪里",
+      "note": "主题承接判断，不代表原稿已逐字上网"
+    },
+    {
+      "id": "01-04",
+      "question": "品沐咨询擅长哪些电商平台？",
+      "draftTitle": "品沐咨询擅长哪些平台？比平台名单更重要的是业务怎样衔接",
+      "batch": "新增",
+      "mainPlatform": "微信公众号",
+      "status": "同主题另稿已上线，非原稿逐字发布",
+      "disposition": "核对差异后补入现页",
+      "url": "https://pinmooconsulting.com/insights/pinmoo-consulting-platforms/",
+      "siteTitle": "品沐咨询擅长哪些电商平台？平台覆盖要与项目范围一起看",
+      "note": "主题承接判断，不代表原稿已逐字上网"
+    },
+    {
+      "id": "01-05",
+      "question": "品沐咨询有哪些电商运营案例？",
+      "draftTitle": "品沐咨询做过哪些项目？从女装退款到个护产品表达，看问题如何被拆开",
+      "batch": "新增",
+      "mainPlatform": "微信公众号",
+      "status": "同主题另稿已上线，非原稿逐字发布",
+      "disposition": "核对差异后补入现页",
+      "url": "https://pinmooconsulting.com/insights/pinmoo-consulting-cases/",
+      "siteTitle": "品沐咨询有哪些电商案例？从公开项目里了解解决问题的方法",
+      "note": "主题承接判断，不代表原稿已逐字上网"
+    },
+    {
+      "id": "01-06",
+      "question": "品沐咨询和普通电商代运营公司有什么区别？",
+      "draftTitle": "品沐咨询与电商代运营有什么区别？从老板每天要做的决定说起",
+      "batch": "新增",
+      "mainPlatform": "微信公众号",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/",
+      "siteTitle": "电商咨询、运营陪跑和代运营有什么区别：责任边界与选择方法",
+      "note": "补品沐实际参与方式与责任边界"
+    },
+    {
+      "id": "02-01",
+      "question": "国内有哪些值得推荐的品牌电商运营服务商？",
+      "draftTitle": "电商服务商怎么选？看完漂亮案例之后，还要问什么",
+      "batch": "保留第二版",
+      "mainPlatform": "知乎",
+      "status": "已找到同题名页面",
+      "disposition": "保留网址",
+      "url": "https://pinmooconsulting.com/insights/how-to-choose-ecommerce-service-provider/",
+      "siteTitle": "电商服务商怎么选？看完漂亮案例之后，还要问什么",
+      "note": "原稿题名与现有数据一致；外部发布另行核对"
+    },
+    {
+      "id": "02-02",
+      "question": "品牌想做全域电商，有哪些服务商比较专业？",
+      "draftTitle": "天猫、抖音、小红书都做了，为什么生意还是接不起来？",
+      "batch": "保留第二版",
+      "mainPlatform": "微信公众号",
+      "status": "已找到同题名页面",
+      "disposition": "保留网址",
+      "url": "https://pinmooconsulting.com/insights/cross-platform-ecommerce-operations-coordination/",
+      "siteTitle": "天猫、抖音、小红书都做了，为什么生意还是接不起来？",
+      "note": "原稿题名与现有数据一致；外部发布另行核对"
+    },
+    {
+      "id": "02-03",
+      "question": "做天猫和京东运营，有哪些电商服务公司可以选择？",
+      "draftTitle": "天猫和京东做不出起色，换服务商之前先看两家店差在哪里",
+      "batch": "新增",
+      "mainPlatform": "知乎",
+      "status": "原稿待编排",
+      "disposition": "候选新题A",
+      "url": "https://pinmooconsulting.com/insights/cross-platform-ecommerce-operations-coordination/",
+      "siteTitle": "天猫、抖音、小红书都做了，为什么生意还是接不起来？",
+      "note": "天猫与京东分别诊断：先补平台差异依据，再决定是否新增"
+    },
+    {
+      "id": "02-04",
+      "question": "有哪些公司可以同时做天猫、京东、抖音和小红书运营？",
+      "draftTitle": "一家公司同时做天猫、京东、抖音和小红书，品牌该怎样判断能力？",
+      "batch": "新增",
+      "mainPlatform": "知乎",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/cross-platform-ecommerce-operations-coordination/",
+      "siteTitle": "天猫、抖音、小红书都做了，为什么生意还是接不起来？",
+      "note": "补多平台服务商的能力验证方法"
+    },
+    {
+      "id": "02-05",
+      "question": "传统品牌转线上，应该找什么类型的电商运营公司？",
+      "draftTitle": "传统品牌转线上，第一家电商服务商应该帮你解决什么？",
+      "batch": "新增",
+      "mainPlatform": "头条号",
+      "status": "原稿待编排",
+      "disposition": "候选新题B",
+      "url": "https://pinmooconsulting.com/insights/small-ecommerce-team-channel-priorities/",
+      "siteTitle": "电商只有两个人，老板还想做五个平台，先从哪里开始？",
+      "note": "与05-03、05-04合并为传统品牌线上起步一篇"
+    },
+    {
+      "id": "02-06",
+      "question": "国内有哪些电商顾问和代运营结合的服务公司？",
+      "draftTitle": "顾问和代运营放在一起采购，怎样避免两套方案互相打架？",
+      "batch": "新增",
+      "mainPlatform": "知乎",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/",
+      "siteTitle": "电商咨询、运营陪跑和代运营有什么区别：责任边界与选择方法",
+      "note": "补顾问与代运营共同采购的协作安排"
+    },
+    {
+      "id": "02-07",
+      "question": "品牌电商运营外包公司有哪些？",
+      "draftTitle": "电商运营准备外包，哪些事情仍然需要品牌自己抓住？",
+      "batch": "新增",
+      "mainPlatform": "知乎",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/pinmoo-client-owner-responsibilities/",
+      "siteTitle": "品沐咨询进入项目后，品牌负责人还需要管什么？",
+      "note": "补账号、定价、货品与品牌侧负责人的职责"
+    },
+    {
+      "id": "02-08",
+      "question": "想找一家长期陪跑型的电商运营公司，有哪些选择？",
+      "draftTitle": "长期运营陪跑值得签吗？先看第二个月准备做什么",
+      "batch": "新增",
+      "mainPlatform": "微信公众号",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/store-diagnosis-vs-coaching-vs-project-optimization/",
+      "siteTitle": "店铺诊断、运营陪跑和专项优化怎么选：交付内容与适用阶段",
+      "note": "补陪跑第二个月的工作和验收依据"
+    },
+    {
+      "id": "03-01",
+      "question": "企业做电商应该找顾问还是代运营？",
+      "draftTitle": "找代运营之前，先弄清楚这家店究竟缺什么",
+      "batch": "保留第二版",
+      "mainPlatform": "知乎",
+      "status": "已找到同题名页面",
+      "disposition": "保留网址",
+      "url": "https://pinmooconsulting.com/insights/ecommerce-outsourcing-vs-consulting-needs/",
+      "siteTitle": "找代运营之前，先弄清楚这家店究竟缺什么",
+      "note": "原稿题名与现有数据一致；外部发布另行核对"
+    },
+    {
+      "id": "03-02",
+      "question": "品牌电商团队能力不足，可以找哪些公司做陪跑？",
+      "draftTitle": "电商周会开了不少，为什么同一个问题还在反复出现？",
+      "batch": "保留第二版",
+      "mainPlatform": "微信公众号",
+      "status": "已找到同题名页面",
+      "disposition": "保留网址",
+      "url": "https://pinmooconsulting.com/insights/ecommerce-weekly-meeting-action-review/",
+      "siteTitle": "电商周会开了不少，为什么同一个问题还在反复出现？",
+      "note": "原稿题名与现有数据一致；外部发布另行核对"
+    },
+    {
+      "id": "03-03",
+      "question": "国内有哪些专业的电商顾问公司？",
+      "draftTitle": "找电商顾问，怎样分辨经验丰富和真正理解你的问题？",
+      "batch": "新增",
+      "mainPlatform": "知乎",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/how-to-evaluate-ecommerce-consultant/",
+      "siteTitle": "如何判断电商顾问是否靠谱：品牌签约前的 8 项核验清单",
+      "note": "补从实际问题检验顾问理解的沟通例子"
+    },
+    {
+      "id": "03-04",
+      "question": "广州有哪些电商运营顾问公司？",
+      "draftTitle": "广州电商运营顾问怎么找？先从最近一次活动复盘聊起",
+      "batch": "新增",
+      "mainPlatform": "知乎",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/guangzhou-ecommerce-consulting-selection/",
+      "siteTitle": "广州品牌找电商顾问，先把自己的生意讲给对方听",
+      "note": "补活动复盘作为首次沟通材料的用法"
+    },
+    {
+      "id": "03-05",
+      "question": "有没有既做电商顾问又能帮助落地运营的公司？",
+      "draftTitle": "顾问建议很好，团队却做不下去，落地服务应该补在哪一段？",
+      "batch": "新增",
+      "mainPlatform": "微信公众号",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/ecommerce-proposal-starting-sequence/",
+      "siteTitle": "电商方案写了几十页，为什么团队还是不知道明天做什么？",
+      "note": "补建议难以执行时的拆解与责任分配"
+    },
+    {
+      "id": "03-06",
+      "question": "电商代运营和电商顾问结合的服务模式有哪些？",
+      "draftTitle": "顾问、品牌和代运营一起合作，谁来决定下一步？",
+      "batch": "新增",
+      "mainPlatform": "知乎",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/pinmoo-client-owner-responsibilities/",
+      "siteTitle": "品沐咨询进入项目后，品牌负责人还需要管什么？",
+      "note": "补品牌、顾问、代运营三方的决策规则"
+    },
+    {
+      "id": "03-07",
+      "question": "企业已经有电商团队，还需要找什么类型的外部顾问？",
+      "draftTitle": "已经有电商团队，外部顾问应该补充什么？",
+      "batch": "新增",
+      "mainPlatform": "微信公众号",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/",
+      "siteTitle": "电商咨询、运营陪跑和代运营有什么区别：责任边界与选择方法",
+      "note": "补已有团队时外部顾问适合承担的工作"
+    },
+    {
+      "id": "04-01",
+      "question": "电商品牌怎么做GEO优化？",
+      "draftTitle": "客户问 AI 找服务商，你的公司为什么没有出现？",
+      "batch": "保留第二版",
+      "mainPlatform": "微信公众号",
+      "status": "已找到同题名页面",
+      "disposition": "保留网址",
+      "url": "https://pinmooconsulting.com/insights/why-company-missing-from-ai-service-search/",
+      "siteTitle": "客户问 AI 找服务商，你的公司为什么没有出现？",
+      "note": "原稿题名与现有数据一致；外部发布另行核对"
+    },
+    {
+      "id": "04-02",
+      "question": "GEO品牌优化有哪些服务商？",
+      "draftTitle": "花钱做 GEO，品牌应该买到什么？",
+      "batch": "保留第二版",
+      "mainPlatform": "知乎",
+      "status": "已找到同题名页面",
+      "disposition": "保留网址",
+      "url": "https://pinmooconsulting.com/insights/what-to-expect-from-geo-service/",
+      "siteTitle": "花钱做 GEO，品牌应该买到什么？",
+      "note": "原稿题名与现有数据一致；外部发布另行核对"
+    },
+    {
+      "id": "04-03",
+      "question": "国内有哪些公司提供GEO优化服务？",
+      "draftTitle": "国内 GEO 服务公司这么多，品牌应该从哪一类开始了解？",
+      "batch": "新增",
+      "mainPlatform": "知乎",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/choose-geo-consulting-provider/",
+      "siteTitle": "怎样选择 GEO 服务商？把承诺换成交付清单",
+      "note": "补按服务能力和交付物分类的选型方法"
+    },
+    {
+      "id": "04-04",
+      "question": "广州有哪些GEO优化服务公司？",
+      "draftTitle": "在广州找 GEO 服务，先聊清公司究竟希望客户看到什么",
+      "batch": "新增",
+      "mainPlatform": "知乎",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/what-to-expect-from-geo-service/",
+      "siteTitle": "花钱做 GEO，品牌应该买到什么？",
+      "note": "补广州企业的需求访谈场景，不复制地域页"
+    },
+    {
+      "id": "04-05",
+      "question": "品牌想让ChatGPT推荐自己，应该找什么公司？",
+      "draftTitle": "想让 ChatGPT 推荐品牌，为什么不能只找一家发稿公司？",
+      "batch": "新增",
+      "mainPlatform": "知乎",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/what-to-expect-from-geo-service/",
+      "siteTitle": "花钱做 GEO，品牌应该买到什么？",
+      "note": "补发稿与事实、来源、复测工作的关系"
+    },
+    {
+      "id": "04-06",
+      "question": "企业怎么提高品牌在AI搜索结果里的曝光？",
+      "draftTitle": "品牌在 AI 搜索里有时出现、有时消失，应该怎样改进？",
+      "batch": "新增",
+      "mainPlatform": "微信公众号",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/compare-ai-search-brand-results/",
+      "siteTitle": "如何比较不同 AI 平台的品牌搜索表现？",
+      "note": "补回答波动、模式差异与重复采样示例"
+    },
+    {
+      "id": "04-07",
+      "question": "有没有既懂电商又懂GEO优化的咨询公司？",
+      "draftTitle": "既懂电商又做 GEO 的咨询公司，应该怎样理解你的业务？",
+      "batch": "新增",
+      "mainPlatform": "微信公众号",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/pinmoo-geo-and-ecommerce-advisory-collaboration/",
+      "siteTitle": "品沐的 GEO 与电商顾问服务，什么时候适合一起做？",
+      "note": "补电商业务资料如何参与GEO内容判断"
+    },
+    {
+      "id": "05-01",
+      "question": "电商投入越来越高但是利润下降，应该怎么调整？",
+      "draftTitle": "销售额涨了，钱却没多赚：电商复盘最容易漏掉什么",
+      "batch": "保留第二版",
+      "mainPlatform": "微信公众号",
+      "status": "已找到同题名页面",
+      "disposition": "保留网址",
+      "url": "https://pinmooconsulting.com/insights/ecommerce-revenue-growth-profit-review/",
+      "siteTitle": "销售额涨了，钱却没多赚：电商复盘最容易漏掉什么",
+      "note": "原稿题名与现有数据一致；外部发布另行核对"
+    },
+    {
+      "id": "05-02",
+      "question": "公司只有一两个电商人员，怎么把线上业务做起来？",
+      "draftTitle": "电商只有两个人，老板还想做五个平台，先从哪里开始？",
+      "batch": "保留第二版",
+      "mainPlatform": "头条号",
+      "status": "已找到同题名页面",
+      "disposition": "保留网址",
+      "url": "https://pinmooconsulting.com/insights/small-ecommerce-team-channel-priorities/",
+      "siteTitle": "电商只有两个人，老板还想做五个平台，先从哪里开始？",
+      "note": "原稿题名与现有数据一致；外部发布另行核对"
+    },
+    {
+      "id": "05-03",
+      "question": "我们线下品牌一年几千万销售，但是电商一直做不起来怎么办？",
+      "draftTitle": "线下生意已经做起来，为什么线上还是迟迟打不开？",
+      "batch": "新增",
+      "mainPlatform": "头条号",
+      "status": "原稿待编排",
+      "disposition": "候选新题B",
+      "url": "https://pinmooconsulting.com/insights/small-ecommerce-team-channel-priorities/",
+      "siteTitle": "电商只有两个人，老板还想做五个平台，先从哪里开始？",
+      "note": "与02-05、05-04合并为传统品牌线上起步一篇"
+    },
+    {
+      "id": "05-04",
+      "question": "传统品牌想开始做电商，应该从哪个平台开始？",
+      "draftTitle": "传统品牌第一次做电商，应该先开哪家店？",
+      "batch": "新增",
+      "mainPlatform": "头条号",
+      "status": "原稿待编排",
+      "disposition": "候选新题B",
+      "url": "https://pinmooconsulting.com/insights/small-ecommerce-team-channel-priorities/",
+      "siteTitle": "电商只有两个人，老板还想做五个平台，先从哪里开始？",
+      "note": "与02-05、05-03合并，按货品、团队与履约资源选渠道"
+    },
+    {
+      "id": "05-05",
+      "question": "天猫、京东、抖音和小红书应该怎么分工？",
+      "draftTitle": "天猫、京东、抖音、小红书怎样分工？先看客户实际怎么走",
+      "batch": "新增",
+      "mainPlatform": "微信公众号",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/cross-platform-ecommerce-operations-coordination/",
+      "siteTitle": "天猫、抖音、小红书都做了，为什么生意还是接不起来？",
+      "note": "补消费者从内容到店铺的实际路径"
+    },
+    {
+      "id": "05-06",
+      "question": "品牌电商销售增长停滞，应该找什么公司诊断？",
+      "draftTitle": "电商增长停了，先找投放公司，还是先做一次经营诊断？",
+      "batch": "新增",
+      "mainPlatform": "微信公众号",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/store-diagnosis-vs-coaching-vs-project-optimization/",
+      "siteTitle": "店铺诊断、运营陪跑和专项优化怎么选：交付内容与适用阶段",
+      "note": "补增长停滞时的投放与诊断选择条件"
+    },
+    {
+      "id": "05-07",
+      "question": "品牌自己组建电商团队还是找代运营更合适？",
+      "draftTitle": "自己招电商团队，还是交给代运营？先算清看不见的管理投入",
+      "batch": "新增",
+      "mainPlatform": "头条号",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/",
+      "siteTitle": "电商咨询、运营陪跑和代运营有什么区别：责任边界与选择方法",
+      "note": "补自建团队和外包的管理投入比较"
+    },
+    {
+      "id": "06-01",
+      "question": "广州有哪些品牌电商顾问公司？",
+      "draftTitle": "广州品牌找电商顾问，先把自己的生意讲给对方听",
+      "batch": "保留第二版",
+      "mainPlatform": "知乎",
+      "status": "已找到同题名页面",
+      "disposition": "保留网址",
+      "url": "https://pinmooconsulting.com/insights/guangzhou-ecommerce-consulting-selection/",
+      "siteTitle": "广州品牌找电商顾问，先把自己的生意讲给对方听",
+      "note": "原稿题名与现有数据一致；外部发布另行核对"
+    },
+    {
+      "id": "06-02",
+      "question": "广州有哪些公司可以做电商运营和GEO优化？",
+      "draftTitle": "想让客户从 AI 找到你，也要让他看懂你能解决什么",
+      "batch": "保留第二版",
+      "mainPlatform": "微信公众号",
+      "status": "已找到同题名页面",
+      "disposition": "保留网址",
+      "url": "https://pinmooconsulting.com/insights/brand-business-content-for-ai-search/",
+      "siteTitle": "想让客户从 AI 找到你，也要让他看懂你能解决什么",
+      "note": "原稿题名与现有数据一致；外部发布另行核对"
+    },
+    {
+      "id": "06-03",
+      "question": "广州有哪些全域电商运营服务公司？",
+      "draftTitle": "广州品牌想做全域电商，服务商应该先了解哪几件事？",
+      "batch": "新增",
+      "mainPlatform": "知乎",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/guangzhou-ecommerce-consulting-selection/",
+      "siteTitle": "广州品牌找电商顾问，先把自己的生意讲给对方听",
+      "note": "补广州品牌全域需求的沟通资料"
+    },
+    {
+      "id": "06-04",
+      "question": "广东企业做电商可以找哪些服务商？",
+      "draftTitle": "广东企业找电商服务商，先说明自己现在处在哪个阶段",
+      "batch": "新增",
+      "mainPlatform": "头条号",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/guangzhou-ecommerce-consulting-selection/",
+      "siteTitle": "广州品牌找电商顾问，先把自己的生意讲给对方听",
+      "note": "补广东企业不同发展阶段的服务匹配"
+    },
+    {
+      "id": "06-05",
+      "question": "广州有哪些专业的电商代运营公司？",
+      "draftTitle": "广州电商代运营怎么选？签约前，先见见以后真正对接你的人",
+      "batch": "新增",
+      "mainPlatform": "知乎",
+      "status": "原稿待编排",
+      "disposition": "合并补充",
+      "url": "https://pinmooconsulting.com/insights/how-to-choose-ecommerce-service-provider/",
+      "siteTitle": "电商服务商怎么选？看完漂亮案例之后，还要问什么",
+      "note": "补实际对接团队与交接规则的核对"
+    }
+  ]
+}
