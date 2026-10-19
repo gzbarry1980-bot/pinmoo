@@ -89,5 +89,6 @@ const rows = metas.filter(meta => meta.indexable !== false).map(meta => {
 });
 const cell = value => '"' + String(value ?? '').replaceAll('"', '""') + '"';
 await fs.writeFile(output + '/page-intents.csv', '\uFEFF' + [columns, ...rows].map(row => row.map(cell).join(',')).join('\r\n') + '\r\n');
-await fs.writeFile(output + '/technical-verification.json', JSON.stringify({ checkedOn: '2026-10-14', build, status: 'passed', pages: metas.length, intentRows: rows.length, relatedReadingArticles: insights.length, caseOutlines: Object.keys(caseDeliverables).length, checks: ['unique titles and descriptions', 'reciprocal language links', 'visible FAQ matches schema', 'related reading targets', 'case illustration boundaries', 'versioned clipboard helper'] }, null, 2));
+const checkedOn = new Intl.DateTimeFormat('sv-SE', { timeZone: 'Asia/Shanghai' }).format(new Date());
+await fs.writeFile(output + '/technical-verification.json', JSON.stringify({ checkedOn, build, status: 'passed', pages: metas.length, intentRows: rows.length, relatedReadingArticles: insights.length, caseOutlines: Object.keys(caseDeliverables).length, checks: ['unique titles and descriptions', 'reciprocal language links', 'visible FAQ matches schema', 'related reading targets', 'case illustration boundaries', 'versioned clipboard helper'] }, null, 2));
 console.log(`Completion checks passed: ${metas.length} pages, ${rows.length} intents, ${insights.length} reading paths, 3 bilingual case outlines.`);

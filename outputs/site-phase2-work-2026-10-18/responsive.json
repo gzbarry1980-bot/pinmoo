@@ -1,317 +1,355 @@
-[
-  {
-    "route": "/resources/operating-templates/",
-    "requestedWidth": 360,
-    "brokenImages": [],
-    "exampleCount": 4,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/product-parameters-versus-customer-fit/",
-    "requestedWidth": 360,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/sku-choice-overload-and-product-differences/",
-    "requestedWidth": 360,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ecommerce-customer-service-conversion-review/",
-    "requestedWidth": 360,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ecommerce-member-repurchase-diagnosis/",
-    "requestedWidth": 360,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/pinmoo-first-consultation-materials/",
-    "requestedWidth": 360,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ai-search-outdated-brand-information-update/",
-    "requestedWidth": 360,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/resources/operating-templates/",
-    "requestedWidth": 390,
-    "brokenImages": [],
-    "exampleCount": 4,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/product-parameters-versus-customer-fit/",
-    "requestedWidth": 390,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/sku-choice-overload-and-product-differences/",
-    "requestedWidth": 390,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ecommerce-customer-service-conversion-review/",
-    "requestedWidth": 390,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ecommerce-member-repurchase-diagnosis/",
-    "requestedWidth": 390,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/pinmoo-first-consultation-materials/",
-    "requestedWidth": 390,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ai-search-outdated-brand-information-update/",
-    "requestedWidth": 390,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/resources/operating-templates/",
-    "requestedWidth": 768,
-    "brokenImages": [],
-    "exampleCount": 4,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/product-parameters-versus-customer-fit/",
-    "requestedWidth": 768,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/sku-choice-overload-and-product-differences/",
-    "requestedWidth": 768,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ecommerce-customer-service-conversion-review/",
-    "requestedWidth": 768,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ecommerce-member-repurchase-diagnosis/",
-    "requestedWidth": 768,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/pinmoo-first-consultation-materials/",
-    "requestedWidth": 768,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ai-search-outdated-brand-information-update/",
-    "requestedWidth": 768,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/resources/operating-templates/",
-    "requestedWidth": 1440,
-    "brokenImages": [],
-    "exampleCount": 4,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/product-parameters-versus-customer-fit/",
-    "requestedWidth": 1440,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/sku-choice-overload-and-product-differences/",
-    "requestedWidth": 1440,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ecommerce-customer-service-conversion-review/",
-    "requestedWidth": 1440,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ecommerce-member-repurchase-diagnosis/",
-    "requestedWidth": 1440,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/pinmoo-first-consultation-materials/",
-    "requestedWidth": 1440,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ai-search-outdated-brand-information-update/",
-    "requestedWidth": 1440,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/resources/operating-templates/",
-    "requestedWidth": 1920,
-    "brokenImages": [],
-    "exampleCount": 4,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/product-parameters-versus-customer-fit/",
-    "requestedWidth": 1920,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/sku-choice-overload-and-product-differences/",
-    "requestedWidth": 1920,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ecommerce-customer-service-conversion-review/",
-    "requestedWidth": 1920,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ecommerce-member-repurchase-diagnosis/",
-    "requestedWidth": 1920,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/pinmoo-first-consultation-materials/",
-    "requestedWidth": 1920,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  },
-  {
-    "route": "/insights/ai-search-outdated-brand-information-update/",
-    "requestedWidth": 1920,
-    "brokenImages": [],
-    "exampleCount": 0,
-    "h1": 1,
-    "scrollWidth": 1905,
-    "width": 1920
-  }
-]
+{
+  "method": "IAB explicit viewport; actual innerWidth checked",
+  "checks": [
+    {
+      "route": "/resources/operating-templates/",
+      "requestedWidth": 360,
+      "brokenImages": [],
+      "examples": 4,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 345,
+      "width": 360
+    },
+    {
+      "route": "/insights/product-parameters-versus-customer-fit/",
+      "requestedWidth": 360,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 345,
+      "width": 360
+    },
+    {
+      "route": "/insights/sku-choice-overload-and-product-differences/",
+      "requestedWidth": 360,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 345,
+      "width": 360
+    },
+    {
+      "route": "/insights/ecommerce-customer-service-conversion-review/",
+      "requestedWidth": 360,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 345,
+      "width": 360
+    },
+    {
+      "route": "/insights/ecommerce-member-repurchase-diagnosis/",
+      "requestedWidth": 360,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 345,
+      "width": 360
+    },
+    {
+      "route": "/insights/pinmoo-first-consultation-materials/",
+      "requestedWidth": 360,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 345,
+      "width": 360
+    },
+    {
+      "route": "/insights/ai-search-outdated-brand-information-update/",
+      "requestedWidth": 360,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 345,
+      "width": 360
+    },
+    {
+      "route": "/resources/operating-templates/",
+      "requestedWidth": 390,
+      "brokenImages": [],
+      "examples": 4,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "route": "/insights/product-parameters-versus-customer-fit/",
+      "requestedWidth": 390,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "route": "/insights/sku-choice-overload-and-product-differences/",
+      "requestedWidth": 390,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "route": "/insights/ecommerce-customer-service-conversion-review/",
+      "requestedWidth": 390,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "route": "/insights/ecommerce-member-repurchase-diagnosis/",
+      "requestedWidth": 390,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "route": "/insights/pinmoo-first-consultation-materials/",
+      "requestedWidth": 390,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "route": "/insights/ai-search-outdated-brand-information-update/",
+      "requestedWidth": 390,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 375,
+      "width": 390
+    },
+    {
+      "route": "/resources/operating-templates/",
+      "requestedWidth": 768,
+      "brokenImages": [],
+      "examples": 4,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "route": "/insights/product-parameters-versus-customer-fit/",
+      "requestedWidth": 768,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "route": "/insights/sku-choice-overload-and-product-differences/",
+      "requestedWidth": 768,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "route": "/insights/ecommerce-customer-service-conversion-review/",
+      "requestedWidth": 768,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "route": "/insights/ecommerce-member-repurchase-diagnosis/",
+      "requestedWidth": 768,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "route": "/insights/pinmoo-first-consultation-materials/",
+      "requestedWidth": 768,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "route": "/insights/ai-search-outdated-brand-information-update/",
+      "requestedWidth": 768,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 753,
+      "width": 768
+    },
+    {
+      "route": "/resources/operating-templates/",
+      "requestedWidth": 1440,
+      "brokenImages": [],
+      "examples": 4,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "route": "/insights/product-parameters-versus-customer-fit/",
+      "requestedWidth": 1440,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "route": "/insights/sku-choice-overload-and-product-differences/",
+      "requestedWidth": 1440,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "route": "/insights/ecommerce-customer-service-conversion-review/",
+      "requestedWidth": 1440,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "route": "/insights/ecommerce-member-repurchase-diagnosis/",
+      "requestedWidth": 1440,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "route": "/insights/pinmoo-first-consultation-materials/",
+      "requestedWidth": 1440,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "route": "/insights/ai-search-outdated-brand-information-update/",
+      "requestedWidth": 1440,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1425,
+      "width": 1440
+    },
+    {
+      "route": "/resources/operating-templates/",
+      "requestedWidth": 1920,
+      "brokenImages": [],
+      "examples": 4,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1905,
+      "width": 1920
+    },
+    {
+      "route": "/insights/product-parameters-versus-customer-fit/",
+      "requestedWidth": 1920,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1905,
+      "width": 1920
+    },
+    {
+      "route": "/insights/sku-choice-overload-and-product-differences/",
+      "requestedWidth": 1920,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1905,
+      "width": 1920
+    },
+    {
+      "route": "/insights/ecommerce-customer-service-conversion-review/",
+      "requestedWidth": 1920,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1905,
+      "width": 1920
+    },
+    {
+      "route": "/insights/ecommerce-member-repurchase-diagnosis/",
+      "requestedWidth": 1920,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1905,
+      "width": 1920
+    },
+    {
+      "route": "/insights/pinmoo-first-consultation-materials/",
+      "requestedWidth": 1920,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1905,
+      "width": 1920
+    },
+    {
+      "route": "/insights/ai-search-outdated-brand-information-update/",
+      "requestedWidth": 1920,
+      "brokenImages": [],
+      "examples": 0,
+      "fieldOverlaps": 0,
+      "h1": 1,
+      "scrollWidth": 1905,
+      "width": 1920
+    }
+  ]
+}

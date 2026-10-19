@@ -1,0 +1,14 @@
+{
+  "checkedOn": "2026-10-19",
+  "publicOrigin": "https://pinmooconsulting.com",
+  "uiChecks": [
+    { "event": "page_view", "result": "observed in server event log while opening the tested pages" },
+    { "event": "consult_open", "page": "home", "placement": "hero", "testedAt": "2026-10-19T08:14:37+08:00", "result": "actual hero link reached contact page; event observed" },
+    { "event": "wechat_copy", "page": "contact", "placement": "body", "testedAt": "2026-10-19T08:14:38+08:00", "result": "copy success feedback and server event observed; browser clipboard read did not provide a matching value" },
+    { "event": "report_open", "page": "home", "placement": "body", "testedAt": "2026-10-19T08:15:35+08:00", "result": "actual report link reached /contact/?service=geo-report; event observed" },
+    { "event": "resource_download", "page": "resources-operating-templates", "placement": "body", "testedAt": "2026-10-19T09:23:37+08:00", "result": "actual blank CSV download completed; server event observed" }
+  ],
+  "phoneCheck": "Public tel link and client dispatch inspected; valid phone_click endpoint tested with DNT. No real call placed.",
+  "serverPrivacy": { "sixAllowedEvents": 204, "gpcEvent": 204, "eventLogUnchanged": true, "exitCode": 0 },
+  "limitation": "UI checks ran before the content-only release; the client event runtime did not change. These QA actions are excluded from the October 13-18 observation window. No full clipboard-content acceptance or real telephone call is claimed."
+}

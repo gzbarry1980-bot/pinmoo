@@ -1,0 +1,569 @@
+{
+  "checkedAt": "2026-10-19T01:41:27.199Z",
+  "status": "published_verified",
+  "scope": "Legacy /zh prefix only; destination content was verified by the full public route scan.",
+  "results": [
+    {
+      "path": "/zh/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/"
+    },
+    {
+      "path": "/zh/services/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/"
+    },
+    {
+      "path": "/zh/services/geo-consulting/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/geo-consulting/"
+    },
+    {
+      "path": "/zh/services/ecommerce-diagnosis/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/ecommerce-diagnosis/"
+    },
+    {
+      "path": "/zh/services/store-diagnosis/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/store-diagnosis/"
+    },
+    {
+      "path": "/zh/services/tmall-jd-consultant/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/tmall-jd-consultant/"
+    },
+    {
+      "path": "/zh/services/douyin-xiaohongshu-growth/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/"
+    },
+    {
+      "path": "/zh/services/page-conversion-optimization/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/page-conversion-optimization/"
+    },
+    {
+      "path": "/zh/services/brand-growth-consultant/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/brand-growth-consultant/"
+    },
+    {
+      "path": "/zh/services/tmall-business-weekly-report/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/tmall-business-weekly-report/"
+    },
+    {
+      "path": "/zh/services/tmall-refund-rate-analysis/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/tmall-refund-rate-analysis/"
+    },
+    {
+      "path": "/zh/services/ecommerce-roi-review/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/ecommerce-roi-review/"
+    },
+    {
+      "path": "/zh/services/livestream-conversion-diagnosis/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/livestream-conversion-diagnosis/"
+    },
+    {
+      "path": "/zh/services/customer-service-conversion-scripts/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/customer-service-conversion-scripts/"
+    },
+    {
+      "path": "/zh/services/member-repurchase-private-domain/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/member-repurchase-private-domain/"
+    },
+    {
+      "path": "/zh/services/business-advisor-data-diagnosis/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/business-advisor-data-diagnosis/"
+    },
+    {
+      "path": "/zh/services/ai-ecommerce-growth-consultant/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/ai-ecommerce-growth-consultant/"
+    },
+    {
+      "path": "/zh/services/tea-ecommerce-consultant/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/tea-ecommerce-consultant/"
+    },
+    {
+      "path": "/zh/services/xinhui-chenpi-ecommerce/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/xinhui-chenpi-ecommerce/"
+    },
+    {
+      "path": "/zh/resources/ecommerce-metrics-dictionary/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/resources/ecommerce-metrics-dictionary/"
+    },
+    {
+      "path": "/zh/resources/operating-templates/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/resources/operating-templates/"
+    },
+    {
+      "path": "/zh/insights/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/"
+    },
+    {
+      "path": "/zh/insights/pinmoo-first-consultation-materials/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/pinmoo-first-consultation-materials/"
+    },
+    {
+      "path": "/zh/insights/pinmoo-diagnosis-report-to-first-action/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/pinmoo-diagnosis-report-to-first-action/"
+    },
+    {
+      "path": "/zh/insights/pinmoo-client-owner-responsibilities/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/pinmoo-client-owner-responsibilities/"
+    },
+    {
+      "path": "/zh/insights/pinmoo-single-product-optimization/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/pinmoo-single-product-optimization/"
+    },
+    {
+      "path": "/zh/insights/pinmoo-geo-and-ecommerce-advisory-collaboration/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/pinmoo-geo-and-ecommerce-advisory-collaboration/"
+    },
+    {
+      "path": "/zh/insights/ecommerce-agency-handover-knowledge/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ecommerce-agency-handover-knowledge/"
+    },
+    {
+      "path": "/zh/insights/ecommerce-proposal-starting-sequence/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ecommerce-proposal-starting-sequence/"
+    },
+    {
+      "path": "/zh/insights/consulting-price-without-design-production/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/consulting-price-without-design-production/"
+    },
+    {
+      "path": "/zh/insights/brand-dealer-product-information-alignment/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/brand-dealer-product-information-alignment/"
+    },
+    {
+      "path": "/zh/insights/ecommerce-consulting-project-knowledge-retention/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ecommerce-consulting-project-knowledge-retention/"
+    },
+    {
+      "path": "/zh/insights/product-parameters-versus-customer-fit/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/product-parameters-versus-customer-fit/"
+    },
+    {
+      "path": "/zh/insights/sku-choice-overload-and-product-differences/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/sku-choice-overload-and-product-differences/"
+    },
+    {
+      "path": "/zh/insights/hero-image-expectation-and-after-sales/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/hero-image-expectation-and-after-sales/"
+    },
+    {
+      "path": "/zh/insights/customer-service-product-knowledge-support/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/customer-service-product-knowledge-support/"
+    },
+    {
+      "path": "/zh/insights/new-product-slow-sales-expression-before-discount/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/new-product-slow-sales-expression-before-discount/"
+    },
+    {
+      "path": "/zh/insights/post-promotion-store-operating-reset/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/post-promotion-store-operating-reset/"
+    },
+    {
+      "path": "/zh/insights/inventory-total-versus-bestselling-variants/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/inventory-total-versus-bestselling-variants/"
+    },
+    {
+      "path": "/zh/insights/paid-media-pause-and-organic-orders-observation/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/paid-media-pause-and-organic-orders-observation/"
+    },
+    {
+      "path": "/zh/insights/platform-subsidy-promotion-business-review/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/platform-subsidy-promotion-business-review/"
+    },
+    {
+      "path": "/zh/insights/refund-event-time-versus-order-period-weekly-report/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/refund-event-time-versus-order-period-weekly-report/"
+    },
+    {
+      "path": "/zh/insights/xiaohongshu-saves-and-product-information-continuity/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/xiaohongshu-saves-and-product-information-continuity/"
+    },
+    {
+      "path": "/zh/insights/livestream-established-product-purchase-reasons/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/livestream-established-product-purchase-reasons/"
+    },
+    {
+      "path": "/zh/insights/brand-story-to-product-selection/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/brand-story-to-product-selection/"
+    },
+    {
+      "path": "/zh/insights/self-use-and-gifting-product-page/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/self-use-and-gifting-product-page/"
+    },
+    {
+      "path": "/zh/insights/private-community-engagement-and-repurchase-timing/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/private-community-engagement-and-repurchase-timing/"
+    },
+    {
+      "path": "/zh/insights/ai-search-outdated-brand-information-update/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ai-search-outdated-brand-information-update/"
+    },
+    {
+      "path": "/zh/insights/pinmoo-ai-namesake-entity-correction/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/pinmoo-ai-namesake-entity-correction/"
+    },
+    {
+      "path": "/zh/insights/ai-cited-provider-ranking-source-literacy/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ai-cited-provider-ranking-source-literacy/"
+    },
+    {
+      "path": "/zh/insights/website-article-topic-consolidation/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/website-article-topic-consolidation/"
+    },
+    {
+      "path": "/zh/insights/external-article-to-official-site-next-step/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/external-article-to-official-site-next-step/"
+    },
+    {
+      "path": "/zh/insights/what-is-pinmoo-consulting/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/what-is-pinmoo-consulting/"
+    },
+    {
+      "path": "/zh/insights/pinmoo-consulting-brand-fit/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/pinmoo-consulting-brand-fit/"
+    },
+    {
+      "path": "/zh/insights/how-to-choose-ecommerce-service-provider/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/how-to-choose-ecommerce-service-provider/"
+    },
+    {
+      "path": "/zh/insights/cross-platform-ecommerce-operations-coordination/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/cross-platform-ecommerce-operations-coordination/"
+    },
+    {
+      "path": "/zh/insights/ecommerce-outsourcing-vs-consulting-needs/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ecommerce-outsourcing-vs-consulting-needs/"
+    },
+    {
+      "path": "/zh/insights/ecommerce-weekly-meeting-action-review/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ecommerce-weekly-meeting-action-review/"
+    },
+    {
+      "path": "/zh/insights/why-company-missing-from-ai-service-search/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/why-company-missing-from-ai-service-search/"
+    },
+    {
+      "path": "/zh/insights/what-to-expect-from-geo-service/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/what-to-expect-from-geo-service/"
+    },
+    {
+      "path": "/zh/insights/ecommerce-revenue-growth-profit-review/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ecommerce-revenue-growth-profit-review/"
+    },
+    {
+      "path": "/zh/insights/small-ecommerce-team-channel-priorities/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/small-ecommerce-team-channel-priorities/"
+    },
+    {
+      "path": "/zh/insights/guangzhou-ecommerce-consulting-selection/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/guangzhou-ecommerce-consulting-selection/"
+    },
+    {
+      "path": "/zh/insights/brand-business-content-for-ai-search/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/brand-business-content-for-ai-search/"
+    },
+    {
+      "path": "/zh/insights/pinmoo-consulting-services/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/pinmoo-consulting-services/"
+    },
+    {
+      "path": "/zh/insights/pinmoo-consulting-platforms/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/pinmoo-consulting-platforms/"
+    },
+    {
+      "path": "/zh/insights/pinmoo-consulting-cases/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/pinmoo-consulting-cases/"
+    },
+    {
+      "path": "/zh/insights/geo-seo-paid-media-coordination/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/geo-seo-paid-media-coordination/"
+    },
+    {
+      "path": "/zh/insights/is-your-brand-ready-for-geo/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/is-your-brand-ready-for-geo/"
+    },
+    {
+      "path": "/zh/insights/choose-geo-consulting-provider/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/choose-geo-consulting-provider/"
+    },
+    {
+      "path": "/zh/insights/geo-pricing-scope-and-budget/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/geo-pricing-scope-and-budget/"
+    },
+    {
+      "path": "/zh/insights/geo-30-60-90-day-acceptance/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/geo-30-60-90-day-acceptance/"
+    },
+    {
+      "path": "/zh/insights/compare-ai-search-brand-results/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/compare-ai-search-brand-results/"
+    },
+    {
+      "path": "/zh/insights/product-page-purchase-questions/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/product-page-purchase-questions/"
+    },
+    {
+      "path": "/zh/insights/new-product-launch-geo-checklist/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/new-product-launch-geo-checklist/"
+    },
+    {
+      "path": "/zh/insights/why-brand-is-not-found-in-ai-search/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/why-brand-is-not-found-in-ai-search/"
+    },
+    {
+      "path": "/zh/insights/brand-fact-base-for-ai-search/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/brand-fact-base-for-ai-search/"
+    },
+    {
+      "path": "/zh/insights/geo-content-evidence-checklist/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/geo-content-evidence-checklist/"
+    },
+    {
+      "path": "/zh/insights/geo-evidence-ledger-publication-rules/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/geo-evidence-ledger-publication-rules/"
+    },
+    {
+      "path": "/zh/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/"
+    },
+    {
+      "path": "/zh/insights/how-to-evaluate-ecommerce-consultant/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/how-to-evaluate-ecommerce-consultant/"
+    },
+    {
+      "path": "/zh/insights/store-diagnosis-vs-coaching-vs-project-optimization/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/store-diagnosis-vs-coaching-vs-project-optimization/"
+    },
+    {
+      "path": "/zh/insights/ecommerce-consulting-pricing-factors/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ecommerce-consulting-pricing-factors/"
+    },
+    {
+      "path": "/zh/insights/anonymous-ecommerce-case-study-evidence/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/anonymous-ecommerce-case-study-evidence/"
+    },
+    {
+      "path": "/zh/insights/geo-roi-attribution-for-ecommerce-brands/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/geo-roi-attribution-for-ecommerce-brands/"
+    },
+    {
+      "path": "/zh/insights/ai-ecommerce-weekly-report-vs-manual-report/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ai-ecommerce-weekly-report-vs-manual-report/"
+    },
+    {
+      "path": "/zh/insights/when-ecommerce-consulting-is-not-a-fit/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/when-ecommerce-consulting-is-not-a-fit/"
+    },
+    {
+      "path": "/zh/insights/store-traffic-no-conversion-diagnosis/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/store-traffic-no-conversion-diagnosis/"
+    },
+    {
+      "path": "/zh/insights/ecommerce-product-structure-review/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ecommerce-product-structure-review/"
+    },
+    {
+      "path": "/zh/insights/ecommerce-customer-service-conversion-review/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ecommerce-customer-service-conversion-review/"
+    },
+    {
+      "path": "/zh/insights/livestream-viewers-no-orders-diagnosis/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/livestream-viewers-no-orders-diagnosis/"
+    },
+    {
+      "path": "/zh/insights/ecommerce-member-repurchase-diagnosis/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ecommerce-member-repurchase-diagnosis/"
+    },
+    {
+      "path": "/zh/insights/business-advisor-data-diagnosis-checklist/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/business-advisor-data-diagnosis-checklist/"
+    },
+    {
+      "path": "/zh/insights/tea-brand-geo-content-and-ecommerce-diagnosis/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/tea-brand-geo-content-and-ecommerce-diagnosis/"
+    },
+    {
+      "path": "/zh/insights/xinhui-chenpi-ecommerce-entity-and-content/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/xinhui-chenpi-ecommerce-entity-and-content/"
+    },
+    {
+      "path": "/zh/insights/ecommerce-weekly-report-review-framework/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ecommerce-weekly-report-review-framework/"
+    },
+    {
+      "path": "/zh/insights/ecommerce-refund-governance-playbook/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/ecommerce-refund-governance-playbook/"
+    },
+    {
+      "path": "/zh/insights/paid-traffic-roi-quality-review/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/insights/paid-traffic-roi-quality-review/"
+    },
+    {
+      "path": "/zh/cases/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/"
+    },
+    {
+      "path": "/zh/about/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/about/"
+    },
+    {
+      "path": "/zh/contact/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/contact/"
+    },
+    {
+      "path": "/zh/contact/success/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/contact/success/"
+    },
+    {
+      "path": "/zh/china-ecommerce-consulting/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/china-ecommerce-consulting/"
+    },
+    {
+      "path": "/zh/cases/chenpi-brand-geo-diagnosis/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/chenpi-brand-geo-diagnosis/"
+    },
+    {
+      "path": "/zh/cases/womenswear-refund-optimization/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/"
+    },
+    {
+      "path": "/zh/cases/personal-care-device-positioning/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/personal-care-device-positioning/"
+    },
+    {
+      "path": "/zh/cases/tea-brand-platform-synergy/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/tea-brand-platform-synergy/"
+    },
+    {
+      "path": "/zh/cases/children-nutrition-compliance/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/children-nutrition-compliance/"
+    },
+    {
+      "path": "/zh/cases/traditional-enterprise-ecommerce-launch/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/traditional-enterprise-ecommerce-launch/"
+    },
+    {
+      "path": "/zh/cases/wine-store-diagnosis/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/wine-store-diagnosis/"
+    },
+    {
+      "path": "/zh/cases/consumer-goods-membership-growth/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/consumer-goods-membership-growth/"
+    },
+    {
+      "path": "/zh/cases/camping-local-life-operation/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/camping-local-life-operation/"
+    }
+  ],
+  "queryPreservation": "passed",
+  "missingPages": "404 after following legacy redirect"
+}

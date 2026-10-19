@@ -53,6 +53,15 @@ server {
         return 301 https://agent.pinmoo.top/;
     }
 
+    # Preserve old Chinese-language links without creating duplicate pages.
+    location = /zh {
+        return 301 https://pinmooconsulting.com/$is_args$args;
+    }
+
+    location ^~ /zh/ {
+        rewrite ^/zh/(.*)$ https://pinmooconsulting.com/$1 permanent;
+    }
+
     location / {
         expires -1;
         try_files $uri $uri/ =404;
