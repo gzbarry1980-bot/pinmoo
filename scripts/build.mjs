@@ -7,6 +7,7 @@ import { SITE } from '../src/data/site.js';
 import { insightAuthor, insightClusters, insights } from '../src/data/insights.js';
 import { nginxEvents } from './event-schema.mjs';
 import { practicalResources, resourceLibrary } from '../src/data/practical-resources.js';
+import { identityAssets } from './sync-site-identity.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
@@ -246,6 +247,9 @@ const topLevel = isInternationalBuild
   ? ['index.html', 'public']
   : ['index.html', 'services', 'cases', 'about', 'contact', 'ai-diagnosis', 'guangzhou-zhongkao', 'public'];
 for (const item of topLevel) await copy(path.join(root, item), path.join(dist, item === 'public' ? '' : item));
+for (const [filename, content] of await identityAssets(path.join(root, 'public'))) {
+  await fs.writeFile(path.join(dist, filename), content, 'utf8');
+}
 await fs.mkdir(path.join(dist, 'downloads'), { recursive: true });
 for (const resource of practicalResources) {
   const csvCell = value => '"' + String(value).replaceAll('"', '""') + '"';

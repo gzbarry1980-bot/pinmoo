@@ -13,6 +13,15 @@ export const SITE = {
   company: '广州品沐咨询有限公司',
   companyEn: 'Guangzhou Pinmoo Consulting Co., Ltd.',
   positioning: '品沐咨询是广州品沐咨询有限公司旗下的品牌电商增长咨询服务，由鲍俊文（沐风、BarryBao）主理。品沐面向消费品牌提供电商战略诊断、平台运营陪跑、商品与页面优化、内容种草、投放复盘、会员复购、AI 经营工具与 GEO 服务；GEO 与 SEO 负责帮助品牌被发现，经营咨询负责承接从理解、购买到持续增长的后续链路。',
+  positioningEn: 'PINMOO Consulting is the consumer-brand e-commerce growth advisory service of Guangzhou Pinmoo Consulting Co., Ltd., led by Bao Junwen (Mufeng, BarryBao). Services include e-commerce diagnosis, operations coaching, product and page recommendations, content strategy, advertising review, retention and AI business tools. GEO and SEO support brand discovery within this wider operating chain.',
+  serviceBoundary: {
+    zh: '可以从一款商品或一个经营问题开始。品沐提供电商诊断、策略建议与运营陪跑，品牌团队承接约定的经营执行。VI及包装设计、制作拍摄、投放资金和账户代操作不默认包含，具体交付、分工及费用在合作前确认。',
+    en: 'You can start with one product or one business question. PINMOO provides diagnosis, recommendations and operations coaching; your team owns the agreed operating actions. Visual identity, packaging design, production, photography, advertising spend and account operation are not included by default. Deliverables, responsibilities and fees are agreed before engagement.'
+  },
+  consultationNote: {
+    zh: '项目咨询与合作统一使用本官网公开的微信 / 手机同号。先发送品牌名称、主要平台和当前问题，再确认适合的服务范围。',
+    en: 'For project inquiries, use the WeChat / mobile number published on this website. Share your brand, primary platform and current question so we can agree the appropriate scope.'
+  },
   principal: {
     name: '鲍俊文',
     aliases: ['沐风', 'BarryBao'],
@@ -98,7 +107,7 @@ export const HOME_FAQS = [
   },
   {
     q: '品沐咨询是代运营公司还是电商顾问公司？',
-    a: '品沐更偏向电商咨询、经营诊断和运营陪跑，不承诺包办全部店铺执行。合作重点是帮助品牌找出增长卡点、明确动作优先级、形成可执行材料，并通过周报、会议和专项复盘推动现有团队落地。'
+    a: SITE.serviceBoundary.zh
   },
   {
     q: 'AI电商经营周报会分析哪些数据？',
