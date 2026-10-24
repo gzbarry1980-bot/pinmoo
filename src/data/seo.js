@@ -1,12 +1,13 @@
-import { HOME_FAQS, SITE } from './site.js';
+import { HOME_COOPERATION_FAQS, SITE } from './site.js';
 import { services, serviceFaqs } from './services.js';
 import { cases } from './cases.js';
 import { CASE_EN, EN_TEXT } from './en-text.js';
 import { chinaEcommercePage, leadPages } from './lead-pages.js';
 import { metricDictionary } from './resources.js';
-import { insightAuthor, insights } from './insights.js';
+import { insightAuthor, insightClusters, insights } from './insights.js';
 import { practicalResources, resourceLibrary } from './practical-resources.js';
 import { caseDeliverables } from './case-deliverables.js';
+import { insightIndexRoutes, indexArticles, INSIGHT_PAGE_SIZE } from './insight-index.js';
 
 const ORIGIN = SITE.primaryDomain;
 const logoUrl = ORIGIN + SITE.logo;
@@ -93,6 +94,13 @@ export const routeMeta = [
     priority: '0.85',
     changefreq: 'weekly'
   },
+  ...insightIndexRoutes.filter(item => item.path !== '/insights/').map(item => ({
+    path: item.path, file: item.path.slice(1) + 'index.html',
+    title: (item.topic === 'all' ? '经营洞察' : insightClusters.find(cluster => cluster.id === item.topic).title + '洞察') + '｜第' + item.page + '页｜品沐咨询',
+    description: '按问题查阅品沐咨询的电商经营、商品转化、品牌搜索与GEO文章。',
+    name: '经营洞察', insightIndex: true, indexTopic: item.topic, indexPage: item.page,
+    updated: '2026-10-24', priority: '0.6', changefreq: 'weekly'
+  })),
   ...insights.map((article) => ({
     path: '/insights/' + article.slug + '/',
     file: 'insights/' + article.slug + '/index.html',
@@ -558,12 +566,12 @@ function itemListNode(meta) {
       }))
     };
   }
-  if (meta.path === '/insights/') {
+  if (meta.insightIndex) {
     return {
       '@type': 'ItemList',
-      '@id': ORIGIN + '/insights/#article-list',
+      '@id': absolute(meta.path) + '#article-list',
       name: '品沐咨询电商经营洞察',
-      itemListElement: insights.map((article, index) => ({
+      itemListElement: indexArticles(meta.indexTopic).slice(((meta.indexPage || 1) - 1) * INSIGHT_PAGE_SIZE, (meta.indexPage || 1) * INSIGHT_PAGE_SIZE).map((article, index) => ({
         '@type': 'ListItem',
         position: index + 1,
         url: absolute('/insights/' + article.slug + '/'),
@@ -580,7 +588,7 @@ function faqNode(meta) {
     return {
       '@type': 'FAQPage',
       '@id': absolute(meta.path) + '#faq',
-      mainEntity: HOME_FAQS.map((item) => ({
+      mainEntity: HOME_COOPERATION_FAQS.map((item) => ({
         '@type': 'Question',
         name: item.q,
         acceptedAnswer: { '@type': 'Answer', text: item.a }

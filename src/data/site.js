@@ -88,6 +88,12 @@ export const GEO_EVIDENCE_HOOKS = [
   }
 ];
 
+export const HOME_COOPERATION_FAQS = [
+  { q: '可以先从一个问题开始吗？', a: '可以。发送品牌或店铺、主要平台和当前问题，我们先判断资料是否足够，再商定诊断、专项改善或持续陪跑的范围。' },
+  { q: '品沐与品牌团队分别负责什么？', a: SITE.serviceBoundary.zh },
+  { q: '不在广州，也可以合作吗？', a: '可以通过线上会议、数据文件和周期复盘开展合作。需要现场访谈或驻场支持时，再根据城市、工作量与周期商定。' }
+];
+
 export const HOME_FAQS = [
   {
     q: '品牌如何免费获取一份 GEO 报告？',

@@ -13,7 +13,7 @@ export function CaseCard({ item, featured = false }) {
           <span>{item.industry}</span>
           <span>{item.platform}</span>
         </div>
-        <h3><a href={href}>{item.title}</a></h3>
+        <h3><a href={href}>{item.shortTitle || item.title}</a></h3>
         <p>{item.summary}</p>
         <a className="outline-link" href={href}>查看问题与行动 <Icon name="ArrowRight" size={16} /></a>
       </div>

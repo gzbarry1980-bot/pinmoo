@@ -1,5 +1,6 @@
 import { resourceLibrary } from './practical-resources.js';
 import { phaseTwoPractice } from './insight-practice-phase2.js';
+import { humanFirstPractice } from './insight-practice-human-first.js';
 
 const practice = (title, paragraphs, headers, rows, resource) => ({
   resource,
@@ -110,7 +111,8 @@ export const insightPractice = {
     ['怎样判断有变化', '固定题库和真实回答记录', '时间、平台、模式与引用完整'],
     ['谁配合执行', '分工、时间与公开权限', '内容与执行责任明确']
   ], 'geo-facts'),
-  ...phaseTwoPractice
+  ...phaseTwoPractice,
+  ...humanFirstPractice
 };
 
 export function withPracticalGuide(article) {

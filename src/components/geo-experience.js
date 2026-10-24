@@ -19,9 +19,9 @@ export function consultingOverview(en = false) {
     ['Product & conversion', 'Connect product value with the buying decision.', 'cases', '/en/services/'],
     ['GEO & search visibility', 'Help customers discover and understand your brand.', 'insights', '/china-ecommerce-consulting/']
   ] : [
-    ['电商战略与运营陪跑', '找到经营重点，让策略进入日常执行。', 'services', '/services/tmall-jd-consultant/'],
-    ['商品表达与成交转化', '让商品价值被理解，让流量更好地承接。', 'cases', '/services/page-conversion-optimization/'],
-    ['品牌 GEO 与搜索发现', '从搜索与 AI 问答，建立品牌的发现入口。', 'insights', '/services/geo-consulting/']
+    ['经营诊断与运营陪跑', '增长卡住、投入难判断？一起找到优先事项，建立复盘与执行节奏。', 'services', '/services/tmall-jd-consultant/'],
+    ['商品转化与复购', '有流量却留不住成交？从商品表达、客服到老客承接逐步改善。', 'cases', '/services/page-conversion-optimization/'],
+    ['品牌搜索与GEO', '客户难以找到或理解品牌？梳理品牌事实、搜索内容与发现入口。', 'insights', '/services/geo-consulting/']
   ];
   return `<section class="section consulting-offer"><div class="container"><div class="consulting-heading"><div><p class="section-eyebrow">OUR SERVICES</p><h2>${en ? 'The right support.<br>At the right stage.' : '从经营问题出发，<br>找到适合的增长支持。'}</h2></div><p>${en ? 'Clear priorities, practical deliverables and review with your team.' : '诊断报告、页面建议、行动清单与周期复盘。每项合作都明确交付内容、团队分工与下一步。'}</p></div><div class="consulting-mosaic">${items.map((x,i)=>`<a class="consulting-service reveal" href="${x[3]}"><img src="/assets/visuals/brand-${x[2]}.webp?v=people-20260918" alt="" width="1672" height="941" loading="lazy"><div><span>0${i+1}</span><h3>${x[0]}</h3><p>${x[1]}</p></div><span class="consulting-link-arrow" aria-hidden="true">↗</span></a>`).join('')}</div><div class="home-offer-links"><a class="text-link" href="${prefix}/services/">${en ? 'Compare ways to work together' : '比较诊断、专项与陪跑'} ↗</a>${en ? '' : '<details class="home-report-teaser"><summary>免费品牌 GEO 基础报告包含什么？</summary><p>报告结构示意，不代表客户结果：品牌事实核对、官网与公开搜索入口、内容缺口和优先行动。添加微信时备注“品牌GEO报告”。</p><a class="text-link" data-event="report_open" href="/contact/?service=geo-report">免费领取品牌 GEO 基础报告 ↗</a></details>'}</div></div></section>`;
 }

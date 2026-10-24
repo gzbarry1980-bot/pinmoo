@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { metaTagsForRoute, routeMeta } from '../src/data/seo.js';
-import { SITE } from '../src/data/site.js';
+import { SITE, HOME_COOPERATION_FAQS } from '../src/data/site.js';
 import { insightClusters, insights } from '../src/data/insights.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -75,7 +75,9 @@ for (const meta of buildableMeta) {
     if (!html.includes('客户资料保密与公开授权边界')) fail('首页缺少匿名案例事实边界');
     if (!html.includes('consulting-mosaic') || !html.includes('/services/page-conversion-optimization/') || !html.includes('/services/tmall-jd-consultant/')) fail('首页缺少面向访客的服务入口');
     if (!html.includes('我们如何保证内容可信？')) fail('首页缺少可展开的证据说明');
-    if (!html.includes('电商店铺有流量但转化率低，应该先检查什么？')) fail('首页缺少直接问答内容');
+    for (const faq of HOME_COOPERATION_FAQS) {
+      if (!html.includes('<summary>' + faq.q + '</summary>') || !html.includes(faq.a)) fail('首页合作问答与结构化数据不一致: ' + faq.q);
+    }
     if (!/"@type"\s*:\s*"FAQPage"/.test(html)) fail('首页缺少 FAQPage 结构化数据');
     if (!/"@type"\s*:\s*"Brand"/.test(html)) fail('首页缺少 PINMOO Brand 结构化数据');
     if (!html.includes('"foundingDate":"2022"')) fail('首页组织结构化数据缺少成立时间');

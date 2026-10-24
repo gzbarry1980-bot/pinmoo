@@ -206,78 +206,80 @@ function initReportTabs() {
   select(0);
 }
 
-function initInsightSearch() {
+function initPaginatedInsightSearch() {
   const input = document.getElementById('insightSearch');
-  if (!input) return;
-  const clusters = [...document.querySelectorAll('.insight-cluster')];
-  const links = [...document.querySelectorAll('.insight-cluster-nav a')];
-  const topics = new Set(['all', ...clusters.map(cluster => cluster.id)]);
+  const grid = document.getElementById('insightResults');
+  const template = document.getElementById('insightSearchCards');
+  const pagination = document.querySelector('.insight-pagination');
+  const output = document.getElementById('insightCount');
   const reset = document.getElementById('insightReset');
-  let category = 'all';
-  let departingScroll;
-  const readUrl = () => {
-    const query = new URLSearchParams(location.search);
-    input.value = query.get('q') || '';
-    const aliases = { 'brand-answers': 'decision', 'guangzhou-services': 'decision' };
-    const requested = query.get('topic') || location.hash.slice(1);
-    const topic = aliases[requested] || requested;
-    category = topics.has(topic) ? topic : 'all';
-  };
-  const update = (save = true) => {
+  const initial = grid.innerHTML;
+  const initialCount = output.textContent;
+  const query = new URLSearchParams(location.search);
+  const aliases = { 'brand-answers': 'decision', 'guangzhou-services': 'decision' };
+  const legacyTopic = query.get('topic') || location.hash.slice(1);
+  const topic = aliases[legacyTopic] || legacyTopic;
+  const topicLink = [...document.querySelectorAll('[data-cluster]')].find(link => link.dataset.cluster === topic);
+  if (topicLink && topic !== grid.dataset.topic) {
+    const target = new URL(topicLink.href);
+    if (query.get('q')) target.searchParams.set('q', query.get('q'));
+    location.replace(target.href);
+    return;
+  }
+  const update = () => {
     const words = input.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
     let count = 0;
-    clusters.forEach(cluster => {
-      let matches = 0;
-      [...cluster.querySelector('.insight-card-grid').children].forEach(card => {
-        const visible = (category === 'all' || category === cluster.id) && words.every(word => card.textContent.toLocaleLowerCase().includes(word));
-        card.hidden = !visible;
-        if (visible) matches++;
-      });
-      cluster.hidden = matches === 0;
-      count += matches;
-    });
-    document.getElementById('insightCount').textContent = count + ' 篇文章';
-    document.getElementById('insightEmpty').hidden = count !== 0;
-    links.forEach(link => {
-      if (link.dataset.cluster === category) link.setAttribute('aria-current', 'true');
-      else link.removeAttribute('aria-current');
-    });
-    reset.hidden = !input.value && category === 'all';
-    if (save) {
-      const url = new URL(location.href);
-      url.search = '';
-      url.hash = '';
-      if (input.value.trim()) url.searchParams.set('q', input.value.trim());
-      if (category !== 'all') url.searchParams.set('topic', category);
-      history.replaceState(history.state, '', url);
-      try { sessionStorage.setItem('pinmoo-insights-return', url.pathname + url.search); } catch {}
+    if (words.length) {
+      const fragment = template.content.cloneNode(true);
+      for (const wrapper of [...fragment.children]) {
+        const matches = (grid.dataset.topic === 'all' || wrapper.dataset.searchTopic === grid.dataset.topic) && words.every(word => wrapper.textContent.toLocaleLowerCase().includes(word));
+        if (!matches) wrapper.remove();
+        else { wrapper.querySelector('.reveal')?.classList.remove('reveal'); count++; }
+      }
+      grid.replaceChildren(fragment);
+      output.textContent = count + ' 篇匹配文章';
+    } else {
+      grid.innerHTML = initial;
+      grid.querySelectorAll('.reveal').forEach(card => card.classList.remove('reveal'));
+      count = grid.children.length;
+      output.textContent = initialCount;
     }
+    pagination.hidden = words.length > 0;
+    document.getElementById('insightEmpty').hidden = count !== 0;
+    reset.hidden = words.length === 0;
+    document.querySelectorAll('[data-cluster]').forEach(link => {
+      const target = new URL(link.href);
+      target.search = '';
+      if (words.length) target.searchParams.set('q', input.value.trim());
+      link.href = target.pathname + target.search;
+    });
+    const url = new URL(location.href);
+    url.search = '';
+    if (words.length) url.searchParams.set('q', input.value.trim());
+    history.replaceState(history.state, '', url);
+    try { sessionStorage.setItem('pinmoo-insights-return', url.pathname + url.search); } catch {}
   };
-  input.form.addEventListener('submit', event => event.preventDefault());
-  input.addEventListener('input', () => update());
-  links.forEach(link => link.addEventListener('click', event => { event.preventDefault(); category = link.dataset.cluster; update(); }));
-  const clear = () => { input.value = ''; category = 'all'; update(); input.focus(); };
+  input.value = query.get('q') || '';
+  input.form.addEventListener('submit', event => { event.preventDefault(); update(); });
+  input.addEventListener('input', update);
+  const clear = () => { input.value = ''; update(); input.focus(); };
   reset.addEventListener('click', clear);
   document.querySelector('[data-reset-insights]')?.addEventListener('click', clear);
-  window.addEventListener('popstate', () => { readUrl(); update(false); });
+  window.addEventListener('popstate', () => { input.value = new URLSearchParams(location.search).get('q') || ''; update(); });
   window.addEventListener('pagehide', () => {
-    try { sessionStorage.setItem('pinmoo-insights-scroll', String(departingScroll ?? window.scrollY)); } catch {}
+    try { sessionStorage.setItem('pinmoo-insights-scroll', String(window.scrollY)); } catch {}
   });
-  document.addEventListener('click', event => {
-    const link = event.target.closest('.insight-card a');
-    if (link) departingScroll = window.scrollY;
-  });
-  readUrl();
-  const resume = new URLSearchParams(location.search).has('resume');
-  update();
-  if (resume) {
-    try {
-      const position = Number(sessionStorage.getItem('pinmoo-insights-scroll')) || 0;
-      const restore = () => window.scrollTo(0, position);
-      window.addEventListener('pageshow', restore, { once: true });
-      window.requestAnimationFrame(restore);
-    } catch {}
+  if (input.value) update();
+  else {
+    try { sessionStorage.setItem('pinmoo-insights-return', location.pathname); } catch {}
   }
+  if (query.has('resume')) {
+    try { requestAnimationFrame(() => scrollTo(0, Number(sessionStorage.getItem('pinmoo-insights-scroll')) || 0)); } catch {}
+  }
+}
+
+function initInsightSearch() {
+  if (document.getElementById('insightSearchCards')) initPaginatedInsightSearch();
 }
 
 function initInsightReturn() {
@@ -287,7 +289,7 @@ function initInsightReturn() {
     const saved = sessionStorage.getItem('pinmoo-insights-return');
     if (!saved) return;
     const url = new URL(saved, location.origin);
-    if (url.origin !== location.origin || url.pathname !== '/insights/') return;
+    if (url.origin !== location.origin || !/^\/insights\/(?:page\/\d+\/|topic\/[a-z-]+\/(?:page\/\d+\/)?)?$/.test(url.pathname)) return;
     url.searchParams.set('resume', '1');
     back.href = url.pathname + url.search;
   } catch {}

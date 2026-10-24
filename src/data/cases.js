@@ -5,6 +5,7 @@ export const caseFilters = [
 export const cases = [
   {
     slug: 'chenpi-brand-geo-diagnosis',
+    shortTitle: '陈皮品牌：统一事实，规划GEO路径',
     caseId: 'CASE-GEO-01',
     title: '某新会陈皮品牌：从品牌事实冲突入手，规划 90 天 GEO 修复路径',
     industry: '茶饮食品',
@@ -31,6 +32,7 @@ export const cases = [
   },
   {
     slug: 'womenswear-refund-optimization',
+    shortTitle: '高客单女装：从退款反推页面与客服',
     title: '某高客单女装品牌：从退款问题入手，重构内容与转化链路',
     industry: '服饰鞋包',
     serviceType: '退款率优化 / 页面优化 / 用户预期管理',
@@ -49,6 +51,7 @@ export const cases = [
   },
   {
     slug: 'personal-care-device-positioning',
+    shortTitle: '个护电器：让差旅场景成为购买理由',
     title: '某个护电器品牌：围绕差旅场景，重塑产品卖点表达',
     industry: '个护电器',
     serviceType: '商品卖点重构 / 页面优化 / 直播话术优化',
@@ -67,6 +70,7 @@ export const cases = [
   },
   {
     slug: 'tea-brand-platform-synergy',
+    shortTitle: '茶饮品牌：连接内容、直播与店铺',
     title: '某茶饮品牌：多平台经营下的内容、直播与店铺转化协同',
     industry: '茶饮食品',
     serviceType: '平台运营陪跑 / 内容种草 / 活动复盘',
@@ -85,6 +89,7 @@ export const cases = [
   },
   {
     slug: 'children-nutrition-compliance',
+    shortTitle: '儿童营养：讲清产品价值与使用边界',
     title: '某儿童营养品牌：在合规前提下优化产品表达与平台运营节奏',
     industry: '营养健康',
     serviceType: '页面优化 / 合规表达 / 活动运营',
@@ -103,6 +108,7 @@ export const cases = [
   },
   {
     slug: 'traditional-enterprise-ecommerce-launch',
+    shortTitle: '传统企业：从零搭建电商业务',
     title: '某传统企业：从0到1搭建电商业务路径',
     industry: '传统企业转型',
     serviceType: '电商战略诊断 / 平台规划 / 团队搭建建议',
@@ -121,6 +127,7 @@ export const cases = [
   },
   {
     slug: 'wine-store-diagnosis',
+    shortTitle: '酒水品牌：找到线上增长优先项',
     title: '某酒水品牌：通过店铺诊断明确线上增长优先级',
     industry: '酒水食品',
     serviceType: '店铺诊断 / 页面优化 / 平台规划',
@@ -139,6 +146,7 @@ export const cases = [
   },
   {
     slug: 'consumer-goods-membership-growth',
+    shortTitle: '消费品品牌：从成交走向会员复购',
     title: '某高复购消费品品牌：从单次成交到会员复购体系搭建',
     industry: '快消品牌',
     serviceType: '会员运营 / 私域承接 / 复购机制',
@@ -157,6 +165,7 @@ export const cases = [
   },
   {
     slug: 'camping-local-life-operation',
+    shortTitle: '营地文旅：连接OTA与私域承接',
     title: '某营地文旅项目：从OTA渠道到私域承接的运营路径梳理',
     industry: '本地生活',
     serviceType: 'OTA运营 / 内容种草 / 私域承接',

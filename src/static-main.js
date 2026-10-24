@@ -5,6 +5,8 @@ import { CASE_EN, EN_TEXT, FILTER_EN_TO_CN } from './data/en-text.js';
 import { chinaEcommercePage, getLeadPageBySlug, leadPages, leadPathSteps, proofAssets } from './data/lead-pages.js';
 import { metricDictionary } from './data/resources.js';
 import { getInsightBySlug, insightAuthor, insightClusters, insights } from './data/insights.js';
+import { indexForPath } from './data/insight-index.js';
+import { insightIndexContent } from './components/insight-index.js';
 import { geoHero, geoReportPreview, geoProcess, consultingOverview } from './components/geo-experience.js';
 import { pageVisual } from './components/page-visual.js';
 import { homePage, servicesContent, contactContent, resourceCards, resourceLibraryContent, insightCardMarkup, aboutContent } from './components/consulting-upgrade.js';
@@ -291,7 +293,7 @@ function ServiceCard(service) {
 function CaseCard(item) {
   const href = localizeHref('/cases/' + item.slug + '/');
   const enCase = CASE_EN[item.slug];
-  const view = isEn() ? Object.assign({}, item, enCase || {}) : item;
+  const view = isEn() ? Object.assign({}, item, enCase || {}) : { ...item, title: item.shortTitle || item.title };
   const imageAlt = isEn()
     ? view.industry + ' ' + view.serviceType + ' case study'
     : item.industry + '品牌在' + item.platform + '平台的' + item.serviceType + '项目案例';
@@ -417,7 +419,7 @@ function GeoServiceModulesSection() {
   const text = isEn() ? 'GEO is not a page filled with AI keywords. It connects crawlability, factual consistency, citable content, external sources and ongoing measurement. Select one module or combine them into a 90-day plan.' : 'GEO 不是在页面里堆几个 AI 关键词，而是把可抓取性、事实一致性、可引用内容、外部信源和持续测量连接起来。可以按当前缺口选择单项，也可以按 90 天计划组合推进。';
   const approach = isEn() ? ['Approach and service scope', 'Basis', 'Boundary', 'Next step', 'Deliverable'] : ['工作依据与服务范围', '依据', '边界', '下一步', '交付：'];
   const localizedCards = isEn() ? cards.replaceAll('>工作依据与服务范围<', '>' + approach[0] + '<').replaceAll('>依据<', '>' + approach[1] + '<').replaceAll('>边界<', '>' + approach[2] + '<').replaceAll('>下一步<', '>' + approach[3] + '<').replaceAll('>交付：', '>' + approach[4] + ': ') : cards;
-  return '<section class="section geo-service-section"><div class="container">' + SectionIntro(title, text) + '<div class="geo-service-grid">' + localizedCards + '</div></div></section>';
+  return '<section class="section geo-service-section"><div class="container">' + SectionIntro(isEn() ? 'From findings to practical work.' : '从发现问题，到推进改善。', isEn() ? 'Agree priorities, assign content and technical work, then return to the same questions for review.' : '先确认品牌事实和当前问题，再安排页面、内容与外部资料的改善，最后用同一组问题复测。') + '<div class="reading-resource-entry"><div><h3>了解具体方法</h3><p>品牌事实、判断口径与复测方法，可以先从这些资料了解。</p></div><a class="text-link" href="/insights/brand-fact-base-for-ai-search/">品牌事实库怎么做 ↗</a><a class="text-link" href="/resources/operating-templates/#geo-facts">品牌事实自查表 ↗</a></div><details class="geo-scope-details"><summary>' + title + '</summary><p>' + text + '</p><div class="geo-service-grid">' + localizedCards + '</div></details></div></section>';
 }
 
 function LeadPageCard(page) {
@@ -502,7 +504,18 @@ function RelatedLeadCard(page) {
 
 function RelatedLeadSection(page) {
   const related = relatedLeadPages(page).map(RelatedLeadCard).join('');
-  return '<div class="reveal detail-block related-lead-block"><div class="detail-title">' + icon('Layers', 24) + '<h2>还可以一起看的诊断入口</h2></div><div class="related-lead-grid">' + related + '</div></div>';
+  const reading = {
+    'tmall-business-weekly-report': ['ai-ecommerce-weekly-report-vs-manual-report', 'ecommerce-weekly-report-review-framework'],
+    'business-advisor-data-diagnosis': ['ecommerce-weekly-report-review-framework'],
+    'tmall-refund-rate-analysis': ['ecommerce-product-structure-review'],
+    'store-diagnosis': ['store-traffic-no-conversion-diagnosis'],
+    'tea-ecommerce-consultant': ['tea-brand-geo-content-and-ecommerce-diagnosis'],
+    'xinhui-chenpi-ecommerce': ['xinhui-chenpi-ecommerce-entity-and-content'],
+    'geo-consulting': ['brand-fact-base-for-ai-search', 'geo-seo-paid-media-coordination']
+  };
+  const articles = (reading[page.slug] || []).map(getInsightBySlug).filter(Boolean);
+  const methods = articles.length ? '<div class="detail-block"><h2>了解具体方法</h2><ul>' + articles.map(article => '<li><a class="text-link" href="/insights/' + article.slug + '/">' + article.shortTitle + '</a></li>').join('') + '</ul></div>' : '';
+  return '<div class="reveal detail-block related-lead-block"><div class="detail-title">' + icon('Layers', 24) + '<h2>还可以一起看的诊断入口</h2></div><div class="related-lead-grid">' + related + '</div></div>' + methods;
 }
 
 function relatedCasesForLead(page) {
@@ -614,15 +627,8 @@ function InsightRelatedServices(article) {
 }
 
 function InsightsPage() {
-  const clusters = insightClusters.map(function(cluster) {
-    const cards = insights.filter(function(article) { return cluster.categories.includes(article.category); }).map(InsightCard).join('');
-    const aliases = cluster.id === 'decision' ? '<span id="brand-answers" aria-hidden="true"></span><span id="guangzhou-services" aria-hidden="true"></span>' : '';
-    return '<section class="insight-cluster" id="' + cluster.id + '">' + aliases + '<div class="insight-cluster-heading reveal"><div><h2>' + cluster.title + '</h2></div><p>' + cluster.summary + '</p></div><div class="insight-card-grid">' + cards + '</div></section>';
-  }).join('');
-  const clusterNav = insightClusters.map(function(cluster) { return '<a href="?topic=' + cluster.id + '#' + cluster.id + '" data-cluster="' + cluster.id + '">' + cluster.title + '</a>'; }).join('');
-  return PageHero('经营洞察', '从品牌经营中的真实问题出发，讨论服务选择、商品、内容、投放与客户体验，帮助团队看清下一步。', false, '', { key: 'insights', src: '/assets/visuals/insights-weekly-report.webp', alt: '电商经营周报、退款治理、流量质量和商品结构分析示意图' }) +
-    '<section class="section insights-index-section"><div class="container"><div class="insights-index-intro"><p class="section-eyebrow">PINMOO INSIGHTS</p><h2>从一个问题，找到下一步。</h2><p>搜索经营问题，或按主题浏览。常用工作表与指标解释也在这里。</p><a class="text-link" href="' + resourceLibrary.path + '">查看实用资料与模板 ↗</a></div><form class="insight-search" role="search"><label for="insightSearch">搜索文章</label><input id="insightSearch" name="q" type="search" placeholder="例如：转化、退款、GEO" autocomplete="off"><button type="button" id="insightReset" class="search-reset" hidden>清空筛选</button><output id="insightCount" aria-live="polite">' + insights.length + ' 篇文章</output></form><nav class="insight-cluster-nav" aria-label="经营洞察主题"><a href="/insights/" data-cluster="all">全部</a>' + clusterNav + '</nav><div id="insightEmpty" class="insight-empty" hidden><h2>暂时没有找到匹配文章。</h2><p>试试“退款”“投放”或“页面”，也可以清空筛选重新浏览。</p><button type="button" class="btn btn-secondary" data-reset-insights>清空筛选</button></div>' + clusters + '<section class="insights-resource-preview"><h2>复盘时，可以直接用这些表。</h2><div class="practical-resource-grid">' + resourceCards() + '</div></section></div></section>' +
-    CtaBand('带着一个真实经营问题，认识品沐', '无论是店铺增长、商品页面、投放复盘、会员复购还是 GEO，都可以发送品牌名称、主要平台和当前问题，先判断最值得处理的环节。', '咨询品牌电商增长');
+  const index = indexForPath(pathname) || { topic: 'all', page: 1 };
+  return PageHero('经营洞察', '从品牌经营中的具体问题出发，找到可以用于下一次决策的方法。', false) + insightIndexContent(index.topic, index.page);
 }
 
 function articleSources(article) {
@@ -716,7 +722,7 @@ function CaseDetail(item) {
 
 
 function Contact() {
-  return PageHero(isEn() ? 'Let’s talk about your brand.' : '聊聊你的品牌，和当前最想解决的问题。', isEn() ? 'E-commerce strategy, product conversion, paid media, retention or GEO. Start with your brand, platform and one question.' : '店铺增长、商品转化、投放、复购或GEO，都可以从一个具体问题开始。', true) + contactContent(isEn());
+  return PageHero(isEn() ? 'Let’s talk about your brand.' : '聊聊你的品牌。', isEn() ? 'Send your brand, platform and one current question.' : '带着一个经营问题来聊，品牌、平台和当前问题三项即可。', true) + contactContent(isEn());
 }
 
 function About() {
@@ -738,7 +744,7 @@ function renderPage() {
   if (pathname === '/contact/success') return ContactSuccess();
   if (pathname === '/china-ecommerce-consulting') return ChinaEcommercePage();
   if (pathname === '/resources/ecommerce-metrics-dictionary') return ResourceMetricDictionary();
-  if (pathname === '/insights') return InsightsPage();
+  if (indexForPath(pathname)) return InsightsPage();
   if (pathname.indexOf('/insights/') === 0) {
     const article = getInsightBySlug(pathname.split('/')[2]);
     if (article) return InsightDetail(article);
