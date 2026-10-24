@@ -5,6 +5,7 @@ import { geoInsights } from './insights-geo.js';
 import { geoBuyerInsights } from './insights-geo-buyers.js';
 import { pinmooInsights } from './insights-pinmoo.js';
 import { octoberPlatformInsights } from './insights-platform-october.js';
+import { keywordBatchInsights, applyKeywordUpdates } from './insights-keyword-batch.js';
 import { withPracticalGuide } from './insight-practice.js';
 
 export const insightAuthor = {
@@ -60,6 +61,7 @@ export const insightClusters = [
 ].sort((a, b) => ['operations', 'products', 'review', 'content', 'ai-geo', 'decision', 'vertical-food'].indexOf(a.id) - ['operations', 'products', 'review', 'content', 'ai-geo', 'decision', 'vertical-food'].indexOf(b.id));
 
 const insightEntries = [
+  ...keywordBatchInsights,
   ...octoberPlatformInsights,
   ...pinmooInsights,
   ...geoBuyerInsights,
@@ -372,7 +374,7 @@ const insightEntries = [
 ];
 
 export const insights = insightEntries.map((entry) => {
-  const article = withPracticalGuide(entry);
+  const article = applyKeywordUpdates(withPracticalGuide(entry));
   return {
   contentModel: 'CEBA',
   reviewStatus: 'editorially-reviewed',

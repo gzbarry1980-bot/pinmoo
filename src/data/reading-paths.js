@@ -1,6 +1,19 @@
 import { insights, insightClusters } from './insights.js';
 
 export const readingPaths = {
+  'pinmoo-quarterly-review-resource-decisions': ['pinmoo-diagnosis-report-to-first-action', 'ecommerce-weekly-report-review-framework', 'ecommerce-project-acceptance-beyond-gmv'],
+  'pinmoo-diagnosis-data-minimization': ['pinmoo-first-consultation-materials', 'business-advisor-data-diagnosis-checklist', 'ecommerce-consulting-procurement-brief'],
+  'ecommerce-consulting-procurement-brief': ['ecommerce-consulting-pricing-factors', 'ecommerce-consulting-vs-operation-coaching-vs-agency', 'ecommerce-project-acceptance-beyond-gmv'],
+  'ecommerce-project-acceptance-beyond-gmv': ['ecommerce-revenue-growth-profit-review', 'ecommerce-consulting-procurement-brief', 'paid-traffic-roi-quality-review'],
+  'tmall-jd-same-product-conversion-diagnosis': ['cross-platform-ecommerce-operations-coordination', 'store-traffic-no-conversion-diagnosis', 'business-advisor-data-diagnosis-checklist'],
+  'traditional-brand-first-ecommerce-channel-products': ['small-ecommerce-team-channel-priorities', 'sku-choice-overload-and-product-differences', 'guangzhou-ecommerce-consulting-selection'],
+  'product-bundle-contribution-cost-review': ['ecommerce-product-structure-review', 'ecommerce-revenue-growth-profit-review', 'ecommerce-refund-governance-playbook'],
+  'customer-language-to-article-keywords': ['brand-business-content-for-ai-search', 'sku-choice-overload-and-product-differences', 'product-parameters-versus-customer-fit'],
+  'what-is-pinmoo-consulting': ['pinmoo-consulting-services', 'pinmoo-quarterly-review-resource-decisions', 'pinmoo-diagnosis-data-minimization'],
+  'ecommerce-consulting-pricing-factors': ['ecommerce-consulting-procurement-brief', 'consulting-price-without-design-production', 'ecommerce-project-acceptance-beyond-gmv'],
+  'guangzhou-ecommerce-consulting-selection': ['ecommerce-consulting-procurement-brief', 'traditional-brand-first-ecommerce-channel-products', 'ecommerce-consulting-vs-operation-coaching-vs-agency'],
+  'ecommerce-consulting-vs-operation-coaching-vs-agency': ['ecommerce-consulting-procurement-brief', 'pinmoo-client-owner-responsibilities', 'store-diagnosis-vs-coaching-vs-project-optimization'],
+  'sku-choice-overload-and-product-differences': ['customer-language-to-article-keywords', 'product-bundle-contribution-cost-review', 'product-parameters-versus-customer-fit'],
   'ecommerce-weekly-report-review-framework': ['business-advisor-data-diagnosis-checklist', 'refund-event-time-versus-order-period-weekly-report', 'paid-traffic-roi-quality-review'],
   'ecommerce-revenue-growth-profit-review': ['paid-traffic-roi-quality-review', 'refund-event-time-versus-order-period-weekly-report', 'ecommerce-weekly-report-review-framework'],
   'paid-traffic-roi-quality-review': ['paid-media-pause-and-organic-orders-observation', 'ecommerce-revenue-growth-profit-review', 'store-traffic-no-conversion-diagnosis'],
