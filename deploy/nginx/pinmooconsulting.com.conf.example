@@ -58,6 +58,18 @@ server {
         return 301 https://pinmooconsulting.com/$is_args$args;
     }
 
+    location = /zh/services {
+        return 301 https://pinmooconsulting.com/services/$is_args$args;
+    }
+
+    location = /zh/cases/womenswear-refund-optimization {
+        return 301 https://pinmooconsulting.com/cases/womenswear-refund-optimization/$is_args$args;
+    }
+
+    location = /zh/cases/personal-care-device-positioning {
+        return 301 https://pinmooconsulting.com/cases/personal-care-device-positioning/$is_args$args;
+    }
+
     location ^~ /zh/ {
         rewrite ^/zh/(.*)$ https://pinmooconsulting.com/$1 permanent;
     }

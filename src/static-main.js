@@ -506,12 +506,17 @@ function RelatedLeadSection(page) {
   const related = relatedLeadPages(page).map(RelatedLeadCard).join('');
   const reading = {
     'tmall-business-weekly-report': ['ai-ecommerce-weekly-report-vs-manual-report', 'ecommerce-weekly-report-review-framework'],
-    'business-advisor-data-diagnosis': ['ecommerce-weekly-report-review-framework'],
-    'tmall-refund-rate-analysis': ['ecommerce-product-structure-review'],
+    'business-advisor-data-diagnosis': ['business-advisor-data-diagnosis-checklist', 'pinmoo-diagnosis-data-minimization'],
+    'tmall-refund-rate-analysis': ['ecommerce-refund-governance-playbook', 'refund-event-time-versus-order-period-weekly-report'],
     'store-diagnosis': ['store-traffic-no-conversion-diagnosis'],
+    'ecommerce-diagnosis': ['ecommerce-consulting-procurement-brief', 'business-advisor-data-diagnosis-checklist'],
+    'tmall-jd-consultant': ['ecommerce-coaching-pilot-working-methods', 'tmall-jd-same-product-conversion-diagnosis'],
+    'page-conversion-optimization': ['cross-channel-assortment-price-comparison', 'sku-choice-overload-and-product-differences'],
+    'ecommerce-roi-review': ['paid-traffic-roi-quality-review', 'creator-campaign-refund-settlement-review'],
+    'douyin-xiaohongshu-growth': ['creator-campaign-refund-settlement-review'],
     'tea-ecommerce-consultant': ['tea-brand-geo-content-and-ecommerce-diagnosis'],
     'xinhui-chenpi-ecommerce': ['xinhui-chenpi-ecommerce-entity-and-content'],
-    'geo-consulting': ['brand-fact-base-for-ai-search', 'geo-seo-paid-media-coordination']
+    'geo-consulting': ['brand-fact-base-for-ai-search', 'ai-search-inquiry-fit-service-boundaries']
   };
   const articles = (reading[page.slug] || []).map(getInsightBySlug).filter(Boolean);
   const methods = articles.length ? '<div class="detail-block"><h2>了解具体方法</h2><ul>' + articles.map(article => '<li><a class="text-link" href="/insights/' + article.slug + '/">' + article.shortTitle + '</a></li>').join('') + '</ul></div>' : '';

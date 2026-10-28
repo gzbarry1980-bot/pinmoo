@@ -14,7 +14,7 @@ fi
 # Build separately from the live root, retaining failed builds for inspection.
 install -d /var/www/pinmoo-builds /var/www/pinmoo-releases
 BUILD="$(mktemp -d /var/www/pinmoo-builds/build-XXXXXXXX)"
-tar --exclude=.git --exclude=node_modules --exclude=dist --exclude='.tmp-*' --exclude=output --exclude=.qa -cf - . | tar -xf - -C "$BUILD"
+tar --exclude=.git --exclude=node_modules --exclude=dist --exclude='.tmp-*' --exclude=output --exclude=outputs --exclude=.qa -cf - . | tar -xf - -C "$BUILD"
 cd "$BUILD"
 npm ci --ignore-scripts --no-audit --no-fund
 npm run build

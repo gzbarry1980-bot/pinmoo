@@ -23,10 +23,9 @@ bash scripts/deploy-pinmoo-aliyun.sh
 1. 从 GitHub 拉取最新代码。
 2. 以 `https://pinmooconsulting.com` 为主域构建中文首页、英文页面和 SEO/GEO 资源。
 3. 检查 canonical、sitemap、robots、JSON-LD、文章质量和站内链接。
-4. 同步主站 Nginx 安全、限流和压缩配置。
-5. 安装或更新 `pinmooconsulting.com` 的 Nginx 配置并平滑重载 Nginx。
+4. 为独立发布目录生成当前页面的咨询事件白名单，更新对应统计配置。
+5. 保留线上主站路由、证书、安全、限流和压缩配置，切换静态目录并平滑重载 Nginx；异常时回退。
 6. 检查 `.com` 主站状态、响应头、404、robots 和 sitemap。
-7. 向 IndexNow 提交 `.com` 主站 URL。
 
 脚本不会安装 `.top` 跳转配置，也不会删除或覆盖 `agent.pinmoo.top`、`sjmj.pinmoo.top` 等独立工具配置。
 
@@ -35,11 +34,11 @@ bash scripts/deploy-pinmoo-aliyun.sh
 主站配置默认使用：
 
 ```text
-/etc/letsencrypt/live/pinmooconsulting.com-wildcard/fullchain.pem
-/etc/letsencrypt/live/pinmooconsulting.com-wildcard/privkey.pem
+/etc/letsencrypt/live/pinmooconsulting.com-apex/fullchain.pem
+/etc/letsencrypt/live/pinmooconsulting.com-apex/privkey.pem
 ```
 
-如果服务器实际证书目录不同，请先修改 `deploy/nginx/pinmooconsulting.com.conf.example` 中的证书路径，再执行部署。不要把 `.top` 的 Netlify 证书复制到阿里云主站。
+普通发布不会重新安装示例主站配置。首次搭建或证书路径改变时，应单独核对并应用主站配置，确认事件位置已接入后再发布内容；不要用模板覆盖当前可用路由，也不要把 `.top` 的 Netlify 证书复制到阿里云主站。构建的`.deploy/events-http.conf`必须随每次发布同步，新增文章和分页才能继续记账。部署校验使用DNT，避免生成正常访问计数；任何额外日志验收请求须单独记录测试时间窗。
 
 ## 部署后检查
 
@@ -59,3 +58,5 @@ https://pinmooconsulting.com/sitemap.xml
 ```
 
 如需单独检查工具子域名，应使用其自己的 Nginx 配置和部署流程；不要用官网主站脚本替代工具发布。
+
+若其他任务正在使用共享`dist`目录，应从已验收发布包提取独立快照，再执行`node scripts/verify-international-build.mjs <快照目录>`。不要删除其他工具产物来让主站扫描通过，也不要把工具目录打进官网发布包。

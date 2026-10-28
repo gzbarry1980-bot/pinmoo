@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { SITE } from '../src/data/site.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const dist = path.join(root, 'dist');
+const dist = path.resolve(process.argv[2] || path.join(root, 'dist'));
 const failures = [];
 
 async function listHtml(directory, prefix = '') {

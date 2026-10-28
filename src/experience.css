@@ -706,8 +706,18 @@ body:has(.studio-hero) .problem-path-section { padding-top:32px; }
 .home-advisor h2{font-size:28px;line-height:1.35;margin:8px 0 16px}
 .home-advisor p{max-width:680px}
 .service-capabilities-three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.service-capabilities-three>article{display:flex;flex-direction:column}
+.service-capabilities-three>article>p{flex:1}
 .service-family{margin-top:32px;scroll-margin-top:110px}
 .service-family>h3{font-size:24px;margin-bottom:16px}
+.service-family-links,.case-method-links{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:20px}
+.service-family-links{flex-direction:column;align-items:flex-start}
+.service-family-links a,.case-method-links a{min-height:44px;display:inline-flex;align-items:center;gap:6px;line-height:1.6}
+.case-deliverable-example>details{margin-top:20px}
+.case-deliverable-example>details>summary{min-height:44px;cursor:pointer;color:#176f65;font-weight:600}
+.insight-author-card>div>span,.insight-related-card>span{color:#a82d28}
+.insight-author-card .insight-disclosure{color:#53616b}
+.cta-band .btn-primary span{color:#fff}
 .insight-pagination{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:40px 0}
 .insight-pagination a{display:inline-flex;min-width:44px;min-height:44px;padding:8px 12px;align-items:center;justify-content:center;border:1px solid #dce1e0;border-radius:4px;color:#263c37}
 .insight-pagination a[aria-current="page"]{background:#b52c27;color:white;border-color:#b52c27}

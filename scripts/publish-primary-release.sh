@@ -10,6 +10,8 @@ case "$RELEASE" in /var/www/pinmoo-releases/*) ;; *) echo 'Release path outside 
 for file in index.html sitemap.xml site-build.json .deploy/events-http.conf; do [ -s "$RELEASE/$file" ]; done
 openssl x509 -checkend 604800 -noout -in /etc/letsencrypt/live/pinmooconsulting.com-apex/fullchain.pem
 nginx -t
+[ -f "$CONFIG" ] || { echo 'Bootstrap the primary Nginx configuration separately' >&2; exit 1; }
+grep -Fq 'include /etc/nginx/snippets/pinmoo-events-location.conf;' "$CONFIG" || { echo 'Primary events location is not configured' >&2; exit 1; }
 if [ -e "$CURRENT" ] && [ ! -L "$CURRENT" ]; then echo 'Current path is not a symlink' >&2; exit 1; fi
 install -d -m 700 "$BACKUP"
 install -d -m 750 -o www-data -g adm /var/log/pinmoo-events
@@ -35,12 +37,13 @@ trap rollback ERR INT TERM
 install -m 644 "$RELEASE/.deploy/events-http.conf" /etc/nginx/conf.d/pinmoo-events-http.conf
 install -m 644 "$KIT/deploy/nginx/pinmoo-events-location.conf" /etc/nginx/snippets/pinmoo-events-location.conf
 install -m 644 "$KIT/deploy/pinmoo-events.logrotate" /etc/logrotate.d/pinmoo-events
-install -m 644 "$KIT/deploy/nginx/pinmooconsulting.com.conf.example" "$CONFIG"
+# Preserve live routing, certificate paths and hand-maintained primary settings.
+# The example is for reviewed initial provisioning, not ordinary content releases.
 ln -s "$RELEASE" "$CURRENT.next"
 mv -Tf "$CURRENT.next" "$CURRENT"
 nginx -t
 systemctl reload nginx
-CURL=(curl --silent --show-error --fail --max-time 20 --resolve pinmooconsulting.com:443:127.0.0.1)
+CURL=(curl --silent --show-error --fail --max-time 20 --resolve pinmooconsulting.com:443:127.0.0.1 -H 'DNT: 1')
 # A graceful reload can briefly serve the previous worker's release.
 READY=0
 for attempt in 1 2 3 4 5; do
@@ -55,5 +58,7 @@ STATUS="$(curl --silent --max-time 20 --resolve pinmooconsulting.com:443:127.0.0
 [ "$STATUS" = 404 ]
 STATUS="$("${CURL[@]}" -H 'DNT: 1' -o /dev/null -w '%{http_code}' 'https://pinmooconsulting.com/_events?event=page_view&page=home&placement=body')"
 [ "$STATUS" = 204 ]
+cmp "$BACKUP/0" "$CONFIG"
+cmp "$RELEASE/.deploy/events-http.conf" /etc/nginx/conf.d/pinmoo-events-http.conf
 trap - ERR INT TERM
 printf 'Published: %s\nRollback backup: %s\n' "$RELEASE" "$BACKUP"
