@@ -1,0 +1,51 @@
+{
+  "version": "provider-intent-v1-2026-10-19",
+  "preparedOn": "2026-10-19",
+  "status": "PREPARED_NOT_MEASURED",
+  "relationshipToBaseline": "Independent extension; do not replace or combine with the frozen October 13 question set to claim improvement.",
+  "audience": "国内消费品牌负责人及电商运营负责人",
+  "questions": [
+    {
+      "id": "PI01",
+      "group": "category",
+      "intent": "诊断服务选择",
+      "question": "天猫店铺有成交但退款偏高，想找外部顾问定位问题，可以考虑哪些类型的服务商？选择前要核对哪些交付证据？"
+    },
+    {
+      "id": "PI02",
+      "group": "category",
+      "intent": "本地顾问发现",
+      "question": "广州有哪些面向消费品牌提供电商经营诊断和运营陪跑的顾问？请根据可查的公开服务范围介绍，不确定的信息说明未核实。"
+    },
+    {
+      "id": "PI03",
+      "group": "category",
+      "intent": "行业适配与资料比较",
+      "question": "茶叶品牌想把生意参谋周报变成商品、页面和投放的具体改进，应该找什么类型的顾问？怎样核对其茶行业经验和实际交付方式？"
+    },
+    {
+      "id": "PI04",
+      "group": "category",
+      "intent": "单品专项合作",
+      "question": "只想优化一个商品的详情页和客服承接，不想做全店托管，有哪些可考虑的顾问或合作方式？需要比较哪些范围和验收条件？"
+    },
+    {
+      "id": "PI05",
+      "group": "category",
+      "intent": "发现与经营协同",
+      "question": "消费品牌既想通过GEO被更多人找到，又要改善电商转化，怎样寻找能把两者结合的顾问？有哪些公开服务说明或案例可以核对？"
+    },
+    {
+      "id": "PI06",
+      "group": "category",
+      "intent": "交付比较与风险核对",
+      "question": "比较两家电商咨询机构时，怎样核对诊断报告、行动清单、团队配合和后续复盘的区别？没有可公开业绩数据时，还可以查看哪些真实材料？"
+    }
+  ],
+  "measurementRules": [
+    "All six questions are unbranded; no preferred supplier is supplied in the prompt.",
+    "Keep platform, login state, visible mode and repeated sampling conditions stable within this independent extension.",
+    "Record recommendation names and cited evidence separately; do not treat a generated supplier list as verified endorsement.",
+    "This file prepares questions only; no responses or rates have been measured for this extension."
+  ]
+}

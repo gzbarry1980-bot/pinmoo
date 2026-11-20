@@ -1,0 +1,28 @@
+[Unit]
+Description=Guangzhou Zhongkao account and entitlement API
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/zhongkao-access/current
+EnvironmentFile=/etc/zhongkao-access.env
+ExecStart=/usr/bin/node /opt/zhongkao-access/current/server.mjs
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=10
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+ReadWritePaths=/var/lib/zhongkao-access
+
+[Install]
+WantedBy=multi-user.target

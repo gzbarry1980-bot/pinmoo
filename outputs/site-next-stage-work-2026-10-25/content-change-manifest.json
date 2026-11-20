@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-25",
+  "newArticles": [
+    {
+      "slug": "ecommerce-coaching-pilot-working-methods",
+      "title": "电商运营陪跑先试行一个月，应该验证哪些工作方式？"
+    },
+    {
+      "slug": "cross-channel-assortment-price-comparison",
+      "title": "不同渠道的同款商品总被比价，品牌怎样规划差异化货盘？"
+    },
+    {
+      "slug": "creator-campaign-refund-settlement-review",
+      "title": "达人内容带来不少成交，品牌怎样复盘退货后的实际价值？"
+    },
+    {
+      "slug": "ai-search-inquiry-fit-service-boundaries",
+      "title": "AI带来了询盘，客户需求却不匹配，品牌的内容该怎样调整？"
+    }
+  ],
+  "oldUpdates": [
+    "store-traffic-no-conversion-diagnosis",
+    "ecommerce-refund-governance-playbook",
+    "paid-traffic-roi-quality-review",
+    "business-advisor-data-diagnosis-checklist",
+    "pinmoo-ai-namesake-entity-correction"
+  ],
+  "sourceRows": 59,
+  "excludedDifferentEntities": 6,
+  "oldDraftDecisions": 40,
+  "externalDraftRecords": 38,
+  "newExternalSubmissions": 0
+}

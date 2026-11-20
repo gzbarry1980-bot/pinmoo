@@ -16,10 +16,10 @@ export function confirmAdjustment(beforePlan,nextPlan,beforeScore,nextScore,befo
 }
 export function decisionRisks(profile,analysis,score){
  const risks=[];
- if(analysis.policyContext?.structuralChange)risks.push('2027起科目分值调整：当前仍参考2026及以前成绩分布，机会尚未经新政策录取结果校准。');
- for(const row of analysis.slotResults||[])if(['ineligible','no-data'].includes(row.state))risks.push(`第${row.batch}批第${row.position}志愿 · ${row.schoolName}：${row.reason}`);
+ for(const row of [...(analysis.slotResults||[])].sort((a,b)=>Number(b.state==='ineligible')-Number(a.state==='ineligible')))if(['ineligible','no-data'].includes(row.state))risks.push(`第${row.batch}批第${row.position}志愿 · ${row.schoolName}：${row.reason}`);
  if(profile.referenceGrade==='unknown')risks.push('参考科目等级未确认：当前结果以符合报考要求为前提。');
  risks.push(...(score.suggestions||[]));
+ if(analysis.policyContext?.structuralChange)risks.push('2027起科目分值调整：当前仍参考2026及以前成绩分布，机会尚未经新政策录取结果校准。');
  if(analysis.mode==='forecast'&&(analysis.dataInsufficient||!analysis.usableYears?.length))risks.unshift('没有可用的完整历史情景，不能把缺资料理解为一定落选。');
  if(analysis.slotResults?.some(r=>r.confidence==='低'))risks.push('部分学校资料较少或变化较大，采用前请查看历史依据。');
  return [...new Set(risks)];
@@ -41,11 +41,12 @@ export function renderDecisionSummary(profile,plan,analysis,score,dataset,simula
  const example=row?.reason|| (evidence?.firstChoiceOnlyRate>=50?'这所学校近年多次在第一志愿录满；分数达线，也要结合梯度与所填位置判断。':'录取要同时看分数梯度、志愿位置和当年的招生条件，不能只比较最低分。');
  const lack=analysis.mode==='forecast'&&(analysis.dataInsufficient||!analysis.usableYears?.length);
  const critical=(analysis.slotResults||[]).filter(r=>['ineligible','no-data'].includes(r.state));
- box.innerHTML=`<span class="note">简版分析 · ${esc(profile.targetYear)}年 · ${esc(profile.scoreLow)}—${esc(profile.scoreHigh)}分</span><h3>${lack?'资料不足，需要补充核查':esc(score.label)}</h3><ul class="decision-risks">${risks.slice(0,2).map(t=>`<li>${esc(t)}</li>`).join('')||'<li>未发现明显结构问题；仍需核对当年报考资格、费用与住宿。</li>'}</ul>${critical.length>2?`<details><summary>查看全部资格与资料问题（${critical.length}项）</summary><ul>${critical.map(r=>`<li>第${r.batch}批第${r.position}志愿 · ${esc(r.schoolName)}：${esc(r.reason)}</li>`).join('')}</ul></details>`:''}<details><summary>看一条完整解释</summary><p>${first?`第${first.batch}批第${first.position}志愿 · ${esc(first.schoolName)}：`:''}${esc(example)}</p></details><div class="toolbar"><button type="button" class="button-secondary" data-decision-back>返回调整志愿</button><button type="button" class="button-primary" data-decision-unlock>解锁完整分析</button></div><small>完整分析包含方案合理度、可能去向、逐校依据与调整建议。仅供参考。</small>`;
+ box.innerHTML=`<span class="note">简版分析 · ${esc(profile.targetYear)}年 · ${esc(profile.scoreLow)}—${esc(profile.scoreHigh)}分</span><h3 data-summary-heading>${lack?'资料不足，需要补充核查':esc(score.label)}</h3><ul class="decision-risks">${risks.slice(0,2).map(t=>`<li>${esc(t)}</li>`).join('')||'<li>未发现明显结构问题；仍需核对当年报考资格、费用与住宿。</li>'}</ul>${critical.length>2?`<details><summary>查看全部资格与资料问题（${critical.length}项）</summary><ul>${critical.map(r=>`<li>第${r.batch}批第${r.position}志愿 · ${esc(r.schoolName)}：${esc(r.reason)}</li>`).join('')}</ul></details>`:''}<details><summary>看一条完整解释</summary><p>${first?`第${first.batch}批第${first.position}志愿 · ${esc(first.schoolName)}：`:''}${esc(example)}</p></details><div class="toolbar"><button type="button" class="button-secondary" data-decision-back>返回调整志愿</button><button type="button" class="button-primary" data-decision-unlock>解锁完整分析</button></div><small>完整分析包含方案合理度、可能去向、逐校依据与调整建议。仅供参考。</small>`;
  box.querySelector('[data-decision-back]').onclick=()=>{document.dispatchEvent(new CustomEvent('zk-workflow-navigate',{detail:{step:'plan'}}));window.ZhongkaoNavigation?.scrollTo('#volunteerForm');};
+ if(risks.length>1){const details=document.createElement('details');details.className='method-details';details.innerHTML='<summary>其他依据与待确认信息</summary><ul>'+risks.slice(1).map(t=>`<li>${esc(t)}</li>`).join('')+'</ul>';box.querySelector('.toolbar').before(details);}
  const unlock=box.querySelector('[data-decision-unlock]');unlock.onclick=()=>window.ZhongkaoAccess?.showPaywall();
- const sync=()=>{const entitled=window.ZhongkaoAccess?.isEntitled();unlock.hidden=Boolean(entitled);box.querySelector('small').hidden=Boolean(entitled);};sync();
- if(!box.dataset.accessSubscribed){box.dataset.accessSubscribed='true';window.ZhongkaoAccess?.onChange(()=>{const b=document.querySelector('[data-decision-unlock]');if(b)b.hidden=window.ZhongkaoAccess.isEntitled();});}
+ const sync=()=>{const entitled=Boolean(window.ZhongkaoAccess?.isEntitled());unlock.hidden=entitled;box.querySelector('small').hidden=entitled;box.querySelector('[data-summary-heading]').textContent=entitled?'当前最值得关注':lack?'资料不足，需要补充核查':score.label;const rows=box.querySelectorAll('.decision-risks li');rows.forEach((li,i)=>li.hidden=entitled&&i>0);if(entitled)section.querySelector('.score-overview')?.after(box);else section.querySelector('.panel-heading').after(box);};box.flowSync=sync;sync();
+ if(!box.dataset.accessSubscribed){box.dataset.accessSubscribed='true';window.ZhongkaoAccess?.onChange(()=>box.flowSync?.());}
  let scenarios=document.getElementById('scoreScenarios');
  if(!scenarios){scenarios=document.createElement('details');scenarios.id='scoreScenarios';scenarios.className='workflow-disclosure';scenarios.dataset.gate='chance';const more=section.querySelector('#analysisMore');if(more)more.prepend(scenarios);else section.append(scenarios);}
  scenarios.hidden=analysis.mode!=='forecast';scenarios.innerHTML='<summary>发挥变化，会去哪些学校？</summary><p class="note">固定同一份志愿，分别按估分下限、正常发挥和上限模拟。</p><button class="button-secondary" type="button">比较三种发挥</button><div class="scenario-results" role="status"></div>';

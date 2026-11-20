@@ -1,4 +1,4 @@
-import {DISTRICTS} from './school-service.js';
+import {DISTRICTS} from './school-service.js?v=20261025-flow-r2';
 export const REGION_MODES=['household','custom','none'];
 export function regionMode(profile={}){return REGION_MODES.includes(profile.regionPreference)?profile.regionPreference:(profile.preferredDistricts?.length?'custom':'household');}
 export function preferredRegions(profile={}){const mode=regionMode(profile);return mode==='none'?[]:mode==='household'?(DISTRICTS.includes(profile.householdDistrict)?[profile.householdDistrict]:[]):[...new Set((profile.preferredDistricts||[]).filter(d=>DISTRICTS.includes(d)))];}

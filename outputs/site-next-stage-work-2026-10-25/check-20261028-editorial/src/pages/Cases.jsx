@@ -1,0 +1,45 @@
+import { useMemo, useState } from 'react';
+import { CaseCard } from '../components/CaseCard.jsx';
+import { CtaBand } from '../components/CtaBand.jsx';
+import { Icon } from '../components/Icon.jsx';
+import { PageHero } from '../components/PageHero.jsx';
+import { Reveal } from '../components/Reveal.jsx';
+import { caseFilters, cases } from '../data/cases.js';
+
+export function Cases() {
+  const [filter, setFilter] = useState('全部');
+  const filtered = useMemo(() => {
+    if (filter === '全部') return cases;
+    return cases.filter((item) => item.tags.includes(filter) || item.industry === filter || item.serviceType.includes(filter));
+  }, [filter]);
+
+  return (
+    <>
+      <PageHero title="项目经验" subtitle="每一个项目，都来自品牌在平台经营、内容表达、页面转化、投放复盘或用户承接中的真实问题。我们更关注问题如何被拆解，动作如何被落地，结果如何被持续复盘。">
+        <div className="case-hero-industries">
+          {['服饰', '茶饮', '营养', '个护', '酒水'].map((item, index) => <span key={item}><Icon name={['ShoppingBag', 'Leaf', 'ShieldCheck', 'Zap', 'Store'][index]} size={20} />{item}</span>)}
+        </div>
+      </PageHero>
+      <section className="section cases-page-section">
+        <div className="container">
+          <Reveal className="case-privacy-note">
+            <strong>案例公开边界</strong>
+            <p>以下案例均为真实项目，现有公开内容已经核对。依据客户资料保密与公开授权边界，统一匿名呈现，并隐去客户名称、店铺账号、截图、未经授权的原始数据及其他可识别细节。</p>
+          </Reveal>
+          <div className="case-filter-controls">
+            <div className="filter-row" role="group" aria-label="按服务筛选案例">
+              {caseFilters.filter(item => ['全部', 'GEO优化', '平台运营', '页面优化', '内容种草', '投放复盘', '私域会员'].includes(item)).map(item => <button type="button" key={item} aria-pressed={filter === item} className={filter === item ? 'active' : ''} onClick={() => setFilter(item)}>{item}</button>)}
+            </div>
+            <details className="case-industry-filter"><summary>按行业筛选</summary><div className="filter-row" role="group" aria-label="行业筛选">
+              {caseFilters.filter(item => !['全部', 'GEO优化', '平台运营', '页面优化', '内容种草', '投放复盘', '私域会员'].includes(item)).map(item => <button type="button" key={item} aria-pressed={filter === item} className={filter === item ? 'active' : ''} onClick={() => setFilter(item)}>{item}</button>)}
+            </div></details>
+          </div>
+          <div className="cases-grid">
+            {filtered.map((item, index) => <Reveal key={item.slug} delay={index * 70}><CaseCard item={item} /></Reveal>)}
+          </div>
+        </div>
+      </section>
+      <div className="container"><CtaBand title="你的品牌，也许正卡在类似的问题上" text="无论是店铺转化低、退款率高、投放效率不稳定，还是多平台运营缺少节奏，品沐咨询都可以先帮你做一次基础诊断，判断当前最值得优先解决的问题。" /></div>
+    </>
+  );
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "name": "home",
+    "run": 1,
+    "performance": 88,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 3681.4632999999994,
+    "cls": 0
+  },
+  {
+    "name": "home",
+    "run": 2,
+    "performance": 88,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 3681.927185322864,
+    "cls": 0
+  },
+  {
+    "name": "home",
+    "run": 3,
+    "performance": 88,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 3680.473562125988,
+    "cls": 0
+  }
+]

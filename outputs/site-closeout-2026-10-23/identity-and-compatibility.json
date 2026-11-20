@@ -1,0 +1,68 @@
+{
+  "checkedAt": "2026-10-23T01:02:45.190Z",
+  "files": [
+    {
+      "path": "/pinmoo-profile.json",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/ai-context.json",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/llms.txt",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/llms-full.txt",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/ai.txt",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/",
+      "status": 200,
+      "hashMatched": true
+    }
+  ],
+  "redirects": [
+    {
+      "from": "https://pinmoo.top/",
+      "to": "https://pinmooconsulting.com/",
+      "status": 301
+    },
+    {
+      "from": "https://pinmooconsulting.com/zh/contact/?source=closeout",
+      "to": "https://pinmooconsulting.com/contact/?source=closeout",
+      "status": 301
+    }
+  ],
+  "privatePaths": [
+    {
+      "path": "/scripts/test-case-preview.mjs",
+      "status": 404
+    },
+    {
+      "path": "/outputs/geo-provider-baseline-2026-10-23/private/results.json",
+      "status": 404
+    }
+  ],
+  "build": {
+    "version": "0de6e8ca8c",
+    "builtAt": "2026-10-23T00:37:37.803Z",
+    "articleCount": 76,
+    "primaryDomain": "https://pinmooconsulting.com"
+  }
+}

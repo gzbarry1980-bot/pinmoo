@@ -1,0 +1,4 @@
+/private/
+/performance/*.lighthouse.json
+/*.tar.gz
+/*.log

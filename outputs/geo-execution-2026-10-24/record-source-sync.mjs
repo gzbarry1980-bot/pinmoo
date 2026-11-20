@@ -1,0 +1,12 @@
+import fs from 'node:fs/promises';
+import {createHash} from 'node:crypto';
+const dir=new URL('./',import.meta.url);
+const path=new URL('执行与发布台账.json',dir);
+const ledger=JSON.parse(await fs.readFile(path,'utf8'));
+const files=['src/data/insights-keyword-batch.js','src/data/insights.js','src/data/reading-paths.js'];
+const receipt={checkedAt:new Date().toISOString(),authorization:'用户明确回复允许同步这3个源文件到该仓库',repository:'https://github.com/gzbarry1980-bot/pinmoo',branch:'main',commit:'f11e7430957b92112d80d8780eaaf855d0a118ac',serverCommit:'f11e7430957b92112d80d8780eaaf855d0a118ac',serverClean:true,liveVersion:'7458354c1c',liveArticleCount:84,verification:'git ls-remote main and separate SSH read-only verification matched; active release unchanged',files:[]};
+for(const file of files)receipt.files.push({path:file,sha256:createHash('sha256').update(await fs.readFile(new URL('../../'+file,dir))).digest('hex')});
+ledger.sourceSync=receipt;
+await fs.writeFile(path,JSON.stringify(ledger,null,2)+'\n');
+await fs.writeFile(new URL('复核记录/source-sync.json',dir),JSON.stringify(receipt,null,2)+'\n');
+console.log(JSON.stringify({commit:receipt.commit,files:receipt.files.length,serverClean:true,liveArticleCount:84}));

@@ -1,0 +1,26 @@
+Updating 962cb09..f11e743
+Fast-forward
+ src/data/insights-keyword-batch.js | 998 +++++++++++++++++++++++++++++++++++++
+ src/data/insights.js               |   4 +-
+ src/data/reading-paths.js          |  13 +
+ 3 files changed, 1014 insertions(+), 1 deletion(-)
+ create mode 100644 src/data/insights-keyword-batch.js
+{"sourceArticles":84}
+commit f11e7430957b92112d80d8780eaaf855d0a118ac
+Author:     gzbarry1980-bot <gzbarry1980@gmail.com>
+AuthorDate: Sat Oct 24 23:48:10 2026 +0800
+Commit:     gzbarry1980-bot <gzbarry1980@gmail.com>
+CommitDate: Sat Oct 24 23:48:10 2026 +0800
+
+    feat: add first GEO keyword batch and enrich five articles [skip netlify]
+
+ src/data/insights-keyword-batch.js | 998 +++++++++++++++++++++++++++++++++++++
+ src/data/insights.js               |   4 +-
+ src/data/reading-paths.js          |  13 +
+ 3 files changed, 1014 insertions(+), 1 deletion(-)
+{
+  "version": "7458354c1c",
+  "builtAt": "2026-10-24T15:00:55.885Z",
+  "articleCount": 84,
+  "primaryDomain": "https://pinmooconsulting.com"
+}

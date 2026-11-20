@@ -1,0 +1,9 @@
+{
+  "version": "ui-20261025-flow-and-history-r2",
+  "status": "health_check_failed_and_rolled_back",
+  "failedCheck": "Served UI mismatch: verify/index.html",
+  "diagnosis": "nginx open_file_cache_valid 120s retained old file descriptors after symlink switch",
+  "confirmedCurrentAfterRollback": "ui-20261025-flow-and-history",
+  "servedFileMatchedCurrentAfterRollback": true,
+  "followup": "new immutable r3 release; graceful reload of unchanged nginx configuration clears file cache after switch and rollback"
+}

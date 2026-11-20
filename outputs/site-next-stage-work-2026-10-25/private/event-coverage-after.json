@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-10-25T07:25:23.942Z",
+  "version": {
+    "version": "6a64630a41",
+    "builtAt": "2026-10-25T07:18:37.126Z",
+    "articleCount": 88,
+    "primaryDomain": "https://pinmooconsulting.com"
+  },
+  "expectedPageIds": 156,
+  "serverPageIds": 156,
+  "missingOnServer": [],
+  "obsoleteOnServer": []
+}

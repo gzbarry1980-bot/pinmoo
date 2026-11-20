@@ -1,0 +1,156 @@
+{
+  "origin": "http://127.0.0.1:5174",
+  "at": "2026-11-05T02:55:46.003Z",
+  "results": [
+    {
+      "name": "HTTP /",
+      "pass": true
+    },
+    {
+      "name": "Campus home has primary action, school search and target-school shortcut",
+      "pass": true
+    },
+    {
+      "name": "Campus artwork is served and explicitly illustrative",
+      "pass": true
+    },
+    {
+      "name": "Home fits mobile",
+      "pass": true
+    },
+    {
+      "name": "Primary home action fits first viewport",
+      "pass": true
+    },
+    {
+      "name": "Mobile artwork is a short banner",
+      "pass": true
+    },
+    {
+      "name": "Home fits narrow mobile",
+      "pass": true
+    },
+    {
+      "name": "HTTP /schools/?q=培正&plan=flow-a",
+      "pass": true
+    },
+    {
+      "name": "Library follows saved migrant profile",
+      "pass": true
+    },
+    {
+      "name": "Explicit external reference does not substitute household record",
+      "pass": true
+    },
+    {
+      "name": "Manual reference category survives opening a school",
+      "pass": true
+    },
+    {
+      "name": "Detail carries explicit plan and category",
+      "pass": true
+    },
+    {
+      "name": "School history visualization uses existing comparable rows",
+      "pass": true
+    },
+    {
+      "name": "School detail fits mobile",
+      "pass": true
+    },
+    {
+      "name": "Return preserves school search and plan",
+      "pass": true
+    },
+    {
+      "name": "HTTP /plans/",
+      "pass": true
+    },
+    {
+      "name": "Edit and result are separate actions",
+      "pass": true
+    },
+    {
+      "name": "Editing saved evaluated plan opens step 2",
+      "pass": true
+    },
+    {
+      "name": "HTTP /schools/compare/?plan=flow-a",
+      "pass": true
+    },
+    {
+      "name": "Comparison follows profile and includes collected facts",
+      "pass": true
+    },
+    {
+      "name": "Comparison page fits mobile",
+      "pass": true
+    },
+    {
+      "name": "Comparison transfers to existing intention planner",
+      "pass": true
+    },
+    {
+      "name": "Generate still stops at step 2",
+      "pass": true
+    },
+    {
+      "name": "Plan has explicit school chooser and per-batch count",
+      "pass": true
+    },
+    {
+      "name": "Searchable school chooser opens",
+      "pass": true
+    },
+    {
+      "name": "School chooser filters by name",
+      "pass": true
+    },
+    {
+      "name": "School already in another choice is disabled",
+      "pass": true
+    },
+    {
+      "name": "School choice returns to plan without jumping to results",
+      "pass": true
+    },
+    {
+      "name": "Plan fits narrow mobile",
+      "pass": true
+    },
+    {
+      "name": "Full score remains available",
+      "pass": true
+    },
+    {
+      "name": "Result shows one primary concern after score",
+      "pass": true
+    },
+    {
+      "name": "Score is not presented as an admission percentage",
+      "pass": true
+    },
+    {
+      "name": "Outcome graphic uses simulation percentages",
+      "pass": true
+    },
+    {
+      "name": "Assessment has no mobile page overflow",
+      "pass": true
+    },
+    {
+      "name": "Typography retains three intended sizes",
+      "pass": true
+    },
+    {
+      "name": "No page script errors",
+      "pass": true
+    },
+    {
+      "name": "Reviewed 2021 distribution is served",
+      "pass": true
+    }
+  ],
+  "errors": [],
+  "entitlements": "isolated mock; no activation or device use"
+}

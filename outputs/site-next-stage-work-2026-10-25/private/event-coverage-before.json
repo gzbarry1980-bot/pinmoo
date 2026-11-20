@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-10-25T06:54:30.427Z",
+  "recordNote": "Recovered verbatim values from the original audit tool output after an after-release run reused the default before filename. The after-release files have been renamed after; the audit now refuses to overwrite evidence.",
+  "version": { "version": "7458354c1c", "articleCount": 84, "primaryDomain": "https://pinmooconsulting.com" },
+  "expectedPageIds": 151,
+  "serverPageIds": 127,
+  "missingOnServer": [
+    "insights-page-2", "insights-page-3", "insights-page-4", "insights-page-5", "insights-page-6", "insights-page-7",
+    "insights-topic-operations", "insights-topic-products", "insights-topic-review", "insights-topic-content", "insights-topic-ai-geo", "insights-topic-ai-geo-page-2", "insights-topic-decision", "insights-topic-decision-page-2", "insights-topic-decision-page-3", "insights-topic-vertical-food",
+    "insights-pinmoo-quarterly-review-resource-decisions", "insights-pinmoo-diagnosis-data-minimization", "insights-ecommerce-consulting-procurement-brief", "insights-ecommerce-project-acceptance-beyond-gmv", "insights-tmall-jd-same-product-conversion-diagnosis", "insights-traditional-brand-first-ecommerce-channel-products", "insights-product-bundle-contribution-cost-review", "insights-customer-language-to-article-keywords"
+  ],
+  "obsoleteOnServer": []
+}

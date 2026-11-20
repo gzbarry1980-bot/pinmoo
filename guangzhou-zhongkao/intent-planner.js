@@ -1,5 +1,5 @@
 import {latestAdmissionYear,defaultForecastYear} from './policy-context.js';
-import { matchesSchool } from './school-service.js?v=20261018-policy';
+import { matchesSchool } from './school-service.js?v=20261025-flow-r2';
 import { readWorkspace } from './workspace-store.js';
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const storageKey='zk-intent-schools-v1';
@@ -89,5 +89,5 @@ export function installIntentPlanner({dataset,getProfile,generate}){
   const importList=key=>{try{const ids=readWorkspace()[key]||[];ids.filter(id=>schools.some(s=>s.id===id)).forEach(add);q('#intentStatus').textContent=ids.length?'已带入有最新统招记录的学校，请检查选择。':'暂无学校，请先在学校库收藏或加入对比。';}catch{q('#intentStatus').textContent='暂时无法读取本机学校列表。';}};
   q('#intentFavorites').onclick=()=>importList('favorites');q('#intentCompare').onclick=()=>importList('compare');
   q('#generateIntent').onclick=async()=>{if(!selections.length){q('#intentStatus').textContent='请至少选择一所学校。';return;}const b=q('#generateIntent');b.disabled=true;b.textContent='正在比较排序…';q('#intentStatus').textContent='';try{await new Promise(r=>setTimeout(r,30));await generate({selections:[...selections],strategy:q('#intentStrategy').value,allowSupplement:q('#intentSupplement').checked,status:q('#intentStatus')});}catch(error){q('#intentStatus').textContent=error.message;}finally{b.disabled=false;b.textContent='重新生成';}};
-  render();if(new URLSearchParams(location.search).get('start')==='intent'){container.open=true;requestAnimationFrame(()=>container.scrollIntoView({block:'start'}));}
+  render();const entry=new URLSearchParams(location.search);if(entry.get('importSchools')==='compare')importList('compare');if(entry.get('start')==='intent'){container.open=true;requestAnimationFrame(()=>container.scrollIntoView({block:'start'}));}
 }

@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-10-25T07:26:53.451920+00:00",
+  "excludeTestWindowStart": "2026-10-25T07:26:52.380156+00:00",
+  "excludeTestWindowEnd": "2026-10-25T07:26:53.451935+00:00",
+  "testPage": "insights-ecommerce-coaching-pilot-working-methods",
+  "testPlacement": "footer",
+  "normalStatus": 204,
+  "dntStatus": 204,
+  "gpcStatus": 204,
+  "invalidEventStatus": 400,
+  "postStatus": 400,
+  "coverageSamples": {
+    "insights-page-8": 204,
+    "insights-topic-decision-page-3": 204,
+    "insights-cross-channel-assortment-price-comparison": 204,
+    "insights-creator-campaign-refund-settlement-review": 204,
+    "insights-ai-search-inquiry-fit-service-boundaries": 204
+  },
+  "matchingLogRecords": 1,
+  "allowedFieldsOnly": true,
+  "testRecords": [
+    {
+      "time": "2026-10-25T15:26:52+08:00",
+      "event": "page_view",
+      "page": "insights-ecommerce-coaching-pilot-working-methods",
+      "placement": "footer"
+    }
+  ],
+  "testNote": "One synthetic page_view only; exclude this page/placement/time window from business reporting. No real copy, phone or inquiry event is asserted."
+}

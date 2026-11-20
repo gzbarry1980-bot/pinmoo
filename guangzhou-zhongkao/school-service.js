@@ -1,5 +1,6 @@
 // Shared, read-only school index. Missing data is never converted to zero.
 import {latestAdmissionYear} from './policy-context.js';
+import {selectRecord} from './engine.js?v=20261025-flow-r2';
 export const DISTRICTS = ['荔湾区','越秀区','海珠区','天河区','白云区','黄埔区','番禺区','花都区','南沙区','从化区','增城区'];
 export const POPULATIONS = { '户籍生':'户籍生', '随迁子女':'随迁子女', '外区生':'外区生' };
 export const normalize = value => String(value || '').replace(/[\s（）()·]/g,'').toLowerCase();
@@ -28,6 +29,17 @@ export function historyFor(data, id, filters = {}) {
 export function latestRecord(data, id, filters = {}) {
   return historyFor(data,id,filters)[0] || null;
 }
+// Reuse the simulation's category/scope selection for a saved candidate. An
+// explicit comparison category is a reference view, not a qualification claim.
+export function schoolReferenceRows(data,id,filters={},profile=null) {
+  const {candidateType,...rest}=filters;
+  if(candidateType&&candidateType!=='auto')return historyFor(data,id,filters);
+  if(!profile)return historyFor(data,id,{...rest,candidateType:'户籍生'});
+  const rows=historyFor(data,id,rest),groups=new Map();
+  for(const row of rows){const key=`${row.year}|${row.batch}`;if(!groups.has(key))groups.set(key,[]);groups.get(key).push(row);}
+  return [...groups.values()].map(possible=>selectRecord(possible,profile,{batch:possible[0].batch})).filter(Boolean);
+}
+export function schoolReferenceRecord(data,id,filters={},profile=null){return schoolReferenceRows(data,id,filters,profile)[0]||null;}
 export function schoolDistrict(school) {
   const district = school.campusDistrict || school.district;
   return district && !['未核准', '未标明', '全市', '老三区'].includes(district)
@@ -54,8 +66,8 @@ export function filterSchools(data, filters = {}) {
       if(diff) return diff;
     }
     if(filters.sort === 'cutoff') {
-      const av=latestRecord(data,a.id,{year:latestAdmissionYear(data.manifest),batch:filters.batch,candidateType:filters.candidateType})?.cutoffScore;
-      const bv=latestRecord(data,b.id,{year:latestAdmissionYear(data.manifest),batch:filters.batch,candidateType:filters.candidateType})?.cutoffScore;
+      const av=schoolReferenceRecord(data,a.id,{year:latestAdmissionYear(data.manifest),batch:filters.batch,candidateType:filters.candidateType},filters.profile)?.cutoffScore;
+      const bv=schoolReferenceRecord(data,b.id,{year:latestAdmissionYear(data.manifest),batch:filters.batch,candidateType:filters.candidateType},filters.profile)?.cutoffScore;
       if(av!=null || bv!=null) return (bv??-1)-(av??-1);
     }
     return a.name.localeCompare(b.name,'zh');

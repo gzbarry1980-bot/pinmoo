@@ -1,0 +1,14 @@
+{
+  "observedAt": "2026-10-20T09:19:03.378Z",
+  "iab": {
+    "feedback": "已复制微信号，可粘贴到微信。",
+    "clipboardReadMatched": false
+  },
+  "chrome": {
+    "feedback": "已复制微信号，可粘贴到微信。",
+    "clipboardReadMatched": false
+  },
+  "telephoneHref": "tel:13600008584",
+  "phoneDialed": false,
+  "verificationLimit": "Browser Use virtual clipboard had no data to paste; these tool reads do not establish whether the system clipboard contains the webpage write. UI copy promise and feedback succeeded; no application failure inferred."
+}

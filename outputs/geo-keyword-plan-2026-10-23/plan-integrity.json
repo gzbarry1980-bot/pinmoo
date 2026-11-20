@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-24",
+  "counts": {
+    "articles": 24,
+    "keywords": 315,
+    "updates": 12,
+    "existingArticles": 76,
+    "branded": 4,
+    "historicalQuestions": 40,
+    "sourceCounts": {
+      "N": 192,
+      "E": 83,
+      "H": 40
+    },
+    "firstBatch": 8
+  },
+  "checks": {
+    "uniqueArticleTitles": true,
+    "noExactExistingTitle": true,
+    "allArticlesHaveEightTerms": true,
+    "allExistingPageSlugsValid": true,
+    "allKeywordIdsValid": true,
+    "everyKeywordHasDestination": true,
+    "historicalQuestionCount": true,
+    "existingArticleCount": true,
+    "firstBatchEight": true
+  }
+}

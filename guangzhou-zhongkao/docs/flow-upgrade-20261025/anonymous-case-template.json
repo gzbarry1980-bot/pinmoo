@@ -1,0 +1,21 @@
+{
+  "purpose": "validation_only_until_sufficient_representative_cases",
+  "caseId": "匿名样本编号",
+  "year": null,
+  "score": null,
+  "tieRank": null,
+  "candidateType": null,
+  "admissionDistrict": null,
+  "schoolDistrict": null,
+  "crossDistrictApplied": null,
+  "referenceGrades": null,
+  "firstBatchStatus": "unknown",
+  "secondBatchStatus": "unknown",
+  "completePlanKnown": false,
+  "volunteers": [],
+  "volunteerFields": ["batch", "position", "schoolCode", "schoolId", "schoolName", "campus", "planCategory"],
+  "finalResult": {"state": "unknown", "batch": null, "schoolId": null, "schoolName": null, "campus": null},
+  "source": {"kind": null, "url": null, "publishedAt": null, "authorizationConfirmed": false, "privateEvidenceRef": null},
+  "review": {"status": "not_collected", "duplicateOf": null, "missingFields": [], "useInCalibration": false},
+  "requirements": ["包含第三、第四批完整顺序及前批次状态", "不收集姓名、考生号、联系方式、序列号", "必须含未录取案例，不能只选成功个案", "缺完整志愿或结果无法核实时仅用于查线索，不进入概率验证分母"]
+}

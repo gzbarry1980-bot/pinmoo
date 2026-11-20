@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-24",
+  "articles": 24,
+  "keywords": 315,
+  "updates": 12,
+  "sources": 9,
+  "priorities": {
+    "P0": 8,
+    "P1": 11,
+    "P2": 5
+  },
+  "outputPath": "E:\\pinmoo\\outputs\\geo-keyword-plan-2026-10-23\\品沐咨询-GEO新选题与关键词规划-2026-10-24.xlsx",
+  "formulaErrorInspection": "{\"kind\":\"notice\",\"message\":\"Cell search matched 0 entries.\"}"
+}

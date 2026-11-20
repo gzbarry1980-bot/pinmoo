@@ -1,0 +1,60 @@
+{
+  "checkedAt": "2026-10-25T07:28:08.971Z",
+  "results": [
+    {
+      "source": "https://pinmooconsulting.com/zh/services",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/",
+      "expected": "https://pinmooconsulting.com/services/",
+      "finalStatus": 200,
+      "canonicalCorrect": true,
+      "oneHop": true
+    },
+    {
+      "source": "https://pinmooconsulting.com/zh/services?service=page-review&lang=zh",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/services/?service=page-review&lang=zh",
+      "expected": "https://pinmooconsulting.com/services/?service=page-review&lang=zh",
+      "finalStatus": 200,
+      "canonicalCorrect": true,
+      "oneHop": true
+    },
+    {
+      "source": "https://pinmooconsulting.com/zh/cases/womenswear-refund-optimization",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/",
+      "expected": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/",
+      "finalStatus": 200,
+      "canonicalCorrect": true,
+      "oneHop": true
+    },
+    {
+      "source": "https://pinmooconsulting.com/zh/cases/womenswear-refund-optimization?service=page-review&lang=zh",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/?service=page-review&lang=zh",
+      "expected": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/?service=page-review&lang=zh",
+      "finalStatus": 200,
+      "canonicalCorrect": true,
+      "oneHop": true
+    },
+    {
+      "source": "https://pinmooconsulting.com/zh/cases/personal-care-device-positioning",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/personal-care-device-positioning/",
+      "expected": "https://pinmooconsulting.com/cases/personal-care-device-positioning/",
+      "finalStatus": 200,
+      "canonicalCorrect": true,
+      "oneHop": true
+    },
+    {
+      "source": "https://pinmooconsulting.com/zh/cases/personal-care-device-positioning?service=page-review&lang=zh",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/cases/personal-care-device-positioning/?service=page-review&lang=zh",
+      "expected": "https://pinmooconsulting.com/cases/personal-care-device-positioning/?service=page-review&lang=zh",
+      "finalStatus": 200,
+      "canonicalCorrect": true,
+      "oneHop": true
+    }
+  ],
+  "failures": []
+}

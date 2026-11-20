@@ -1,0 +1,155 @@
+server {
+    listen 80;
+    listen [::]:80;
+    server_name admin.pinmooconsulting.com sjmj.pinmooconsulting.com talasa.pinmooconsulting.com agent.pinmooconsulting.com shs-agent.pinmooconsulting.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name admin.pinmooconsulting.com;
+
+    ssl_certificate /etc/letsencrypt/live/pinmooconsulting.com-wildcard/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pinmooconsulting.com-wildcard/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    include /etc/nginx/snippets/pinmoo-security-headers.conf;
+    limit_req zone=pinmoo_site burst=60 nodelay;
+    limit_conn pinmoo_conn 20;
+    auth_basic Pinmoo_Admin;
+    auth_basic_user_file /etc/nginx/.pinmoo_admin_htpasswd;
+
+    root /opt/pimu_task_loop/netlify_publish/admin/public;
+    index index.html;
+
+    location /api/ {
+        limit_req zone=pinmoo_api burst=20 nodelay;
+        proxy_connect_timeout 5s;
+        proxy_send_timeout 30s;
+        proxy_read_timeout 30s;
+        proxy_pass http://127.0.0.1:8000/api/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location / { try_files $uri $uri/ /index.html; }
+}
+
+server {
+    listen 443 ssl http2;
+    server_name sjmj.pinmooconsulting.com;
+
+    ssl_certificate /etc/letsencrypt/live/pinmooconsulting.com-wildcard/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pinmooconsulting.com-wildcard/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    include /etc/nginx/snippets/pinmoo-security-headers.conf;
+    limit_req zone=pinmoo_site burst=60 nodelay;
+    limit_conn pinmoo_conn 20;
+    auth_basic Pinmoo_SJMJ;
+    auth_basic_user_file /etc/nginx/.pinmoo_sjmj_htpasswd;
+
+    root /opt/pimu_task_loop/netlify_publish/smj/public;
+    index index.html;
+
+    location /api/ {
+        limit_req zone=pinmoo_api burst=20 nodelay;
+        proxy_connect_timeout 5s;
+        proxy_send_timeout 30s;
+        proxy_read_timeout 30s;
+        proxy_pass http://127.0.0.1:8000/api/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location / { try_files $uri $uri/ /index.html; }
+}
+
+server {
+    listen 443 ssl http2;
+    server_name talasa.pinmooconsulting.com;
+
+    ssl_certificate /etc/letsencrypt/live/pinmooconsulting.com-wildcard/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pinmooconsulting.com-wildcard/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    include /etc/nginx/snippets/pinmoo-security-headers.conf;
+    limit_req zone=pinmoo_site burst=60 nodelay;
+    limit_conn pinmoo_conn 20;
+    auth_basic Pinmoo_TALASA;
+    auth_basic_user_file /etc/nginx/.pinmoo_talasa_htpasswd;
+
+    root /opt/pimu_task_loop/netlify_publish/talasa/public;
+    index index.html;
+
+    location /api/ {
+        limit_req zone=pinmoo_api burst=20 nodelay;
+        proxy_connect_timeout 5s;
+        proxy_send_timeout 30s;
+        proxy_read_timeout 30s;
+        proxy_pass http://127.0.0.1:8000/api/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location / { try_files $uri $uri/ /index.html; }
+}
+
+server {
+    listen 443 ssl http2;
+    server_name agent.pinmooconsulting.com;
+
+    ssl_certificate /etc/letsencrypt/live/pinmooconsulting.com-wildcard/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pinmooconsulting.com-wildcard/privkey.pem;
+
+    root /var/www/pinmoo.top/dist/agent;
+    index index.html;
+
+    include /etc/nginx/snippets/pinmoo-security-headers.conf;
+    include /etc/nginx/snippets/pinmoo-server-protection.conf;
+
+    error_page 404 /404.html;
+    location = /404.html { internal; }
+    location / {
+        try_files $uri $uri/ =404;
+        limit_except GET { deny all; }
+    }
+    location ~ /\. { deny all; }
+    location ~* \.(?:bak|conf|ini|log|old|sql|swp|tmp)$ { deny all; }
+}
+
+server {
+    listen 443 ssl http2;
+    server_name shs-agent.pinmooconsulting.com;
+
+    ssl_certificate /etc/letsencrypt/live/pinmooconsulting.com-wildcard/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/pinmooconsulting.com-wildcard/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    root /var/www/zhizhi-demo;
+    index index.html;
+
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'self'" always;
+
+    location / { try_files $uri $uri/ /index.html; }
+    location ~* \.(?:js|css|png|jpg|jpeg|svg|webp|ico)$ {
+        expires 1h;
+        add_header Cache-Control "public, max-age=3600";
+        try_files $uri =404;
+    }
+    location ~ /\. { deny all; }
+}

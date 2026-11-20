@@ -1,0 +1,1523 @@
+{
+  "reportUpdated": "2026-10-16",
+  "checkedAt": "2026-10-24T12:24:17.783Z",
+  "results": [
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/insights/ecommerce-product-structure-review/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/ecommerce-product-structure-review/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/ecommerce-product-structure-review/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/ecommerce-product-structure-review/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/ecommerce-product-structure-review/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/services/page-conversion-optimization/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/page-conversion-optimization/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/page-conversion-optimization/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/page-conversion-optimization/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/page-conversion-optimization/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/services",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/tmall-business-weekly-report/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/tmall-business-weekly-report/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/tmall-business-weekly-report/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/insights/store-diagnosis-vs-coaching-vs-project-optimization/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/store-diagnosis-vs-coaching-vs-project-optimization/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/store-diagnosis-vs-coaching-vs-project-optimization/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/store-diagnosis-vs-coaching-vs-project-optimization/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/store-diagnosis-vs-coaching-vs-project-optimization/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/insights/business-advisor-data-diagnosis-checklist/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/business-advisor-data-diagnosis-checklist/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/business-advisor-data-diagnosis-checklist/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/business-advisor-data-diagnosis-checklist/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/business-advisor-data-diagnosis-checklist/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/contact/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/contact/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/contact/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/contact/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/contact/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/services/ecommerce-diagnosis/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/ecommerce-diagnosis/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/ecommerce-diagnosis/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/ecommerce-diagnosis/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/ecommerce-diagnosis/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/cases/womenswear-refund-optimization/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/cases/womenswear-refund-optimization/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/cases/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/cases/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/cases/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/cases/womenswear-refund-optimization",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/cases/womenswear-refund-optimization",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/womenswear-refund-optimization"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/womenswear-refund-optimization",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/services/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/insights/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/services/brand-growth-consultant/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/brand-growth-consultant/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/brand-growth-consultant/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/brand-growth-consultant/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/brand-growth-consultant/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/insights/ecommerce-weekly-report-review-framework/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/ecommerce-weekly-report-review-framework/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/ecommerce-weekly-report-review-framework/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/ecommerce-weekly-report-review-framework/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/ecommerce-weekly-report-review-framework/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/services/ecommerce-roi-review/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/ecommerce-roi-review/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/ecommerce-roi-review/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/ecommerce-roi-review/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/ecommerce-roi-review/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/about/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/about/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/about/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/about/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/about/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/services/douyin-xiaohongshu-growth/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/douyin-xiaohongshu-growth/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/services/business-advisor-data-diagnosis/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/business-advisor-data-diagnosis/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/business-advisor-data-diagnosis/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/business-advisor-data-diagnosis/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/business-advisor-data-diagnosis/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/cases/children-nutrition-compliance/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/cases/children-nutrition-compliance/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/children-nutrition-compliance/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/children-nutrition-compliance/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/cases/children-nutrition-compliance/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/insights/store-traffic-no-conversion-diagnosis/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/store-traffic-no-conversion-diagnosis/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/store-traffic-no-conversion-diagnosis/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/store-traffic-no-conversion-diagnosis/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/store-traffic-no-conversion-diagnosis/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/insights/ai-ecommerce-weekly-report-vs-manual-report/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/ai-ecommerce-weekly-report-vs-manual-report/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/ai-ecommerce-weekly-report-vs-manual-report/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/ai-ecommerce-weekly-report-vs-manual-report/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/ai-ecommerce-weekly-report-vs-manual-report/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/cases/personal-care-device-positioning/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/cases/personal-care-device-positioning/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/personal-care-device-positioning/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/personal-care-device-positioning/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/cases/personal-care-device-positioning/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/en/cases/personal-care-device-positioning",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/en/cases/personal-care-device-positioning",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/en/cases/personal-care-device-positioning/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/en/cases/personal-care-device-positioning/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/en/cases/personal-care-device-positioning/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/services",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/services",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/cases/personal-care-device-positioning",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/cases/personal-care-device-positioning",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/personal-care-device-positioning/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/personal-care-device-positioning/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/cases/personal-care-device-positioning/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/en/services",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/en/services",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/en/services/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/en/services/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/en/services/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/resources/ecommerce-metrics-dictionary/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/resources/ecommerce-metrics-dictionary/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/resources/ecommerce-metrics-dictionary/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/resources/ecommerce-metrics-dictionary/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/resources/ecommerce-metrics-dictionary/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/zh/cases/tea-brand-platform-synergy/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/cases/tea-brand-platform-synergy/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/tea-brand-platform-synergy/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/tea-brand-platform-synergy/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/cases/tea-brand-platform-synergy/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/zh/services/store-diagnosis/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/store-diagnosis/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/store-diagnosis/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/store-diagnosis/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/store-diagnosis/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/zh/services/tmall-jd-consultant/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/tmall-jd-consultant/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/tmall-jd-consultant/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/tmall-jd-consultant/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/tmall-jd-consultant/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/cases/children-nutrition-compliance",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/cases/children-nutrition-compliance",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/children-nutrition-compliance/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/children-nutrition-compliance/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/cases/children-nutrition-compliance/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/zh/insights/how-to-evaluate-ecommerce-consultant/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/how-to-evaluate-ecommerce-consultant/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/how-to-evaluate-ecommerce-consultant/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/how-to-evaluate-ecommerce-consultant/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/how-to-evaluate-ecommerce-consultant/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/zh/insights/geo-roi-attribution-for-ecommerce-brands/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/geo-roi-attribution-for-ecommerce-brands/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/geo-roi-attribution-for-ecommerce-brands/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/geo-roi-attribution-for-ecommerce-brands/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/geo-roi-attribution-for-ecommerce-brands/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/en/cases/children-nutrition-compliance",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/en/cases/children-nutrition-compliance",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/en/cases/children-nutrition-compliance/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/en/cases/children-nutrition-compliance/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/en/cases/children-nutrition-compliance/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/cases/womenswear-refund-optimization",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/cases/womenswear-refund-optimization",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/cases/womenswear-refund-optimization/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/zh/insights/when-ecommerce-consulting-is-not-a-fit/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/when-ecommerce-consulting-is-not-a-fit/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/when-ecommerce-consulting-is-not-a-fit/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/when-ecommerce-consulting-is-not-a-fit/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/when-ecommerce-consulting-is-not-a-fit/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/zh/services/livestream-conversion-diagnosis/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/livestream-conversion-diagnosis/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/livestream-conversion-diagnosis/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/livestream-conversion-diagnosis/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/livestream-conversion-diagnosis/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/zh/insights/ecommerce-member-repurchase-diagnosis/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/ecommerce-member-repurchase-diagnosis/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/ecommerce-member-repurchase-diagnosis/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/ecommerce-member-repurchase-diagnosis/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/ecommerce-member-repurchase-diagnosis/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "未找到 (404)",
+      "url": "https://pinmooconsulting.com/zh/services/customer-service-conversion-scripts/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/customer-service-conversion-scripts/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/customer-service-conversion-scripts/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/customer-service-conversion-scripts/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/customer-service-conversion-scripts/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/zh/services/member-repurchase-private-domain/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/member-repurchase-private-domain/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/member-repurchase-private-domain/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/member-repurchase-private-domain/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/member-repurchase-private-domain/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/about",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/about",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/about/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/about/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/about/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/zh/services/tmall-refund-rate-analysis/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/tmall-refund-rate-analysis/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/tmall-refund-rate-analysis/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/tmall-refund-rate-analysis/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/services/tmall-refund-rate-analysis/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/zh/cases/traditional-enterprise-ecommerce-launch/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/cases/traditional-enterprise-ecommerce-launch/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/traditional-enterprise-ecommerce-launch/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/traditional-enterprise-ecommerce-launch/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/cases/traditional-enterprise-ecommerce-launch/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/en/cases/consumer-goods-membership-growth",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/en/cases/consumer-goods-membership-growth",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/en/cases/consumer-goods-membership-growth/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/en/cases/consumer-goods-membership-growth/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/en/cases/consumer-goods-membership-growth/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/cases/wine-store-diagnosis",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/cases/wine-store-diagnosis",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/wine-store-diagnosis/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/wine-store-diagnosis/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/cases/wine-store-diagnosis/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "备用网页（有适当的规范标记）",
+      "url": "https://pinmooconsulting.com/en/contact/?service=geo-report",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/en/contact/?service=geo-report",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/en/contact/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/en/cases/wine-store-diagnosis",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/en/cases/wine-store-diagnosis",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/en/cases/wine-store-diagnosis/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/en/cases/wine-store-diagnosis/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/en/cases/wine-store-diagnosis/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "备用网页（有适当的规范标记）",
+      "url": "https://pinmooconsulting.com/en/contact/?service=China",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/en/contact/?service=China",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/en/contact/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "备用网页（有适当的规范标记）",
+      "url": "https://pinmooconsulting.com/contact/?service=会员复购与私域运营诊断",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/contact/?service=会员复购与私域运营诊断",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/contact/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "备用网页（有适当的规范标记）",
+      "url": "https://pinmooconsulting.com/contact/?service=geo-report",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/contact/?service=geo-report",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/contact/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "备用网页（有适当的规范标记）",
+      "url": "https://pinmooconsulting.com/contact/?service=AI电商增长顾问",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/contact/?service=AI电商增长顾问",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/contact/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/zh/insights/ecommerce-refund-governance-playbook/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/ecommerce-refund-governance-playbook/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/ecommerce-refund-governance-playbook/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/ecommerce-refund-governance-playbook/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/ecommerce-refund-governance-playbook/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "备用网页（有适当的规范标记）",
+      "url": "https://pinmooconsulting.com/contact/?service=新会陈皮电商顾问：把产地信任、产品选择与内容承接讲清楚",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/contact/?service=新会陈皮电商顾问：把产地信任、产品选择与内容承接讲清楚",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/contact/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "备用网页（有适当的规范标记）",
+      "url": "https://pinmooconsulting.com/contact/?service=China",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/contact/?service=China",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/contact/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "备用网页（有适当的规范标记）",
+      "url": "https://pinmooconsulting.com/contact/?service=GEO",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/contact/?service=GEO",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/contact/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "网页会自动重定向",
+      "url": "https://pinmooconsulting.com/zh/cases/personal-care-device-positioning",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/cases/personal-care-device-positioning",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/personal-care-device-positioning"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/personal-care-device-positioning",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/personal-care-device-positioning/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/personal-care-device-positioning/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/cases/personal-care-device-positioning/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "重复网页，Google 选择的规范网页与用户指定的不同",
+      "url": "https://pinmooconsulting.com/zh/insights/livestream-viewers-no-orders-diagnosis/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/livestream-viewers-no-orders-diagnosis/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/livestream-viewers-no-orders-diagnosis/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/livestream-viewers-no-orders-diagnosis/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/livestream-viewers-no-orders-diagnosis/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "重复网页，Google 选择的规范网页与用户指定的不同",
+      "url": "https://pinmooconsulting.com/zh/insights/paid-traffic-roi-quality-review/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/paid-traffic-roi-quality-review/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/paid-traffic-roi-quality-review/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/paid-traffic-roi-quality-review/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/zh/insights/paid-traffic-roi-quality-review/",
+            "status": 301,
+            "location": "https://pinmooconsulting.com/insights/paid-traffic-roi-quality-review/"
+          },
+          {
+            "url": "https://pinmooconsulting.com/insights/paid-traffic-roi-quality-review/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      },
+      "canonical": "https://pinmooconsulting.com/insights/paid-traffic-roi-quality-review/"
+    },
+    {
+      "reason": "重复网页，Google 选择的规范网页与用户指定的不同",
+      "url": "https://pinmooconsulting.com/zh/cases/wine-store-diagnosis/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/cases/wine-store-diagnosis/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/wine-store-diagnosis/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/wine-store-diagnosis/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/zh/cases/wine-store-diagnosis/",
+            "status": 301,
+            "location": "https://pinmooconsulting.com/cases/wine-store-diagnosis/"
+          },
+          {
+            "url": "https://pinmooconsulting.com/cases/wine-store-diagnosis/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      },
+      "canonical": "https://pinmooconsulting.com/cases/wine-store-diagnosis/"
+    },
+    {
+      "reason": "重复网页，Google 选择的规范网页与用户指定的不同",
+      "url": "https://pinmooconsulting.com/zh/cases/camping-local-life-operation/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/cases/camping-local-life-operation/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/camping-local-life-operation/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/camping-local-life-operation/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/cases/camping-local-life-operation/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "重复网页，Google 选择的规范网页与用户指定的不同",
+      "url": "https://pinmooconsulting.com/zh/cases/consumer-goods-membership-growth/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/cases/consumer-goods-membership-growth/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/cases/consumer-goods-membership-growth/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/cases/consumer-goods-membership-growth/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/zh/cases/consumer-goods-membership-growth/",
+            "status": 301,
+            "location": "https://pinmooconsulting.com/cases/consumer-goods-membership-growth/"
+          },
+          {
+            "url": "https://pinmooconsulting.com/cases/consumer-goods-membership-growth/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      },
+      "canonical": "https://pinmooconsulting.com/cases/consumer-goods-membership-growth/"
+    },
+    {
+      "reason": "重复网页，Google 选择的规范网页与用户指定的不同",
+      "url": "https://pinmooconsulting.com/zh/services/ai-ecommerce-growth-consultant/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/services/ai-ecommerce-growth-consultant/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/services/ai-ecommerce-growth-consultant/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/services/ai-ecommerce-growth-consultant/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/zh/services/ai-ecommerce-growth-consultant/",
+            "status": 301,
+            "location": "https://pinmooconsulting.com/services/ai-ecommerce-growth-consultant/"
+          },
+          {
+            "url": "https://pinmooconsulting.com/services/ai-ecommerce-growth-consultant/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      },
+      "canonical": "https://pinmooconsulting.com/services/ai-ecommerce-growth-consultant/"
+    },
+    {
+      "reason": "重复网页，Google 选择的规范网页与用户指定的不同",
+      "url": "https://pinmooconsulting.com/zh/insights/ecommerce-consulting-pricing-factors/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/ecommerce-consulting-pricing-factors/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/ecommerce-consulting-pricing-factors/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-pricing-factors/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/zh/insights/ecommerce-consulting-pricing-factors/",
+            "status": 301,
+            "location": "https://pinmooconsulting.com/insights/ecommerce-consulting-pricing-factors/"
+          },
+          {
+            "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-pricing-factors/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      },
+      "canonical": "https://pinmooconsulting.com/insights/ecommerce-consulting-pricing-factors/"
+    },
+    {
+      "reason": "重复网页，Google 选择的规范网页与用户指定的不同",
+      "url": "https://pinmooconsulting.com/zh/insights/ecommerce-customer-service-conversion-review/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/ecommerce-customer-service-conversion-review/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/ecommerce-customer-service-conversion-review/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/ecommerce-customer-service-conversion-review/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/zh/insights/ecommerce-customer-service-conversion-review/",
+            "status": 301,
+            "location": "https://pinmooconsulting.com/insights/ecommerce-customer-service-conversion-review/"
+          },
+          {
+            "url": "https://pinmooconsulting.com/insights/ecommerce-customer-service-conversion-review/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      },
+      "canonical": "https://pinmooconsulting.com/insights/ecommerce-customer-service-conversion-review/"
+    },
+    {
+      "reason": "备用网页（有适当的规范标记）",
+      "url": "https://pinmooconsulting.com/zh/contact/?service=会员复购与私域运营诊断",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/contact/?service=会员复购与私域运营诊断",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/contact/?service=%E4%BC%9A%E5%91%98%E5%A4%8D%E8%B4%AD%E4%B8%8E%E7%A7%81%E5%9F%9F%E8%BF%90%E8%90%A5%E8%AF%8A%E6%96%AD"
+        },
+        {
+          "url": "https://pinmooconsulting.com/contact/?service=%E4%BC%9A%E5%91%98%E5%A4%8D%E8%B4%AD%E4%B8%8E%E7%A7%81%E5%9F%9F%E8%BF%90%E8%90%A5%E8%AF%8A%E6%96%AD",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/contact/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "已发现 - 尚未编入索引",
+      "url": "https://pinmooconsulting.com/en/cases/camping-local-life-operation/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/en/cases/camping-local-life-operation/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/en/cases/camping-local-life-operation/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      },
+      "canonical": "https://pinmooconsulting.com/en/cases/camping-local-life-operation/"
+    },
+    {
+      "reason": "已发现 - 尚未编入索引",
+      "url": "https://pinmooconsulting.com/en/cases/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/en/cases/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/en/cases/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      },
+      "canonical": "https://pinmooconsulting.com/en/cases/"
+    },
+    {
+      "reason": "已发现 - 尚未编入索引",
+      "url": "https://pinmooconsulting.com/en/cases/womenswear-refund-optimization/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/en/cases/womenswear-refund-optimization/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/en/cases/womenswear-refund-optimization/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      },
+      "canonical": "https://pinmooconsulting.com/en/cases/womenswear-refund-optimization/"
+    },
+    {
+      "reason": "已发现 - 尚未编入索引",
+      "url": "https://pinmooconsulting.com/resources/ecommerce-metrics-dictionary/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/resources/ecommerce-metrics-dictionary/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/resources/ecommerce-metrics-dictionary/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      },
+      "canonical": "https://pinmooconsulting.com/resources/ecommerce-metrics-dictionary/"
+    },
+    {
+      "reason": "已发现 - 尚未编入索引",
+      "url": "https://pinmooconsulting.com/en/cases/traditional-enterprise-ecommerce-launch/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/en/cases/traditional-enterprise-ecommerce-launch/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/en/cases/traditional-enterprise-ecommerce-launch/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "已发现 - 尚未编入索引",
+      "url": "https://pinmooconsulting.com/services/brand-growth-consultant/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/services/brand-growth-consultant/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/services/brand-growth-consultant/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      },
+      "canonical": "https://pinmooconsulting.com/services/brand-growth-consultant/"
+    },
+    {
+      "reason": "已发现 - 尚未编入索引",
+      "url": "https://pinmooconsulting.com/services/tea-ecommerce-consultant/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/services/tea-ecommerce-consultant/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/services/tea-ecommerce-consultant/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      },
+      "canonical": "https://pinmooconsulting.com/services/tea-ecommerce-consultant/"
+    },
+    {
+      "reason": "已抓取 - 尚未编入索引",
+      "url": "https://pinmooconsulting.com/llms-full.txt",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/llms-full.txt",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/llms-full.txt",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      }
+    },
+    {
+      "reason": "重复网页，Google 选择的规范网页与用户指定的不同",
+      "url": "https://pinmooconsulting.com/zh/insights/anonymous-ecommerce-case-study-evidence/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/zh/insights/anonymous-ecommerce-case-study-evidence/",
+          "status": 301,
+          "location": "https://pinmooconsulting.com/insights/anonymous-ecommerce-case-study-evidence/"
+        },
+        {
+          "url": "https://pinmooconsulting.com/insights/anonymous-ecommerce-case-study-evidence/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/insights/anonymous-ecommerce-case-study-evidence/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "备用网页（有适当的规范标记）",
+      "url": "https://pinmooconsulting.com/contact/?service=主图详情页转化优化",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/contact/?service=主图详情页转化优化",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "canonical": "https://pinmooconsulting.com/contact/",
+      "finalStatus": 200
+    },
+    {
+      "reason": "已发现 - 尚未编入索引",
+      "url": "https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/",
+      "chain": [
+        {
+          "url": "https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/",
+          "status": 200,
+          "location": null
+        }
+      ],
+      "finalStatus": 200,
+      "initialAttempt": {
+        "chain": [
+          {
+            "url": "https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/",
+            "status": 200,
+            "location": null
+          }
+        ],
+        "finalStatus": 429
+      },
+      "canonical": "https://pinmooconsulting.com/services/douyin-xiaohongshu-growth/"
+    }
+  ],
+  "recheckedAt": "2026-10-24T12:26:29.655Z"
+}

@@ -1,0 +1,15 @@
+/var/log/pinmoo-events/events.log {
+    daily
+    rotate 29
+    maxage 30
+    missingok
+    notifempty
+    compress
+    delaycompress
+    dateext
+    create 0640 www-data adm
+    sharedscripts
+    postrotate
+        if [ -f /run/nginx.pid ]; then kill -USR1 "$(cat /run/nginx.pid)"; fi
+    endscript
+}

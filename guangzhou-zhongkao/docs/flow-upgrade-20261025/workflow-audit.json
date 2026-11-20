@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-10-25",
+  "method": "read_only_GitHub_connected_API",
+  "latestScheduledRun": {
+    "id": 40135585629,
+    "url": "https://github.com/gzbarry1980-bot/pinmoo/actions/runs/40135585629",
+    "jobId": 120996299896,
+    "conclusion": "success",
+    "fetch": "skipped",
+    "build": "skipped",
+    "release": "skipped",
+    "deploy": "skipped"
+  },
+  "latestObservedActualDataAttempt": {
+    "id": 39880224295,
+    "url": "https://github.com/gzbarry1980-bot/pinmoo/actions/runs/39880224295",
+    "jobId": 120175557864,
+    "conclusion": "failure",
+    "failedStep": "Fetch and validate official data",
+    "error": "2025.batch2 count drift 4486 -> 5496 (23%) rejected by 15% gate",
+    "build": "skipped",
+    "deploy": "skipped",
+    "resolution": "pending independent PDF row and campus review; gate not bypassed"
+  },
+  "remoteWorkflowChanged": false,
+  "workflowRerunTriggered": false,
+  "localReviewedBandGuardTested": true,
+  "localChangesCommittedOrPushed": false
+}

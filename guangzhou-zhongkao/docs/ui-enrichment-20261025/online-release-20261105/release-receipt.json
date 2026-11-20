@@ -1,0 +1,45 @@
+{
+  "status": "deployed",
+  "version": "ui-20261105-campus-r1",
+  "previous": "/var/www/zhongkao.pinmoo.top/releases/ui-20261025-flow-and-history-r3",
+  "current": "/var/www/zhongkao.pinmoo.top/releases/ui-20261105-campus-r1",
+  "verifiedUIFiles": 31,
+  "protectedFiles": 94,
+  "removedPublicArtifacts": [],
+  "accessConfigUnchanged": true,
+  "health": [
+    {
+      "route": "/",
+      "bytes": 4575
+    },
+    {
+      "route": "/verify/",
+      "bytes": 20639
+    },
+    {
+      "route": "/schools/",
+      "bytes": 833
+    },
+    {
+      "route": "/special/?mode=talent",
+      "bytes": 15364
+    },
+    {
+      "route": "/special/?mode=autonomous",
+      "bytes": 15364
+    },
+    {
+      "route": "/quota/",
+      "bytes": 2480
+    },
+    {
+      "route": "/my/",
+      "bytes": 847
+    },
+    {
+      "route": "/unlock/",
+      "bytes": 7875
+    }
+  ],
+  "published_at": "2026-11-05T10:56:50.424875+08:00"
+}

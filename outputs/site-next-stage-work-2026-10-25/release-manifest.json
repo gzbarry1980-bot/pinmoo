@@ -1,0 +1,12 @@
+{
+  "preparedAt": "2026-10-25T07:23:39.755Z",
+  "build": {
+    "version": "6a64630a41",
+    "builtAt": "2026-10-25T07:18:37.126Z",
+    "articleCount": 88,
+    "primaryDomain": "https://pinmooconsulting.com"
+  },
+  "packageHash": "e05af87413e721bf0e98d31aad84f5f6ceab4fe7637ad0105ced4c262586d789",
+  "previousConfigHash": "c227f3721e0d457b871870d82c22cf53be1933989b00e075cb28054c402e9e07",
+  "targetConfigHash": "3f626f59bc9a462dd8fce848916e6f3974b77facf9971a7dd1da8b32c2f60835"
+}

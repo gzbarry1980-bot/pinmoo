@@ -1,0 +1,116 @@
+{
+  "checkedAt": "2026-10-23T00:56:21.534Z",
+  "siteVersion": "0de6e8ca8c",
+  "conditions": "Mobile Lighthouse simulated throttling; three valid runs per route. Laboratory data, not field INP.",
+  "excludedRuns": [
+    {
+      "file": "after-20261023--services--0.lighthouse.json",
+      "reason": "NO_NAVSTART"
+    }
+  ],
+  "before": [
+    {
+      "route": "/",
+      "validRuns": 3,
+      "files": [
+        "published-20261023---0.lighthouse.json",
+        "published-20261023---1.lighthouse.json",
+        "published-20261023---2.lighthouse.json"
+      ],
+      "performance": 99,
+      "accessibility": 100,
+      "seo": 100,
+      "lcpMs": 1902,
+      "tbtMs": 27,
+      "cls": 0
+    },
+    {
+      "route": "/services/",
+      "validRuns": 3,
+      "files": [
+        "published-20261023--services--0.lighthouse.json",
+        "published-20261023--services--1.lighthouse.json",
+        "published-20261023--services--2.lighthouse.json"
+      ],
+      "performance": 100,
+      "accessibility": 100,
+      "seo": 100,
+      "lcpMs": 1515,
+      "tbtMs": 14,
+      "cls": 0
+    },
+    {
+      "route": "/contact/",
+      "validRuns": 3,
+      "files": [
+        "published-20261023--contact--0.lighthouse.json",
+        "published-20261023--contact--1.lighthouse.json",
+        "published-20261023--contact--2.lighthouse.json"
+      ],
+      "performance": 100,
+      "accessibility": 100,
+      "seo": 100,
+      "lcpMs": 1513,
+      "tbtMs": 0,
+      "cls": 0
+    }
+  ],
+  "after": [
+    {
+      "route": "/",
+      "validRuns": 3,
+      "files": [
+        "after-20261023---0.lighthouse.json",
+        "after-20261023---1.lighthouse.json",
+        "after-20261023---2.lighthouse.json"
+      ],
+      "performance": 100,
+      "accessibility": 100,
+      "seo": 100,
+      "lcpMs": 1536,
+      "tbtMs": 0,
+      "cls": 0
+    },
+    {
+      "route": "/services/",
+      "validRuns": 3,
+      "files": [
+        "after-20261023--services--0.lighthouse.json",
+        "after-20261023--services--1.lighthouse.json",
+        "after-20261023--services--2.lighthouse.json",
+        "service-replacement.lighthouse.json"
+      ],
+      "performance": 100,
+      "accessibility": 100,
+      "seo": 100,
+      "lcpMs": 1518,
+      "tbtMs": 24,
+      "cls": 0
+    },
+    {
+      "route": "/contact/",
+      "validRuns": 3,
+      "files": [
+        "after-20261023--contact--0.lighthouse.json",
+        "after-20261023--contact--1.lighthouse.json",
+        "after-20261023--contact--2.lighthouse.json"
+      ],
+      "performance": 100,
+      "accessibility": 100,
+      "seo": 100,
+      "lcpMs": 1518,
+      "tbtMs": 0,
+      "cls": 0
+    }
+  ],
+  "fieldData": {
+    "status": "INSUFFICIENT_DATA",
+    "source": "https://pagespeed.web.dev/analysis/https-pinmooconsulting-com/fjvvw6hikc?form_factor=mobile",
+    "observation": "PSI mobile real-user section showed no data on 2026-10-23. Its single lab result belongs to pre-fix version 4e56d1ac2a."
+  },
+  "imageAudit": {
+    "imageAspectRatio": "PASSED",
+    "bestPractices": 100,
+    "runs": 1
+  }
+}

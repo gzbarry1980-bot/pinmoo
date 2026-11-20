@@ -1,13 +1,13 @@
-import { BATCH_LIMITS, evaluatePlan, replayPlan, schoolFamilyKey, simulateOutcomes } from './engine.js?v=20261018-policy';
-import { simulateOutcomesRealistic } from './realistic-sim.js?v=20261018-policy';
+import { BATCH_LIMITS, evaluatePlan, replayPlan, schoolFamilyKey, simulateOutcomes } from './engine.js?v=20261025-flow-r2';
+import { simulateOutcomesRealistic } from './realistic-sim.js?v=20261025-flow-r2';
 import {latestAdmissionYear,defaultForecastYear,policyContext,MODEL_VERSION} from './policy-context.js';
 import { readWorkspace, updateWorkspace, savePlan, activatePlan, parseAnonymousPlan } from './workspace-store.js';
-import { matchesSchool, schoolURL } from './school-service.js?v=20261018-policy';
+import { matchesSchool, schoolURL } from './school-service.js?v=20261025-flow-r2';
 import {confidenceCopy,plainCopy,simplifyVisibleCopy,readingGuideHTML} from './parent-copy.js?v=20261018-policy';
-import {installRegionControls,applyRegionControls,readRegionControls,regionSummary,preferredRegions,matchesRegion,prioritizeRegions,regionValidation} from './region-preference.js';
+import {installRegionControls,applyRegionControls,readRegionControls,regionSummary,preferredRegions,matchesRegion,prioritizeRegions,regionValidation} from './region-preference.js?v=20261025-flow-r2';
 import {prepareUnifiedWorkspace} from './workflow-ui.js?v=20261013-school';
-import {buildIntentDraft,installIntentPlanner} from './intent-planner.js?v=20261018-policy';
-import {renderPlanPreview,renderDecisionSummary,primaryOutcome,decisionRisks,confirmAdjustment} from './decision-experience.js?v=20261018-policy';
+import {buildIntentDraft,installIntentPlanner} from './intent-planner.js?v=20261025-flow-r2';
+import {renderPlanPreview,renderDecisionSummary,primaryOutcome,decisionRisks,confirmAdjustment} from './decision-experience.js?v=20261025-flow-r2';
 
 const DISCLAIMER = '本系统依据公开招生政策及历史数据进行模拟分析，所示评分、录取机会和学校建议均为统计估计，不代表官方录取结果或任何录取承诺。招生政策、计划、报考范围、成绩分布和志愿竞争每年可能变化，请以当年广州市教育局、广州市招生考试委员会办公室及中考服务平台最终公布的信息为准。名额分配、随迁子女、跨区及其他资格请向学校或招考部门核实。志愿选择由考生及监护人自行决定。本系统仅供参考。';
 

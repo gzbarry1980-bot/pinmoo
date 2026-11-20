@@ -1,5 +1,257 @@
 [
   {
+    "year": 2021,
+    "score": 750,
+    "cumulative": 240,
+    "cumulativeRatio": 0.0027,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 740,
+    "cumulative": 775,
+    "cumulativeRatio": 0.0086,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 730,
+    "cumulative": 1779,
+    "cumulativeRatio": 0.0196,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 720,
+    "cumulative": 3276,
+    "cumulativeRatio": 0.0362,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 710,
+    "cumulative": 5431,
+    "cumulativeRatio": 0.06,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 700,
+    "cumulative": 8029,
+    "cumulativeRatio": 0.08869999999999999,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 690,
+    "cumulative": 10959,
+    "cumulativeRatio": 0.121,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 680,
+    "cumulative": 14190,
+    "cumulativeRatio": 0.1567,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 670,
+    "cumulative": 17534,
+    "cumulativeRatio": 0.1937,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 660,
+    "cumulative": 21031,
+    "cumulativeRatio": 0.2323,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 650,
+    "cumulative": 24624,
+    "cumulativeRatio": 0.272,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 640,
+    "cumulative": 28142,
+    "cumulativeRatio": 0.31079999999999997,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 630,
+    "cumulative": 31684,
+    "cumulativeRatio": 0.34990000000000004,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 620,
+    "cumulative": 35071,
+    "cumulativeRatio": 0.3873,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 610,
+    "cumulative": 38442,
+    "cumulativeRatio": 0.42460000000000003,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 600,
+    "cumulative": 41709,
+    "cumulativeRatio": 0.4606,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 590,
+    "cumulative": 44909,
+    "cumulativeRatio": 0.496,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 580,
+    "cumulative": 47943,
+    "cumulativeRatio": 0.5295000000000001,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 570,
+    "cumulative": 50876,
+    "cumulativeRatio": 0.5619,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 560,
+    "cumulative": 53658,
+    "cumulativeRatio": 0.5926,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 550,
+    "cumulative": 56291,
+    "cumulativeRatio": 0.6217,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 540,
+    "cumulative": 58911,
+    "cumulativeRatio": 0.6506000000000001,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 530,
+    "cumulative": 61256,
+    "cumulativeRatio": 0.6765000000000001,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 520,
+    "cumulative": 63493,
+    "cumulativeRatio": 0.7012,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 510,
+    "cumulative": 65601,
+    "cumulativeRatio": 0.7245,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 500,
+    "cumulative": 67555,
+    "cumulativeRatio": 0.7461,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 490,
+    "cumulative": 69380,
+    "cumulativeRatio": 0.7663,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 480,
+    "cumulative": 71112,
+    "cumulativeRatio": 0.7854000000000001,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 470,
+    "cumulative": 72684,
+    "cumulativeRatio": 0.8027,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 460,
+    "cumulative": 74138,
+    "cumulativeRatio": 0.8188,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 450,
+    "cumulative": 75465,
+    "cumulativeRatio": 0.8334999999999999,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 440,
+    "cumulative": 76690,
+    "cumulativeRatio": 0.847,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 430,
+    "cumulative": 77826,
+    "cumulativeRatio": 0.8595,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 420,
+    "cumulative": 78812,
+    "cumulativeRatio": 0.8704000000000001,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 410,
+    "cumulative": 79800,
+    "cumulativeRatio": 0.8813,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
+    "year": 2021,
+    "score": 400,
+    "cumulative": 80665,
+    "cumulativeRatio": 0.8909,
+    "sourceId": "official-2021-score-bands"
+  },
+  {
     "year": 2022,
     "score": 750,
     "cumulative": 1452,

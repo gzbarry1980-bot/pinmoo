@@ -1,0 +1,83 @@
+[
+  {
+    "name": "home",
+    "run": 1,
+    "performance": 88,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 3683.515555542377,
+    "cls": 0
+  },
+  {
+    "name": "home",
+    "run": 2,
+    "performance": 88,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 3685.4072785479666,
+    "cls": 0
+  },
+  {
+    "name": "home",
+    "run": 3,
+    "performance": 88,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 3679.6062117230604,
+    "cls": 0
+  },
+  {
+    "name": "services",
+    "run": 1,
+    "performance": 94,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 2854.0099153057017,
+    "cls": 0
+  },
+  {
+    "name": "services",
+    "run": 2,
+    "performance": 94,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 2855.7742,
+    "cls": 0
+  },
+  {
+    "name": "services",
+    "run": 3,
+    "performance": 95,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 2704.773,
+    "cls": 0
+  },
+  {
+    "name": "insights",
+    "run": 1,
+    "performance": 92,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 3155.4828443905362,
+    "cls": 0
+  },
+  {
+    "name": "insights",
+    "run": 2,
+    "performance": 92,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 3006.444387184829,
+    "cls": 0
+  },
+  {
+    "name": "insights",
+    "run": 3,
+    "performance": 91,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 3154.4899676066734,
+    "cls": 0
+  }
+]

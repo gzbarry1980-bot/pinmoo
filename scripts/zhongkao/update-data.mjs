@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import { enrichSchoolProfiles } from './school-profile-data.mjs';
+import {preserveReviewedBands} from './preserve-reviewed-bands.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
@@ -24,6 +25,8 @@ const sources = [];
 const admissions = [];
 const allocations = [];
 const bands = [];
+const previousBands=await fs.readFile(path.join(outputDir,'score-bands.json'),'utf8').then(JSON.parse).catch(()=>[]);
+const reviewedSources=await fs.readFile(path.join(outputDir,'sources.json'),'utf8').then(JSON.parse).catch(()=>[]);
 
 function sourceId(year, kind) {
   return `official-${year}-${kind}`;
@@ -39,7 +42,9 @@ async function fetchHtml(year, kind, url) {
 for (const [yearText, pages] of Object.entries(SOURCE_PAGES)) {
   const year = Number(yearText);
   const scoreHtml = await fetchHtml(year, 'score-bands', pages.scoreBands);
-  bands.push(...parseScoreBands(scoreHtml, year, sourceId(year, 'score-bands')));
+  const reviewed=await preserveReviewedBands({year,parsed:parseScoreBands(scoreHtml,year,sourceId(year,'score-bands')),previousBands,previousSources:reviewedSources,fetchAsset:fetchBytes});
+  bands.push(...reviewed.rows);
+  if(reviewed.sourceMetadata)Object.assign(sources.find(s=>s.id===sourceId(year,'score-bands')),reviewed.sourceMetadata);
   for (const batch of [3, 4]) {
     const kind = `batch-${batch}`;
     const html = await fetchHtml(year, kind, pages[`batch${batch}`]);

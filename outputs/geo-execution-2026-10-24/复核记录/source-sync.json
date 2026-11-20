@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-10-24T15:49:39.298Z",
+  "authorization": "用户明确回复允许同步这3个源文件到该仓库",
+  "repository": "https://github.com/gzbarry1980-bot/pinmoo",
+  "branch": "main",
+  "commit": "f11e7430957b92112d80d8780eaaf855d0a118ac",
+  "serverCommit": "f11e7430957b92112d80d8780eaaf855d0a118ac",
+  "serverClean": true,
+  "liveVersion": "7458354c1c",
+  "liveArticleCount": 84,
+  "verification": "git ls-remote main and separate SSH read-only verification matched; active release unchanged",
+  "files": [
+    {
+      "path": "src/data/insights-keyword-batch.js",
+      "sha256": "e0c2e4415f1a05d7fe71f77dc55db270ccdc6868340e3efe4d14fc8949e09418"
+    },
+    {
+      "path": "src/data/insights.js",
+      "sha256": "c6e8483e40e2e88af0c81af646badcb1e3c39ad7123131a81aaff5c4f1342337"
+    },
+    {
+      "path": "src/data/reading-paths.js",
+      "sha256": "52ed39316b5240330e1b0f4a73ad9d87d14eedfad12bc7ea512a6fad502b133f"
+    }
+  ]
+}

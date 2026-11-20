@@ -1,0 +1,241 @@
+{
+  "date": "2026-10-29",
+  "articleTotal": 88,
+  "geoCategory": 22,
+  "published": [
+    {
+      "slug": "ai-search-outdated-brand-information-update",
+      "url": "https://zhuanlan.zhihu.com/p/2096900953148494957"
+    }
+  ],
+  "similar": [
+    {
+      "slug": "product-page-purchase-questions",
+      "reason": "知乎已有详情页参数与选择文章，需比较增量后决定是否另发",
+      "url": "https://zhuanlan.zhihu.com/p/2096899254392447746"
+    }
+  ],
+  "drafts": [
+    {
+      "id": "Z01",
+      "slug": "why-company-missing-from-ai-service-search",
+      "title": "问AI自己的公司有答案，问服务商却没有：问题出在哪里？",
+      "officialTitle": "客户问 AI 找服务商，你的公司为什么没有出现？",
+      "officialUrl": "https://pinmooconsulting.com/insights/why-company-missing-from-ai-service-search/",
+      "file": "知乎适配稿/01-why-company-missing-from-ai-service-search.md",
+      "state": "知乎有草稿；定时提交未确认",
+      "characters": 1276,
+      "proposedTime": "2026-10-29 12:30",
+      "draftUrl": "https://zhuanlan.zhihu.com/p/2099077009699821178/edit"
+    },
+    {
+      "id": "Z02",
+      "slug": "what-to-expect-from-geo-service",
+      "title": "做GEO收到一张AI推荐截图，品牌该怎样验收？",
+      "officialTitle": "花钱做 GEO，品牌应该买到什么？",
+      "officialUrl": "https://pinmooconsulting.com/insights/what-to-expect-from-geo-service/",
+      "file": "知乎适配稿/02-what-to-expect-from-geo-service.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1221,
+      "proposedTime": "2026-10-29 15:30"
+    },
+    {
+      "id": "Z03",
+      "slug": "ai-cited-provider-ranking-source-literacy",
+      "title": "AI推荐的服务商榜单，值得直接照着选吗？",
+      "officialTitle": "AI 引用了一篇服务商榜单，品牌该怎样看待这条来源？",
+      "officialUrl": "https://pinmooconsulting.com/insights/ai-cited-provider-ranking-source-literacy/",
+      "file": "知乎适配稿/03-ai-cited-provider-ranking-source-literacy.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1103,
+      "proposedTime": "2026-10-29 18:30"
+    },
+    {
+      "id": "Z04",
+      "slug": "ai-search-inquiry-fit-service-boundaries",
+      "title": "AI带来了询盘，客户却找错服务：内容应该怎么改？",
+      "officialTitle": "AI带来了询盘，客户需求却不匹配，品牌的内容该怎样调整？",
+      "officialUrl": "https://pinmooconsulting.com/insights/ai-search-inquiry-fit-service-boundaries/",
+      "file": "知乎适配稿/04-ai-search-inquiry-fit-service-boundaries.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1402,
+      "proposedTime": "2026-10-29 21:00"
+    },
+    {
+      "id": "Z05",
+      "slug": "geo-seo-paid-media-coordination",
+      "title": "GEO、SEO和广告都要做吗？品牌先看这三件事",
+      "officialTitle": "GEO、SEO 和广告，品牌该怎样配合投入？",
+      "officialUrl": "https://pinmooconsulting.com/insights/geo-seo-paid-media-coordination/",
+      "file": "知乎适配稿/05-geo-seo-paid-media-coordination.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1301,
+      "proposedTime": "2026-10-30 12:30"
+    },
+    {
+      "id": "Z06",
+      "slug": "is-your-brand-ready-for-geo",
+      "title": "哪些品牌现在适合做GEO？先看团队能否接住询盘",
+      "officialTitle": "哪些品牌适合做 GEO？开始前先检查这四件事",
+      "officialUrl": "https://pinmooconsulting.com/insights/is-your-brand-ready-for-geo/",
+      "file": "知乎适配稿/06-is-your-brand-ready-for-geo.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1087,
+      "proposedTime": "2026-10-30 15:30"
+    },
+    {
+      "id": "Z07",
+      "slug": "choose-geo-consulting-provider",
+      "title": "选择GEO服务商，除了看AI推荐截图还能问什么？",
+      "officialTitle": "怎样选择 GEO 服务商？把承诺换成交付清单",
+      "officialUrl": "https://pinmooconsulting.com/insights/choose-geo-consulting-provider/",
+      "file": "知乎适配稿/07-choose-geo-consulting-provider.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1153,
+      "proposedTime": "2026-10-30 18:30"
+    },
+    {
+      "id": "Z08",
+      "slug": "geo-pricing-scope-and-budget",
+      "title": "GEO报价为什么差别很大？先对齐这几项工作",
+      "officialTitle": "GEO 报价由什么决定？先对齐范围，再比较费用",
+      "officialUrl": "https://pinmooconsulting.com/insights/geo-pricing-scope-and-budget/",
+      "file": "知乎适配稿/08-geo-pricing-scope-and-budget.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1066,
+      "proposedTime": "2026-10-30 21:00"
+    },
+    {
+      "id": "Z09",
+      "slug": "geo-30-60-90-day-acceptance",
+      "title": "GEO做了一个月、两个月、三个月，分别该验收什么？",
+      "officialTitle": "品牌 GEO 的 30、60、90 天，分别验收什么？",
+      "officialUrl": "https://pinmooconsulting.com/insights/geo-30-60-90-day-acceptance/",
+      "file": "知乎适配稿/09-geo-30-60-90-day-acceptance.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1121,
+      "proposedTime": "2026-10-31 12:30"
+    },
+    {
+      "id": "Z10",
+      "slug": "compare-ai-search-brand-results",
+      "title": "豆包、DeepSeek和元宝怎样比较品牌表现才公平？",
+      "officialTitle": "如何比较不同 AI 平台的品牌搜索表现？",
+      "officialUrl": "https://pinmooconsulting.com/insights/compare-ai-search-brand-results/",
+      "file": "知乎适配稿/10-compare-ai-search-brand-results.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1091,
+      "proposedTime": "2026-10-31 15:30"
+    },
+    {
+      "id": "Z11",
+      "slug": "new-product-launch-geo-checklist",
+      "title": "新品还没上市，品牌要提前准备哪些公开资料？",
+      "officialTitle": "新品上市前，品牌应该准备哪些 GEO 内容？",
+      "officialUrl": "https://pinmooconsulting.com/insights/new-product-launch-geo-checklist/",
+      "file": "知乎适配稿/11-new-product-launch-geo-checklist.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1090,
+      "proposedTime": "2026-10-31 18:30"
+    },
+    {
+      "id": "Z12",
+      "slug": "brand-fact-base-for-ai-search",
+      "title": "AI总把品牌介绍错？先整理一份能维护的品牌事实表",
+      "officialTitle": "品牌事实库怎么做：让 AI 正确识别公司、品牌、服务与联系方式",
+      "officialUrl": "https://pinmooconsulting.com/insights/brand-fact-base-for-ai-search/",
+      "file": "知乎适配稿/12-brand-fact-base-for-ai-search.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1720,
+      "proposedTime": "2026-10-31 21:00"
+    },
+    {
+      "id": "Z13",
+      "slug": "geo-content-evidence-checklist",
+      "title": "想让AI引用品牌文章，先让读者看得懂并查得到依据",
+      "officialTitle": "GEO 内容怎么写才容易被引用：一篇可复测的页面检查清单",
+      "officialUrl": "https://pinmooconsulting.com/insights/geo-content-evidence-checklist/",
+      "file": "知乎适配稿/13-geo-content-evidence-checklist.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1526,
+      "proposedTime": "2026-11-01 12:30"
+    },
+    {
+      "id": "Z14",
+      "slug": "geo-evidence-ledger-publication-rules",
+      "title": "品牌案例不能公开客户名称，还能怎样整理内容依据？",
+      "officialTitle": "品牌 GEO 证据台账怎么建：哪些事实能公开，哪些结果必须暂缓",
+      "officialUrl": "https://pinmooconsulting.com/insights/geo-evidence-ledger-publication-rules/",
+      "file": "知乎适配稿/14-geo-evidence-ledger-publication-rules.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1416,
+      "proposedTime": "2026-11-01 15:30"
+    },
+    {
+      "id": "Z15",
+      "slug": "geo-roi-attribution-for-ecommerce-brands",
+      "title": "GEO带来了咨询，品牌怎样判断这笔投入有没有价值？",
+      "officialTitle": "品牌做 GEO 怎么计算 ROI：AI 引用、询盘与成交的归因方法",
+      "officialUrl": "https://pinmooconsulting.com/insights/geo-roi-attribution-for-ecommerce-brands/",
+      "file": "知乎适配稿/15-geo-roi-attribution-for-ecommerce-brands.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 850,
+      "proposedTime": "2026-11-01 18:30"
+    },
+    {
+      "id": "Z16",
+      "slug": "website-article-topic-consolidation",
+      "title": "官网文章越来越多，哪些该合并，哪些值得继续写？",
+      "officialTitle": "官网已经有很多文章，为什么还需要整理重复主题？",
+      "officialUrl": "https://pinmooconsulting.com/insights/website-article-topic-consolidation/",
+      "file": "知乎适配稿/16-website-article-topic-consolidation.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1270,
+      "proposedTime": "2026-11-01 21:00"
+    },
+    {
+      "id": "Z17",
+      "slug": "external-article-to-official-site-next-step",
+      "title": "知乎文章被读到之后，官网怎样接住感兴趣的客户？",
+      "officialTitle": "外部平台发了文章，官网怎样接住读者的下一步？",
+      "officialUrl": "https://pinmooconsulting.com/insights/external-article-to-official-site-next-step/",
+      "file": "知乎适配稿/17-external-article-to-official-site-next-step.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1210,
+      "proposedTime": "2026-11-02 12:30"
+    },
+    {
+      "id": "Z18",
+      "slug": "pinmoo-ai-namesake-entity-correction",
+      "title": "AI把两家同名公司混在一起，品牌该怎么纠正？",
+      "officialTitle": "AI 把品沐咨询认成了别的公司，怎样把主体讲清楚？",
+      "officialUrl": "https://pinmooconsulting.com/insights/pinmoo-ai-namesake-entity-correction/",
+      "file": "知乎适配稿/18-pinmoo-ai-namesake-entity-correction.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1576,
+      "proposedTime": "2026-11-02 15:30"
+    },
+    {
+      "id": "Z19",
+      "slug": "brand-business-content-for-ai-search",
+      "title": "客户从AI找到公司后，怎样判断这家公司能解决什么？",
+      "officialTitle": "想让客户从 AI 找到你，也要让他看懂你能解决什么",
+      "officialUrl": "https://pinmooconsulting.com/insights/brand-business-content-for-ai-search/",
+      "file": "知乎适配稿/19-brand-business-content-for-ai-search.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1221,
+      "proposedTime": "2026-11-02 18:30"
+    },
+    {
+      "id": "Z20",
+      "slug": "why-brand-is-not-found-in-ai-search",
+      "title": "品牌在AI搜索里搜不到，先查页面、主体还是引用？",
+      "officialTitle": "品牌为什么在 AI 搜索里搜不到：从抓取、实体到证据的诊断清单",
+      "officialUrl": "https://pinmooconsulting.com/insights/why-brand-is-not-found-in-ai-search/",
+      "file": "知乎适配稿/20-why-brand-is-not-found-in-ai-search.md",
+      "state": "本地改写稿；未提交知乎",
+      "characters": 1225,
+      "proposedTime": "2026-11-02 21:00"
+    }
+  ]
+}

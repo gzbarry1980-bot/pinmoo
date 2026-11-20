@@ -1,0 +1,83 @@
+[
+  {
+    "name": "home",
+    "run": 1,
+    "performance": 98,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 2488.4099,
+    "cls": 0
+  },
+  {
+    "name": "home",
+    "run": 2,
+    "performance": 98,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 2487.7848,
+    "cls": 0
+  },
+  {
+    "name": "home",
+    "run": 3,
+    "performance": 98,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 2413.6573,
+    "cls": 0
+  },
+  {
+    "name": "services",
+    "run": 1,
+    "performance": 100,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 1810.3731000000002,
+    "cls": 0
+  },
+  {
+    "name": "services",
+    "run": 2,
+    "performance": 100,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 1810.0702,
+    "cls": 0
+  },
+  {
+    "name": "services",
+    "run": 3,
+    "performance": 100,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 1810.1747,
+    "cls": 0
+  },
+  {
+    "name": "insights",
+    "run": 1,
+    "performance": 99,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 2110.9089,
+    "cls": 0
+  },
+  {
+    "name": "insights",
+    "run": 2,
+    "performance": 99,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 2109.1895,
+    "cls": 0
+  },
+  {
+    "name": "insights",
+    "run": 3,
+    "performance": 99,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 2107.7961999999998,
+    "cls": 0
+  }
+]

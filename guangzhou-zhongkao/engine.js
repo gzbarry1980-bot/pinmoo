@@ -88,7 +88,7 @@ function recordFor(records, profile, slot, year) {
   return selectRecord(possible, profile, slot);
 }
 
-function selectRecord(possible, profile, slot) {
+export function selectRecord(possible, profile, slot) {
   if (slot.batch === 2) {
     return possible.find((row) => row.sourceSchoolId === profile.sourceSchoolId) || null;
   }

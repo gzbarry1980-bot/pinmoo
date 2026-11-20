@@ -1,0 +1,887 @@
+import { SITE, NAV_ITEMS, TRUST_STATS, HOME_FAQS, METHODOLOGY, PLATFORM_LIST, GEO_EVIDENCE_HOOKS } from './data/site.js';
+import { geoServiceModules, services, serviceFaqs, serviceModel, serviceModelIntro, serviceModelName, serviceProcess, pricingNote } from './data/services.js';
+import { cases, caseFilters, reservedCases, getCaseBySlug } from './data/cases.js';
+import { CASE_EN, EN_TEXT, FILTER_EN_TO_CN } from './data/en-text.js';
+import { chinaEcommercePage, getLeadPageBySlug, leadPages, leadPathSteps, proofAssets } from './data/lead-pages.js';
+import { metricDictionary } from './data/resources.js';
+import { getInsightBySlug, insightAuthor, insightClusters, insights } from './data/insights.js';
+import { indexForPath } from './data/insight-index.js';
+import { insightIndexContent } from './components/insight-index.js';
+import { geoHero, geoReportPreview, geoProcess, consultingOverview } from './components/geo-experience.js';
+import { pageVisual } from './components/page-visual.js';
+import { homePage, servicesContent, contactContent, resourceCards, resourceLibraryContent, insightCardMarkup, aboutContent } from './components/consulting-upgrade.js';
+import { resourceLibrary, resourceForId } from './data/practical-resources.js';
+import { relatedInsights } from './data/reading-paths.js';
+import { caseDeliverableMarkup } from './components/case-deliverable.js';
+
+const root = document.getElementById('root');
+const internationalHost = window.location.hostname === 'pinmooconsulting.com' || window.location.hostname === 'www.pinmooconsulting.com';
+let requestedPathname = normalizePath(window.location.pathname);
+let currentLang = languageForPath(requestedPathname);
+let pathname = stripLangPath(requestedPathname);
+
+function normalizePath(value) {
+  return (value || '/').replace(/\/+$/, '') || '/';
+}
+
+function stripLangPath(value) {
+  const path = normalizePath(value);
+  if (path === '/en') return '/';
+  if (path.indexOf('/en/') === 0) return normalizePath(path.slice(3));
+  if (path === '/zh') return '/';
+  if (path.indexOf('/zh/') === 0) return normalizePath(path.slice(3));
+  return path;
+}
+
+function languageForPath(value) {
+  const path = normalizePath(value);
+  if (internationalHost) {
+    return path === '/en' || path.indexOf('/en/') === 0 || path === '/china-ecommerce-consulting' ? 'en' : 'zh';
+  }
+  return path === '/en' || path.indexOf('/en/') === 0 || path === '/china-ecommerce-consulting' ? 'en' : 'zh';
+}
+
+function internationalChinesePath(href) {
+  if (href === '/' || href === '/zh/' || href === '/zh') return '/';
+  if (href.indexOf('/zh/') === 0) return href.slice(3) || '/';
+  return href;
+}
+
+function localizeHref(href) {
+  if (!href || href[0] !== '/' || href.indexOf('//') === 0) return href;
+  if (internationalHost) {
+    if (href === '/ai-diagnosis/' || href.indexOf('/ai-diagnosis/') === 0) return 'https://agent.pinmoo.top/';
+    if (currentLang === 'zh') {
+      if (href === '/zh/' || href === '/zh' || href.indexOf('/zh/') === 0) return internationalChinesePath(href);
+      if (href === '/china-ecommerce-consulting/') return '/';
+      if (href === '/en/' || href === '/en') return '/';
+      if (href.indexOf('/en/') === 0) return internationalChinesePath(href.slice(3));
+      return href;
+    }
+    if (href.indexOf('/insights/') === 0 || href.indexOf('/resources/') === 0) return '/china-ecommerce-consulting/';
+    if (href.indexOf('/services/') === 0 && href !== '/services/') return '/china-ecommerce-consulting/';
+    if (href === '/china-ecommerce-consulting/') return href;
+    if (href === '/en/' || href === '/en') return '/en/';
+    if (href.indexOf('/en/') === 0) return href;
+    if (href === '/') return '/en/';
+    return '/en' + href;
+  }
+  if (currentLang !== 'en') return href;
+  if (href === '/china-ecommerce-consulting/' || href.indexOf('/insights/') === 0) return href;
+  if (href.indexOf('/services/') === 0 && href !== '/services/') {
+    const slug = href.split('/')[2];
+    if (getLeadPageBySlug(slug)) return '/china-ecommerce-consulting/';
+  }
+  if (href === '/') return '/en/';
+  return '/en' + href;
+}
+
+function currentPathForLang(lang) {
+  if (internationalHost) {
+    if (lang === 'zh') {
+      if (pathname === '/china-ecommerce-consulting') return SITE.domain + '/';
+      return SITE.domain + (pathname === '/' ? '/' : pathname + '/');
+    }
+    if (pathname === '/china-ecommerce-consulting') return SITE.domain + '/china-ecommerce-consulting/';
+    if (pathname.indexOf('/services/') === 0 && getLeadPageBySlug(pathname.split('/')[2])) return SITE.domain + '/china-ecommerce-consulting/';
+    if (pathname.indexOf('/insights') === 0 || pathname.indexOf('/resources') === 0) return SITE.domain + '/en/';
+    return SITE.domain + (pathname === '/' ? '/en/' : '/en' + pathname + '/');
+  }
+  const isLeadLanding = pathname.indexOf('/services/') === 0 && getLeadPageBySlug(pathname.split('/')[2]);
+  if (lang === 'en' && isLeadLanding) return '/china-ecommerce-consulting/';
+  if (lang === 'en' && (pathname.indexOf('/insights') === 0 || pathname.indexOf('/resources') === 0)) return '/en/';
+  if (pathname === '/china-ecommerce-consulting') return lang === 'en' ? '/china-ecommerce-consulting/' : '/';
+  if (pathname.indexOf('/resources/') === 0) return pathname + '/';
+  if (lang === 'en') return pathname === '/' ? '/en/' : '/en' + pathname + '/';
+  return pathname === '/' ? '/' : pathname + '/';
+}
+
+function isEn() {
+  return currentLang === 'en';
+}
+
+function icon(name, size) {
+  const s = size || 22;
+  const paths = {
+    ArrowRight: '<path d="M5 12h14"/><path d="m13 5 7 7-7 7"/>',
+    BadgeCheck: '<path d="M12 3l2.2 2.1 3-.3.7 2.9 2.5 1.6-1.4 2.7 1.4 2.7-2.5 1.6-.7 2.9-3-.3L12 21l-2.2-2.1-3 .3-.7-2.9-2.5-1.6L5 12 3.6 9.3l2.5-1.6.7-2.9 3 .3L12 3z"/><path d="m8.8 12.1 2.1 2.1 4.4-4.4"/>',
+    BarChart3: '<path d="M4 19V9"/><path d="M12 19V5"/><path d="M20 19v-7"/>',
+    BookOpen: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21z"/><path d="M4 5.5V21"/>',
+    BriefcaseBusiness: '<path d="M10 6V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 12h18"/>',
+    Building2: '<path d="M6 21V4h12v17"/><path d="M9 8h1M14 8h1M9 12h1M14 12h1M9 16h1M14 16h1"/>',
+    CheckCircle2: '<circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/>',
+    ChevronDown: '<path d="m6 9 6 6 6-6"/>',
+    CircleUserRound: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.5 19a7 7 0 0 1 11 0"/>',
+    ClipboardList: '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12h6M9 16h4"/>',
+    Clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    FilePenLine: '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v5h5"/><path d="M9 17l5-5 2 2-5 5H9z"/>',
+    GraduationCap: '<path d="M3 8l9-5 9 5-9 5z"/><path d="M7 11v5c3 2 7 2 10 0v-5"/>',
+    Image: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8" cy="10" r="2"/><path d="m21 16-5-5L5 19"/>',
+    Layers: '<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 12 9 5 9-5"/><path d="m3 16 9 5 9-5"/>',
+    Leaf: '<path d="M5 19c8 0 14-6 14-14-8 0-14 6-14 14z"/><path d="M5 19c3-5 7-8 14-14"/>',
+    Lightbulb: '<path d="M9 18h6"/><path d="M10 22h4"/><path d="M8 14a6 6 0 1 1 8 0c-1 1-1 2-1 4H9c0-2 0-3-1-4z"/>',
+    LineChart: '<path d="M4 19h16"/><path d="m5 15 4-5 4 3 6-8"/>',
+    MapPinned: '<path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11z"/><circle cx="12" cy="10" r="2"/>',
+    Menu: '<path d="M4 7h16M4 12h16M4 17h16"/>',
+    MessageCircle: '<path d="M21 11.5a8.5 8.5 0 0 1-12.7 7.4L3 20l1.1-5.1A8.5 8.5 0 1 1 21 11.5z"/>',
+    MessagesSquare: '<path d="M4 5h12v9H7l-3 3z"/><path d="M9 15h8l3 3V9h-3"/>',
+    PackageCheck: '<path d="m12 3 8 4v10l-8 4-8-4V7z"/><path d="M4 7l8 4 8-4M12 11v10"/><path d="m9 15 2 2 4-4"/>',
+    Phone: '<path d="M22 16.5v3a2 2 0 0 1-2.2 2 19 19 0 0 1-8.3-3 18.7 18.7 0 0 1-5.8-5.8 19 19 0 0 1-3-8.3A2 2 0 0 1 4.7 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.5 2.1L8.7 9.8a16 16 0 0 0 5.5 5.5l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2.2z"/>',
+    PieChart: '<path d="M12 3v9h9"/><path d="M21 12a9 9 0 1 1-9-9"/>',
+    RefreshCw: '<path d="M20 12a8 8 0 0 1-14.9 4"/><path d="M4 16v5h5"/><path d="M4 12A8 8 0 0 1 18.9 8"/><path d="M20 8V3h-5"/>',
+    Rocket: '<path d="M5 15c2-6 7-10 14-10 0 7-4 12-10 14z"/><path d="M9 19l-4 2 2-4"/><circle cx="15" cy="9" r="2"/>',
+    Search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/>',
+    Send: '<path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4z"/>',
+    ShieldCheck: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+    ShoppingBag: '<path d="M6 7h12l1 14H5z"/><path d="M9 7a3 3 0 0 1 6 0"/>',
+    Store: '<path d="M4 10h16l-1-5H5z"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/>',
+    Target: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+    TrendingUp: '<path d="M3 17h18"/><path d="m4 14 5-5 4 4 7-8"/><path d="M15 5h5v5"/>',
+    Users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/>',
+    X: '<path d="M6 6l12 12M18 6 6 18"/>',
+    Zap: '<path d="M13 2 3 14h8l-1 8 10-12h-8z"/>'
+  };
+  return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (paths[name] || paths.Target) + '</svg>';
+}
+
+function isActive(item) {
+  if (item.match === '/') return pathname === '/';
+  return pathname.indexOf(item.match) === 0;
+}
+
+function logo(cls) {
+  const webp = assetWebp(SITE.logo);
+  return '<span class="logo-frame ' + cls + '"><picture>' + (webp ? '<source srcset="' + webp + '" type="image/webp">' : '') + '<img src="' + SITE.logo + '" alt="PINMOO 品沐咨询 Logo" decoding="async" fetchpriority="high"></picture></span>';
+}
+
+function assetWebp(src) {
+  if (!src || !/\.(png|jpe?g)$/i.test(src)) return '';
+  return src.replace(/\.(png|jpe?g)$/i, '.webp');
+}
+
+function ResponsiveImage(src, alt, loading, attrs) {
+  const webp = assetWebp(src);
+  const loadingAttr = loading ? ' loading="' + loading + '"' : '';
+  const extraAttrs = attrs ? ' ' + attrs : '';
+  const img = '<img src="' + src + '" alt="' + alt + '"' + loadingAttr + extraAttrs + '>';
+  if (!webp) return img;
+  return '<picture><source srcset="' + webp + '" type="image/webp">' + img + '</picture>';
+}
+
+function Header() {
+  const overview = !isEn() && (pathname.startsWith('/insights') || pathname.startsWith('/resources') || pathname.startsWith('/services/'));
+  const language = '<div class="language-switch" aria-label="Language switch"><a class="' + (!isEn() ? 'active' : '') + '" href="' + currentPathForLang('zh') + '">中文</a><a class="' + (isEn() ? 'active' : '') + '" href="' + currentPathForLang('en') + '"' + (overview ? ' aria-label="English overview"' : '') + '>' + (overview ? 'EN overview' : 'EN') + '</a></div>';
+  const nav = NAV_ITEMS.filter(function(item) { return !item.zhOnly || !isEn(); }).map(function(item) { const active = isActive(item); return '<a class="' + (active ? 'active' : '') + '"' + (active ? ' aria-current="page"' : '') + ' href="' + localizeHref(item.href) + '">' + (isEn() ? (EN_TEXT[item.label] || item.label) : item.label) + '</a>'; }).join('') + language;
+  const headerHref = '/contact/';
+  return '<header class="site-header"><div class="container header-shell"><a class="brand-link" href="' + localizeHref('/') + '" aria-label="' + (isEn() ? 'PINMOO home' : 'PINMOO 品沐咨询首页') + '">' + logo('logo-frame-header') + '</a><nav class="desktop-nav" aria-label="' + (isEn() ? 'Main navigation' : '主导航') + '">' + nav + '</nav><div class="header-actions"><a class="header-cta" data-event="consult_open" href="' + localizeHref(headerHref) + '">' + (isEn() ? 'Discuss a project' : '咨询经营问题') + '</a></div><button class="mobile-menu-btn" type="button" aria-label="' + (isEn() ? 'Open navigation' : '打开导航') + '" aria-expanded="false">' + icon('Menu', 24) + '</button></div><div class="mobile-nav-panel"><nav aria-label="' + (isEn() ? 'Mobile navigation' : '移动端导航') + '">' + nav + '<a class="mobile-nav-cta" href="' + localizeHref(headerHref) + '">' + (isEn() ? 'Discuss your project' : '咨询经营问题') + '</a></nav></div></header>';
+}
+
+function Footer() {
+  const resourceLink = internationalHost
+    ? (isEn() ? '<a href="/china-ecommerce-consulting/">China e-commerce guide</a>' : '<a href="/resources/ecommerce-metrics-dictionary/">经营指标词典</a><a href="/resources/operating-templates/">实用资料</a>')
+    : '<a href="/resources/ecommerce-metrics-dictionary/">' + (isEn() ? 'Metric glossary' : '经营指标词典') + '</a>';
+  const links = NAV_ITEMS.filter(function(item) { return !item.zhOnly || !isEn(); }).map(function(item) { return '<a href="' + localizeHref(item.href) + '">' + (isEn() ? (EN_TEXT[item.label] || item.label) : item.label) + '</a>'; }).join('') + resourceLink;
+  const navTitle = isEn() ? 'Explore' : '导航链接';
+  const contactTitle = isEn() ? 'Contact' : '联系方式';
+  const summary = isEn() ? 'China e-commerce strategy and brand growth consulting.' : '专注品牌电商战略咨询、增长陪跑与 AI 提效';
+  const phoneLabel = isEn() ? 'WeChat / mobile: ' + SITE.phoneDisplay : SITE.contactLabel;
+  const address = isEn() ? 'Office: Guangzhou, China' : SITE.address;
+  const websiteLabel = isEn() ? 'Official site: ' : '官网：';
+  return '<footer class="site-footer"><div class="container footer-grid"><div class="footer-brand">' + logo('logo-frame-footer') + '<p class="footer-entity-name"><strong>' + (isEn() ? SITE.companyEn : SITE.company) + '</strong><span>' + (isEn() ? SITE.company : SITE.companyEn) + '</span></p><p>' + summary + '</p></div><div><h2>' + navTitle + '</h2><div class="footer-links">' + links + '</div></div><div><h2>' + contactTitle + '</h2><address class="footer-contact"><p><a class="footer-phone" href="tel:' + SITE.phone + '">' + phoneLabel + '</a></p><p>' + address + '</p><p><span>' + websiteLabel + '</span><a href="' + SITE.primaryDomain + '/">pinmooconsulting.com</a></p><p>' + (isEn() ? 'Add WeChat for a free public-information GEO report.' : SITE.contactNote) + '</p></address></div></div><div class="footer-bottom"><span>© 2026 ' + (isEn() ? SITE.companyEn : SITE.company) + '. All rights reserved.</span><a href="' + SITE.icpUrl + '" target="_blank" rel="noopener noreferrer">' + (isEn() ? 'ICP filing: ' : '') + SITE.icpNumber + '</a></div></footer>';
+}
+
+function ButtonLink(label, href, variant, withIcon) {
+  return '<a class="btn btn-' + (variant || 'primary') + '" href="' + localizeHref(href || '/contact/') + '"><span>' + label + '</span>' + (withIcon === false ? '' : icon('ArrowRight', 18)) + '</a>';
+}
+
+function SectionIntro(title, text, align) {
+  return '<div class="reveal section-intro ' + (align === 'left' ? 'section-intro-left' : '') + '"><h2>' + title + '</h2>' + (text ? '<p>' + text + '</p>' : '') + '</div>';
+}
+
+function PageHero(title, subtitle, compact, extra, visual) {
+  return '<section class="page-hero ' + (compact ? 'page-hero-compact ' : '') + '"><img class="page-brand-backdrop" src="' + pageVisual(pathname) + '" alt="" decoding="async" fetchpriority="high"><div class="container page-hero-inner"><div class="reveal page-hero-copy"><h1>' + title + '</h1>' + (subtitle ? '<p>' + subtitle + '</p>' : '') + (extra || '') + '</div></div><span class="page-visual-credit">' + (isEn() ? 'AI brand illustration' : 'AI 品牌创意视觉') + '</span></section>';
+}
+
+function CtaBand(title, text, button) {
+  const t = title || (isEn() ? 'Where should your brand optimize first?' : '你的品牌，下一步该先优化哪里？');
+  const p = text || (isEn() ? 'Share your brand website and current market question. We will clarify the next practical step before proposing a larger engagement.' : '发送品牌名称、官网或店铺链接、主要平台和当前问题。品沐会先判断问题所在和行动优先级，再确认是否需要进一步合作。');
+  const ctaHref = '/contact/';
+  const contactLabel = isEn() ? 'WeChat / Mobile: ' + SITE.phoneDisplay : SITE.contactLabel;
+  const contactNote = isEn() ? 'Add WeChat to discuss brand e-commerce growth. Mention “brand GEO report” for a free public-information review.' : SITE.contactNote;
+  return '<div class="container"><div class="reveal cta-band-wrap"><section class="cta-band"><div class="cta-band-icon">' + icon('MessageCircle', 34) + '</div><div class="cta-band-text"><h2>' + t + '</h2><p>' + p + '</p></div><div class="cta-band-contact"><strong>' + contactLabel + '</strong><span>' + contactNote + '</span></div>' + ButtonLink(button || (isEn() ? 'Book a Consultation' : '预约品牌电商咨询'), ctaHref, 'primary', false) + '</section></div></div>';
+}
+
+function HomeInquirySection() {
+  if (isEn()) return '';
+  const cards = [
+    {
+      icon: 'Target',
+      title: '线上业务增长卡住，不知道先改哪里',
+      text: '从平台、货盘、流量、转化和团队执行判断真正的增长卡点。',
+      href: '/services/ecommerce-diagnosis/',
+      cta: '看电商战略诊断'
+    },
+    {
+      icon: 'Store',
+      title: '店铺有流量但转化偏低',
+      text: '从主图、详情页、SKU、评价和客服承接定位损耗。',
+      href: '/services/store-diagnosis/',
+      cta: '看店铺诊断'
+    },
+    {
+      icon: 'BarChart3',
+      title: '数据很多但不知道先改什么',
+      text: '统一成交、退款、投放与商品口径，再排出行动优先级。',
+      href: '/services/business-advisor-data-diagnosis/',
+      cta: '看数据诊断'
+    },
+    {
+      icon: 'Rocket',
+      title: 'AI 搜索找不到或说不清品牌',
+      text: 'GEO 是品牌被发现的一环，先检查事实、抓取、内容证据与外部信源。',
+      href: '/contact/?service=geo-report',
+      cta: '免费领 GEO 基础报告'
+    }
+  ].map(function(item) {
+    return '<article class="inquiry-path-card reveal"><div>' + icon(item.icon, 26) + '<h3>' + item.title + '</h3></div><p>' + item.text + '</p><a class="outline-link" href="' + localizeHref(item.href) + '">' + item.cta + ' ' + icon('ArrowRight', 16) + '</a></article>';
+  }).join('');
+  return '<section class="section inquiry-path-section"><div class="container">' + SectionIntro('你现在最想解决哪件事？', '从最接近的经营问题进入；GEO 是入口之一，不是电商增长的全部。') + '<div class="inquiry-path-grid inquiry-path-grid-human inquiry-path-grid-four">' + cards + '</div></div></section>';
+}
+
+function CommerceGrowthChainSection() {
+  if (isEn()) return '';
+  const links = [
+    ['01', '被发现', 'GEO、SEO 与内容分发', '让客户和 AI 找到正确的品牌信息'],
+    ['02', '被理解', '品牌、商品与页面表达', '讲清卖什么、适合谁、为什么值得买'],
+    ['03', '形成购买', '流量、页面与客服承接', '减少从点击、咨询到支付的链路损耗'],
+    ['04', '经营提效', '投放、商品与数据复盘', '统一口径，优化预算和动作优先级'],
+    ['05', '持续增长', '会员、复购与团队机制', '把一次成交沉淀为长期用户价值']
+  ].map(function(item) {
+    return '<article class="growth-chain-item reveal"><span>' + item[0] + '</span><h3>' + item[1] + '</h3><strong>' + item[2] + '</strong><p>' + item[3] + '</p></article>';
+  }).join('');
+  return '<section class="section growth-chain-section"><div class="container"><div class="growth-chain-heading reveal"><p class="section-eyebrow">ONE GROWTH SYSTEM</p><h2>GEO 解决被发现，电商经营决定增长能否发生</h2><p>品牌被 AI 或搜索引擎提及，只是客户旅程的开始。品沐把品牌信息、商品价值、页面转化、投放效率、数据复盘与会员复购放在同一条增长链路中判断。</p></div><div class="growth-chain-grid">' + links + '</div></div></section>';
+}
+
+function FirstDiagnosisSection() {
+  if (isEn()) return '';
+  const items = [
+    ['你发来什么', '品牌名称、官网或店铺链接、主要平台、目标市场和当前最想解决的问题。', 'FilePenLine'],
+    ['我们先看什么', 'AI 搜索可见度、品牌事实一致性、技术可抓取性、内容证据和外部信源。', 'Target'],
+    ['你会得到什么', '一份公开信息版初步报告：问题优先级、证据缺口和未来 30 至 90 天动作建议。', 'CheckCircle2']
+  ].map(function(item, index) {
+    return '<div class="diagnosis-step reveal"><span>0' + (index + 1) + '</span>' + icon(item[2], 28) + '<h3>' + item[0] + '</h3><p>' + item[1] + '</p></div>';
+  }).join('');
+  return '<section class="section first-diagnosis-section"><div class="container first-diagnosis-layout"><div class="reveal first-diagnosis-copy"><p class="section-eyebrow">免费 GEO 报告</p><h2>先获取一份品牌 GEO 基础报告，再决定是否做长期优化</h2><p>添加微信并备注“品牌GEO报告”，把品牌公开资料发来。品沐先做基础判断，再告诉你优先补哪一类内容，不以虚假排名或绝对推荐作为承诺。</p>' + ButtonLink('添加微信领取报告', '/contact/?service=geo-report', 'primary', true) + '</div><div class="first-diagnosis-grid">' + items + '</div></div></section>';
+}
+
+const serviceLandingById = {
+  'geo-consulting': 'geo-consulting',
+  'strategy-diagnosis': 'ecommerce-diagnosis',
+  'operation-coaching': 'tmall-jd-consultant',
+  'conversion-optimization': 'page-conversion-optimization',
+  'content-seeding': 'douyin-xiaohongshu-growth',
+  'data-review': 'ecommerce-roi-review',
+  'membership-private-domain': 'member-repurchase-private-domain'
+};
+
+function ServiceCard(service) {
+  const slug = serviceLandingById[service.id] || 'ecommerce-diagnosis';
+  const cta = isEn() ? 'Explore this consulting service' : '了解' + service.title + '方案';
+  return '<article class="service-card"><div class="card-icon">' + icon(service.icon, 28) + '</div><h3>' + localizeServiceValue(service.title) + '</h3><p>' + localizeServiceValue(service.short) + '</p><a href="' + localizeHref('/services/' + slug + '/') + '" class="text-link">' + cta + ' ' + icon('ArrowRight', 16) + '</a></article>';
+}
+
+function CaseCard(item) {
+  const href = localizeHref('/cases/' + item.slug + '/');
+  const enCase = CASE_EN[item.slug];
+  const view = isEn() ? Object.assign({}, item, enCase || {}) : { ...item, title: item.shortTitle || item.title };
+  const imageAlt = isEn()
+    ? view.industry + ' ' + view.serviceType + ' case study'
+    : item.industry + '品牌在' + item.platform + '平台的' + item.serviceType + '项目案例';
+  const cta = isEn() ? 'Read the project' : '查看问题与行动';
+  const stage = item.slug === 'chenpi-brand-geo-diagnosis' ? (isEn() ? 'Diagnosis and roadmap' : '诊断与实施规划') : (isEn() ? 'Qualitative project experience' : '定性项目经验');
+  return '<article class="case-card"><a class="case-image" href="' + href + '" aria-label="' + (isEn() ? 'View ' + view.title : '查看' + item.title) + '">' + ResponsiveImage(item.image, imageAlt, 'lazy', 'width="1200" height="800" decoding="async"') + '</a><div class="case-card-body"><span class="case-stage">' + stage + '</span><div class="tag-row"><span>' + view.industry + '</span><span>' + view.platform + '</span></div><h3><a href="' + href + '">' + view.title + '</a></h3><p>' + view.summary + '</p><a class="outline-link" href="' + href + '">' + cta + ' ' + icon('ArrowRight', 16) + '</a></div></article>';
+}
+
+function InsightCard(article) {
+  return insightCardMarkup(article);
+}
+
+function HomeInsightsSection() {
+  if (isEn()) return '';
+  const selected = ['store-traffic-no-conversion-diagnosis', 'business-advisor-data-diagnosis-checklist', 'geo-seo-paid-media-coordination'];
+  const cards = selected.map(function(slug) { return insights.find(function(article) { return article.slug === slug; }); }).filter(Boolean).map(InsightCard).join('');
+  return '<section class="section home-insights-section"><div class="container">' + SectionIntro('经营洞察：把具体问题拆成可执行判断', '围绕店铺转化、商品结构、客服、直播、会员复购、经营周报、退款治理和投放复盘，沉淀可直接用于团队复盘的方法与清单。') + '<div class="insight-card-grid">' + cards + '</div><div class="center-actions">' + ButtonLink('查看全部经营洞察', '/insights/', 'secondary', true) + '</div></div></section>';
+}
+
+function AiWeeklyReportSection() {
+  if (isEn()) return '';
+  const workspaceHref = internationalHost ? localizeHref('/contact/') : 'https://agent.pinmoo.top/';
+  const workspaceLabel = internationalHost ? '咨询AI经营周报方案' : '查看AI经营周报工作台';
+  const modules = [
+    ['读取数据', '经营概览、商品、流量、客户、客服、直播、光合内容、推广计划与退款报表'],
+    ['统一口径', '区分支付金额、店铺绩效净销售额、退款金额与推广计划花费'],
+    ['形成判断', '同时检查成交规模、退款风险、付费流量质量、商品表现与转化承接'],
+    ['输出动作', '生成图表快照、品牌方周报、Word文档、微信群话术和下周期行动清单']
+  ].map(function(item, index) {
+    return '<div class="ai-report-step"><span>0' + (index + 1) + '</span><div><strong>' + item[0] + '</strong><p>' + item[1] + '</p></div></div>';
+  }).join('');
+  return '<section class="section ai-report-evidence-section"><div class="container ai-report-evidence-grid"><div class="reveal ai-report-evidence-copy"><p class="section-eyebrow">PINMOO AI WEEKLY REPORT</p><h2>AI电商经营周报不是自动写总结，而是先统一数据口径</h2><p>品沐的第一阶段工作流面向天猫与生意参谋数据。系统负责识别文件和组织报告，顾问方法负责解释口径、判断风险与安排动作，避免只根据销售额或整体ROI下结论。</p><div class="ai-report-steps">' + modules + '</div><div class="ai-report-actions"><a class="btn btn-primary" href="' + workspaceHref + '">' + workspaceLabel + ' ' + icon('ArrowRight', 18) + '</a><a class="text-link" href="' + localizeHref('/services/tmall-business-weekly-report/') + '">了解天猫经营周报服务 ' + icon('ArrowRight', 16) + '</a></div></div><div class="reveal ai-report-evidence-visual"><img src="/assets/visuals/insights-weekly-report.webp" alt="天猫生意参谋AI电商经营周报的退款、投放ROI、流量质量和商品结构分析示例" width="1400" height="636" loading="lazy" decoding="async"></div></div></section>';
+}
+
+function HomeFaqSection() {
+  if (isEn()) return '';
+  const selected = [HOME_FAQS[4], HOME_FAQS[2], HOME_FAQS[3], HOME_FAQS[0]];
+  const items = selected.map(function(item, index) {
+    return '<div class="faq-item ' + (index === 0 ? 'open' : '') + '"><button type="button"><span>' + item.q + '</span>' + icon('ChevronDown', 18) + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>';
+  }).join('');
+  return '<section class="section home-faq-section"><div class="container home-faq-grid"><div class="reveal home-faq-intro"><p class="section-eyebrow">DIRECT ANSWERS</p><h2>品牌做电商时，常见问题先直接回答</h2><p>这些回答基于品沐在店铺诊断、经营复盘和运营陪跑中反复遇到的问题。具体项目仍需结合平台、类目、统计周期和团队执行能力判断。</p><a class="text-link" href="' + localizeHref('/contact/') + '">带着具体问题咨询品沐 ' + icon('ArrowRight', 16) + '</a></div><div class="faq-list">' + items + '</div></div></section>';
+}
+
+function DashboardVisual() {
+  return '<div class="dashboard-visual" aria-label="电商数据看板演示数据示意图"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="growth-arrow"></div><div class="metric-card metric-main"><span>演示数据 · 净销售额趋势</span><strong>¥ 11,936,420</strong><em>+16.8%</em><svg viewBox="0 0 260 80" role="img" aria-label="增长趋势线"><polyline points="6,62 38,48 70,52 102,45 136,50 170,38 205,34 250,12" fill="none" stroke="#255BFF" stroke-width="5" stroke-linecap="round"></polyline><path d="M6 72 C70 38,120 72,250 22 L250 80 L6 80 Z" fill="rgba(74,91,255,.12)"></path></svg></div><div class="metric-card metric-roi"><span>演示数据 · 付费 ROI</span><strong>3.42</strong><em>计划级拆解</em></div><div class="metric-card metric-donut"><span>演示数据 · 流量结构</span><div class="donut"></div></div><div class="metric-card metric-rate"><span>演示数据 · 退款治理</span><strong>4.21%</strong><div class="bars"><i></i><i></i><i></i><i></i><i></i></div></div></div>';
+}
+
+function GeoReportOfferSection() {
+  if (isEn()) return '';
+  return '<section class="section geo-report-offer-section"><div class="container geo-report-offer"><div class="reveal geo-report-offer-copy"><p class="section-eyebrow">FREE BRAND GEO REPORT</p><h2>添加微信，免费获取一份品牌 GEO 基础报告</h2><p>如果你想知道品牌为什么不容易被 AI 搜索看见、理解或引用，先把品牌官网或店铺链接发给品沐。</p><ul class="geo-report-offer-list"><li>' + icon('Search', 20) + 'AI 搜索可见度、品牌事实一致性与技术可抓取性</li><li>' + icon('FilePenLine', 20) + '页面内容、FAQ、案例和外部信源的证据缺口</li><li>' + icon('Target', 20) + '未来 30 至 90 天可优先执行的 GEO 动作</li></ul><div class="geo-report-offer-actions">' + ButtonLink('查看领取方式', '/contact/?service=geo-report', 'primary', false) + '<span>' + SITE.contactLabel + '</span></div></div><div class="reveal geo-report-offer-card"><div class="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="添加品沐咨询微信，免费获取品牌 GEO 基础报告" width="320" height="320" loading="lazy" decoding="async"></div><div><strong>添加微信时备注</strong><code>品牌GEO报告</code><p>同时发送：品牌名称、官网或店铺链接、主要平台、目标市场。</p></div></div></div></section>';
+}
+
+function GeoEvidenceSection() {
+  if (isEn()) return '';
+  const cards = GEO_EVIDENCE_HOOKS.map(function(item, index) {
+    return '<article class="geo-evidence-card"><span>0' + (index + 1) + '</span><h3>' + item.title + '</h3><p>' + item.text + '</p></article>';
+  }).join('');
+  return '<section class="section geo-evidence-section geo-evidence-section-compact" aria-labelledby="geo-evidence-title"><div class="container"><details class="geo-evidence-disclosure"><summary><span><strong id="geo-evidence-title">我们如何保证内容可信？</strong><small>查看证据、口径与公开边界</small></span>' + icon('ChevronDown', 20) + '</summary><div class="geo-evidence-grid">' + cards + '</div></details></div></section>';
+}
+
+function Home() {
+  const selected = ['store-traffic-no-conversion-diagnosis', 'ecommerce-weekly-report-review-framework', 'geo-seo-paid-media-coordination'];
+  const cards = selected.map(slug => getInsightBySlug(slug)).filter(Boolean).map(InsightCard).join('');
+  return homePage(isEn(), cards);
+}
+
+function localizeServiceValue(value) {
+  return isEn() ? (EN_TEXT[value] || value) : value;
+}
+
+const englishGeoConsultingService = {
+  fee: 'Assessed by site scale, content foundation, channel count and monitoring period',
+  title: 'GEO and AI Search Visibility',
+  short: 'Make brand information easier for search engines and AI answer engines to crawl, understand and cite through technical foundations, facts, evidence-led content, distribution and visibility monitoring.',
+  fit: [
+    'Companies whose websites are accessible but difficult for AI search to find or understand consistently',
+    'Brands with promotional content but little citable evidence, sources, dates or disclosure boundaries',
+    'Teams that need one consistent fact base across the official website, platforms and external sources'
+  ],
+  problems: [
+    'Visible copy is missing from source HTML, or robots, sitemap, canonical or structured data has gaps',
+    'Brand name, service scope, cases and contact facts are inconsistent across pages or platforms',
+    'No fixed probe set exists to distinguish mentions, citations and factual accuracy',
+    'The brand relies on its website alone and lacks coordinated external sources such as media or industry directories'
+  ],
+  content: [
+    'GEO technical foundation audit: source HTML, robots, sitemap, canonical, hreflang, JSON-LD and submission channels',
+    'Brand entity and fact base: consistent, verifiable company, service, author, case, address and contact facts',
+    'AI query set and visibility baseline: fixed probes for awareness, recommendations, comparisons, reputation and purchase decisions',
+    'Evidence-led content planning: design articles, FAQs, cases, comparison pages and author pages around Claim, Evidence, Boundary and Action',
+    'Platform distribution and external authority: choose one or two primary channels and coordinate real external sources',
+    'Ongoing monitoring and inquiry attribution: track mentions, citations, cited pages, share of voice, factual accuracy and AI-referred inquiries'
+  ],
+  deliverables: [
+    'GEO technical audit and repair acceptance checklist',
+    'Brand fact base and a recommended 50-question probe set',
+    '90-day evidence-led content and platform distribution plan',
+    'Article, FAQ, case, comparison-page and author-page checklist',
+    'Monthly AI visibility, factual accuracy and inquiry-attribution report'
+  ]
+};
+
+
+function li(item) { return '<li>' + item + '</li>'; }
+
+function Services() {
+  return PageHero(isEn() ? 'Brand e-commerce growth consulting' : '品牌电商增长咨询服务', isEn() ? 'Strategy, product conversion, paid-media review and brand discovery. Start with the question your team needs to resolve.' : '经营诊断、商品转化、投放复盘与品牌发现。从一个具体问题开始，确定适合的工作范围。') + servicesContent(isEn());
+}
+
+function GeoServiceModulesSection() {
+  const source = isEn() ? [
+    { code: '01', icon: 'Search', title: 'GEO Technical Foundation Audit', text: 'Check whether AI and search crawlers can read the source content, then review robots, sitemap, canonical, hreflang, JSON-LD, static output and submission channels.', evidence: 'Review source HTML, robots, sitemap, canonical, structured data and the deployed build.', boundary: 'This assesses crawlability and structural completeness. It does not promise indexing or recommendations.', action: 'Share the official website and target answer engines for a prioritized repair list.', deliverable: 'Technical repair checklist and launch acceptance' },
+    { code: '02', icon: 'Building2', title: 'Brand Entity and Fact Base', text: 'Organize the company entity, standard names, principal, service scope, contact details, case disclosure boundaries and update dates into a reviewable fact base.', evidence: 'Use public company records, official pages and authorized case materials as the source of truth.', boundary: 'A fact base does not replace company filings, platform review or client authorization. Similar entities must not be merged without evidence.', action: 'Confirm the standard spelling of the company, brand, principal and official domain.', deliverable: 'Entity relationship map and fact definition sheet' },
+    { code: '03', icon: 'BarChart3', title: 'AI Query Set and Visibility Baseline', text: 'Build fixed probes for brand awareness, service recommendations, category comparison, problem solving and purchase decisions, then record mentions, citations and factual accuracy by platform.', evidence: 'Use fixed questions, platforms, dates, model versions and answer records to create a repeatable baseline.', boundary: 'One probe represents an answer at a specific time. It is not a long-term ranking or recommendation promise.', action: 'Set category, brand and target answer-engine terms before creating the retest sheet.', deliverable: 'Fixed query set, baseline report and retest rules' },
+    { code: '04', icon: 'FilePenLine', title: 'Evidence-led Content and Structured Data', text: 'Turn service pages, FAQs, cases, comparison pages, author pages and insights into independently citable content, with visible copy aligned to Article, FAQPage and Service data.', evidence: 'Organize pages, FAQs, cases and machine-readable resources around Claim, Evidence, Boundary and Action.', boundary: 'Structured data must match visible copy. Do not add ratings, client results or invented questions.', action: 'Start with one core problem page and add sources, dates, scope and a practical next step.', deliverable: 'Content map, page brief and publication acceptance checklist' },
+    { code: '05', icon: 'Send', title: 'Platform Distribution and External Authority', text: 'Choose one or two primary channels based on the audience and baseline, then strengthen external sources through real media, joint cases, industry associations or event directories.', evidence: 'Use public platform articles, media coverage, joint cases and industry directories as external sources.', boundary: 'Distribution increases the chance of discovery and verification; it does not guarantee AI adoption, citation or recommendation.', action: 'Choose one or two primary channels and adapt the verified fact base consistently.', deliverable: 'Channel selection, adaptation plan and authority asset list' },
+    { code: '06', icon: 'Lightbulb', title: 'Ongoing Monitoring and Inquiry Attribution', text: 'Track mentions, citations, cited pages, share of voice, factual accuracy and AI-referred inquiries from a fixed sample, distinguishing direct attribution from assisted influence.', evidence: 'Combine probe answers, citation URLs, analytics, UTM or referrer data, self-reported sources and CRM records.', boundary: 'Answer engines may hide sources or span devices, so not every inquiry can be attributed to one channel.', action: 'Fix the questions and time window, then record changes at 24-hour, 7-day and monthly checkpoints.', deliverable: 'Monthly GEO monitoring report and next-cycle actions' }
+  ] : geoServiceModules;
+  const cards = source.map(function(item) {
+    return '<article class="geo-service-card reveal"><div class="geo-service-topline"><span>' + item.code + '</span>' + icon(item.icon, 25) + '</div><h3>' + item.title + '</h3><p>' + item.text + '</p><details class="geo-service-proof"><summary>工作依据与服务范围</summary><div><span>依据</span><p>' + item.evidence + '</p></div><div><span>边界</span><p>' + item.boundary + '</p></div><div><span>下一步</span><p>' + item.action + '</p></div></details><strong>交付：' + item.deliverable + '</strong></article>';
+  }).join('');
+  const title = isEn() ? 'GEO can be delivered through six connected modules' : 'GEO 服务可以拆成六个模块';
+  const text = isEn() ? 'GEO is not a page filled with AI keywords. It connects crawlability, factual consistency, citable content, external sources and ongoing measurement. Select one module or combine them into a 90-day plan.' : 'GEO 不是在页面里堆几个 AI 关键词，而是把可抓取性、事实一致性、可引用内容、外部信源和持续测量连接起来。可以按当前缺口选择单项，也可以按 90 天计划组合推进。';
+  const approach = isEn() ? ['Approach and service scope', 'Basis', 'Boundary', 'Next step', 'Deliverable'] : ['工作依据与服务范围', '依据', '边界', '下一步', '交付：'];
+  const localizedCards = isEn() ? cards.replaceAll('>工作依据与服务范围<', '>' + approach[0] + '<').replaceAll('>依据<', '>' + approach[1] + '<').replaceAll('>边界<', '>' + approach[2] + '<').replaceAll('>下一步<', '>' + approach[3] + '<').replaceAll('>交付：', '>' + approach[4] + ': ') : cards;
+  return '<section class="section geo-service-section"><div class="container">' + SectionIntro(isEn() ? 'From findings to practical work.' : '从发现问题，到推进改善。', isEn() ? 'Agree priorities, assign content and technical work, then return to the same questions for review.' : '先确认品牌事实和当前问题，再安排页面、内容与外部资料的改善，最后用同一组问题复测。') + '<div class="reading-resource-entry"><div><h3>了解具体方法</h3><p>品牌事实、判断口径与复测方法，可以先从这些资料了解。</p></div><a class="text-link" href="/insights/brand-fact-base-for-ai-search/">品牌事实库怎么做 ↗</a><a class="text-link" href="/resources/operating-templates/#geo-facts">品牌事实自查表 ↗</a></div><details class="geo-scope-details"><summary>' + title + '</summary><p>' + text + '</p><div class="geo-service-grid">' + localizedCards + '</div></details></div></section>';
+}
+
+function LeadPageCard(page) {
+  return '<article class="lead-card reveal"><span>' + page.eyebrow + '</span><h3>' + page.title + '</h3><p>' + page.subtitle + '</p><a class="outline-link" href="' + localizeHref('/services/' + page.slug + '/') + '">查看诊断方案 ' + icon('ArrowRight', 16) + '</a></article>';
+}
+
+function LeadEntrySection() {
+  if (isEn()) {
+    return '<section class="section lead-entry-section"><div class="container">' + SectionIntro('Plan your China market entry', 'For overseas or cross-border brands, start by evaluating how your products should be sold in China.') + '<div class="lead-card-grid lead-card-grid-single"><article class="lead-card reveal"><span>China e-commerce entry</span><h3>How to Sell Products in China</h3><p>Clarify platform priority, product messaging, content seeding, store conversion and next-step actions for China e-commerce.</p><a class="outline-link" href="' + localizeHref('/china-ecommerce-consulting/') + '">View China Entry Page ' + icon('ArrowRight', 16) + '</a></article></div></div></section>';
+  }
+  const prioritySlugs = ['ecommerce-diagnosis', 'store-diagnosis', 'tmall-jd-consultant', 'page-conversion-optimization', 'ecommerce-roi-review', 'geo-consulting'];
+  const cards = prioritySlugs.map(function(slug) { return leadPages.find(function(page) { return page.slug === slug; }); }).filter(Boolean).map(LeadPageCard).join('');
+  return '<section class="section lead-entry-section"><div class="container">' + SectionIntro('按问题进入，更快找到适合你的咨询方案', '不同品牌卡住的位置不一样。你可以直接从当前最像自己的问题进入，先看诊断重点、交付物和适合场景。') + '<div class="lead-card-grid">' + cards + '</div><div class="center-actions"><a class="text-link" href="#core-services">继续浏览全部核心服务 ' + icon('ArrowRight', 16) + '</a></div></div></section>';
+}
+
+function ProofSection() {
+  if (isEn()) {
+    const cards = [
+      ['Diagnosis Memo', 'ClipboardList', 'Clarify platform, product, traffic, conversion and team execution issues before scaling.', ['Current status', 'Core issues', 'Priority']],
+      ['Action Roadmap', 'CheckCircle2', 'Turn strategic advice into tasks, owners and review cycles.', ['Actions', 'Owners', 'Review rhythm']],
+      ['Page Messaging', 'Image', 'Improve product pages, hero images, SKU logic and conversion messaging.', ['Hero image', 'Detail page', 'Conversion']],
+      ['Review Mechanism', 'BarChart3', 'Use data review to improve campaigns, content, ads and store conversion.', ['Data review', 'Meeting rhythm', 'Iteration']]
+    ].map(function(item) {
+      return '<article class="proof-card reveal"><div class="card-icon">' + icon(item[1], 26) + '</div><h3>' + item[0] + '</h3><p>' + item[2] + '</p><div>' + item[3].map(function(point) { return '<span>' + point + '</span>'; }).join('') + '</div></article>';
+    }).join('');
+    return '<section class="section proof-section"><div class="container">' + SectionIntro('Practical Deliverables, Not Just Advice', 'PINMOO focuses on materials that can be discussed, assigned, executed and reviewed by your team.') + '<div class="proof-grid">' + cards + '</div></div></section>';
+  }
+  const cards = proofAssets.map(function(item) {
+    return '<article class="proof-card reveal"><div class="card-icon">' + icon(item.icon, 26) + '</div><h3>' + item.title + '</h3><p>' + item.text + '</p><div>' + item.points.map(function(point) { return '<span>' + point + '</span>'; }).join('') + '</div></article>';
+  }).join('');
+  return '<section class="section proof-section"><div class="container">' + SectionIntro('不是只给建议，而是给能推进执行的交付物', '客户需要的不只是“方向感”，还需要能被团队拿去开会、分工、复盘和迭代的材料。') + '<div class="proof-grid">' + cards + '</div></div></section>';
+}
+
+function LeadPathSection() {
+  if (isEn()) {
+    const steps = [
+      ['Find the Issue', 'Enter from a search page, service page or case study that matches your current challenge.'],
+      ['Check Fit', 'Review methods, deliverables, fee references and case experience.'],
+      ['Book Diagnosis', 'Submit your inquiry or add WeChat and mention your purpose.'],
+      ['Start Conversation', 'Clarify platform priority, product messaging and next-step actions.']
+    ].map(function(item, index) {
+      return '<div class="path-step reveal"><span>0' + (index + 1) + '</span><h3>' + item[0] + '</h3><p>' + item[1] + '</p></div>';
+    }).join('');
+    return '<section class="section lead-path-section"><div class="container">' + SectionIntro('A Clear Inquiry Path', 'From a matched problem to a practical diagnosis, every step is designed to reduce vague communication.') + '<div class="lead-path-grid">' + steps + '</div></div></section>';
+  }
+  const steps = leadPathSteps.map(function(item, index) {
+    return '<div class="path-step reveal"><span>0' + (index + 1) + '</span><h3>' + item.title + '</h3><p>' + item.text + '</p></div>';
+  }).join('');
+  return '<section class="section lead-path-section"><div class="container">' + SectionIntro('一条清晰的咨询路径，减少无效沟通', '从相似问题进入，到基础诊断，再到具体合作方案，每一步都尽量清楚、可判断。') + '<div class="lead-path-grid">' + steps + '</div></div></section>';
+}
+
+const relatedCaseSlugsByLead = {
+  'ecommerce-diagnosis': ['traditional-enterprise-ecommerce-launch', 'wine-store-diagnosis', 'tea-brand-platform-synergy'],
+  'store-diagnosis': ['wine-store-diagnosis', 'womenswear-refund-optimization', 'personal-care-device-positioning'],
+  'tmall-jd-consultant': ['tea-brand-platform-synergy', 'children-nutrition-compliance', 'traditional-enterprise-ecommerce-launch'],
+  'douyin-xiaohongshu-growth': ['tea-brand-platform-synergy', 'camping-local-life-operation', 'personal-care-device-positioning'],
+  'page-conversion-optimization': ['personal-care-device-positioning', 'children-nutrition-compliance', 'womenswear-refund-optimization'],
+  'brand-growth-consultant': ['tea-brand-platform-synergy', 'consumer-goods-membership-growth', 'traditional-enterprise-ecommerce-launch'],
+  'tmall-business-weekly-report': ['tea-brand-platform-synergy', 'wine-store-diagnosis', 'womenswear-refund-optimization'],
+  'tmall-refund-rate-analysis': ['womenswear-refund-optimization', 'children-nutrition-compliance', 'wine-store-diagnosis'],
+  'ecommerce-roi-review': ['tea-brand-platform-synergy', 'wine-store-diagnosis', 'traditional-enterprise-ecommerce-launch'],
+  'livestream-conversion-diagnosis': ['personal-care-device-positioning', 'tea-brand-platform-synergy', 'camping-local-life-operation'],
+  'customer-service-conversion-scripts': ['womenswear-refund-optimization', 'consumer-goods-membership-growth', 'personal-care-device-positioning'],
+  'member-repurchase-private-domain': ['consumer-goods-membership-growth', 'camping-local-life-operation', 'tea-brand-platform-synergy'],
+  'business-advisor-data-diagnosis': ['wine-store-diagnosis', 'tea-brand-platform-synergy', 'womenswear-refund-optimization'],
+  'ai-ecommerce-growth-consultant': ['traditional-enterprise-ecommerce-launch', 'tea-brand-platform-synergy', 'consumer-goods-membership-growth']
+};
+
+function relatedLeadPages(page) {
+  const sameService = leadPages.filter(function(item) {
+    return item.slug !== page.slug && item.serviceId === page.serviceId;
+  });
+  const fallback = leadPages.filter(function(item) {
+    return item.slug !== page.slug && item.serviceId !== page.serviceId;
+  });
+  return sameService.concat(fallback).slice(0, 4);
+}
+
+function RelatedLeadCard(page) {
+  return '<a class="related-lead-card" href="' + localizeHref('/services/' + page.slug + '/') + '"><span>' + page.eyebrow + '</span><strong>' + page.title + '</strong><small>' + page.searchIntent.slice(0, 2).join(' / ') + '</small></a>';
+}
+
+function RelatedLeadSection(page) {
+  const related = relatedLeadPages(page).map(RelatedLeadCard).join('');
+  const reading = {
+    'tmall-business-weekly-report': ['ai-ecommerce-weekly-report-vs-manual-report', 'ecommerce-weekly-report-review-framework'],
+    'business-advisor-data-diagnosis': ['business-advisor-data-diagnosis-checklist', 'pinmoo-diagnosis-data-minimization'],
+    'tmall-refund-rate-analysis': ['ecommerce-refund-governance-playbook', 'refund-event-time-versus-order-period-weekly-report'],
+    'store-diagnosis': ['store-traffic-no-conversion-diagnosis'],
+    'ecommerce-diagnosis': ['ecommerce-consulting-procurement-brief', 'business-advisor-data-diagnosis-checklist'],
+    'tmall-jd-consultant': ['ecommerce-coaching-pilot-working-methods', 'tmall-jd-same-product-conversion-diagnosis'],
+    'page-conversion-optimization': ['cross-channel-assortment-price-comparison', 'sku-choice-overload-and-product-differences'],
+    'ecommerce-roi-review': ['paid-traffic-roi-quality-review', 'creator-campaign-refund-settlement-review'],
+    'douyin-xiaohongshu-growth': ['creator-campaign-refund-settlement-review'],
+    'tea-ecommerce-consultant': ['tea-brand-geo-content-and-ecommerce-diagnosis'],
+    'xinhui-chenpi-ecommerce': ['xinhui-chenpi-ecommerce-entity-and-content'],
+    'geo-consulting': ['brand-fact-base-for-ai-search', 'ai-search-inquiry-fit-service-boundaries']
+  };
+  const articles = (reading[page.slug] || []).map(getInsightBySlug).filter(Boolean);
+  const methods = articles.length ? '<div class="detail-block"><h2>了解具体方法</h2><ul>' + articles.map(article => '<li><a class="text-link" href="/insights/' + article.slug + '/">' + article.shortTitle + '</a></li>').join('') + '</ul></div>' : '';
+  return '<div class="reveal detail-block related-lead-block"><div class="detail-title">' + icon('Layers', 24) + '<h2>还可以一起看的诊断入口</h2></div><div class="related-lead-grid">' + related + '</div></div>' + methods;
+}
+
+function relatedCasesForLead(page) {
+  const slugs = relatedCaseSlugsByLead[page.slug] || [];
+  const picked = slugs.map(function(slug) { return getCaseBySlug(slug); }).filter(Boolean);
+  cases.forEach(function(item) {
+    if (picked.length >= 3) return;
+    if (!picked.some(function(existing) { return existing.slug === item.slug; })) picked.push(item);
+  });
+  return picked.slice(0, 3);
+}
+
+function LandingPage(page) {
+  const intent = page.searchIntent.map(function(item) { return '<span>' + item + '</span>'; }).join('');
+  const pain = page.painPoints.map(li).join('');
+  const diagnosis = page.diagnosis.map(li).join('');
+  const deliverables = page.deliverables.map(function(item) { return '<div>' + icon('CheckCircle2', 18) + '<span>' + item + '</span></div>'; }).join('');
+  const faqs = page.faq.map(function(item) { return '<div class="faq-item"><button type="button"><span>' + item.q + '</span>' + icon('ChevronDown', 18) + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>'; }).join('');
+  const related = relatedCasesForLead(page).map(function(item) { return '<div class="reveal">' + CaseCard(item) + '</div>'; }).join('');
+  const serviceParam = encodeURIComponent(page.title);
+  const directAnswer = page.directAnswer ? '<section class="insight-answer-box landing-answer-box reveal" aria-labelledby="landingDirectAnswerTitle"><div>' + icon('Lightbulb', 28) + '<h2 id="landingDirectAnswerTitle">先直接回答</h2></div><p>' + page.directAnswer + '</p></section>' : '';
+  const evidence = page.evidence ? '<section class="insight-evidence landing-evidence reveal" aria-labelledby="landingEvidenceTitle"><span>判断依据与边界</span><h2 id="landingEvidenceTitle">这项服务依据什么判断？</h2><dl><div><dt>判断依据</dt><dd>' + page.evidence.basis + '</dd></div><div><dt>适用范围</dt><dd>' + page.evidence.scope + '</dd></div><div><dt>使用限制</dt><dd>' + page.evidence.limits + '</dd></div></dl></section>' : '';
+  return PageHero(page.title, page.subtitle, false, '<div class="lead-keywords">' + intent + '</div>') +
+    '<section class="section landing-section"><div class="container landing-layout"><div class="landing-main">' +
+    directAnswer + evidence +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('Search', 24) + '<h2>你可能正遇到这些问题</h2></div><ul>' + pain + '</ul></div>' +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('Target', 24) + '<h2>品沐会重点诊断什么</h2></div><ul>' + diagnosis + '</ul></div>' +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('ClipboardList', 24) + '<h2>可能获得的交付物</h2></div><div class="deliverable-grid">' + deliverables + '</div></div>' +
+    RelatedLeadSection(page) +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('ShieldCheck', 24) + '<h2>合作边界说明</h2></div><p>品沐不做“保证增长”“百分百提升”这类绝对承诺。我们更重视诊断依据、行动优先级、执行节奏和复盘机制，帮助品牌提高增长决策的清晰度和确定性。</p></div>' +
+    '</div><aside class="landing-aside"><div class="aside-card reveal"><h2>适合先做什么？</h2><p>' + page.proof + '</p><a class="btn btn-primary" href="' + localizeHref('/contact/?service=' + serviceParam) + '"><span>预约基础诊断</span></a></div><div class="aside-card reveal"><h2>联系方式</h2><p>' + SITE.contactLabel + '</p><p>' + SITE.contactNote + '</p></div></aside></div></section>' +
+    (page.slug === 'geo-consulting' ? GeoServiceModulesSection() + geoReportPreview() : '') + ProofSection() +
+    '<section class="section cases-preview"><div class="container">' + SectionIntro('相关项目经验', '先看相似问题如何被拆解，再判断是否适合预约一次基础诊断。') + '<div class="home-case-grid">' + related + '</div></div></section>' +
+    '<section class="section faq-section"><div class="container narrow-container">' + SectionIntro('常见问题') + '<div class="faq-list">' + faqs + '</div></div></section>' +
+    CtaBand('想判断这个问题是否值得优先解决？', '预约一次基础诊断，我们会从平台、商品、流量、转化和团队执行五个维度先帮你看清楚。', '预约基础诊断');
+}
+
+function ChinaEcommercePage() {
+  const page = chinaEcommercePage;
+  const intent = page.searchIntent.map(function(item) { return '<span>' + item + '</span>'; }).join('');
+  const pain = page.painPoints.map(li).join('');
+  const diagnosis = page.diagnosis.map(li).join('');
+  const deliverables = page.deliverables.map(function(item) { return '<div>' + icon('CheckCircle2', 18) + '<span>' + item + '</span></div>'; }).join('');
+  const faqs = page.faq.map(function(item) { return '<div class="faq-item"><button type="button"><span>' + item.q + '</span>' + icon('ChevronDown', 18) + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>'; }).join('');
+  return PageHero(page.title, page.subtitle, false, '<div class="lead-keywords">' + intent + '</div>') +
+    '<section class="section landing-section"><div class="container landing-layout"><div class="landing-main">' +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('Search', 24) + '<h2>Common Entry Questions</h2></div><ul>' + pain + '</ul></div>' +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('Target', 24) + '<h2>What PINMOO Diagnoses</h2></div><ul>' + diagnosis + '</ul></div>' +
+    '<div class="reveal detail-block"><div class="detail-title">' + icon('ClipboardList', 24) + '<h2>What You Can Get</h2></div><div class="deliverable-grid">' + deliverables + '</div></div>' +
+    '</div><aside class="landing-aside"><div class="aside-card reveal"><h2>Talk to PINMOO</h2><p>Use this page if you are evaluating how to enter or grow in China e-commerce.</p><a class="btn btn-primary" href="' + localizeHref('/contact/?service=China%20e-commerce%20consulting') + '"><span>Book a Diagnosis</span></a></div><div class="aside-card reveal"><h2>Contact</h2><p>WeChat / Mobile: ' + SITE.phoneDisplay + '</p><p>Please mention: China e-commerce consulting.</p></div></aside></div></section>' +
+    '<section class="section faq-section"><div class="container narrow-container">' + SectionIntro('FAQ') + '<div class="faq-list">' + faqs + '</div></div></section>' +
+    CtaBand('How should your brand sell products in China?', 'Book a basic diagnosis and we will help clarify platform priority, product messaging and next-step actions.', 'Book a Diagnosis');
+}
+
+function MetricTermCard(term, index) {
+  const aliases = term.aliases.map(function(alias) { return '<span>' + alias + '</span>'; }).join('');
+  return '<article class="metric-term-card reveal" id="term-' + (index + 1) + '"><div class="metric-term-head"><span class="metric-term-index">0' + (index + 1) + '</span><div><small>' + term.category + '</small><h2>' + term.name + '</h2></div></div><div class="metric-aliases" aria-label="' + term.name + '常见说法">' + aliases + '</div><p class="metric-definition">' + term.definition + '</p><div class="metric-term-grid"><div><strong>' + icon('BookOpen', 18) + '周报使用</strong><p>' + term.reportUse + '</p></div><div><strong>' + icon('ShieldCheck', 18) + '注意口径</strong><p>' + term.caution + '</p></div><div><strong>' + icon('Target', 18) + '建议动作</strong><p>' + term.action + '</p></div></div></article>';
+}
+
+function ResourceMetricDictionary() {
+  const chips = metricDictionary.keywords.map(function(item) { return '<span>' + item + '</span>'; }).join('');
+  const intro = metricDictionary.introPoints.map(function(item, index) {
+    return '<div class="metric-intro-card reveal"><span>0' + (index + 1) + '</span><p>' + item + '</p></div>';
+  }).join('');
+  const terms = metricDictionary.terms.map(MetricTermCard).join('');
+  const faqs = metricDictionary.faqs.map(function(item) {
+    return '<div class="faq-item"><button type="button"><span>' + item.q + '</span>' + icon('ChevronDown', 18) + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>';
+  }).join('');
+  const anchors = metricDictionary.terms.map(function(term, index) {
+    return '<a href="#term-' + (index + 1) + '">' + term.name + '</a>';
+  }).join('');
+  return PageHero(metricDictionary.title, metricDictionary.subtitle, false, '<p class="hero-kicker">' + metricDictionary.eyebrow + '</p><div class="lead-keywords">' + chips + '</div>') +
+    '<section class="section metric-dictionary-section"><div class="container metric-intro-grid">' + intro + '</div><div class="container metric-dictionary-layout"><div class="metric-dictionary-main">' +
+    SectionIntro('经营报告先统一口径，再讨论增长动作', '支付金额、净销售额、退款率和投放 ROI 都不是孤立指标。品沐咨询在周报中会先说明口径，再结合商品、页面、客服、推广、直播和老客运营判断下一步动作。', 'left') +
+    '<div class="metric-term-list">' + terms + '</div></div><aside class="metric-dictionary-aside"><div class="aside-card reveal metric-anchor-card"><h2>指标目录</h2><div>' + anchors + '</div></div><div class="aside-card reveal metric-side-card"><h2>适合搭配查看</h2><p>如果你已经有生意参谋、推广、退款或直播数据，可以先体验经营诊断，再判断哪些指标值得重点追踪。</p><a class="outline-link" href="' + localizeHref('/ai-diagnosis/') + '">体验 AI 经营诊断 ' + icon('ArrowRight', 16) + '</a><a class="outline-link" href="' + localizeHref('/services/tmall-business-weekly-report/') + '">查看经营周报服务 ' + icon('ArrowRight', 16) + '</a><a class="outline-link" href="' + localizeHref('/services/business-advisor-data-diagnosis/') + '">查看数据诊断入口 ' + icon('ArrowRight', 16) + '</a></div></aside></div></section>' +
+    '<section class="section faq-section"><div class="container narrow-container">' + SectionIntro('指标口径常见问题') + '<div class="faq-list">' + faqs + '</div></div></section>' +
+    CtaBand('想把指标口径落到你自己的店铺数据里？', '可以先上传经营数据生成一版周报预览，再看哪些问题需要优先拆解到商品、页面、客服、推广、直播和老客运营。', '体验经营报告');
+}
+
+function InsightTable(table) {
+  if (!table) return '';
+  const head = table.headers.map(function(item) { return '<th scope="col">' + item + '</th>'; }).join('');
+  const rows = table.rows.map(function(row) { return '<tr>' + row.map(function(item, index) { return index === 0 ? '<th scope="row">' + item + '</th>' : '<td>' + item + '</td>'; }).join('') + '</tr>'; }).join('');
+  return '<div class="insight-table-wrap"><table><thead><tr>' + head + '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+}
+
+function InsightSection(section, index, storyFormat) {
+  const paragraphs = (section.paragraphs || []).map(function(item) { return '<p>' + item + '</p>'; }).join('');
+  const bullets = section.bullets?.length ? '<ul>' + section.bullets.map(li).join('') + '</ul>' : '';
+  const sectionIndex = storyFormat ? '' : '<span class="insight-section-index">0' + (index + 1) + '</span>';
+  return '<section class="insight-section reveal" id="' + section.id + '">' + sectionIndex + '<h2>' + section.title + '</h2>' + paragraphs + bullets + InsightTable(section.table) + '</section>';
+}
+
+function InsightFaq(article) {
+  if (!article.faqs?.length) return '';
+  const items = article.faqs.map(function(item) { return '<div class="faq-item"><button type="button"><span>' + item.q + '</span>' + icon('ChevronDown', 18) + '</button><div class="faq-answer"><p>' + item.a + '</p></div></div>'; }).join('');
+  return '<section class="insight-section insight-faq reveal"><h2>常见问题</h2><div class="faq-list">' + items + '</div></section>';
+}
+
+function InsightRelatedServices(article) {
+  const cards = article.relatedServices.map(function(slug) {
+    const page = getLeadPageBySlug(slug);
+    if (!page) return '';
+    return '<a class="insight-related-card" href="/services/' + page.slug + '/"><span>相关服务</span><strong>' + page.title + '</strong><p>' + page.subtitle + '</p>' + icon('ArrowRight', 18) + '</a>';
+  }).join('');
+  const metricCard = article.storyFormat ? '' : '<a class="insight-related-card" href="/resources/ecommerce-metrics-dictionary/"><span>指标工具</span><strong>电商经营指标口径词典</strong><p>统一支付金额、净销售额、退款率、推广花费和 ROI 等常见口径。</p>' + icon('ArrowRight', 18) + '</a>';
+  const heading = article.storyFormat ? '继续了解相关服务' : '继续解决这个经营问题';
+  return '<section class="section insight-related-section"><div class="container"><div class="insight-related-head"><h2>' + heading + '</h2><a href="/services/">查看全部服务</a></div><div class="insight-related-grid">' + cards + metricCard + '</div></div></section>';
+}
+
+function InsightsPage() {
+  const index = indexForPath(pathname) || { topic: 'all', page: 1 };
+  return PageHero('经营洞察', '从品牌经营中的具体问题出发，找到可以用于下一次决策的方法。', false) + insightIndexContent(index.topic, index.page);
+}
+
+function articleSources(article) {
+  if (!article.sources?.length) return '';
+  const note = article.storyFormat ? '文中的品牌与服务信息以官网来源页面为准；经营建议由品沐咨询整理。' : '方法建议由品沐整理；平台规则以官方最新说明为准。';
+  return '<section class="insight-sources"><h2>参考资料</h2><ul>' + article.sources.map(source => '<li><a href="' + source.url + '" target="_blank" rel="noopener noreferrer">' + source.title + '</a></li>').join('') + '</ul><p>' + note + '</p></section>';
+}
+
+function relatedReading(article) {
+  const related = relatedInsights(article);
+  return '<section class="insight-related-reading"><h2>延伸阅读</h2><ul>' + related.map(item => '<li><a href="/insights/' + item.slug + '/">' + item.title + '</a></li>').join('') + '</ul></section>';
+}
+
+function InsightDetail(article) {
+  const authorLabel = article.authorName || insightAuthor.name + '｜' + insightAuthor.alternateName;
+  const authorRole = article.authorRole || (article.authorType === 'Organization' ? '品牌 GEO 与电商增长咨询' : insightAuthor.role);
+  const toc = article.sections.map(function(section, index) { return '<a href="#' + section.id + '">' + (article.storyFormat ? '' : '<span>0' + (index + 1) + '</span>') + section.title.replace(/^第[^：]+：/, '') + '</a>'; }).join('');
+  const resource = resourceForId(article.practicalResource);
+  const resourceEntry = resource ? '<div class="article-resource-entry"><strong>' + resource.title + '</strong><p>' + resource.description + '</p><a class="text-link" href="' + resourceLibrary.path + '#' + resource.id + '">查看填写方法 ↗</a><a class="text-link" href="/downloads/' + resource.filename + '" download data-event="resource_download">下载表格 ↓</a></div>' : '';
+  const sections = article.sections.map(function(section, index) { return InsightSection(section, index, article.storyFormat); }).join('') + resourceEntry;
+  const lead = article.storyFormat && article.lead?.length ? '<section class="insight-story-lead" aria-label="文章引言">' + article.lead.map(function(item) { return '<p>' + item + '</p>'; }).join('') + '</section>' : '';
+  const mobileToc = '<details class="insight-mobile-toc"><summary>本文目录</summary><nav aria-label="本文目录">' + toc + '</nav></details>';
+  const points = article.keyPoints.map(li).join('');
+  const answerBox = article.storyFormat ? '' : '<section class="insight-answer-box reveal" aria-labelledby="directAnswerTitle"><div>' + icon('Lightbulb', 28) + '<h2 id="directAnswerTitle">核心结论</h2></div><p>' + article.directAnswer + '</p><ul>' + points + '</ul></section>';
+  const evidence = article.evidence ? '<details class="insight-evidence reveal"><summary id="evidenceTitle">本文依据与适用范围</summary><dl><div><dt>判断依据</dt><dd>' + article.evidence.basis + '</dd></div><div><dt>适用范围</dt><dd>' + article.evidence.scope + '</dd></div><div><dt>使用限制</dt><dd>' + article.evidence.limits + '</dd></div></dl></details>' : '';
+  const conclusion = article.storyFormat ? '' : '<section class="insight-conclusion reveal"><span>品沐观点</span><h2>复盘结论</h2><p>' + article.conclusion + '</p></section>';
+  const authorImage = article.authorType === 'Organization' ? '' : '<img src="/assets/mufeng-profile.jpg" alt="鲍俊文 沐风 BarryBao" loading="lazy">';
+  const authorNote = article.authorType === 'Organization' ? '本文由品沐咨询整理，文中品牌与服务信息以官网公开页面为准。' : authorRole + '。长期关注店铺诊断、数据复盘与品牌电商增长问题。';
+  const articleClass = article.storyFormat ? 'insight-article story-format' : 'insight-article';
+  return '<article class="' + articleClass + '"><header class="insight-article-hero"><div class="hero-grid-bg"></div><div class="container insight-article-hero-inner"><div class="reveal"><a class="back-link" href="/insights/">返回经营洞察</a><div class="insight-article-labels"><span>' + article.category + '</span><span>' + article.readTime + '</span></div><h1>' + article.title + '</h1><p>' + article.summary + '</p><div class="insight-byline"><strong>' + authorLabel + '</strong><span>' + authorRole + '</span><time datetime="' + article.updated + '">更新于 ' + article.updated + '</time></div></div></div></header>' +
+    '<section class="section insight-article-body"><div class="container insight-article-layout"><div class="insight-article-main">' + answerBox + lead + mobileToc + sections + articleSources(article) + evidence + relatedReading(article) + conclusion + InsightFaq(article) + '<section class="insight-author-card reveal' + (article.authorType === 'Organization' ? ' organization-author-card' : '') + '">' + authorImage + '<div><span>内容提供方</span><h2>' + authorLabel + '</h2><p>' + authorNote + '</p><p class="insight-disclosure">' + (article.disclosure || insightAuthor.disclosure) + '</p><a href="/about/">了解品沐咨询 ' + icon('ArrowRight', 16) + '</a></div></section></div><aside class="insight-toc"><div><strong>本文目录</strong>' + toc + '</div><div class="insight-toc-contact"><strong>需要结合数据判断？</strong><p>发来品牌、平台和当前问题，先做一次基础判断。</p><a href="/contact/">预约咨询</a></div></aside></div></section>' + InsightRelatedServices(article) + '</article>';
+}
+
+function ContactSuccess() {
+  return PageHero(isEn() ? 'Inquiry Received' : '已收到你的咨询需求', isEn() ? 'You can also add WeChat / mobile 13600008584 and mention your purpose. We will reply as soon as possible.' : '你也可以直接添加微信 / 手机同号 13600008584，并注明来意，我们会尽快回复。', true) +
+    '<section class="section success-section"><div class="container success-grid"><div class="reveal detail-block"><div class="detail-title">' + icon('CheckCircle2', 28) + '<h2>' + (isEn() ? 'Next Step' : '下一步') + '</h2></div><p>' + (isEn() ? 'If the request is urgent, add WeChat directly and mention China e-commerce consulting, store diagnosis, operation coaching or brand growth.' : '如果比较着急，可以直接扫码或添加微信，并注明来意：电商咨询 / 店铺诊断 / 运营陪跑 / 品牌增长。') + '</p><div class="success-actions">' + ButtonLink(isEn() ? 'Back to Services' : '继续查看服务', '/services/', 'secondary', false) + ButtonLink(isEn() ? 'View Case Studies' : '查看项目经验', '/cases/', 'primary', false) + '</div></div><div class="reveal wechat-qr-card success-qr"><div class="wechat-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="' + (isEn() ? 'Mufeng WeChat QR code' : '沐风微信二维码') + '" loading="lazy"></div><div><strong>' + (isEn() ? 'Scan to Add WeChat' : '扫码添加微信') + '</strong><p>' + SITE.phoneDisplay + '</p><span>' + (isEn() ? 'Add WeChat and mention your brand, website or store, primary platform and current question.' : SITE.contactNote) + '</span></div></div></div></section>' +
+    LeadPathSection();
+}
+
+function renderCaseGrid(filter) {
+  const normalizedFilter = isEn() ? (FILTER_EN_TO_CN[filter] || filter) : filter;
+  const list = !normalizedFilter || normalizedFilter === '全部' ? cases : cases.filter(function(item) { return item.tags.indexOf(normalizedFilter) >= 0 || item.industry === normalizedFilter || item.serviceType.indexOf(normalizedFilter) >= 0; });
+  const html = list.map(function(item) {
+    const filters = [item.industry].concat(item.tags || []).join('|');
+    return '<div class="reveal is-visible" data-case-filters="' + filters + '">' + CaseCard(item) + '</div>';
+  }).join('');
+  return isEn() ? translateEnglish(html) : html;
+}
+
+function Cases() {
+  const industryNames = isEn() ? ['Apparel', 'Tea & Food', 'Nutrition', 'Personal Care', 'Wine'] : ['服饰', '茶饮', '营养', '个护', '酒水'];
+  const industry = industryNames.map(function(item, index) { return '<span>' + icon(['ShoppingBag','Leaf','ShieldCheck','Zap','Store'][index], 20) + item + '</span>'; }).join('');
+  const serviceFilters = new Set(['全部', 'GEO优化', '平台运营', '页面优化', '内容种草', '投放复盘', '私域会员']);
+  const filterNames = isEn() ? Object.keys(FILTER_EN_TO_CN) : caseFilters;
+  const filterButton = item => '<button type="button" class="' + (item === 'All' || item === '全部' ? 'active' : '') + '" data-filter="' + item + '">' + item + '</button>';
+  const primary = filterNames.filter(item => serviceFilters.has(isEn() ? FILTER_EN_TO_CN[item] : item));
+  const industries = filterNames.filter(item => !primary.includes(item));
+  const filters = '<div class="case-filter-controls"><div class="filter-row" role="group" aria-label="' + (isEn() ? 'Filter by service' : '按服务筛选案例') + '">' + primary.map(filterButton).join('') + '</div><details class="case-industry-filter"><summary>' + (isEn() ? 'Filter by industry' : '按行业筛选') + '</summary><div class="filter-row" role="group" aria-label="' + (isEn() ? 'Industry filters' : '行业筛选') + '">' + industries.map(filterButton).join('') + '</div></details></div>';
+  const heroTitle = isEn() ? 'Case Studies' : '项目经验';
+  const heroSubtitle = isEn() ? 'Every case starts with a real brand problem in platform operations, content, page conversion, campaign review or customer retention. We focus on how the problem is framed, how actions are delivered and how results are reviewed.' : '每一个项目，都来自品牌在平台经营、内容表达、页面转化、投放复盘或用户承接中的真实问题。我们更关注问题如何被拆解，动作如何被落地，结果如何被持续复盘。';
+  const badge = isEn() ? 'Selected cases' : '精选案例';
+  const privacyTitle = isEn() ? 'Case Disclosure Boundary' : '案例公开边界';
+  const privacyText = isEn() ? 'The following cases are based on real projects and the published content has been reviewed. They are presented anonymously within client confidentiality and public-authorization boundaries, with client names, store accounts, screenshots, raw data and other identifying details withheld.' : '以下案例均为真实项目，现有公开内容已经核对。依据客户资料保密与公开授权边界，统一匿名呈现，并隐去客户名称、店铺账号、截图、未经授权的原始数据及其他可识别细节。';
+  const ctaTitle = isEn() ? 'Your brand may be facing a similar constraint' : '你的品牌，也许正卡在类似的问题上';
+  const ctaText = isEn() ? 'Whether conversion is low, refunds are high, paid-media efficiency is unstable or multi-platform operations lack rhythm, PINMOO can start with a basic diagnosis to identify the most important issue.' : '无论是店铺转化低、退款率高、投放效率不稳定，还是多平台运营缺少节奏，品沐咨询都可以先帮你做一次基础诊断，判断当前最值得优先解决的问题。';
+  return PageHero(heroTitle, heroSubtitle, false, '<div class="case-hero-badge">' + badge + '</div><div class="case-hero-industries">' + industry + '</div>', { key: 'cases', src: '/assets/visuals/case-project-experience.webp', alt: 'PINMOO consulting case studies across consumer categories' }) + '<section class="section cases-page-section"><div class="container"><div class="reveal case-privacy-note"><strong>' + privacyTitle + '</strong><p>' + privacyText + '</p></div>' + filters + '<div class="cases-grid" id="casesGrid">' + renderCaseGrid(isEn() ? 'All' : '全部') + '</div></div></section>' + CtaBand(ctaTitle, ctaText, isEn() ? 'Book a Consultation' : '预约品牌电商咨询');
+}
+
+function DetailBlock(iconName, title, content) {
+  return '<div class="reveal detail-block"><div class="detail-title">' + icon(iconName, 24) + '<h2>' + title + '</h2></div>' + content + '</div>';
+}
+
+function CaseDetail(item) {
+  const view = isEn() ? Object.assign({}, item, CASE_EN[item.slug] || {}) : item;
+  const evidenceData = isEn() && CASE_EN[item.slug]?.evidence ? CASE_EN[item.slug].evidence : item.evidence;
+  const illustrationNotice = item.imageIllustration ? '<p class="case-image-notice">' + (isEn() ? 'AI-generated category illustration, not a photograph of the client\'s products or project.' : '配图为 AI 生成的品类场景示意，并非客户产品或项目现场实拍。') + '</p>' : '';
+  const chips = '<div class="case-meta-chips"><span>' + view.industry + '</span><span>' + view.platform + '</span><span>' + view.serviceType + '</span></div>' + illustrationNotice;
+  const evidence = evidenceData ? '<details class="insight-evidence case-evidence"><summary>' + (isEn() ? 'Project evidence and disclosure scope' : '项目依据与公开范围') + '</summary><dl><div><dt>' + (isEn() ? 'Evidence as of' : '数据截止') + '</dt><dd>' + evidenceData.asOf + '</dd></div><div><dt>' + (isEn() ? 'Evidence status' : '证据状态') + '</dt><dd>' + evidenceData.level + '</dd></div><div><dt>' + (isEn() ? 'Basis' : '判断依据') + '</dt><dd>' + evidenceData.basis + '</dd></div><div><dt>' + (isEn() ? 'Public boundary' : '公开边界') + '</dt><dd>' + evidenceData.boundary + '</dd></div></dl></details>' : '';
+  const main = '<div class="reveal case-privacy-note"><strong>' + (isEn() ? 'Anonymous Case Notice' : '匿名案例说明') + '</strong><p>' + (isEn() ? 'This case comes from a real project and the published content has been reviewed. The client name and identifying details are withheld within confidentiality and public-authorization boundaries.' : '本案例来自真实项目，现有公开内容已经核对；依据客户资料保密与公开授权边界，客户名称及可识别细节已隐去。') + '</p></div>' + evidence + DetailBlock('BookOpen', isEn() ? 'Project Background' : '项目背景', '<p>' + view.background + '</p>') + DetailBlock('ShieldCheck', isEn() ? 'Core Problems' : '核心问题', '<ul>' + view.problems.map(li).join('') + '</ul>') + DetailBlock('Search', isEn() ? 'Diagnosis Findings' : '诊断发现', '<p>' + view.diagnosis + '</p>') + DetailBlock('Target', isEn() ? 'Action Direction' : '解决方向', '<ul>' + view.solutions.map(li).join('') + '</ul>') + caseDeliverableMarkup(item.slug, isEn()) + DetailBlock('TrendingUp', isEn() ? 'Stage Result' : '阶段成果', '<p>' + view.result + '</p>') + DetailBlock('Lightbulb', isEn() ? 'Project Insight' : '项目启发', '<p>' + view.insight + '</p>');
+  const highlights = view.highlights.map(function(h, index) { return '<div class="highlight-row"><span>' + (index + 1) + '</span><p>' + h + '</p></div>'; }).join('');
+  const detailImageAlt = isEn()
+    ? (view.industry + ' ' + view.serviceType + ' consulting case study')
+    : view.industry + '品牌在' + view.platform + '平台的' + view.serviceType + '咨询案例';
+  const caseId = item.caseId ? '<div><dt>' + (isEn() ? 'Case ID' : '案例编号') + '</dt><dd>' + item.caseId + '</dd></div>' : '';
+  return '<section class="case-detail-hero"><div class="hero-grid-bg"></div><div class="container case-detail-hero-inner"><div class="reveal"><a class="back-link" href="' + localizeHref('/cases/') + '">' + (isEn() ? 'Back to Case Studies' : '返回项目经验') + '</a><h1>' + view.title + '</h1><p>' + view.summary + '</p>' + chips + '</div><div class="reveal case-detail-image">' + ResponsiveImage(item.image, detailImageAlt, '', 'decoding="async" fetchpriority="high"') + '</div></div></section><section class="section case-detail-section"><div class="container case-detail-layout"><div class="case-detail-main">' + main + '</div><aside class="case-detail-aside"><div class="reveal aside-card"><h2>' + (isEn() ? 'Project Overview' : '项目概览') + '</h2><dl><div><dt>' + (isEn() ? 'Industry' : '行业') + '</dt><dd>' + view.industry + '</dd></div><div><dt>' + (isEn() ? 'Platform' : '平台') + '</dt><dd>' + view.platform + '</dd></div><div><dt>' + (isEn() ? 'Core Problem' : '核心问题') + '</dt><dd>' + view.serviceType + '</dd></div>' + caseId + '</dl></div><div class="reveal aside-card highlight-card"><h2>' + (isEn() ? 'Service Highlights' : '服务亮点') + '</h2>' + highlights + '</div><div class="reveal aside-card"><p>' + view.cta + '</p>' + ButtonLink(isEn() ? 'Book a Consultation' : '预约咨询', '/contact/', 'primary', false) + '</div></aside></div></section>' + CtaBand(isEn() ? 'If your brand faces a similar problem, start with a basic diagnosis.' : '如果你的品牌也面临类似问题，可以预约一次基础诊断。', view.cta, isEn() ? 'Book a Consultation' : '预约品牌电商咨询');
+}
+
+
+
+
+
+
+function Contact() {
+  return PageHero(isEn() ? 'Let’s talk about your brand.' : '聊聊你的品牌。', isEn() ? 'Send your brand, platform and one current question.' : '带着一个经营问题来聊，品牌、平台和当前问题三项即可。', true) + contactContent(isEn());
+}
+
+function About() {
+  return PageHero(isEn() ? 'Meet PINMOO Consulting.' : '认识品沐，认识与你一起做判断的顾问。', isEn() ? 'Practical support for consumer brands, from e-commerce priorities to regular review.' : '面向消费品牌，把经营问题拆清楚，把关键动作推进到团队的日常工作。') + aboutContent(isEn());
+}
+
+function FloatingContact() {
+  const compact = pathname.indexOf('/insights') === 0 ? ' floating-contact-compact' : '';
+  const label = isEn() ? 'WeChat' : '微信咨询';
+  const alt = isEn() ? 'Mufeng WeChat QR code' : '沐风微信二维码';
+  const contactLabel = isEn() ? 'WeChat / Mobile: ' + SITE.phoneDisplay : SITE.contactLabel;
+  const note = isEn() ? 'Add WeChat to discuss brand e-commerce growth. Mention “brand GEO report” for a free public-information review.' : SITE.contactNote;
+  return '<div class="floating-contact' + compact + '"><button type="button" class="floating-button" aria-label="' + label + '" aria-expanded="false">' + icon('MessageCircle', 20) + '<span>' + label + '</span></button><div class="floating-panel" hidden><div class="floating-qr-crop"><img src="/assets/wechat-qr-mufeng.jpg" alt="' + alt + '" loading="lazy"></div><strong>' + contactLabel + '</strong><p>' + note + '</p><a href="tel:' + SITE.phone + '">' + (isEn() ? 'Call' : '拨打电话') + '</a></div></div>';
+}
+
+function renderPage() {
+  if (pathname === '/resources/operating-templates') return PageHero(resourceLibrary.title, resourceLibrary.description, true) + resourceLibraryContent();
+  if (pathname === '/') return Home();
+  if (pathname === '/contact/success') return ContactSuccess();
+  if (pathname === '/china-ecommerce-consulting') return ChinaEcommercePage();
+  if (pathname === '/resources/ecommerce-metrics-dictionary') return ResourceMetricDictionary();
+  if (indexForPath(pathname)) return InsightsPage();
+  if (pathname.indexOf('/insights/') === 0) {
+    const article = getInsightBySlug(pathname.split('/')[2]);
+    if (article) return InsightDetail(article);
+  }
+  if (pathname === '/services') return Services();
+  if (pathname.indexOf('/services/') === 0) {
+    const page = getLeadPageBySlug(pathname.split('/')[2]);
+    if (page) return LandingPage(page);
+  }
+  if (pathname === '/cases') return Cases();
+  if (pathname === '/about') return About();
+  if (pathname === '/contact') return Contact();
+  if (pathname.indexOf('/cases/') === 0) {
+    const item = getCaseBySlug(pathname.split('/')[2]);
+    if (item) return CaseDetail(item);
+  }
+  return Home();
+}
+
+function addCaseTranslations(entries) {
+  cases.forEach(function(item) {
+    const en = CASE_EN[item.slug];
+    if (!en) return;
+    [['title','title'], ['industry','industry'], ['serviceType','serviceType'], ['platform','platform'], ['summary','summary'], ['background','background'], ['diagnosis','diagnosis'], ['result','result'], ['insight','insight'], ['cta','cta']].forEach(function(pair) {
+      if (item[pair[0]] && en[pair[1]]) entries.push([item[pair[0]], en[pair[1]]]);
+    });
+    ['problems', 'solutions', 'highlights'].forEach(function(key) {
+      (item[key] || []).forEach(function(value, index) {
+        if (en[key] && en[key][index]) entries.push([value, en[key][index]]);
+      });
+    });
+  });
+}
+
+function translateEnglish(html) {
+  const entries = Object.entries(EN_TEXT);
+  addCaseTranslations(entries);
+  entries.sort(function(a, b) { return b[0].length - a[0].length; });
+  let next = html;
+  services.forEach(function(service) {
+    if (EN_TEXT[service.short]) next = next.split(service.short).join(EN_TEXT[service.short]);
+  });
+  entries.forEach(function(pair) {
+    next = next.split(pair[0]).join(pair[1]);
+  });
+  next = next.replace(/<html lang="zh-CN">/g, '<html lang="en">');
+  return next;
+}
+
+export function renderSite(route) {
+  requestedPathname = normalizePath(route || '/');
+  currentLang = languageForPath(requestedPathname);
+  pathname = stripLangPath(requestedPathname);
+  const pageId = requestedPathname === '/' ? 'home' : requestedPathname.slice(1).replace(/\//g, '-');
+  const mobileContact = '<div class="mobile-consult"><a href="' + localizeHref('/contact/') + '" data-placement="mobile">' + (isEn() ? 'Book consulting' : '咨询品牌电商增长') + '</a><button type="button" class="geo-copy-button" data-copy-wechat="' + SITE.phone + '" data-placement="mobile">' + (isEn() ? 'Copy WeChat' : '复制微信号') + '</button></div>';
+  const html = Header() + '<main id="main-content" data-page-id="' + pageId + '">' + renderPage() + '</main>' + Footer() + FloatingContact() + mobileContact;
+  const localizedHtml = internationalHost
+    ? html.replace(/href="(\/[^"#?]*)"/g, function(match, href) { return 'href="' + localizeHref(href) + '"'; })
+    : html;
+  return isEn() ? translateEnglish(localizedHtml) : localizedHtml;
+}
+
+root.innerHTML = renderSite(requestedPathname);
+initInteractions();
+
+function initInteractions() {
+  const header = document.querySelector('.site-header');
+  const menuBtn = document.querySelector('.mobile-menu-btn');
+  const mobilePanel = document.querySelector('.mobile-nav-panel');
+  function onScroll() { header.classList.toggle('site-header-scrolled', window.scrollY > 18); }
+  onScroll();
+  window.addEventListener('scroll', onScroll);
+  if (menuBtn && mobilePanel) {
+    menuBtn.addEventListener('click', function() {
+      const open = mobilePanel.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.innerHTML = icon(open ? 'X' : 'Menu', 24);
+      document.body.classList.toggle('menu-open', open);
+    });
+  }
+  initReveal();
+  initFaq();
+  initFilters();
+  initFloating();
+}
+
+function initReveal() {
+  const nodes = Array.from(document.querySelectorAll('.reveal'));
+  if (!('IntersectionObserver' in window)) { nodes.forEach(function(node) { node.classList.add('is-visible'); }); return; }
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); }
+    });
+  }, { threshold: 0.12 });
+  nodes.forEach(function(node, index) {
+    node.style.transitionDelay = Math.min(index % 6, 5) * 60 + 'ms';
+    const rect = node.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.95) {
+      node.classList.add('is-visible');
+      return;
+    }
+    observer.observe(node);
+  });
+}
+
+function initFaq() {
+  document.querySelectorAll('.faq-item button').forEach(function(button) {
+    button.addEventListener('click', function() { button.closest('.faq-item').classList.toggle('open'); });
+  });
+}
+
+function initFilters() {
+  const row = document.querySelector('.filter-row');
+  const grid = document.getElementById('casesGrid');
+  if (!row || !grid) return;
+  row.addEventListener('click', function(event) {
+    const btn = event.target.closest('button[data-filter]');
+    if (!btn) return;
+    row.querySelectorAll('button').forEach(function(item) { item.classList.remove('active'); });
+    btn.classList.add('active');
+    grid.innerHTML = renderCaseGrid(btn.dataset.filter);
+  });
+}
+
+function initFloating() {
+  const wrap = document.querySelector('.floating-contact');
+  if (!wrap) return;
+  const button = wrap.querySelector('.floating-button');
+  const panel = wrap.querySelector('.floating-panel');
+  button.addEventListener('click', function() {
+    const open = panel.hidden;
+    panel.hidden = !open;
+    button.setAttribute('aria-expanded', String(open));
+  });
+}

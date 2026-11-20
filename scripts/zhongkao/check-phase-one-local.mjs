@@ -2,11 +2,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 const {chromium}=(await import(pathToFileURL('C:/Users/Administrator/.workbuddy/binaries/node/workspace/node_modules/playwright-core/index.js').href)).default;
-const origin='http://127.0.0.1:5174',out=path.resolve('guangzhou-zhongkao/docs/phase-one-20261018/browser');fs.mkdirSync(out,{recursive:true});
+const online=process.argv.includes('--online');
+const origin=online?'https://zhongkao.pinmooconsulting.com':'http://127.0.0.1:5174';
+const out=path.resolve(process.argv.find(a=>a.startsWith('--out='))?.slice(6)||'guangzhou-zhongkao/docs/phase-one-20261018/'+(online?'online-browser-20261023':'browser-20261023'));fs.mkdirSync(out,{recursive:true});
 const checks=[],errors=[];const check=(name,pass)=>{checks.push({name,pass});console.log(`${pass?'PASS':'FAIL'} ${name}`);if(!pass)throw new Error(name);};
 const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
 async function context(width,entitled=false){const c=await browser.newContext({viewport:{width,height:900},reducedMotion:'reduce'});await c.route('**/api/access/config',r=>r.fulfill({json:{accessMode:'enforce'}}));await c.route('**/api/access/session',r=>r.fulfill({json:{authenticated:entitled,entitled}}));const p=await c.newPage();p.on('pageerror',e=>errors.push(e.message));return {c,p};}
-async function go(p,route){const r=await p.goto(origin+route,{waitUntil:'networkidle'});check('Local HTTP 200 '+route,r?.status()===200);}
+let lastVisit=0;
+async function go(p,route){if(online){const wait=11000-(Date.now()-lastVisit);if(wait>0)await new Promise(r=>setTimeout(r,wait));lastVisit=Date.now();}const r=await p.goto(origin+route,{waitUntil:'networkidle'});check('HTTP 200 '+route,r?.status()===200);}
 try{
  const {c,p}=await context(1440);
  await go(p,'/');await p.locator('.home-data>summary').click();check('Home distinguishes published policy and observed data',(await p.locator('#homeDataStatus').innerText()).includes('录取数据截至2026年'));
@@ -29,7 +32,8 @@ try{
  await phone.p.locator('#generateUnified').click();await phone.p.waitForFunction(()=>!document.getElementById('generateUnified').disabled,{},{timeout:120000});
  await phone.p.locator('#analyzePlan').click();await phone.p.waitForFunction(()=>!document.getElementById('analysis').hidden,{},{timeout:120000});
  check('Complete assessment remains visible with isolated test entitlement',await phone.p.locator('#totalScore').isVisible());
- check('Reform uncertainty is in actual results',(await phone.p.locator('#analysis').innerText()).includes('新政策录取结果校准'));
+ await phone.p.getByText('其他依据与待确认信息',{exact:true}).click();
+ check('Reform uncertainty remains available in result details',(await phone.p.locator('#analysis').innerText()).includes('新政策录取结果校准'));
  check('Model 2.3 is disclosed',(await phone.p.locator('#methodText').textContent()).includes('v2.3'));
  check('Mobile assessment has no page overflow',await phone.p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
  await phone.p.screenshot({path:path.join(out,'assessment-mobile.png')});

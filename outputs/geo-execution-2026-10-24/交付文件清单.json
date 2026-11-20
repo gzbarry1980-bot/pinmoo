@@ -1,0 +1,167 @@
+[
+  {
+    "file": "执行结果与发布说明.md",
+    "bytes": 3710,
+    "sha256": "1c97ec45941518edf9c067feb58d774fc6b52d631f6cc6925f385ea761122cd5"
+  },
+  {
+    "file": "执行与发布台账.json",
+    "bytes": 98161,
+    "sha256": "d765a5dcdb1ac9933d06315d6d244046cee4f0bef69b7dac52883362b6686d51"
+  },
+  {
+    "file": "逐篇发布清单.csv",
+    "bytes": 5571,
+    "sha256": "7055f58a3400b41604d0470a422c930b52fd1d4d09af9906a254eee3ade3423f"
+  },
+  {
+    "file": "全计划执行进度.csv",
+    "bytes": 6164,
+    "sha256": "c12e6513506563fbd514bf750d80ada67cfd68bc56aea44a8baccdb4dc66053b"
+  },
+  {
+    "file": "五篇旧文优化记录.md",
+    "bytes": 7919,
+    "sha256": "ebe5d93de573311057c5b7ccb73dce5dad2ede7a70833b8095587ceb01fd03ac"
+  },
+  {
+    "file": "首批8篇平台文章合订本.md",
+    "bytes": 37573,
+    "sha256": "97343076dee2d43c1dd7cb6737472a73b94466cf65e4810999c72a398d8376b0"
+  },
+  {
+    "file": "官网完整稿/N01-pinmoo-quarterly-review-resource-decisions.md",
+    "bytes": 5148,
+    "sha256": "c1595716d362e1e43d9766fa8e5b2f8d3cbeb9b9668098d3dd04d7638ca30fa0"
+  },
+  {
+    "file": "官网完整稿/N03-pinmoo-diagnosis-data-minimization.md",
+    "bytes": 5129,
+    "sha256": "174ee25979d3915e21d4341ef67355dcc63b85bdefe8444b7b70003e16e794bd"
+  },
+  {
+    "file": "官网完整稿/N05-ecommerce-consulting-procurement-brief.md",
+    "bytes": 4984,
+    "sha256": "3ba033b67fb89a3575e85d7cd786eae7d7f53992701ecbf7af57a638b5c57123"
+  },
+  {
+    "file": "官网完整稿/N07-ecommerce-project-acceptance-beyond-gmv.md",
+    "bytes": 4771,
+    "sha256": "c1f4b8f7e25deda510fb25c06412d5e0603e1527ea9d9dee72c159fb2f50b6d4"
+  },
+  {
+    "file": "官网完整稿/N09-tmall-jd-same-product-conversion-diagnosis.md",
+    "bytes": 4758,
+    "sha256": "79ceaae8123d8198816e33fd16a868c5973f1a8bd04dbdb48eb3f518f2d525c7"
+  },
+  {
+    "file": "官网完整稿/N10-traditional-brand-first-ecommerce-channel-products.md",
+    "bytes": 4783,
+    "sha256": "b2dc184eb272aaba52b3406b8651ff9462478c68444bf254d8bf0eacaa32477c"
+  },
+  {
+    "file": "官网完整稿/N13-product-bundle-contribution-cost-review.md",
+    "bytes": 4807,
+    "sha256": "b3558e81fb5ad24f0215467ac8a57608910581a8abdd39dd8fdffa27b370e961"
+  },
+  {
+    "file": "官网完整稿/N19-customer-language-to-article-keywords.md",
+    "bytes": 4917,
+    "sha256": "9b95598d0cd9c0f1f57813f4c563a2afd3f6f7b9090788f78e3a0fb0e17db82f"
+  },
+  {
+    "file": "平台发布稿/N01-pinmoo-quarterly-review-resource-decisions.md",
+    "bytes": 4936,
+    "sha256": "2113495148fae38d36ebbd8e475cac68988227b5ea5aa567f35b767f60c91f3b"
+  },
+  {
+    "file": "平台发布稿/N03-pinmoo-diagnosis-data-minimization.md",
+    "bytes": 4912,
+    "sha256": "35aa4436d0326d77b0b1a1b2ea150402c848fa05b51d39c8c9ccd61e5f2d38a8"
+  },
+  {
+    "file": "平台发布稿/N05-ecommerce-consulting-procurement-brief.md",
+    "bytes": 4781,
+    "sha256": "0a3367896f169c912dffc270431fc79ed12de40f83fbefce634095e56f78bc37"
+  },
+  {
+    "file": "平台发布稿/N07-ecommerce-project-acceptance-beyond-gmv.md",
+    "bytes": 4603,
+    "sha256": "4749f22bdc9f0ece3244b2c865e46f190fbb56d9ff44b2c6f1f464d4964259e1"
+  },
+  {
+    "file": "平台发布稿/N09-tmall-jd-same-product-conversion-diagnosis.md",
+    "bytes": 4474,
+    "sha256": "59981f9b86165d0df5fae397df194abd35fae694cb99e8cf2f0aa651364d466b"
+  },
+  {
+    "file": "平台发布稿/N10-traditional-brand-first-ecommerce-channel-products.md",
+    "bytes": 4541,
+    "sha256": "4879c64d7c7c2cf2019ab3aad4ef5025bc2fa4b7953fd65453361eaa05b19a98"
+  },
+  {
+    "file": "平台发布稿/N13-product-bundle-contribution-cost-review.md",
+    "bytes": 4585,
+    "sha256": "32e09658359be35bea647d3c83ff4cde4612cfaacc60806cc00de7d04530e8b9"
+  },
+  {
+    "file": "平台发布稿/N19-customer-language-to-article-keywords.md",
+    "bytes": 4692,
+    "sha256": "8d9597b76fd1816799759b57a7d002612b0ead21bb026890cbb881552929d106"
+  },
+  {
+    "file": "平台Word/N01-pinmoo-quarterly-review-resource-decisions.docx",
+    "bytes": 40272,
+    "sha256": "954a940c71233c10687fe7458f264df5fde5b0fba2c1335a85d5ab53981c977b"
+  },
+  {
+    "file": "平台Word/N03-pinmoo-diagnosis-data-minimization.docx",
+    "bytes": 40392,
+    "sha256": "59d97fc6d874e723318f52a3249563698bd021491101f3995e3e44f3feea0829"
+  },
+  {
+    "file": "平台Word/N05-ecommerce-consulting-procurement-brief.docx",
+    "bytes": 40274,
+    "sha256": "04209d79a2541f009a2beaae9ad01c8c4fbb1206fc8a18060230229d36c21e15"
+  },
+  {
+    "file": "平台Word/N07-ecommerce-project-acceptance-beyond-gmv.docx",
+    "bytes": 40198,
+    "sha256": "64d9f22313e98d01cfd2ac572816825786b34010983d697b1302f5472de70a63"
+  },
+  {
+    "file": "平台Word/N09-tmall-jd-same-product-conversion-diagnosis.docx",
+    "bytes": 40162,
+    "sha256": "37b8cd1fa40a550993014a6bf639109efa039003a906d3a5debaea14f6e95d3d"
+  },
+  {
+    "file": "平台Word/N10-traditional-brand-first-ecommerce-channel-products.docx",
+    "bytes": 40196,
+    "sha256": "f40a455061adfe86cdeb2827b701779ad6b67a0ecb58347fc96802b6ed340a47"
+  },
+  {
+    "file": "平台Word/N13-product-bundle-contribution-cost-review.docx",
+    "bytes": 40100,
+    "sha256": "f727265a163530ae08f12a43c03de20445893463a4384d21c94d708c72c3d3ba"
+  },
+  {
+    "file": "平台Word/N19-customer-language-to-article-keywords.docx",
+    "bytes": 40265,
+    "sha256": "075f0df689434a08febe2eb589836124c56649ae9cf9713f8d1f3dcd415dac56"
+  },
+  {
+    "file": "配套工具/N05-电商咨询询价需求书.csv",
+    "bytes": 470,
+    "sha256": "6e1140abb38072389bd6e5c5005bd4b05972d2357ab136e7e26cd8f28005f801"
+  },
+  {
+    "file": "配套工具/N13-组合装贡献核对.csv",
+    "bytes": 436,
+    "sha256": "64edb6a0e941a3833856f050da28afc2b13123c73bb943aa519768c125e1e431"
+  },
+  {
+    "file": "配套工具/N19-客户原话到关键词.csv",
+    "bytes": 230,
+    "sha256": "c2cf8e3da87e79d52667fa2576521729f46415a551a56af3d4e834341f785844"
+  }
+]

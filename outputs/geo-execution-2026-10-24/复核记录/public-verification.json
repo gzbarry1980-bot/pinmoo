@@ -1,0 +1,261 @@
+{
+  "checkedAt": "2026-10-24T15:08:16.687Z",
+  "date": "2026-10-24",
+  "build": {
+    "version": "7458354c1c",
+    "builtAt": "2026-10-24T15:00:55.885Z",
+    "articleCount": 84,
+    "primaryDomain": "https://pinmooconsulting.com"
+  },
+  "changedArticles": 13,
+  "indexes": 2,
+  "passed": true,
+  "results": [
+    {
+      "id": "N01",
+      "slug": "pinmoo-quarterly-review-resource-decisions",
+      "url": "https://pinmooconsulting.com/insights/pinmoo-quarterly-review-resource-decisions/",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "exactBuiltFile": true,
+        "title": true,
+        "completeNarrative": true,
+        "canonical": true,
+        "articleSchema": true,
+        "aiDisclosure": true,
+        "sitemap": true,
+        "truthfulAuthor": true
+      },
+      "passed": true
+    },
+    {
+      "id": "N03",
+      "slug": "pinmoo-diagnosis-data-minimization",
+      "url": "https://pinmooconsulting.com/insights/pinmoo-diagnosis-data-minimization/",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "exactBuiltFile": true,
+        "title": true,
+        "completeNarrative": true,
+        "canonical": true,
+        "articleSchema": true,
+        "aiDisclosure": true,
+        "sitemap": true,
+        "truthfulAuthor": true
+      },
+      "passed": true
+    },
+    {
+      "id": "N05",
+      "slug": "ecommerce-consulting-procurement-brief",
+      "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-procurement-brief/",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "exactBuiltFile": true,
+        "title": true,
+        "completeNarrative": true,
+        "canonical": true,
+        "articleSchema": true,
+        "aiDisclosure": true,
+        "sitemap": true,
+        "truthfulAuthor": true
+      },
+      "passed": true
+    },
+    {
+      "id": "N07",
+      "slug": "ecommerce-project-acceptance-beyond-gmv",
+      "url": "https://pinmooconsulting.com/insights/ecommerce-project-acceptance-beyond-gmv/",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "exactBuiltFile": true,
+        "title": true,
+        "completeNarrative": true,
+        "canonical": true,
+        "articleSchema": true,
+        "aiDisclosure": true,
+        "sitemap": true,
+        "truthfulAuthor": true
+      },
+      "passed": true
+    },
+    {
+      "id": "N09",
+      "slug": "tmall-jd-same-product-conversion-diagnosis",
+      "url": "https://pinmooconsulting.com/insights/tmall-jd-same-product-conversion-diagnosis/",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "exactBuiltFile": true,
+        "title": true,
+        "completeNarrative": true,
+        "canonical": true,
+        "articleSchema": true,
+        "aiDisclosure": true,
+        "sitemap": true,
+        "truthfulAuthor": true
+      },
+      "passed": true
+    },
+    {
+      "id": "N10",
+      "slug": "traditional-brand-first-ecommerce-channel-products",
+      "url": "https://pinmooconsulting.com/insights/traditional-brand-first-ecommerce-channel-products/",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "exactBuiltFile": true,
+        "title": true,
+        "completeNarrative": true,
+        "canonical": true,
+        "articleSchema": true,
+        "aiDisclosure": true,
+        "sitemap": true,
+        "truthfulAuthor": true
+      },
+      "passed": true
+    },
+    {
+      "id": "N13",
+      "slug": "product-bundle-contribution-cost-review",
+      "url": "https://pinmooconsulting.com/insights/product-bundle-contribution-cost-review/",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "exactBuiltFile": true,
+        "title": true,
+        "completeNarrative": true,
+        "canonical": true,
+        "articleSchema": true,
+        "aiDisclosure": true,
+        "sitemap": true,
+        "truthfulAuthor": true
+      },
+      "passed": true
+    },
+    {
+      "id": "N19",
+      "slug": "customer-language-to-article-keywords",
+      "url": "https://pinmooconsulting.com/insights/customer-language-to-article-keywords/",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "exactBuiltFile": true,
+        "title": true,
+        "completeNarrative": true,
+        "canonical": true,
+        "articleSchema": true,
+        "aiDisclosure": true,
+        "sitemap": true,
+        "truthfulAuthor": true
+      },
+      "passed": true
+    },
+    {
+      "id": "U01",
+      "slug": "what-is-pinmoo-consulting",
+      "url": "https://pinmooconsulting.com/insights/what-is-pinmoo-consulting/",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "exactBuiltFile": true,
+        "title": true,
+        "completeNarrative": true,
+        "canonical": true,
+        "articleSchema": true,
+        "aiDisclosure": true,
+        "sitemap": true,
+        "truthfulAuthor": true
+      },
+      "passed": true
+    },
+    {
+      "id": "U02",
+      "slug": "ecommerce-consulting-pricing-factors",
+      "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-pricing-factors/",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "exactBuiltFile": true,
+        "title": true,
+        "completeNarrative": true,
+        "canonical": true,
+        "articleSchema": true,
+        "aiDisclosure": true,
+        "sitemap": true,
+        "truthfulAuthor": true
+      },
+      "passed": true
+    },
+    {
+      "id": "U03",
+      "slug": "guangzhou-ecommerce-consulting-selection",
+      "url": "https://pinmooconsulting.com/insights/guangzhou-ecommerce-consulting-selection/",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "exactBuiltFile": true,
+        "title": true,
+        "completeNarrative": true,
+        "canonical": true,
+        "articleSchema": true,
+        "aiDisclosure": true,
+        "sitemap": true,
+        "truthfulAuthor": true
+      },
+      "passed": true
+    },
+    {
+      "id": "U04",
+      "slug": "ecommerce-consulting-vs-operation-coaching-vs-agency",
+      "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "exactBuiltFile": true,
+        "title": true,
+        "completeNarrative": true,
+        "canonical": true,
+        "articleSchema": true,
+        "aiDisclosure": true,
+        "sitemap": true,
+        "truthfulAuthor": true
+      },
+      "passed": true
+    },
+    {
+      "id": "U05",
+      "slug": "sku-choice-overload-and-product-differences",
+      "url": "https://pinmooconsulting.com/insights/sku-choice-overload-and-product-differences/",
+      "status": 200,
+      "checks": {
+        "http200": true,
+        "exactBuiltFile": true,
+        "title": true,
+        "completeNarrative": true,
+        "canonical": true,
+        "articleSchema": true,
+        "aiDisclosure": true,
+        "sitemap": true,
+        "truthfulAuthor": true
+      },
+      "passed": true
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/",
+      "status": 200,
+      "passed": true,
+      "check": "index equals built HTML"
+    },
+    {
+      "url": "https://pinmooconsulting.com/insights/page/7/",
+      "status": 200,
+      "passed": true,
+      "check": "index equals built HTML"
+    }
+  ]
+}

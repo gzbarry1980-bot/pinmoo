@@ -1,0 +1,30 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+const base=path.resolve('guangzhou-zhongkao'),privateRoot=path.join(base,'research/member-schools-20261014');
+const data=JSON.parse(await fs.readFile(path.join(base,'data/school-references.json'),'utf8'));
+const files=await fs.readdir(path.join(privateRoot,'captured'));
+const articles=await Promise.all(files.filter(f=>f.endsWith('.json')).map(async f=>({file:f,...JSON.parse(await fs.readFile(path.join(privateRoot,'captured',f),'utf8'))})));
+const privateReviews=[];
+for(const record of data.records){
+ const source=data.sources.find(s=>s.id===record.sourceId),article=articles.find(a=>a.url===source.url);
+ if(!article)throw new Error('Missing saved source for '+record.schoolId);
+ const hash=createHash('sha256').update(article.text).digest('hex');if(hash!==source.contentSHA256)throw new Error('Source changed '+record.schoolId);
+ const fee=record.boarding.semesterFee;
+ const feePattern=fee==null?null:new RegExp(`(?:住宿费用[：:]?\\s*|住宿费)${fee}\\s*元[/／]学期`);
+ const feeEvidence=feePattern?article.text.match(feePattern)?.[0]||null:null;
+ if(fee!==null&&!feeEvidence)throw new Error('No semester-fee evidence: '+record.schoolName);
+ const plain=article.text.replace(/\n+/g,' '),start=Math.max(0,plain.search(/标准人数|住宿条件|宿舍6人|学生宿舍为6人|可选择住宿/)-15);
+ const evidence=plain.slice(start,start+230);
+ const issues=[...(record.boarding.issues||[]),...(record.classes?.issues||[])];
+ record.review={reviewedAt:'2026-10-18',method:'saved_article_text_and_previous_class_table_crosscheck',status:issues.length?'reviewed_with_conflicts':'reviewed_historical_reference',officialCurrentYearVerification:'pending',fields:['住宿人数原文','住宿费及学期单位','历史班型与校区范围'],issueCount:issues.length};
+ source.factualSummaryReviewedAt='2026-10-18';
+ privateReviews.push({schoolId:record.schoolId,schoolName:record.schoolName,sourceFile:article.file,contentSHA256:hash,rooms:record.boarding.rooms,boardingEvidence:evidence,semesterFee:fee,feeEvidence,referenceYear:record.referenceYear,classesYear:record.classes?.year,issues,review:record.review,specialAdmissionNumbers:'not_promoted_pending_official_comparison',graduationResults:'reviewed_in_separate_historical_outcomes_table',currentYearFees:'not_officially_verified'});
+}
+data.version='school-reference-20261018';data.reviewedAt='2026-10-18';
+await fs.writeFile(path.join(base,'data/school-references.json'),JSON.stringify(data,null,2)+'\n');
+await fs.writeFile(path.join(privateRoot,'fact-review-20261018.json'),JSON.stringify(privateReviews,null,2)+'\n');
+const summary={reviewedAt:'2026-10-18',schoolCampusRecords:privateReviews.length,roomsAndHistoricalClassesReviewed:privateReviews.length,feesWithTextEvidence:privateReviews.filter(r=>r.feeEvidence).length,feesUnspecified:privateReviews.filter(r=>r.semesterFee===null).length,campusesWithConflicts:privateReviews.filter(r=>r.issues.length).map(r=>({schoolId:r.schoolId,schoolName:r.schoolName,issues:r.issues})),officialCurrentYearFeesVerified:0,admissionRecordsPromoted:0,privateEvidenceExcludedFromPublicBuild:true};
+await fs.mkdir(path.join(base,'docs/phase-one-20261018'),{recursive:true});
+await fs.writeFile(path.join(base,'docs/phase-one-20261018/fact-review-summary.json'),JSON.stringify(summary,null,2)+'\n');
+console.log(JSON.stringify(summary));

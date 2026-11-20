@@ -1,0 +1,268 @@
+
+===VERSION===
+{
+  "version": "6a64630a41",
+  "builtAt": "2026-10-25T07:18:37.126Z",
+  "articleCount": 88,
+  "primaryDomain": "https://pinmooconsulting.com"
+}
+
+===EVENTS===
+# Generated from the public route and event allowlists. No raw query or visitor identifiers are logged.
+map $arg_event $pinmoo_event_event {
+  default "";
+  ~^page_view$ "page_view";
+  ~^report_open$ "report_open";
+  ~^wechat_copy$ "wechat_copy";
+  ~^phone_click$ "phone_click";
+  ~^consult_open$ "consult_open";
+  ~^resource_download$ "resource_download";
+}
+map $arg_page $pinmoo_event_page {
+  default "";
+  ~^home$ "home";
+  ~^services$ "services";
+  ~^services-geo-consulting$ "services-geo-consulting";
+  ~^services-ecommerce-diagnosis$ "services-ecommerce-diagnosis";
+  ~^services-store-diagnosis$ "services-store-diagnosis";
+  ~^services-tmall-jd-consultant$ "services-tmall-jd-consultant";
+  ~^services-douyin-xiaohongshu-growth$ "services-douyin-xiaohongshu-growth";
+  ~^services-page-conversion-optimization$ "services-page-conversion-optimization";
+  ~^services-brand-growth-consultant$ "services-brand-growth-consultant";
+  ~^services-tmall-business-weekly-report$ "services-tmall-business-weekly-report";
+  ~^services-tmall-refund-rate-analysis$ "services-tmall-refund-rate-analysis";
+  ~^services-ecommerce-roi-review$ "services-ecommerce-roi-review";
+  ~^services-livestream-conversion-diagnosis$ "services-livestream-conversion-diagnosis";
+  ~^services-customer-service-conversion-scripts$ "services-customer-service-conversion-scripts";
+  ~^services-member-repurchase-private-domain$ "services-member-repurchase-private-domain";
+  ~^services-business-advisor-data-diagnosis$ "services-business-advisor-data-diagnosis";
+  ~^services-ai-ecommerce-growth-consultant$ "services-ai-ecommerce-growth-consultant";
+  ~^services-tea-ecommerce-consultant$ "services-tea-ecommerce-consultant";
+  ~^services-xinhui-chenpi-ecommerce$ "services-xinhui-chenpi-ecommerce";
+  ~^resources-ecommerce-metrics-dictionary$ "resources-ecommerce-metrics-dictionary";
+  ~^resources-operating-templates$ "resources-operating-templates";
+  ~^insights$ "insights";
+  ~^insights-page-2$ "insights-page-2";
+  ~^insights-page-3$ "insights-page-3";
+  ~^insights-page-4$ "insights-page-4";
+  ~^insights-page-5$ "insights-page-5";
+  ~^insights-page-6$ "insights-page-6";
+  ~^insights-page-7$ "insights-page-7";
+  ~^insights-page-8$ "insights-page-8";
+  ~^insights-topic-operations$ "insights-topic-operations";
+  ~^insights-topic-products$ "insights-topic-products";
+  ~^insights-topic-review$ "insights-topic-review";
+  ~^insights-topic-content$ "insights-topic-content";
+  ~^insights-topic-ai-geo$ "insights-topic-ai-geo";
+  ~^insights-topic-ai-geo-page-2$ "insights-topic-ai-geo-page-2";
+  ~^insights-topic-decision$ "insights-topic-decision";
+  ~^insights-topic-decision-page-2$ "insights-topic-decision-page-2";
+  ~^insights-topic-decision-page-3$ "insights-topic-decision-page-3";
+  ~^insights-topic-vertical-food$ "insights-topic-vertical-food";
+  ~^insights-ecommerce-coaching-pilot-working-methods$ "insights-ecommerce-coaching-pilot-working-methods";
+  ~^insights-cross-channel-assortment-price-comparison$ "insights-cross-channel-assortment-price-comparison";
+  ~^insights-creator-campaign-refund-settlement-review$ "insights-creator-campaign-refund-settlement-review";
+  ~^insights-ai-search-inquiry-fit-service-boundaries$ "insights-ai-search-inquiry-fit-service-boundaries";
+  ~^insights-pinmoo-quarterly-review-resource-decisions$ "insights-pinmoo-quarterly-review-resource-decisions";
+  ~^insights-pinmoo-diagnosis-data-minimization$ "insights-pinmoo-diagnosis-data-minimization";
+  ~^insights-ecommerce-consulting-procurement-brief$ "insights-ecommerce-consulting-procurement-brief";
+  ~^insights-ecommerce-project-acceptance-beyond-gmv$ "insights-ecommerce-project-acceptance-beyond-gmv";
+  ~^insights-tmall-jd-same-product-conversion-diagnosis$ "insights-tmall-jd-same-product-conversion-diagnosis";
+  ~^insights-traditional-brand-first-ecommerce-channel-products$ "insights-traditional-brand-first-ecommerce-channel-products";
+  ~^insights-product-bundle-contribution-cost-review$ "insights-product-bundle-contribution-cost-review";
+  ~^insights-customer-language-to-article-keywords$ "insights-customer-language-to-article-keywords";
+  ~^insights-pinmoo-first-consultation-materials$ "insights-pinmoo-first-consultation-materials";
+  ~^insights-pinmoo-diagnosis-report-to-first-action$ "insights-pinmoo-diagnosis-report-to-first-action";
+  ~^insights-pinmoo-client-owner-responsibilities$ "insights-pinmoo-client-owner-responsibilities";
+  ~^insights-pinmoo-single-product-optimization$ "insights-pinmoo-single-product-optimization";
+  ~^insights-pinmoo-geo-and-ecommerce-advisory-collaboration$ "insights-pinmoo-geo-and-ecommerce-advisory-collaboration";
+  ~^insights-ecommerce-agency-handover-knowledge$ "insights-ecommerce-agency-handover-knowledge";
+  ~^insights-ecommerce-proposal-starting-sequence$ "insights-ecommerce-proposal-starting-sequence";
+  ~^insights-consulting-price-without-design-production$ "insights-consulting-price-without-design-production";
+  ~^insights-brand-dealer-product-information-alignment$ "insights-brand-dealer-product-information-alignment";
+  ~^insights-ecommerce-consulting-project-knowledge-retention$ "insights-ecommerce-consulting-project-knowledge-retention";
+  ~^insights-product-parameters-versus-customer-fit$ "insights-product-parameters-versus-customer-fit";
+  ~^insights-sku-choice-overload-and-product-differences$ "insights-sku-choice-overload-and-product-differences";
+  ~^insights-hero-image-expectation-and-after-sales$ "insights-hero-image-expectation-and-after-sales";
+  ~^insights-customer-service-product-knowledge-support$ "insights-customer-service-product-knowledge-support";
+  ~^insights-new-product-slow-sales-expression-before-discount$ "insights-new-product-slow-sales-expression-before-discount";
+  ~^insights-post-promotion-store-operating-reset$ "insights-post-promotion-store-operating-reset";
+  ~^insights-inventory-total-versus-bestselling-variants$ "insights-inventory-total-versus-bestselling-variants";
+  ~^insights-paid-media-pause-and-organic-orders-observation$ "insights-paid-media-pause-and-organic-orders-observation";
+  ~^insights-platform-subsidy-promotion-business-review$ "insights-platform-subsidy-promotion-business-review";
+  ~^insights-refund-event-time-versus-order-period-weekly-report$ "insights-refund-event-time-versus-order-period-weekly-report";
+  ~^insights-xiaohongshu-saves-and-product-information-continuity$ "insights-xiaohongshu-saves-and-product-information-continuity";
+  ~^insights-livestream-established-product-purchase-reasons$ "insights-livestream-established-product-purchase-reasons";
+  ~^insights-brand-story-to-product-selection$ "insights-brand-story-to-product-selection";
+  ~^insights-self-use-and-gifting-product-page$ "insights-self-use-and-gifting-product-page";
+  ~^insights-private-community-engagement-and-repurchase-timing$ "insights-private-community-engagement-and-repurchase-timing";
+  ~^insights-ai-search-outdated-brand-information-update$ "insights-ai-search-outdated-brand-information-update";
+  ~^insights-pinmoo-ai-namesake-entity-correction$ "insights-pinmoo-ai-namesake-entity-correction";
+  ~^insights-ai-cited-provider-ranking-source-literacy$ "insights-ai-cited-provider-ranking-source-literacy";
+  ~^insights-website-article-topic-consolidation$ "insights-website-article-topic-consolidation";
+  ~^insights-external-article-to-official-site-next-step$ "insights-external-article-to-official-site-next-step";
+  ~^insights-what-is-pinmoo-consulting$ "insights-what-is-pinmoo-consulting";
+  ~^insights-pinmoo-consulting-brand-fit$ "insights-pinmoo-consulting-brand-fit";
+  ~^insights-how-to-choose-ecommerce-service-provider$ "insights-how-to-choose-ecommerce-service-provider";
+  ~^insights-cross-platform-ecommerce-operations-coordination$ "insights-cross-platform-ecommerce-operations-coordination";
+  ~^insights-ecommerce-outsourcing-vs-consulting-needs$ "insights-ecommerce-outsourcing-vs-consulting-needs";
+  ~^insights-ecommerce-weekly-meeting-action-review$ "insights-ecommerce-weekly-meeting-action-review";
+  ~^insights-why-company-missing-from-ai-service-search$ "insights-why-company-missing-from-ai-service-search";
+  ~^insights-what-to-expect-from-geo-service$ "insights-what-to-expect-from-geo-service";
+  ~^insights-ecommerce-revenue-growth-profit-review$ "insights-ecommerce-revenue-growth-profit-review";
+  ~^insights-small-ecommerce-team-channel-priorities$ "insights-small-ecommerce-team-channel-priorities";
+  ~^insights-guangzhou-ecommerce-consulting-selection$ "insights-guangzhou-ecommerce-consulting-selection";
+  ~^insights-brand-business-content-for-ai-search$ "insights-brand-business-content-for-ai-search";
+  ~^insights-pinmoo-consulting-services$ "insights-pinmoo-consulting-services";
+  ~^insights-pinmoo-consulting-platforms$ "insights-pinmoo-consulting-platforms";
+  ~^insights-pinmoo-consulting-cases$ "insights-pinmoo-consulting-cases";
+  ~^insights-geo-seo-paid-media-coordination$ "insights-geo-seo-paid-media-coordination";
+  ~^insights-is-your-brand-ready-for-geo$ "insights-is-your-brand-ready-for-geo";
+  ~^insights-choose-geo-consulting-provider$ "insights-choose-geo-consulting-provider";
+  ~^insights-geo-pricing-scope-and-budget$ "insights-geo-pricing-scope-and-budget";
+  ~^insights-geo-30-60-90-day-acceptance$ "insights-geo-30-60-90-day-acceptance";
+  ~^insights-compare-ai-search-brand-results$ "insights-compare-ai-search-brand-results";
+  ~^insights-product-page-purchase-questions$ "insights-product-page-purchase-questions";
+  ~^insights-new-product-launch-geo-checklist$ "insights-new-product-launch-geo-checklist";
+  ~^insights-why-brand-is-not-found-in-ai-search$ "insights-why-brand-is-not-found-in-ai-search";
+  ~^insights-brand-fact-base-for-ai-search$ "insights-brand-fact-base-for-ai-search";
+  ~^insights-geo-content-evidence-checklist$ "insights-geo-content-evidence-checklist";
+  ~^insights-geo-evidence-ledger-publication-rules$ "insights-geo-evidence-ledger-publication-rules";
+  ~^insights-ecommerce-consulting-vs-operation-coaching-vs-agency$ "insights-ecommerce-consulting-vs-operation-coaching-vs-agency";
+  ~^insights-how-to-evaluate-ecommerce-consultant$ "insights-how-to-evaluate-ecommerce-consultant";
+  ~^insights-store-diagnosis-vs-coaching-vs-project-optimization$ "insights-store-diagnosis-vs-coaching-vs-project-optimization";
+  ~^insights-ecommerce-consulting-pricing-factors$ "insights-ecommerce-consulting-pricing-factors";
+  ~^insights-anonymous-ecommerce-case-study-evidence$ "insights-anonymous-ecommerce-case-study-evidence";
+  ~^insights-geo-roi-attribution-for-ecommerce-brands$ "insights-geo-roi-attribution-for-ecommerce-brands";
+  ~^insights-ai-ecommerce-weekly-report-vs-manual-report$ "insights-ai-ecommerce-weekly-report-vs-manual-report";
+  ~^insights-when-ecommerce-consulting-is-not-a-fit$ "insights-when-ecommerce-consulting-is-not-a-fit";
+  ~^insights-store-traffic-no-conversion-diagnosis$ "insights-store-traffic-no-conversion-diagnosis";
+  ~^insights-ecommerce-product-structure-review$ "insights-ecommerce-product-structure-review";
+  ~^insights-ecommerce-customer-service-conversion-review$ "insights-ecommerce-customer-service-conversion-review";
+  ~^insights-livestream-viewers-no-orders-diagnosis$ "insights-livestream-viewers-no-orders-diagnosis";
+  ~^insights-ecommerce-member-repurchase-diagnosis$ "insights-ecommerce-member-repurchase-diagnosis";
+  ~^insights-business-advisor-data-diagnosis-checklist$ "insights-business-advisor-data-diagnosis-checklist";
+  ~^insights-tea-brand-geo-content-and-ecommerce-diagnosis$ "insights-tea-brand-geo-content-and-ecommerce-diagnosis";
+  ~^insights-xinhui-chenpi-ecommerce-entity-and-content$ "insights-xinhui-chenpi-ecommerce-entity-and-content";
+  ~^insights-ecommerce-weekly-report-review-framework$ "insights-ecommerce-weekly-report-review-framework";
+  ~^insights-ecommerce-refund-governance-playbook$ "insights-ecommerce-refund-governance-playbook";
+  ~^insights-paid-traffic-roi-quality-review$ "insights-paid-traffic-roi-quality-review";
+  ~^cases$ "cases";
+  ~^about$ "about";
+  ~^contact$ "contact";
+  ~^contact-success$ "contact-success";
+  ~^china-ecommerce-consulting$ "china-ecommerce-consulting";
+  ~^cases-chenpi-brand-geo-diagnosis$ "cases-chenpi-brand-geo-diagnosis";
+  ~^cases-womenswear-refund-optimization$ "cases-womenswear-refund-optimization";
+  ~^cases-personal-care-device-positioning$ "cases-personal-care-device-positioning";
+  ~^cases-tea-brand-platform-synergy$ "cases-tea-brand-platform-synergy";
+  ~^cases-children-nutrition-compliance$ "cases-children-nutrition-compliance";
+  ~^cases-traditional-enterprise-ecommerce-launch$ "cases-traditional-enterprise-ecommerce-launch";
+  ~^cases-wine-store-diagnosis$ "cases-wine-store-diagnosis";
+  ~^cases-consumer-goods-membership-growth$ "cases-consumer-goods-membership-growth";
+  ~^cases-camping-local-life-operation$ "cases-camping-local-life-operation";
+  ~^en$ "en";
+  ~^en-services$ "en-services";
+  ~^en-cases$ "en-cases";
+  ~^en-about$ "en-about";
+  ~^en-contact$ "en-contact";
+  ~^en-contact-success$ "en-contact-success";
+  ~^en-cases-chenpi-brand-geo-diagnosis$ "en-cases-chenpi-brand-geo-diagnosis";
+  ~^en-cases-womenswear-refund-optimization$ "en-cases-womenswear-refund-optimization";
+  ~^en-cases-personal-care-device-positioning$ "en-cases-personal-care-device-positioning";
+  ~^en-cases-tea-brand-platform-synergy$ "en-cases-tea-brand-platform-synergy";
+  ~^en-cases-children-nutrition-compliance$ "en-cases-children-nutrition-compliance";
+  ~^en-cases-traditional-enterprise-ecommerce-launch$ "en-cases-traditional-enterprise-ecommerce-launch";
+  ~^en-cases-wine-store-diagnosis$ "en-cases-wine-store-diagnosis";
+  ~^en-cases-consumer-goods-membership-growth$ "en-cases-consumer-goods-membership-growth";
+  ~^en-cases-camping-local-life-operation$ "en-cases-camping-local-life-operation";
+}
+map $arg_placement $pinmoo_event_placement {
+  default "";
+  ~^body$ "body";
+  ~^header$ "header";
+  ~^hero$ "hero";
+  ~^footer$ "footer";
+  ~^mobile$ "mobile";
+}
+map "$request_method:$pinmoo_event_event:$pinmoo_event_page:$pinmoo_event_placement" $pinmoo_event_valid {
+  default 0;
+  ~^GET:[a-z_]+:[a-z0-9-]+:[a-z]+$ 1;
+}
+map "$http_dnt:$http_sec_gpc" $pinmoo_event_private {
+  default 0;
+  ~1 1;
+}
+map "$pinmoo_event_valid:$pinmoo_event_private" $pinmoo_event_log {
+  default 0;
+  "1:0" 1;
+}
+log_format pinmoo_events escape=json '{"time":"$time_iso8601","event":"$pinmoo_event_event","page":"$pinmoo_event_page","placement":"$pinmoo_event_placement"}';
+
+===LOCATION===
+# Include only in the primary website HTTPS server.
+location = /_events {
+    access_log /var/log/pinmoo-events/events.log pinmoo_events if=$pinmoo_event_log;
+    error_log /dev/null crit;
+    add_header Cache-Control "no-store" always;
+    add_header X-Robots-Tag "noindex, nofollow" always;
+    if ($pinmoo_event_valid = 0) { return 400; }
+    return 204;
+}
+
+===ROTATION===
+/var/log/pinmoo-events/events.log {
+    daily
+    rotate 29
+    maxage 30
+    missingok
+    notifempty
+    compress
+    delaycompress
+    dateext
+    create 0640 www-data adm
+    sharedscripts
+    postrotate
+        if [ -f /run/nginx.pid ]; then kill -USR1 "$(cat /run/nginx.pid)"; fi
+    endscript
+}
+
+===LOGFILES===
+total 124
+-rw-r----- 1 www-data adm 3592 Oct 25 15:21 events.log
+-rw-r----- 1 www-data adm  751 Sep 26 23:19 events.log-20260927.gz
+-rw-r----- 1 www-data adm  799 Sep 27 23:58 events.log-20260928.gz
+-rw-r----- 1 www-data adm  474 Sep 28 22:49 events.log-20260929.gz
+-rw-r----- 1 www-data adm  350 Sep 29 23:13 events.log-20260930.gz
+-rw-r----- 1 www-data adm  803 Sep 30 22:13 events.log-20261001.gz
+-rw-r----- 1 www-data adm  645 Oct  1 23:07 events.log-20261002.gz
+-rw-r----- 1 www-data adm  708 Oct  2 23:57 events.log-20261003.gz
+-rw-r----- 1 www-data adm 2232 Oct  3 21:41 events.log-20261004.gz
+-rw-r----- 1 www-data adm  427 Oct  4 21:37 events.log-20261005.gz
+-rw-r----- 1 www-data adm 1672 Oct  5 23:26 events.log-20261006.gz
+-rw-r----- 1 www-data adm 1008 Oct  6 23:08 events.log-20261007.gz
+-rw-r----- 1 www-data adm 1079 Oct  7 23:57 events.log-20261008.gz
+-rw-r----- 1 www-data adm  662 Oct  8 23:57 events.log-20261009.gz
+-rw-r----- 1 www-data adm  519 Oct  9 23:01 events.log-20261010.gz
+-rw-r----- 1 www-data adm  957 Oct 10 23:36 events.log-20261011.gz
+-rw-r----- 1 www-data adm  871 Oct 11 23:36 events.log-20261012.gz
+-rw-r----- 1 www-data adm  801 Oct 12 23:57 events.log-20261013.gz
+-rw-r----- 1 www-data adm 1049 Oct 13 23:40 events.log-20261014.gz
+-rw-r----- 1 www-data adm 1021 Oct 14 23:54 events.log-20261015.gz
+-rw-r----- 1 www-data adm  987 Oct 15 23:16 events.log-20261016.gz
+-rw-r----- 1 www-data adm  754 Oct 16 23:18 events.log-20261017.gz
+-rw-r----- 1 www-data adm  809 Oct 17 23:53 events.log-20261018.gz
+-rw-r----- 1 www-data adm 1281 Oct 18 23:49 events.log-20261019.gz
+-rw-r----- 1 www-data adm 1120 Oct 19 23:59 events.log-20261020.gz
+-rw-r----- 1 www-data adm 1213 Oct 20 23:55 events.log-20261021.gz
+-rw-r----- 1 www-data adm  663 Oct 21 22:50 events.log-20261022.gz
+-rw-r----- 1 www-data adm  961 Oct 22 23:25 events.log-20261023.gz
+-rw-r----- 1 www-data adm 1207 Oct 23 22:39 events.log-20261024.gz
+-rw-r----- 1 www-data adm 7564 Oct 24 23:41 events.log-20261025
+
+===CERT===
+notBefore=Aug 30 03:12:05 2026 GMT
+notAfter=Nov 28 03:12:04 2026 GMT
+
+===SOURCE===
+f11e7430957b92112d80d8780eaaf855d0a118ac

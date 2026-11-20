@@ -1,0 +1,352 @@
+[
+  {
+    "route": "/",
+    "h1": 1,
+    "images": [
+      {
+        "fit": "cover",
+        "frameHeight": 211.0625,
+        "frameWidth": 307,
+        "height": 211.0625,
+        "loaded": true,
+        "src": "/assets/cases/womenswear-refund-optimization.webp",
+        "width": 307
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 211.0625,
+        "frameWidth": 307,
+        "height": 211.0625,
+        "loaded": true,
+        "src": "/assets/cases/personal-care-device-positioning.webp",
+        "width": 307
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 211.0625,
+        "frameWidth": 307,
+        "height": 211.0625,
+        "loaded": true,
+        "src": "/assets/cases/chenpi-brand-geo-diagnosis.webp",
+        "width": 307
+      }
+    ],
+    "viewport": 360,
+    "width": 345
+  },
+  {
+    "route": "/en/",
+    "h1": 1,
+    "images": [
+      {
+        "fit": "cover",
+        "frameHeight": 211.0625,
+        "frameWidth": 307,
+        "height": 211.0625,
+        "loaded": true,
+        "src": "/assets/cases/womenswear-refund-optimization.webp",
+        "width": 307
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 211.0625,
+        "frameWidth": 307,
+        "height": 211.0625,
+        "loaded": true,
+        "src": "/assets/cases/personal-care-device-positioning.webp",
+        "width": 307
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 211.0625,
+        "frameWidth": 307,
+        "height": 211.0625,
+        "loaded": true,
+        "src": "/assets/cases/chenpi-brand-geo-diagnosis.webp",
+        "width": 307
+      }
+    ],
+    "viewport": 360,
+    "width": 345
+  },
+  {
+    "route": "/",
+    "h1": 1,
+    "images": [
+      {
+        "fit": "cover",
+        "frameHeight": 231.6875,
+        "frameWidth": 337,
+        "height": 231.6875,
+        "loaded": true,
+        "src": "/assets/cases/womenswear-refund-optimization.webp",
+        "width": 337
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 231.6875,
+        "frameWidth": 337,
+        "height": 231.6875,
+        "loaded": true,
+        "src": "/assets/cases/personal-care-device-positioning.webp",
+        "width": 337
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 231.6875,
+        "frameWidth": 337,
+        "height": 231.6875,
+        "loaded": true,
+        "src": "/assets/cases/chenpi-brand-geo-diagnosis.webp",
+        "width": 337
+      }
+    ],
+    "viewport": 390,
+    "width": 375
+  },
+  {
+    "route": "/en/",
+    "h1": 1,
+    "images": [
+      {
+        "fit": "cover",
+        "frameHeight": 231.6875,
+        "frameWidth": 337,
+        "height": 231.6875,
+        "loaded": true,
+        "src": "/assets/cases/womenswear-refund-optimization.webp",
+        "width": 337
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 231.6875,
+        "frameWidth": 337,
+        "height": 231.6875,
+        "loaded": true,
+        "src": "/assets/cases/personal-care-device-positioning.webp",
+        "width": 337
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 231.6875,
+        "frameWidth": 337,
+        "height": 231.6875,
+        "loaded": true,
+        "src": "/assets/cases/chenpi-brand-geo-diagnosis.webp",
+        "width": 337
+      }
+    ],
+    "viewport": 390,
+    "width": 375
+  },
+  {
+    "route": "/",
+    "h1": 1,
+    "images": [
+      {
+        "fit": "cover",
+        "frameHeight": 472.3125,
+        "frameWidth": 687,
+        "height": 472.3125,
+        "loaded": true,
+        "src": "/assets/cases/womenswear-refund-optimization.webp",
+        "width": 687
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 472.3125,
+        "frameWidth": 687,
+        "height": 472.3125,
+        "loaded": true,
+        "src": "/assets/cases/personal-care-device-positioning.webp",
+        "width": 687
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 472.3125,
+        "frameWidth": 687,
+        "height": 472.3125,
+        "loaded": true,
+        "src": "/assets/cases/chenpi-brand-geo-diagnosis.webp",
+        "width": 687
+      }
+    ],
+    "viewport": 768,
+    "width": 753
+  },
+  {
+    "route": "/en/",
+    "h1": 1,
+    "images": [
+      {
+        "fit": "cover",
+        "frameHeight": 472.3125,
+        "frameWidth": 687,
+        "height": 472.3125,
+        "loaded": true,
+        "src": "/assets/cases/womenswear-refund-optimization.webp",
+        "width": 687
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 472.3125,
+        "frameWidth": 687,
+        "height": 472.3125,
+        "loaded": true,
+        "src": "/assets/cases/personal-care-device-positioning.webp",
+        "width": 687
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 472.3125,
+        "frameWidth": 687,
+        "height": 472.3125,
+        "loaded": true,
+        "src": "/assets/cases/chenpi-brand-geo-diagnosis.webp",
+        "width": 687
+      }
+    ],
+    "viewport": 768,
+    "width": 753
+  },
+  {
+    "route": "/",
+    "h1": 1,
+    "images": [
+      {
+        "fit": "cover",
+        "frameHeight": 263.53125,
+        "frameWidth": 383.328125,
+        "height": 263.53125,
+        "loaded": true,
+        "src": "/assets/cases/womenswear-refund-optimization.webp",
+        "width": 383.328125
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 263.53125,
+        "frameWidth": 383.328125,
+        "height": 263.53125,
+        "loaded": true,
+        "src": "/assets/cases/personal-care-device-positioning.webp",
+        "width": 383.328125
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 263.546875,
+        "frameWidth": 383.34375,
+        "height": 263.546875,
+        "loaded": true,
+        "src": "/assets/cases/chenpi-brand-geo-diagnosis.webp",
+        "width": 383.34375
+      }
+    ],
+    "viewport": 1440,
+    "width": 1425
+  },
+  {
+    "route": "/en/",
+    "h1": 1,
+    "images": [
+      {
+        "fit": "cover",
+        "frameHeight": 263.53125,
+        "frameWidth": 383.328125,
+        "height": 263.53125,
+        "loaded": true,
+        "src": "/assets/cases/womenswear-refund-optimization.webp",
+        "width": 383.328125
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 263.53125,
+        "frameWidth": 383.328125,
+        "height": 263.53125,
+        "loaded": true,
+        "src": "/assets/cases/personal-care-device-positioning.webp",
+        "width": 383.328125
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 263.546875,
+        "frameWidth": 383.34375,
+        "height": 263.546875,
+        "loaded": true,
+        "src": "/assets/cases/chenpi-brand-geo-diagnosis.webp",
+        "width": 383.34375
+      }
+    ],
+    "viewport": 1440,
+    "width": 1425
+  },
+  {
+    "route": "/",
+    "h1": 1,
+    "images": [
+      {
+        "fit": "cover",
+        "frameHeight": 263.53125,
+        "frameWidth": 383.328125,
+        "height": 263.53125,
+        "loaded": true,
+        "src": "/assets/cases/womenswear-refund-optimization.webp",
+        "width": 383.328125
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 263.53125,
+        "frameWidth": 383.328125,
+        "height": 263.53125,
+        "loaded": true,
+        "src": "/assets/cases/personal-care-device-positioning.webp",
+        "width": 383.328125
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 263.546875,
+        "frameWidth": 383.34375,
+        "height": 263.546875,
+        "loaded": true,
+        "src": "/assets/cases/chenpi-brand-geo-diagnosis.webp",
+        "width": 383.34375
+      }
+    ],
+    "viewport": 1920,
+    "width": 1905
+  },
+  {
+    "route": "/en/",
+    "h1": 1,
+    "images": [
+      {
+        "fit": "cover",
+        "frameHeight": 263.53125,
+        "frameWidth": 383.328125,
+        "height": 263.53125,
+        "loaded": true,
+        "src": "/assets/cases/womenswear-refund-optimization.webp",
+        "width": 383.328125
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 263.53125,
+        "frameWidth": 383.328125,
+        "height": 263.53125,
+        "loaded": true,
+        "src": "/assets/cases/personal-care-device-positioning.webp",
+        "width": 383.328125
+      },
+      {
+        "fit": "cover",
+        "frameHeight": 263.546875,
+        "frameWidth": 383.34375,
+        "height": 263.546875,
+        "loaded": true,
+        "src": "/assets/cases/chenpi-brand-geo-diagnosis.webp",
+        "width": 383.34375
+      }
+    ],
+    "viewport": 1920,
+    "width": 1905
+  }
+]

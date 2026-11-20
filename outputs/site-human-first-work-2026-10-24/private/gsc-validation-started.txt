@@ -1,0 +1,68 @@
+info
+未找到 (404)
+此类网页未编入索引或不会显示在 Google 搜索结果中
+了解详情
+
+验证已开始
+开始日期：2026/10/24
+查看详情
+受影响的网页数
+27
+2026/7/26
+2026/8/6
+2026/8/17
+2026/8/28
+2026/9/8
+2026/9/19
+2026/9/30
+2026/10/11
+30
+20
+10
+0
+示例
+
+
+网址
+	
+上次抓取日期
+
+https://pinmooconsulting.com/zh/
+	2026年10月16日
+
+https://pinmooconsulting.com/zh/services
+	2026年10月14日
+
+https://pinmooconsulting.com/zh/insights/ecommerce-product-structure-review/
+	2026年10月11日
+
+https://pinmooconsulting.com/zh/insights/ecommerce-weekly-report-review-framework/
+	2026年10月9日
+
+https://pinmooconsulting.com/zh/services/page-conversion-optimization/
+	2026年10月6日
+
+https://pinmooconsulting.com/zh/services/tmall-business-weekly-report/
+	2026年10月6日
+
+https://pinmooconsulting.com/zh/insights/store-diagnosis-vs-coaching-vs-project-optimization/
+	2026年10月3日
+
+https://pinmooconsulting.com/zh/insights/business-advisor-data-diagnosis-checklist/
+	2026年10月2日
+
+https://pinmooconsulting.com/zh/services/ecommerce-diagnosis/
+	2026年9月23日
+
+https://pinmooconsulting.com/zh/contact/
+	2026年9月19日
+每页行数：
+5
+10
+25
+50
+100
+250
+500
+第 1-10 行，共 27 行
+

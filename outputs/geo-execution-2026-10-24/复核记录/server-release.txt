@@ -1,0 +1,12 @@
+/tmp/pinmoo-geo-20261024-7458354c1c.tar.gz: OK
+Certificate will not expire
+/etc/nginx/sites-enabled/pinmooconsulting.com: OK
+Published: /var/www/pinmoo-releases/20261024-geo-7458354c1c
+Backup: /var/backups/pinmoo-primary/20261024-230539-geo
+Previous: /var/www/pinmoo-releases/20261024-human-419102dd02
+{
+  "version": "7458354c1c",
+  "builtAt": "2026-10-24T15:00:55.885Z",
+  "articleCount": 84,
+  "primaryDomain": "https://pinmooconsulting.com"
+}

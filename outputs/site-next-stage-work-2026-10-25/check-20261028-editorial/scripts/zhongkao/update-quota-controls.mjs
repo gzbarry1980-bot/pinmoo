@@ -1,0 +1,26 @@
+import fs from 'node:fs/promises';
+import {fetchBytes,htmlRows,normalizeSchoolName,idFromName} from './data-lib.mjs';
+const root='guangzhou-zhongkao/data';
+const url='https://gzzk.gz.gov.cn/zwgk/zkyw/content/post_10809554.html';
+const sourceId='official-2026-quota-minimum-controls';
+const result=await fetchBytes(url),html=new TextDecoder().decode(result.bytes);
+const schools=JSON.parse(await fs.readFile(`${root}/schools.json`,'utf8'));
+const ids=new Set(schools.map(s=>s.id));
+const records=htmlRows(html).filter(c=>/^\d+$/.test(c[0])&&c.length===9).map(c=>{
+ const schoolName=normalizeSchoolName(c[3]),schoolId=idFromName(schoolName),publishedMinimum=Number(c[8]);
+ if(!ids.has(schoolId)||!Number.isFinite(publishedMinimum))throw new Error(`Unmatched quota control: ${schoolName}`);
+ return {year:2026,schoolId,schoolName,district:c[1],schoolCategory:c[2],previousHouseholdCutoffs:[2023,2024,2025].map((year,i)=>({year,score:Number(c[4+i])})),threeYearAverage:Number(c[7]),publishedMinimum,effectiveMinimum:Math.max(492,publishedMinimum),sourceId,publicFloorSourceId:'official-2026-control-lines'};
+});
+if(records.length!==109||new Set(records.map(r=>r.schoolId)).size!==records.length)throw new Error('Unexpected quota-control coverage');
+const byId=new Map(records.map(r=>[r.schoolId,r]));
+const model=JSON.parse(await fs.readFile(`${root}/allocations-2026.json`,'utf8'));
+if(model.some(r=>!byId.has(r.schoolId)||r.cutoffScore<byId.get(r.schoolId).effectiveMinimum))throw new Error('Official allocation result falls below school control line');
+const sources=JSON.parse(await fs.readFile(`${root}/sources.json`,'utf8'));
+const source={id:sourceId,year:2026,kind:'quota-minimum-controls',title:'2026年广州市普通高中名额分配录取最低控制线',url,sha256:result.sha256,fetchedAt:new Date().toISOString(),parserVersion:'1.0.0'};
+const index=sources.findIndex(s=>s.id===sourceId);if(index<0)sources.push(source);else sources[index]=source;
+const write=async(file,value)=>fs.writeFile(`${root}/${file}`,JSON.stringify(value,null,2)+'\n');
+await write('quota-controls-2026.json',{schemaVersion:'1.0.0',year:2026,generatedAt:source.fetchedAt,sourceId,sourceUrl:url,notes:['名额分配最低控制线只是投档必备条件，不等于所在初中的实际录取分数。','各校公布控制值还须不低于2026全市公办普通高中录取最低控制线492分。'],records});
+await write('sources.json',sources);
+const evidence=JSON.parse(await fs.readFile(`${root}/evidence-summary.json`,'utf8'));evidence.quotaControls=records;evidence.officialSourceIds.push(sourceId);await write('evidence-summary.json',evidence);
+const manifest=JSON.parse(await fs.readFile(`${root}/manifest.json`,'utf8'));manifest.counts.sources=sources.length;manifest.counts.quotaControls2026=records.length;await write('manifest.json',manifest);
+console.log(JSON.stringify({controls:records.length,min:Math.min(...records.map(r=>r.effectiveMinimum)),recordsBelowMinimum:0}));

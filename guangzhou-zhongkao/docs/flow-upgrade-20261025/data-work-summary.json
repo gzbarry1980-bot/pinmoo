@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-25",
+  "officialImages": [
+    {
+      "id": "2021-b3-public",
+      "url": "https://gzzk.gz.gov.cn/img/0/449/449513/7411656.png",
+      "year": 2021,
+      "batch": 3,
+      "status": "ocr_awaiting_visual_review",
+      "useInModel": false,
+      "sha256": "b1c29ba1c27afa8a448a8e9776b4bdd97431335fc99b1865887c24d4a39f31f9"
+    },
+    {
+      "id": "2021-b3-private",
+      "url": "https://gzzk.gz.gov.cn/img/0/449/449511/7411656.png",
+      "year": 2021,
+      "batch": 3,
+      "status": "ocr_awaiting_visual_review",
+      "useInModel": false,
+      "sha256": "95690725100f5ba2c1bcad59db577b88892792c51c4acba81fffb9d037792403"
+    },
+    {
+      "id": "2021-b4-public",
+      "url": "https://gzzk.gz.gov.cn/img/0/450/450144/7415208.png",
+      "year": 2021,
+      "batch": 4,
+      "status": "ocr_awaiting_visual_review",
+      "useInModel": false,
+      "sha256": "d6bd776e212be330df2bf130cb7f5dcf0e0bef8f7fde1d088865ee41674fd3db"
+    },
+    {
+      "id": "2021-b4-private",
+      "url": "https://gzzk.gz.gov.cn/img/0/450/450145/7415208.png",
+      "year": 2021,
+      "batch": 4,
+      "status": "ocr_awaiting_visual_review",
+      "useInModel": false,
+      "sha256": "82ea624cbffe407c5e7faa20b541855c953344f3a0bb1469384a11040c8a4348"
+    },
+    {
+      "id": "2022-b3-public",
+      "url": "https://gzzk.gz.gov.cn/img/0/687/687966/8424121.png",
+      "year": 2022,
+      "batch": 3,
+      "status": "ocr_awaiting_visual_review",
+      "useInModel": false,
+      "sha256": "b68ed98b373a33899e7b36be3db211951829964442329ef60a6748b12957a732"
+    },
+    {
+      "id": "2022-b3-private-projects",
+      "url": "https://gzzk.gz.gov.cn/img/0/687/687888/8424121.png",
+      "year": 2022,
+      "batch": 3,
+      "status": "ocr_awaiting_visual_review",
+      "useInModel": false,
+      "sha256": "a469d3b854cadcdda943a685baf3679498ed16427fbe619bb3b0b5261846d92b"
+    },
+    {
+      "id": "2021-score-bands",
+      "url": "https://gzzk.gz.gov.cn/img/0/446/446492/7405010.png",
+      "year": 2021,
+      "batch": null,
+      "status": "visually_reviewed_and_merged",
+      "useInModel": true,
+      "sha256": "52664da80948dd24756c9d90e4fa65e3d337e092b9671c4d102f69ccad08c9cf",
+      "promotedRows": 36
+    }
+  ],
+  "pendingRows": 304,
+  "reviewRequired": 21,
+  "unmatched": 283,
+  "schoolFactsQueue": 20,
+  "recordsPromoted": 36,
+  "rawResearchIsPrivate": true
+}

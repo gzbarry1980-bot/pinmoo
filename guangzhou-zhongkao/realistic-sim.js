@@ -15,7 +15,7 @@
 //
 // 输出结构与 engine.simulateOutcomes 完全一致，app.js 渲染层无需改动。
 
-import { evaluateRecord, gradientIndex } from './engine.js?v=20261018-policy';
+import { evaluateRecord, gradientIndex } from './engine.js?v=20261025-flow-r2';
 import {applyPolicyContext,latestScoreDistributionYear} from './policy-context.js';
 import {estimatePercentile,estimateScore} from './score-distribution.js';
 

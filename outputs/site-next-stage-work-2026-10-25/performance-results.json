@@ -1,0 +1,83 @@
+[
+  {
+    "name": "services",
+    "run": 1,
+    "performance": 100,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 1810.5452,
+    "cls": 0
+  },
+  {
+    "name": "services",
+    "run": 2,
+    "performance": 100,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 1808.7614,
+    "cls": 0
+  },
+  {
+    "name": "services",
+    "run": 3,
+    "performance": 99,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 1812.1392,
+    "cls": 0
+  },
+  {
+    "name": "case",
+    "run": 1,
+    "performance": 100,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 1358.6279,
+    "cls": 0
+  },
+  {
+    "name": "case",
+    "run": 2,
+    "performance": 100,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 1359.4145,
+    "cls": 0
+  },
+  {
+    "name": "case",
+    "run": 3,
+    "performance": 100,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 1359.779,
+    "cls": 0
+  },
+  {
+    "name": "article",
+    "run": 1,
+    "performance": 100,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 1209.5934000000002,
+    "cls": 0
+  },
+  {
+    "name": "article",
+    "run": 2,
+    "performance": 100,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 1209.29505,
+    "cls": 0
+  },
+  {
+    "name": "article",
+    "run": 3,
+    "performance": 100,
+    "seo": 100,
+    "accessibility": 100,
+    "lcp": 1209.0059999999999,
+    "cls": 0
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "version": "20261025-1433155e",
+  "sourceId": "official-2021-score-bands",
+  "sha256": "52664da80948dd24756c9d90e4fa65e3d337e092b9671c4d102f69ccad08c9cf",
+  "added": 36,
+  "preserved": 180,
+  "remainingMissing": "2021 batch3/batch4 and 2022 batch3",
+  "officialRoundedPercentagesPreserved": true
+}

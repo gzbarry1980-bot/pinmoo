@@ -89,5 +89,6 @@
   });
 
   window.ZhongkaoNavigation = { scrollTo: scrollToTarget, back: goBack };
-  import('./site-shell.js?v=20261013-school').catch(error => console.error('导航加载失败', error));
+  import('./site-shell.js?v=20261025-flow-r2').catch(error => console.error('导航加载失败', error));
+  import('./campus-ui.js?v=20261025-campus-r1').catch(error => console.error('界面增强加载失败', error));
 })();

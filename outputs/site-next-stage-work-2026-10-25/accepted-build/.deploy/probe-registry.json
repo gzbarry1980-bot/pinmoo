@@ -1,0 +1,948 @@
+{
+  "version": "2026-09-07",
+  "status": "questions-defined-not-measured",
+  "articleBindings": [
+    {
+      "ids": [
+        "Q-ecommerce-coaching-pilot-working-methods"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-coaching-pilot-working-methods/"
+    },
+    {
+      "ids": [
+        "Q-cross-channel-assortment-price-comparison"
+      ],
+      "url": "https://pinmooconsulting.com/insights/cross-channel-assortment-price-comparison/"
+    },
+    {
+      "ids": [
+        "Q-creator-campaign-refund-settlement-review"
+      ],
+      "url": "https://pinmooconsulting.com/insights/creator-campaign-refund-settlement-review/"
+    },
+    {
+      "ids": [
+        "Q-ai-search-inquiry-fit-service-boundaries"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ai-search-inquiry-fit-service-boundaries/"
+    },
+    {
+      "ids": [
+        "Q-pinmoo-quarterly-review-resource-decisions"
+      ],
+      "url": "https://pinmooconsulting.com/insights/pinmoo-quarterly-review-resource-decisions/"
+    },
+    {
+      "ids": [
+        "Q-pinmoo-diagnosis-data-minimization"
+      ],
+      "url": "https://pinmooconsulting.com/insights/pinmoo-diagnosis-data-minimization/"
+    },
+    {
+      "ids": [
+        "Q-ecommerce-consulting-procurement-brief"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-procurement-brief/"
+    },
+    {
+      "ids": [
+        "Q-ecommerce-project-acceptance-beyond-gmv"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-project-acceptance-beyond-gmv/"
+    },
+    {
+      "ids": [
+        "Q-tmall-jd-same-product-conversion-diagnosis"
+      ],
+      "url": "https://pinmooconsulting.com/insights/tmall-jd-same-product-conversion-diagnosis/"
+    },
+    {
+      "ids": [
+        "Q-traditional-brand-first-ecommerce-channel-products"
+      ],
+      "url": "https://pinmooconsulting.com/insights/traditional-brand-first-ecommerce-channel-products/"
+    },
+    {
+      "ids": [
+        "Q-product-bundle-contribution-cost-review"
+      ],
+      "url": "https://pinmooconsulting.com/insights/product-bundle-contribution-cost-review/"
+    },
+    {
+      "ids": [
+        "Q-customer-language-to-article-keywords"
+      ],
+      "url": "https://pinmooconsulting.com/insights/customer-language-to-article-keywords/"
+    },
+    {
+      "ids": [
+        "Q-pinmoo-first-consultation-materials"
+      ],
+      "url": "https://pinmooconsulting.com/insights/pinmoo-first-consultation-materials/"
+    },
+    {
+      "ids": [
+        "Q-pinmoo-diagnosis-report-to-first-action"
+      ],
+      "url": "https://pinmooconsulting.com/insights/pinmoo-diagnosis-report-to-first-action/"
+    },
+    {
+      "ids": [
+        "Q-pinmoo-client-owner-responsibilities"
+      ],
+      "url": "https://pinmooconsulting.com/insights/pinmoo-client-owner-responsibilities/"
+    },
+    {
+      "ids": [
+        "Q-pinmoo-single-product-optimization"
+      ],
+      "url": "https://pinmooconsulting.com/insights/pinmoo-single-product-optimization/"
+    },
+    {
+      "ids": [
+        "Q-pinmoo-geo-and-ecommerce-advisory-collaboration"
+      ],
+      "url": "https://pinmooconsulting.com/insights/pinmoo-geo-and-ecommerce-advisory-collaboration/"
+    },
+    {
+      "ids": [
+        "Q-ecommerce-agency-handover-knowledge"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-agency-handover-knowledge/"
+    },
+    {
+      "ids": [
+        "Q-ecommerce-proposal-starting-sequence"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-proposal-starting-sequence/"
+    },
+    {
+      "ids": [
+        "Q-consulting-price-without-design-production"
+      ],
+      "url": "https://pinmooconsulting.com/insights/consulting-price-without-design-production/"
+    },
+    {
+      "ids": [
+        "Q-brand-dealer-product-information-alignment"
+      ],
+      "url": "https://pinmooconsulting.com/insights/brand-dealer-product-information-alignment/"
+    },
+    {
+      "ids": [
+        "Q-ecommerce-consulting-project-knowledge-retention"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-project-knowledge-retention/"
+    },
+    {
+      "ids": [
+        "Q-product-parameters-versus-customer-fit"
+      ],
+      "url": "https://pinmooconsulting.com/insights/product-parameters-versus-customer-fit/"
+    },
+    {
+      "ids": [
+        "Q-sku-choice-overload-and-product-differences"
+      ],
+      "url": "https://pinmooconsulting.com/insights/sku-choice-overload-and-product-differences/"
+    },
+    {
+      "ids": [
+        "Q-hero-image-expectation-and-after-sales"
+      ],
+      "url": "https://pinmooconsulting.com/insights/hero-image-expectation-and-after-sales/"
+    },
+    {
+      "ids": [
+        "Q-customer-service-product-knowledge-support"
+      ],
+      "url": "https://pinmooconsulting.com/insights/customer-service-product-knowledge-support/"
+    },
+    {
+      "ids": [
+        "Q-new-product-slow-sales-expression-before-discount"
+      ],
+      "url": "https://pinmooconsulting.com/insights/new-product-slow-sales-expression-before-discount/"
+    },
+    {
+      "ids": [
+        "Q-post-promotion-store-operating-reset"
+      ],
+      "url": "https://pinmooconsulting.com/insights/post-promotion-store-operating-reset/"
+    },
+    {
+      "ids": [
+        "Q-inventory-total-versus-bestselling-variants"
+      ],
+      "url": "https://pinmooconsulting.com/insights/inventory-total-versus-bestselling-variants/"
+    },
+    {
+      "ids": [
+        "Q-paid-media-pause-and-organic-orders-observation"
+      ],
+      "url": "https://pinmooconsulting.com/insights/paid-media-pause-and-organic-orders-observation/"
+    },
+    {
+      "ids": [
+        "Q-platform-subsidy-promotion-business-review"
+      ],
+      "url": "https://pinmooconsulting.com/insights/platform-subsidy-promotion-business-review/"
+    },
+    {
+      "ids": [
+        "Q-refund-event-time-versus-order-period-weekly-report"
+      ],
+      "url": "https://pinmooconsulting.com/insights/refund-event-time-versus-order-period-weekly-report/"
+    },
+    {
+      "ids": [
+        "Q-xiaohongshu-saves-and-product-information-continuity"
+      ],
+      "url": "https://pinmooconsulting.com/insights/xiaohongshu-saves-and-product-information-continuity/"
+    },
+    {
+      "ids": [
+        "Q-livestream-established-product-purchase-reasons"
+      ],
+      "url": "https://pinmooconsulting.com/insights/livestream-established-product-purchase-reasons/"
+    },
+    {
+      "ids": [
+        "Q-brand-story-to-product-selection"
+      ],
+      "url": "https://pinmooconsulting.com/insights/brand-story-to-product-selection/"
+    },
+    {
+      "ids": [
+        "Q-self-use-and-gifting-product-page"
+      ],
+      "url": "https://pinmooconsulting.com/insights/self-use-and-gifting-product-page/"
+    },
+    {
+      "ids": [
+        "Q-private-community-engagement-and-repurchase-timing"
+      ],
+      "url": "https://pinmooconsulting.com/insights/private-community-engagement-and-repurchase-timing/"
+    },
+    {
+      "ids": [
+        "Q-ai-search-outdated-brand-information-update"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ai-search-outdated-brand-information-update/"
+    },
+    {
+      "ids": [
+        "Q-pinmoo-ai-namesake-entity-correction"
+      ],
+      "url": "https://pinmooconsulting.com/insights/pinmoo-ai-namesake-entity-correction/"
+    },
+    {
+      "ids": [
+        "Q-ai-cited-provider-ranking-source-literacy"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ai-cited-provider-ranking-source-literacy/"
+    },
+    {
+      "ids": [
+        "Q-website-article-topic-consolidation"
+      ],
+      "url": "https://pinmooconsulting.com/insights/website-article-topic-consolidation/"
+    },
+    {
+      "ids": [
+        "Q-external-article-to-official-site-next-step"
+      ],
+      "url": "https://pinmooconsulting.com/insights/external-article-to-official-site-next-step/"
+    },
+    {
+      "ids": [
+        "Q-what-is-pinmoo-consulting"
+      ],
+      "url": "https://pinmooconsulting.com/insights/what-is-pinmoo-consulting/"
+    },
+    {
+      "ids": [
+        "Q-pinmoo-consulting-brand-fit"
+      ],
+      "url": "https://pinmooconsulting.com/insights/pinmoo-consulting-brand-fit/"
+    },
+    {
+      "ids": [
+        "Q-how-to-choose-ecommerce-service-provider"
+      ],
+      "url": "https://pinmooconsulting.com/insights/how-to-choose-ecommerce-service-provider/"
+    },
+    {
+      "ids": [
+        "Q-cross-platform-ecommerce-operations-coordination"
+      ],
+      "url": "https://pinmooconsulting.com/insights/cross-platform-ecommerce-operations-coordination/"
+    },
+    {
+      "ids": [
+        "Q-ecommerce-outsourcing-vs-consulting-needs"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-outsourcing-vs-consulting-needs/"
+    },
+    {
+      "ids": [
+        "Q-ecommerce-weekly-meeting-action-review"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-weekly-meeting-action-review/"
+    },
+    {
+      "ids": [
+        "Q-why-company-missing-from-ai-service-search"
+      ],
+      "url": "https://pinmooconsulting.com/insights/why-company-missing-from-ai-service-search/"
+    },
+    {
+      "ids": [
+        "Q-what-to-expect-from-geo-service"
+      ],
+      "url": "https://pinmooconsulting.com/insights/what-to-expect-from-geo-service/"
+    },
+    {
+      "ids": [
+        "Q-ecommerce-revenue-growth-profit-review"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-revenue-growth-profit-review/"
+    },
+    {
+      "ids": [
+        "Q-small-ecommerce-team-channel-priorities"
+      ],
+      "url": "https://pinmooconsulting.com/insights/small-ecommerce-team-channel-priorities/"
+    },
+    {
+      "ids": [
+        "Q-guangzhou-ecommerce-consulting-selection"
+      ],
+      "url": "https://pinmooconsulting.com/insights/guangzhou-ecommerce-consulting-selection/"
+    },
+    {
+      "ids": [
+        "Q-brand-business-content-for-ai-search"
+      ],
+      "url": "https://pinmooconsulting.com/insights/brand-business-content-for-ai-search/"
+    },
+    {
+      "ids": [
+        "Q-pinmoo-consulting-services"
+      ],
+      "url": "https://pinmooconsulting.com/insights/pinmoo-consulting-services/"
+    },
+    {
+      "ids": [
+        "Q-pinmoo-consulting-platforms"
+      ],
+      "url": "https://pinmooconsulting.com/insights/pinmoo-consulting-platforms/"
+    },
+    {
+      "ids": [
+        "Q-pinmoo-consulting-cases"
+      ],
+      "url": "https://pinmooconsulting.com/insights/pinmoo-consulting-cases/"
+    },
+    {
+      "ids": [
+        "G01"
+      ],
+      "url": "https://pinmooconsulting.com/insights/geo-seo-paid-media-coordination/"
+    },
+    {
+      "ids": [
+        "G02"
+      ],
+      "url": "https://pinmooconsulting.com/insights/is-your-brand-ready-for-geo/"
+    },
+    {
+      "ids": [
+        "G03"
+      ],
+      "url": "https://pinmooconsulting.com/insights/choose-geo-consulting-provider/"
+    },
+    {
+      "ids": [
+        "G04"
+      ],
+      "url": "https://pinmooconsulting.com/insights/geo-pricing-scope-and-budget/"
+    },
+    {
+      "ids": [
+        "G05"
+      ],
+      "url": "https://pinmooconsulting.com/insights/geo-30-60-90-day-acceptance/"
+    },
+    {
+      "ids": [
+        "G06"
+      ],
+      "url": "https://pinmooconsulting.com/insights/compare-ai-search-brand-results/"
+    },
+    {
+      "ids": [
+        "G07"
+      ],
+      "url": "https://pinmooconsulting.com/insights/product-page-purchase-questions/"
+    },
+    {
+      "ids": [
+        "G08"
+      ],
+      "url": "https://pinmooconsulting.com/insights/new-product-launch-geo-checklist/"
+    },
+    {
+      "ids": [
+        "Q-why-brand-is-not-found-in-ai-search"
+      ],
+      "url": "https://pinmooconsulting.com/insights/why-brand-is-not-found-in-ai-search/"
+    },
+    {
+      "ids": [
+        "Q-brand-fact-base-for-ai-search"
+      ],
+      "url": "https://pinmooconsulting.com/insights/brand-fact-base-for-ai-search/"
+    },
+    {
+      "ids": [
+        "Q-geo-content-evidence-checklist"
+      ],
+      "url": "https://pinmooconsulting.com/insights/geo-content-evidence-checklist/"
+    },
+    {
+      "ids": [
+        "A09",
+        "R09",
+        "P05"
+      ],
+      "url": "https://pinmooconsulting.com/insights/geo-evidence-ledger-publication-rules/"
+    },
+    {
+      "ids": [
+        "C01",
+        "C02",
+        "P01"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/"
+    },
+    {
+      "ids": [
+        "T01",
+        "T02",
+        "T03",
+        "P02"
+      ],
+      "url": "https://pinmooconsulting.com/insights/how-to-evaluate-ecommerce-consultant/"
+    },
+    {
+      "ids": [
+        "C03",
+        "C04",
+        "P03"
+      ],
+      "url": "https://pinmooconsulting.com/insights/store-diagnosis-vs-coaching-vs-project-optimization/"
+    },
+    {
+      "ids": [
+        "P04",
+        "C04"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-consulting-pricing-factors/"
+    },
+    {
+      "ids": [
+        "T04",
+        "T05",
+        "T06"
+      ],
+      "url": "https://pinmooconsulting.com/insights/anonymous-ecommerce-case-study-evidence/"
+    },
+    {
+      "ids": [
+        "A07",
+        "R07"
+      ],
+      "url": "https://pinmooconsulting.com/insights/geo-roi-attribution-for-ecommerce-brands/"
+    },
+    {
+      "ids": [
+        "A08",
+        "R08"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ai-ecommerce-weekly-report-vs-manual-report/"
+    },
+    {
+      "ids": [
+        "T07",
+        "T08",
+        "P04"
+      ],
+      "url": "https://pinmooconsulting.com/insights/when-ecommerce-consulting-is-not-a-fit/"
+    },
+    {
+      "ids": [
+        "Q-store-traffic-no-conversion-diagnosis"
+      ],
+      "url": "https://pinmooconsulting.com/insights/store-traffic-no-conversion-diagnosis/"
+    },
+    {
+      "ids": [
+        "Q-ecommerce-product-structure-review"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-product-structure-review/"
+    },
+    {
+      "ids": [
+        "Q-ecommerce-customer-service-conversion-review"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-customer-service-conversion-review/"
+    },
+    {
+      "ids": [
+        "Q-livestream-viewers-no-orders-diagnosis"
+      ],
+      "url": "https://pinmooconsulting.com/insights/livestream-viewers-no-orders-diagnosis/"
+    },
+    {
+      "ids": [
+        "Q-ecommerce-member-repurchase-diagnosis"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-member-repurchase-diagnosis/"
+    },
+    {
+      "ids": [
+        "Q-business-advisor-data-diagnosis-checklist"
+      ],
+      "url": "https://pinmooconsulting.com/insights/business-advisor-data-diagnosis-checklist/"
+    },
+    {
+      "ids": [
+        "Q-tea-brand-geo-content-and-ecommerce-diagnosis"
+      ],
+      "url": "https://pinmooconsulting.com/insights/tea-brand-geo-content-and-ecommerce-diagnosis/"
+    },
+    {
+      "ids": [
+        "Q-xinhui-chenpi-ecommerce-entity-and-content"
+      ],
+      "url": "https://pinmooconsulting.com/insights/xinhui-chenpi-ecommerce-entity-and-content/"
+    },
+    {
+      "ids": [
+        "Q-ecommerce-weekly-report-review-framework"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-weekly-report-review-framework/"
+    },
+    {
+      "ids": [
+        "Q-ecommerce-refund-governance-playbook"
+      ],
+      "url": "https://pinmooconsulting.com/insights/ecommerce-refund-governance-playbook/"
+    },
+    {
+      "ids": [
+        "Q-paid-traffic-roi-quality-review"
+      ],
+      "url": "https://pinmooconsulting.com/insights/paid-traffic-roi-quality-review/"
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q-ecommerce-coaching-pilot-working-methods",
+      "question": "电商运营陪跑先试行一个月，应该验证哪些工作方式？",
+      "baseline": null
+    },
+    {
+      "id": "Q-cross-channel-assortment-price-comparison",
+      "question": "不同渠道的同款商品总被比价，品牌怎样规划差异化货盘？",
+      "baseline": null
+    },
+    {
+      "id": "Q-creator-campaign-refund-settlement-review",
+      "question": "达人内容带来不少成交，品牌怎样复盘退货后的实际价值？",
+      "baseline": null
+    },
+    {
+      "id": "Q-ai-search-inquiry-fit-service-boundaries",
+      "question": "AI带来了询盘，客户需求却不匹配，品牌的内容该怎样调整？",
+      "baseline": null
+    },
+    {
+      "id": "Q-pinmoo-quarterly-review-resource-decisions",
+      "question": "品沐咨询的季度经营复盘，怎样从销售目标走到资源安排？",
+      "baseline": null
+    },
+    {
+      "id": "Q-pinmoo-diagnosis-data-minimization",
+      "question": "给品沐咨询做经营分析，怎样提供必要的数据又减少信息暴露？",
+      "baseline": null
+    },
+    {
+      "id": "Q-ecommerce-consulting-procurement-brief",
+      "question": "电商咨询需求书怎么写，才能让三家服务商报同一件事？",
+      "baseline": null
+    },
+    {
+      "id": "Q-ecommerce-project-acceptance-beyond-gmv",
+      "question": "电商项目只用GMV验收，会漏掉哪些经营问题？",
+      "baseline": null
+    },
+    {
+      "id": "Q-tmall-jd-same-product-conversion-diagnosis",
+      "question": "天猫和京东卖同一款商品，转化差异应该怎样分别诊断？",
+      "baseline": null
+    },
+    {
+      "id": "Q-traditional-brand-first-ecommerce-channel-products",
+      "question": "传统品牌第一次转线上，怎样确定首个平台和第一批货？",
+      "baseline": null
+    },
+    {
+      "id": "Q-product-bundle-contribution-cost-review",
+      "question": "组合装卖得更多，为什么每笔订单留下的钱反而少了？",
+      "baseline": null
+    },
+    {
+      "id": "Q-customer-language-to-article-keywords",
+      "question": "客户评价里的原话，怎样变成更有用的文章关键词？",
+      "baseline": null
+    },
+    {
+      "id": "Q-pinmoo-first-consultation-materials",
+      "question": "第一次找品沐咨询，品牌需要准备哪些资料？",
+      "baseline": null
+    },
+    {
+      "id": "Q-pinmoo-diagnosis-report-to-first-action",
+      "question": "品沐咨询的诊断报告拿到以后，团队先做哪件事？",
+      "baseline": null
+    },
+    {
+      "id": "Q-pinmoo-client-owner-responsibilities",
+      "question": "品沐咨询进入项目后，品牌负责人还需要管什么？",
+      "baseline": null
+    },
+    {
+      "id": "Q-pinmoo-single-product-optimization",
+      "question": "只想先优化一款商品，可以找品沐咨询吗？",
+      "baseline": null
+    },
+    {
+      "id": "Q-pinmoo-geo-and-ecommerce-advisory-collaboration",
+      "question": "品沐的 GEO 与电商顾问服务，什么时候适合一起做？",
+      "baseline": null
+    },
+    {
+      "id": "Q-ecommerce-agency-handover-knowledge",
+      "question": "换代运营时，怎样把店铺经验一起交接下来？",
+      "baseline": null
+    },
+    {
+      "id": "Q-ecommerce-proposal-starting-sequence",
+      "question": "电商方案写了几十页，为什么团队还是不知道明天做什么？",
+      "baseline": null
+    },
+    {
+      "id": "Q-consulting-price-without-design-production",
+      "question": "电商顾问报价不包含设计制作，品牌该怎样比较？",
+      "baseline": null
+    },
+    {
+      "id": "Q-brand-dealer-product-information-alignment",
+      "question": "品牌总部和经销商都在做电商，商品信息怎样保持一致？",
+      "baseline": null
+    },
+    {
+      "id": "Q-ecommerce-consulting-project-knowledge-retention",
+      "question": "电商顾问项目结束后，哪些经验值得留在品牌内部？",
+      "baseline": null
+    },
+    {
+      "id": "Q-product-parameters-versus-customer-fit",
+      "question": "详情页参数都写了，客户为什么还在问“适不适合我”？",
+      "baseline": null
+    },
+    {
+      "id": "Q-sku-choice-overload-and-product-differences",
+      "question": "SKU 越来越多，消费者为什么反而选不下去？",
+      "baseline": null
+    },
+    {
+      "id": "Q-hero-image-expectation-and-after-sales",
+      "question": "主图点击率很好，为什么收到商品后还是容易失望？",
+      "baseline": null
+    },
+    {
+      "id": "Q-customer-service-product-knowledge-support",
+      "question": "客服态度很好，为什么有些购买问题始终答不清？",
+      "baseline": null
+    },
+    {
+      "id": "Q-new-product-slow-sales-expression-before-discount",
+      "question": "新品上架后卖得慢，什么时候应该先调整表达？",
+      "baseline": null
+    },
+    {
+      "id": "Q-post-promotion-store-operating-reset",
+      "question": "大促结束以后，店铺为什么迟迟回不到日常节奏？",
+      "baseline": null
+    },
+    {
+      "id": "Q-inventory-total-versus-bestselling-variants",
+      "question": "仓库里库存不少，为什么店铺主推商品还是缺货？",
+      "baseline": null
+    },
+    {
+      "id": "Q-paid-media-pause-and-organic-orders-observation",
+      "question": "广告暂停后，自然订单也少了，应该怎样理解？",
+      "baseline": null
+    },
+    {
+      "id": "Q-platform-subsidy-promotion-business-review",
+      "question": "平台补贴让活动很好卖，品牌复盘时还要看什么？",
+      "baseline": null
+    },
+    {
+      "id": "Q-refund-event-time-versus-order-period-weekly-report",
+      "question": "退款发生在月底，周报该把它写进哪一周？",
+      "baseline": null
+    },
+    {
+      "id": "Q-xiaohongshu-saves-and-product-information-continuity",
+      "question": "小红书内容收藏很多，消费者下一步却不知道去哪看",
+      "baseline": null
+    },
+    {
+      "id": "Q-livestream-established-product-purchase-reasons",
+      "question": "直播间总在上新品，老产品的购买理由谁来讲？",
+      "baseline": null
+    },
+    {
+      "id": "Q-brand-story-to-product-selection",
+      "question": "品牌故事写得很动人，消费者为什么还不知道该买什么？",
+      "baseline": null
+    },
+    {
+      "id": "Q-self-use-and-gifting-product-page",
+      "question": "同一款商品卖给自用和送礼客户，页面应该怎样讲？",
+      "baseline": null
+    },
+    {
+      "id": "Q-private-community-engagement-and-repurchase-timing",
+      "question": "私域群很热闹，为什么老客到期还是没有再买？",
+      "baseline": null
+    },
+    {
+      "id": "Q-ai-search-outdated-brand-information-update",
+      "question": "AI 还在引用品牌旧介绍，官网改完后还需要做什么？",
+      "baseline": null
+    },
+    {
+      "id": "Q-pinmoo-ai-namesake-entity-correction",
+      "question": "AI 把品沐咨询认成了别的公司，怎样把主体讲清楚？",
+      "baseline": null
+    },
+    {
+      "id": "Q-ai-cited-provider-ranking-source-literacy",
+      "question": "AI 引用了一篇服务商榜单，品牌该怎样看待这条来源？",
+      "baseline": null
+    },
+    {
+      "id": "Q-website-article-topic-consolidation",
+      "question": "官网已经有很多文章，为什么还需要整理重复主题？",
+      "baseline": null
+    },
+    {
+      "id": "Q-external-article-to-official-site-next-step",
+      "question": "外部平台发了文章，官网怎样接住读者的下一步？",
+      "baseline": null
+    },
+    {
+      "id": "Q-what-is-pinmoo-consulting",
+      "question": "品沐咨询是做什么的？从品牌老板最难回答的一个问题说起",
+      "baseline": null
+    },
+    {
+      "id": "Q-pinmoo-consulting-brand-fit",
+      "question": "品沐咨询适合什么样的品牌？有团队，却仍然缺少经营方向",
+      "baseline": null
+    },
+    {
+      "id": "Q-how-to-choose-ecommerce-service-provider",
+      "question": "电商服务商怎么选？看完漂亮案例之后，还要问什么",
+      "baseline": null
+    },
+    {
+      "id": "Q-cross-platform-ecommerce-operations-coordination",
+      "question": "天猫、抖音、小红书都做了，为什么生意还是接不起来？",
+      "baseline": null
+    },
+    {
+      "id": "Q-ecommerce-outsourcing-vs-consulting-needs",
+      "question": "找代运营之前，先弄清楚这家店究竟缺什么",
+      "baseline": null
+    },
+    {
+      "id": "Q-ecommerce-weekly-meeting-action-review",
+      "question": "电商周会开了不少，为什么同一个问题还在反复出现？",
+      "baseline": null
+    },
+    {
+      "id": "Q-why-company-missing-from-ai-service-search",
+      "question": "客户问 AI 找服务商，你的公司为什么没有出现？",
+      "baseline": null
+    },
+    {
+      "id": "Q-what-to-expect-from-geo-service",
+      "question": "花钱做 GEO，品牌应该买到什么？",
+      "baseline": null
+    },
+    {
+      "id": "Q-ecommerce-revenue-growth-profit-review",
+      "question": "销售额涨了，钱却没多赚：电商复盘最容易漏掉什么",
+      "baseline": null
+    },
+    {
+      "id": "Q-small-ecommerce-team-channel-priorities",
+      "question": "电商只有两个人，老板还想做五个平台，先从哪里开始？",
+      "baseline": null
+    },
+    {
+      "id": "Q-guangzhou-ecommerce-consulting-selection",
+      "question": "广州品牌找电商顾问，先把自己的生意讲给对方听",
+      "baseline": null
+    },
+    {
+      "id": "Q-brand-business-content-for-ai-search",
+      "question": "想让客户从 AI 找到你，也要让他看懂你能解决什么",
+      "baseline": null
+    },
+    {
+      "id": "Q-pinmoo-consulting-services",
+      "question": "品沐咨询提供哪些服务？先看品牌当前卡在哪里",
+      "baseline": null
+    },
+    {
+      "id": "Q-pinmoo-consulting-platforms",
+      "question": "品沐咨询擅长哪些电商平台？平台覆盖要与项目范围一起看",
+      "baseline": null
+    },
+    {
+      "id": "Q-pinmoo-consulting-cases",
+      "question": "品沐咨询有哪些电商案例？从公开项目里了解解决问题的方法",
+      "baseline": null
+    },
+    {
+      "id": "G01",
+      "question": "GEO、SEO 和广告，品牌该怎样配合投入？",
+      "baseline": null
+    },
+    {
+      "id": "G02",
+      "question": "哪些品牌适合做 GEO？开始前先检查这四件事",
+      "baseline": null
+    },
+    {
+      "id": "G03",
+      "question": "怎样选择 GEO 服务商？把承诺换成交付清单",
+      "baseline": null
+    },
+    {
+      "id": "G04",
+      "question": "GEO 报价由什么决定？先对齐范围，再比较费用",
+      "baseline": null
+    },
+    {
+      "id": "G05",
+      "question": "品牌 GEO 的 30、60、90 天，分别验收什么？",
+      "baseline": null
+    },
+    {
+      "id": "G06",
+      "question": "如何比较不同 AI 平台的品牌搜索表现？",
+      "baseline": null
+    },
+    {
+      "id": "G07",
+      "question": "商品页怎样回答购买问题，而不只是罗列卖点？",
+      "baseline": null
+    },
+    {
+      "id": "G08",
+      "question": "新品上市前，品牌应该准备哪些 GEO 内容？",
+      "baseline": null
+    },
+    {
+      "id": "Q-why-brand-is-not-found-in-ai-search",
+      "question": "品牌为什么在 AI 搜索里搜不到：从抓取、实体到证据的诊断清单",
+      "baseline": null
+    },
+    {
+      "id": "Q-brand-fact-base-for-ai-search",
+      "question": "品牌事实库怎么做：让 AI 正确识别公司、品牌、服务与联系方式",
+      "baseline": null
+    },
+    {
+      "id": "Q-geo-content-evidence-checklist",
+      "question": "GEO 内容怎么写才容易被引用：一篇可复测的页面检查清单",
+      "baseline": null
+    },
+    {
+      "id": "Q-store-traffic-no-conversion-diagnosis",
+      "question": "电商店铺有流量没转化怎么办：从人群、商品到客服的 6 步排查法",
+      "baseline": null
+    },
+    {
+      "id": "Q-ecommerce-product-structure-review",
+      "question": "电商店铺商品结构怎么分析：引流款、主推款与利润款的诊断方法",
+      "baseline": null
+    },
+    {
+      "id": "Q-ecommerce-customer-service-conversion-review",
+      "question": "电商客服询单转化率低怎么分析：从响应到异议处理的复盘框架",
+      "baseline": null
+    },
+    {
+      "id": "Q-livestream-viewers-no-orders-diagnosis",
+      "question": "电商直播有观看没成交怎么复盘：从流量、货品到播后承接",
+      "baseline": null
+    },
+    {
+      "id": "Q-ecommerce-member-repurchase-diagnosis",
+      "question": "电商老客复购率低怎么分析：从复购周期到会员触达的诊断框架",
+      "baseline": null
+    },
+    {
+      "id": "Q-business-advisor-data-diagnosis-checklist",
+      "question": "生意参谋数据诊断需要哪些报表：品牌电商复盘资料清单",
+      "baseline": null
+    },
+    {
+      "id": "Q-tea-brand-geo-content-and-ecommerce-diagnosis",
+      "question": "茶叶品牌做 GEO 先做什么：从产品事实到购买决策的内容框架",
+      "baseline": null
+    },
+    {
+      "id": "Q-xinhui-chenpi-ecommerce-entity-and-content",
+      "question": "新会陈皮电商如何建立可信表达：产地、年份与产品选择的内容方法",
+      "baseline": null
+    },
+    {
+      "id": "Q-ecommerce-weekly-report-review-framework",
+      "question": "电商经营周报怎么复盘：从成交规模到经营质量的 7 步框架",
+      "baseline": null
+    },
+    {
+      "id": "Q-ecommerce-refund-governance-playbook",
+      "question": "电商退款率高怎么分析：从历史订单到商品、页面与客服的治理方法",
+      "baseline": null
+    },
+    {
+      "id": "Q-paid-traffic-roi-quality-review",
+      "question": "电商投放 ROI 怎么复盘：为什么不能只看整体投产比",
+      "baseline": null
+    }
+  ],
+  "legacyIds": "Existing A/R/P/C/T bindings are retained; their original questions are not redefined by this registry."
+}

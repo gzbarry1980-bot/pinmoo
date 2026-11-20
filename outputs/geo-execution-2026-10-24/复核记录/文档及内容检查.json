@@ -1,0 +1,322 @@
+{
+  "documents": 8,
+  "pages": [
+    {
+      "doc": "N01-pinmoo-quarterly-review-resource-decisions",
+      "page": 1,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N01-pinmoo-quarterly-review-resource-decisions-page-1.png",
+      "characters": 877,
+      "withinPage": true
+    },
+    {
+      "doc": "N01-pinmoo-quarterly-review-resource-decisions",
+      "page": 2,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N01-pinmoo-quarterly-review-resource-decisions-page-2.png",
+      "characters": 922,
+      "withinPage": true
+    },
+    {
+      "doc": "N03-pinmoo-diagnosis-data-minimization",
+      "page": 1,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N03-pinmoo-diagnosis-data-minimization-page-1.png",
+      "characters": 842,
+      "withinPage": true
+    },
+    {
+      "doc": "N03-pinmoo-diagnosis-data-minimization",
+      "page": 2,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N03-pinmoo-diagnosis-data-minimization-page-2.png",
+      "characters": 1066,
+      "withinPage": true
+    },
+    {
+      "doc": "N05-ecommerce-consulting-procurement-brief",
+      "page": 1,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N05-ecommerce-consulting-procurement-brief-page-1.png",
+      "characters": 914,
+      "withinPage": true
+    },
+    {
+      "doc": "N05-ecommerce-consulting-procurement-brief",
+      "page": 2,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N05-ecommerce-consulting-procurement-brief-page-2.png",
+      "characters": 860,
+      "withinPage": true
+    },
+    {
+      "doc": "N07-ecommerce-project-acceptance-beyond-gmv",
+      "page": 1,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N07-ecommerce-project-acceptance-beyond-gmv-page-1.png",
+      "characters": 932,
+      "withinPage": true
+    },
+    {
+      "doc": "N07-ecommerce-project-acceptance-beyond-gmv",
+      "page": 2,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N07-ecommerce-project-acceptance-beyond-gmv-page-2.png",
+      "characters": 768,
+      "withinPage": true
+    },
+    {
+      "doc": "N09-tmall-jd-same-product-conversion-diagnosis",
+      "page": 1,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N09-tmall-jd-same-product-conversion-diagnosis-page-1.png",
+      "characters": 858,
+      "withinPage": true
+    },
+    {
+      "doc": "N09-tmall-jd-same-product-conversion-diagnosis",
+      "page": 2,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N09-tmall-jd-same-product-conversion-diagnosis-page-2.png",
+      "characters": 779,
+      "withinPage": true
+    },
+    {
+      "doc": "N10-traditional-brand-first-ecommerce-channel-products",
+      "page": 1,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N10-traditional-brand-first-ecommerce-channel-products-page-1.png",
+      "characters": 980,
+      "withinPage": true
+    },
+    {
+      "doc": "N10-traditional-brand-first-ecommerce-channel-products",
+      "page": 2,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N10-traditional-brand-first-ecommerce-channel-products-page-2.png",
+      "characters": 677,
+      "withinPage": true
+    },
+    {
+      "doc": "N13-product-bundle-contribution-cost-review",
+      "page": 1,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N13-product-bundle-contribution-cost-review-page-1.png",
+      "characters": 913,
+      "withinPage": true
+    },
+    {
+      "doc": "N13-product-bundle-contribution-cost-review",
+      "page": 2,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N13-product-bundle-contribution-cost-review-page-2.png",
+      "characters": 788,
+      "withinPage": true
+    },
+    {
+      "doc": "N19-customer-language-to-article-keywords",
+      "page": 1,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N19-customer-language-to-article-keywords-page-1.png",
+      "characters": 868,
+      "withinPage": true
+    },
+    {
+      "doc": "N19-customer-language-to-article-keywords",
+      "page": 2,
+      "png": "E:\\pinmoo\\outputs\\geo-execution-2026-10-24\\复核记录\\word-render\\N19-customer-language-to-article-keywords-page-2.png",
+      "characters": 925,
+      "withinPage": true
+    }
+  ],
+  "pagesWithinBounds": true,
+  "rendering": "Packaged render_docx.py attempted; missing LibreOffice on PATH. Installed WPS 12 COM exported each DOCX to PDF; bundled pypdfium2 rendered every page to PNG. No PDF-only substitute for DOCX was delivered.",
+  "geoHeuristic": {
+    "N01-pinmoo-quarterly-review-resource-decisions.md": {
+      "score": 54,
+      "grade": "revise",
+      "components": {
+        "direct_opening": 14,
+        "faq": 0,
+        "quotable_sentences": 0,
+        "authoritative_citations": 12,
+        "structure": 6,
+        "key_point_block": 0,
+        "real_data_signals": 6,
+        "structured_metadata": 8,
+        "depth": 8
+      },
+      "signals": {
+        "characters": 1903,
+        "headings": 6,
+        "question_headings": 1,
+        "urls": 3,
+        "numbers": 3,
+        "quotable_sentences": 0
+      },
+      "warnings": [],
+      "hard_gate_note": "Truth, consent, authorship, disclosure, and source quality require human verification."
+    },
+    "N03-pinmoo-diagnosis-data-minimization.md": {
+      "score": 71,
+      "grade": "B",
+      "components": {
+        "direct_opening": 14,
+        "faq": 0,
+        "quotable_sentences": 3,
+        "authoritative_citations": 12,
+        "structure": 6,
+        "key_point_block": 10,
+        "real_data_signals": 10,
+        "structured_metadata": 8,
+        "depth": 8
+      },
+      "signals": {
+        "characters": 2014,
+        "headings": 6,
+        "question_headings": 1,
+        "urls": 4,
+        "numbers": 5,
+        "quotable_sentences": 1
+      },
+      "warnings": [],
+      "hard_gate_note": "Truth, consent, authorship, disclosure, and source quality require human verification."
+    },
+    "N05-ecommerce-consulting-procurement-brief.md": {
+      "score": 59,
+      "grade": "revise",
+      "components": {
+        "direct_opening": 14,
+        "faq": 0,
+        "quotable_sentences": 3,
+        "authoritative_citations": 12,
+        "structure": 6,
+        "key_point_block": 0,
+        "real_data_signals": 8,
+        "structured_metadata": 8,
+        "depth": 8
+      },
+      "signals": {
+        "characters": 1875,
+        "headings": 6,
+        "question_headings": 1,
+        "urls": 3,
+        "numbers": 4,
+        "quotable_sentences": 1
+      },
+      "warnings": [],
+      "hard_gate_note": "Truth, consent, authorship, disclosure, and source quality require human verification."
+    },
+    "N07-ecommerce-project-acceptance-beyond-gmv.md": {
+      "score": 54,
+      "grade": "revise",
+      "components": {
+        "direct_opening": 14,
+        "faq": 0,
+        "quotable_sentences": 0,
+        "authoritative_citations": 12,
+        "structure": 6,
+        "key_point_block": 0,
+        "real_data_signals": 6,
+        "structured_metadata": 8,
+        "depth": 8
+      },
+      "signals": {
+        "characters": 1784,
+        "headings": 6,
+        "question_headings": 1,
+        "urls": 3,
+        "numbers": 3,
+        "quotable_sentences": 0
+      },
+      "warnings": [],
+      "hard_gate_note": "Truth, consent, authorship, disclosure, and source quality require human verification."
+    },
+    "N09-tmall-jd-same-product-conversion-diagnosis.md": {
+      "score": 54,
+      "grade": "revise",
+      "components": {
+        "direct_opening": 14,
+        "faq": 0,
+        "quotable_sentences": 0,
+        "authoritative_citations": 12,
+        "structure": 6,
+        "key_point_block": 0,
+        "real_data_signals": 6,
+        "structured_metadata": 8,
+        "depth": 8
+      },
+      "signals": {
+        "characters": 1779,
+        "headings": 6,
+        "question_headings": 1,
+        "urls": 3,
+        "numbers": 3,
+        "quotable_sentences": 0
+      },
+      "warnings": [],
+      "hard_gate_note": "Truth, consent, authorship, disclosure, and source quality require human verification."
+    },
+    "N10-traditional-brand-first-ecommerce-channel-products.md": {
+      "score": 54,
+      "grade": "revise",
+      "components": {
+        "direct_opening": 14,
+        "faq": 0,
+        "quotable_sentences": 0,
+        "authoritative_citations": 12,
+        "structure": 6,
+        "key_point_block": 0,
+        "real_data_signals": 6,
+        "structured_metadata": 8,
+        "depth": 8
+      },
+      "signals": {
+        "characters": 1784,
+        "headings": 6,
+        "question_headings": 1,
+        "urls": 3,
+        "numbers": 3,
+        "quotable_sentences": 0
+      },
+      "warnings": [],
+      "hard_gate_note": "Truth, consent, authorship, disclosure, and source quality require human verification."
+    },
+    "N13-product-bundle-contribution-cost-review.md": {
+      "score": 67,
+      "grade": "revise",
+      "components": {
+        "direct_opening": 14,
+        "faq": 0,
+        "quotable_sentences": 9,
+        "authoritative_citations": 12,
+        "structure": 6,
+        "key_point_block": 0,
+        "real_data_signals": 10,
+        "structured_metadata": 8,
+        "depth": 8
+      },
+      "signals": {
+        "characters": 1816,
+        "headings": 6,
+        "question_headings": 1,
+        "urls": 3,
+        "numbers": 19,
+        "quotable_sentences": 3
+      },
+      "warnings": [],
+      "hard_gate_note": "Truth, consent, authorship, disclosure, and source quality require human verification."
+    },
+    "N19-customer-language-to-article-keywords.md": {
+      "score": 64,
+      "grade": "revise",
+      "components": {
+        "direct_opening": 14,
+        "faq": 0,
+        "quotable_sentences": 0,
+        "authoritative_citations": 12,
+        "structure": 6,
+        "key_point_block": 10,
+        "real_data_signals": 6,
+        "structured_metadata": 8,
+        "depth": 8
+      },
+      "signals": {
+        "characters": 1910,
+        "headings": 6,
+        "question_headings": 1,
+        "urls": 4,
+        "numbers": 3,
+        "quotable_sentences": 0
+      },
+      "warnings": [],
+      "hard_gate_note": "Truth, consent, authorship, disclosure, and source quality require human verification."
+    }
+  },
+  "scoreUse": "Formatting heuristic only. No FAQ or fabricated data added to improve scores; original narrative format follows user request. No human approval or independent review is asserted."
+}

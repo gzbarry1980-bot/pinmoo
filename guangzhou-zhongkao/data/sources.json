@@ -3,11 +3,19 @@
     "id": "official-2021-score-bands",
     "year": 2021,
     "kind": "score-bands",
-    "title": "2021年score-bands",
+    "title": "2021年广州市中考分数段统计表（含各项政策性加分）",
     "url": "https://gzzk.gz.gov.cn/zkzz/zkxx/lnfs/content/post_7405010.html",
     "fetchedAt": "2026-07-22T03:42:52.407Z",
     "sha256": "3e7a0cd0410469a891b49d0f0eebd11b2e1a1a80a9928394d587fdbcdca792ad",
-    "parserVersion": "1.1.1"
+    "parserVersion": "official-image-reviewed-1.0",
+    "imageEvidence": {
+      "url": "https://gzzk.gz.gov.cn/img/0/446/446492/7405010.png",
+      "sha256": "52664da80948dd24756c9d90e4fa65e3d337e092b9671c4d102f69ccad08c9cf",
+      "reviewedAt": "2026-10-25",
+      "rows": 36,
+      "method": "visual_transcription_crosscheck",
+      "ratioPrecision": "official two-decimal percentages; total population not inferred"
+    }
   },
   {
     "id": "official-2021-batch-3",

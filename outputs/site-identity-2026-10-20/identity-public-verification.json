@@ -1,0 +1,84 @@
+{
+  "checkedAt": "2026-10-20T09:23:00.633Z",
+  "origin": "https://pinmooconsulting.com",
+  "files": [
+    {
+      "path": "/pinmoo-profile.json",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/ai-context.json",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/llms.txt",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/llms-full.txt",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/ai.txt",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/about/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/contact/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/about/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/services/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/contact/",
+      "status": 200,
+      "hashMatched": true
+    }
+  ],
+  "redirects": [
+    {
+      "path": "/zh/about/",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/about/"
+    },
+    {
+      "path": "/zh/contact/?source=identity-check",
+      "status": 301,
+      "location": "https://pinmooconsulting.com/contact/?source=identity-check"
+    }
+  ],
+  "privacy": {
+    "/outputs/geo-native-baseline-2026-10-19/private/native-results.json": 404,
+    "/scripts/test-site-identity.mjs": 404
+  },
+  "build": {
+    "version": "4e56d1ac2a",
+    "builtAt": "2026-10-20T09:13:09.287Z",
+    "articleCount": 76,
+    "primaryDomain": "https://pinmooconsulting.com"
+  },
+  "status": "published_identity_verified"
+}

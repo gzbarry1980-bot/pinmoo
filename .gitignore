@@ -23,3 +23,6 @@ outputs/tencent-geo-export-2026-09-26/
 
 # Private member article captures and OCR images, never publish raw paid content.
 guangzhou-zhongkao/research/member-schools-20261014/
+guangzhou-zhongkao/research/phase-two-20261025/
+guangzhou-zhongkao/docs/**/stage-*/
+guangzhou-zhongkao/docs/**/*.tgz

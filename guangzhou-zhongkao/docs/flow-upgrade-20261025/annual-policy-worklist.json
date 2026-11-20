@@ -1,0 +1,16 @@
+{
+  "preparedAt": "2026-10-25",
+  "targetYear": 2027,
+  "framework": {"status": "reviewed_in_previous_phase", "reviewedAt": "2026-10-18", "url": "https://jyj.gz.gov.cn/yw/jyyw/content/post_10298181.html"},
+  "annualItems": [
+    {"kind": "招生工作与志愿填报细则", "status": "awaiting_individual_review"},
+    {"kind": "分校区分批次招生计划及外区随迁口径", "status": "awaiting_individual_review"},
+    {"kind": "名额分配资格计划与最低控制条件", "status": "awaiting_individual_review"},
+    {"kind": "自主招生简章考核与合成规则", "status": "awaiting_individual_review"},
+    {"kind": "特长生项目与测试要求", "status": "awaiting_individual_review"},
+    {"kind": "参考科目等级及适用项目", "status": "awaiting_individual_review"}
+  ],
+  "officialEntries": ["https://gzzk.gz.gov.cn/zkzz/", "https://jyj.gz.gov.cn/"],
+  "requiredFields": ["URL", "publishedAt", "effectiveYear", "batch", "campusId", "candidateCategory", "scope", "planCategory", "sourceSHA256", "reviewedAt"],
+  "note": "待逐项核对不等于官方尚未发布；不能将未检索到误写成未公布。已发布框架不替代年度计划。"
+}

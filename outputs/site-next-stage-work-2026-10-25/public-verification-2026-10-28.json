@@ -1,0 +1,793 @@
+{
+  "checkedAt": "2026-10-28T11:16:45.244Z",
+  "build": {
+    "version": "6a64630a41",
+    "builtAt": "2026-10-25T07:18:37.126Z",
+    "articleCount": 88,
+    "primaryDomain": "https://pinmooconsulting.com"
+  },
+  "pages": 156,
+  "failures": [],
+  "results": [
+    {
+      "path": "/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/geo-consulting/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/ecommerce-diagnosis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/store-diagnosis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/tmall-jd-consultant/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/douyin-xiaohongshu-growth/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/page-conversion-optimization/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/brand-growth-consultant/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/tmall-business-weekly-report/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/tmall-refund-rate-analysis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/ecommerce-roi-review/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/livestream-conversion-diagnosis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/customer-service-conversion-scripts/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/member-repurchase-private-domain/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/business-advisor-data-diagnosis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/ai-ecommerce-growth-consultant/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/tea-ecommerce-consultant/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/services/xinhui-chenpi-ecommerce/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/resources/ecommerce-metrics-dictionary/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/resources/operating-templates/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/page/2/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/page/3/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/page/4/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/page/5/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/page/6/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/page/7/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/page/8/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/topic/operations/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/topic/products/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/topic/review/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/topic/content/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/topic/ai-geo/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/topic/ai-geo/page/2/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/topic/decision/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/topic/decision/page/2/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/topic/decision/page/3/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/topic/vertical-food/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-coaching-pilot-working-methods/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/cross-channel-assortment-price-comparison/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/creator-campaign-refund-settlement-review/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ai-search-inquiry-fit-service-boundaries/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/pinmoo-quarterly-review-resource-decisions/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/pinmoo-diagnosis-data-minimization/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-consulting-procurement-brief/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-project-acceptance-beyond-gmv/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/tmall-jd-same-product-conversion-diagnosis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/traditional-brand-first-ecommerce-channel-products/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/product-bundle-contribution-cost-review/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/customer-language-to-article-keywords/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/pinmoo-first-consultation-materials/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/pinmoo-diagnosis-report-to-first-action/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/pinmoo-client-owner-responsibilities/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/pinmoo-single-product-optimization/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/pinmoo-geo-and-ecommerce-advisory-collaboration/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-agency-handover-knowledge/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-proposal-starting-sequence/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/consulting-price-without-design-production/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/brand-dealer-product-information-alignment/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-consulting-project-knowledge-retention/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/product-parameters-versus-customer-fit/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/sku-choice-overload-and-product-differences/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/hero-image-expectation-and-after-sales/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/customer-service-product-knowledge-support/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/new-product-slow-sales-expression-before-discount/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/post-promotion-store-operating-reset/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/inventory-total-versus-bestselling-variants/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/paid-media-pause-and-organic-orders-observation/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/platform-subsidy-promotion-business-review/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/refund-event-time-versus-order-period-weekly-report/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/xiaohongshu-saves-and-product-information-continuity/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/livestream-established-product-purchase-reasons/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/brand-story-to-product-selection/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/self-use-and-gifting-product-page/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/private-community-engagement-and-repurchase-timing/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ai-search-outdated-brand-information-update/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/pinmoo-ai-namesake-entity-correction/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ai-cited-provider-ranking-source-literacy/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/website-article-topic-consolidation/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/external-article-to-official-site-next-step/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/what-is-pinmoo-consulting/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/pinmoo-consulting-brand-fit/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/how-to-choose-ecommerce-service-provider/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/cross-platform-ecommerce-operations-coordination/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-outsourcing-vs-consulting-needs/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-weekly-meeting-action-review/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/why-company-missing-from-ai-service-search/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/what-to-expect-from-geo-service/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-revenue-growth-profit-review/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/small-ecommerce-team-channel-priorities/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/guangzhou-ecommerce-consulting-selection/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/brand-business-content-for-ai-search/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/pinmoo-consulting-services/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/pinmoo-consulting-platforms/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/pinmoo-consulting-cases/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/geo-seo-paid-media-coordination/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/is-your-brand-ready-for-geo/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/choose-geo-consulting-provider/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/geo-pricing-scope-and-budget/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/geo-30-60-90-day-acceptance/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/compare-ai-search-brand-results/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/product-page-purchase-questions/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/new-product-launch-geo-checklist/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/why-brand-is-not-found-in-ai-search/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/brand-fact-base-for-ai-search/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/geo-content-evidence-checklist/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/geo-evidence-ledger-publication-rules/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-consulting-vs-operation-coaching-vs-agency/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/how-to-evaluate-ecommerce-consultant/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/store-diagnosis-vs-coaching-vs-project-optimization/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-consulting-pricing-factors/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/anonymous-ecommerce-case-study-evidence/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/geo-roi-attribution-for-ecommerce-brands/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ai-ecommerce-weekly-report-vs-manual-report/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/when-ecommerce-consulting-is-not-a-fit/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/store-traffic-no-conversion-diagnosis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-product-structure-review/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-customer-service-conversion-review/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/livestream-viewers-no-orders-diagnosis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-member-repurchase-diagnosis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/business-advisor-data-diagnosis-checklist/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/tea-brand-geo-content-and-ecommerce-diagnosis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/xinhui-chenpi-ecommerce-entity-and-content/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-weekly-report-review-framework/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/ecommerce-refund-governance-playbook/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/insights/paid-traffic-roi-quality-review/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/cases/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/about/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/contact/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/contact/success/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/china-ecommerce-consulting/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/cases/chenpi-brand-geo-diagnosis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/cases/womenswear-refund-optimization/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/cases/personal-care-device-positioning/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/cases/tea-brand-platform-synergy/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/cases/children-nutrition-compliance/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/cases/traditional-enterprise-ecommerce-launch/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/cases/wine-store-diagnosis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/cases/consumer-goods-membership-growth/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/cases/camping-local-life-operation/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/services/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/cases/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/about/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/contact/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/contact/success/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/cases/chenpi-brand-geo-diagnosis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/cases/womenswear-refund-optimization/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/cases/personal-care-device-positioning/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/cases/tea-brand-platform-synergy/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/cases/children-nutrition-compliance/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/cases/traditional-enterprise-ecommerce-launch/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/cases/wine-store-diagnosis/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/cases/consumer-goods-membership-growth/",
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "path": "/en/cases/camping-local-life-operation/",
+      "status": 200,
+      "hashMatched": true
+    }
+  ]
+}
