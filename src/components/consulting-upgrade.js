@@ -78,11 +78,11 @@ export function servicesContent(en = false) {
   const groups = en ? [
     ['Diagnosis & operations coaching', 'Understand priorities, media spending and the working rhythm.', 'Diagnosis, business review and action tracking.'],
     ['Product & retention', 'Connect product value, buying decisions and repeat purchase.', 'Page recommendations, customer questions and retention planning.'],
-    ['Brand search & GEO', 'Make public information clearer and easier to discover.', 'Brand fact base, content priorities and repeatable questions.']
+    ['Brand search & GEO', 'Generative engine optimization helps customers discover and understand a brand through AI search. It supports the wider e-commerce journey.', 'Brand fact base, content priorities and repeatable questions.']
   ] : [
     ['经营诊断与运营陪跑', '增长卡住、投入难判断时，先看清平台、商品与团队的优先事项。', '交付：诊断结论、投入复盘与行动清单。'],
     ['商品转化与复购', '让购买理由、页面承接与老客运营连起来。', '交付：页面建议、客服问题与复购方案。'],
-    ['品牌搜索与GEO', '帮助品牌被找到，并被准确理解。', '交付：品牌事实库、内容建议与固定复测问题。']
+    ['品牌搜索与GEO', 'GEO（生成式引擎优化）帮助客户通过AI搜索发现和理解品牌，是电商经营的一环。', '交付：品牌事实库、内容建议与固定复测问题。']
   ];
   const order = ['strategy-diagnosis', 'operation-coaching', 'conversion-optimization', 'content-seeding', 'data-review', 'membership-private-domain', 'geo-consulting'];
   const englishNames = ['Strategy diagnosis', 'Operations coaching', 'Product and page optimization', 'Content and seeding strategy', 'Advertising and data review', 'Membership and retention', 'GEO and AI search visibility'];

@@ -1,12 +1,12 @@
 export const caseDeliverables = {
   'womenswear-refund-optimization': {
-    updated: '2026-10-25',
+    updated: '2026-11-26',
     reason: '先追查退款，是因为成交前后的预期偏差能帮助定位页面与客服的问题。把版型、尺码和面料顾虑拆开，才知道下一步应调整信息表达，还是需要商品与履约团队进一步核查。',
     reasonEn: 'Refund reasons help locate gaps between the buying promise and the received product. Separating fit, size and fabric concerns helps determine whether messaging, product facts or fulfilment needs attention.',
-    takeaway: '你可以先选一个重点SKU，把售后原因对应到页面位置与客服答复；由商品团队确认事实，运营安排修改，再按一致的订单与退款口径观察。这里的阶段结果是建立持续改善机制，不是已公开的退款率降幅。',
-    takeawayEn: 'Start with one priority SKU and connect return reasons to page locations and support replies. Confirm product facts, assign changes and review consistent order and refund periods. The published outcome is an improvement process, not a measured reduction in return rate.',
+    takeaway: '先选一个重点SKU，把顾客的退款原话对应到商品页面和客服答复。退款发生期说明本周发生了多少退款，其中可能包含历史订单；原订单期用于跟踪同一批订单后续退款，两者不能直接相减或混算退款率。顾问梳理原因、页面建议和复盘清单；品牌商品团队确认尺码与面料事实，运营负责修改，客服同步答复，下周共同核对已完成动作与尚待观察的问题。这里的阶段结果是建立持续改善机制，不是已公开的退款率降幅。',
+    takeawayEn: 'Start with one priority SKU and connect customer return reasons to the product page and support replies. Refunds recorded this week may relate to older orders; an order-cohort view tracks later refunds against the same group of orders. Do not mix the two periods when calculating a rate. The adviser organises the diagnosis, page recommendations and review checklist; the brand confirms product facts, updates the page and aligns support replies. In the next review, both teams check completed actions and open questions. The published outcome is an improvement process, not a measured reduction in return rate.',
     links: [['退款治理服务', '/services/tmall-refund-rate-analysis/'], ['退款发生期与原订单期', '/insights/refund-event-time-versus-order-period-weekly-report/']],
-    linksEn: [['Product and conversion support', '/en/services/'], ['Discuss a similar issue', '/en/contact/']],
+    linksEn: [['China e-commerce advisory', '/china-ecommerce-consulting/'], ['Product and conversion support', '/en/services/'], ['Discuss a similar issue', '/en/contact/']],
     rows: [
       ['退款原因清单', '按商品、尺码与退款原话记录购买预期偏差。', '能否区分版型、尺码、面料与售前表达问题。'],
       ['页面与客服动作', '将适合人群、身材参考、版型提示对应到页面位置和客服答复。', '每项修改是否有负责人、完成时间与核对材料。'],
